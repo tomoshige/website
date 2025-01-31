@@ -1,0 +1,1270 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/01-getting-started/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Pythonでのデータ分析を始めよう - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pythonでのデータ分析を始めよう
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/00-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 1 Vector and Matrix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-google-colaboratory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python と Google Colaboratoryとは？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python と Google Colaboratoryとは？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-r-and-rstudio-installing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing R and RStudio {#installing}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-r-via-rstudio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using R via RStudio
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-code-in-r-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I code in R? {#code}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How do I code in R? {#code}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-programming-concepts-and-terminology-programming-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic programming concepts and terminology {#programming-concepts}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errors-warnings-and-messages-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Errors, warnings, and messages {#messages}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tips-on-learning-to-code-tips-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips on learning to code {#tips-code}
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-r-packages-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are R packages? {#packages}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What are R packages? {#packages}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-installation-package-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package installation {#package-installation}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package-loading-package-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package loading {#package-loading}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package-use-package-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package use {#package-use}
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explore-your-first-datasets-nycflights13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explore your first datasets {#nycflights13}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explore your first datasets {#nycflights13}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nycflights13-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      nycflights13 package
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flights-data-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      flights data frame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exploring-data-frames-exploredataframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exploring data frames {#exploredataframes}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identification-and-measurement-variables-identification-vs-measurement-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identification and measurement variables {#identification-vs-measurement-variables}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#help-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Help files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional resources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-to-come" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's to come?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="python">Pythonでのデータ分析を始めよう</h1>
+<p>Pythonを使ってデータを探索する前に、まず理解しておくべき重要な概念があります。</p>
+<ol>
+<li>PythonとGoogle Colaboratoryとは何か？</li>
+<li>Pythonのコードの書き方</li>
+<li>Pythonのモジュールとは？
+これらの概念について、次のセクションで詳しく説明します（セクションaaa）。すでにある程度の知識がある場合は、セクションaaa に進んで、最初のデータセットを紹介する部分から読み始めても構いません。本書では、2013年にニューヨーク市（NYC）の主要3空港から出発したすべての国内線フライトのデータ を扱い、以降の章で詳しく分析していきます。</li>
+</ol>
+<h2 id="python-google-colaboratory">Python と Google Colaboratoryとは？</h2>
+<p>本書では、PythonをGoogle Colaboratory（以下、Google Colab） を通じて使用することを前提とします。初めての方の中には、PythonとGoogle Colabの違いがわかりにくいと感じることがあるかもしれません。これをわかりやすく説明すると、Pythonは車のエンジン、Google Colabは車のダッシュボード のような関係にあります（図を参照）。</p>
+<p>!!! Note
+    ここにイメージ図を挿入</p>
+<p>もう少し詳しく説明すると、Pythonは計算を実行するプログラミング言語 であり、一方でGoogle Colabは、Google社が提供する機械学習向けの統合開発環境（IDE） です。Google Colabには、Pythonを便利に使うためのさまざまな機能やツールが追加されています。これは、運転するときにスピードメーターやバックミラー、ナビゲーションシステムがあることで安全かつスムーズに運転できるのと同じように、Google Colabを使うことでPythonをより直感的かつ効率的に操作できる ということです。</p>
+<h3 id="installing-r-and-rstudio-installing">Installing R and RStudio {#installing}</h3>
+<blockquote>
+<p><strong>Note about RStudio Server or RStudio Cloud</strong>: If your instructor has provided you with a link and access to RStudio Server or RStudio Cloud, then you can skip this section. We do recommend after a few months of working on RStudio Server/Cloud that you return to these instructions to install this software on your own computer though.</p>
+</blockquote>
+<p>You will first need to download and install both R and RStudio (Desktop version) on your computer. It is important that you install R first and then install RStudio.</p>
+<ol>
+<li><strong>You must do this first:</strong> Download and install R by going to <a href="https://cloud.r-project.org/">https://cloud.r-project.org/</a>. \index{R!installation}<ul>
+<li>If you are a Windows user: Click on "Download R for Windows", then click on "base", then click on the Download link. </li>
+<li>If you are macOS user: Click on "Download R for macOS", then under "Latest release:" click on R-X.X.X.pkg, where R-X.X.X is the version number. For example, the latest version of R as of November 25, 2019 was R-3.6.1.</li>
+<li>If you are a Linux user: Click on "Download R for Linux" and choose your distribution for more information on installing R for your setup.</li>
+</ul>
+</li>
+<li><strong>You must do this second:</strong> Download and install RStudio at <a href="https://www.rstudio.com/products/rstudio/download/">https://www.rstudio.com/products/rstudio/download/</a>.<ul>
+<li>Scroll down to "Installers for Supported Platforms" near the bottom of the page.</li>
+<li>Click on the download link corresponding to your computer's operating system. \index{RStudio!installation}</li>
+</ul>
+</li>
+</ol>
+<h3 id="using-r-via-rstudio">Using R via RStudio</h3>
+<p>Recall our car analogy from earlier. Much as we don't drive a car by interacting directly with the engine but rather by interacting with elements on the car's dashboard, we won't be using R directly but rather we will use RStudio's interface. After you install R and RStudio on your computer, you'll have two new <em>programs</em> (also called <em>applications</em>) you can open. We'll always work in RStudio and not in the R application. Figure \@ref(fig:R-vs-RStudio-2) shows what icon you should be clicking on your computer. </p>
+<!--
+R: Do not open this          |  RStudio: Open this
+:-------------------------:|:-------------------------:
+`r include_image("images/logos/Rlogo.png", html_opts = "width=25%")`  | `r include_image("images/logos/RStudio-Ball.png", html_opts = "width=20%")`
+-->
+
+<pre><code>include_graphics(&quot;images/logos/R_vs_RStudio.png&quot;)
+</code></pre>
+<p>After you open RStudio, you should see something similar to Figure \@ref(fig:RStudio-interface). (Note that slight differences might exist if the RStudio interface is updated after 2019 to not be this by default.)</p>
+<pre><code>include_graphics(&quot;images/rstudio_screenshots/rstudio.png&quot;)
+</code></pre>
+<p>Note the three <em>panes</em> which are three panels dividing the screen: the <em>console pane</em>, the <em>files pane</em>, and the <em>environment pane</em>. Over the course of this chapter, you'll come to learn what purpose each of these panes serves. </p>
+<h2 id="how-do-i-code-in-r-code">How do I code in R? {#code}</h2>
+<p>Now that you're set up with R and RStudio, you are probably asking yourself, "OK. Now how do I use R?". The first thing to note is that unlike other statistical software programs like Excel, SPSS, or Minitab that provide <a href="https://en.wikipedia.org/wiki/Point_and_click">point-and-click</a> interfaces, R is an <a href="https://en.wikipedia.org/wiki/Interpreted_language">interpreted language</a>. This means you have to type in commands written in <em>R code</em>. In other words, you have to code/program in R. Note that we'll use the terms "coding" and "programming" interchangeably in this book.</p>
+<p>While it is not required to be a seasoned coder/computer programmer to use R, there is still a set of basic programming concepts that new R users need to understand. Consequently, while this book is not a book on programming, you will still learn just enough of these basic programming concepts needed to explore and analyze data effectively.</p>
+<h3 id="basic-programming-concepts-and-terminology-programming-concepts">Basic programming concepts and terminology {#programming-concepts}</h3>
+<p>We now introduce some basic programming concepts and terminology. Instead of asking you to memorize all these concepts and terminology right now, we'll guide you so that you'll "learn by doing." To help you learn, we will always use a different font to distinguish regular text from <code>computer_code</code>. The best way to master these topics is, in our opinions, through <a href="https://jamesclear.com/deliberate-practice-theory">deliberate practice</a> with R and lots of repetition.</p>
+<ul>
+<li>Basics: \index{programming language basics}<ul>
+<li><em>Console pane</em>: where you enter in commands. \index{console}</li>
+<li><em>Running code</em>: the act of telling R to perform an act by giving it commands in the console.</li>
+<li><em>Objects</em>: where values are saved in R. We'll show you how to <em>assign</em> values to objects and how to display the contents of objects. \index{objects}</li>
+<li><em>Data types</em>: integers, doubles/numerics, logicals, and characters. \index{data types} Integers are values like -1, 0, 2, 4092. Doubles or numerics are a larger set of values containing both the integers but also fractions and decimal values like -24.932 and 0.8. Logicals are either <code>TRUE</code> or <code>FALSE</code> while characters are text such as "cabbage", "Hamilton", "The Wire is the greatest TV show ever", and "This ramen is delicious." Note that characters are often denoted with the quotation marks around them.</li>
+</ul>
+</li>
+<li><em>Vectors</em>: a series of values. These are created using the <code>c()</code> function, where <code>c()</code> stands for "combine" or "concatenate." For example, <code>c(6, 11, 13, 31, 90, 92)</code> creates a six element series of positive integer values \index{vectors}.</li>
+<li><em>Factors</em>: <em>categorical data</em> are commonly represented in R as factors. \index{factors} Categorical data can also be represented as <em>strings</em>. We'll study this difference as we progress through the book.</li>
+<li><em>Data frames</em>: rectangular spreadsheets. They are representations of datasets in R where the rows correspond to <em>observations</em> and the columns correspond to <em>variables</em> that describe the observations. \index{data frame} We'll cover data frames later in Section \@ref(nycflights13).</li>
+<li><em>Conditionals</em>: \index{conditionals}</li>
+<li>Testing for equality in R using <code>==</code> (and not <code>=</code>, which is typically used for assignment). For example, <code>2 + 1 == 3</code> compares <code>2 + 1</code> to <code>3</code> and is correct R code, while <code>2 + 1 = 3</code> will return an error.</li>
+<li>Boolean algebra: <code>TRUE/FALSE</code> statements and mathematical operators such as <code>&lt;</code> (less than), <code>&lt;=</code> (less than or equal), and <code>!=</code> (not equal to). \index{Boolean algebra} For example, <code>4 + 2 &gt;= 3</code> will return <code>TRUE</code>, but <code>3 + 5 &lt;= 1</code> will return <code>FALSE</code>.</li>
+<li>Logical operators: <code>&amp;</code> representing "and" as well as <code>|</code> representing "or." For example, <code>(2 + 1 == 3) &amp; (2 + 1 == 4)</code> returns <code>FALSE</code> since both clauses are not <code>TRUE</code> (only the first clause is <code>TRUE</code>). On the other hand, <code>(2 + 1 == 3) | (2 + 1 == 4)</code> returns <code>TRUE</code> since at least one of the two clauses is <code>TRUE</code>. \index{operators!logical}</li>
+<li><em>Functions</em>, also called <em>commands</em>: Functions perform tasks in R. They take in inputs called <em>arguments</em> and return outputs. You can either manually specify a function's arguments or use the function's <em>default values</em>. \index{functions} </li>
+<li>For example, the function <code>seq()</code> in R generates a sequence of numbers. If you just run <code>seq()</code> it will return the value 1. That doesn't seem very useful! This is because the default arguments are set as <code>seq(from = 1, to = 1)</code>. Thus, if you don't pass in different values for <code>from</code> and <code>to</code> to change this behavior, R just assumes all you want is the number 1. You can change the argument values by updating the values after the <code>=</code> sign. If we try out <code>seq(from = 2, to = 5)</code> we get the result <code>2 3 4 5</code> that we might expect. </li>
+<li>We'll work with functions a lot throughout this book and you'll get lots of practice in understanding their behaviors. To further assist you in understanding when a function is mentioned in the book, we'll also include the <code>()</code> after them as we did with <code>seq()</code> above.</li>
+</ul>
+<p>This list is by no means an exhaustive list of all the programming concepts and terminology needed to become a savvy R user; such a list would be so large it wouldn't be very useful, especially for novices. Rather, we feel this is a minimally viable list of programming concepts and terminology you need to know before getting started. We feel that you can learn the rest as you go.  Remember that your mastery of all of these concepts and terminology will build as you practice more and more.</p>
+<h3 id="errors-warnings-and-messages-messages">Errors, warnings, and messages {#messages}</h3>
+<p>One thing that intimidates new R and RStudio users is how it reports <em>errors</em>, <em>warnings</em>, and <em>messages</em>. R reports errors, warnings, and messages in a glaring red font, which makes it seem like it is scolding you. However, seeing red text in the console is not always bad.</p>
+<p>R will show red text in the console pane in three different situations:</p>
+<ul>
+<li><strong>Errors</strong>: \index{R!errors} When the red text is a legitimate error, it will be prefaced with "Error in…" and will try to explain what went wrong. Generally when there's an error, the code will not run. For example, we'll see in Subsection \@ref(package-use) if you see <code>Error in ggplot(...) : could not find function "ggplot"</code>, it means that the <code>ggplot()</code> function is not accessible because the package that contains the function (<code>ggplot2</code>) was not loaded with <code>library(ggplot2)</code>. Thus you cannot use the <code>ggplot()</code> function without the <code>ggplot2</code> package being loaded first.</li>
+<li><strong>Warnings</strong>: \index{R!warnings} When the red text is a warning, it will be prefaced with "Warning:" and R will try to explain why there's a warning. Generally your code will still work, but with some caveats. For example, you will see in Chapter \@ref(viz) if you create a scatterplot based on a dataset where two of the rows of data have missing entries that would be needed to create points in the scatterplot, you will see this warning: <code>Warning: Removed 2 rows containing missing values (geom_point)</code>. R will still produce the scatterplot with all the remaining non-missing values, but it is warning you that two of the points aren't there.</li>
+<li><strong>Messages</strong>: \index{R!messages} When the red text doesn't start with either "Error" or "Warning", it's <em>just a friendly message</em>. You'll see these messages when you load <em>R packages</em> in the upcoming Subsection \@ref(package-loading) or when you read data saved in spreadsheet files with the <code>read_csv()</code> function as you'll see in Chapter \@ref(tidy). These are helpful diagnostic messages and they don't stop your code from working. Additionally, you'll see these messages when you install packages too using <code>install.packages()</code> as discussed in Subsection \@ref(package-installation).</li>
+</ul>
+<p>Remember, when you see red text in the console, <em>don't panic</em>. It doesn't necessarily mean anything is wrong. Rather:</p>
+<ul>
+<li>If the text starts with "Error", figure out what's causing it. <span style="color:red">Think of errors as a red traffic light: something is wrong!</span></li>
+<li>If the text starts with "Warning", figure out if it's something to worry about. For instance, if you get a warning about missing values in a scatterplot and you know there are missing values, you're fine. If that's surprising, look at your data and see what's missing. <span style="color:gold">Think of warnings as a yellow traffic light: everything is working fine, but watch out/pay attention.</span></li>
+<li>Otherwise, the text is just a message. Read it, wave back at R, and thank it for talking to you. <span style="color:green">Think of messages as a green traffic light: everything is working fine and keep on going!</span></li>
+</ul>
+<h3 id="tips-on-learning-to-code-tips-code">Tips on learning to code {#tips-code}</h3>
+<p>Learning to code/program is quite similar to learning a foreign language. It can be daunting and frustrating at first. Such frustrations are common and it is normal to feel discouraged as you learn. However, just as with learning a foreign language, if you put in the effort and are not afraid to make mistakes, anybody can learn and improve. </p>
+<p>Here are a few useful tips to keep in mind as you learn to program:</p>
+<ul>
+<li><strong>Remember that computers are not actually that smart</strong>: You may think your computer or smartphone is "smart," but really people spent a lot of time and energy designing them to appear "smart." In reality, you have to tell a computer everything it needs to do. Furthermore, the instructions you give your computer can't have any mistakes in them, nor can they be ambiguous in any way.</li>
+<li><strong>Take the "copy, paste, and tweak" approach</strong>: Especially when you learn your first programming language or you need to understand particularly complicated code, it is often much easier to take existing code that you know works and modify it to suit your ends. This is as opposed to trying to type out the code from scratch. We call this the <em>"copy, paste, and tweak"</em> approach. So early on, we suggest not trying to write code from memory, but rather take existing examples we have provided you, then copy, paste, and tweak them to suit your goals. After you start feeling more confident, you can slowly move away from this approach and write code from scratch. Think of the "copy, paste, and tweak" approach as training wheels for a child learning to ride a bike. After getting comfortable, they won't need them anymore. </li>
+<li><strong>The best way to learn to code is by doing</strong>: Rather than learning to code for its own sake, we find that learning to code goes much smoother when you have a goal in mind or when you are working on a particular project, like analyzing data that you are interested in and that is important to you. </li>
+<li><strong>Practice is key</strong>:  Just as the only method to improve your foreign language skills is through lots of practice and speaking, the only method to improving your coding skills is through lots of practice. Don't worry, however, we'll give you plenty of opportunities to do so!</li>
+</ul>
+<h2 id="what-are-r-packages-packages">What are R packages? {#packages}</h2>
+<p>Another point of confusion with many new R users is the idea of an R package. R packages \index{R!packages} extend the functionality of R by providing additional functions, data, and documentation. They are written by a worldwide community of R users and can be downloaded for free from the internet. </p>
+<p>For example, among the many packages we will use in this book are the <code>ggplot2</code> package [@R-ggplot2] for data visualization in Chapter \@ref(viz)\index{R packages!ggplot2}, the <code>dplyr</code> package [@R-dplyr] for data wrangling in Chapter \@ref(wrangling)\index{R packages!dplyr}, the <code>moderndive</code> package [@R-moderndive] that accompanies this book\index{R packages!moderndive}, and the <code>infer</code> package [@R-infer] for "tidy" and transparent statistical inference in Chapters \@ref(confidence-intervals), \@ref(hypothesis-testing), and \@ref(inference-for-regression)\index{R packages!infer}.</p>
+<p>A good analogy for R packages \index{R packages} is they are like apps you can download onto a mobile phone:</p>
+<!--
+R: A new phone           |  R Packages: Apps you can download
+:-------------------------:|:-------------------------:
+![](images/shutterstock/shutterstock_693573352_cropped.jpg){ height=2.5in } |  ![](images/shutterstock/shutterstock_220533046.jpg){ height=2.5in }
+-->
+
+<pre><code>include_graphics(&quot;images/shutterstock/R_vs_R_packages.png&quot;)
+</code></pre>
+<p>So R is like a new mobile phone: while it has a certain amount of features when you use it for the first time, it doesn't have everything. R packages are like the apps you can download onto your phone from Apple's App Store or Android's Google Play. </p>
+<p>Let's continue this analogy by considering the Instagram app for editing and sharing pictures. Say you have purchased a new phone and you would like to share a photo you have just taken with friends on Instagram. You need to:</p>
+<ol>
+<li><em>Install the app</em>: Since your phone is new and does not include the Instagram app, you need to download the app from either the App Store or Google Play. You do this once and you're set for the time being. You might need to do this again in the future when there is an update to the app.</li>
+<li><em>Open the app</em>: After you've installed Instagram, you need to open it.</li>
+</ol>
+<p>Once Instagram is open on your phone, you can then proceed to share your photo with your friends and family. The process is very similar for using an R package. You need to:</p>
+<ol>
+<li><em>Install the package</em>: This is like installing an app on your phone. Most packages are not installed by default when you install R and RStudio. Thus if you want to use a package for the first time, you need to install it first. Once you've installed a package, you likely won't install it again unless you want to update it to a newer version.</li>
+<li><em>"Load" the package</em>: "Loading" a package is like opening an app on your phone. Packages are not "loaded" by default when you start RStudio on your computer; you need to "load" each package you want to use every time you start RStudio.</li>
+</ol>
+<p>Let's perform these two steps for the <code>ggplot2</code> package for data visualization.</p>
+<h3 id="package-installation-package-installation">Package installation {#package-installation}</h3>
+<blockquote>
+<p><strong>Note about RStudio Server or RStudio Cloud</strong>: If your instructor has provided you with a link and access to RStudio Server or RStudio Cloud, you might not need to install packages, as they might be preinstalled for you by your instructor. That being said, it is still a good idea to know this process for later on when you are not using RStudio Server or Cloud, but rather RStudio Desktop on your own computer.</p>
+</blockquote>
+<p>There are two ways to install an R package: an easy way and a more advanced way. \index{R packages!installation} Let's install the <code>ggplot2</code> package the easy way first as shown in Figure \@ref(fig:easy-way-install). In the Files pane of RStudio:</p>
+<p>a) Click on the "Packages" tab.
+a) Click on "Install" next to Update.
+a) Type the name of the package under "Packages (separate multiple with space or comma):" In this case, type <code>ggplot2</code>.
+a) Click "Install."  </p>
+<pre><code>include_graphics(&quot;images/rstudio_screenshots/install_packages_easy_way.png&quot;)
+</code></pre>
+<p>An alternative but slightly less convenient way to install a package is by typing <code>install.packages("ggplot2")</code> in the console pane of RStudio and pressing Return/Enter on your keyboard. Note you must include the quotation marks around the name of the package.</p>
+<p>Much like an app on your phone, you only have to install a package once. However, if you want to update a previously installed package to a newer version, you need to reinstall it by repeating the earlier steps.</p>
+<p>\vspace{0.1in}</p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Repeat the earlier installation steps, but for the <code>dplyr</code>, <code>nycflights13</code>, and <code>knitr</code> packages. This will install the earlier mentioned <code>dplyr</code> package for data wrangling, the <code>nycflights13</code> package containing data on all domestic flights leaving a NYC airport in 2013, and the <code>knitr</code> package for generating easy-to-read tables in R. We'll use these packages in the next section.</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<p>\vspace{0.1in}</p>
+<p>Note that if you'd like your output on your computer to match up exactly with the output presented throughout the book, you may want to use the exact versions of the packages that we used. You can find a full listing of these packages and their versions in Appendix \@ref(appendixE). This likely won't be relevant for novices, but we included it for reproducibility reasons.</p>
+<h3 id="package-loading-package-loading">Package loading {#package-loading}</h3>
+<p>Recall that after you've installed a package, you need to "load it." In other words, you need to "open it." We do this by using the <code>library()</code> command. \index{R packages!loading} </p>
+<p>For example, to load the <code>ggplot2</code> package, run the following code in the console pane. What do we mean by "run the following code"? Either type or copy-and-paste the following code into the console pane and then hit the Enter key. </p>
+<pre><code>library(ggplot2)
+</code></pre>
+<p>If after running the earlier code, a blinking cursor returns next to the <code>&gt;</code> "prompt" sign, it means you were successful and the <code>ggplot2</code> package is now loaded and ready to use. If, however, you get a red "error message" that reads <code>...</code> \index{R packages!loading error}</p>
+<pre><code>Error in library(ggplot2) : there is no package called ‘ggplot2’
+</code></pre>
+<p><code>...</code> it means that you didn't successfully install it. This is an example of an "error message" we discussed in Subsection \@ref(messages). If you get this error message, go back to Subsection \@ref(package-installation) on R package installation and make sure to install the <code>ggplot2</code> package before proceeding. </p>
+<p>\vspace{0.1in}</p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> "Load" the <code>dplyr</code>, <code>nycflights13</code>, and <code>knitr</code> packages as well by repeating the earlier steps.</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<p>\vspace{0.1in}</p>
+<h3 id="package-use-package-use">Package use {#package-use}</h3>
+<p>One very common mistake new R users make when wanting to use particular packages is they forget to "load" them first by using the <code>library()</code> command we just saw. Remember: <em>you have to load each package you want to use every time you start RStudio.</em> If you don't first "load" a package, but attempt to use one of its features, you'll see an error message similar to:</p>
+<pre><code>Error: could not find function
+</code></pre>
+<p>This is a different error message than the one you just saw on a package not having been installed yet. R is telling you that you are trying to use a function in a package that has not yet been "loaded." R doesn't know where to find the function you are using. Almost all new users forget to do this when starting out, and it is a little annoying to get used to doing it. However, you'll remember with practice and after some time it will become second nature for you.</p>
+<h2 id="explore-your-first-datasets-nycflights13">Explore your first datasets {#nycflights13}</h2>
+<p>Let's put everything we've learned so far into practice and start exploring some real data! Data comes to us in a variety of formats, from pictures to text to numbers.  Throughout this book, we'll focus on datasets that are saved in "spreadsheet"-type format. This is probably the most common way data are collected and saved in many fields.  Remember from Subsection \@ref(programming-concepts) that these "spreadsheet"-type datasets are called <em>data frames</em> in R. \index{data frame} We'll focus on working with data saved as data frames throughout this book.</p>
+<p>Let's first load all the packages needed for this chapter, assuming you've already installed them. Read Section \@ref(packages) for information on how to install and load R packages if you haven't already.</p>
+<pre><code>library(nycflights13)
+library(dplyr)
+library(knitr)
+</code></pre>
+<p>At the beginning of all subsequent chapters in this book, we'll always have a list of packages that you should have installed and loaded in order to work with that chapter's R code. </p>
+<h3 id="nycflights13-package"><code>nycflights13</code> package</h3>
+<p>Many of us have flown on airplanes or know someone who has. Air travel has become an ever-present aspect of many people's lives. If you look at the Departures flight information board at an airport, you will frequently see that some flights are delayed for a variety of reasons. Are there ways that we can understand the reasons that cause flight delays?  </p>
+<p>We'd all like to arrive at our destinations on time whenever possible. (Unless you secretly love hanging out at airports.  If you are one of these people, pretend for a moment that you are very much anticipating being at your final destination.)  Throughout this book, we're going to analyze data related to all domestic flights departing from one of New York City's three main airports in 2013: Newark Liberty International (EWR), John F. Kennedy International (JFK), and LaGuardia Airport (LGA). We'll access this data using the <code>nycflights13</code> \index{R packages!nycflights13} R package, which contains five datasets saved in five data frames:</p>
+<pre><code># This redundant code is used for dynamic non-static in-line text output purposes
+flights_rows &lt;- flights %&gt;%
+  nrow() %&gt;%
+  comma()
+flights_cols &lt;- flights %&gt;% ncol()
+</code></pre>
+<ul>
+<li><code>flights</code>: Information on all <code>r flights_rows</code> flights.</li>
+<li><code>airlines</code>: A table matching airline names and their two-letter International Air Transport Association (IATA) airline codes (also known as carrier codes) for <code>r airlines %&gt;% nrow()</code> airline companies. For example, "DL" is the two-letter code for Delta.</li>
+<li><code>planes</code>: Information about each of the <code>r planes %&gt;% nrow() %&gt;% comma()</code> physical aircraft used.</li>
+<li><code>weather</code>: Hourly meteorological data for each of the three NYC airports. This data frame has <code>r weather %&gt;% nrow() %&gt;% comma()</code> rows, roughly corresponding to the <span class="arithmatex">\(365 \times 24 \times 3 = 26,280\)</span> possible hourly measurements one can observe at three locations over the course of a year.</li>
+<li><code>airports</code>: Names, codes, and locations of the <code>r airports %&gt;% nrow() %&gt;% comma()</code> domestic destinations.</li>
+</ul>
+<h3 id="flights-data-frame"><code>flights</code> data frame</h3>
+<p>We'll begin by exploring the <code>flights</code> data frame and get an idea of its structure. Run the following code in your console, either by typing it or by cutting-and-pasting it. It displays the contents of the <code>flights</code> data frame in your console. Note that depending on the size of your monitor, the output may vary slightly. </p>
+<pre><code>flights
+</code></pre>
+<p>Let's unpack this output:</p>
+<ul>
+<li><code>A tibble: `r flights_rows` x `r flights_cols`</code>: A <code>tibble</code> is a specific kind of data frame in R.\index{tibble}  This particular data frame has<ul>
+<li><code>`r flights_rows`</code> rows corresponding to different <em>observations</em>. Here, each observation is a flight.</li>
+<li><code>`r flights_cols`</code> columns corresponding to <code>r flights_cols</code> <em>variables</em> describing each observation.</li>
+</ul>
+</li>
+<li><code>year</code>, <code>month</code>, <code>day</code>, <code>dep_time</code>, <code>sched_dep_time</code>, <code>dep_delay</code>, and <code>arr_time</code> are the different columns, in other words, the different variables of this dataset.</li>
+<li>We then have a preview of the first 10 rows of observations corresponding to the first 10 flights. R is only showing the first 10 rows, because if it showed all <code>`r flights_rows`</code> rows, it would overwhelm your screen.</li>
+<li><code>... with `r (flights %&gt;% nrow() - 10) %&gt;% comma()` more rows, and `r flights_cols - 8` more variables:</code> indicating to us that <code>r (flights %&gt;% nrow() - 10) %&gt;% comma()</code> more rows of data and 11 more variables could not fit in this screen.</li>
+</ul>
+<p>Unfortunately, this output does not allow us to explore the data very well, but it does give a nice preview. Let's look at some different ways to explore data frames.</p>
+<h3 id="exploring-data-frames-exploredataframes">Exploring data frames {#exploredataframes}</h3>
+<p>There are many ways to get a feel for the data contained in a data frame such as <code>flights</code>. We present three functions that take as their "argument" (their input) the data frame in question. We also include a fourth method for exploring one particular column of a data frame:</p>
+<ol>
+<li>Using the <code>View()</code> function, which brings up RStudio's built-in data viewer.</li>
+<li>Using the <code>glimpse()</code> function, which is included in the <code>dplyr</code> package.</li>
+<li>Using the <code>kable()</code> function, which is included in the <code>knitr</code> package.</li>
+<li>Using the <code>$</code> "extraction operator," which is used to view a single variable/column in a data frame.</li>
+</ol>
+<p><strong>1. <code>View()</code></strong>:</p>
+<p>Run <code>View(flights)</code> \index{R packages!utils!View()} in your console in RStudio, either by typing it or cutting-and-pasting it into the console pane. Explore this data frame in the resulting pop up viewer. You should get into the habit of viewing any data frames you encounter. Note the uppercase <code>V</code> in <code>View()</code>. R is case-sensitive, so you'll get an error message if you run <code>view(flights)</code> instead of <code>View(flights)</code>.</p>
+<p>\vspace{0.1in}</p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What does any <em>ONE</em> row in this <code>flights</code> dataset refer to?</p>
+<ul>
+<li>A. Data on an airline </li>
+<li>B. Data on a flight</li>
+<li>C. Data on an airport</li>
+<li>D. Data on multiple flights</li>
+</ul>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<p>\vspace{0.1in}</p>
+<p>By running <code>View(flights)</code>, we can explore the different <em>variables</em> listed in the columns. Observe that there are many different types of variables.  Some of the variables like <code>distance</code>, <code>day</code>, and <code>arr_delay</code> are what we will call <em>quantitative</em> variables. \index{quantitative} These variables are numerical in nature.  Other variables here are \index{categorical} <em>categorical</em>.</p>
+<p>Note that if you look in the leftmost column of the <code>View(flights)</code> output, you will see a column of numbers. These are the row numbers of the dataset. If you glance across a row with the same number, say row 5, you can get an idea of what each row is representing. This will allow you to identify what object is being described in a given row by taking note of the values of the columns in that specific row. This is often called the <em>observational unit</em>.\index{observational unit} The observational unit in this example is an individual flight departing from New York City in 2013. You can identify the observational unit by determining what "thing" is being measured or described by each of the variables. We'll talk more about observational units in Subsection \@ref(identification-vs-measurement-variables) on <em>identification</em> and <em>measurement</em> variables.</p>
+<p><strong>2. <code>glimpse()</code></strong>:</p>
+<p>The second way we'll cover to explore a data frame is using the <code>glimpse()</code> function \index{dplyr!glimpse()} included in the \index{dplyr|seealso{R packages!dplyr}} <code>dplyr</code> package. Thus, you can only use the <code>glimpse()</code> function after you've loaded the <code>dplyr</code> package by running <code>library(dplyr)</code>. This function provides us with an alternative perspective for exploring a data frame than the <code>View()</code> function:</p>
+<pre><code>glimpse(flights)
+</code></pre>
+<p>Observe that <code>glimpse()</code> will give you the first few entries of each variable in a row after the variable name.  In addition, the <em>data type</em> (see Subsection \@ref(programming-concepts)) of the variable is given immediately after each variable's name inside <code>&lt; &gt;</code>.  Here, <code>int</code> and <code>dbl</code> refer to "integer" and "double", which are computer coding terminology for quantitative/numerical variables. "Doubles" take up twice the size to store on a computer compared to integers. </p>
+<p>In contrast, <code>chr</code> refers to "character", which is computer terminology for text data. In most forms, text data, such as the <code>carrier</code> or <code>origin</code> of a flight, are categorical variables. The <code>time_hour</code> variable is another data type: <code>dttm</code>. These types of variables represent date and time combinations. However, we won't work with dates and times in this book; we leave this topic for other data science books like <a href="https://ubc-dsci.github.io/introduction-to-datascience/"><em>Introduction to Data Science</em> by Tiffany-Anne Timbers, Melissa Lee, and Trevor Campbell</a> or <a href="https://r4ds.had.co.nz/dates-and-times.html"><em>R for Data Science</em></a> [@rds2016]. </p>
+<p>\vspace*{0.05in}</p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What are some other examples in this dataset of <em>categorical</em> variables?  What makes them different than <em>quantitative</em> variables?</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<p>\vfill\smallskip</p>
+<p><strong>3. <code>kable()</code></strong>:</p>
+<p>The final way to explore the entirety of a data frame is using the <code>kable()</code> \index{knitr!kable()} function from the \index{knitr|seealso{R packages!knitr}} <code>knitr</code> package. Let's explore the different carrier codes for all the airlines in our dataset two ways. Run both of these lines of code in the console:</p>
+<pre><code>airlines
+kable(airlines)
+</code></pre>
+<p>At first glance, it may not appear that there is much difference in the outputs. However, when using tools for producing reproducible reports such as <a href="http://rmarkdown.rstudio.com/lesson-1.html">R Markdown</a>, the latter code produces output that is much more legible and reader-friendly. You'll see us use this reader-friendly style in many places in the book when we want to print a data frame as a nice table.</p>
+<p><strong>4. <code>$</code> operator</strong></p>
+<p>Lastly, the <code>$</code> operator \index{operators!dollar sign} allows us to extract and then explore a single variable within a data frame. For example, run the following in your console:</p>
+<pre><code>airlines$name
+</code></pre>
+<p>We used the <code>$</code> operator to extract only the <code>name</code> variable and return it as a vector of length 16\index{vectors}. We'll only be occasionally exploring data frames using the <code>$</code> operator, instead favoring the <code>View()</code> and <code>glimpse()</code> functions.</p>
+<h3 id="identification-and-measurement-variables-identification-vs-measurement-variables">Identification and measurement variables {#identification-vs-measurement-variables}</h3>
+<p>There is a subtle difference between the kinds of variables that you will encounter in data frames. There are <em>identification variables</em> and <em>measurement variables</em>. For example, let's explore the <code>airports</code> data frame by showing the output of <code>glimpse(airports)</code>:</p>
+<pre><code>glimpse(airports)
+</code></pre>
+<p>The variables <code>faa</code> and <code>name</code> are what we will call <em>identification variables</em>, variables that uniquely identify each observational unit. In this case, the identification variables uniquely identify airports. Such variables are mainly used in practice to uniquely identify each row in a data frame. <code>faa</code> gives the unique code provided by the FAA for that airport, while the <code>name</code> variable gives the longer official name of the airport. The remaining variables (<code>lat</code>, <code>lon</code>, <code>alt</code>, <code>tz</code>, <code>dst</code>, <code>tzone</code>) are often called <em>measurement</em> or <em>characteristic</em> variables: variables that describe properties of each observational unit. For example, <code>lat</code> and <code>long</code> describe the latitude and longitude of each airport. </p>
+<p>Furthermore, sometimes a single variable might not be enough to uniquely identify each observational unit: combinations of variables might be needed. While it is not an absolute rule, for organizational purposes it is considered good practice to have your identification variables in the leftmost columns of your data frame.</p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What properties of each airport do the variables <code>lat</code>, <code>lon</code>, <code>alt</code>, <code>tz</code>, <code>dst</code>, and <code>tzone</code> describe in the <code>airports</code> data frame? Take your best guess.</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Provide the names of variables in a data frame with at least three variables where one of them is an identification variable and the other two are not. Further, create your own tidy data frame that matches these conditions.</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="help-files">Help files</h3>
+<p>Another nice feature of R are help files, which provide documentation for various functions and datasets. You can bring up help files by adding a <code>?</code> \index{operators!?} before the name of a function or data frame and then run this in the console. You will then be presented with a page showing the corresponding documentation if it exists.  For example, let's look at the help file for the <code>flights</code> data frame.</p>
+<pre><code>?flights
+</code></pre>
+<p>The help file should pop up in the Help pane of RStudio. If you have questions about a function or data frame included in an R package, you should get in the habit of consulting the help file right away.</p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Look at the help file for the <code>airports</code> data frame. Revise your earlier guesses about what the variables <code>lat</code>, <code>lon</code>, <code>alt</code>, <code>tz</code>, <code>dst</code>, and <code>tzone</code> each describe.</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>We've given you what we feel is a minimally viable set of tools to explore data in R. Does this chapter contain everything you need to know? Absolutely not. To try to include everything in this chapter would make the chapter so large it wouldn't be useful! As we said earlier, the best way to add to your toolbox is to get into RStudio and run and write code as much as possible.</p>
+<h3 id="additional-resources">Additional resources</h3>
+<pre><code>if (is_latex_output()) {
+  cat(&quot;Solutions to all *Learning checks* can be found online in [Appendix D](https://moderndive.com/D-appendixD.html).&quot;)
+}
+</code></pre>
+<p>If you are new to the world of coding, R, and RStudio and feel you could benefit from a more detailed introduction, we suggest you check out the short book, <a href="https://rbasics.netlify.app/"><em>Getting Used to R, RStudio, and R Markdown</em></a> [@usedtor2016]. It includes screencast recordings that you can follow along and pause as you learn. This book also contains an introduction to R Markdown, a tool used for reproducible research in R.</p>
+<p>(ref:ismay-book) Preview of <em>Getting Used to R, RStudio, and R Markdown</em>.</p>
+<pre><code>include_graphics(&quot;images/copyright/getting-used-to-R.png&quot;)
+</code></pre>
+<h3 id="whats-to-come">What's to come?</h3>
+<p>We're now going to start the "Data Science with <code>tidyverse</code>" portion of this book in Chapter \@ref(viz) as shown in Figure \@ref(fig:moderndive-flowchart) with what we feel is the most important tool in a data scientist's toolbox: data visualization. We'll continue to explore the data included in the <code>moderndive</code> and <code>nycflights13</code> packages using the <code>ggplot2</code> package for data visualization. You'll see that data visualization is a powerful tool to add to your toolbox for data exploration that provides additional insight to what the <code>View()</code> and <code>glimpse()</code> functions can provide. </p>
+<p>(ref:flowchart2) <em>ModernDive</em> flowchart - on to Part I!</p>
+<pre><code>include_graphics(&quot;images/flowcharts/flowchart/flowchart.004.png&quot;)
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
