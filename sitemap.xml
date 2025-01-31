@@ -1,3 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://tomoshige.github.io/website/</loc>
+         <lastmod>2025-01-31</lastmod>
+    </url>
+    <url>
+         <loc>https://tomoshige.github.io/website/lectures/</loc>
+         <lastmod>2025-01-31</lastmod>
+    </url>
+    <url>
+         <loc>https://tomoshige.github.io/website/lectures/statistical-inference-without-syntax/</loc>
+         <lastmod>2025-01-31</lastmod>
+    </url>
+    <url>
+         <loc>https://tomoshige.github.io/website/lectures/statistics-and-probability/</loc>
+         <lastmod>2025-01-31</lastmod>
+    </url>
+    <url>
+         <loc>https://tomoshige.github.io/website/lectures/LA/</loc>
+         <lastmod>2025-01-31</lastmod>
+    </url>
+    <url>
+         <loc>https://tomoshige.github.io/website/lectures/LA/00-vector-and-matrix/</loc>
+         <lastmod>2025-01-31</lastmod>
+    </url>
+    <url>
+         <loc>https://tomoshige.github.io/website/research/</loc>
+         <lastmod>2025-01-31</lastmod>
+    </url>
 </urlset>
