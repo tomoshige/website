@@ -661,15 +661,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      まとめ
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#five-named-graphs-the-5ng-fiveng" class="md-nav__link">
     <span class="md-ellipsis">
       Five named graphs - the 5NG {#FiveNG}
@@ -1165,15 +1156,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      まとめ
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#five-named-graphs-the-5ng-fiveng" class="md-nav__link">
     <span class="md-ellipsis">
       Five named graphs - the 5NG {#FiveNG}
@@ -1528,21 +1510,32 @@ plt.title('2007年におけるGDPと平均寿命の関係')
 plt.legend(title='Continent', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.show()
 </code></pre>
-<p>このプロットを通じて、以下の傾向が読み取れます。</p>
+<p>このとき、グラフのタイトルをみると、日本語が表示できていないことがわかりますね。これは、非常によく起きる問題です。pythonでは、これを以下のパッケージをインストールすることで解消することができます。</p>
+<pre><code class="language-python">    !pip install japanize-matplotlib
+</code></pre>
+<p>インストールした後で、最初の <code>import</code> 部分を次のように変更しましょう。</p>
+<pre><code class="language-python">    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import japanize_matplotlib
+    import seaborn as sns
+    from gapminder import gapminder
+</code></pre>
+<p>これで日本語が表示されるはずです。次に、このプロットを詳しく見ていきましょう。</p>
+<ul>
+<li>変数 GDP per Capita（1人当たりGDP） は、x軸にマッピングされています。</li>
+<li>変数 Life Expectancy（平均寿命） は、ポイントの y軸にマッピングされています。</li>
+<li>変数 Population（人口） は、ポイントの サイズ（size aesthetic） にマッピングされます。</li>
+<li>変数 Continent（大陸） は、ポイントの 色（color aesthetic） にマッピングされます。</li>
+</ul>
+<p>ここで、<code>data</code>（データ）とは pythonの <code>dataframe</code>に対応し、データ変数（data variables） がデータフレーム内の特定の列に対応していることが分かります。例えば、。特にこのプロットでは、4つの情報を同時に集約しています。x軸に一人あたりのGDP、y軸に平均寿命、さらに点の大きさで人口、そして、点の色で大陸を表しています。このプロットを通じて、以下の傾向が読み取れます。</p>
 <ul>
 <li>GDPが高い国ほど、平均寿命が長い傾向がある。</li>
 <li>大陸ごとに分布が異なり、特にアフリカ（Africa）の国々はGDPと平均寿命が低い傾向がある。</li>
 <li>国ごとの人口（点の大きさ）も視覚的に把握できる。</li>
 </ul>
+<p>このように自分が示したいものが何かということを意識して、適切な図を書くことは、データサイエンスの基本となるものです。また、データの種類によっても、最適な図の書き方は異なります。次のステップとして、データサイエンスにおける5つの基本的な図について学びましょう。</p>
 <hr />
-<h2 id="_6">まとめ</h2>
-<p>本章では、Pythonと <code>matplotlib</code>、<code>seaborn</code> を活用したデータ可視化の基本を学びました。</p>
-<ul>
-<li><strong>グラフィックの文法（Grammar of Graphics）</strong> を活用し、データの可視化を体系的に構築できる。</li>
-<li><strong>Gapminderデータ</strong> を使用し、世界のGDPと平均寿命の関係を可視化した。</li>
-<li><strong><code>scatterplot()</code></strong> を使い、複数の変数を一度に可視化し、関係性を直感的に理解した。</li>
-</ul>
-<p>次のステップとして、より詳細な可視化や、時系列データのトレンド分析を行っていきます。データの可視化を活用し、洞察を深めていきましょう！</p>
 <h2 id="five-named-graphs-the-5ng-fiveng">Five named graphs - the 5NG {#FiveNG}</h2>
 <p>In order to keep things simple in this book, we will only focus on five different types of graphics, each with a commonly given name. We term these "five named graphs" or in abbreviated form, the <strong>5NG</strong>: \index{five named graphs}</p>
 <ol>
