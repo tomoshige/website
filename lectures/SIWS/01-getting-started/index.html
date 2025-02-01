@@ -1556,22 +1556,20 @@ plt.show()
 <p>Pythonライブラリのインストール {#library-installation}</p>
 <blockquote>
 <p><strong>Google Colaboratoryについての注意</strong>: 
-Google Colaboratoryでは、多くのライブラリが事前にインストールされていますが、追加で必要なライブラリは自分でインストールする必要があります。Google Colaboratoryを使わずにローカル環境でPythonを実行する場合も、ライブラリのインストール手順を知っておくことが重要です。</p>
+Google Colaboratoryでは、多くのライブラリが事前にインストールされていますが、追加で必要なライブラリは自分でインストールする必要があります。Google Colaboratoryを使わずにローカル環境でPythonを実行する場合も、ライブラリのインストール手順を知っておくことが重要です（今回はローカル環境は使用しませんが、今後利用する際の参考に記載しておきます）。</p>
 </blockquote>
 <p>Pythonのライブラリをインストールする方法は2種類あります。</p>
 <ol>
-<li>
-<p><strong>簡単な方法</strong>（Google ColaboratoryまたはJupyter Notebookで実行）:
-   <code>python
+<li><strong>簡単な方法</strong>（Google ColaboratoryまたはJupyter Notebookで実行）:</li>
+</ol>
+<p><code>python
    !pip install seaborn pandas numpy matplotlib</code>
    <code>!pip install</code> コマンドを用いてライブラリをインストールします。</p>
-</li>
-<li>
-<p><strong>ローカル環境でのインストール</strong>（ターミナルまたはコマンドプロンプトで実行）:
-   <code>sh
-   pip install seaborn pandas numpy matplotlib</code></p>
-</li>
+<ol>
+<li><strong>ローカル環境でのインストール</strong>（ターミナルまたはコマンドプロンプトで実行）:</li>
 </ol>
+<p><code>sh
+   pip install seaborn pandas numpy matplotlib</code></p>
 <p>スマートフォンのアプリと同様、一度インストールすれば再度インストールする必要はありません。ただし、新しいバージョンへアップデートしたい場合は、同じ手順で再インストールします。</p>
 <h3 id="library-loading">ライブラリの読み込み {#library-loading}</h3>
 <p>ライブラリをインストールした後、それをPythonプログラム内で使用するためには「読み込む」必要があります。以下のコードを実行することで、ライブラリを読み込むことができます。</p>
