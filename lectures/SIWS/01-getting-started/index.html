@@ -765,9 +765,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#library-use" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      ライブラリの利用 {#library-use}
+      ライブラリの利用
     </span>
   </a>
   
@@ -1224,9 +1224,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#library-use" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      ライブラリの利用 {#library-use}
+      ライブラリの利用
     </span>
   </a>
   
@@ -1560,20 +1560,21 @@ Google Colaboratoryでは、多くのライブラリが事前にインストー�
 </blockquote>
 <p>Pythonのライブラリをインストールする方法は2種類あります。</p>
 <ol>
-<li><strong>簡単な方法</strong>（Google ColaboratoryまたはJupyter Notebookで実行）:</li>
+<li><strong>簡単な方法</strong>（Google ColaboratoryまたはJupyter Notebookで実行）:
+  <code>!pip install</code> コマンドを用いてライブラリをインストールします。</li>
 </ol>
-<p><code>python
-   !pip install seaborn pandas numpy matplotlib</code>
-   <code>!pip install</code> コマンドを用いてライブラリをインストールします。</p>
+<pre><code class="language-python">!pip install seaborn pandas numpy matplotlib
+</code></pre>
 <ol>
-<li><strong>ローカル環境でのインストール</strong>（ターミナルまたはコマンドプロンプトで実行）:</li>
+<li><strong>ローカル環境でのインストール</strong>（ターミナルまたはコマンドプロンプトで実行：今回は利用しない）:</li>
 </ol>
-<p><code>sh
-   pip install seaborn pandas numpy matplotlib</code></p>
+<pre><code class="language-sh">pip install seaborn pandas numpy matplotlib
+</code></pre>
 <p>ローカル環境においては、スマートフォンのアプリと同様、一度インストールすれば再度インストールする必要はありませんが、Google Colaboratoryの環境においては、時間が経過するとリセットされるため、再度インストールが必要になる場合があります。イメージとしては、貸し出しスマホです。一度店に返却すると中身のデータが消されていて、再度アプリを入れ直す必要があるのと同じです。</p>
 <h3 id="library-loading">ライブラリの読み込み {#library-loading}</h3>
 <p>ライブラリをインストールした後、それをPythonプログラム内で使用するためには「読み込む」必要があります。以下のコードを実行することで、ライブラリを読み込むことができます。</p>
-<pre><code class="language-python">import seaborn as sns
+<pre><code class="language-python"># libraryの読み込み
+import seaborn as sns
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -1586,8 +1587,8 @@ import matplotlib.pyplot as plt
 <p class="admonition-title">Note</p>
 </div>
 <p><code>pip</code> を用いて、<code>seaborn</code> をインストールしてみてください。</p>
-<h3 id="library-use">ライブラリの利用 {#library-use}</h3>
-<p>Pythonでデータ分析を行う際、適切にライブラリをインストールし、読み込むことが重要です。例えば、<code>seaborn</code>を使用してデータの可視化を行う場合、以下のコードを実行するとシンプルな散布図を描画できます。</p>
+<h3 id="_4">ライブラリの利用</h3>
+<p>Pythonでデータ分析を行う際、適切にライブラリをインストールし、読み込むことが重要です。例えば、<code>matplotlib</code> を使用してデータの可視化を行う場合、以下のコードを実行するとシンプルな散布図を描画できます。</p>
 <pre><code class="language-python"># サンプルデータの作成
 np.random.seed(10)
 data = pd.DataFrame({
