@@ -732,9 +732,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tips-on-learning-to-code" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Tips on learning to code
+      プログラミングを学ぶ上での心得
     </span>
   </a>
   
@@ -756,27 +756,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#package-installation-package-installation" class="md-nav__link">
+  <a href="#library-loading" class="md-nav__link">
     <span class="md-ellipsis">
-      Package installation {#package-installation}
+      ライブラリの読み込み {#library-loading}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#package-loading-package-loading" class="md-nav__link">
+  <a href="#library-use" class="md-nav__link">
     <span class="md-ellipsis">
-      Package loading {#package-loading}
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#package-use-package-use" class="md-nav__link">
-    <span class="md-ellipsis">
-      Package use {#package-use}
+      ライブラリの利用 {#library-use}
     </span>
   </a>
   
@@ -1200,9 +1191,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tips-on-learning-to-code" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Tips on learning to code
+      プログラミングを学ぶ上での心得
     </span>
   </a>
   
@@ -1224,27 +1215,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#package-installation-package-installation" class="md-nav__link">
+  <a href="#library-loading" class="md-nav__link">
     <span class="md-ellipsis">
-      Package installation {#package-installation}
+      ライブラリの読み込み {#library-loading}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#package-loading-package-loading" class="md-nav__link">
+  <a href="#library-use" class="md-nav__link">
     <span class="md-ellipsis">
-      Package loading {#package-loading}
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#package-use-package-use" class="md-nav__link">
-    <span class="md-ellipsis">
-      Package use {#package-use}
+      ライブラリの利用 {#library-use}
     </span>
   </a>
   
@@ -1512,7 +1494,7 @@ warnings.warn(&quot;This is a warning message!&quot;)
 </ul>
 <p>と考えるとよいでしょう。</p>
 <p>Python と Google Colaboratory を活用しながら、繰り返し練習していきましょう！</p>
-<h3 id="tips-on-learning-to-code">Tips on learning to code</h3>
+<h3 id="_3">プログラミングを学ぶ上での心得</h3>
 <p>プログラミングを学ぶことは、外国語を学ぶことに似ています。最初は難しく、挫折することもあるかもしれません。しかし、間違いを恐れずに努力を続ければ、誰でも学び、上達することができます。プログラミングを学ぶ際に役立ついくつかのポイントを紹介します。</p>
 <ul>
 <li>
@@ -1571,54 +1553,52 @@ plt.ylabel(&quot;Y軸&quot;)
 plt.title(&quot;Matplotlibのサンプルグラフ&quot;)
 plt.show()
 </code></pre>
-<h3 id="package-installation-package-installation">Package installation {#package-installation}</h3>
+<p>Pythonライブラリのインストール {#library-installation}</p>
 <blockquote>
-<p><strong>Note about RStudio Server or RStudio Cloud</strong>: If your instructor has provided you with a link and access to RStudio Server or RStudio Cloud, you might not need to install packages, as they might be preinstalled for you by your instructor. That being said, it is still a good idea to know this process for later on when you are not using RStudio Server or Cloud, but rather RStudio Desktop on your own computer.</p>
+<p><strong>Google Colaboratoryについての注意</strong>: 
+Google Colaboratoryでは、多くのライブラリが事前にインストールされていますが、追加で必要なライブラリは自分でインストールする必要があります。Google Colaboratoryを使わずにローカル環境でPythonを実行する場合も、ライブラリのインストール手順を知っておくことが重要です。</p>
 </blockquote>
-<p>There are two ways to install an R package: an easy way and a more advanced way. \index{R packages!installation} Let's install the <code>ggplot2</code> package the easy way first as shown in Figure \@ref(fig:easy-way-install). In the Files pane of RStudio:</p>
-<p>a) Click on the "Packages" tab.
-a) Click on "Install" next to Update.
-a) Type the name of the package under "Packages (separate multiple with space or comma):" In this case, type <code>ggplot2</code>.
-a) Click "Install."  </p>
-<pre><code>include_graphics(&quot;images/rstudio_screenshots/install_packages_easy_way.png&quot;)
+<p>Pythonのライブラリをインストールする方法は2種類あります。</p>
+<ol>
+<li>
+<p><strong>簡単な方法</strong>（Google ColaboratoryまたはJupyter Notebookで実行）:
+   <code>python
+   !pip install seaborn pandas numpy matplotlib</code>
+   <code>!pip install</code> コマンドを用いてライブラリをインストールします。</p>
+</li>
+<li>
+<p><strong>ローカル環境でのインストール</strong>（ターミナルまたはコマンドプロンプトで実行）:
+   <code>sh
+   pip install seaborn pandas numpy matplotlib</code></p>
+</li>
+</ol>
+<p>スマートフォンのアプリと同様、一度インストールすれば再度インストールする必要はありません。ただし、新しいバージョンへアップデートしたい場合は、同じ手順で再インストールします。</p>
+<h3 id="library-loading">ライブラリの読み込み {#library-loading}</h3>
+<p>ライブラリをインストールした後、それをPythonプログラム内で使用するためには「読み込む」必要があります。以下のコードを実行することで、ライブラリを読み込むことができます。</p>
+<pre><code class="language-python">import seaborn as sns
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 </code></pre>
-<p>An alternative but slightly less convenient way to install a package is by typing <code>install.packages("ggplot2")</code> in the console pane of RStudio and pressing Return/Enter on your keyboard. Note you must include the quotation marks around the name of the package.</p>
-<p>Much like an app on your phone, you only have to install a package once. However, if you want to update a previously installed package to a newer version, you need to reinstall it by repeating the earlier steps.</p>
-<p>\vspace{0.1in}</p>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
+<p>もし以下のようなエラーが表示された場合:</p>
+<pre><code>ModuleNotFoundError: No module named 'seaborn'
 </code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Repeat the earlier installation steps, but for the <code>dplyr</code>, <code>nycflights13</code>, and <code>knitr</code> packages. This will install the earlier mentioned <code>dplyr</code> package for data wrangling, the <code>nycflights13</code> package containing data on all domestic flights leaving a NYC airport in 2013, and the <code>knitr</code> package for generating easy-to-read tables in R. We'll use these packages in the next section.</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
+<p>これはライブラリがインストールされていないことを示しています。その場合は、前述の<code>pip install</code>コマンドを実行してください。</p>
+<h3 id="library-use">ライブラリの利用 {#library-use}</h3>
+<p>Pythonでデータ分析を行う際、適切にライブラリをインストールし、読み込むことが重要です。例えば、<code>seaborn</code>を使用してデータの可視化を行う場合、以下のコードを実行するとシンプルな散布図を描画できます。</p>
+<pre><code class="language-python"># サンプルデータの作成
+np.random.seed(10)
+data = pd.DataFrame({
+    &quot;x&quot;: np.random.rand(50),
+    &quot;y&quot;: np.random.rand(50)
+})
+
+# Seabornを使った散布図の描画
+sns.scatterplot(x=&quot;x&quot;, y=&quot;y&quot;, data=data)
+plt.title(&quot;Seabornを用いた散布図の例&quot;)
+plt.show()
 </code></pre>
-<p>\vspace{0.1in}</p>
-<p>Note that if you'd like your output on your computer to match up exactly with the output presented throughout the book, you may want to use the exact versions of the packages that we used. You can find a full listing of these packages and their versions in Appendix \@ref(appendixE). This likely won't be relevant for novices, but we included it for reproducibility reasons.</p>
-<h3 id="package-loading-package-loading">Package loading {#package-loading}</h3>
-<p>Recall that after you've installed a package, you need to "load it." In other words, you need to "open it." We do this by using the <code>library()</code> command. \index{R packages!loading} </p>
-<p>For example, to load the <code>ggplot2</code> package, run the following code in the console pane. What do we mean by "run the following code"? Either type or copy-and-paste the following code into the console pane and then hit the Enter key. </p>
-<pre><code>library(ggplot2)
-</code></pre>
-<p>If after running the earlier code, a blinking cursor returns next to the <code>&gt;</code> "prompt" sign, it means you were successful and the <code>ggplot2</code> package is now loaded and ready to use. If, however, you get a red "error message" that reads <code>...</code> \index{R packages!loading error}</p>
-<pre><code>Error in library(ggplot2) : there is no package called ‘ggplot2’
-</code></pre>
-<p><code>...</code> it means that you didn't successfully install it. This is an example of an "error message" we discussed in Subsection \@ref(messages). If you get this error message, go back to Subsection \@ref(package-installation) on R package installation and make sure to install the <code>ggplot2</code> package before proceeding. </p>
-<p>\vspace{0.1in}</p>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> "Load" the <code>dplyr</code>, <code>nycflights13</code>, and <code>knitr</code> packages as well by repeating the earlier steps.</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<p>\vspace{0.1in}</p>
-<h3 id="package-use-package-use">Package use {#package-use}</h3>
-<p>One very common mistake new R users make when wanting to use particular packages is they forget to "load" them first by using the <code>library()</code> command we just saw. Remember: <em>you have to load each package you want to use every time you start RStudio.</em> If you don't first "load" a package, but attempt to use one of its features, you'll see an error message similar to:</p>
-<pre><code>Error: could not find function
-</code></pre>
-<p>This is a different error message than the one you just saw on a package not having been installed yet. R is telling you that you are trying to use a function in a package that has not yet been "loaded." R doesn't know where to find the function you are using. Almost all new users forget to do this when starting out, and it is a little annoying to get used to doing it. However, you'll remember with practice and after some time it will become second nature for you.</p>
+<p>このように、ライブラリを正しくインストールし、読み込むことで、Pythonでのデータ分析や可視化が簡単に行えるようになります。</p>
 <h2 id="explore-your-first-datasets-nycflights13">Explore your first datasets {#nycflights13}</h2>
 <p>Let's put everything we've learned so far into practice and start exploring some real data! Data comes to us in a variety of formats, from pictures to text to numbers.  Throughout this book, we'll focus on datasets that are saved in "spreadsheet"-type format. This is probably the most common way data are collected and saved in many fields.  Remember from Subsection \@ref(programming-concepts) that these "spreadsheet"-type datasets are called <em>data frames</em> in R. \index{data frame} We'll focus on working with data saved as data frames throughout this book.</p>
 <p>Let's first load all the packages needed for this chapter, assuming you've already installed them. Read Section \@ref(packages) for information on how to install and load R packages if you haven't already.</p>
