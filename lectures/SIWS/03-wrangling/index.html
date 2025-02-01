@@ -12,26 +12,24 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/03-wrangling/">
       
       
       
-        <link rel="next" href="lectures/">
       
-      
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>Statistical Learning Laboratory</title>
+        <title>03 wrangling - Statistical Learning Laboratory</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -52,7 +50,7 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -75,11 +73,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#welcome-to-statistical-learning-laboratory" class="md-skip">
-          コンテンツにスキップ
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -90,7 +83,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="ヘッダー">
-    <a href="." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              03 wrangling
             
           </span>
         </div>
@@ -189,11 +182,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
         
   
     
@@ -212,7 +203,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="lectures/" class="md-tabs__link">
+        <a href="../../" class="md-tabs__link">
           
   
     
@@ -232,7 +223,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="research/" class="md-tabs__link">
+        <a href="../../../research/" class="md-tabs__link">
           
   
     
@@ -267,7 +258,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -294,30 +285,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Home
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -326,62 +297,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#contact" class="md-nav__link">
-    <span class="md-ellipsis">
-      Contact
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#research-interest" class="md-nav__link">
-    <span class="md-ellipsis">
-      Research Interest
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      Lectures
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Links
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -424,7 +339,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="lectures/" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -484,7 +399,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="lectures/LA/" class="md-nav__link ">
+            <a href="../../LA/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -517,7 +432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lectures/LA/00-vector-and-matrix/" class="md-nav__link">
+      <a href="../../LA/00-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -577,7 +492,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="lectures/SIWS/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -610,7 +525,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lectures/SIWS/01-getting-started/" class="md-nav__link">
+      <a href="../01-getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -631,7 +546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lectures/SIWS/02-visualization/" class="md-nav__link">
+      <a href="../02-visualization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -652,7 +567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lecture/SIWS/03-wrangling.md" class="md-nav__link">
+      <a href="../../../lecture/SIWS/03-wrangling.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -706,7 +621,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="lectures/SP/" class="md-nav__link ">
+            <a href="../../SP/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -774,7 +689,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="research/" class="md-nav__link ">
+            <a href="../../../research/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -819,52 +734,6 @@
   
   
   
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#contact" class="md-nav__link">
-    <span class="md-ellipsis">
-      Contact
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#research-interest" class="md-nav__link">
-    <span class="md-ellipsis">
-      Research Interest
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      Lectures
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Links
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -879,26 +748,9 @@
                   
 
 
-<h1 id="welcome-to-statistical-learning-laboratory">Welcome to Statistical Learning Laboratory</h1>
-<p>My name is Tomoshige Nakamura. I am an Assistant Professor in the Department of Health Data Science at Juntendo University. I received my Ph.D. in Engineering from the Keio University in Feb, 2021. I am very fortunate to be supervised by Professor Mihoko Minami. I am also very fortunate to work with Professor Hiroshi Shiraishi on random forest research.</p>
-<h2 id="contact">Contact</h2>
-<ul>
-<li>Address : 6-8-1, Hinode, Urayasu Shi, Chiba Prefecture, 279-0013, Japan</li>
-<li>Email : t.nakamura.gs[at]juntendo.ac.jp</li>
-</ul>
-<h2 id="research-interest">Research Interest</h2>
-<p>My research focuses on elucidating the properties of tree-structured models, such as decision trees and regression trees, and developing novel variants of these models. Tree-structured models have a unique advantage in that a single tree can effectively compress and visualize data, while an ensemble of multiple trees (e.g., random forests) can attain high predictive accuracy. Moreover, these models accommodate continuous, categorical, and discrete variables in a unified manner, making them both versatile and practical. It is no surprise, therefore, that tree-based methods consistently appear among the top-performing approaches in competitive data analytics venues such as Kaggle.</p>
-<p>Recent theoretical advances have shed light on the statistical properties of tree-structured models, pointing to continued improvements in their performance and interpretability. For example, new modeling techniques, such as recursive partitioning models, Isolation Forests for anomaly detection, and causal trees and forests for causal inference, highlight the growing versatility of tree-structured approaches. These models also provide a straightforward measure of variable importance, enabling analysts and domain experts to interpret how different predictors contribute to the final outcome.</p>
-<p>In my work, I aim to develop new tree architectures that not only preserve high predictive accuracy but also support more complex background information. By integrating hierarchical Bayesian models, it becomes possible to combine rich contextual details—such as multi-level factors or nested data structures—while maintaining strong predictive capabilities. This fusion of tree-based learning and hierarchical modeling is especially promising for tackling challenging research questions that require both flexibility and interpretability.</p>
-<p>Beyond conventional domains, tree-structured models show great potential in health and medical applications. For instance, the interpretability offered by these models can help medical professionals identify critical risk factors and intervene more effectively. Their ability to deal with heterogeneous data types—ranging from imaging features to genomic markers—makes them well suited for integrative analyses in personalized medicine and other emerging areas. Although this is a challenging field due to the complexity and sensitivity of medical data, the ongoing convergence of statistical theory, machine learning, and healthcare innovation offers immense opportunities to push these models into clinical practice.</p>
-<p>By advancing the theoretical and practical foundations of tree-structured models, my research strives to illuminate new frontiers in data-driven decision making. From competitive data analytics to healthcare, these models hold promise for more interpretable, accurate, and robust solutions in a wide range of applications. It is my goal to continue exploring these possibilities, driving tree-based methods into even more challenging and impactful domains.</p>
-<h2 id="lectures">Lectures</h2>
-<p>I teach courses in Linear Algebra, Probability and Statistics, Practical Machine Learning, and Practical Artificial Intelligence. Each course is designed to build a solid foundation for understanding and applying data science concepts. For further details, please visit the <a href="./lectures/">Lectures</a> page.</p>
-<h2 id="links">Links</h2>
-<ul>
-<li><a href="https://www.juntendo.ac.jp/academics/faculty/hds/">Department of Health Data Science, Juntendo University</a></li>
-<li><a href="https://stat.math.keio.ac.jp/">Stat Lab, Department of Mathematics, Keio Universiry</a></li>
-</ul>
+  <h1>03 wrangling</h1>
+
+
 
 
 
@@ -950,12 +802,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
     
     
-      <script src="assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="javascripts/katex.js"></script>
+        <script src="../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
