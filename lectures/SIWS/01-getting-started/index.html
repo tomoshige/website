@@ -880,6 +880,66 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      理解度チェック課題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理解度チェック課題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 1: データの読み込み
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 2: データの統計情報
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 3: データの可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 4: 他の広告媒体との関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 5: データの応用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1348,6 +1408,66 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      理解度チェック課題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理解度チェック課題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 1: データの読み込み
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 2: データの統計情報
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 3: データの可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 4: 他の広告媒体との関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 5: データの応用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1747,6 +1867,43 @@ plt.ylabel('Sales (in thousands of units)')
 plt.title('TV Advertising vs Sales')
 plt.show()
 </code></pre>
+<h2 id="_15">理解度チェック課題</h2>
+<p>以下の問題を解いて、Python、Google Colaboratory、Pandas、Matplotlibを用いたデータ探索の理解を深めましょう。</p>
+<h3 id="1">問題 1: データの読み込み</h3>
+<p>以下のコードを実行すると、どのようなデータが表示されますか？<br />
+データの概要を説明してください。</p>
+<pre><code class="language-python">import pandas as pd
+
+url = 'https://raw.githubusercontent.com/a-martyn/ISL-python/ee156568a8f7307be71dad5390bae12b51dcd93f/Notebooks/data/Advertising.csv'
+data = pd.read_csv(url, index_col=0)
+print(data.head())
+</code></pre>
+<h3 id="2">問題 2: データの統計情報</h3>
+<p>以下のコードを実行すると、どのような情報が得られますか？<br />
+得られた情報から、どの広告媒体が売上に最も影響を与えていると考えられますか？</p>
+<pre><code class="language-python">print(data.describe())
+</code></pre>
+<h3 id="3">問題 3: データの可視化</h3>
+<p>以下のコードを実行して、TV広告費と売上の関係をプロットしてください。<br />
+グラフの傾向を説明し、売上に対するTV広告の影響について考察してください。</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+plt.scatter(data['TV'], data['Sales'])
+plt.xlabel('TV Advertising Budget (in thousands of dollars)')
+plt.ylabel('Sales (in thousands of units)')
+plt.title('TV Advertising vs Sales')
+plt.show()
+</code></pre>
+<h3 id="4">問題 4: 他の広告媒体との関係</h3>
+<p>ラジオ (<code>Radio</code>) や新聞 (<code>Newspaper</code>) の広告費と売上の関係を調べるために、<br />
+上記のコードを修正して、それぞれの散布図を作成してください。<br />
+結果から、どの広告媒体が売上に対して最も大きな影響を持つか考察してください。</p>
+<h3 id="5">問題 5: データの応用</h3>
+<p>企業が広告費を最適に配分するためには、どのような分析を行うべきでしょうか？<br />
+また、PandasやMatplotlibを活用して、どのような追加の視覚化や統計分析ができるか提案してください。</p>
+<hr />
+<p>以上の問題を解くことで、Pythonを用いたデータの探索と可視化の基礎を確認できます。
+実際にコードを実行し、得られた結果をもとに考察を深めてみてください。</p>
 
 
 
