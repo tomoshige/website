@@ -1320,313 +1320,170 @@ plt.show()
 <li>アウトライヤー（外れ値）を容易に特定することができます。</li>
 </ul>
 <p>また、カテゴリカル変数（例：曜日）に対してサイドバイサイドで箱ひげ図を作成することで、グループ間の分布の違いやばらつきを比較することが可能です。tips データセットを例に、ディナータイムの total_bill や曜日ごとの total_bill を通じて、箱ひげ図の作成とその解釈の基本を確認しました。</p>
-<h2 id="5ng5-barplots-geombar">5NG#5: Barplots {#geombar}</h2>
-<p>Both histograms and boxplots are tools to visualize the distribution of numerical variables. Another commonly desired task is to visualize the distribution of a categorical variable. This is a simpler task, as we are simply counting different categories within a categorical variable, also known as the \index{levels} <em>levels</em> of the categorical variable. Often the best way to visualize these different counts, also known as \index{frequencies} <em>frequencies</em>, is with barplots (also called barcharts).</p>
-<p>One complication, however, is how your data is represented. Is the categorical variable of interest "pre-counted" or not? For example, run the following code that manually creates two data frames representing a collection of fruit: 3 apples and 2 oranges.</p>
-<pre><code>fruits &lt;- tibble(
-  fruit = c(&quot;apple&quot;, &quot;apple&quot;, &quot;orange&quot;, &quot;apple&quot;, &quot;orange&quot;)
-)
-fruits_counted &lt;- tibble(
-  fruit = c(&quot;apple&quot;, &quot;orange&quot;),
-  number = c(3, 2)
-)
+<h2 id="5ng5-barplots">5NG#5: 棒グラフ (Barplots)</h2>
+<p>棒グラフは、カテゴリカル変数の各カテゴリー（レベル）の出現頻度（カウント）を視覚化するための基本的なグラフです。<br />
+数値変数の分布を可視化するヒストグラムや箱ひげ図とは異なり、棒グラフは各カテゴリーの頻度や割合を示すのに適しています。<br />
+また、データが既に「事前集計済み」の場合と、各観測値が個別に記録されている場合で、グラフ作成の手法が異なります。</p>
+<p>本節では、<a href="https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv">Gapminder</a> のデータセットを用いて、カテゴリカル変数（ここでは <code>continent</code>：大陸）の出現頻度を棒グラフで可視化する方法を示します。</p>
+<hr />
+<h3 id="1_3">1. データの読み込み</h3>
+<p>まず、Gapminder のデータセットを URL から読み込みます。</p>
+<pre><code class="language-python">import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Gapminderデータセットの読み込み
+url = &quot;https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv&quot;
+gapminder = pd.read_csv(url)
+gapminder.head()
 </code></pre>
-<p>We see both the <code>fruits</code> and <code>fruits_counted</code> data frames represent the same collection of fruit. Whereas <code>fruits</code> just lists the fruit individually...</p>
-<pre><code>fruits
+<p>データセットには、<code>country</code>（国）、<code>continent</code>（大陸）、<code>year</code>（年）、<code>lifeExp</code>（平均寿命）、<code>pop</code>（人口）、<code>gdpPercap</code>（1人当たりGDP）などの変数が含まれています。</p>
+<h3 id="_15">未集計データから棒グラフを作成する</h3>
+<p>Gapminder のデータセットは各観測値（例えば、各国の各年の記録）が個別に記録されているため、カテゴリカル変数 <code>continent</code> の頻度はまだ「集計」されていません。
+この場合、Seaborn の <code>countplot()</code> を使用すると、自動的に各カテゴリーの出現回数を計算して棒グラフを描画してくれます。</p>
+<pre><code class="language-python">plt.figure(figsize=(8,6))
+sns.countplot(data=gapminder, x=&quot;continent&quot;, palette=&quot;pastel&quot;, edgecolor=&quot;black&quot;)
+plt.title(&quot;Gapminderデータセット：各大陸のレコード数&quot;)
+plt.xlabel(&quot;大陸&quot;)
+plt.ylabel(&quot;カウント&quot;)
+plt.show()
 </code></pre>
-<p>... <code>fruits_counted</code> has a variable <code>count</code> which represent the "pre-counted" values of each fruit. </p>
-<pre><code>fruits_counted
+<p>このグラフは、各大陸に該当するレコード数（＝その大陸に属する国の数×観測年数）がどの程度かを示しています。棒同士の間には適度な隙間があり、各カテゴリーの頻度を比較しやすくなっています。</p>
+<h3 id="_16">事前集計済みデータから棒グラフを作成する</h3>
+<p>一方、データが「事前集計済み」である場合、つまり各カテゴリーのカウントが既に計算されている場合は、Seaborn の <code>barplot()</code> を使用して棒グラフを作成します。</p>
+<p>まず、continent ごとのレコード数を集計してみます。</p>
+<pre><code class="language-python"># 大陸ごとのレコード数を計算
+continent_counts = gapminder.groupby(&quot;continent&quot;).size().reset_index(name=&quot;count&quot;)
+print(continent_counts)
 </code></pre>
-<p>Depending on how your categorical data is represented, you'll need to add a different <code>geom</code>etric layer type to your <code>ggplot()</code> to create a barplot, as we now explore. </p>
-<h3 id="barplots-via-geom_bar-or-geom_col">Barplots via <code>geom_bar</code> or <code>geom_col</code></h3>
-<p>Let's generate barplots using these two different representations of the same basket of fruit: 3 apples and 2 oranges. Using the <code>fruits</code> data frame where all 5 fruits are listed individually in 5 rows, we map the <code>fruit</code> variable to the x-position aesthetic and add a \index{ggplot2!geom_bar()} <code>geom_bar()</code> layer:</p>
-<pre><code>ggplot(data = fruits, mapping = aes(x = fruit)) +
-  geom_bar()
+<p>次に、事前集計済みのデータを用いて棒グラフを描画します。</p>
+<pre><code class="language-python">plt.figure(figsize=(8,6))
+sns.barplot(data=continent_counts, x=&quot;continent&quot;, y=&quot;count&quot;, palette=&quot;pastel&quot;, edgecolor=&quot;black&quot;)
+plt.title(&quot;Gapminderデータセット：大陸ごとのレコード数（事前集計済み）&quot;)
+plt.xlabel(&quot;大陸&quot;)
+plt.ylabel(&quot;カウント&quot;)
+plt.show()
 </code></pre>
-<p>However, using the <code>fruits_counted</code> data frame where the fruits have been "pre-counted", we once again map the <code>fruit</code> variable to the x-position aesthetic, but here we also map the <code>count</code> variable to the y-position aesthetic, and add a \index{ggplot2!geom_col()} <code>geom_col()</code> layer instead.</p>
-<pre><code>ggplot(data = fruits_counted, mapping = aes(x = fruit, y = number)) +
-  geom_col()
+<p>この方法では、各カテゴリーのカウントが既に <code>count</code> 変数に記録されているため、<code>barplot()</code> の <code>y</code> 軸にその変数を指定します。
+結果として、未集計のデータを用いた <code>countplot()</code> と同じグラフが得られます。</p>
+<h3 id="4">4. 追加例：特定の年における棒グラフ</h3>
+<p>Gapminder のデータセットは複数年のデータを含むため、例えば特定の年（例：2007年）のデータに絞って、各大陸の「国数」を可視化することも可能です。2007年のデータは各国1レコードで表されるので、各大陸における国数を示す棒グラフになります。</p>
+<pre><code class="language-python"># 2007年のデータに絞る
+gapminder_2007 = gapminder[gapminder[&quot;year&quot;] == 2007]
+
+plt.figure(figsize=(8,6))
+sns.countplot(data=gapminder_2007, x=&quot;continent&quot;, palette=&quot;pastel&quot;, edgecolor=&quot;black&quot;)
+plt.title(&quot;Gapminderデータセット（2007年）：各大陸の国数&quot;)
+plt.xlabel(&quot;大陸&quot;)
+plt.ylabel(&quot;国数&quot;)
+plt.show()
 </code></pre>
-<p>Compare the barplots in Figures \@ref(fig:geombar) and \@ref(fig:geomcol). They are identical because they reflect counts of the same five fruits. However, depending on how our categorical data is represented, either "pre-counted" or not, we must add a different <code>geom</code> layer. When the categorical variable whose distribution you want to visualize</p>
+<p>このグラフでは、各大陸ごとの国数が比較しやすく表示されます。</p>
+<h3 id="_17">チェック項目</h3>
 <ul>
-<li>Is <em>not</em> pre-counted in your data frame, we use <code>geom_bar()</code>.</li>
-<li>Is pre-counted in your data frame, we use <code>geom_col()</code> with the y-position aesthetic mapped to the variable that has the counts.</li>
+<li>(LC1) ヒストグラムは数値変数の連続的な分布を可視化するのに適していますが、なぜカテゴリカル変数には適していないのでしょうか？</li>
+<li>(LC2) 未集計のデータから棒グラフを作成する場合と、事前集計済みのデータから作成する場合の違いは何ですか？</li>
+<li>(LC3) Gapminder データセットの <code>continent</code> 変数において、どの大陸のレコード数（または国数）が多いか、またその理由について考えてみましょう。</li>
 </ul>
-<p>Let's now go back to the <code>flights</code> data frame in the <code>nycflights13</code> package and visualize the distribution of the categorical variable <code>carrier</code>. In other words, let's visualize the number of domestic flights out of New York City each airline company flew in 2013. Recall from Subsection \@ref(exploredataframes) when you first explored the <code>flights</code> data frame, you saw that each row corresponds to a flight. In other words, the <code>flights</code> data frame is more like the <code>fruits</code> data frame than the <code>fruits_counted</code> data frame because the flights have not been pre-counted by <code>carrier</code>. Thus we should use <code>geom_bar()</code> instead of <code>geom_col()</code> to create a barplot. Much like a <code>geom_histogram()</code>, there is only one variable in the <code>aes()</code> aesthetic mapping: the variable <code>carrier</code> gets mapped to the <code>x</code>-position. As a difference though, histograms have bars that touch whereas bar graphs have white space between the bars going from left to right.</p>
-<p>(ref:geombar) Number of flights departing NYC in 2013 by airline using geom_bar().</p>
-<pre><code>ggplot(data = flights, mapping = aes(x = carrier)) +
-  geom_bar()
-</code></pre>
-<p>Observe in Figure \@ref(fig:flightsbar) that United Airlines (UA), JetBlue Airways (B6), and ExpressJet Airlines (EV) had the most flights depart NYC in 2013. If you don't know which airlines correspond to which carrier codes, then run <code>View(airlines)</code> to see a directory of airlines. For example, B6 is JetBlue Airways. Alternatively, say you had a data frame where the number of flights for each <code>carrier</code> was pre-counted as in Table \@ref(tab:flights-counted).</p>
-<pre><code>flights_counted &lt;- flights %&gt;%
-  group_by(carrier) %&gt;%
-  summarize(number = n())
-kbl(flights_counted,
-  digits = 3,
-  caption = &quot;Number of flights pre-counted for each carrier&quot;,
-  booktabs = TRUE,
-  longtable = TRUE,
-  linesep = &quot;&quot;
-) %&gt;%
-  kable_styling(
-    font_size = ifelse(is_latex_output(), 10, 16),
-    latex_options = c(&quot;hold_position&quot;)
-  )
-</code></pre>
-<p>In order to create a barplot visualizing the distribution of the categorical variable <code>carrier</code> in this case, we would now use <code>geom_col()</code> instead of <code>geom_bar()</code>, with an additional <code>y = number</code> in the aesthetic mapping on top of the <code>x = carrier</code>. The resulting barplot would be identical to Figure \@ref(fig:flightsbar).</p>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why are histograms inappropriate for categorical variables?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What is the difference between histograms and barplots?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> How many Envoy Air flights departed NYC in 2013?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What was the 7th highest airline for departed flights from NYC in 2013? How could we better present the table to get this answer quickly?</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h3 id="must-avoid-pie-charts">Must avoid pie charts!</h3>
-<p>One of the most common plots used to visualize the distribution of categorical data is the \index{pie charts} pie chart. While they may seem harmless enough, pie charts actually present a problem in that humans are unable to judge angles well. As Naomi Robbins describes in her book, <em>Creating More Effective Graphs</em> [@robbins2013], we overestimate angles greater than 90 degrees and we underestimate angles less than 90 degrees. In other words, it is difficult for us to determine the relative size of one piece of the pie compared to another.  </p>
-<p>Let's examine the same data used in our previous barplot of the number of flights departing NYC by airline in Figure \@ref(fig:flightsbar), but this time we will use a pie chart in Figure \@ref(fig:carrierpie). Try to answer the following questions:</p>
+<h3 id="_18">まとめ</h3>
+<p>棒グラフは、カテゴリカル変数の各カテゴリーの出現頻度を直感的に示すグラフです。</p>
 <ul>
-<li>How much larger is the portion of the pie for ExpressJet Airlines (<code>EV</code>)  compared to US Airways (<code>US</code>)? </li>
-<li>What is the third largest carrier in terms of departing flights?</li>
-<li>How many carriers have fewer flights than United Airlines (<code>UA</code>)?</li>
+<li>未集計データの場合は、Seaborn の countplot() を用いることで自動的に頻度を計算・表示できます。</li>
+<li>事前集計済みデータの場合は、barplot() を用いて、あらかじめ計算されたカウントをプロットします。</li>
 </ul>
-<pre><code>if (is_html_output()) {
-  ggplot(flights, mapping = aes(x = factor(1), fill = carrier)) +
-    geom_bar(width = 1) +
-    coord_polar(theta = &quot;y&quot;) +
-    theme(
-      axis.title.x = element_blank(),
-      axis.title.y = element_blank(),
-      axis.ticks = element_blank(),
-      axis.text.y = element_blank(),
-      axis.text.x = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank()
-    ) +
-    guides(fill = guide_legend(keywidth = 0.8, keyheight = 0.8))
-} else {
-  ggplot(flights, mapping = aes(x = factor(1), fill = carrier)) +
-    geom_bar(width = 1) +
-    coord_polar(theta = &quot;y&quot;) +
-    theme_light() +
-    theme(
-      axis.title.x = element_blank(),
-      axis.title.y = element_blank(),
-      axis.ticks = element_blank(),
-      axis.text.y = element_blank(),
-      axis.text.x = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank()
-    ) +
-    guides(fill = guide_legend(keywidth = 0.8, keyheight = 0.8)) +
-    scale_fill_grey()
-}
-</code></pre>
-<p>While it is quite difficult to answer these questions when looking at the pie chart in Figure \@ref(fig:carrierpie), we can much more easily answer these questions using the barchart in Figure \@ref(fig:flightsbar). This is true since barplots present the information in a way such that comparisons between categories can be made with single horizontal lines, whereas pie charts present the information in a way such that comparisons must be made by \index{pie charts!problems with} comparing angles. </p>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why should pie charts be avoided and replaced by barplots?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why do you think people continue to use pie charts?</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h3 id="two-categorical-variables-two-categ-barplot">Two categorical variables {#two-categ-barplot}</h3>
-<p>Barplots are a very common way to visualize the frequency of different categories, or levels, of a single categorical variable. Another use of barplots is to visualize the <em>joint</em> distribution of two categorical variables at the same time.  Let's examine the <em>joint</em> distribution of outgoing domestic flights from NYC by <code>carrier</code> as well as <code>origin</code>. In other words, the number of flights for each <code>carrier</code> and <code>origin</code> combination. </p>
-<p>For example, the number of WestJet flights from <code>JFK</code>, the number of WestJet flights from <code>LGA</code>, the number of WestJet flights from <code>EWR</code>, the number of American Airlines flights from <code>JFK</code>, and so on. Recall the <code>ggplot()</code> code that created the barplot of <code>carrier</code> frequency in Figure \@ref(fig:flightsbar):</p>
-<pre><code>ggplot(data = flights, mapping = aes(x = carrier)) + 
-  geom_bar()
-</code></pre>
-<p>We can now map the additional variable <code>origin</code> by adding a <code>fill = origin</code> inside the <code>aes()</code> aesthetic mapping.</p>
-<pre><code>ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
-  geom_bar()
-</code></pre>
-<pre><code>if (is_html_output()) {
-  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
-    geom_bar()
-} else {
-  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
-    geom_bar() +
-    scale_fill_grey()
-}
-</code></pre>
-<p>Figure \@ref(fig:flights-stacked-bar) is an example of a \index{barplot!stacked} <em>stacked barplot</em>.  While simple to make, in certain aspects it is not ideal. For example, it is difficult to compare the heights of the different colors between the bars, corresponding to comparing the number of flights from each <code>origin</code> airport between the carriers.</p>
-<p>Before we continue, let's address some common points of confusion among new R users. First, the <code>fill</code> aesthetic corresponds to the color used to fill the bars, while the <code>color</code> aesthetic corresponds to the color of the outline of the bars. This is identical to how we added color to our histogram in Subsection \@ref(geomhistogram): we set the outline of the bars to white by setting <code>color = "white"</code> and the colors of the bars to blue steel by setting <code>fill = "steelblue"</code>. Observe in Figure \@ref(fig:flights-stacked-bar-color) that mapping <code>origin</code> to <code>color</code> and not <code>fill</code> yields grey bars with different colored outlines.</p>
-<pre><code>ggplot(data = flights, mapping = aes(x = carrier, color = origin)) +
-  geom_bar()
-</code></pre>
-<pre><code>if (is_html_output()) {
-  ggplot(data = flights, mapping = aes(x = carrier, color = origin)) +
-    geom_bar()
-} else {
-  ggplot(data = flights, mapping = aes(x = carrier, color = origin)) +
-    geom_bar() +
-    scale_color_grey()
-}
-</code></pre>
-<p>Second, note that <code>fill</code> is another aesthetic mapping much like <code>x</code>-position; thus we were careful to include it within the parentheses of the <code>aes()</code> mapping. The following code, where the <code>fill</code> aesthetic is specified outside the <code>aes()</code> mapping will yield an error. This is a fairly common error that new <code>ggplot</code> users make:</p>
-<pre><code>ggplot(data = flights, mapping = aes(x = carrier), fill = origin) +
-  geom_bar()
-</code></pre>
-<p>An alternative to stacked barplots are \index{barplot!side-by-side} <em>side-by-side barplots</em>, also known as <em>dodged barplots</em>, as seen in Figure \@ref(fig:flights-dodged-bar-color). The code to create a side-by-side barplot is identical to the code to create a stacked barplot, but with a \index{ggplot2!position} <code>position = "dodge"</code> argument added to <code>geom_bar()</code>. In other words, we are overriding the default barplot type, which is a <em>stacked</em> barplot, and specifying it to be a side-by-side barplot instead.</p>
-<pre><code>ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
-  geom_bar(position = &quot;dodge&quot;)
-</code></pre>
-<pre><code>if (is_html_output()) {
-  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
-    geom_bar(position = &quot;dodge&quot;)
-} else {
-  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
-    geom_bar(position = &quot;dodge&quot;) +
-    scale_fill_grey()
-}
-</code></pre>
-<p>Note the width of the bars for <code>AS</code>, <code>F9</code>, <code>FL</code>, <code>HA</code> and <code>YV</code> is different than the others. We can make one tweak to the <code>position</code> argument to get them to be the same size in terms of width as the other bars by using the more robust <code>position_dodge()</code> function.</p>
-<pre><code>ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
-  geom_bar(position = position_dodge(preserve = &quot;single&quot;))
-</code></pre>
-<pre><code>if (is_html_output()) {
-  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
-    geom_bar(position = position_dodge(preserve = &quot;single&quot;))
-} else {
-  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
-    geom_bar(position = position_dodge(preserve = &quot;single&quot;)) +
-    scale_fill_grey()
-}
-</code></pre>
-<p>Lastly, another type of barplot is a \index{barplot!faceted} <em>faceted barplot</em>. Recall in Section \@ref(facets) we visualized the distribution of hourly temperatures at the 3 NYC airports <em>split</em> by month using facets. We apply the same principle to our barplot visualizing the frequency of <code>carrier</code> split by <code>origin</code>: instead of mapping <code>origin</code> to <code>fill</code> we include it as the variable to create small multiples of the plot across the levels of <code>origin</code>.</p>
-<pre><code>ggplot(data = flights, mapping = aes(x = carrier)) +
-  geom_bar() +
-  facet_wrap(~ origin, ncol = 1)
-</code></pre>
-<pre><code>month_facet_ncol &lt;- ggplot(data = flights, mapping = aes(x = carrier)) +
-  geom_bar() +
-  facet_wrap(~origin, ncol = 1)
+<p>Gapminder のデータセットを用いた例では、continent の各カテゴリーの頻度や、特定の年における国数など、さまざまな角度からカテゴリカル変数の分布を視覚化する方法を確認しました。これにより、データ全体の傾向や、グループ間の比較が容易になります。</p>
+<h1 id="_19">データ可視化のまとめ</h1>
+<p>本章では、以下の 5 つの代表的なグラフ（5NG）を通じて、さまざまなデータの分布や変数間の関係性を視覚化する方法を学びました。これらのグラフを駆使することで、あらゆるデータセットの特徴を直感的に把握できるようになります。また、さらに多くの変数を各プロットの美的属性（色、形、大きさなど）にマッピングすることで、視覚的表現の可能性は無限に広がります。</p>
+<table>
+<thead>
+<tr>
+<th>グラフの種類</th>
+<th>表示内容</th>
+<th>ジオメトリックオブジェクト</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>散布図</td>
+<td>2つの数値変数間の関係性</td>
+<td><code>plt.scatter()</code> または <code>sns.scatterplot()</code></td>
+<td></td>
+</tr>
+<tr>
+<td>折れ線グラフ</td>
+<td>2つの数値変数間の関係性</td>
+<td><code>plt.plot()</code> または <code>sns.lineplot()</code></td>
+<td>x軸に順序がある場合（例：時間）に使用</td>
+</tr>
+<tr>
+<td>ヒストグラム</td>
+<td>1つの数値変数の分布</td>
+<td><code>plt.hist()</code> または <code>sns.histplot()</code></td>
+<td>ファセットヒストグラムは、別の変数の値で分割した数値変数の分布を表示するのに用いられる</td>
+</tr>
+<tr>
+<td>箱ひげ図</td>
+<td>1つの数値変数の分布を、別の変数で分割して表示</td>
+<td><code>plt.boxplot()</code> または <code>sns.boxplot()</code></td>
+<td></td>
+</tr>
+<tr>
+<td>棒グラフ</td>
+<td>1つのカテゴリカル変数の分布</td>
+<td>未集計データの場合：<code>sns.countplot()</code><br>事前集計済みデータの場合：<code>sns.barplot()</code></td>
+<td>積み上げ、並列、ファセット棒グラフを用いると、2つのカテゴリカル変数の同時分布も表現可能</td>
+</tr>
+</tbody>
+</table>
+<h3 id="function-argument-specification">Function argument specification: 関数引数の指定</h3>
+<p>Python の多くの関数は、キーワード引数を使用してパラメータを受け取ります。例えば、Seaborn のプロット関数では、引数の順序に依存せず、以下のように引数名を入れ替えても同じ結果が得られます。</p>
+<pre><code class="language-python">import seaborn as sns
 
-if (is_latex_output()) {
-  month_facet_ncol +
-    theme(
-      strip.text = element_text(colour = &quot;black&quot;),
-      strip.background = element_rect(fill = &quot;grey93&quot;)
-    )
-} else {
-  month_facet_ncol
-}
-</code></pre>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What kinds of questions are not easily answered by looking at Figure \@ref(fig:flights-stacked-bar)?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What can you say, if anything, about the relationship between airline and airport in NYC in 2013 in regards to the number of departing flights?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why might the side-by-side barplot be preferable to a stacked barplot in this case?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What are the disadvantages of using a dodged barplot, in general?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why is the faceted barplot preferred to the side-by-side and stacked barplots in this case?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What information about the different carriers at different airports is more easily seen in the faceted barplot?</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h3 id="summary">Summary</h3>
-<p>Barplots are a common way of displaying the distribution of a categorical variable, or in other words the frequency with which the different categories (also called <em>levels</em>) occur.  They are easy to understand and make it easy to make comparisons across levels.  Furthermore, when trying to visualize the relationship of two categorical variables, you have many options: stacked barplots, side-by-side barplots, and faceted barplots. Depending on what aspect of the relationship you are trying to emphasize, you will need to make a choice between these three types of barplots and own that choice.</p>
-<h2 id="conclusion-data-vis-conclusion">Conclusion {#data-vis-conclusion}</h2>
-<h3 id="summary-table">Summary table</h3>
-<p>Let's recap all five of the five named graphs (5NG) \index{five named graphs} in Table \@ref(tab:viz-summary-table) summarizing their differences. Using these 5NG, you'll be able to visualize the distributions and relationships of variables contained in a wide array of datasets. This will be even more the case as we start to map more variables to more of each <code>geom</code>etric object's <code>aes</code>thetic attribute options, further unlocking the awesome power of the <code>ggplot2</code> package.</p>
-<pre><code># The following Google Doc is published to CSV and loaded using read_csv():
-# https://docs.google.com/spreadsheets/d/1vzqlFiT6qm5wzy_L_0nL7EWAd6jiUZmLSCFhDhztDSg/edit#gid=0
+# セグメント 1: data と x を明示的に指定
+sns.countplot(data=gapminder, x=&quot;continent&quot;)
 
-if (!file.exists(&quot;rds/summary_table_ch2.rds&quot;)) {
-  summary_table_ch3 &lt;-
-    &quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRGaUW6EMIGPhg2V7CahoSdVi_JCcESFRYV5tov6bjcwOcn7DZDzfpZgrvjfFG6PV57gcJYIrwl_Q2c/pub?gid=0&amp;single=true&amp;output=csv&quot; %&gt;%
-    read_csv(na = &quot;&quot;)
-  summary_table_ch3$Notes[2] &lt;- &quot;Used when there is a sequential order to x-variable, e.g., time&quot;
-  write_rds(summary_table_ch3, &quot;rds/summary_table_ch2.rds&quot;)
-} else {
-  summary_table_ch2 &lt;- read_rds(&quot;rds/summary_table_ch2.rds&quot;) %&gt;%
-    rename(` ` = `X1`)
-}
+# セグメント 2: 引数の順序を入れ替えても、キーワード引数なので同じ結果に
+sns.countplot(x=&quot;continent&quot;, data=gapminder)
+</code></pre>
+<p>上記の例のように、Python ではキーワード引数の順序は任意であり、コードの読みやすさを重視して好みのスタイルで記述できます。</p>
+<h3 id="_20">追加のリソース</h3>
+<p>データ可視化の力をさらに引き出すため、以下のリソースを参考にしてください。</p>
+<ul>
+<li>
+<p>Seaborn ドキュメント: https://seaborn.pydata.org/
+    Seaborn の使い方や豊富なプロット例が掲載されています。</p>
+</li>
+<li>
+<p>Matplotlib チートシート: https://matplotlib.org/stable/cheatsheets/index.html
+    Matplotlib の主要な関数や設定方法を簡潔にまとめた資料です。</p>
+</li>
+</ul>
+<p>これらの資料は、基本的なグラフ作成の知識を超えて、さらに高度な視覚化技法を習得する際に大いに役立ちます。</p>
+<h2 id="_21">次の話題</h2>
+<p>これまで、散布図、折れ線グラフ、ヒストグラム、箱ひげ図、棒グラフという 5 つの基本的なグラフを用いて、データの分布や変数間の関係性を視覚化する方法を学びました。
+次の章では、データ前処理・整形（Data Wrangling） に焦点を当て、Pandas を用いたデータのフィルタリングや変換方法を詳しく解説します。
+たとえば、以下のようなコードで、データの部分集合を作成し、可視化に活用する方法を学びます。</p>
+<pre><code class="language-python">import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-if (is_latex_output()) {
-  summary_table_ch2 %&gt;%
-    # Weird tick marks show up in PDF:
-    mutate(`Geometric object` = str_replace_all(`Geometric object`, &quot;`&quot;, &quot;&quot;)) %&gt;%
-    kbl(
-      caption = &quot;Summary of Five Named Graphs&quot;,
-      booktabs = TRUE,
-      format = &quot;latex&quot;,
-      linesep = &quot;&quot;
-    ) %&gt;%
-    kable_styling(font_size = 10) %&gt;%
-    column_spec(3, width = &quot;1.1in&quot;) %&gt;%
-    column_spec(4, width = &quot;1.2in&quot;) %&gt;%
-    column_spec(5, width = &quot;1.6in&quot;)
-} else {
-  summary_table_ch2 %&gt;%
-    kbl(
-      caption = &quot;Summary of Five Named Graphs&quot;,
-      booktabs = TRUE,
-      format = &quot;html&quot;
-    )
-}
-</code></pre>
-<h3 id="function-argument-specification">Function argument specification</h3>
-<p>Let's go over some important points about specifying the arguments (i.e., inputs) to functions. Run the following two segments of code:</p>
-<pre><code># Segment 1:
-ggplot(data = flights, mapping = aes(x = carrier)) +
-  geom_bar()
+# 例 1: flights データセットから Alaska Airlines のデータのみを抽出
+alaska_flights = flights[flights[&quot;carrier&quot;] == &quot;AS&quot;]
+sns.scatterplot(data=alaska_flights, x=&quot;dep_delay&quot;, y=&quot;arr_delay&quot;)
+plt.title(&quot;Alaska Airlines の出発遅延と到着遅延の関係&quot;)
+plt.show()
 
-# Segment 2:
-ggplot(flights, aes(x = carrier)) +
-  geom_bar()
+# 例 2: weather データセットから Newark 空港 (EWR) の 1 月上旬のデータのみを抽出
+early_january_weather = weather[(weather[&quot;origin&quot;] == &quot;EWR&quot;) &amp; (weather[&quot;month&quot;] == 1) &amp; (weather[&quot;day&quot;] &lt;= 15)]
+sns.lineplot(data=early_january_weather, x=&quot;time_hour&quot;, y=&quot;temp&quot;)
+plt.title(&quot;Newark 空港 1 月上旬の温度変化&quot;)
+plt.show()
 </code></pre>
-<p>You'll notice that both code segments create the same barplot, even though in the second segment we omitted the <code>data =</code> and <code>mapping =</code> code argument names. This is because the <code>ggplot()</code> function by default assumes that the <code>data</code> argument comes first and the <code>mapping</code> argument comes second. \index{functions!argument order} As long as you specify the data frame in question first and the <code>aes()</code> mapping second, you can omit the explicit statement of the argument names <code>data =</code> and <code>mapping =</code>. </p>
-<p>Going forward for the rest of this book, all <code>ggplot()</code> code will be like the second segment: with the <code>data =</code> and <code>mapping =</code> explicit naming of the argument omitted with the default ordering of arguments respected. We'll do this for brevity's sake; it's common to see this style when reviewing other R users' code.</p>
-<h3 id="additional-resources">Additional resources</h3>
-<pre><code>if (is_latex_output()) {
-  cat(&quot;Solutions to all *Learning checks* can be found online in [Appendix D](https://moderndive.com/D-appendixD.html).&quot;)
-}
-</code></pre>
-<pre><code>generate_r_file_link(&quot;02-visualization.R&quot;)
-</code></pre>
-<p>If you want to further unlock the power of the <code>ggplot2</code> package for data visualization, we suggest that you check out RStudio's "Data Visualization with ggplot2" cheatsheet. This cheatsheet summarizes much more than what we've discussed in this chapter. In particular, it presents many more than the 5 <code>geom</code>etric objects we covered in this chapter while providing quick and easy to read visual descriptions. For all the <code>geom</code>etric objects, it also lists all the possible aesthetic attributes one can tweak. In the current version of RStudio in mid 2024, you can access this cheatsheet by going to the RStudio Menu Bar -&gt; Help -&gt; Cheatsheets -&gt; "Data Visualization with ggplot2." <code>r if(is_html_output()) "You can see a preview in the figure below."</code> Alternatively, you can preview the cheat sheet by going to the ggplot2 Github page with this <a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf">link</a>.</p>
-<pre><code>if (is_html_output()) {
-  include_graphics(&quot;images/cheatsheets/ggplot_cheatsheet-1.png&quot;)
-}
-</code></pre>
-<h3 id="whats-to-come-whats-to-come-3">What's to come {#whats-to-come-3}</h3>
-<pre><code># This redundant code is used for dynamic non-static in-line text output purposes
-flights_rows &lt;- flights %&gt;%
-  nrow() %&gt;%
-  comma()
-alaska_flights_rows &lt;- flights %&gt;%
-  filter(carrier == &quot;AS&quot;) %&gt;%
-  nrow() %&gt;%
-  comma()
-</code></pre>
-<p>Recall in Figure \@ref(fig:noalpha) in Section \@ref(scatterplots) we visualized the relationship between departure delay and arrival delay for Alaska Airlines flights only, rather than <em>all</em> flights. This data is saved in the <code>alaska_flights</code> data frame from the <code>moderndive</code> package.</p>
-<p>In reality, the <code>alaska_flights</code> data frame is merely a subset of the <code>flights</code> data frame from the <code>nycflights13</code> package consisting of <em>all</em> flights that left NYC in 2013. We created <code>alaska_flights</code> using the following code that uses the <code>dplyr</code> package for data wrangling:</p>
-<pre><code>library(dplyr)
-
-alaska_flights &lt;- flights %&gt;% 
-  filter(carrier == &quot;AS&quot;)
-
-ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
-  geom_point()
-</code></pre>
-<p>This code takes the <code>flights</code> data frame and <code>filter()</code> it to only return the <code>r alaska_flights_rows</code> rows where <code>carrier</code> is equal to <code>"AS"</code>, Alaska Airlines' carrier code. (Recall from Section \@ref(code) that testing for equality is specified with \index{using == instead of =} <code>==</code> and not <code>=</code>.) The code then cycles back to save the output in a new data frame called <code>alaska_flights</code> using the <code>&lt;-</code> <em>assignment</em> operator\index{operators!assignment (&lt;-)}. </p>
-<p>Similarly, recall in Figure \@ref(fig:hourlytemp) in Section \@ref(linegraphs) we visualized hourly temperature recordings at Newark airport only for the first 15 days of January 2013. This data is saved in the <code>early_january_weather</code> data frame from the <code>moderndive</code> package.</p>
-<p>In reality, the <code>early_january_weather</code> data frame is merely a subset of the <code>weather</code> data frame from the <code>nycflights13</code> package consisting of <em>all</em> hourly weather observations in 2013 for <em>all</em> three NYC airports. We created <code>early_january_weather</code> using the following <code>dplyr</code> code:  </p>
-<pre><code>early_january_weather &lt;- weather %&gt;% 
-  filter(origin == &quot;EWR&quot; &amp; month == 1 &amp; day &lt;= 15)
-
-ggplot(data = early_january_weather, mapping = aes(x = time_hour, y = temp)) +
-  geom_line()
-</code></pre>
-<p>This code pares down the <code>weather</code> data frame to a new data frame <code>early_january_weather</code> consisting of hourly temperature recordings only for <code>origin == "EWR"</code>, <code>month == 1</code>, and day less than or equal to <code>15</code>. </p>
-<p>These two code segments are a preview of Chapter \@ref(wrangling) on data wrangling using the <code>dplyr</code> package. Data wrangling is the process of transforming and modifying existing data with the intent of making it more appropriate for analysis purposes. For example, these two code segments used the <code>filter()</code> function to create new data frames (<code>alaska_flights</code> and <code>early_january_weather</code>) by choosing only a subset of rows of existing data frames (<code>flights</code> and <code>weather</code>). In the next chapter, we'll formally introduce the <code>filter()</code> and other data wrangling functions as well as the <em>pipe operator</em> <code>%&gt;%</code> which allows you to combine multiple data wrangling actions into a single sequential <em>chain</em> of actions. On to Chapter \@ref(wrangling) on data wrangling!</p>
+<p>上記の例は、Pandas を用いたデータの抽出と、Seaborn を用いた可視化の基本的な連携例です。次章では、これらのデータ整形技法をより詳細に学び、複雑なデータ分析や可視化のための下地を作っていきます。</p>
+<hr />
+<p>これで本章のまとめと、今後の展開についての概要を終わります。
+次の章では、データの前処理と変換を通じて、より効果的なデータ分析の基盤を構築していきましょう！</p>
 
 
 
