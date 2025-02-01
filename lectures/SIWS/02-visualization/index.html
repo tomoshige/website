@@ -971,15 +971,15 @@ plt.legend(title='Continent', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.show()
 </code></pre>
 <p>このとき、グラフのタイトルをみると、日本語が表示できていないことがわかりますね。これは、非常によく起きる問題です。pythonでは、これを以下のパッケージをインストールすることで解消することができます。</p>
-<pre><code class="language-python">    !pip install japanize-matplotlib
+<pre><code class="language-python">!pip install japanize-matplotlib
 </code></pre>
 <p>インストールした後で、最初の <code>import</code> 部分を次のように変更しましょう。</p>
-<pre><code class="language-python">    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    import japanize_matplotlib
-    import seaborn as sns
-    from gapminder import gapminder
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+import seaborn as sns
+from gapminder import gapminder
 </code></pre>
 <p>これで日本語が表示されるはずです。次に、このプロットを詳しく見ていきましょう。</p>
 <ul>
@@ -1119,248 +1119,207 @@ plt.show()
 <p>折れ線グラフは、時間や順序性のある変数をx軸にとることで、連続したデータの変化を効果的に表現できます。
 ここでは、seabornのflightsデータセットを使用し、year と month から作成した日時型の変数を用いて、1949年から1960年までの月ごとの乗客数の推移を線グラフで可視化しました。
 この手法は、時系列データの分析やトレンドの把握に非常に有用です。</p>
-<h2 id="5ng3-histograms-histograms">5NG#3: Histograms {#histograms}</h2>
-<p>Let's consider the <code>temp</code> variable in the <code>weather</code> data frame once again, but unlike with the linegraphs in Section \@ref(linegraphs), let's say we don't care about its relationship with time, but rather we only care about how the values of <code>temp</code> <em>distribute</em>. In other words:</p>
+<h2 id="5ng3-histograms">5NG#3: ヒストグラム (Histograms)</h2>
+<p>ヒストグラムは、1つの数値変数の分布を視覚化するためのグラフです。  ここでは、seaborn に組み込まれている <strong>titanic</strong> データセットを用い、乗客の <strong>age</strong>（年齢）の分布に注目します。  ヒストグラムを使うことで、以下のような点を確認できます。</p>
 <ol>
-<li>What are the smallest and largest values?</li>
-<li>What is the "center" or "most typical" value?</li>
-<li>How do the values spread out?</li>
-<li>What are frequent and infrequent values?</li>
+<li>最小値と最大値はどこか？</li>
+<li>中心や「最も典型的な」値はどこか？</li>
+<li>値の広がりはどの程度か？</li>
+<li>頻出値と稀な値はどこか？</li>
 </ol>
-<p>One way to visualize this <em>distribution</em> \index{distribution} of this single variable <code>temp</code> is to plot them on a horizontal line as we do in Figure \@ref(fig:temp-on-line):</p>
-<pre><code>ggplot(data = weather, mapping = aes(x = temp, y = factor(&quot;A&quot;))) +
-  geom_point() +
-  theme(
-    axis.ticks.y = element_blank(),
-    axis.title.y = element_blank(),
-    axis.text.y = element_blank()
-  )
-hist_title &lt;- &quot;Histogram of Hourly Temperature Recordings from NYC in 2013&quot;
-</code></pre>
-<p>This gives us a general idea of how the values of <code>temp</code> distribute: observe that temperatures vary from around <code>r round(min(weather$temp, na.rm = TRUE), 0)</code>&deg;F (-11&deg;C) up to <code>r round(max(weather$temp, na.rm = TRUE), 0)</code>&deg;F (38&deg;C).  Furthermore, there appear to be more recorded temperatures between 40&deg;F and 60&deg;F than outside this range. However, because of the high degree of overplotting in the points, it's hard to get a sense of exactly how many values are between say 50&deg;F and 55&deg;F.</p>
-<p>What is commonly produced instead of Figure \@ref(fig:temp-on-line) is known as a \index{histograms} <em>histogram</em>.  A histogram is a plot that visualizes the <em>distribution</em> of a numerical value as follows:</p>
-<ol>
-<li>We first cut up the x-axis into a series of \index{histograms!bins} <em>bins</em>, where each bin represents a range of values. </li>
-<li>For each bin, we count the number of observations that fall in the range corresponding to that bin.</li>
-<li>Then for each bin, we draw a bar whose height marks the corresponding count.</li>
-</ol>
-<p>Let's drill-down on an example of a histogram, shown in Figure \@ref(fig:histogramexample).</p>
-<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(binwidth = 10, boundary = 70, color = &quot;white&quot;)
-</code></pre>
-<p>Let's focus only on temperatures between 30&deg;F (-1&deg;C) and 60&deg;F (15&deg;C) for now. Observe that there are three bins of equal width between 30&deg;F and 60&deg;F. Thus we have three bins of width 10&deg;F each: one bin for the 30-40&deg;F range, another bin for the 40-50&deg;F range, and another bin for the 50-60&deg;F range. Since:</p>
-<ol>
-<li>The bin for the 30-40&deg;F range has a height of around 5000. In other words, around 5000 of the hourly temperature recordings are between 30&deg;F and 40&deg;F.</li>
-<li>The bin for the 40-50&deg;F range has a height of around 4300. In other words, around 4300 of the hourly temperature recordings are between 40&deg;F and 50&deg;F.</li>
-<li>The bin for the 50-60&deg;F range has a height of around 3500. In other words, around 3500 of the hourly temperature recordings are between 50&deg;F and 60&deg;F.</li>
-</ol>
-<p>All nine bins spanning 10&deg;F to 100&deg;F on the x-axis have this interpretation.</p>
-<h3 id="histograms-via-geom_histogram-geomhistogram">Histograms via <code>geom_histogram</code> {#geomhistogram}</h3>
-<p>Let's now present the <code>ggplot()</code> code to plot your first histogram! Unlike with scatterplots and linegraphs, there is now only one variable being mapped in <code>aes()</code>: the single numerical variable <code>temp</code>. The y-aesthetic of a histogram, the count of the observations in each bin, gets computed for you automatically. Furthermore, the geometric object layer is now a <code>geom_histogram()</code>. \index{ggplot2!geom_histogram()} After running the following code, you'll see the histogram in Figure \@ref(fig:weather-histogram) as well as warning messages. We'll discuss the warning messages first. </p>
-<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram()
-</code></pre>
-<p>The first message is telling us that the histogram was constructed using <code>bins = 30</code> for 30 equally spaced bins. This is known in computer programming as a default value; unless you override this default number of bins with a number you specify, R will choose 30 by default. We'll see in the next section how to change the number of bins to another value than the default.</p>
-<p>The second message is telling us something similar to the warning message we received when we ran the code to create a scatterplot of departure and arrival delays for Alaska Airlines flights in Figure \@ref(fig:noalpha): that because one row has a missing <code>NA</code> value for <code>temp</code>, it was omitted from the histogram. R is just giving us a friendly heads up that this was the case. </p>
-<p>Now let's unpack the resulting histogram in Figure \@ref(fig:weather-histogram). Observe that values less than 25&deg;F as well as values above 80&deg;F are rather rare. However, because of the large number of bins, it's hard to get a sense for which range of temperatures is spanned by each bin; everything is one giant amorphous blob. So let's add white vertical borders demarcating the bins by adding a <code>color = "white"</code> argument to <code>geom_histogram()</code> and ignore the warning about setting the number of bins to a better value:</p>
-<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(color = &quot;white&quot;)
-</code></pre>
-<p>We now have an easier time associating ranges of temperatures to each of the bins in Figure \@ref(fig:weather-histogram-2). We can also vary the color of the bars by setting the \index{ggplot2!fill} <code>fill</code> argument. For example, you can set the bin colors to be "blue steel" by setting <code>fill = "steelblue"</code>:</p>
-<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(color = &quot;white&quot;, fill = &quot;steelblue&quot;)
-</code></pre>
-<p>If you're curious, run \index{colors()} <code>colors()</code> to see all <code>r colors() %&gt;% length()</code> possible choice of colors in R!</p>
-<h3 id="adjusting-the-bins-adjustbins">Adjusting the bins {#adjustbins}</h3>
-<p>Observe in Figure \@ref(fig:weather-histogram-2) that in the 50-75&deg;F range there appear to be roughly 8 bins. Thus each bin has width 25 divided by 8, or  3.125&deg;F, which is not a very easily interpretable range to work with. Let's improve this by adjusting the number of bins in our histogram in one of two ways:</p>
-<ol>
-<li>By adjusting the number of bins via the \index{geom_histogram()!bins} <code>bins</code> argument to <code>geom_histogram()</code>. </li>
-<li>By adjusting the width of the bins via the \index{geom_histogram()!binwidth} <code>binwidth</code> argument to <code>geom_histogram()</code>. </li>
-</ol>
-<p>Using the first method, we have the power to specify how many bins we would like to cut the x-axis up in. As mentioned in the previous section, the default number of bins is 30. We can override this default, to say 40 bins, as follows:</p>
-<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(bins = 40, color = &quot;white&quot;)
-</code></pre>
-<p>Using the second method, instead of specifying the number of bins, we specify the width of the bins by using the <code>binwidth</code> argument in the <code>geom_histogram()</code> layer. For example, let's set the width of each bin to be 10&deg;F.</p>
-<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(binwidth = 10, color = &quot;white&quot;)
-</code></pre>
-<p>We compare both resulting histograms side-by-side in Figure \@ref(fig:hist-bins). </p>
-<pre><code>hist_1 &lt;- ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(bins = 40, color = &quot;white&quot;) +
-  labs(title = &quot;With 40 bins&quot;)
-hist_2 &lt;- ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(binwidth = 10, color = &quot;white&quot;) +
-  labs(title = &quot;With binwidth = 10 degrees F&quot;)
-hist_1 + hist_2
-</code></pre>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What does changing the number of bins from 30 to 40 tell us about the distribution of temperatures?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Would you classify the distribution of temperatures as symmetric or skewed in one direction or another?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What would you guess is the "center" value in this distribution?  Why did you make that choice?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Is this data spread out greatly from the center or is it close?  Why?</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h3 id="summary">Summary</h3>
-<p>Histograms, unlike scatterplots and linegraphs, present information on only a single numerical variable. Specifically, they are visualizations of the distribution of the numerical variable in question. </p>
-<h2 id="facets-facets">Facets {#facets}</h2>
-<p>Before continuing with the next of the 5NG, let's briefly introduce a new concept called <em>faceting</em>.  Faceting is used when we'd like to split a particular visualization by the values of another variable. This will create multiple copies of the same type of plot with matching x and y axes, but whose content will differ. </p>
-<p>For example, suppose we were interested in looking at how the histogram of hourly temperature recordings at the three NYC airports we saw in Figure \@ref(fig:histogramexample) differed in each month. We could "split" this histogram by the 12 possible months in a given year. In other words, we would plot histograms of <code>temp</code> for each <code>month</code> separately. We do this by adding <code>facet_wrap(~ month)</code> layer. Note the <code>~</code> is a "tilde" and can generally be found on the key next to the "1" key on US keyboards. The tilde is required and you'll receive the error <code>Error in as.quoted(facets) : object 'month' not found</code> if you don't include it here. </p>
-<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(binwidth = 5, color = &quot;white&quot;) +
-  facet_wrap(~ month)
-</code></pre>
-<pre><code>month_facet &lt;- ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(binwidth = 5, color = &quot;white&quot;) +
-  facet_wrap(~month)
+<hr />
+<h3 id="1">1. 分布の概要を視覚化する</h3>
+<p>まず、年齢の各観測値を横一列に並べたプロットを作成して、分布の大まかな様子を確認してみます。<br />
+（このプロットは、後述するヒストグラムと比べるとオーバープロットが発生するため、細かい頻度は読み取りにくいですが、全体の広がりを直感的に把握するのに役立ちます。）</p>
+<pre><code class="language-python">import seaborn as sns
+import matplotlib.pyplot as plt
 
-if (is_latex_output()) {
-  month_facet +
-    theme(
-      strip.text = element_text(colour = &quot;black&quot;),
-      strip.background = element_rect(fill = &quot;grey93&quot;)
-    )
-} else {
-  month_facet
-}
-</code></pre>
-<p>We can also specify the number of rows and columns in the grid by using the <code>nrow</code> and <code>ncol</code> arguments inside of \index{ggplot2!facet_wrap()} <code>facet_wrap()</code>. For example, say we would like our faceted histogram to have 4 rows instead of 3. We simply add an <code>nrow = 4</code> argument to <code>facet_wrap(~ month)</code>.</p>
-<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(binwidth = 5, color = &quot;white&quot;) +
-  facet_wrap(~ month, nrow = 4)
-</code></pre>
-<pre><code>month_facet_4 &lt;- ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(binwidth = 5, color = &quot;white&quot;) +
-  facet_wrap(~month, nrow = 4)
+# titanicデータセットの読み込み
+titanic = sns.load_dataset(&quot;titanic&quot;)
 
-if (is_latex_output()) {
-  month_facet_4 +
-    theme(
-      strip.text = element_text(colour = &quot;black&quot;),
-      strip.background = element_rect(fill = &quot;grey93&quot;)
-    )
-} else {
-  month_facet_4
-}
+# NaNの除外（age列には欠損値が含まれています）
+titanic_age = titanic.dropna(subset=[&quot;age&quot;])
+
+# 各年齢の値を横一列に並べる（y座標は固定値）
+plt.figure(figsize=(10, 1))
+sns.stripplot(x=&quot;age&quot;, data=titanic_age, jitter=False, color=&quot;gray&quot;)
+plt.xlabel(&quot;Age&quot;)
+plt.yticks([])  # y軸の目盛りを非表示に
+plt.title(&quot;Titanicデータセット：乗客の年齢の散布図（横一列）&quot;)
+plt.show()
 </code></pre>
-<p>Observe in both Figures \@ref(fig:facethistogram) and \@ref(fig:facethistogram2) that as we might expect in the Northern Hemisphere, temperatures tend to be higher in the summer months, while they tend to be lower in the winter. </p>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
+<p>このプロットでは、各点が個々の乗客の年齢を示しており、年齢の分布の概形を把握できます。
+ただし、多くの点が重なって表示されるため、細かい頻度は見えにくいです。</p>
+<h3 id="2">2. ヒストグラムの作成</h3>
+<p>ヒストグラムでは、x軸（ここでは年齢）をいくつかの「ビン」（区間）に分割し、各区間に含まれる観測値の数（度数）を棒グラフで示します。以下のコードは、デフォルト設定で年齢のヒストグラムを作成する例です。</p>
+<pre><code class="language-python">plt.figure(figsize=(10,6))
+sns.histplot(data=titanic_age, x=&quot;age&quot;)
+plt.title(&quot;Titanicデータセット：乗客の年齢のヒストグラム (デフォルト設定)&quot;)
+plt.xlabel(&quot;Age&quot;)
+plt.ylabel(&quot;Count&quot;)
+plt.show()
 </code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What other things do you notice about this faceted plot?  How does a faceted plot help us see relationships between two variables?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What do the numbers 1-12 correspond to in the plot?  What about 25, 50, 75, 100?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> For which types of datasets would faceted plots not work well in comparing relationships between variables? Give an example describing the nature of these variables and other important characteristics.</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Does the <code>temp</code> variable in the <code>weather</code> dataset have a lot of variability?  Why do you say that?</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
+<p>このプロットでは、seaborn が自動的に30個程度のビンに分割してヒストグラムを描画しています。ただし、ビンの数が多すぎる場合、各ビンの幅が狭くなり、分布が「ごちゃごちゃ」して見えることがあります。</p>
+<h3 id="3">3. ビンの調整</h3>
+<p>ヒストグラムの解釈を容易にするために、ビンの数や幅を調整することができます。以下に、ビンの数とビン幅を変更した例を示します。</p>
+<h4 id="1_1">(1) ビンの数を指定する方法</h4>
+<p>ここでは、bins=20 としてビンの数を20に指定しています。
+また、edgecolor="white" を設定することで、各ビンの境界線を白色にし、区切りを明確にしています。</p>
+<pre><code class="language-python">plt.figure(figsize=(10,6))
+sns.histplot(data=titanic_age, x=&quot;age&quot;, bins=20, color=&quot;steelblue&quot;, edgecolor=&quot;white&quot;)
+plt.title(&quot;Titanicデータセット：乗客の年齢のヒストグラム (20ビン)&quot;)
+plt.xlabel(&quot;Age&quot;)
+plt.ylabel(&quot;Count&quot;)
+plt.show()
 </code></pre>
-<h2 id="5ng4-boxplots-boxplots">5NG#4: Boxplots {#boxplots}</h2>
-<pre><code>n_nov &lt;- weather %&gt;%
-  filter(month == 11) %&gt;%
-  nrow()
-min_nov &lt;- weather %&gt;%
-  filter(month == 11) %&gt;%
-  pull(temp) %&gt;%
-  min(na.rm = TRUE) %&gt;%
-  round(0)
-max_nov &lt;- weather %&gt;%
-  filter(month == 11) %&gt;%
-  pull(temp) %&gt;%
-  max(na.rm = TRUE) %&gt;%
-  round(0)
-quartiles &lt;- weather %&gt;%
-  filter(month == 11) %&gt;%
-  pull(temp) %&gt;%
-  quantile(prob = c(0.25, 0.5, 0.75)) %&gt;%
-  round(0)
-five_number_summary &lt;- tibble(
-  temp = c(min_nov, quartiles, max_nov)
-)
+<h4 id="2_1">(2) ビン幅を指定する方法</h4>
+<p>seaborn の histplot() では、binwidth 引数を使って各ビンの幅を直接指定することも可能です。たとえば、ビン幅を5歳に設定する場合は次のようになります。</p>
+<pre><code class="language-python">plt.figure(figsize=(10,6))
+sns.histplot(data=titanic_age, x=&quot;age&quot;, binwidth=5, color=&quot;steelblue&quot;, edgecolor=&quot;white&quot;)
+plt.title(&quot;Titanicデータセット：乗客の年齢のヒストグラム (ビン幅=5)&quot;)
+plt.xlabel(&quot;Age&quot;)
+plt.ylabel(&quot;Count&quot;)
+plt.show()
 </code></pre>
-<p>While faceted histograms are one type of visualization used to compare the distribution of a numerical variable split by the values of another variable, another type of visualization that achieves this same goal is a <em>side-by-side boxplot</em>. A boxplot \index{boxplots} is constructed from the information provided in the <em>five-number summary</em> of a numerical variable (see Appendix \@ref(appendix-stat-terms)).  </p>
-<p>To keep things simple for now, let's only consider the <code>r n_nov</code> hourly temperature recordings for the month of November, each represented as a jittered point in Figure \@ref(fig:nov1). </p>
-<pre><code>base_plot &lt;- weather %&gt;%
-  filter(month %in% c(11)) %&gt;%
-  ggplot(mapping = aes(x = factor(month), y = temp)) +
-  labs(x = &quot;&quot;)
-base_plot +
-  geom_jitter(width = 0.075, height = 0.5, alpha = 0.1)
+<p>この例では、年齢が5歳刻みで区切られ、各区間における乗客数が表示されます。</p>
+<h3 id="4-faceting">4. Faceting（ファセット）による分割表示</h3>
+<p>ファセットは、ある変数の値ごとに同じ種類のプロットを複数描画し、比較しやすくする手法です。
+ここでは、sex（性別）によって乗客の年齢のヒストグラムを分割して表示してみます。</p>
+<pre><code class="language-python"># seaborn の displot() は、ヒストグラムのファセット表示に適しています
+sns.displot(data=titanic_age, x=&quot;age&quot;, bins=20, color=&quot;steelblue&quot;, edgecolor=&quot;white&quot;, col=&quot;sex&quot;, height=4, aspect=1.2)
+plt.suptitle(&quot;Titanicデータセット：性別ごとの乗客の年齢のヒストグラム&quot;, y=1.03)
+plt.show()
 </code></pre>
-<p>These <code>r n_nov</code> observations have the following <em>five-number summary</em>:</p>
-<ol>
-<li>Minimum: <code>r min_nov</code>&deg;F</li>
-<li>First quartile (25th percentile): <code>r quartiles[1]</code>&deg;F</li>
-<li>Median (second quartile, 50th percentile): <code>r quartiles[2]</code>&deg;F</li>
-<li>Third quartile (75th percentile): <code>r quartiles[3]</code>&deg;F</li>
-<li>Maximum: <code>r max_nov</code>&deg;F</li>
-</ol>
-<p>In the leftmost plot of Figure \@ref(fig:nov2), let's mark these 5 values with dashed horizontal lines on top of the <code>r n_nov</code> points. In the middle plot of Figure \@ref(fig:nov2) let's add the <em>boxplot</em>. In the rightmost plot of Figure \@ref(fig:nov2), let's remove the points and the dashed horizontal lines for clarity's sake.</p>
-<pre><code>boxplot_1 &lt;- base_plot +
-  geom_hline(data = five_number_summary, aes(yintercept = temp), linetype = &quot;dashed&quot;) +
-  geom_jitter(width = 0.075, height = 0.5, alpha = 0.1)
-boxplot_2 &lt;- base_plot +
-  geom_boxplot() +
-  geom_hline(data = five_number_summary, aes(yintercept = temp), linetype = &quot;dashed&quot;) +
-  geom_jitter(width = 0.075, height = 0.5, alpha = 0.1)
-boxplot_3 &lt;- base_plot +
-  geom_boxplot()
-boxplot_1 + boxplot_2 + boxplot_3
-</code></pre>
-<p>What the boxplot does is visually summarize the <code>r weather %&gt;% filter(month == 11) %&gt;% nrow()</code> points by cutting the <code>r n_nov</code> temperature recordings into <em>quartiles</em> at the dashed lines, where each quartile contains roughly <code>r n_nov</code> <span class="arithmatex">\(\div\)</span> 4 <span class="arithmatex">\(\approx\)</span> <code>r round(n_nov / 4)</code> observations. Thus</p>
-<pre><code># This redundant code is used for dynamic non-static in-line text output purposes
-quartile_1 &lt;- quartiles[1] %&gt;% round(3)
-quartile_2 &lt;- quartiles[2] %&gt;% round(3)
-quartile_3 &lt;- quartiles[3] %&gt;% round(3)
-</code></pre>
-<ol>
-<li>25% of points fall below the bottom edge of the box, which is the first quartile of <code>r quartile_1</code>&deg;F. In other words, 25% of observations were below <code>r quartile_1</code>&deg;F.</li>
-<li>25% of points fall between the bottom edge of the box and the solid middle line, which is the median of <code>r quartile_2</code>&deg;F. Thus, 25% of observations were between <code>r quartile_1</code>&deg;F and <code>r quartile_2</code>&deg;F and 50% of observations were below <code>r quartile_2</code>&deg;F.</li>
-<li>25% of points fall between the solid middle line and the top edge of the box, which is the third quartile of <code>r quartile_3</code>&deg;F. It follows that 25% of observations were between <code>r quartile_2</code>&deg;F and <code>r quartile_3</code>&deg;F and 75% of observations were below <code>r quartile_3</code>&deg;F.</li>
-<li>25% of points fall above the top edge of the box. In other words, 25% of observations were above <code>r quartile_3</code>&deg;F.</li>
-<li>The middle 50% of points lie within the <em>interquartile range (IQR)</em> \index{interquartile range (IQR)} between the first and third quartile. Thus, the IQR for this example is <code>r quartile_3</code> - <code>r quartile_1</code> = <code>r (quartiles[3] - quartiles[1]) %&gt;% round(3)</code>&deg;F. The interquartile range is a measure of a numerical variable's <em>spread</em>.</li>
-</ol>
-<p>Furthermore, in the rightmost plot of Figure \@ref(fig:nov2), we see the <em>whiskers</em> \index{boxplots!whiskers} of the boxplot. The whiskers stick out from either end of the box all the way to the minimum and maximum observed temperatures of <code>r min_nov</code>&deg;F and <code>r max_nov</code>&deg;F, respectively. However, the whiskers don't always extend to the smallest and largest observed values as they do here. They in fact extend no more than 1.5 <span class="arithmatex">\(\times\)</span> the interquartile range from either end of the box. In this case of the November temperatures, no more than 1.5 <span class="arithmatex">\(\times\)</span> <code>r (quartiles[3] - quartiles[1]) %&gt;% round(3)</code>&deg;F = <code>r (1.5*(quartiles[3] - quartiles[1])) %&gt;% round(3)</code>&deg;F from either end of the box. Any observed values outside this range get marked with points called <em>outliers</em>, which we'll see in the next section.</p>
-<h3 id="boxplots-via-geom_boxplot-geomboxplot">Boxplots via <code>geom_boxplot</code> {#geomboxplot}</h3>
-<p>Let's now create a side-by-side boxplot \index{boxplots!side-by-side} of hourly temperatures split by the 12 months as we did previously with the faceted histograms. We do this by mapping the <code>month</code> variable to the x-position aesthetic, the <code>temp</code> variable to the y-position aesthetic, and by adding a <code>geom_boxplot()</code> layer:</p>
-<pre><code>ggplot(data = weather, mapping = aes(x = month, y = temp)) +
-  geom_boxplot()
-</code></pre>
-<pre><code>Warning messages:
-1: Continuous x aesthetic -- did you forget aes(group=...)? 
-2: Removed 1 rows containing non-finite values (stat_boxplot). 
-</code></pre>
-<p>Observe in Figure \@ref(fig:badbox) that this plot does not provide information about temperature separated by month. The first warning message clues us in as to why. It is telling us that we have a "continuous", or numerical variable, on the x-position aesthetic. Boxplots, however, require a categorical variable to be mapped to the x-position aesthetic. The second warning message is identical to the warning message when plotting a histogram of hourly temperatures: that one of the values was recorded as <code>NA</code> missing. </p>
-<p>We can convert the numerical variable <code>month</code> into a <code>factor</code> categorical variable by using the <code>factor()</code> \index{factors} function. So after applying <code>factor(month)</code>, month goes from having numerical values just the 1, 2, ..., and 12 to having an associated ordering. With this ordering, <code>ggplot()</code> now knows how to work with this variable to produce the needed plot. </p>
-<pre><code>ggplot(data = weather, mapping = aes(x = factor(month), y = temp)) +
-  geom_boxplot()
-</code></pre>
-<p>The resulting Figure \@ref(fig:monthtempbox) shows 12 separate "box and whiskers" plots similar to the rightmost plot of Figure \@ref(fig:nov2) of only November temperatures. Thus the different boxplots are shown "side-by-side."</p>
+<p>このコードでは、col="sex" により、性別（male と female）ごとに別々のヒストグラムが描画され、各グループ内で年齢の分布を比較できます。</p>
+<h3 id="_9">チェック項目</h3>
 <ul>
-<li>The "box" portions of the visualization represent the 1st quartile, the median (the 2nd quartile), and the 3rd quartile.</li>
-<li>The height of each box (the value of the 3rd quartile minus the value of the 1st quartile) is the interquartile range (IQR). It is a measure of the spread of the middle 50% of values, with longer boxes indicating more variability.</li>
-<li>The "whisker" portions of these plots extend out from the bottoms and tops of the boxes and represent points less than the 25th percentile and greater than the 75th percentiles, respectively. They're set to extend out no more than <span class="arithmatex">\(1.5 \times IQR\)</span> units away from either end of the boxes. We say "no more than" because the ends of the whiskers have to correspond to observed temperatures.  The length of these whiskers show how the data outside the middle 50% of values vary, with longer whiskers indicating more variability.</li>
-<li>The dots representing values falling outside the whiskers are called \index{outliers} <em>outliers</em>. These can be thought of as anomalous ("out-of-the-ordinary") values.</li>
+<li>
+<p>(LC1) titanic データセットにおける age 変数の最小値、最大値、中央値はそれぞれどの程度か調べてみましょう。
+（例: titanic_age["age"].describe() を用いて確認できます）</p>
+</li>
+<li>
+<p>(LC2) ヒストグラムでビンの数や幅を変更すると、分布の解釈にどのような影響があるか考えてみましょう。
+（例: ビンの数を増やすと細部が見えやすくなる一方、ノイズが目立つ可能性があります）</p>
+</li>
+<li>
+<p>(LC3) 性別（sex）ごとに年齢の分布が異なる理由について、データや歴史的背景から考察してみましょう。</p>
+</li>
 </ul>
-<p>It is important to keep in mind that the definition of an outlier is somewhat arbitrary and not absolute. In this case, they are defined by the length of the whiskers, which are no more than <span class="arithmatex">\(1.5 \times IQR\)</span> units long for each boxplot. Looking at this side-by-side plot we can see, as expected, that summer months (6 through 8) have higher median temperatures as evidenced by the higher solid lines in the middle of the boxes. We can easily compare temperatures across months by drawing imaginary horizontal lines across the plot. Furthermore, the heights of the 12 boxes as quantified by the interquartile ranges are informative too; they tell us about variability, or spread, of temperatures recorded in a given month. </p>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
+<h3 id="_10">まとめ</h3>
+<p>ヒストグラムは、1つの数値変数の分布（最小値、最大値、中心、散らばり、頻出値など）を視覚化するための有効なツールです。ここでは、seaborn の titanic データセットの age 変数を例に、基本のヒストグラムの作成、ビンの調整方法、さらにファセットを用いたグループ別比較の方法を示しました。これらの手法を用いることで、データの特徴や潜在的なパターンを直感的に理解することができます。</p>
+<h2 id="5ng4-boxplots">5NG#4: 箱ひげ図 (Boxplots)</h2>
+<p>箱ひげ図は、数値変数の<strong>五数要約</strong>（最小値、第1四分位数、中央値、第3四分位数、最大値）に基づいて、データの分布を視覚化する手法です。<br />
+ここでは、seaborn の <strong>tips</strong> データセットを用い、飲食代（<code>total_bill</code>）の分布を例に箱ひげ図の作成方法と解釈について説明します。</p>
+<hr />
+<h3 id="1_2">1. 特定グループにおける五数要約の確認</h3>
+<p>まず、tips データセットからディナータイム（<code>time</code> が <code>"Dinner"</code>）のデータに注目し、その <code>total_bill</code> の五数要約を算出します。</p>
+<pre><code class="language-python">import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# tips データセットの読み込み
+tips = sns.load_dataset(&quot;tips&quot;)
+
+# ディナータイムのデータに絞る
+dinner_tips = tips[tips[&quot;time&quot;] == &quot;Dinner&quot;]
+
+# ディナータイムの total_bill に対する五数要約の計算
+n_dinner = dinner_tips.shape[0]
+min_dinner = dinner_tips[&quot;total_bill&quot;].min()
+max_dinner = dinner_tips[&quot;total_bill&quot;].max()
+quartiles = dinner_tips[&quot;total_bill&quot;].quantile([0.25, 0.5, 0.75])
+five_number_summary = pd.DataFrame({
+    &quot;total_bill&quot;: [min_dinner, quartiles.iloc[0], quartiles.iloc[1], quartiles.iloc[2], max_dinner]
+}, index=[&quot;Min&quot;, &quot;25%&quot;, &quot;50%&quot;, &quot;75%&quot;, &quot;Max&quot;])
+
+print(&quot;ディナータイムの total_bill の五数要約:&quot;)
+print(five_number_summary)
 </code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What does the dot at the bottom of the plot for May correspond to?  Explain what might have occurred in May to produce this point.</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Which months have the highest variability in temperature?  What reasons can you give for this?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> We looked at the distribution of the numerical variable <code>temp</code> split by the numerical variable <code>month</code> that we converted using the <code>factor()</code> function in order to make a side-by-side boxplot. Why would a boxplot of <code>temp</code> split by the numerical variable <code>pressure</code> similarly converted to a categorical variable using the <code>factor()</code> not be informative?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Boxplots provide a simple way to identify outliers.  Why may outliers be easier to identify when looking at a boxplot instead of a faceted histogram?</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
+<p>このコードを実行すると、ディナータイムにおける total_bill の最小値、第一四分位数、中央値、第三四分位数、最大値が得られます。</p>
+<h3 id="_11">箱ひげ図作成の段階的な構築</h3>
+<p>以下では、ディナータイムの total_bill の観測値を対象に、3種類のプロットを段階的に作成していきます。</p>
+<p>(a) ジッターを加えたプロットと五数要約の値の表示
+まず、各観測値をジッター（わずかな横方向のずれ）を付与してプロットし、さらに五数要約の各値を赤の破線で示します。</p>
+<pre><code class="language-python"># サブプロットの作成（横に3つ並べる）
+fig, axes = plt.subplots(1, 3, figsize=(15, 4), sharey=True)
+
+# プロットの基本設定：x 軸は &quot;Dinner&quot; の固定値
+x_value = [&quot;Dinner&quot;] * n_dinner
+
+# (a) ジッターを加えた点のプロット
+sns.stripplot(x=dinner_tips[&quot;time&quot;], y=dinner_tips[&quot;total_bill&quot;],
+              jitter=True, ax=axes[0], color=&quot;gray&quot;, alpha=0.3)
+axes[0].set_title(&quot;ジッター付き点と\n五数要約の破線&quot;)
+axes[0].set_xlabel(&quot;&quot;)
+axes[0].set_ylabel(&quot;Total Bill&quot;)
+
+# 五数要約の各値を破線で追加
+for value in five_number_summary[&quot;total_bill&quot;]:
+    axes[0].axhline(y=value, color='red', linestyle='--', linewidth=1.0)
+
+# (b) 箱ひげ図とジッター付き点、さらに破線による五数要約の表示
+sns.boxplot(x=&quot;time&quot;, y=&quot;total_bill&quot;, data=dinner_tips, ax=axes[1],
+            showcaps=True, boxprops={'facecolor':'None'})
+sns.stripplot(x=&quot;time&quot;, y=&quot;total_bill&quot;, data=dinner_tips,
+              jitter=True, ax=axes[1], color=&quot;gray&quot;, alpha=0.3)
+for value in five_number_summary[&quot;total_bill&quot;]:
+    axes[1].axhline(y=value, color='red', linestyle='--', linewidth=1.0)
+axes[1].set_title(&quot;箱ひげ図 + ジッター付き点&quot;)
+axes[1].set_xlabel(&quot;&quot;)
+axes[1].set_ylabel(&quot;&quot;)
+
+# (c) 箱ひげ図のみ（余計な点や破線は除去）
+sns.boxplot(x=&quot;time&quot;, y=&quot;total_bill&quot;, data=dinner_tips, ax=axes[2])
+axes[2].set_title(&quot;箱ひげ図のみ&quot;)
+axes[2].set_xlabel(&quot;&quot;)
+axes[2].set_ylabel(&quot;&quot;)
+
+plt.tight_layout()
+plt.show()
 </code></pre>
-<h3 id="summary_1">Summary</h3>
-<p>Side-by-side boxplots provide us with a way to compare the distribution of a numerical variable across multiple values of another variable. One can see where the median falls across the different groups by comparing the solid lines in the center of the boxes. </p>
-<p>To study the spread of a numerical variable within one of the boxes, look at both the length of the box and also how far the whiskers extend from either end of the box. Outliers are even more easily identified when looking at a boxplot than when looking at a histogram as they are marked with distinct points.</p>
+<ul>
+<li>左のプロットでは、ディナータイムの各 total_bill の観測値がジッター付きの点として表示され、赤い破線で五数要約の位置が示されています。</li>
+<li>中央のプロットでは、箱ひげ図が描画されると同時に、ジッター付きの点と破線も重ねられています。</li>
+<li>右のプロットは、純粋な箱ひげ図のみで、余計な要素が除去されています。</li>
+</ul>
+<p>箱ひげ図は、箱の上下がそれぞれ第一四分位数（25%）と第三四分位数（75%）を示し、箱内の太い線が中央値（50%）を示します。箱の高さは四分位範囲 (IQR) を表し、上下の「ひげ」は通常、箱から 1.5 × IQR の範囲内の最小値・最大値まで伸び、範囲外の観測値は個別の点（アウトライヤー）として表示されます。</p>
+<h3 id="_12">複数グループにおける箱ひげ図の作成</h3>
+<p>次に、tips データセット全体を用いて、曜日（day）ごとに total_bill の分布を比較するための サイドバイサイド箱ひげ図 を作成します。
+tips データセットの day 変数は既にカテゴリカル変数（"Thur", "Fri", "Sat", "Sun"）となっているため、x 軸に直接割り当てることができます。</p>
+<pre><code class="language-python">plt.figure(figsize=(8, 6))
+sns.boxplot(x=&quot;day&quot;, y=&quot;total_bill&quot;, data=tips,
+            palette=&quot;pastel&quot;, showcaps=True, 
+            boxprops={'edgecolor':'black'},
+            whiskerprops={'color':'black'},
+            capprops={'color':'black'},
+            flierprops={'markerfacecolor':'red', 'marker':'o', 'markersize':5})
+plt.title(&quot;Tipsデータセット：曜日ごとの Total Bill の箱ひげ図&quot;)
+plt.xlabel(&quot;Day&quot;)
+plt.ylabel(&quot;Total Bill&quot;)
+plt.show()
+</code></pre>
+<p>このプロットでは、各曜日ごとに total_bill の箱ひげ図が描画され、</p>
+<ul>
+<li>箱は第一四分位数、中央値、第三四分位数を示し、</li>
+<li>ひげは 1.5×IQR の範囲内の値を表し、</li>
+<li>その範囲外の値はアウトライヤーとして赤い点で示されています。</li>
+</ul>
+<p>曜日ごとの箱ひげ図を並べることで、各グループ間の分布の違いやばらつき、さらには外れ値の有無を簡単に比較することができます。</p>
+<h3 id="_13">チェック項目</h3>
+<ul>
+<li>(LC1) ディナータイムの total_bill の五数要約を確認したとき、各値（最小値、第一四分位数、中央値、第三四分位数、最大値）はどのような数値になっていますか？</li>
+<li>(LC2) 箱ひげ図における箱の高さ（IQR）が大きい場合、どのような情報が得られますか？</li>
+<li>(LC3) アウトライヤー（箱ひげ図上の点）が示す意味は何でしょうか？また、アウトライヤーが多い場合、どのような解釈が可能でしょうか？</li>
+<li>(LC4) 曜日ごとの箱ひげ図を比較することで、どの曜日で飲食代のばらつきが大きいか、また中央値に違いがあるかをどのように読み取れますか？</li>
+</ul>
+<h3 id="_14">まとめ</h3>
+<p>箱ひげ図は、単一の数値変数の分布を視覚化する強力なツールであり、</p>
+<ul>
+<li>中央値 や 四分位数 を直感的に把握でき、</li>
+<li>四分位範囲（IQR） による散らばりの度合いを示し、</li>
+<li>アウトライヤー（外れ値）を容易に特定することができます。</li>
+</ul>
+<p>また、カテゴリカル変数（例：曜日）に対してサイドバイサイドで箱ひげ図を作成することで、グループ間の分布の違いやばらつきを比較することが可能です。tips データセットを例に、ディナータイムの total_bill や曜日ごとの total_bill を通じて、箱ひげ図の作成とその解釈の基本を確認しました。</p>
 <h2 id="5ng5-barplots-geombar">5NG#5: Barplots {#geombar}</h2>
 <p>Both histograms and boxplots are tools to visualize the distribution of numerical variables. Another commonly desired task is to visualize the distribution of a categorical variable. This is a simpler task, as we are simply counting different categories within a categorical variable, also known as the \index{levels} <em>levels</em> of the categorical variable. Often the best way to visualize these different counts, also known as \index{frequencies} <em>frequencies</em>, is with barplots (also called barcharts).</p>
 <p>One complication, however, is how your data is represented. Is the categorical variable of interest "pre-counted" or not? For example, run the following code that manually creates two data frames representing a collection of fruit: 3 apples and 2 oranges.</p>
@@ -1571,7 +1530,7 @@ if (is_latex_output()) {
 <pre><code>\vspace{-0.25in}
 \vspace{-0.25in}
 </code></pre>
-<h3 id="summary_2">Summary</h3>
+<h3 id="summary">Summary</h3>
 <p>Barplots are a common way of displaying the distribution of a categorical variable, or in other words the frequency with which the different categories (also called <em>levels</em>) occur.  They are easy to understand and make it easy to make comparisons across levels.  Furthermore, when trying to visualize the relationship of two categorical variables, you have many options: stacked barplots, side-by-side barplots, and faceted barplots. Depending on what aspect of the relationship you are trying to emphasize, you will need to make a choice between these three types of barplots and own that choice.</p>
 <h2 id="conclusion-data-vis-conclusion">Conclusion {#data-vis-conclusion}</h2>
 <h3 id="summary-table">Summary table</h3>
