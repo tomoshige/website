@@ -1,0 +1,2309 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/02-visualization/">
+      
+      
+        <link rel="prev" href="../01-getting-started/">
+      
+      
+        <link rel="next" href="../../SP/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>2. Data Visualizaion - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Data Visualizaion
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/00-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 1 Vector and Matrix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      必要なライブラリ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      グラフィックの基礎理論
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gapminder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gapminderデータの可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gapminderデータの可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの準備
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの可視化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#five-named-graphs-the-5ng-fiveng" class="md-nav__link">
+    <span class="md-ellipsis">
+      Five named graphs - the 5NG {#FiveNG}
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng1-scatterplots-scatterplots" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#1: Scatterplots {#scatterplots}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#1: Scatterplots {#scatterplots}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scatterplots-via-geom_point-geompoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scatterplots via geom_point {#geompoint}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overplotting-overplotting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overplotting {#overplotting}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng2-linegraphs-linegraphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#2: Linegraphs {#linegraphs}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#2: Linegraphs {#linegraphs}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linegraphs-via-geom_line-geomline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linegraphs via geom_line {#geomline}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng3-histograms-histograms" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#3: Histograms {#histograms}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#3: Histograms {#histograms}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#histograms-via-geom_histogram-geomhistogram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histograms via geom_histogram {#geomhistogram}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjusting-the-bins-adjustbins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjusting the bins {#adjustbins}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#facets-facets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Facets {#facets}
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng4-boxplots-boxplots" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#4: Boxplots {#boxplots}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#4: Boxplots {#boxplots}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boxplots-via-geom_boxplot-geomboxplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boxplots via geom_boxplot {#geomboxplot}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng5-barplots-geombar" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#5: Barplots {#geombar}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#5: Barplots {#geombar}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#barplots-via-geom_bar-or-geom_col" class="md-nav__link">
+    <span class="md-ellipsis">
+      Barplots via geom_bar or geom_col
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#must-avoid-pie-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Must avoid pie charts!
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-categorical-variables-two-categ-barplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two categorical variables {#two-categ-barplot}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-data-vis-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion {#data-vis-conclusion}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conclusion {#data-vis-conclusion}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-argument-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function argument specification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional resources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-to-come-whats-to-come-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's to come {#whats-to-come-3}
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      必要なライブラリ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      グラフィックの基礎理論
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gapminder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gapminderデータの可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gapminderデータの可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの準備
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの可視化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#five-named-graphs-the-5ng-fiveng" class="md-nav__link">
+    <span class="md-ellipsis">
+      Five named graphs - the 5NG {#FiveNG}
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng1-scatterplots-scatterplots" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#1: Scatterplots {#scatterplots}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#1: Scatterplots {#scatterplots}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scatterplots-via-geom_point-geompoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scatterplots via geom_point {#geompoint}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overplotting-overplotting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overplotting {#overplotting}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng2-linegraphs-linegraphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#2: Linegraphs {#linegraphs}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#2: Linegraphs {#linegraphs}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linegraphs-via-geom_line-geomline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linegraphs via geom_line {#geomline}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng3-histograms-histograms" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#3: Histograms {#histograms}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#3: Histograms {#histograms}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#histograms-via-geom_histogram-geomhistogram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Histograms via geom_histogram {#geomhistogram}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjusting-the-bins-adjustbins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjusting the bins {#adjustbins}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#facets-facets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Facets {#facets}
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng4-boxplots-boxplots" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#4: Boxplots {#boxplots}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#4: Boxplots {#boxplots}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boxplots-via-geom_boxplot-geomboxplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boxplots via geom_boxplot {#geomboxplot}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ng5-barplots-geombar" class="md-nav__link">
+    <span class="md-ellipsis">
+      5NG#5: Barplots {#geombar}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5NG#5: Barplots {#geombar}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#barplots-via-geom_bar-or-geom_col" class="md-nav__link">
+    <span class="md-ellipsis">
+      Barplots via geom_bar or geom_col
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#must-avoid-pie-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Must avoid pie charts!
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-categorical-variables-two-categ-barplot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two categorical variables {#two-categ-barplot}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-data-vis-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion {#data-vis-conclusion}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conclusion {#data-vis-conclusion}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-argument-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function argument specification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional resources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-to-come-whats-to-come-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's to come {#whats-to-come-3}
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">データの可視化</h1>
+<p>データサイエンスのツールボックスを構築する最初のステップとして、データの可視化を学びます。データを視覚化することで、単なる数値の羅列では見えなかったパターンや傾向を発見できます。Pythonでは、<code>matplotlib</code> や <code>seaborn</code> を利用してデータを可視化できます。本章では、これらのライブラリを活用し、基本的なプロットを作成する方法を学びます。</p>
+<p>グラフ（プロットやチャートとも呼びます）は、データのパターンを探るための強力な手法です。例えば、<strong>外れ値の特定</strong>、<strong>データの分布</strong>、<strong>変数間の関係性</strong>を理解するのに役立ちます。適切な可視化を行うことで、データから得られる洞察を効果的に伝えることができます。ただし、情報を詰め込みすぎると、かえって理解しにくくなることもあるため、適切なバランスを取ることが重要です。</p>
+<hr />
+<h2 id="_2">必要なライブラリ</h2>
+<p>本章では、gapminderと呼ばれるデータセットを利用します。そのために、まずは以下のパッケージをインストールしてください。</p>
+<pre><code class="language-python">!pip install gapminder
+</code></pre>
+<p>次に、必要なライブラリをインポートします。</p>
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from gapminder import gapminder
+</code></pre>
+<hr />
+<h2 id="_3">グラフィックの基礎理論</h2>
+<p>「グラフィックの文法（Grammar of Graphics）」とは、データの可視化を体系的に整理するための理論です。この概念は Leland Wilkinson によって提唱され、Rの <code>ggplot2</code> や Pythonの <code>plotly</code> などの可視化ライブラリにも応用されています。</p>
+<p>この理論によると、統計グラフは次の3つの要素から構成されます。</p>
+<ol>
+<li><strong>データ (<code>data</code>)</strong>: 可視化の対象となるデータセット。</li>
+<li><strong>幾何オブジェクト (<code>geom</code>)</strong>: グラフに描画される基本要素（点、線、棒など）。</li>
+<li><strong>美的要素 (<code>aes</code>)</strong>: 幾何オブジェクトの見た目を決める要素（位置、色、大きさなど）。</li>
+</ol>
+<p>これらを組み合わせることで、データの可視化を構築できます。</p>
+<hr />
+<h2 id="gapminder">Gapminderデータの可視化</h2>
+<p>Gapminderは、世界の経済・健康・発展状況に関するデータを提供するプロジェクトです。このデータセットには、各国のGDP、寿命、人口などの情報が含まれています。</p>
+<h3 id="_4">データの準備</h3>
+<p>まず、Gapminderデータを2007年のデータに絞り込んで表示してみましょう。</p>
+<pre><code class="language-python"># 2007年のデータのみを取得
+gapminder_2007 = gapminder[gapminder['year'] == 2007]
+
+# 必要な列のみ選択
+gapminder_2007 = gapminder_2007[['country', 'continent', 'lifeExp', 'pop', 'gdpPercap']]
+gapminder_2007.columns = ['Country', 'Continent', 'Life Expectancy', 'Population', 'GDP per Capita']
+
+# データの先頭を表示
+gapminder_2007.head()
+</code></pre>
+<p>この表の各行は1つの国を表し、次の情報を含みます。</p>
+<ol>
+<li><strong>Country</strong>: 国の名前。</li>
+<li><strong>Continent</strong>: 5つの大陸のいずれか（「Americas」は北米と南米を含み、南極は除外）。</li>
+<li><strong>Life Expectancy</strong>: 平均寿命（年）。</li>
+<li><strong>Population</strong>: 人口（人）。</li>
+<li><strong>GDP per Capita</strong>: 1人当たりGDP（米ドル）。</li>
+</ol>
+<hr />
+<h2 id="_5">データの可視化</h2>
+<p>2007年のGDPと平均寿命の関係を可視化してみましょう。</p>
+<pre><code class="language-python">plt.figure(figsize=(10, 6))
+
+sns.scatterplot(
+    data=gapminder_2007,
+    x='GDP per Capita',
+    y='Life Expectancy',
+    size='Population',
+    hue='Continent',
+    sizes=(10, 200),
+    alpha=0.7
+)
+
+plt.xscale('log')  # GDPは対数スケールに変換
+plt.xlabel('GDP per Capita (log scale)')
+plt.ylabel('Life Expectancy (years)')
+plt.title('2007年におけるGDPと平均寿命の関係')
+plt.legend(title='Continent', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.show()
+</code></pre>
+<p>このプロットを通じて、以下の傾向が読み取れます。</p>
+<ul>
+<li>GDPが高い国ほど、平均寿命が長い傾向がある。</li>
+<li>大陸ごとに分布が異なり、特にアフリカ（Africa）の国々はGDPと平均寿命が低い傾向がある。</li>
+<li>国ごとの人口（点の大きさ）も視覚的に把握できる。</li>
+</ul>
+<hr />
+<h2 id="_6">まとめ</h2>
+<p>本章では、Pythonと <code>matplotlib</code>、<code>seaborn</code> を活用したデータ可視化の基本を学びました。</p>
+<ul>
+<li><strong>グラフィックの文法（Grammar of Graphics）</strong> を活用し、データの可視化を体系的に構築できる。</li>
+<li><strong>Gapminderデータ</strong> を使用し、世界のGDPと平均寿命の関係を可視化した。</li>
+<li><strong><code>scatterplot()</code></strong> を使い、複数の変数を一度に可視化し、関係性を直感的に理解した。</li>
+</ul>
+<p>次のステップとして、より詳細な可視化や、時系列データのトレンド分析を行っていきます。データの可視化を活用し、洞察を深めていきましょう！</p>
+<h2 id="five-named-graphs-the-5ng-fiveng">Five named graphs - the 5NG {#FiveNG}</h2>
+<p>In order to keep things simple in this book, we will only focus on five different types of graphics, each with a commonly given name. We term these "five named graphs" or in abbreviated form, the <strong>5NG</strong>: \index{five named graphs}</p>
+<ol>
+<li>scatterplots </li>
+<li>linegraphs</li>
+<li>histograms</li>
+<li>boxplots </li>
+<li>barplots</li>
+</ol>
+<p>We'll also present some variations of these plots, but with this basic repertoire of five graphics in your toolbox, you can visualize a wide array of different variable types. Note that certain plots are only appropriate for categorical variables, while others are only appropriate for numerical variables. </p>
+<h2 id="5ng1-scatterplots-scatterplots">5NG#1: Scatterplots {#scatterplots}</h2>
+<p>The simplest of the 5NG are <em>scatterplots</em>, \index{scatterplots} also called <em>bivariate plots</em>. They allow you to visualize the <em>relationship</em> between two numerical variables. While you may already be familiar with scatterplots, let's view them through the lens of the grammar of graphics we presented in Section \@ref(grammarofgraphics). Specifically, we will visualize the relationship between the following two numerical variables in the <code>alaska_flights</code> data frame included in the \index{R packages!moderndive} <code>moderndive</code> package:</p>
+<ol>
+<li><code>dep_delay</code>: departure delay on the horizontal "x" axis and</li>
+<li><code>arr_delay</code>: arrival delay on the vertical "y" axis</li>
+</ol>
+<p>for Alaska Airlines flights leaving NYC in 2013. In other words, <code>alaska_flights</code> does not consist of <em>all</em> flights that left NYC in 2013, but rather only those flights where <code>carrier</code> is <code>AS</code> (which is Alaska Airlines' carrier code).</p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong>  Take a look at both the <code>flights</code> data frame from the <code>nycflights13</code> package and the <code>alaska_flights</code> data frame from the <code>moderndive</code> package by running <code>View(flights)</code> and <code>View(alaska_flights)</code>. In what respect do these data frames differ? For example, think about the number of rows in each dataset.</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="scatterplots-via-geom_point-geompoint">Scatterplots via <code>geom_point</code> {#geompoint}</h3>
+<p>Let's now go over the code that will create the desired scatterplot, while keeping in mind the grammar of graphics framework we introduced in Section \@ref(grammarofgraphics). Let's take a look at the code and break it down piece-by-piece.</p>
+<pre><code>if (is_latex_output()) {
+  cat(&quot;**Note**: The printed version of this book uses `theme_light()` instead of the default `theme_grey()` for the plots created with `ggplot2` throughout the book. Bars and points are also converted to greyscale using `scale_color_grey()` and `scale_fill_grey()`. This helps with readability of the plots in the printed copy. As you follow along and run the code yourself, your plots will have a grey background instead of the white background in the printed book. Also, your plots will have colors beyond the greyscale versions provided in this printing.&quot;)
+}
+</code></pre>
+<pre><code>ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_point()
+</code></pre>
+<p>Within the <code>ggplot()</code> \index{ggplot2!ggplot()} function, we specify two of the components of the grammar of graphics as arguments (i.e., inputs):</p>
+<ol>
+<li>The <code>data</code> as the <code>alaska_flights</code> data frame via <code>data = alaska_flights</code>.</li>
+<li>The <code>aes</code>thetic \index{ggplot2!mapping} <code>mapping</code> by setting <code>mapping = aes(x = dep_delay, y = arr_delay)</code>. Specifically, the variable <code>dep_delay</code> maps to the <code>x</code> position aesthetic, while the variable <code>arr_delay</code> maps to the <code>y</code> position.</li>
+</ol>
+<p>We then add a layer to the <code>ggplot()</code> function call using the <code>+</code> sign. The added layer in question specifies the third component of the grammar: the <code>geom</code>etric object. In this case, the geometric object is set to be points by specifying <code>geom_point()</code>. After running these two lines of code in your console, you'll notice two outputs: a warning message and the graphic shown in Figure \@ref(fig:noalpha).</p>
+<pre><code>ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) +
+  geom_point()
+</code></pre>
+<p>Let's first unpack the graphic in Figure \@ref(fig:noalpha). Observe that a <em>positive relationship</em> exists between <code>dep_delay</code> and <code>arr_delay</code>: as departure delays increase, arrival delays tend to also increase.  Observe also the large mass of points clustered near (0, 0), the point indicating flights that neither departed nor arrived late. </p>
+<p>Let's turn our attention to the warning message. R is alerting us to the fact that five rows were ignored due to them being missing. For these 5 rows, either the value for <code>dep_delay</code> or <code>arr_delay</code> or both were missing (recorded in R as <code>NA</code>), and thus these rows were ignored in our plot.</p>
+<p>Before we continue, let's make a few more observations about this code that created the scatterplot. Note that the <code>+</code> sign comes at the end of lines, and not at the beginning. You'll get an error in R if you put it at the beginning of a line. \index{ggplot2!+} When adding layers to a plot, you are encouraged to start a new line after the <code>+</code> (by pressing the Return/Enter button on your keyboard) so that the code for each layer is on a new line. As we add more and more layers to plots, you'll see this will greatly improve the legibility of your code.</p>
+<p>To stress the importance of adding the layer specifying the <code>geom</code>etric object, consider Figure \@ref(fig:nolayers) where no layers are added. Because the <code>geom</code>etric object was not specified, we have a blank plot which is not very useful!</p>
+<pre><code>ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay))
+</code></pre>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong>  What are some practical reasons why <code>dep_delay</code> and <code>arr_delay</code> have a positive relationship?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong>  What variables in the <code>weather</code> data frame would you expect to have a negative correlation (i.e., a negative relationship) with <code>dep_delay</code>? Why? Remember that we are focusing on numerical variables here. Hint: Explore the <code>weather</code> dataset by using the <code>View()</code> function. </p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why do you believe there is a cluster of points near (0, 0)? What does (0, 0) correspond to in terms of the Alaska Air flights?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What are some other features of the plot that stand out to you?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Create a new scatterplot using different variables in the <code>alaska_flights</code> data frame by modifying the example given.</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="overplotting-overplotting">Overplotting {#overplotting}</h3>
+<p>The large mass of points near (0, 0) in Figure \@ref(fig:noalpha) can cause some confusion since it is hard to tell the true number of points that are plotted.  This is the result of a phenomenon called \index{overplotting} <em>overplotting</em>.  As one may guess, this corresponds to points being plotted on top of each other over and over again.  When overplotting occurs, it is difficult to know the number of points being plotted. There are two methods to address the issue of overplotting. Either by</p>
+<ol>
+<li>Adjusting the transparency of the points or</li>
+<li>Adding a little random "jitter", or random "nudges", to each of the points.</li>
+</ol>
+<p><strong>Method 1: Changing the transparency</strong></p>
+<p>The first way of addressing overplotting is to change the transparency/opacity of the points by setting the <code>alpha</code> argument in <code>geom_point()</code>. We can change the <code>alpha</code> argument to be any value between <code>0</code> and <code>1</code>, where <code>0</code> sets the points to be 100% transparent and <code>1</code> sets the points to be 100% opaque. By default, <code>alpha</code> is set to <code>1</code>. In other words, if we don't explicitly set an <code>alpha</code> value, R will use <code>alpha = 1</code>.</p>
+<p>Note how the following code is identical to the code in Section \@ref(scatterplots) that created the scatterplot with overplotting, but with <code>alpha = 0.2</code> added to the <code>geom_point()</code> function:</p>
+<pre><code>ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_point(alpha = 0.2)
+</code></pre>
+<p>The key feature to note in Figure \@ref(fig:alpha) is that the transparency \index{ggplot2!alpha} \index{adding transparency to plots} of the points is cumulative: areas with a high-degree of overplotting are darker, whereas areas with a lower degree are less dark. Note furthermore that there is no <code>aes()</code> surrounding <code>alpha = 0.2</code>.  This is because we are not mapping a variable to an aesthetic attribute, but rather merely changing the default setting of <code>alpha</code>. In fact, you'll receive an error if you try to change the second line to read <code>geom_point(aes(alpha = 0.2))</code>.</p>
+<p><strong>Method 2: Jittering the points</strong></p>
+<p>The second way of addressing overplotting is by <em>jittering</em> all the points. This means giving each point a small "nudge" in a random direction. You can think of "jittering" as shaking the points around a bit on the plot. Let's illustrate using a simple example first. Say we have a data frame with 4 identical rows of x and y values: (0,0), (0,0), (0,0), and (0,0). In Figure \@ref(fig:jitter-example-plot-1), we present both the regular scatterplot of these 4 points (on the left) and its jittered counterpart (on the right). </p>
+<pre><code>jitter_example &lt;- tibble(
+  x = rep(0, 4),
+  y = rep(0, 4)
+)
+jittered_plot_1 &lt;- ggplot(data = jitter_example, mapping = aes(x = x, y = y)) +
+  geom_point() +
+  coord_cartesian(xlim = c(-0.025, 0.025), ylim = c(-0.025, 0.025)) +
+  labs(title = &quot;Regular scatterplot&quot;)
+jittered_plot_2 &lt;- ggplot(data = jitter_example, mapping = aes(x = x, y = y)) +
+  geom_jitter(width = 0.01, height = 0.01) +
+  coord_cartesian(xlim = c(-0.025, 0.025), ylim = c(-0.025, 0.025)) +
+  labs(title = &quot;Jittered scatterplot&quot;)
+jittered_plot_1 + jittered_plot_2
+</code></pre>
+<p>In the left-hand regular scatterplot, observe that the 4 points are superimposed on top of each other. While we know there are 4 values being plotted, this fact might not be apparent to others. In the right-hand jittered scatterplot, it is now plainly evident that this plot involves four points since each point is given a random "nudge."  </p>
+<p>Keep in mind, however, that jittering is strictly a visualization tool; even after creating a jittered scatterplot, the original values saved in the data frame remain unchanged. \index{ggplot2!geom_jitter()}</p>
+<p>To create a jittered scatterplot, instead of using <code>geom_point()</code>, we use <code>geom_jitter()</code>. Observe how the following code is very similar to the code that created the scatterplot with overplotting in Subsection \@ref(geompoint), but with <code>geom_point()</code> \index{ggplot2!geom_point()} replaced with <code>geom_jitter()</code>. </p>
+<pre><code>ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_jitter(width = 30, height = 30)
+</code></pre>
+<p>In order to specify how much jitter to add, we adjusted the <code>width</code> and <code>height</code> arguments to <code>geom_jitter()</code>.  This corresponds to how hard you'd like to shake the plot in horizontal x-axis units and vertical y-axis units, respectively. In this case, both axes are in minutes. How much jitter should we add using the <code>width</code> and <code>height</code> arguments? On the one hand, it is important to add just enough jitter to break any overlap in points, but on the other hand, not so much that we completely alter the original pattern in points.</p>
+<p>As can be seen in the resulting Figure \@ref(fig:jitter), in this case jittering doesn't really provide much new insight. In this particular case, it can be argued that changing the transparency of the points by setting <code>alpha</code> proved more effective.  When would it be better to use a jittered scatterplot? When would it be better to alter the points' transparency? There is no single right answer that applies to all situations. You need to make a subjective choice and own that choice. At the very least when confronted with overplotting, however, we suggest you make both types of plots and see which one better emphasizes the point you are trying to make. </p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong>  Why is setting the <code>alpha</code> argument value useful with scatterplots? What further information does it give you that a regular scatterplot cannot?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> After viewing Figure \@ref(fig:alpha), give an approximate range of arrival delays and departure delays that occur most frequently. How has that region changed compared to when you observed the same plot without <code>alpha = 0.2</code> set in Figure \@ref(fig:noalpha)?</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="summary">Summary</h3>
+<p>Scatterplots display the relationship between two numerical variables.  They are among the most commonly used plots because they can provide an immediate way to see the trend in one numerical variable versus another.  However, if you try to create a scatterplot where either one of the two variables is not numerical, you might get strange results.  Be careful! </p>
+<p>With medium to large datasets, you may need to play around with the different modifications to scatterplots we saw such as changing the transparency/opacity of the points or by jittering the points. This tweaking is often a fun part of data visualization, since you'll have the chance to see different relationships emerge as you tinker with your plots.</p>
+<h2 id="5ng2-linegraphs-linegraphs">5NG#2: Linegraphs {#linegraphs}</h2>
+<p>The next of the five named graphs are linegraphs. Linegraphs \index{linegraphs} show the relationship between two numerical variables when the variable on the x-axis, also called the <em>explanatory</em> variable\index{explanatory variable}, is of a sequential nature. In other words, there is an inherent ordering to the variable. </p>
+<p>The most common examples of linegraphs have some notion of time on the x-axis: hours, days, weeks, years, etc. Since time is sequential, we connect consecutive observations of the variable on the y-axis with a line. Linegraphs that have some notion of time on the x-axis are also called <em>time series</em> plots\index{time series plots}. Let's illustrate linegraphs using another dataset in the <code>nycflights13</code> \index{R packages!nycflights13} package: the <code>weather</code> data frame. </p>
+<p>Let's explore the <code>weather</code> data frame from the <code>nycflights13</code> package  by running <code>View(weather)</code> and <code>glimpse(weather)</code>. Furthermore let's read the associated help file by running <code>?weather</code> to bring up the help file.</p>
+<p>Observe that there is a variable called <code>temp</code> of hourly temperature recordings in Fahrenheit at weather stations near all three major airports in New York City: Newark (<code>origin</code> code <code>EWR</code>), John F. Kennedy International (<code>JFK</code>), and LaGuardia (<code>LGA</code>). </p>
+<p>However, instead of considering hourly temperatures for all days in 2013 for all three airports, for simplicity let's only consider hourly temperatures at Newark airport for the first 15 days in January. This data is accessible in the <code>early_january_weather</code> data frame included in the <code>moderndive</code> package. In other words, <code>early_january_weather</code> contains hourly weather observations for <code>origin</code> equal to <code>EWR</code> (Newark's airport code), <code>month</code> equal to <code>1</code>, and <code>day</code> less than or equal to <code>15</code>. </p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Take a look at both the <code>weather</code> data frame from the <code>nycflights13</code> package and the <code>early_january_weather</code> data frame from the <code>moderndive</code> package by running <code>View(weather)</code> and <code>View(early_january_weather)</code>. In what respect do these data frames differ?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> <code>View()</code> the <code>flights</code> data frame again. Why does the <code>time_hour</code> variable uniquely identify the hour of the measurement, whereas the <code>hour</code> variable does not? </p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="linegraphs-via-geom_line-geomline">Linegraphs via <code>geom_line</code> {#geomline}</h3>
+<p>Let's create a time series plot of the hourly temperatures saved in the <code>early_january_weather</code> data frame by using <code>geom_line()</code> to create a linegraph\index{ggplot2!geom_line()}, instead of using <code>geom_point()</code> like we used previously to create scatterplots:</p>
+<pre><code>ggplot(data = early_january_weather, 
+       mapping = aes(x = time_hour, y = temp)) +
+  geom_line()
+</code></pre>
+<p>Much as with the <code>ggplot()</code> code that created the scatterplot of departure and arrival delays for Alaska Airlines flights in Figure \@ref(fig:noalpha), let's break down this code piece-by-piece in terms of the grammar of graphics:</p>
+<p>Within the <code>ggplot()</code> function call, we specify two of the components of the grammar of graphics as arguments:</p>
+<ol>
+<li>The <code>data</code> to be the <code>early_january_weather</code> data frame by setting <code>data = early_january_weather</code>.</li>
+<li>The <code>aes</code>thetic <code>mapping</code> by setting <code>mapping = aes(x = time_hour, y = temp)</code>. Specifically, the variable <code>time_hour</code> maps to the <code>x</code> position aesthetic, while the variable <code>temp</code> maps to the <code>y</code> position aesthetic.</li>
+</ol>
+<p>We add a layer to the <code>ggplot()</code> function call using the <code>+</code> sign. The layer in question specifies the third component of the grammar:  the <code>geom</code>etric object in question. In this case, the geometric object is a <code>line</code> set by specifying <code>geom_line()</code>. </p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong>  Why should linegraphs be avoided when there is not a clear ordering of the horizontal axis?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why are linegraphs frequently used when time is the explanatory variable on the x-axis?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Plot a time series of a variable other than <code>temp</code> for Newark Airport in the first 15 days of January 2013.</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="summary_1">Summary</h3>
+<p>Linegraphs, just like scatterplots, display the relationship between two numerical variables. However, it is preferred to use linegraphs over scatterplots when the variable on the x-axis (i.e., the explanatory variable) has an inherent ordering, such as some notion of time.  </p>
+<h2 id="5ng3-histograms-histograms">5NG#3: Histograms {#histograms}</h2>
+<p>Let's consider the <code>temp</code> variable in the <code>weather</code> data frame once again, but unlike with the linegraphs in Section \@ref(linegraphs), let's say we don't care about its relationship with time, but rather we only care about how the values of <code>temp</code> <em>distribute</em>. In other words:</p>
+<ol>
+<li>What are the smallest and largest values?</li>
+<li>What is the "center" or "most typical" value?</li>
+<li>How do the values spread out?</li>
+<li>What are frequent and infrequent values?</li>
+</ol>
+<p>One way to visualize this <em>distribution</em> \index{distribution} of this single variable <code>temp</code> is to plot them on a horizontal line as we do in Figure \@ref(fig:temp-on-line):</p>
+<pre><code>ggplot(data = weather, mapping = aes(x = temp, y = factor(&quot;A&quot;))) +
+  geom_point() +
+  theme(
+    axis.ticks.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank()
+  )
+hist_title &lt;- &quot;Histogram of Hourly Temperature Recordings from NYC in 2013&quot;
+</code></pre>
+<p>This gives us a general idea of how the values of <code>temp</code> distribute: observe that temperatures vary from around <code>r round(min(weather$temp, na.rm = TRUE), 0)</code>&deg;F (-11&deg;C) up to <code>r round(max(weather$temp, na.rm = TRUE), 0)</code>&deg;F (38&deg;C).  Furthermore, there appear to be more recorded temperatures between 40&deg;F and 60&deg;F than outside this range. However, because of the high degree of overplotting in the points, it's hard to get a sense of exactly how many values are between say 50&deg;F and 55&deg;F.</p>
+<p>What is commonly produced instead of Figure \@ref(fig:temp-on-line) is known as a \index{histograms} <em>histogram</em>.  A histogram is a plot that visualizes the <em>distribution</em> of a numerical value as follows:</p>
+<ol>
+<li>We first cut up the x-axis into a series of \index{histograms!bins} <em>bins</em>, where each bin represents a range of values. </li>
+<li>For each bin, we count the number of observations that fall in the range corresponding to that bin.</li>
+<li>Then for each bin, we draw a bar whose height marks the corresponding count.</li>
+</ol>
+<p>Let's drill-down on an example of a histogram, shown in Figure \@ref(fig:histogramexample).</p>
+<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(binwidth = 10, boundary = 70, color = &quot;white&quot;)
+</code></pre>
+<p>Let's focus only on temperatures between 30&deg;F (-1&deg;C) and 60&deg;F (15&deg;C) for now. Observe that there are three bins of equal width between 30&deg;F and 60&deg;F. Thus we have three bins of width 10&deg;F each: one bin for the 30-40&deg;F range, another bin for the 40-50&deg;F range, and another bin for the 50-60&deg;F range. Since:</p>
+<ol>
+<li>The bin for the 30-40&deg;F range has a height of around 5000. In other words, around 5000 of the hourly temperature recordings are between 30&deg;F and 40&deg;F.</li>
+<li>The bin for the 40-50&deg;F range has a height of around 4300. In other words, around 4300 of the hourly temperature recordings are between 40&deg;F and 50&deg;F.</li>
+<li>The bin for the 50-60&deg;F range has a height of around 3500. In other words, around 3500 of the hourly temperature recordings are between 50&deg;F and 60&deg;F.</li>
+</ol>
+<p>All nine bins spanning 10&deg;F to 100&deg;F on the x-axis have this interpretation.</p>
+<h3 id="histograms-via-geom_histogram-geomhistogram">Histograms via <code>geom_histogram</code> {#geomhistogram}</h3>
+<p>Let's now present the <code>ggplot()</code> code to plot your first histogram! Unlike with scatterplots and linegraphs, there is now only one variable being mapped in <code>aes()</code>: the single numerical variable <code>temp</code>. The y-aesthetic of a histogram, the count of the observations in each bin, gets computed for you automatically. Furthermore, the geometric object layer is now a <code>geom_histogram()</code>. \index{ggplot2!geom_histogram()} After running the following code, you'll see the histogram in Figure \@ref(fig:weather-histogram) as well as warning messages. We'll discuss the warning messages first. </p>
+<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram()
+</code></pre>
+<p>The first message is telling us that the histogram was constructed using <code>bins = 30</code> for 30 equally spaced bins. This is known in computer programming as a default value; unless you override this default number of bins with a number you specify, R will choose 30 by default. We'll see in the next section how to change the number of bins to another value than the default.</p>
+<p>The second message is telling us something similar to the warning message we received when we ran the code to create a scatterplot of departure and arrival delays for Alaska Airlines flights in Figure \@ref(fig:noalpha): that because one row has a missing <code>NA</code> value for <code>temp</code>, it was omitted from the histogram. R is just giving us a friendly heads up that this was the case. </p>
+<p>Now let's unpack the resulting histogram in Figure \@ref(fig:weather-histogram). Observe that values less than 25&deg;F as well as values above 80&deg;F are rather rare. However, because of the large number of bins, it's hard to get a sense for which range of temperatures is spanned by each bin; everything is one giant amorphous blob. So let's add white vertical borders demarcating the bins by adding a <code>color = "white"</code> argument to <code>geom_histogram()</code> and ignore the warning about setting the number of bins to a better value:</p>
+<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(color = &quot;white&quot;)
+</code></pre>
+<p>We now have an easier time associating ranges of temperatures to each of the bins in Figure \@ref(fig:weather-histogram-2). We can also vary the color of the bars by setting the \index{ggplot2!fill} <code>fill</code> argument. For example, you can set the bin colors to be "blue steel" by setting <code>fill = "steelblue"</code>:</p>
+<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(color = &quot;white&quot;, fill = &quot;steelblue&quot;)
+</code></pre>
+<p>If you're curious, run \index{colors()} <code>colors()</code> to see all <code>r colors() %&gt;% length()</code> possible choice of colors in R!</p>
+<h3 id="adjusting-the-bins-adjustbins">Adjusting the bins {#adjustbins}</h3>
+<p>Observe in Figure \@ref(fig:weather-histogram-2) that in the 50-75&deg;F range there appear to be roughly 8 bins. Thus each bin has width 25 divided by 8, or  3.125&deg;F, which is not a very easily interpretable range to work with. Let's improve this by adjusting the number of bins in our histogram in one of two ways:</p>
+<ol>
+<li>By adjusting the number of bins via the \index{geom_histogram()!bins} <code>bins</code> argument to <code>geom_histogram()</code>. </li>
+<li>By adjusting the width of the bins via the \index{geom_histogram()!binwidth} <code>binwidth</code> argument to <code>geom_histogram()</code>. </li>
+</ol>
+<p>Using the first method, we have the power to specify how many bins we would like to cut the x-axis up in. As mentioned in the previous section, the default number of bins is 30. We can override this default, to say 40 bins, as follows:</p>
+<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(bins = 40, color = &quot;white&quot;)
+</code></pre>
+<p>Using the second method, instead of specifying the number of bins, we specify the width of the bins by using the <code>binwidth</code> argument in the <code>geom_histogram()</code> layer. For example, let's set the width of each bin to be 10&deg;F.</p>
+<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(binwidth = 10, color = &quot;white&quot;)
+</code></pre>
+<p>We compare both resulting histograms side-by-side in Figure \@ref(fig:hist-bins). </p>
+<pre><code>hist_1 &lt;- ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(bins = 40, color = &quot;white&quot;) +
+  labs(title = &quot;With 40 bins&quot;)
+hist_2 &lt;- ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(binwidth = 10, color = &quot;white&quot;) +
+  labs(title = &quot;With binwidth = 10 degrees F&quot;)
+hist_1 + hist_2
+</code></pre>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What does changing the number of bins from 30 to 40 tell us about the distribution of temperatures?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Would you classify the distribution of temperatures as symmetric or skewed in one direction or another?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What would you guess is the "center" value in this distribution?  Why did you make that choice?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Is this data spread out greatly from the center or is it close?  Why?</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="summary_2">Summary</h3>
+<p>Histograms, unlike scatterplots and linegraphs, present information on only a single numerical variable. Specifically, they are visualizations of the distribution of the numerical variable in question. </p>
+<h2 id="facets-facets">Facets {#facets}</h2>
+<p>Before continuing with the next of the 5NG, let's briefly introduce a new concept called <em>faceting</em>.  Faceting is used when we'd like to split a particular visualization by the values of another variable. This will create multiple copies of the same type of plot with matching x and y axes, but whose content will differ. </p>
+<p>For example, suppose we were interested in looking at how the histogram of hourly temperature recordings at the three NYC airports we saw in Figure \@ref(fig:histogramexample) differed in each month. We could "split" this histogram by the 12 possible months in a given year. In other words, we would plot histograms of <code>temp</code> for each <code>month</code> separately. We do this by adding <code>facet_wrap(~ month)</code> layer. Note the <code>~</code> is a "tilde" and can generally be found on the key next to the "1" key on US keyboards. The tilde is required and you'll receive the error <code>Error in as.quoted(facets) : object 'month' not found</code> if you don't include it here. </p>
+<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(binwidth = 5, color = &quot;white&quot;) +
+  facet_wrap(~ month)
+</code></pre>
+<pre><code>month_facet &lt;- ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(binwidth = 5, color = &quot;white&quot;) +
+  facet_wrap(~month)
+
+if (is_latex_output()) {
+  month_facet +
+    theme(
+      strip.text = element_text(colour = &quot;black&quot;),
+      strip.background = element_rect(fill = &quot;grey93&quot;)
+    )
+} else {
+  month_facet
+}
+</code></pre>
+<p>We can also specify the number of rows and columns in the grid by using the <code>nrow</code> and <code>ncol</code> arguments inside of \index{ggplot2!facet_wrap()} <code>facet_wrap()</code>. For example, say we would like our faceted histogram to have 4 rows instead of 3. We simply add an <code>nrow = 4</code> argument to <code>facet_wrap(~ month)</code>.</p>
+<pre><code>ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(binwidth = 5, color = &quot;white&quot;) +
+  facet_wrap(~ month, nrow = 4)
+</code></pre>
+<pre><code>month_facet_4 &lt;- ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(binwidth = 5, color = &quot;white&quot;) +
+  facet_wrap(~month, nrow = 4)
+
+if (is_latex_output()) {
+  month_facet_4 +
+    theme(
+      strip.text = element_text(colour = &quot;black&quot;),
+      strip.background = element_rect(fill = &quot;grey93&quot;)
+    )
+} else {
+  month_facet_4
+}
+</code></pre>
+<p>Observe in both Figures \@ref(fig:facethistogram) and \@ref(fig:facethistogram2) that as we might expect in the Northern Hemisphere, temperatures tend to be higher in the summer months, while they tend to be lower in the winter. </p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What other things do you notice about this faceted plot?  How does a faceted plot help us see relationships between two variables?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What do the numbers 1-12 correspond to in the plot?  What about 25, 50, 75, 100?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> For which types of datasets would faceted plots not work well in comparing relationships between variables? Give an example describing the nature of these variables and other important characteristics.</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Does the <code>temp</code> variable in the <code>weather</code> dataset have a lot of variability?  Why do you say that?</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h2 id="5ng4-boxplots-boxplots">5NG#4: Boxplots {#boxplots}</h2>
+<pre><code>n_nov &lt;- weather %&gt;%
+  filter(month == 11) %&gt;%
+  nrow()
+min_nov &lt;- weather %&gt;%
+  filter(month == 11) %&gt;%
+  pull(temp) %&gt;%
+  min(na.rm = TRUE) %&gt;%
+  round(0)
+max_nov &lt;- weather %&gt;%
+  filter(month == 11) %&gt;%
+  pull(temp) %&gt;%
+  max(na.rm = TRUE) %&gt;%
+  round(0)
+quartiles &lt;- weather %&gt;%
+  filter(month == 11) %&gt;%
+  pull(temp) %&gt;%
+  quantile(prob = c(0.25, 0.5, 0.75)) %&gt;%
+  round(0)
+five_number_summary &lt;- tibble(
+  temp = c(min_nov, quartiles, max_nov)
+)
+</code></pre>
+<p>While faceted histograms are one type of visualization used to compare the distribution of a numerical variable split by the values of another variable, another type of visualization that achieves this same goal is a <em>side-by-side boxplot</em>. A boxplot \index{boxplots} is constructed from the information provided in the <em>five-number summary</em> of a numerical variable (see Appendix \@ref(appendix-stat-terms)).  </p>
+<p>To keep things simple for now, let's only consider the <code>r n_nov</code> hourly temperature recordings for the month of November, each represented as a jittered point in Figure \@ref(fig:nov1). </p>
+<pre><code>base_plot &lt;- weather %&gt;%
+  filter(month %in% c(11)) %&gt;%
+  ggplot(mapping = aes(x = factor(month), y = temp)) +
+  labs(x = &quot;&quot;)
+base_plot +
+  geom_jitter(width = 0.075, height = 0.5, alpha = 0.1)
+</code></pre>
+<p>These <code>r n_nov</code> observations have the following <em>five-number summary</em>:</p>
+<ol>
+<li>Minimum: <code>r min_nov</code>&deg;F</li>
+<li>First quartile (25th percentile): <code>r quartiles[1]</code>&deg;F</li>
+<li>Median (second quartile, 50th percentile): <code>r quartiles[2]</code>&deg;F</li>
+<li>Third quartile (75th percentile): <code>r quartiles[3]</code>&deg;F</li>
+<li>Maximum: <code>r max_nov</code>&deg;F</li>
+</ol>
+<p>In the leftmost plot of Figure \@ref(fig:nov2), let's mark these 5 values with dashed horizontal lines on top of the <code>r n_nov</code> points. In the middle plot of Figure \@ref(fig:nov2) let's add the <em>boxplot</em>. In the rightmost plot of Figure \@ref(fig:nov2), let's remove the points and the dashed horizontal lines for clarity's sake.</p>
+<pre><code>boxplot_1 &lt;- base_plot +
+  geom_hline(data = five_number_summary, aes(yintercept = temp), linetype = &quot;dashed&quot;) +
+  geom_jitter(width = 0.075, height = 0.5, alpha = 0.1)
+boxplot_2 &lt;- base_plot +
+  geom_boxplot() +
+  geom_hline(data = five_number_summary, aes(yintercept = temp), linetype = &quot;dashed&quot;) +
+  geom_jitter(width = 0.075, height = 0.5, alpha = 0.1)
+boxplot_3 &lt;- base_plot +
+  geom_boxplot()
+boxplot_1 + boxplot_2 + boxplot_3
+</code></pre>
+<p>What the boxplot does is visually summarize the <code>r weather %&gt;% filter(month == 11) %&gt;% nrow()</code> points by cutting the <code>r n_nov</code> temperature recordings into <em>quartiles</em> at the dashed lines, where each quartile contains roughly <code>r n_nov</code> <span class="arithmatex">\(\div\)</span> 4 <span class="arithmatex">\(\approx\)</span> <code>r round(n_nov / 4)</code> observations. Thus</p>
+<pre><code># This redundant code is used for dynamic non-static in-line text output purposes
+quartile_1 &lt;- quartiles[1] %&gt;% round(3)
+quartile_2 &lt;- quartiles[2] %&gt;% round(3)
+quartile_3 &lt;- quartiles[3] %&gt;% round(3)
+</code></pre>
+<ol>
+<li>25% of points fall below the bottom edge of the box, which is the first quartile of <code>r quartile_1</code>&deg;F. In other words, 25% of observations were below <code>r quartile_1</code>&deg;F.</li>
+<li>25% of points fall between the bottom edge of the box and the solid middle line, which is the median of <code>r quartile_2</code>&deg;F. Thus, 25% of observations were between <code>r quartile_1</code>&deg;F and <code>r quartile_2</code>&deg;F and 50% of observations were below <code>r quartile_2</code>&deg;F.</li>
+<li>25% of points fall between the solid middle line and the top edge of the box, which is the third quartile of <code>r quartile_3</code>&deg;F. It follows that 25% of observations were between <code>r quartile_2</code>&deg;F and <code>r quartile_3</code>&deg;F and 75% of observations were below <code>r quartile_3</code>&deg;F.</li>
+<li>25% of points fall above the top edge of the box. In other words, 25% of observations were above <code>r quartile_3</code>&deg;F.</li>
+<li>The middle 50% of points lie within the <em>interquartile range (IQR)</em> \index{interquartile range (IQR)} between the first and third quartile. Thus, the IQR for this example is <code>r quartile_3</code> - <code>r quartile_1</code> = <code>r (quartiles[3] - quartiles[1]) %&gt;% round(3)</code>&deg;F. The interquartile range is a measure of a numerical variable's <em>spread</em>.</li>
+</ol>
+<p>Furthermore, in the rightmost plot of Figure \@ref(fig:nov2), we see the <em>whiskers</em> \index{boxplots!whiskers} of the boxplot. The whiskers stick out from either end of the box all the way to the minimum and maximum observed temperatures of <code>r min_nov</code>&deg;F and <code>r max_nov</code>&deg;F, respectively. However, the whiskers don't always extend to the smallest and largest observed values as they do here. They in fact extend no more than 1.5 <span class="arithmatex">\(\times\)</span> the interquartile range from either end of the box. In this case of the November temperatures, no more than 1.5 <span class="arithmatex">\(\times\)</span> <code>r (quartiles[3] - quartiles[1]) %&gt;% round(3)</code>&deg;F = <code>r (1.5*(quartiles[3] - quartiles[1])) %&gt;% round(3)</code>&deg;F from either end of the box. Any observed values outside this range get marked with points called <em>outliers</em>, which we'll see in the next section.</p>
+<h3 id="boxplots-via-geom_boxplot-geomboxplot">Boxplots via <code>geom_boxplot</code> {#geomboxplot}</h3>
+<p>Let's now create a side-by-side boxplot \index{boxplots!side-by-side} of hourly temperatures split by the 12 months as we did previously with the faceted histograms. We do this by mapping the <code>month</code> variable to the x-position aesthetic, the <code>temp</code> variable to the y-position aesthetic, and by adding a <code>geom_boxplot()</code> layer:</p>
+<pre><code>ggplot(data = weather, mapping = aes(x = month, y = temp)) +
+  geom_boxplot()
+</code></pre>
+<pre><code>Warning messages:
+1: Continuous x aesthetic -- did you forget aes(group=...)? 
+2: Removed 1 rows containing non-finite values (stat_boxplot). 
+</code></pre>
+<p>Observe in Figure \@ref(fig:badbox) that this plot does not provide information about temperature separated by month. The first warning message clues us in as to why. It is telling us that we have a "continuous", or numerical variable, on the x-position aesthetic. Boxplots, however, require a categorical variable to be mapped to the x-position aesthetic. The second warning message is identical to the warning message when plotting a histogram of hourly temperatures: that one of the values was recorded as <code>NA</code> missing. </p>
+<p>We can convert the numerical variable <code>month</code> into a <code>factor</code> categorical variable by using the <code>factor()</code> \index{factors} function. So after applying <code>factor(month)</code>, month goes from having numerical values just the 1, 2, ..., and 12 to having an associated ordering. With this ordering, <code>ggplot()</code> now knows how to work with this variable to produce the needed plot. </p>
+<pre><code>ggplot(data = weather, mapping = aes(x = factor(month), y = temp)) +
+  geom_boxplot()
+</code></pre>
+<p>The resulting Figure \@ref(fig:monthtempbox) shows 12 separate "box and whiskers" plots similar to the rightmost plot of Figure \@ref(fig:nov2) of only November temperatures. Thus the different boxplots are shown "side-by-side."</p>
+<ul>
+<li>The "box" portions of the visualization represent the 1st quartile, the median (the 2nd quartile), and the 3rd quartile.</li>
+<li>The height of each box (the value of the 3rd quartile minus the value of the 1st quartile) is the interquartile range (IQR). It is a measure of the spread of the middle 50% of values, with longer boxes indicating more variability.</li>
+<li>The "whisker" portions of these plots extend out from the bottoms and tops of the boxes and represent points less than the 25th percentile and greater than the 75th percentiles, respectively. They're set to extend out no more than <span class="arithmatex">\(1.5 \times IQR\)</span> units away from either end of the boxes. We say "no more than" because the ends of the whiskers have to correspond to observed temperatures.  The length of these whiskers show how the data outside the middle 50% of values vary, with longer whiskers indicating more variability.</li>
+<li>The dots representing values falling outside the whiskers are called \index{outliers} <em>outliers</em>. These can be thought of as anomalous ("out-of-the-ordinary") values.</li>
+</ul>
+<p>It is important to keep in mind that the definition of an outlier is somewhat arbitrary and not absolute. In this case, they are defined by the length of the whiskers, which are no more than <span class="arithmatex">\(1.5 \times IQR\)</span> units long for each boxplot. Looking at this side-by-side plot we can see, as expected, that summer months (6 through 8) have higher median temperatures as evidenced by the higher solid lines in the middle of the boxes. We can easily compare temperatures across months by drawing imaginary horizontal lines across the plot. Furthermore, the heights of the 12 boxes as quantified by the interquartile ranges are informative too; they tell us about variability, or spread, of temperatures recorded in a given month. </p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What does the dot at the bottom of the plot for May correspond to?  Explain what might have occurred in May to produce this point.</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Which months have the highest variability in temperature?  What reasons can you give for this?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> We looked at the distribution of the numerical variable <code>temp</code> split by the numerical variable <code>month</code> that we converted using the <code>factor()</code> function in order to make a side-by-side boxplot. Why would a boxplot of <code>temp</code> split by the numerical variable <code>pressure</code> similarly converted to a categorical variable using the <code>factor()</code> not be informative?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Boxplots provide a simple way to identify outliers.  Why may outliers be easier to identify when looking at a boxplot instead of a faceted histogram?</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="summary_3">Summary</h3>
+<p>Side-by-side boxplots provide us with a way to compare the distribution of a numerical variable across multiple values of another variable. One can see where the median falls across the different groups by comparing the solid lines in the center of the boxes. </p>
+<p>To study the spread of a numerical variable within one of the boxes, look at both the length of the box and also how far the whiskers extend from either end of the box. Outliers are even more easily identified when looking at a boxplot than when looking at a histogram as they are marked with distinct points.</p>
+<h2 id="5ng5-barplots-geombar">5NG#5: Barplots {#geombar}</h2>
+<p>Both histograms and boxplots are tools to visualize the distribution of numerical variables. Another commonly desired task is to visualize the distribution of a categorical variable. This is a simpler task, as we are simply counting different categories within a categorical variable, also known as the \index{levels} <em>levels</em> of the categorical variable. Often the best way to visualize these different counts, also known as \index{frequencies} <em>frequencies</em>, is with barplots (also called barcharts).</p>
+<p>One complication, however, is how your data is represented. Is the categorical variable of interest "pre-counted" or not? For example, run the following code that manually creates two data frames representing a collection of fruit: 3 apples and 2 oranges.</p>
+<pre><code>fruits &lt;- tibble(
+  fruit = c(&quot;apple&quot;, &quot;apple&quot;, &quot;orange&quot;, &quot;apple&quot;, &quot;orange&quot;)
+)
+fruits_counted &lt;- tibble(
+  fruit = c(&quot;apple&quot;, &quot;orange&quot;),
+  number = c(3, 2)
+)
+</code></pre>
+<p>We see both the <code>fruits</code> and <code>fruits_counted</code> data frames represent the same collection of fruit. Whereas <code>fruits</code> just lists the fruit individually...</p>
+<pre><code>fruits
+</code></pre>
+<p>... <code>fruits_counted</code> has a variable <code>count</code> which represent the "pre-counted" values of each fruit. </p>
+<pre><code>fruits_counted
+</code></pre>
+<p>Depending on how your categorical data is represented, you'll need to add a different <code>geom</code>etric layer type to your <code>ggplot()</code> to create a barplot, as we now explore. </p>
+<h3 id="barplots-via-geom_bar-or-geom_col">Barplots via <code>geom_bar</code> or <code>geom_col</code></h3>
+<p>Let's generate barplots using these two different representations of the same basket of fruit: 3 apples and 2 oranges. Using the <code>fruits</code> data frame where all 5 fruits are listed individually in 5 rows, we map the <code>fruit</code> variable to the x-position aesthetic and add a \index{ggplot2!geom_bar()} <code>geom_bar()</code> layer:</p>
+<pre><code>ggplot(data = fruits, mapping = aes(x = fruit)) +
+  geom_bar()
+</code></pre>
+<p>However, using the <code>fruits_counted</code> data frame where the fruits have been "pre-counted", we once again map the <code>fruit</code> variable to the x-position aesthetic, but here we also map the <code>count</code> variable to the y-position aesthetic, and add a \index{ggplot2!geom_col()} <code>geom_col()</code> layer instead.</p>
+<pre><code>ggplot(data = fruits_counted, mapping = aes(x = fruit, y = number)) +
+  geom_col()
+</code></pre>
+<p>Compare the barplots in Figures \@ref(fig:geombar) and \@ref(fig:geomcol). They are identical because they reflect counts of the same five fruits. However, depending on how our categorical data is represented, either "pre-counted" or not, we must add a different <code>geom</code> layer. When the categorical variable whose distribution you want to visualize</p>
+<ul>
+<li>Is <em>not</em> pre-counted in your data frame, we use <code>geom_bar()</code>.</li>
+<li>Is pre-counted in your data frame, we use <code>geom_col()</code> with the y-position aesthetic mapped to the variable that has the counts.</li>
+</ul>
+<p>Let's now go back to the <code>flights</code> data frame in the <code>nycflights13</code> package and visualize the distribution of the categorical variable <code>carrier</code>. In other words, let's visualize the number of domestic flights out of New York City each airline company flew in 2013. Recall from Subsection \@ref(exploredataframes) when you first explored the <code>flights</code> data frame, you saw that each row corresponds to a flight. In other words, the <code>flights</code> data frame is more like the <code>fruits</code> data frame than the <code>fruits_counted</code> data frame because the flights have not been pre-counted by <code>carrier</code>. Thus we should use <code>geom_bar()</code> instead of <code>geom_col()</code> to create a barplot. Much like a <code>geom_histogram()</code>, there is only one variable in the <code>aes()</code> aesthetic mapping: the variable <code>carrier</code> gets mapped to the <code>x</code>-position. As a difference though, histograms have bars that touch whereas bar graphs have white space between the bars going from left to right.</p>
+<p>(ref:geombar) Number of flights departing NYC in 2013 by airline using geom_bar().</p>
+<pre><code>ggplot(data = flights, mapping = aes(x = carrier)) +
+  geom_bar()
+</code></pre>
+<p>Observe in Figure \@ref(fig:flightsbar) that United Airlines (UA), JetBlue Airways (B6), and ExpressJet Airlines (EV) had the most flights depart NYC in 2013. If you don't know which airlines correspond to which carrier codes, then run <code>View(airlines)</code> to see a directory of airlines. For example, B6 is JetBlue Airways. Alternatively, say you had a data frame where the number of flights for each <code>carrier</code> was pre-counted as in Table \@ref(tab:flights-counted).</p>
+<pre><code>flights_counted &lt;- flights %&gt;%
+  group_by(carrier) %&gt;%
+  summarize(number = n())
+kbl(flights_counted,
+  digits = 3,
+  caption = &quot;Number of flights pre-counted for each carrier&quot;,
+  booktabs = TRUE,
+  longtable = TRUE,
+  linesep = &quot;&quot;
+) %&gt;%
+  kable_styling(
+    font_size = ifelse(is_latex_output(), 10, 16),
+    latex_options = c(&quot;hold_position&quot;)
+  )
+</code></pre>
+<p>In order to create a barplot visualizing the distribution of the categorical variable <code>carrier</code> in this case, we would now use <code>geom_col()</code> instead of <code>geom_bar()</code>, with an additional <code>y = number</code> in the aesthetic mapping on top of the <code>x = carrier</code>. The resulting barplot would be identical to Figure \@ref(fig:flightsbar).</p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why are histograms inappropriate for categorical variables?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What is the difference between histograms and barplots?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> How many Envoy Air flights departed NYC in 2013?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What was the 7th highest airline for departed flights from NYC in 2013? How could we better present the table to get this answer quickly?</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="must-avoid-pie-charts">Must avoid pie charts!</h3>
+<p>One of the most common plots used to visualize the distribution of categorical data is the \index{pie charts} pie chart. While they may seem harmless enough, pie charts actually present a problem in that humans are unable to judge angles well. As Naomi Robbins describes in her book, <em>Creating More Effective Graphs</em> [@robbins2013], we overestimate angles greater than 90 degrees and we underestimate angles less than 90 degrees. In other words, it is difficult for us to determine the relative size of one piece of the pie compared to another.  </p>
+<p>Let's examine the same data used in our previous barplot of the number of flights departing NYC by airline in Figure \@ref(fig:flightsbar), but this time we will use a pie chart in Figure \@ref(fig:carrierpie). Try to answer the following questions:</p>
+<ul>
+<li>How much larger is the portion of the pie for ExpressJet Airlines (<code>EV</code>)  compared to US Airways (<code>US</code>)? </li>
+<li>What is the third largest carrier in terms of departing flights?</li>
+<li>How many carriers have fewer flights than United Airlines (<code>UA</code>)?</li>
+</ul>
+<pre><code>if (is_html_output()) {
+  ggplot(flights, mapping = aes(x = factor(1), fill = carrier)) +
+    geom_bar(width = 1) +
+    coord_polar(theta = &quot;y&quot;) +
+    theme(
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.ticks = element_blank(),
+      axis.text.y = element_blank(),
+      axis.text.x = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank()
+    ) +
+    guides(fill = guide_legend(keywidth = 0.8, keyheight = 0.8))
+} else {
+  ggplot(flights, mapping = aes(x = factor(1), fill = carrier)) +
+    geom_bar(width = 1) +
+    coord_polar(theta = &quot;y&quot;) +
+    theme_light() +
+    theme(
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.ticks = element_blank(),
+      axis.text.y = element_blank(),
+      axis.text.x = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank()
+    ) +
+    guides(fill = guide_legend(keywidth = 0.8, keyheight = 0.8)) +
+    scale_fill_grey()
+}
+</code></pre>
+<p>While it is quite difficult to answer these questions when looking at the pie chart in Figure \@ref(fig:carrierpie), we can much more easily answer these questions using the barchart in Figure \@ref(fig:flightsbar). This is true since barplots present the information in a way such that comparisons between categories can be made with single horizontal lines, whereas pie charts present the information in a way such that comparisons must be made by \index{pie charts!problems with} comparing angles. </p>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why should pie charts be avoided and replaced by barplots?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why do you think people continue to use pie charts?</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="two-categorical-variables-two-categ-barplot">Two categorical variables {#two-categ-barplot}</h3>
+<p>Barplots are a very common way to visualize the frequency of different categories, or levels, of a single categorical variable. Another use of barplots is to visualize the <em>joint</em> distribution of two categorical variables at the same time.  Let's examine the <em>joint</em> distribution of outgoing domestic flights from NYC by <code>carrier</code> as well as <code>origin</code>. In other words, the number of flights for each <code>carrier</code> and <code>origin</code> combination. </p>
+<p>For example, the number of WestJet flights from <code>JFK</code>, the number of WestJet flights from <code>LGA</code>, the number of WestJet flights from <code>EWR</code>, the number of American Airlines flights from <code>JFK</code>, and so on. Recall the <code>ggplot()</code> code that created the barplot of <code>carrier</code> frequency in Figure \@ref(fig:flightsbar):</p>
+<pre><code>ggplot(data = flights, mapping = aes(x = carrier)) + 
+  geom_bar()
+</code></pre>
+<p>We can now map the additional variable <code>origin</code> by adding a <code>fill = origin</code> inside the <code>aes()</code> aesthetic mapping.</p>
+<pre><code>ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+  geom_bar()
+</code></pre>
+<pre><code>if (is_html_output()) {
+  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+    geom_bar()
+} else {
+  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+    geom_bar() +
+    scale_fill_grey()
+}
+</code></pre>
+<p>Figure \@ref(fig:flights-stacked-bar) is an example of a \index{barplot!stacked} <em>stacked barplot</em>.  While simple to make, in certain aspects it is not ideal. For example, it is difficult to compare the heights of the different colors between the bars, corresponding to comparing the number of flights from each <code>origin</code> airport between the carriers.</p>
+<p>Before we continue, let's address some common points of confusion among new R users. First, the <code>fill</code> aesthetic corresponds to the color used to fill the bars, while the <code>color</code> aesthetic corresponds to the color of the outline of the bars. This is identical to how we added color to our histogram in Subsection \@ref(geomhistogram): we set the outline of the bars to white by setting <code>color = "white"</code> and the colors of the bars to blue steel by setting <code>fill = "steelblue"</code>. Observe in Figure \@ref(fig:flights-stacked-bar-color) that mapping <code>origin</code> to <code>color</code> and not <code>fill</code> yields grey bars with different colored outlines.</p>
+<pre><code>ggplot(data = flights, mapping = aes(x = carrier, color = origin)) +
+  geom_bar()
+</code></pre>
+<pre><code>if (is_html_output()) {
+  ggplot(data = flights, mapping = aes(x = carrier, color = origin)) +
+    geom_bar()
+} else {
+  ggplot(data = flights, mapping = aes(x = carrier, color = origin)) +
+    geom_bar() +
+    scale_color_grey()
+}
+</code></pre>
+<p>Second, note that <code>fill</code> is another aesthetic mapping much like <code>x</code>-position; thus we were careful to include it within the parentheses of the <code>aes()</code> mapping. The following code, where the <code>fill</code> aesthetic is specified outside the <code>aes()</code> mapping will yield an error. This is a fairly common error that new <code>ggplot</code> users make:</p>
+<pre><code>ggplot(data = flights, mapping = aes(x = carrier), fill = origin) +
+  geom_bar()
+</code></pre>
+<p>An alternative to stacked barplots are \index{barplot!side-by-side} <em>side-by-side barplots</em>, also known as <em>dodged barplots</em>, as seen in Figure \@ref(fig:flights-dodged-bar-color). The code to create a side-by-side barplot is identical to the code to create a stacked barplot, but with a \index{ggplot2!position} <code>position = "dodge"</code> argument added to <code>geom_bar()</code>. In other words, we are overriding the default barplot type, which is a <em>stacked</em> barplot, and specifying it to be a side-by-side barplot instead.</p>
+<pre><code>ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+  geom_bar(position = &quot;dodge&quot;)
+</code></pre>
+<pre><code>if (is_html_output()) {
+  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+    geom_bar(position = &quot;dodge&quot;)
+} else {
+  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+    geom_bar(position = &quot;dodge&quot;) +
+    scale_fill_grey()
+}
+</code></pre>
+<p>Note the width of the bars for <code>AS</code>, <code>F9</code>, <code>FL</code>, <code>HA</code> and <code>YV</code> is different than the others. We can make one tweak to the <code>position</code> argument to get them to be the same size in terms of width as the other bars by using the more robust <code>position_dodge()</code> function.</p>
+<pre><code>ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+  geom_bar(position = position_dodge(preserve = &quot;single&quot;))
+</code></pre>
+<pre><code>if (is_html_output()) {
+  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+    geom_bar(position = position_dodge(preserve = &quot;single&quot;))
+} else {
+  ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+    geom_bar(position = position_dodge(preserve = &quot;single&quot;)) +
+    scale_fill_grey()
+}
+</code></pre>
+<p>Lastly, another type of barplot is a \index{barplot!faceted} <em>faceted barplot</em>. Recall in Section \@ref(facets) we visualized the distribution of hourly temperatures at the 3 NYC airports <em>split</em> by month using facets. We apply the same principle to our barplot visualizing the frequency of <code>carrier</code> split by <code>origin</code>: instead of mapping <code>origin</code> to <code>fill</code> we include it as the variable to create small multiples of the plot across the levels of <code>origin</code>.</p>
+<pre><code>ggplot(data = flights, mapping = aes(x = carrier)) +
+  geom_bar() +
+  facet_wrap(~ origin, ncol = 1)
+</code></pre>
+<pre><code>month_facet_ncol &lt;- ggplot(data = flights, mapping = aes(x = carrier)) +
+  geom_bar() +
+  facet_wrap(~origin, ncol = 1)
+
+if (is_latex_output()) {
+  month_facet_ncol +
+    theme(
+      strip.text = element_text(colour = &quot;black&quot;),
+      strip.background = element_rect(fill = &quot;grey93&quot;)
+    )
+} else {
+  month_facet_ncol
+}
+</code></pre>
+<pre><code>\vspace{-0.15in}
+**_Learning check_**
+\vspace{-0.1in}
+</code></pre>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What kinds of questions are not easily answered by looking at Figure \@ref(fig:flights-stacked-bar)?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What can you say, if anything, about the relationship between airline and airport in NYC in 2013 in regards to the number of departing flights?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why might the side-by-side barplot be preferable to a stacked barplot in this case?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What are the disadvantages of using a dodged barplot, in general?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why is the faceted barplot preferred to the side-by-side and stacked barplots in this case?</p>
+<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What information about the different carriers at different airports is more easily seen in the faceted barplot?</p>
+<pre><code>\vspace{-0.25in}
+\vspace{-0.25in}
+</code></pre>
+<h3 id="summary_4">Summary</h3>
+<p>Barplots are a common way of displaying the distribution of a categorical variable, or in other words the frequency with which the different categories (also called <em>levels</em>) occur.  They are easy to understand and make it easy to make comparisons across levels.  Furthermore, when trying to visualize the relationship of two categorical variables, you have many options: stacked barplots, side-by-side barplots, and faceted barplots. Depending on what aspect of the relationship you are trying to emphasize, you will need to make a choice between these three types of barplots and own that choice.</p>
+<h2 id="conclusion-data-vis-conclusion">Conclusion {#data-vis-conclusion}</h2>
+<h3 id="summary-table">Summary table</h3>
+<p>Let's recap all five of the five named graphs (5NG) \index{five named graphs} in Table \@ref(tab:viz-summary-table) summarizing their differences. Using these 5NG, you'll be able to visualize the distributions and relationships of variables contained in a wide array of datasets. This will be even more the case as we start to map more variables to more of each <code>geom</code>etric object's <code>aes</code>thetic attribute options, further unlocking the awesome power of the <code>ggplot2</code> package.</p>
+<pre><code># The following Google Doc is published to CSV and loaded using read_csv():
+# https://docs.google.com/spreadsheets/d/1vzqlFiT6qm5wzy_L_0nL7EWAd6jiUZmLSCFhDhztDSg/edit#gid=0
+
+if (!file.exists(&quot;rds/summary_table_ch2.rds&quot;)) {
+  summary_table_ch3 &lt;-
+    &quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRGaUW6EMIGPhg2V7CahoSdVi_JCcESFRYV5tov6bjcwOcn7DZDzfpZgrvjfFG6PV57gcJYIrwl_Q2c/pub?gid=0&amp;single=true&amp;output=csv&quot; %&gt;%
+    read_csv(na = &quot;&quot;)
+  summary_table_ch3$Notes[2] &lt;- &quot;Used when there is a sequential order to x-variable, e.g., time&quot;
+  write_rds(summary_table_ch3, &quot;rds/summary_table_ch2.rds&quot;)
+} else {
+  summary_table_ch2 &lt;- read_rds(&quot;rds/summary_table_ch2.rds&quot;) %&gt;%
+    rename(` ` = `X1`)
+}
+
+if (is_latex_output()) {
+  summary_table_ch2 %&gt;%
+    # Weird tick marks show up in PDF:
+    mutate(`Geometric object` = str_replace_all(`Geometric object`, &quot;`&quot;, &quot;&quot;)) %&gt;%
+    kbl(
+      caption = &quot;Summary of Five Named Graphs&quot;,
+      booktabs = TRUE,
+      format = &quot;latex&quot;,
+      linesep = &quot;&quot;
+    ) %&gt;%
+    kable_styling(font_size = 10) %&gt;%
+    column_spec(3, width = &quot;1.1in&quot;) %&gt;%
+    column_spec(4, width = &quot;1.2in&quot;) %&gt;%
+    column_spec(5, width = &quot;1.6in&quot;)
+} else {
+  summary_table_ch2 %&gt;%
+    kbl(
+      caption = &quot;Summary of Five Named Graphs&quot;,
+      booktabs = TRUE,
+      format = &quot;html&quot;
+    )
+}
+</code></pre>
+<h3 id="function-argument-specification">Function argument specification</h3>
+<p>Let's go over some important points about specifying the arguments (i.e., inputs) to functions. Run the following two segments of code:</p>
+<pre><code># Segment 1:
+ggplot(data = flights, mapping = aes(x = carrier)) +
+  geom_bar()
+
+# Segment 2:
+ggplot(flights, aes(x = carrier)) +
+  geom_bar()
+</code></pre>
+<p>You'll notice that both code segments create the same barplot, even though in the second segment we omitted the <code>data =</code> and <code>mapping =</code> code argument names. This is because the <code>ggplot()</code> function by default assumes that the <code>data</code> argument comes first and the <code>mapping</code> argument comes second. \index{functions!argument order} As long as you specify the data frame in question first and the <code>aes()</code> mapping second, you can omit the explicit statement of the argument names <code>data =</code> and <code>mapping =</code>. </p>
+<p>Going forward for the rest of this book, all <code>ggplot()</code> code will be like the second segment: with the <code>data =</code> and <code>mapping =</code> explicit naming of the argument omitted with the default ordering of arguments respected. We'll do this for brevity's sake; it's common to see this style when reviewing other R users' code.</p>
+<h3 id="additional-resources">Additional resources</h3>
+<pre><code>if (is_latex_output()) {
+  cat(&quot;Solutions to all *Learning checks* can be found online in [Appendix D](https://moderndive.com/D-appendixD.html).&quot;)
+}
+</code></pre>
+<pre><code>generate_r_file_link(&quot;02-visualization.R&quot;)
+</code></pre>
+<p>If you want to further unlock the power of the <code>ggplot2</code> package for data visualization, we suggest that you check out RStudio's "Data Visualization with ggplot2" cheatsheet. This cheatsheet summarizes much more than what we've discussed in this chapter. In particular, it presents many more than the 5 <code>geom</code>etric objects we covered in this chapter while providing quick and easy to read visual descriptions. For all the <code>geom</code>etric objects, it also lists all the possible aesthetic attributes one can tweak. In the current version of RStudio in mid 2024, you can access this cheatsheet by going to the RStudio Menu Bar -&gt; Help -&gt; Cheatsheets -&gt; "Data Visualization with ggplot2." <code>r if(is_html_output()) "You can see a preview in the figure below."</code> Alternatively, you can preview the cheat sheet by going to the ggplot2 Github page with this <a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf">link</a>.</p>
+<pre><code>if (is_html_output()) {
+  include_graphics(&quot;images/cheatsheets/ggplot_cheatsheet-1.png&quot;)
+}
+</code></pre>
+<h3 id="whats-to-come-whats-to-come-3">What's to come {#whats-to-come-3}</h3>
+<pre><code># This redundant code is used for dynamic non-static in-line text output purposes
+flights_rows &lt;- flights %&gt;%
+  nrow() %&gt;%
+  comma()
+alaska_flights_rows &lt;- flights %&gt;%
+  filter(carrier == &quot;AS&quot;) %&gt;%
+  nrow() %&gt;%
+  comma()
+</code></pre>
+<p>Recall in Figure \@ref(fig:noalpha) in Section \@ref(scatterplots) we visualized the relationship between departure delay and arrival delay for Alaska Airlines flights only, rather than <em>all</em> flights. This data is saved in the <code>alaska_flights</code> data frame from the <code>moderndive</code> package.</p>
+<p>In reality, the <code>alaska_flights</code> data frame is merely a subset of the <code>flights</code> data frame from the <code>nycflights13</code> package consisting of <em>all</em> flights that left NYC in 2013. We created <code>alaska_flights</code> using the following code that uses the <code>dplyr</code> package for data wrangling:</p>
+<pre><code>library(dplyr)
+
+alaska_flights &lt;- flights %&gt;% 
+  filter(carrier == &quot;AS&quot;)
+
+ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_point()
+</code></pre>
+<p>This code takes the <code>flights</code> data frame and <code>filter()</code> it to only return the <code>r alaska_flights_rows</code> rows where <code>carrier</code> is equal to <code>"AS"</code>, Alaska Airlines' carrier code. (Recall from Section \@ref(code) that testing for equality is specified with \index{using == instead of =} <code>==</code> and not <code>=</code>.) The code then cycles back to save the output in a new data frame called <code>alaska_flights</code> using the <code>&lt;-</code> <em>assignment</em> operator\index{operators!assignment (&lt;-)}. </p>
+<p>Similarly, recall in Figure \@ref(fig:hourlytemp) in Section \@ref(linegraphs) we visualized hourly temperature recordings at Newark airport only for the first 15 days of January 2013. This data is saved in the <code>early_january_weather</code> data frame from the <code>moderndive</code> package.</p>
+<p>In reality, the <code>early_january_weather</code> data frame is merely a subset of the <code>weather</code> data frame from the <code>nycflights13</code> package consisting of <em>all</em> hourly weather observations in 2013 for <em>all</em> three NYC airports. We created <code>early_january_weather</code> using the following <code>dplyr</code> code:  </p>
+<pre><code>early_january_weather &lt;- weather %&gt;% 
+  filter(origin == &quot;EWR&quot; &amp; month == 1 &amp; day &lt;= 15)
+
+ggplot(data = early_january_weather, mapping = aes(x = time_hour, y = temp)) +
+  geom_line()
+</code></pre>
+<p>This code pares down the <code>weather</code> data frame to a new data frame <code>early_january_weather</code> consisting of hourly temperature recordings only for <code>origin == "EWR"</code>, <code>month == 1</code>, and day less than or equal to <code>15</code>. </p>
+<p>These two code segments are a preview of Chapter \@ref(wrangling) on data wrangling using the <code>dplyr</code> package. Data wrangling is the process of transforming and modifying existing data with the intent of making it more appropriate for analysis purposes. For example, these two code segments used the <code>filter()</code> function to create new data frames (<code>alaska_flights</code> and <code>early_january_weather</code>) by choosing only a subset of rows of existing data frames (<code>flights</code> and <code>weather</code>). In the next chapter, we'll formally introduce the <code>filter()</code> and other data wrangling functions as well as the <em>pipe operator</em> <code>%&gt;%</code> which allows you to combine multiple data wrangling actions into a single sequential <em>chain</em> of actions. On to Chapter \@ref(wrangling) on data wrangling!</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
