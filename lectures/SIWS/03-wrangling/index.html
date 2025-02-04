@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data-wrangling" class="md-skip">
+        <a href="#python-data-wrangling" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -633,11 +633,278 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pandas" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Pandasによるデータ整形
+      はじめに
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 必要なライブラリのインポート
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 必要なライブラリのインポート">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 実データの読み込みと確認
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. データのフィルタリング
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 必要な列の選択
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mutate" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 新しい変数の作成（mutate に相当）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 新しい変数の作成（mutate に相当）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-arrange" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 行の並べ替え（arrange に相当）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-group_by-summarise" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. グループ化と要約（group_by &amp; summarise に相当）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. グループ化と要約（group_by & summarise に相当）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 性別ごとの数学の平均スコア
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) テスト準備コース別に数学、読解、作文の平均スコアを集計
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. データの結合（Join）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. データの結合（Join）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 追加情報の DataFrame 作成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-wide-long" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. データの再構築（ピボット操作：wide ⇄ long）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. データの再構築（ピボット操作：wide ⇄ long）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) ワイド形式からロング形式への変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) ロング形式からワイド形式への再変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. データの可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. データの可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 散布図：数学スコアと読解スコアの関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) ボックスプロット：性別ごとの数学スコアの分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="まとめ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-to-come" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's to come?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -816,11 +1083,278 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pandas" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Pandasによるデータ整形
+      はじめに
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 必要なライブラリのインポート
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 必要なライブラリのインポート">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 実データの読み込みと確認
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. データのフィルタリング
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 必要な列の選択
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mutate" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 新しい変数の作成（mutate に相当）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 新しい変数の作成（mutate に相当）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-arrange" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 行の並べ替え（arrange に相当）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-group_by-summarise" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. グループ化と要約（group_by &amp; summarise に相当）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. グループ化と要約（group_by & summarise に相当）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 性別ごとの数学の平均スコア
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) テスト準備コース別に数学、読解、作文の平均スコアを集計
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. データの結合（Join）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. データの結合（Join）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 追加情報の DataFrame 作成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-wide-long" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. データの再構築（ピボット操作：wide ⇄ long）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. データの再構築（ピボット操作：wide ⇄ long）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) ワイド形式からロング形式への変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) ロング形式からワイド形式への再変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. データの可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. データの可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 散布図：数学スコアと読解スコアの関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) ボックスプロット：性別ごとの数学スコアの分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="まとめ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-to-come" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's to come?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -839,655 +1373,283 @@
                   
 
 
-<h1 id="data-wrangling">データ整形（Data Wrangling）</h1>
-<p>これまでの章では、Google Colaboratory上でPythonを用いて、PandasのDataFrame内のデータを確認したり、matplotlibやseabornを使ってデータの可視化を行う方法について学んできました。例えば、<code>df.head()</code> や <code>df.info()</code> を使ってデータの概要を把握したり、以下のような基本的なグラフを作成する方法を学びました：</p>
-<ol>
+<h1 id="python-data-wrangling">Python による データ整形（Data Wrangling）</h1>
+<h2 id="_1">はじめに</h2>
+<p>本章では、データサイエンスにおいて最も重要な前処理・変換作業である <strong>データ整形（データ・ワリングリング）</strong> の基本的な操作方法を学びます。<br />
+具体的には、以下の内容を取り扱います。</p>
+<ul>
 <li>
-<p><strong>散布図（scatterplot）</strong><br />
-   → <code>plt.scatter()</code> や seaborn の <code>scatterplot()</code></p>
+<p><strong>データの読み込みと確認</strong><br />
+  実データ（Students Performance in Exams）を読み込み、データの内容や構造を把握する方法。</p>
 </li>
 <li>
-<p><strong>折れ線グラフ（line graph）</strong><br />
-   → <code>plt.plot()</code> や seaborn の <code>lineplot()</code></p>
+<p><strong>行のフィルタリングと列の選択</strong><br />
+  必要なデータのみを抽出するための条件指定や、解析に必要な列だけを取り出す方法。</p>
 </li>
 <li>
-<p><strong>箱ひげ図（box plot）</strong><br />
-   → seaborn の <code>boxplot()</code></p>
+<p><strong>新しい変数の作成</strong><br />
+  既存の変数から新たな指標（例：総得点、平均点）を計算し、データに追加する方法。</p>
 </li>
 <li>
-<p><strong>ヒストグラム（histogram）</strong><br />
-   → <code>plt.hist()</code> や seaborn の <code>histplot()</code></p>
+<p><strong>データの並べ替え</strong><br />
+  特定の基準（例：平均点の降順）に基づいてデータをソートする方法。</p>
 </li>
 <li>
-<p><strong>棒グラフ（bar plot）</strong><br />
-   → <code>plt.bar()</code> や seaborn の <code>barplot()</code></p>
-</li>
-</ol>
-<p>これらのグラフは、「グラマー・オブ・グラフィックス（grammar of graphics）」の考え方に基づいて作成され、DataFrameの変数をグラフの各要素（色、大きさ、形など）に対応付けることで、データの特徴を視覚的に表現します。たとえば、Gapminderのデータを用いた例では、各変数がどのようにグラフ上で表現されるかを確認しました。</p>
-<h2 id="pandas">Pandasによるデータ整形</h2>
-<p>この章では、Pandasを利用したデータ整形（Data Wrangling）の基本操作について学びます。Pandasには、DataFrameをあなたの目的に合わせて変換するための便利な関数が豊富に用意されています。主な操作は以下の通りです：</p>
-<ol>
-<li>
-<p><strong>フィルタリング（filter）</strong><br />
-   DataFrameの特定の行を抽出する操作です。<br />
-   例:<br />
-<code>python
-   # 条件に合致する行のみを抽出する
-   filtered_df = df[df['column'] &gt; value]</code></p>
+<p><strong>グループ化と集約</strong><br />
+  カテゴリごとにデータをまとめ、平均値などの統計量を算出する方法。</p>
 </li>
 <li>
-<p><strong>要約統計量の計算（summarize / aggregate）</strong>
-    列に対して中央値や四分位範囲などの要約統計量を計算します。
-    例:
-    ```python
-    # ある列の中央値を計算
-    median_value = df['temperature'].median()</p>
-<h1 id="_1">グループごとに要約統計量を計算</h1>
-<p>summary = df.groupby('group').agg({'temperature': ['median', 'quantile']})
-```</p>
+<p><strong>データの結合と再構築（ピボット操作）</strong><br />
+  複数のデータセットを結合したり、データの形式を変換（ワイド形式⇄ロング形式）する方法。</p>
 </li>
 <li>
-<p><strong>グループ化（group_by）</strong>
-    行を特定の基準でグループ分けし、各グループごとに統計量を計算します。
-    例:
-    <code>python
-    # 'origin' 列ごとに平均の出発遅延時間を計算
-    avg_dep_delay = df.groupby('origin')['dep_delay'].mean()</code></p>
+<p><strong>データの可視化</strong><br />
+  データの傾向や分布を視覚的に把握するためのグラフ作成手法。</p>
 </li>
-<li>
-<p><strong>新たな変数の作成（mutate / assign）</strong>
-    既存の列を利用して新しい列を作成します。
-    例:
-    <code>python
-    # 摂氏温度への変換を行い、新しい列 'temp_c' を作成
-    df['temp_c'] = (df['temp_f'] - 32) * 5/9</code></p>
-</li>
-<li>
-<p><strong>並べ替え（arrange / sort_values）</strong>
-    DataFrameの行を特定の列に基づいて昇順または降順に並べ替えます。
-    例:
-    <code>python
-    # 'temp' 列に基づいて昇順にソート
-    sorted_df = df.sort_values(by='temp')</code></p>
-</li>
-<li>
-<p><strong>結合（join / merge）</strong>
-    異なるDataFrame同士をキーとなる変数を使って結合（マージ）します。
-    例:
-    <code>python
-    # 'key' 列に基づいて二つのDataFrameを結合
-    merged_df = pd.merge(df1, df2, on='key')</code></p>
-</li>
-</ol>
-<p>このように、Pandasの関数は直感的でわかりやすい命名がされており、データ整形の操作を簡単に行うことができます。</p>
-<p>さらに、Pandasを用いたデータ操作は、データベースのクエリ言語である SQL の考え方に非常に似ています。SQLは大量のデータを効率よく扱うために広く使われており、Pandasでデータ整形の基本を学ぶと、SQLの習得も容易になるでしょう。これらの共通点や相違点については、後のセクションでさらに詳しく説明していきます。</p>
-<h2 id="_2">必要なパッケージのインポート</h2>
-<p>以下のコードセルでは、本章で使用する主要なパッケージをインポートします。Google Colaboratoryでは、これらのパッケージが既にインストールされていることが多いですが、もしインストールされていない場合は、!pip install パッケージ名 を使用してインストールしてください。</p>
-<pre><code class="language-python"># データ操作のためのライブラリ
-import numpy as np
+</ul>
+<p>これらの操作は、データのクレンジング、特徴量エンジニアリング、分析の前処理など、実際のデータサイエンスプロジェクトにおいて不可欠なステップです。<br />
+正確なデータ整形は、後続のモデル構築や分析の精度向上に直結するため、本章で学ぶ内容は非常に重要です。</p>
+<hr />
+<h2 id="1">1. 必要なライブラリのインポート</h2>
+<p>まず、数値計算、データ操作、グラフ描画のために必要なライブラリをインポートします。</p>
+<h3 id="_2">説明</h3>
+<ul>
+<li><strong>numpy</strong>: 数値計算ライブラリ（今回は補助的に利用）。</li>
+<li><strong>pandas</strong>: データ操作や解析のためのライブラリで、DataFrame を用いて表形式データを扱います。</li>
+<li><strong>matplotlib</strong> と <strong>seaborn</strong>: データの可視化ライブラリです。<code>seaborn</code> は <code>matplotlib</code> をベースにしており、見やすいグラフを簡単に作成できます。</li>
+</ul>
+<pre><code class="language-python">import numpy as np
 import pandas as pd
-
-# データの可視化のためのライブラリ
 import matplotlib.pyplot as plt
 import seaborn as sns
-import japanize_matplotlib #日本語オプション
 
-# グラフのスタイルを設定（オプション）
+# グラフのスタイル設定（見た目を整えるためのオプション）
 sns.set(style=&quot;whitegrid&quot;)
+</code></pre>
+<hr />
+<h2 id="2">2. 実データの読み込みと確認</h2>
+<p>今回は、Kaggle などで公開されている「Students Performance in Exams」データセットを使用します。<br />
+データには、以下のような列が含まれています：<br />
+- <code>gender</code><br />
+- <code>race/ethnicity</code><br />
+- <code>parental level of education</code><br />
+- <code>lunch</code><br />
+- <code>test preparation course</code><br />
+- <code>math score</code><br />
+- <code>reading score</code><br />
+- <code>writing score</code></p>
+<p>データは、GitHub 上に公開されている CSV ファイルから読み込みます。</p>
+<pre><code class="language-python"># データセットの URL（※実際の利用時はデータの出所・ライセンスに注意してください）
+data_url = &quot;https://raw.githubusercontent.com/selva86/datasets/master/StudentsPerformance.csv&quot;
 
-# Google Colaboratory上でグラフをノートブック内に表示するための設定
-%matplotlib inline
+# CSV ファイルからデータを読み込む
+df = pd.read_csv(data_url)
+
+# データの先頭部分を確認
+print(&quot;=== オリジナルデータ ===&quot;)
+print(df.head())
 </code></pre>
-<h2 id="the-pipe-operator-piping">The pipe operator: <code>%&gt;%</code> {#piping}</h2>
-<p>Before we start data wrangling, let's first introduce a nifty tool that gets loaded with the <code>dplyr</code> package: the \index{operators!pipe} pipe operator <code>%&gt;%</code>. The pipe operator allows us to combine multiple operations in R into a single sequential <em>chain</em> of actions.</p>
-<p>Let's start with a hypothetical example. Say you would like to perform a hypothetical sequence of operations on a hypothetical data frame <code>x</code> using hypothetical functions <code>f()</code>, <code>g()</code>, and <code>h()</code>:</p>
-<ol>
-<li>Take <code>x</code> <em>then</em></li>
-<li>Use <code>x</code> as an input to a function <code>f()</code> <em>then</em></li>
-<li>Use the output of <code>f(x)</code> as an input to a function <code>g()</code> <em>then</em></li>
-<li>Use the output of <code>g(f(x))</code> as an input to a function <code>h()</code></li>
-</ol>
-<p>One way to achieve this sequence of operations is by using nesting parentheses as follows:</p>
-<pre><code>h(g(f(x)))
+<hr />
+<h2 id="3">3. データのフィルタリング</h2>
+<p>特定の条件に合致する行のみを抽出する操作です。<br />
+ここでは例として、「数学のスコアが 70 点以上」の生徒のみを抽出します。<br />
+pandas では、ブールインデックスを用いて条件を指定します。</p>
+<pre><code class="language-python"># 数学のスコアが70以上の生徒のみ抽出
+df_filtered = df[df['math score'] &gt;= 70]
+print(&quot;\n=== 数学のスコアが70以上のデータ ===&quot;)
+print(df_filtered.head())
 </code></pre>
-<p>This code isn't so hard to read since we are applying only three functions: <code>f()</code>, then <code>g()</code>, then <code>h()</code> and each of the functions is short in its name. Further, each of these functions also only has one argument. However, you can imagine that this will get progressively harder to read as the number of functions applied in your sequence increases and the arguments in each function increase as well. This is where the pipe operator <code>%&gt;%</code> comes in handy. <code>%&gt;%</code> takes the output of one function and then "pipes" it to be the input of the next function. Furthermore, a helpful trick is to read <code>%&gt;%</code> as "then" or "and then." For example, you can obtain the same output as the hypothetical sequence of functions as follows:</p>
-<pre><code>x %&gt;% 
-  f() %&gt;% 
-  g() %&gt;% 
-  h()
+<hr />
+<h2 id="4">4. 必要な列の選択</h2>
+<p>解析に必要な列だけを抽出します。<br />
+ここでは、<code>gender</code>、<code>math score</code>、<code>reading score</code>、<code>writing score</code> の4列のみを選択します。</p>
+<pre><code class="language-python"># 必要な列だけを抽出
+df_selected = df[['gender', 'math score', 'reading score', 'writing score']]
+print(&quot;\n=== 選択した列 (gender, math score, reading score, writing score) ===&quot;)
+print(df_selected.head())
 </code></pre>
-<p>You would read this sequence as:</p>
-<ol>
-<li>Take <code>x</code> <em>then</em></li>
-<li>Use this output as the input to the next function <code>f()</code> <em>then</em></li>
-<li>Use this output as the input to the next function <code>g()</code> <em>then</em></li>
-<li>Use this output as the input to the next function <code>h()</code></li>
-</ol>
-<p>So while both approaches achieve the same goal, the latter is much more human-readable because you can clearly read the sequence of operations line-by-line. But what are the hypothetical <code>x</code>, <code>f()</code>, <code>g()</code>, and <code>h()</code>?  Throughout this chapter on data wrangling:</p>
-<ol>
-<li>The starting value <code>x</code> will be a data frame. For example, the \index{R packages!nycflights13} <code>flights</code> data frame we explored in Section \@ref(nycflights13).</li>
-<li>The sequence of functions, here <code>f()</code>, <code>g()</code>, and <code>h()</code>, will mostly be a sequence of any number of the six data wrangling verb-named functions we listed in the introduction to this chapter. For example, the <code>filter(carrier == "AS")</code> function and argument specified we previewed earlier.</li>
-<li>The result will be the transformed/modified data frame that you want. In our example, we'll save the result in a new data frame by using the <code>&lt;-</code> assignment operator with the name <code>alaska_flights</code> via <code>alaska_flights &lt;-</code>.</li>
-</ol>
-<pre><code>alaska_flights &lt;- flights %&gt;% 
-  filter(carrier == &quot;AS&quot;)
+<hr />
+<h2 id="5-mutate">5. 新しい変数の作成（mutate に相当）</h2>
+<p>R の <code>mutate()</code> と同様に、新たな列を追加して計算結果を保存します。<br />
+ここでは、各生徒の総得点 (<code>total_score</code>) と平均点 (<code>mean_score</code>) を計算して追加します。</p>
+<pre><code class="language-python"># 新しい列の作成：総得点と平均点を追加
+df = df.assign(
+    total_score = df['math score'] + df['reading score'] + df['writing score'],
+    mean_score = df[['math score', 'reading score', 'writing score']].mean(axis=1)
+)
+print(&quot;\n=== 新しい変数 (total_score, mean_score) を追加したデータ ===&quot;)
+print(df.head())
 </code></pre>
-<p>Much like when adding layers to a <code>ggplot()</code> using the <code>+</code> sign, you form a single <em>chain</em> of data wrangling operations by combining verb-named functions into a single sequence using the pipe operator <code>%&gt;%</code>. Furthermore, much like how the <code>+</code> sign has to come at the end of lines when constructing plots, the pipe operator <code>%&gt;%</code> has to come at the end of lines as well. </p>
-<p>Keep in mind, there are many more advanced data wrangling functions than just the six listed in the introduction to this chapter; you'll see some examples of these in Section \@ref(other-verbs). However, just with these six verb-named functions you'll be able to perform a broad array of data wrangling tasks for the rest of this book.</p>
-<h2 id="filter-rows-filter"><code>filter</code> rows {#filter}</h2>
-<pre><code>include_graphics(&quot;images/cheatsheets/filter.png&quot;)
-</code></pre>
-<p>The \index{dplyr!filter} <code>filter()</code> function here works much like the "Filter" option in Microsoft Excel; it allows you to specify criteria about the values of a variable in your dataset and then filters out only the rows that match that criteria.</p>
-<p>We begin by focusing only on flights from New York City to Portland, Oregon.  The <code>dest</code> destination code (or airport code) for Portland, Oregon is <code>"PDX"</code>. Run the following and look at the results in RStudio's spreadsheet viewer to ensure that only flights heading to Portland are chosen here:</p>
-<pre><code>portland_flights &lt;- flights %&gt;% 
-  filter(dest == &quot;PDX&quot;)
-View(portland_flights)
-</code></pre>
-<p>Note the order of the code. First, take the <code>flights</code> data frame <code>flights</code> <em>then</em> <code>filter()</code> the data frame so that only those where the <code>dest</code> equals <code>"PDX"</code> are included. We test for equality using the double equal sign \index{operators!==} <code>==</code> and not a single equal sign <code>=</code>. In other words <code>filter(dest = "PDX")</code> will yield an error. This is a convention across many programming languages. If you are new to coding, you'll probably forget to use the double equal sign <code>==</code> a few times before you get the hang of it.</p>
-<p>You can use other operators \index{operators} beyond just the <code>==</code> operator that tests for equality:</p>
+<h3 id="_3">詳細説明</h3>
 <ul>
-<li><code>&gt;</code> corresponds to "greater than"</li>
-<li><code>&lt;</code> corresponds to "less than"</li>
-<li><code>&gt;=</code> corresponds to "greater than or equal to"</li>
-<li><code>&lt;=</code> corresponds to "less than or equal to"</li>
-<li><code>!=</code> corresponds to "not equal to." The <code>!</code> is used in many programming languages to indicate "not."</li>
+<li><code>df.assign(...)</code> は、元の DataFrame に対して新しい列を追加し、結果の DataFrame を返します。  </li>
+<li><code>mean(axis=1)</code> は、各行（axis=1）ごとに平均を計算する指定です。</li>
 </ul>
-<p>Furthermore, you can combine multiple criteria using operators that make comparisons:</p>
+<hr />
+<h2 id="6-arrange">6. 行の並べ替え（arrange に相当）</h2>
+<p>データを特定の列に基づいて並べ替えます。<br />
+ここでは、<code>mean_score</code>（平均点）の降順に並べ替えを行います。</p>
+<pre><code class="language-python"># 平均点の降順で並べ替え
+df_sorted = df.sort_values(by='mean_score', ascending=False)
+print(&quot;\n=== 平均点で降順ソートしたデータ ===&quot;)
+print(df_sorted.head())
+</code></pre>
+<hr />
+<h2 id="7-group_by-summarise">7. グループ化と要約（group_by &amp; summarise に相当）</h2>
+<h3 id="a">(a) 性別ごとの数学の平均スコア</h3>
+<p>性別ごとにグループ化し、各グループ内の「math score」の平均を算出します。</p>
+<pre><code class="language-python"># 性別ごとの数学の平均スコア
+mean_math_by_gender = df.groupby('gender')['math score'].mean().reset_index()
+print(&quot;\n=== 性別ごとの数学の平均スコア ===&quot;)
+print(mean_math_by_gender)
+</code></pre>
+<h3 id="b">(b) テスト準備コース別に数学、読解、作文の平均スコアを集計</h3>
+<p>生徒がテスト準備コースを受講したかどうかで、各科目の平均スコアを集計します。</p>
+<pre><code class="language-python"># テスト準備コースごとに数学、読解、作文の平均スコアを集計
+mean_scores_by_prep = df.groupby('test preparation course').agg({
+    'math score': 'mean',
+    'reading score': 'mean',
+    'writing score': 'mean'
+}).reset_index()
+print(&quot;\n=== テスト準備コースごとの各科目の平均スコア ===&quot;)
+print(mean_scores_by_prep)
+</code></pre>
+<h3 id="_4">詳細説明</h3>
 <ul>
-<li><code>|</code> corresponds to "or"</li>
-<li><code>&amp;</code> corresponds to "and"</li>
+<li><code>groupby()</code> により、指定した列（ここでは <code>gender</code> や <code>test preparation course</code>）でデータをグループ化します。  </li>
+<li><code>agg()</code> を使用して、各グループに対して複数の集約関数（例：<code>mean</code>）を適用できます。  </li>
+<li><code>reset_index()</code> により、グループ化後のインデックスを通常の列に戻します。</li>
 </ul>
-<p>To see many of these in action, let's filter <code>flights</code> for all rows that departed from JFK <em>and</em> were heading to Burlington, Vermont (<code>"BTV"</code>) or Seattle, Washington (<code>"SEA"</code>) <em>and</em> departed in the months of October, November, or December. Run the following:</p>
-<pre><code>btv_sea_flights_fall &lt;- flights %&gt;% 
-  filter(origin == &quot;JFK&quot; &amp; (dest == &quot;BTV&quot; | dest == &quot;SEA&quot;) &amp; month &gt;= 10)
-View(btv_sea_flights_fall)
+<hr />
+<h2 id="8-join">8. データの結合（Join）</h2>
+<p>複数の DataFrame を共通のキーで結合する操作です。<br />
+ここでは、元のデータに「親の学歴」を数値化した情報を付加する例を示します。</p>
+<h3 id="a-dataframe">(a) 追加情報の DataFrame 作成</h3>
+<p>親の学歴は文字列ですが、ここでは便宜上、各レベルに数値の「ランク」を割り当てた DataFrame を作成します。<br />
+例として、以下のランク付けを行います：
+- <code>some high school</code>: 1<br />
+- <code>high school</code>: 2<br />
+- <code>some college</code>: 3<br />
+- <code>associate's degree</code>: 4<br />
+- <code>bachelor's degree</code>: 5<br />
+- <code>master's degree</code>: 6  </p>
+<p>※実際のデータでは、値の種類や表記が異なる場合があるため、適宜調整してください。</p>
+<pre><code class="language-python"># 親の学歴とそのランクのマッピング情報
+parent_ed_levels = pd.DataFrame({
+    'parental level of education': [
+        'some high school', 'high school', 'some college', 
+        &quot;associate's degree&quot;, &quot;bachelor's degree&quot;, &quot;master's degree&quot;
+    ],
+    'edu_rank': [1, 2, 3, 4, 5, 6]
+})
+
+# 作成したマッピング情報を、元のデータと「親の学歴」をキーに左結合（left join）
+df_joined = pd.merge(df, parent_ed_levels, on='parental level of education', how='left')
+print(&quot;\n=== 親の学歴のランク情報を結合したデータ ===&quot;)
+print(df_joined[['parental level of education', 'edu_rank']].drop_duplicates())
 </code></pre>
-<p>Note that even though colloquially speaking one might say "all flights leaving Burlington, Vermont <em>and</em> Seattle, Washington," in terms of computer operations, we really mean "all flights leaving Burlington, Vermont <em>or</em> leaving Seattle, Washington." For a given row in the data, <code>dest</code> can be <code>"BTV"</code>, or <code>"SEA"</code>, or something else, but not both <code>"BTV"</code> and <code>"SEA"</code> at the same time. Furthermore, note the careful use of parentheses around <code>dest == "BTV" | dest == "SEA"</code>.</p>
-<p>We can often skip the use of <code>&amp;</code> and just separate our conditions with a comma. The previous code will return the identical output <code>btv_sea_flights_fall</code> as the following code:</p>
-<pre><code>btv_sea_flights_fall &lt;- flights %&gt;% 
-  filter(origin == &quot;JFK&quot;, (dest == &quot;BTV&quot; | dest == &quot;SEA&quot;), month &gt;= 10)
-View(btv_sea_flights_fall)
-</code></pre>
-<p>Let's present another example that uses the \index{operators!not} <code>!</code> "not" operator to pick rows that <em>don't</em> match a criteria. As mentioned earlier, the <code>!</code> can be read as "not." Here we are filtering rows corresponding to flights that didn't go to Burlington, VT or Seattle, WA.</p>
-<pre><code>not_BTV_SEA &lt;- flights %&gt;% 
-  filter(!(dest == &quot;BTV&quot; | dest == &quot;SEA&quot;))
-View(not_BTV_SEA)
-</code></pre>
-<p>Again, note the careful use of parentheses around the <code>(dest == "BTV" | dest == "SEA")</code>. If we didn't use parentheses as follows:</p>
-<pre><code>flights %&gt;% filter(!dest == &quot;BTV&quot; | dest == &quot;SEA&quot;)
-</code></pre>
-<p>We would be returning all flights not headed to <code>"BTV"</code> <em>or</em> those headed to <code>"SEA"</code>, which is an entirely different resulting data frame. </p>
-<p>Now say we have a larger number of airports we want to filter for, say <code>"SEA"</code>, <code>"SFO"</code>, <code>"PDX"</code>, <code>"BTV"</code>, and <code>"BDL"</code>. We could continue to use the <code>|</code> (<em>or</em>) \index{operators!or} operator:</p>
-<pre><code>many_airports &lt;- flights %&gt;% 
-  filter(dest == &quot;SEA&quot; | dest == &quot;SFO&quot; | dest == &quot;PDX&quot; | 
-         dest == &quot;BTV&quot; | dest == &quot;BDL&quot;)
-</code></pre>
-<p>but as we progressively include more airports, this will get unwieldy to write. A slightly shorter approach uses the <code>%in%</code> \index{operators!in} operator along with the <code>c()</code> function. Recall from Subsection \@ref(programming-concepts) that the <code>c()</code> function "combines" or "concatenates" values into a single <em>vector</em> of values. \index{vectors}</p>
-<pre><code>many_airports &lt;- flights %&gt;% 
-  filter(dest %in% c(&quot;SEA&quot;, &quot;SFO&quot;, &quot;PDX&quot;, &quot;BTV&quot;, &quot;BDL&quot;))
-View(many_airports)
-</code></pre>
-<p>What this code is doing is filtering <code>flights</code> for all flights where <code>dest</code> is in the vector of airports <code>c("BTV", "SEA", "PDX", "SFO", "BDL")</code>. Both outputs of <code>many_airports</code> are the same, but as you can see the latter takes much less energy to code. The <code>%in%</code> operator is useful for looking for matches commonly in one vector/variable compared to another.</p>
-<p>As a final note, we recommend that <code>filter()</code> should often be among the first verbs you consider applying to your data. This cleans your dataset to only those rows you care about, or put differently, it narrows down the scope of your data frame to just the observations you care about. </p>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What's another way of using the "not" operator <code>!</code> to filter only the rows that are not going to Burlington, VT nor Seattle, WA in the <code>flights</code> data frame? Test this out using the previous code.</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h2 id="summarize-variables-summarize"><code>summarize</code> variables {#summarize}</h2>
-<p>The next common task when working with data frames is to compute <em>summary statistics</em>. \index{summary statistics}Summary statistics are single numerical values that summarize a large number of values. Commonly known examples of summary statistics include the mean (also called the average) and the median (the middle value). Other examples of summary statistics that might not immediately come to mind include the <em>sum</em>, the smallest value also called the <em>minimum</em>, the largest value also called the <em>maximum</em>, and the <em>standard deviation</em>. See Appendix \@ref(appendix-stat-terms) for a glossary of such summary statistics.</p>
-<p>Let's calculate two summary statistics of the <code>temp</code> temperature variable in the <code>weather</code> data frame: the mean and standard deviation (recall from Section \@ref(nycflights13) that the <code>weather</code> data frame is included in the <code>nycflights13</code> package). To compute these summary statistics, we need the <code>mean()</code> and <code>sd()</code> <em>summary functions</em> in R. Summary functions in R take in many values and return a single value, as illustrated in Figure \@ref(fig:summary-function). </p>
-<pre><code>include_graphics(&quot;images/cheatsheets/summary.png&quot;)
-options(knitr.kable.NA = &quot;NA&quot;)
-</code></pre>
-<p>More precisely, we'll use the <code>mean()</code> and <code>sd()</code> summary functions within the <code>summarize()</code> \index{dplyr!summarize()} function from the <code>dplyr</code> package. Note you can also use the British English spelling of <code>summarise()</code>. As shown in Figure \@ref(fig:sum1), the <code>summarize()</code> function takes in a data frame and returns a data frame with only one row corresponding to the summary statistics. </p>
-<pre><code>include_graphics(&quot;images/cheatsheets/summarize1.png&quot;)
-</code></pre>
-<p>We'll save the results in a new data frame called <code>summary_temp</code> that will have two columns/variables: the <code>mean</code> and the <code>std_dev</code>:</p>
-<pre><code>summary_temp &lt;- weather %&gt;% 
-  summarize(mean = mean(temp), std_dev = sd(temp))
-summary_temp
-</code></pre>
-<p>Why are the values returned <code>NA</code>? As we saw in Subsection \@ref(geompoint) when creating the scatterplot of departure and arrival delays for <code>alaska_flights</code>, <code>NA</code> is how R encodes <em>missing values</em> \index{missing values} where <code>NA</code> indicates "not available" or "not applicable." If a value for a particular row and a particular column does not exist, <code>NA</code> is stored instead. Values can be missing for many reasons. Perhaps the data was collected but someone forgot to enter it? Perhaps the data was not collected at all because it was too difficult to do so? Perhaps there was an erroneous value that someone entered that has been corrected to read as missing? You'll often encounter issues with missing values when working with real data.</p>
-<p>Going back to our <code>summary_temp</code> output, by default any time you try to calculate a summary statistic of a variable that has one or more <code>NA</code> missing values in R, <code>NA</code> is returned. To work around this fact, you can set the <code>na.rm</code> argument to <code>TRUE</code>, where <code>rm</code> is short for "remove"; this will ignore any <code>NA</code> missing values and only return the summary value for all non-missing values. </p>
-<p>The code that follows computes the mean and standard deviation of all non-missing values of <code>temp</code>:</p>
-<pre><code>summary_temp &lt;- weather %&gt;% 
-  summarize(mean = mean(temp, na.rm = TRUE), 
-            std_dev = sd(temp, na.rm = TRUE))
-summary_temp
-</code></pre>
-<p>Notice how the <code>na.rm = TRUE</code> \index{functions!na.rm argument} are used as arguments to the <code>mean()</code> \index{mean()} and <code>sd()</code> \index{sd()} summary functions individually, and not to the <code>summarize()</code> function. </p>
-<p>However, one needs to be cautious whenever ignoring missing values as we've just done. In the upcoming <em>Learning checks</em> questions, we'll consider the possible ramifications of blindly sweeping rows with missing values "under the rug." This is in fact why the <code>na.rm</code> argument to any summary statistic function in R is set to <code>FALSE</code> by default. In other words, R does not ignore rows with missing values by default. R is alerting you to the presence of missing data and you should be mindful of this missingness and any potential causes of this missingness throughout your analysis.</p>
-<p>What are other summary functions we can use inside the <code>summarize()</code> verb to compute summary statistics? As seen in the diagram in Figure \@ref(fig:summary-function), you can use any function in R that takes many values and returns just one. Here are just a few:</p>
+<h3 id="_5">詳細説明</h3>
 <ul>
-<li><code>mean()</code>: the average</li>
-<li><code>sd()</code>: the standard deviation, which is a measure of spread</li>
-<li><code>min()</code> and <code>max()</code>: the minimum and maximum values, respectively</li>
-<li><code>IQR()</code>: interquartile range</li>
-<li><code>sum()</code>: the total amount when adding multiple numbers</li>
-<li><code>n()</code>: a count of the number of rows in each group. This particular summary function will make more sense when <code>group_by()</code> is covered in Section \@ref(groupby).</li>
+<li><code>pd.merge()</code> は、2 つの DataFrame を共通のキー（ここでは <code>parental level of education</code>）で結合するための関数です。  </li>
+<li><code>how='left'</code> とすることで、左側（元のデータ）の全行を保持し、右側の DataFrame から対応する情報を追加します。</li>
 </ul>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
+<hr />
+<h2 id="9-wide-long">9. データの再構築（ピボット操作：wide ⇄ long）</h2>
+<h3 id="a_1">(a) ワイド形式からロング形式への変換</h3>
+<p>3 科目（数学、読解、作文）のスコアが個別の列として存在するデータを、<br />
+<code>pd.melt()</code> を用いて「subject」と「score」の 2 列からなるロング形式に変換します。</p>
+<pre><code class="language-python"># 数学、読解、作文のスコアをロング形式に変換
+df_long = pd.melt(df,
+                  id_vars=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
+                  value_vars=['math score', 'reading score', 'writing score'],
+                  var_name='subject',
+                  value_name='score')
+print(&quot;\n=== ロング形式のデータ ===&quot;)
+print(df_long.head())
 </code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Say a doctor is studying the effect of smoking on lung cancer for a large number of patients who have records measured at five-year intervals. She notices that a large number of patients have missing data points because the patient has died, so she chooses to ignore these patients in her analysis. What is wrong with this doctor's approach?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Modify the earlier <code>summarize()</code> function code that creates the <code>summary_temp</code> data frame to also use the <code>n()</code> summary function: <code>summarize(... , count = n())</code>. What does the returned value correspond to?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why doesn't the following code work?  Run the code line-by-line instead of all at once, and then look at the data.  In other words, run <code>summary_temp &lt;- weather %&gt;% summarize(mean = mean(temp, na.rm = TRUE))</code> first.</p>
-<pre><code>summary_temp &lt;- weather %&gt;%   
-  summarize(mean = mean(temp, na.rm = TRUE)) %&gt;% 
-  summarize(std_dev = sd(temp, na.rm = TRUE))
+<h3 id="b_1">(b) ロング形式からワイド形式への再変換</h3>
+<p>先ほどのロング形式のデータを、<code>pivot_table()</code> を用いて元のワイド形式に戻します。</p>
+<pre><code class="language-python"># ロング形式からワイド形式に変換
+df_wide = df_long.pivot_table(index=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
+                              columns='subject',
+                              values='score').reset_index()
+print(&quot;\n=== ワイド形式に戻したデータ ===&quot;)
+print(df_wide.head())
 </code></pre>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h2 id="group_by-rows-groupby"><code>group_by</code> rows {#groupby}</h2>
-<!-- To get `_` to work in caption title. Found at https://github.com/rstudio/bookdown/issues/209 -->
-<p>(ref:groupby) Diagram of group_by() and summarize().</p>
-<pre><code>include_graphics(&quot;images/cheatsheets/group_summary.png&quot;)
-</code></pre>
-<p>Say instead of a single mean temperature for the whole year, you would like 12 mean temperatures, one for each of the 12 months separately. In other words, we would like to compute the mean temperature split by month. We can do this by "grouping" temperature observations by the values of another variable, in this case by the 12 values of the variable <code>month</code>. Run the following code:</p>
-<!--
-New dplyr warning message when running group_by() %>% summarize() that is not
-addressed in v1 (print edition). 
-See https://github.com/moderndive/ModernDive_book/issues/353
-
-For now we suppress this message in the book by setting 
-options(dplyr.summarise.inform = FALSE) in index.Rmd
-
-v2 TODO: Address this warning message explicitly in text and fix index.Rmd
--->
-
-<pre><code>summary_monthly_temp &lt;- weather %&gt;% 
-  group_by(month) %&gt;% 
-  summarize(mean = mean(temp, na.rm = TRUE), 
-            std_dev = sd(temp, na.rm = TRUE))
-summary_monthly_temp
-</code></pre>
-<p>This code is identical to the previous code that created <code>summary_temp</code>, but with an extra <code>group_by(month)</code> added before the <code>summarize()</code>. Grouping the <code>weather</code> dataset by <code>month</code> and then applying the <code>summarize()</code> functions yields a data frame that displays the mean and standard deviation temperature split by the 12 months of the year.</p>
-<p>It is important to note that the \index{dplyr!group_by()} <code>group_by()</code> function doesn't change data frames by itself. Rather it changes the <em>meta-data</em>\index{meta-data}, or data about the data, specifically the grouping structure. It is only after we apply the <code>summarize()</code> function that the data frame changes. </p>
-<p>For example, let's consider the \index{ggplot2!diamonds} <code>diamonds</code> data frame included in the <code>ggplot2</code> package. Run this code:</p>
-<pre><code>diamonds
-</code></pre>
-<p>Observe that the first line of the output reads <code># A tibble: `r diamonds %&gt;% nrow() %&gt;% comma()` x `r diamonds %&gt;% ncol()`</code>. This is an example of meta-data, in this case the number of observations/rows and variables/columns in <code>diamonds</code>. The actual data itself are the subsequent table of values. Now let's pipe the <code>diamonds</code> data frame into <code>group_by(cut)</code>:</p>
-<pre><code>diamonds %&gt;% 
-  group_by(cut)
-</code></pre>
-<pre><code># This code is used for dynamic non-static in-line text output purposes
-cut_levels &lt;- diamonds %&gt;%
-  select(cut) %&gt;%
-  n_distinct()
-</code></pre>
-<p>Observe that now there is additional meta-data: <code># Groups: cut [`r cut_levels`]</code> indicating that the grouping structure meta-data has been set based on the <code>r cut_levels</code> possible levels of the categorical variable <code>cut</code>: <code>"Fair"</code>, <code>"Good"</code>, <code>"Very Good"</code>, <code>"Premium"</code>, and <code>"Ideal"</code>. On the other hand, observe that the data has not changed: it is still a table of <code>r diamonds %&gt;% nrow() %&gt;% comma()</code> <span class="arithmatex">\(\times\)</span> <code>r diamonds %&gt;% ncol()</code> values.</p>
-<p>Only by combining a <code>group_by()</code> with another data wrangling operation, in this case <code>summarize()</code>, will the data actually be transformed. </p>
-<pre><code>diamonds %&gt;% 
-  group_by(cut) %&gt;% 
-  summarize(avg_price = mean(price))
-</code></pre>
-<p>If you would like to remove this grouping structure meta-data, we can pipe the resulting data frame into the \index{dplyr!ungroup()} <code>ungroup()</code> function:</p>
-<pre><code>diamonds %&gt;% 
-  group_by(cut) %&gt;% 
-  ungroup()
-</code></pre>
-<p>Observe how the <code># Groups: cut [`r cut_levels`]</code> meta-data is no longer present. </p>
-<p>Let's now revisit the <code>n()</code> \index{dplyr!n()} counting summary function we briefly introduced previously. Recall that the <code>n()</code> function counts rows. This is opposed to the <code>sum()</code> summary function that returns the sum of a numerical variable. For example, suppose we'd like to count how many flights departed each of the three airports in New York City:</p>
-<pre><code>by_origin &lt;- flights %&gt;% 
-  group_by(origin) %&gt;% 
-  summarize(count = n())
-by_origin
-</code></pre>
-<p>We see that Newark (<code>"EWR"</code>) had the most flights departing in 2013 followed by <code>"JFK"</code> and lastly by LaGuardia (<code>"LGA"</code>). Note there is a subtle but important difference between <code>sum()</code> and <code>n()</code>; while <code>sum()</code> returns the sum of a numerical variable, <code>n()</code> returns a count of the number of rows/observations. </p>
-<h3 id="grouping-by-more-than-one-variable">Grouping by more than one variable</h3>
-<p>You are not limited to grouping by one variable. Say you want to know the number of flights leaving each of the three New York City airports <em>for each month</em>. We can also group by a second variable <code>month</code> using <code>group_by(origin, month)</code>:</p>
-<pre><code>by_origin_monthly &lt;- flights %&gt;% 
-  group_by(origin, month) %&gt;% 
-  summarize(count = n())
-by_origin_monthly
-</code></pre>
-<p>Observe that there are <code>r by_origin_monthly %&gt;% nrow()</code> rows to <code>by_origin_monthly</code> because there are 12 months for 3 airports (<code>EWR</code>, <code>JFK</code>, and <code>LGA</code>). </p>
-<p>Why do we <code>group_by(origin, month)</code> and not <code>group_by(origin)</code> and then <code>group_by(month)</code>? Let's investigate:</p>
-<pre><code>by_origin_monthly_incorrect &lt;- flights %&gt;% 
-  group_by(origin) %&gt;% 
-  group_by(month) %&gt;% 
-  summarize(count = n())
-by_origin_monthly_incorrect
-</code></pre>
-<p>What happened here is that the second <code>group_by(month)</code> overwrote the grouping structure meta-data of the earlier <code>group_by(origin)</code>, so that in the end we are only grouping by <code>month</code>. The lesson here is if you want to <code>group_by()</code> two or more variables, you should include all the variables at the same time in the same <code>group_by()</code> adding a comma between the variable names.</p>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Recall from Chapter \@ref(viz) when we looked at temperatures by months in NYC. What does the standard deviation column in the <code>summary_monthly_temp</code> data frame tell us about temperatures in NYC throughout the year?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What code would be required to get the mean and standard deviation temperature for each day in 2013 for NYC?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Recreate <code>by_monthly_origin</code>, but instead of grouping via <code>group_by(origin, month)</code>, group variables in a different order <code>group_by(month, origin)</code>. What differs in the resulting dataset?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> How could we identify how many flights left each of the three airports for each <code>carrier</code>?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> How does the <code>filter()</code> operation differ from a <code>group_by()</code> followed by a <code>summarize()</code>?</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h2 id="mutate-existing-variables-mutate"><code>mutate</code> existing variables {#mutate}</h2>
-<pre><code>include_graphics(&quot;images/cheatsheets/mutate.png&quot;)
-</code></pre>
-<p>Another common transformation of data is to create/compute new variables based on existing ones. For example, say you are more comfortable thinking of temperature in degrees Celsius (&deg;C) instead of degrees Fahrenheit (&deg;F). The formula to convert temperatures from &deg;F to &deg;C is</p>
-<div class="arithmatex">\[
-\text{temp in C} = \frac{\text{temp in F} - 32}{1.8}
-\]</div>
-<p>We can apply this formula to the <code>temp</code> variable using the <code>mutate()</code> \index{dplyr!mutate()} function from the <code>dplyr</code> package, which takes existing variables and mutates them to create new ones. </p>
-<pre><code>weather &lt;- weather %&gt;% 
-  mutate(temp_in_C = (temp - 32) / 1.8)
-</code></pre>
-<p>In this code, we <code>mutate()</code> the <code>weather</code> data frame by creating a new variable <code>temp_in_C = (temp - 32) / 1.8</code> and then <em>overwrite</em> the original <code>weather</code> data frame. Why did we overwrite the data frame <code>weather</code>, instead of assigning the result to a new data frame like <code>weather_new</code>? As a rough rule of thumb, as long as you are not losing original information that you might need later, it's acceptable practice to overwrite existing data frames with updated ones, as we did here. On the other hand, why did we not overwrite the variable <code>temp</code>, but instead created a new variable called <code>temp_in_C</code>?  Because if we did this, we would have erased the original information contained in <code>temp</code> of temperatures in Fahrenheit that may still be valuable to us.</p>
-<p>Let's now compute monthly average temperatures in both &deg;F and &deg;C using the <code>group_by()</code> and <code>summarize()</code> code we saw in Section \@ref(groupby):</p>
-<pre><code>summary_monthly_temp &lt;- weather %&gt;% 
-  group_by(month) %&gt;% 
-  summarize(mean_temp_in_F = mean(temp, na.rm = TRUE), 
-            mean_temp_in_C = mean(temp_in_C, na.rm = TRUE))
-summary_monthly_temp
-</code></pre>
-<p>Let's consider another example. Passengers are often frustrated when their flight departs late, but aren't as annoyed if, in the end, pilots can make up some time during the flight.  This is known in the airline industry as <em>gain</em>, and we will create this variable using the <code>mutate()</code> function:</p>
-<pre><code>flights &lt;- flights %&gt;% 
-  mutate(gain = dep_delay - arr_delay)
-</code></pre>
-<p>Let's take a look at only the <code>dep_delay</code>, <code>arr_delay</code>, and the resulting <code>gain</code> variables for the first 5 rows in our updated <code>flights</code> data frame in Table \@ref(tab:first-five-flights).</p>
-<pre><code>flights %&gt;% 
-  select(dep_delay, arr_delay, gain) %&gt;% 
-  slice(1:5) %&gt;% 
-  kbl(
-    caption = &quot;First five rows of departure/arrival delay and gain variables&quot;
-  ) %&gt;%
-  kable_styling(position = &quot;center&quot;, latex_options = &quot;hold_position&quot;)
-</code></pre>
-<p>The flight in the first row departed 2 minutes late but arrived 11 minutes late, so its "gained time in the air" is a loss of 9 minutes, hence its <code>gain</code> is 2 - 11 = -9. On the other hand, the flight in the fourth row departed a minute early (<code>dep_delay</code> of -1) but arrived 18 minutes early (<code>arr_delay</code> of -18), so its "gained time in the air" is <span class="arithmatex">\(-1 - (-18) = -1 + 18 = 17\)</span> minutes, hence its <code>gain</code> is +17.</p>
-<p>Let's look at some summary statistics of the <code>gain</code> variable by considering multiple summary functions at once in the same <code>summarize()</code> code:</p>
-<pre><code>gain_summary &lt;- flights %&gt;% 
-  summarize(
-    min = min(gain, na.rm = TRUE),
-    q1 = quantile(gain, 0.25, na.rm = TRUE),
-    median = quantile(gain, 0.5, na.rm = TRUE),
-    q3 = quantile(gain, 0.75, na.rm = TRUE),
-    max = max(gain, na.rm = TRUE),
-    mean = mean(gain, na.rm = TRUE),
-    sd = sd(gain, na.rm = TRUE),
-    missing = sum(is.na(gain))
-  )
-gain_summary
-</code></pre>
-<p>We see for example that the average gain is +5 minutes, while the largest is +109 minutes! However, this code would take some time to type out in practice. We'll see later on in Subsection \@ref(model1EDA) that there is a much more succinct way to compute a variety of common summary statistics: using the <code>skim()</code> function from the <code>skimr</code> package.</p>
-<p>Recall from Section \@ref(histograms) that since <code>gain</code> is a numerical variable, we can visualize its distribution using a histogram.  </p>
-<pre><code>ggplot(data = flights, mapping = aes(x = gain)) +
-  geom_histogram(color = &quot;white&quot;, bins = 20)
-</code></pre>
-<p>The resulting histogram in Figure \@ref(fig:gain-hist) provides a different perspective on the <code>gain</code> variable than the summary statistics we computed earlier. For example, note that most values of <code>gain</code> are right around 0. </p>
-<p>To close out our discussion on the <code>mutate()</code> function to create new variables, note that we can create multiple new variables at once in the same <code>mutate()</code> code. Furthermore, within the same <code>mutate()</code> code we can refer to new variables we just created. As an example, consider the <code>mutate()</code> code Hadley Wickham \index{Wickham, Hadley} and Garrett Grolemund \index{Grolemund, Garrett} show in Chapter 5 of <em>R for Data Science</em> [@rds2016]:</p>
-<pre><code>flights &lt;- flights %&gt;% 
-  mutate(
-    gain = dep_delay - arr_delay,
-    hours = air_time / 60,
-    gain_per_hour = gain / hours
-  )
-</code></pre>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What do positive values of the <code>gain</code> variable in <code>flights</code> correspond to?  What about negative values?  And what about a zero value?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Could we create the <code>dep_delay</code> and <code>arr_delay</code> columns by simply subtracting <code>dep_time</code> from <code>sched_dep_time</code> and similarly for arrivals?  Try the code out and explain any differences between the result and what actually appears in <code>flights</code>.</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What can we say about the distribution of <code>gain</code>?  Describe it in a few sentences using the plot and the <code>gain_summary</code> data frame values.</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h2 id="arrange-and-sort-rows-arrange"><code>arrange</code> and sort rows {#arrange}</h2>
-<p>One of the most commonly performed data wrangling tasks is to sort a data frame's rows in the alphanumeric order of one of the variables. The <code>dplyr</code> package's <code>arrange()</code> function \index{dplyr!arrange()} allows us to sort/reorder a data frame's rows according to the values of the specified variable.</p>
-<p>Suppose we are interested in determining the most frequent destination airports for all domestic flights departing from New York City in 2013:</p>
-<pre><code>freq_dest &lt;- flights %&gt;% 
-  group_by(dest) %&gt;% 
-  summarize(num_flights = n())
-freq_dest
-</code></pre>
-<p>Observe that by default the rows of the resulting <code>freq_dest</code> data frame are sorted in alphabetical order of <code>dest</code>ination. Say instead we would like to see the same data, but sorted from the most to the least number of flights (<code>num_flights</code>) instead:</p>
-<pre><code>freq_dest %&gt;% 
-  arrange(num_flights)
-</code></pre>
-<p>This is, however, the opposite of what we want. The rows are sorted with the least frequent destination airports displayed first. This is because <code>arrange()</code> always returns rows sorted in ascending order by default. To switch the ordering to be in "descending" order instead, we use the <code>desc()</code> \index{dplyr!desc()} function as so:</p>
-<pre><code>freq_dest %&gt;% 
-  arrange(desc(num_flights))
-</code></pre>
-<h2 id="join-data-frames-joins"><code>join</code> data frames {#joins}</h2>
-<p>Another common data transformation task is "joining" or "merging" two different datasets. For example, in the <code>flights</code> data frame, the variable <code>carrier</code> lists the carrier code for the different flights. While the corresponding airline names for <code>"UA"</code> and <code>"AA"</code> might be somewhat easy to guess (United and American Airlines), what airlines have codes <code>"VX"</code>, <code>"HA"</code>, and <code>"B6"</code>? This information is provided in a separate data frame <code>airlines</code>.</p>
-<pre><code>View(airlines)
-</code></pre>
-<p>We see that in <code>airlines</code>, <code>carrier</code> is the carrier code, while <code>name</code> is the full name of the airline company. Using this table, we can see that <code>"VX"</code>, <code>"HA"</code>, and <code>"B6"</code> correspond to Virgin America, Hawaiian Airlines, and JetBlue, respectively. However, wouldn't it be nice to have all this information in a single data frame instead of two separate data frames? We can do this by "joining" the <code>flights</code> and <code>airlines</code> data frames.</p>
-<p>Note that the values in the variable <code>carrier</code> in the <code>flights</code> data frame match the values in the variable <code>carrier</code> in the <code>airlines</code> data frame. In this case, we can use the variable <code>carrier</code> as a \index{joining data!key variable} <em>key variable</em> to match the rows of the two data frames. Key variables are almost always <em>identification variables</em> that uniquely identify the observational units as we saw in Subsection \@ref(identification-vs-measurement-variables). This ensures that rows in both data frames are appropriately matched during the join. Hadley and Garrett [@rds2016] created the diagram shown in Figure \@ref(fig:reldiagram) to help us understand how the different data frames in the <code>nycflights13</code> package are linked by various key variables:</p>
-<p>(ref:relationships-nycflights13) Data relationships in nycflights13 from <em>R for Data Science</em>.</p>
-<pre><code>include_graphics(&quot;images/r4ds/relational-nycflights.png&quot;)
-</code></pre>
-<h3 id="matching-key-variable-names">Matching "key" variable names</h3>
-<p>In both the <code>flights</code> and <code>airlines</code> data frames, the key variable we want to join/merge/match the rows by has the same name: <code>carrier</code>. Let's use the <code>inner_join()</code> \index{dplyr!inner_join()} function to join the two data frames, where the rows will be matched by the variable <code>carrier</code>, and then compare the resulting data frames:</p>
-<pre><code>flights_joined &lt;- flights %&gt;% 
-  inner_join(airlines, by = &quot;carrier&quot;)
-View(flights)
-View(flights_joined)
-</code></pre>
-<p>Observe that the <code>flights</code> and <code>flights_joined</code> data frames are identical except that <code>flights_joined</code> has an additional variable <code>name</code>. The values of <code>name</code> correspond to the airline companies' names as indicated in the <code>airlines</code> data frame. </p>
-<p>A visual representation of the <code>inner_join()</code> is shown in Figure \@ref(fig:ijdiagram) [@rds2016]. There are other types of joins available (such as <code>left_join()</code>, <code>right_join()</code>, <code>outer_join()</code>, and <code>anti_join()</code>), but the <code>inner_join()</code> will solve nearly all of the problems you'll encounter in this book.</p>
-<p>(ref:inner-join-r4ds) Diagram of inner join from <em>R for Data Science</em>.</p>
-<pre><code>include_graphics(&quot;images/r4ds/join-inner.png&quot;)
-</code></pre>
-<h3 id="different-key-variable-names-diff-key">Different "key" variable names {#diff-key}</h3>
-<p>Say instead you are interested in the destinations of all domestic flights departing NYC in 2013, and you ask yourself questions like: "What cities are these airports in?", or "Is <code>"ORD"</code> Orlando?", or "Where is <code>"FLL"</code>?".</p>
-<p>The <code>airports</code> data frame contains the airport codes for each airport:</p>
-<pre><code>View(airports)
-</code></pre>
-<p>However, if you look at both the <code>airports</code> and <code>flights</code> data frames, you'll find that the airport codes are in variables that have different names. In <code>airports</code> the airport code is in <code>faa</code>, whereas in <code>flights</code> the airport codes are in <code>origin</code> and <code>dest</code>. This fact is further highlighted in the visual representation of the relationships between these data frames in Figure \@ref(fig:reldiagram).</p>
-<p>In order to join these two data frames by airport code, our <code>inner_join()</code> operation will use the <code>by = c("dest" = "faa")</code> \index{dplyr!inner_join()!by} argument with modified code syntax allowing us to join two data frames where the key variable has a different name:</p>
-<pre><code>flights_with_airport_names &lt;- flights %&gt;% 
-  inner_join(airports, by = c(&quot;dest&quot; = &quot;faa&quot;))
-View(flights_with_airport_names)
-</code></pre>
-<p>Let's construct the chain of pipe operators <code>%&gt;%</code> that computes the number of flights from NYC to each destination, but also includes information about each destination airport:</p>
-<pre><code>named_dests &lt;- flights %&gt;%
-  group_by(dest) %&gt;%
-  summarize(num_flights = n()) %&gt;%
-  arrange(desc(num_flights)) %&gt;%
-  inner_join(airports, by = c(&quot;dest&quot; = &quot;faa&quot;)) %&gt;%
-  rename(airport_name = name)
-named_dests
-</code></pre>
-<p>In case you didn't know, <code>"ORD"</code> is the airport code of Chicago O'Hare airport and <code>"FLL"</code> is the main airport in Fort Lauderdale, Florida, which can be seen in the <code>airport_name</code> variable.</p>
-<h3 id="multiple-key-variables">Multiple "key" variables</h3>
-<p>Say instead we want to join two data frames by <em>multiple key variables</em>. For example, in Figure \@ref(fig:reldiagram), we see that in order to join the <code>flights</code> and <code>weather</code> data frames, we need more than one key variable: <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, and <code>origin</code>. This is because the combination of these 5 variables act to uniquely identify each observational unit in the <code>weather</code> data frame: hourly weather recordings at each of the 3 NYC airports.</p>
-<p>We achieve this by specifying a <em>vector</em> of key variables to join by using the <code>c()</code> function. Recall from Subsection \@ref(programming-concepts) that <code>c()</code> is short for "combine" or "concatenate." \index{vectors}</p>
-<pre><code>flights_weather_joined &lt;- flights %&gt;%
-  inner_join(weather, by = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;hour&quot;, &quot;origin&quot;))
-View(flights_weather_joined)
-</code></pre>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Looking at Figure \@ref(fig:reldiagram), when joining <code>flights</code> and <code>weather</code> (or, in other words, matching the hourly weather values with each flight), why do we need to join by all of <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, and <code>origin</code>, and not just <code>hour</code>?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What surprises you about the top 10 destinations from NYC in 2013?</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h3 id="normal-forms-normal-forms">Normal forms {#normal-forms}</h3>
-<p>The data frames included in the <code>nycflights13</code> package are in a form that minimizes redundancy of data. For example, the <code>flights</code> data frame only saves the <code>carrier</code> code of the airline company; it does not include the actual name of the airline. For example, the first row of <code>flights</code> has <code>carrier</code> equal to <code>UA</code>, but it does not include the airline name of "United Air Lines Inc." </p>
-<p>The names of the airline companies are included in the <code>name</code> variable of the <code>airlines</code> data frame. In order to have the airline company name included in <code>flights</code>, we could join these two data frames as follows:</p>
-<pre><code>joined_flights &lt;- flights %&gt;% 
-  inner_join(airlines, by = &quot;carrier&quot;)
-View(joined_flights)
-</code></pre>
-<p>We are capable of performing this join because each of the data frames have <em>keys</em> in common to relate one to another: the <code>carrier</code> variable in both the <code>flights</code> and <code>airlines</code> data frames.  The <em>key</em> variable(s) that we base our joins on are often <em>identification variables</em> as we mentioned previously. </p>
-<p>This is an important property of what's known as <em>normal forms</em> of data.  The process of decomposing data frames into less redundant tables without losing information is called <em>normalization</em>.  More information is available on <a href="https://en.wikipedia.org/wiki/Database_normalization">Wikipedia</a>.</p>
-<p>Both <code>dplyr</code> and <a href="https://en.wikipedia.org/wiki/SQL">SQL</a> we mentioned in the introduction of this chapter use such <em>normal forms</em>. Given that they share such commonalities, once you learn either of these two tools, you can learn the other very easily. </p>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What are some advantages of data in normal forms?  What are some disadvantages?</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h2 id="other-verbs-other-verbs">Other verbs {#other-verbs}</h2>
-<p>Here are some other useful data wrangling verbs:</p>
+<h3 id="_6">詳細説明</h3>
 <ul>
-<li><code>select()</code> only a subset of variables/columns.</li>
-<li><code>rename()</code> variables/columns to have new names.</li>
-<li>Return only the <code>top_n()</code> values of a variable.</li>
+<li><code>pd.melt()</code> は、複数の列を 1 つの「値」列にまとめ、対応する「変数名」を示す列を作成します。  </li>
+<li><code>pivot_table()</code> を用いると、指定したインデックスと列名を元にデータを再構築し、ワイド形式に戻すことができます。</li>
 </ul>
-<h3 id="select-variables-select"><code>select</code> variables {#select}</h3>
-<pre><code>include_graphics(&quot;images/cheatsheets/select.png&quot;)
+<hr />
+<h2 id="10">10. データの可視化</h2>
+<p>ここでは、整形したデータを基に可視化を行い、データの傾向や分布を把握します。</p>
+<h3 id="a_2">(a) 散布図：数学スコアと読解スコアの関係</h3>
+<p>性別ごとに色分けして、数学スコアと読解スコアの関係を散布図で表示します。</p>
+<pre><code class="language-python">plt.figure(figsize=(8, 6))
+sns.scatterplot(data=df, x='math score', y='reading score', hue='gender', s=100)
+plt.title('数学スコアと読解スコアの関係')
+plt.xlabel('数学スコア')
+plt.ylabel('読解スコア')
+plt.show()
 </code></pre>
-<pre><code># This redundant code is used for dynamic non-static in-line text output purposes
-# :: operator used as output was wrong otherwise
-flights_cols &lt;- nycflights13::flights %&gt;%
-  ncol() 
+<h3 id="b_2">(b) ボックスプロット：性別ごとの数学スコアの分布</h3>
+<p>各性別における数学スコアの分布（中央値、四分位範囲、外れ値など）をボックスプロットで可視化します。</p>
+<pre><code class="language-python">plt.figure(figsize=(8, 6))
+sns.boxplot(data=df, x='gender', y='math score')
+plt.title('性別ごとの数学スコアの分布')
+plt.xlabel('性別')
+plt.ylabel('数学スコア')
+plt.show()
 </code></pre>
-<p>We've seen that the <code>flights</code> data frame in the <code>nycflights13</code> package contains <code>r flights_cols</code> different variables. You can identify the names of these <code>r flights_cols</code> variables by running the <code>glimpse()</code> function from the <code>dplyr</code> package:</p>
-<pre><code>glimpse(flights)
-</code></pre>
-<p>However, say you only need two of these <code>r flights_cols</code> variables, say <code>carrier</code> and <code>flight</code>. You can <code>select()</code> \index{dplyr!select()} these two variables:</p>
-<pre><code>flights %&gt;% 
-  select(carrier, flight)
-</code></pre>
-<p>This function makes it easier to explore large datasets since it allows us to limit the scope to only those variables we care most about. For example, if we <code>select()</code> only a smaller number of variables as is shown in Figure \@ref(fig:selectfig), it will make viewing the dataset in RStudio's spreadsheet viewer more digestible.</p>
-<p>Let's say instead you want to drop, or de-select, certain variables. For example, consider the variable <code>year</code> in the <code>flights</code> data frame. This variable isn't quite a "variable" because it is always <code>2013</code> and hence doesn't change. Say you want to remove this variable from the data frame. We can deselect <code>year</code> by using the <code>-</code> sign:</p>
-<pre><code>flights_no_year &lt;- flights %&gt;% select(-year)
-</code></pre>
-<p>Another way of selecting columns/variables is by specifying a range of columns:</p>
-<pre><code>flight_arr_times &lt;- flights %&gt;% select(month:day, arr_time:sched_arr_time)
-flight_arr_times
-</code></pre>
-<p>This will <code>select()</code> all columns between <code>month</code> and <code>day</code>, as well as between <code>arr_time</code> and <code>sched_arr_time</code>, and drop the rest. </p>
-<p>The <code>select()</code> function can also be used to reorder columns when used with the <code>everything()</code> helper function.  For example, suppose we want the <code>hour</code>, <code>minute</code>, and <code>time_hour</code> variables to appear immediately after the <code>year</code>, <code>month</code>, and <code>day</code> variables, while not discarding the rest of the variables. In the following code, <code>everything()</code> will pick up all remaining variables: </p>
-<pre><code>flights_reorder &lt;- flights %&gt;% 
-  select(year, month, day, hour, minute, time_hour, everything())
-glimpse(flights_reorder)
-</code></pre>
-<p>Lastly, the helper functions <code>starts_with()</code>, <code>ends_with()</code>, and <code>contains()</code> can be used to select variables/columns that match those conditions. As examples,</p>
-<pre><code>flights %&gt;% select(starts_with(&quot;a&quot;))
-flights %&gt;% select(ends_with(&quot;delay&quot;))
-flights %&gt;% select(contains(&quot;time&quot;))
-</code></pre>
-<h3 id="rename-variables-rename"><code>rename</code> variables {#rename}</h3>
-<p>Another useful function is \index{dplyr!rename()} <code>rename()</code>, which as you may have guessed changes the name of variables. Suppose we want to only focus on <code>dep_time</code> and <code>arr_time</code> and change <code>dep_time</code> and <code>arr_time</code> to be <code>departure_time</code> and <code>arrival_time</code> instead in the <code>flights_time</code> data frame:</p>
-<pre><code>flights_time_new &lt;- flights %&gt;% 
-  select(dep_time, arr_time) %&gt;% 
-  rename(departure_time = dep_time, arrival_time = arr_time)
-glimpse(flights_time_new)
-</code></pre>
-<p>Note that in this case we used a single <code>=</code> sign within the <code>rename()</code>. For example, <code>departure_time = dep_time</code> renames the <code>dep_time</code> variable to have the new name <code>departure_time</code>. This is because we are not testing for equality like we would using <code>==</code>. Instead we want to assign a new variable <code>departure_time</code> to have the same values as <code>dep_time</code> and then delete the variable <code>dep_time</code>. Note that new <code>dplyr</code> users often forget that the new variable name comes before the equal sign. <!-- We usually remember this as "New Before, Old After" or NBOA. --></p>
-<h3 id="top_n-values-of-a-variable"><code>top_n</code> values of a variable</h3>
-<p>We can also return the top <code>n</code> values of a variable using the <code>top_n()</code> \index{dplyr!top_n()} function. For example, we can return a data frame of the top 10 destination airports using the example from Subsection \@ref(diff-key). Observe that we set the number of values to return to <code>n = 10</code> and <code>wt = num_flights</code> to indicate that we want the rows corresponding to the top 10 values of <code>num_flights</code>. See the help file for <code>top_n()</code> by running <code>?top_n</code> for more information. </p>
-<pre><code>named_dests %&gt;% top_n(n = 10, wt = num_flights)
-</code></pre>
-<p>Let's further <code>arrange()</code> these results in descending order of <code>num_flights</code>:</p>
-<pre><code>named_dests  %&gt;% 
-  top_n(n = 10, wt = num_flights) %&gt;% 
-  arrange(desc(num_flights))
-</code></pre>
-<pre><code>\vspace{-0.15in}
-**_Learning check_**
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> What are some ways to select all three of the <code>dest</code>, <code>air_time</code>, and <code>distance</code> variables from <code>flights</code>?  Give the code showing how to do this in at least three different ways.</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> How could one use <code>starts_with()</code>, <code>ends_with()</code>, and <code>contains()</code> to select columns from the <code>flights</code> data frame?  Provide three different examples in total: one for <code>starts_with()</code>, one for <code>ends_with()</code>, and one for <code>contains()</code>.</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Why might we want to use the <code>select</code> function on a data frame?</p>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Create a new data frame that shows the top 5 airports with the largest arrival delays from NYC in 2013.</p>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h2 id="conclusion-wrangling-conclusion">Conclusion {#wrangling-conclusion}</h2>
-<h3 id="summary-table">Summary table</h3>
-<p>Let's recap our data wrangling verbs in Table \@ref(tab:wrangle-summary-table). Using these verbs and the pipe <code>%&gt;%</code> operator from Section \@ref(piping), you'll be able to write easily legible code to perform almost all the data wrangling and data transformation necessary for the rest of this book. </p>
-<pre><code># The following Google Doc is published to CSV and loaded using read_csv():
-# https://docs.google.com/spreadsheets/d/1nRkXfYMQiTj79c08xQPY0zkoJSpde3NC1w6DRhsWCss/edit#gid=0
-
-if (!file.exists(&quot;rds/ch4_scenarios.rds&quot;)) {
-  ch4_scenarios &lt;-
-    &quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRgwl1lugQA6zxzfB6_0hM5vBjXkU7cbUVYYXLcWeaRJ9HmvNXyCjzJCgiGW8HCe1kvjLCGYHf-BvYL/pub?gid=0&amp;single=true&amp;output=csv&quot; %&gt;%
-    read_csv(na = &quot;&quot;) %&gt;%
-    select(-X1)
-  write_rds(ch4_scenarios, &quot;rds/ch4_scenarios.rds&quot;)
-} else {
-  ch4_scenarios &lt;- read_rds(&quot;rds/ch4_scenarios.rds&quot;)
-}
-
-if (is_latex_output()) {
-  ch4_scenarios %&gt;%
-    # Weird tick marks show up in PDF:
-    mutate(
-      Verb = str_replace_all(Verb, &quot;`&quot;, &quot;&quot;),
-      `Data wrangling operation` = str_replace_all(`Data wrangling operation`, &quot;`&quot;, &quot;&quot;),
-    ) %&gt;%
-    kbl(
-      caption = &quot;Summary of data wrangling verbs&quot;,
-      booktabs = TRUE,
-      linesep = &quot;&quot;,
-      format = &quot;latex&quot;
-    ) %&gt;%
-    kable_styling(
-      font_size = ifelse(is_latex_output(), 10, 16),
-      latex_options = c(&quot;hold_position&quot;)
-    ) %&gt;%
-    column_spec(1, width = &quot;0.9in&quot;) %&gt;%
-    column_spec(2, width = &quot;4in&quot;)
-} else {
-  ch4_scenarios %&gt;%
-    kable(
-      caption = &quot;Summary of data wrangling verbs&quot;,
-      booktabs = TRUE,
-      format = &quot;html&quot;
-    )
-}
-</code></pre>
-<pre><code>\vspace{-0.15in}
-**_Learning check_** 
-\vspace{-0.1in}
-</code></pre>
-<p><strong><code>r paste0("(LC", chap, ".", (lc &lt;- lc + 1), ")")</code></strong> Let's now put your newly acquired data wrangling skills to the test!</p>
-<p>An airline industry measure of a passenger airline's capacity is the <a href="https://en.wikipedia.org/wiki/Available_seat_miles">available seat miles</a>, which is equal to the number of seats available multiplied by the number of miles or kilometers flown summed over all flights. </p>
-<p>For example, let's consider the scenario in Figure \@ref(fig:available-seat-miles). Since the airplane has 4 seats and it travels 200 miles, the available seat miles are <span class="arithmatex">\(4 \times 200 = 800\)</span>.</p>
-<pre><code>include_graphics(&quot;images/flowcharts/flowchart/flowchart.012.png&quot;)
-</code></pre>
-<p>Extending this idea, let's say an airline had 2 flights using a plane with 10 seats that flew 500 miles and 3 flights using a plane with 20 seats that flew 1000 miles, the available seat miles would be <span class="arithmatex">\(2 \times 10 \times 500 + 3 \times 20 \times 1000 = 70,000\)</span> seat miles. </p>
-<p>Using the datasets included in the <code>nycflights13</code> package, compute the available seat miles for each airline sorted in descending order. After completing all the necessary data wrangling steps, the resulting data frame should have 16 rows (one for each airline) and 2 columns (airline name and available seat miles). Here are some hints:</p>
-<ol>
-<li><strong>Crucial</strong>: Unless you are very confident in what you are doing, it is worthwhile not starting to code right away. Rather, first sketch out on paper all the necessary data wrangling steps not using exact code, but rather high-level <em>pseudocode</em> that is informal yet detailed enough to articulate what you are doing. This way you won't confuse <em>what</em> you are trying to do (the algorithm) with <em>how</em> you are going to do it (writing <code>dplyr</code> code). </li>
-<li>Take a close look at all the datasets using the <code>View()</code> function: <code>flights</code>, <code>weather</code>, <code>planes</code>, <code>airports</code>, and <code>airlines</code> to identify which variables are necessary to compute available seat miles.</li>
-<li>Figure \@ref(fig:reldiagram) showing how the various datasets can be joined will also be useful. </li>
-<li>Consider the data wrangling verbs in Table \@ref(tab:wrangle-summary-table) as your toolbox!</li>
-</ol>
-<pre><code>\vspace{-0.25in}
-\vspace{-0.25in}
-</code></pre>
-<h3 id="additional-resources">Additional resources</h3>
-<pre><code>if(is_latex_output()){
-  cat(&quot;Solutions to all *Learning checks* can be found online in [Appendix D](https://moderndive.com/D-appendixD.html).&quot;)
-}
-</code></pre>
-<pre><code>generate_r_file_link(&quot;03-wrangling.R&quot;)
-</code></pre>
-<p>In the online <a href="https://moderndive.com/C-appendixC.html">Appendix C</a>, we provide a page of data wrangling "tips and tricks" consisting of the most common data wrangling questions we've encountered in student projects (shout out to <a href="https://www.scsparkscience.org/fellow/jennifer-smetzer/">Dr. Jenny Smetzer</a> for her work setting this up!):</p>
+<h3 id="_7">詳細説明</h3>
 <ul>
-<li>Dealing with missing values</li>
-<li>Reordering bars in a barplot</li>
-<li>Showing money on an axis</li>
-<li>Changing values inside cells</li>
-<li>Converting a numerical variable to a categorical one</li>
-<li>Computing proportions</li>
-<li>Dealing with %, commas, and $</li>
+<li><code>sns.scatterplot()</code> は、散布図を作成するための関数です。<code>hue</code> パラメータにより性別ごとに色分けを行っています。  </li>
+<li><code>sns.boxplot()</code> は、カテゴリ別のデータ分布（中央値、四分位範囲、外れ値など）を視覚的に把握するために使用します。</li>
 </ul>
-<p>However to provide a tips and tricks page covering all possible data wrangling questions would be too long to be useful! If you want to further unlock the power of the <code>dplyr</code> package for data wrangling, we suggest that you check out RStudio's "Data Transformation with dplyr" cheatsheet. This cheatsheet summarizes much more than what we've discussed in this chapter, in particular more intermediate level and advanced data wrangling functions, while providing quick and easy-to-read visual descriptions. In fact, many of the diagrams illustrating data wrangling operations in this chapter, such as Figure \@ref(fig:filter) on <code>filter()</code>, originate from this cheatsheet.</p>
-<p>In the current version of RStudio in late 2019, you can access this cheatsheet by going to the RStudio Menu Bar -&gt; Help -&gt; Cheatsheets -&gt; "Data Transformation with dplyr." <code>r if(is_html_output()) "You can see a preview in the figure below."</code></p>
-<pre><code>if (is_html_output()) {
-  include_graphics(&quot;images/cheatsheets/dplyr_cheatsheet-1.png&quot;)
-}
-</code></pre>
-<p>On top of the data wrangling verbs and examples we presented in this section, if you'd like to see more examples of using the <code>dplyr</code> package for data wrangling, check out <a href="http://r4ds.had.co.nz/transform.html">Chapter 5</a> of <em>R for Data Science</em> [@rds2016].</p>
+<hr />
+<h2 id="_8">まとめ</h2>
+<p>本ドキュメントでは、実際の「Students Performance in Exams」データセットを用い、Python によるデータ整形と操作の基本的な手法を以下の流れで解説しました。</p>
+<ul>
+<li>
+<p><strong>データの読み込み・確認</strong><br />
+  → CSV ファイルからデータを読み込み、<code>head()</code> で先頭部分を表示。</p>
+</li>
+<li>
+<p><strong>行のフィルタリング</strong><br />
+  → 例として、数学スコアが 70 点以上の生徒を抽出。</p>
+</li>
+<li>
+<p><strong>列の選択</strong><br />
+  → 解析に必要な列（例：<code>gender</code>, <code>math score</code>, <code>reading score</code>, <code>writing score</code>）を選択。</p>
+</li>
+<li>
+<p><strong>新しい変数の作成</strong><br />
+  → <code>assign()</code> を用い、総得点 (<code>total_score</code>) や平均点 (<code>mean_score</code>) を計算して追加。</p>
+</li>
+<li>
+<p><strong>並べ替え</strong><br />
+  → <code>sort_values()</code> により、平均点の降順で並べ替え。</p>
+</li>
+<li>
+<p><strong>グループ化と要約</strong><br />
+  → <code>groupby()</code> と <code>agg()</code> を使い、性別やテスト準備コースごとに各科目の平均スコアを算出。</p>
+</li>
+<li>
+<p><strong>データの結合</strong><br />
+  → 別途作成した「親の学歴ランク」情報の DataFrame と結合し、付加情報を追加。</p>
+</li>
+<li>
+<p><strong>データの再構築（ピボット操作）</strong><br />
+  → <code>melt()</code> でワイド形式のスコア列をロング形式に変換し、<code>pivot_table()</code> でワイド形式に戻す操作を実施。</p>
+</li>
+<li>
+<p><strong>データの可視化</strong><br />
+  → seaborn と matplotlib を用いて、散布図やボックスプロットでデータの傾向や分布を視覚化。</p>
+</li>
+</ul>
+<p>これらの基本操作は、データクレンジング、特徴量エンジニアリング、そして正確な分析結果を得るための前処理として、データサイエンスの現場で必須のスキルです。<br />
+本章で学んだ手法を身につけることで、実際のプロジェクトにおけるデータ解析やモデリングの精度向上につながります。</p>
 <h3 id="whats-to-come">What's to come?</h3>
 <p>So far in this book, we've explored, visualized, and wrangled data saved in data frames. These data frames were saved in a spreadsheet-like format: in a rectangular shape with a certain number of rows corresponding to observations and a certain number of columns corresponding to variables describing these observations. </p>
 <p>We'll see in the upcoming Chapter \@ref(tidy) that there are actually two ways to represent data in spreadsheet-type rectangular format: (1) "wide" format and (2) "tall/narrow" format. The tall/narrow format is also known as <em>"tidy"</em> format in R user circles. While the distinction between "tidy" and non-"tidy" formatted data is subtle, it has immense implications for our data science work. This is because almost all the packages used in this book, including the <code>ggplot2</code> package for data visualization and the <code>dplyr</code> package for data wrangling, all assume that all data frames are in "tidy" format. </p>
