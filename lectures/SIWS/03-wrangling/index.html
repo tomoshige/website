@@ -2300,8 +2300,9 @@ plt.show()
 本章で学んだ手法を身につけることで、実際のプロジェクトにおけるデータ解析やモデリングの精度向上につながります。</p>
 <hr />
 <h2 id="_9">演習問題（データ整形）</h2>
-<p>このドキュメントでは、これまで学んだ内容を復習するための演習問題に対する解答例を示します。<br />
-各セクションごとに、問題文とそれに対応するサンプルコードを掲載しています。実際にコードを動かして、出力結果やグラフを確認してください。</p>
+<p>このドキュメントでは、これまで学んだ内容を復習するための演習問題です。ただし、これらのコードを覚える必要はありません。
+このコードは「こういう意味か」と理解できれば問題はないです。 まずは、実際にコードを動かして、出力結果やグラフを確認してください。
+その後で、それぞれのプログラムがどのような意味なのかを学び直しましょう。</p>
 <hr />
 <h3 id="1_1">演習 1: データの読み込みと基本確認</h3>
 <h4 id="_10">問題</h4>
@@ -2459,8 +2460,6 @@ print(df_wide.head())
 <li><code>lunch</code> 別に「writing score」の分布を示すボックスプロットを作成してください。</li>
 </ol>
 <h4 id="_25">解答例</h4>
-<details>
-
 <pre><code class="language-python">import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -2480,9 +2479,6 @@ plt.xlabel('Lunch')
 plt.ylabel('Writing Score')
 plt.show()
 </code></pre>
-
-</details>
-
 <hr />
 <h3 id="9">演習 9: 応用問題</h3>
 <h4 id="9-1">問題 9-1: 複合的なグループ化と可視化</h4>
@@ -2520,9 +2516,6 @@ mean_total_by_prep = df.groupby('test preparation course')['total_score'].mean()
 print(&quot;Test Preparation Course 別の平均 Total Score:&quot;)
 print(mean_total_by_prep)
 </code></pre>
-<hr />
-<p>各コードを実際に実行し、結果やグラフから得られる情報を確認することで、データの読み込み、前処理、変換、結合、そして可視化の一連の流れをしっかりと理解してください。</p>
-<hr />
 <h2 id="whats-to-come">What's to come?</h2>
 <p>So far in this book, we've explored, visualized, and wrangled data saved in data frames. These data frames were saved in a spreadsheet-like format: in a rectangular shape with a certain number of rows corresponding to observations and a certain number of columns corresponding to variables describing these observations. </p>
 <p>We'll see in the upcoming Chapter \@ref(tidy) that there are actually two ways to represent data in spreadsheet-type rectangular format: (1) "wide" format and (2) "tall/narrow" format. The tall/narrow format is also known as <em>"tidy"</em> format in R user circles. While the distinction between "tidy" and non-"tidy" formatted data is subtle, it has immense implications for our data science work. This is because almost all the packages used in this book, including the <code>ggplot2</code> package for data visualization and the <code>dplyr</code> package for data wrangling, all assume that all data frames are in "tidy" format. </p>
