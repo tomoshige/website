@@ -2430,6 +2430,8 @@ print(df_joined[['parental level of education', 'edu_rank']].drop_duplicates())
 <li>先ほどのロング形式データを <code>pivot_table()</code> を使って、元のワイド形式（各科目が別の列）に戻してください。</li>
 </ol>
 <h4 id="_23">解答例</h4>
+<details>
+
 <pre><code class="language-python"># ワイド形式からロング形式に変換
 df_long = pd.melt(df,
                   id_vars=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
@@ -2446,6 +2448,9 @@ df_wide = df_long.pivot_table(index=['gender', 'race/ethnicity', 'parental level
 print(&quot;ワイド形式に戻したデータ:&quot;)
 print(df_wide.head())
 </code></pre>
+
+</details>
+
 <hr />
 <h3 id="8">演習 8: データの可視化</h3>
 <h4 id="_24">問題</h4>
