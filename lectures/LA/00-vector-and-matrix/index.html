@@ -1026,15 +1026,6 @@
           <li class="md-nav__item">
   <a href="#_29" class="md-nav__link">
     <span class="md-ellipsis">
-      転置行列
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_30" class="md-nav__link">
-    <span class="md-ellipsis">
       三角行列・対角行列
     </span>
   </a>
@@ -1042,7 +1033,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_31" class="md-nav__link">
+  <a href="#_30" class="md-nav__link">
     <span class="md-ellipsis">
       対角行列
     </span>
@@ -1899,15 +1890,6 @@
           <li class="md-nav__item">
   <a href="#_29" class="md-nav__link">
     <span class="md-ellipsis">
-      転置行列
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_30" class="md-nav__link">
-    <span class="md-ellipsis">
       三角行列・対角行列
     </span>
   </a>
@@ -1915,7 +1897,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_31" class="md-nav__link">
+  <a href="#_30" class="md-nav__link">
     <span class="md-ellipsis">
       対角行列
     </span>
@@ -2621,6 +2603,7 @@ D = \begin{pmatrix} 4 &amp; 5 &amp; 6 \\\ 7 &amp; 8 &amp; 9 \end{pmatrix} \quad 
 <hr />
 <h2 id="_23">色々な行列</h2>
 <p>ここでは、特定の性質を持つ<strong>特殊な行列</strong>について学びます。これらの行列は、理論や応用で非常に重要な役割を果たします。</p>
+<hr />
 <h3 id="_24">単位行列</h3>
 <p><strong>単位行列</strong>（Identity Matrix）とは、正方行列であり、対角成分がすべて1、その他の成分がすべて0である行列です。通常、$ I_n $ や単に $ I $ と表され、行列の積において乗法単位元の役割を果たします。</p>
 <p>例として、3行3列の単位行列は、</p>
@@ -2726,6 +2709,7 @@ I_2A = \begin{pmatrix}
 \end{pmatrix}.
 \]</div>
 <p>このように、$ I_2 $ は $ A $ に掛けても $ A $ 自身が得られるため、行列の積において「何も変えない」役割を果たすことがわかります。</p>
+<hr />
 <h3 id="_27">逆行列と正則行列</h3>
 <p>ある正方行列 $ A $ に対し、別の正方行列 $ A^{-1} $ が存在して</p>
 <div class="arithmatex">\[
@@ -2748,19 +2732,8 @@ d &amp; -b \\\
 \end{pmatrix}
 \]</div>
 <p>と求められます。</p>
-<h3 id="_29">転置行列</h3>
-<p><strong>転置行列</strong>とは、元の行列の行と列を入れ替えたものです。行列 $ A $ の転置は $ A^T $ と書かれ、例えば</p>
-<div class="arithmatex">\[
-A = \begin{pmatrix}
-a_{11} &amp; a_{12} \\\
-a_{21} &amp; a_{22}
-\end{pmatrix} \quad \Rightarrow \quad A^T = \begin{pmatrix}
-a_{11} &amp; a_{21} \\\
-a_{12} &amp; a_{22}
-\end{pmatrix}
-\]</div>
-<p>と定義されます。転置行列は、対称行列などの性質を調べる際に重要な概念です。</p>
-<h3 id="_30">三角行列・対角行列</h3>
+<hr />
+<h3 id="_29">三角行列・対角行列</h3>
 <p><strong>三角行列</strong>とは、主対角線の一方の側にのみ非ゼロの要素が存在する正方行列です。<br />
 - <strong>上三角行列</strong>: 主対角線より下の要素がすべて0<br />
   例:
@@ -2780,7 +2753,7 @@ a_{12} &amp; a_{22}
   l_{31} &amp; l_{32} &amp; l_{33}
   \end{pmatrix}
   $$</p>
-<h3 id="_31">対角行列</h3>
+<h3 id="_30">対角行列</h3>
 <p><strong>対角行列</strong>は、主対角線上の要素以外がすべて0である正方行列です。</p>
 <div class="arithmatex">\[
 D = \begin{pmatrix}
