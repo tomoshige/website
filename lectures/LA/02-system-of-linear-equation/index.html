@@ -1497,6 +1497,7 @@ $$
 - $ A = \begin{pmatrix} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} \end{pmatrix} $ は係数行列、
 - $ \mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix} $ は未知数のベクトル、
 - $ \mathbf{b} = \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{pmatrix} $ は定数項のベクトルです。</p>
+<p>さらに、ここで、行列 <span class="arithmatex">\(A\)</span> と 定数項ベクトル <span class="arithmatex">\(\mathbf{b}\)</span> を結合した行列 <span class="arithmatex">\((A \mid \mathbf{b})\)</span> を<strong>拡大係数行列</strong>といいます。</p>
 <h4 id="_1">例</h4>
 <p>次の連立方程式を考えます：
 $$
@@ -1509,40 +1510,33 @@ $$
 <ul>
 <li>係数行列 $ A = \begin{pmatrix} 2 &amp; 3 \\ 4 &amp; -1 \end{pmatrix} $,</li>
 <li>未知数ベクトル $ \mathbf{x} = \begin{pmatrix} x \\ y \end{pmatrix} $,</li>
-<li>定数項ベクトル $ \mathbf{b} = \begin{pmatrix} 5 \\ 1 \end{pmatrix} $  </li>
-</ul>
-<p>となり、行列表示は
+<li>定数項ベクトル $ \mathbf{b} = \begin{pmatrix} 5 \\ 1 \end{pmatrix} $<br />
+となり、行列表示は
 $$
 \begin{pmatrix} 2 &amp; 3 \\ 4 &amp; -1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 5 \\ 1 \end{pmatrix}
 $$
-となります。</p>
+となります。また、拡大係数行列は、
+$$
+(A\mid \mathbf{b}) = \left[\begin{array}{cc|c} 
+2 &amp; 3 &amp; 5 \\
+4 &amp; -1 &amp; 1
+\end{array}\right]
+$$
+となります。</li>
+</ul>
 <hr />
 <h3 id="1_2">連立1次方程式を解く</h3>
-<p>連立1次方程式を解く方法は複数ありますが、ここでは主に行列を用いた方法を紹介します。</p>
-<ol>
-<li>
-<p><strong>逆行列を用いる方法</strong><br />
-   係数行列 $ A $ が正則（つまり逆行列 $ A^{-1} $ が存在する）であれば、解は
-   $$
-   \mathbf{x} = A^{-1}\mathbf{b}
-   $$
-   によって求められます。<br />
-   ただし、すべての連立方程式が逆行列を用いて解けるわけではありません（特に方程式の数と未知数の数が異なる場合や、係数行列の行列式がゼロの場合）。</p>
-</li>
-<li>
-<p><strong>ガウスの消去法（行基本変形）</strong><br />
-   拡大係数行列（後述）を用いて、行基本変形によって上三角形（または簡約階段形）に変形し、後退代入により解を求める方法です。</p>
-</li>
-</ol>
+<p>連立1次方程式を解く方法は複数ありますが、ここでは主に行列用いて解を求める方法について考えます。ここで紹介するのは、ガウスの消去法と呼ばれる「行基本変形」を用いた方法です。
+まず、ガウスの消去法の手順を例を通して確認してみましょう。</p>
 <h4 id="_2">例：ガウスの消去法による解法</h4>
-<p>前述の例
+<p>連立1次方程式
 $$
 \begin{cases}
 2x + 3y = 5, \\
 4x - y = 1,
 \end{cases}
 $$
-について、ガウスの消去法で解いてみます。</p>
+を、ガウスの消去法で解いてみます。</p>
 <ol>
 <li>
 <p><strong>拡大係数行列の作成</strong><br />
