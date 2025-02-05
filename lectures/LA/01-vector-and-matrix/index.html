@@ -12,13 +12,9 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/00-vector-and-matrix/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/01-vector-and-matrix/">
       
       
-        <link rel="prev" href="../">
-      
-      
-        <link rel="next" href="../../SIWS/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>Chapter 1 Vector and Matrix - Statistical Learning Laboratory</title>
+        <title>第1章 ベクトルと行列の基礎 - Statistical Learning Laboratory</title>
       
     
     
@@ -112,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Chapter 1 Vector and Matrix
+              第1章 ベクトルと行列の基礎
             
           </span>
         </div>
@@ -208,12 +204,10 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../" class="md-tabs__link">
           
   
@@ -316,8 +310,6 @@
       
   
   
-    
-  
   
   
     
@@ -336,19 +328,18 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
         
           
           
@@ -364,13 +355,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Lectures
@@ -383,8 +374,6 @@
                 
   
   
-    
-  
   
   
     
@@ -401,17 +390,16 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
         
           
           
@@ -427,13 +415,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Linear algebra
@@ -446,30 +434,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Chapter 1 Vector and Matrix
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../00-vector-and-matrix.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -478,557 +446,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      数ベクトルと
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="数ベクトルと">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      数ベクトルとは？
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="数ベクトルとは？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      数ベクトルの演算
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="数ベクトルの演算">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. ベクトルの加法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 定数倍（スカラー倍）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列とは？
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="行列とは？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="行列">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列の和・行列の定数倍
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="行列の和・行列の定数倍">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 行列の和
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. 行列の和">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 行列の定数倍
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 行列の定数倍">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      演習問題
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列の積
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="行列の積">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列・ベクトルの積
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="行列・ベクトルの積">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_16" class="md-nav__link">
-    <span class="md-ellipsis">
-      例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#1_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列と1次変換
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="行列と1次変換">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#2_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      例: 2次元の回転変換
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_17" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列の積
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="行列の積">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#2_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      2次行列の積
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3次行列の積
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3次行列の積">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_18" class="md-nav__link">
-    <span class="md-ellipsis">
-      例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_19" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列の積の性質
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#1_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      演習問題1
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      演習問題2
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="演習問題2">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      問題1
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      問題2
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      問題3
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      問題4
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_20" class="md-nav__link">
-    <span class="md-ellipsis">
-      演習問題の解答
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="演習問題の解答">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      解答1
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      解答2
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      解答3
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      解答4
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_21" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列の転置
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_22" class="md-nav__link">
-    <span class="md-ellipsis">
-      色々な行列
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="色々な行列">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_23" class="md-nav__link">
-    <span class="md-ellipsis">
-      単位行列
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_24" class="md-nav__link">
-    <span class="md-ellipsis">
-      単位行列の性質
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="単位行列の性質">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_25" class="md-nav__link">
-    <span class="md-ellipsis">
-      具体例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_26" class="md-nav__link">
-    <span class="md-ellipsis">
-      逆行列と正則行列
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="逆行列と正則行列">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_27" class="md-nav__link">
-    <span class="md-ellipsis">
-      例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_28" class="md-nav__link">
-    <span class="md-ellipsis">
-      三角行列・対角行列
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_29" class="md-nav__link">
-    <span class="md-ellipsis">
-      対角行列
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1066,13 +483,10 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
@@ -1094,7 +508,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -1198,13 +612,10 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
