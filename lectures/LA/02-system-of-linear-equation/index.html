@@ -1481,38 +1481,38 @@
 <h3 id="1_1">連立1次方程式の行列を用いた書き方</h3>
 <p>連立1次方程式とは、複数の1次方程式が同時に成立するような未知数の組を求める問題です。行列を用いると、これらの方程式を簡潔に表現できます。<br />
 一般に、次のような形の連立1次方程式
-[
+$$
 \begin{cases}
-a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1, \
-a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2, \
-\quad \vdots \
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1, \\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2, \\
+\quad \vdots \\
 a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m,
 \end{cases}
-]
+$$
 は、行列とベクトルを用いて次のように書けます：
-[
+$$
 A\mathbf{x} = \mathbf{b},
-]
+$$
 ここで
-- <span class="arithmatex">\( A = \begin{pmatrix} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} \end{pmatrix} \)</span> は係数行列、
-- <span class="arithmatex">\( \mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix} \)</span> は未知数のベクトル、
-- <span class="arithmatex">\( \mathbf{b} = \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{pmatrix} \)</span> は定数項のベクトルです。</p>
+- $ A = \begin{pmatrix} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} \end{pmatrix} $ は係数行列、
+- $ \mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix} $ は未知数のベクトル、
+- $ \mathbf{b} = \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{pmatrix} $ は定数項のベクトルです。</p>
 <h4 id="_1">例</h4>
 <p>次の連立方程式を考えます：
-[
+$$
 \begin{cases}
-2x + 3y = 5, \
+2x + 3y = 5, \\
 4x - y = 1.
 \end{cases}
-]
+$$
 この場合、
-- 係数行列 <span class="arithmatex">\( A = \begin{pmatrix} 2 &amp; 3 \\ 4 &amp; -1 \end{pmatrix} \)</span>,
-- 未知数ベクトル <span class="arithmatex">\( \mathbf{x} = \begin{pmatrix} x \\ y \end{pmatrix} \)</span>,
-- 定数項ベクトル <span class="arithmatex">\( \mathbf{b} = \begin{pmatrix} 5 \\ 1 \end{pmatrix} \)</span><br />
+- 係数行列 $ A = \begin{pmatrix} 2 &amp; 3 \\ 4 &amp; -1 \end{pmatrix} $,
+- 未知数ベクトル $ \mathbf{x} = \begin{pmatrix} x \\ y \end{pmatrix} $,
+- 定数項ベクトル $ \mathbf{b} = \begin{pmatrix} 5 \\ 1 \end{pmatrix} $<br />
 となり、行列表示は
-[
-\begin{pmatrix} 2 &amp; 3 \ 4 &amp; -1 \end{pmatrix} \begin{pmatrix} x \ y \end{pmatrix} = \begin{pmatrix} 5 \ 1 \end{pmatrix}
-]
+$$
+\begin{pmatrix} 2 &amp; 3 \\ 4 &amp; -1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 5 \\ 1 \end{pmatrix}
+$$
 となります。</p>
 <hr />
 <h3 id="1_2">連立1次方程式を解く</h3>
@@ -1520,10 +1520,10 @@ A\mathbf{x} = \mathbf{b},
 <ol>
 <li>
 <p><strong>逆行列を用いる方法</strong><br />
-   係数行列 <span class="arithmatex">\( A \)</span> が正則（つまり逆行列 <span class="arithmatex">\( A^{-1} \)</span> が存在する）であれば、解は
-   [
+   係数行列 $ A $ が正則（つまり逆行列 $ A^{-1} $ が存在する）であれば、解は
+   $$
    \mathbf{x} = A^{-1}\mathbf{b}
-   ]
+   $$
    によって求められます。<br />
    ただし、すべての連立方程式が逆行列を用いて解けるわけではありません（特に方程式の数と未知数の数が異なる場合や、係数行列の行列式がゼロの場合）。</p>
 </li>
@@ -1534,22 +1534,22 @@ A\mathbf{x} = \mathbf{b},
 </ol>
 <h4 id="_2">例：ガウスの消去法による解法</h4>
 <p>前述の例
-[
+$$
 \begin{cases}
-2x + 3y = 5, \
+2x + 3y = 5, \\
 4x - y = 1,
 \end{cases}
-]
+$$
 について、ガウスの消去法で解いてみます。</p>
 <ol>
 <li>
 <p><strong>拡大係数行列の作成</strong><br />
-   [
+   $$
    \left[\begin{array}{cc|c}
-   2 &amp; 3 &amp; 5 \
+   2 &amp; 3 &amp; 5 \\
    4 &amp; -1 &amp; 1
    \end{array}\right]
-   ]</p>
+   $$</p>
 </li>
 <li>
 <p><strong>第2行の処理</strong><br />
@@ -1559,34 +1559,34 @@ A\mathbf{x} = \mathbf{b},
 <li>第2行 - (第1行の2倍)：<span class="arithmatex">\((4-4,\, -1-6 \,|\, 1-10) = (0,\, -7 \,|\, -9)\)</span></li>
 </ol>
 <p>変形後の行列：
-   [
+   $$
    \left[\begin{array}{cc|c}
-   2 &amp; 3 &amp; 5 \
+   2 &amp; 3 &amp; 5 \\
    0 &amp; -7 &amp; -9
    \end{array}\right]
-   ]</p>
+   $$</p>
 <ol>
 <li><strong>解の算出</strong>  </li>
-<li>第2行より：<span class="arithmatex">\(-7y = -9\)</span> より <span class="arithmatex">\( y = \frac{9}{7} \)</span>  </li>
+<li>第2行より：<span class="arithmatex">\(-7y = -9\)</span> より $ y = \frac{9}{7} $  </li>
 <li>第1行に代入：<span class="arithmatex">\(2x + 3\left(\frac{9}{7}\right) = 5\)</span><br />
 <span class="arithmatex">\(\Rightarrow 2x = 5 - \frac{27}{7} = \frac{35-27}{7} = \frac{8}{7}\)</span><br />
 <span class="arithmatex">\(\Rightarrow x = \frac{4}{7}\)</span></li>
 </ol>
 <p>よって、解は
-[
+$$
 x = \frac{4}{7}, \quad y = \frac{9}{7}.
-]</p>
+$$</p>
 <hr />
 <h3 id="_3">拡大係数行列と行基本変形</h3>
 <h4 id="_4">拡大係数行列とは</h4>
-<p>連立1次方程式 <span class="arithmatex">\( A\mathbf{x} = \mathbf{b} \)</span> を解く際、係数行列 <span class="arithmatex">\( A \)</span> と定数項ベクトル <span class="arithmatex">\( \mathbf{b} \)</span> をひとつの行列にまとめたものを<strong>拡大係数行列</strong>といいます。<br />
+<p>連立1次方程式 $ A\mathbf{x} = \mathbf{b} $ を解く際、係数行列 $ A $ と定数項ベクトル $ \mathbf{b} $ をひとつの行列にまとめたものを<strong>拡大係数行列</strong>といいます。<br />
 例えば、先ほどの例では
-[
+$$
 \left[\begin{array}{cc|c}
-2 &amp; 3 &amp; 5 \
+2 &amp; 3 &amp; 5 \\
 4 &amp; -1 &amp; 1
 \end{array}\right]
-]
+$$
 となります。</p>
 <h4 id="_5">行基本変形（行基本操作）</h4>
 <p>行基本変形とは、拡大係数行列の各行に対して以下の操作を行うことです：
@@ -1599,12 +1599,12 @@ x = \frac{4}{7}, \quad y = \frac{9}{7}.
 <p>これらの操作は、連立方程式の解に影響を与えず、同値変形として解を求める上で有効です。</p>
 <h4 id="_6">例：拡大係数行列の変形</h4>
 <p>前述の拡大係数行列
-[
+$$
 \left[\begin{array}{cc|c}
-2 &amp; 3 &amp; 5 \
+2 &amp; 3 &amp; 5 \\
 4 &amp; -1 &amp; 1
 \end{array}\right]
-]
+$$
 に対し、以下の操作を行いました：
 - 第1行を2倍して第2行から引く（行の加減算操作）<br />
   この結果、行列は上記の通り簡単な形（上三角形）に変形され、解が容易に求められました。</p>
@@ -1612,72 +1612,72 @@ x = \frac{4}{7}, \quad y = \frac{9}{7}.
 <h3 id="_7">演習問題＋解答</h3>
 <p><strong>問題 1.</strong><br />
 次の連立方程式を行基本変形を用いて解け：
-[
+$$
 \begin{cases}
-x + 2y - z = 3, \
-2x - y + z = 0, \
+x + 2y - z = 3, \\
+2x - y + z = 0, \\
 -3x + 4y + 2z = 1.
 \end{cases}
-]</p>
+$$</p>
 <p><strong>解答例：</strong></p>
 <ol>
 <li>
 <p><strong>拡大係数行列の作成</strong>
-   [
+   $$
    \left[\begin{array}{ccc|c}
-   1 &amp; 2 &amp; -1 &amp; 3 \
-   2 &amp; -1 &amp; 1 &amp; 0 \
+   1 &amp; 2 &amp; -1 &amp; 3 \\
+   2 &amp; -1 &amp; 1 &amp; 0 \\
    -3 &amp; 4 &amp; 2 &amp; 1
    \end{array}\right]
-   ]</p>
+   $$</p>
 </li>
 <li>
 <p><strong>第2行の処理</strong><br />
    第2行から <span class="arithmatex">\(2 \times\)</span> 第1行を引く：
-   [
+   $$
    2 - 2\cdot1 = 0,\quad -1 - 2\cdot2 = -5,\quad 1 - 2\cdot(-1) = 3,\quad 0 - 2\cdot3 = -6.
-   ]
+   $$
    変形後：
-   [
+   $$
    \left[\begin{array}{ccc|c}
-   1 &amp; 2 &amp; -1 &amp; 3 \
-   0 &amp; -5 &amp; 3 &amp; -6 \
+   1 &amp; 2 &amp; -1 &amp; 3 \\
+   0 &amp; -5 &amp; 3 &amp; -6 \\
    -3 &amp; 4 &amp; 2 &amp; 1
    \end{array}\right]
-   ]</p>
+   $$</p>
 </li>
 <li>
 <p><strong>第3行の処理</strong><br />
    第3行に <span class="arithmatex">\(3 \times\)</span> 第1行を足す：
-   [
+   $$
    -3 + 3\cdot1 = 0,\quad 4 + 3\cdot2 = 10,\quad 2 + 3\cdot(-1) = -1,\quad 1 + 3\cdot3 = 10.
-   ]
+   $$
    変形後：
-   [
+   $$
    \left[\begin{array}{ccc|c}
-   1 &amp; 2 &amp; -1 &amp; 3 \
-   0 &amp; -5 &amp; 3 &amp; -6 \
+   1 &amp; 2 &amp; -1 &amp; 3 \\
+   0 &amp; -5 &amp; 3 &amp; -6 \\
    0 &amp; 10 &amp; -1 &amp; 10
    \end{array}\right]
-   ]</p>
+   $$</p>
 </li>
 <li>
 <p><strong>第3行の更なる処理</strong><br />
    第3行に <span class="arithmatex">\(\frac{10}{-5} = -2\)</span>倍した第2行を足す：
-   [
+   $$
    10 + (-2)(-5) = 10 + 10 = 20,\quad -1 + (-2)(3) = -1 - 6 = -7,\quad 10 + (-2)(-6) = 10 + 12 = 22.
-   ]
+   $$
    ※　ここでは、まず第2行を正規化するため、<span class="arithmatex">\(R_2 \to (-1/5)R_2\)</span> とすると：
-   [
+   $$
    R_2: \quad 0,\ 1,\ -\frac{3}{5},\ \frac{6}{5}.
-   ]
+   $$
    その後、<span class="arithmatex">\(R_3 \to R_3 - 10 \times R_2\)</span>（適宜調整してください）などの操作で、最終的に簡約階段形に変形します。  </p>
 </li>
 </ol>
 <p>（詳しい計算過程は割愛しますが、最終的な解は）
-   [
+   $$
    x = 2,\quad y = 1,\quad z = -1.
-   ]</p>
+   $$</p>
 <p><em>注意：上記の操作は一例です。演習問題として、実際に自分で手を動かして確かめることをおすすめします。</em></p>
 <hr />
 <h2 id="_8">行基本変形と行列の階数</h2>
@@ -1686,18 +1686,18 @@ x + 2y - z = 3, \
 <ol>
 <li><strong>行の入れ替え</strong>  </li>
 <li>
-<p>例：<span class="arithmatex">\( R_1 \leftrightarrow R_2 \)</span></p>
+<p>例：$ R_1 \leftrightarrow R_2 $</p>
 </li>
 <li>
 <p><strong>行の定数倍</strong>  </p>
 </li>
 <li>
-<p>例：<span class="arithmatex">\( R_2 \to k R_2 \)</span> （<span class="arithmatex">\( k \neq 0 \)</span>）</p>
+<p>例：$ R_2 \to k R_2 $ （$ k \neq 0 $）</p>
 </li>
 <li>
 <p><strong>行の加減算</strong>  </p>
 </li>
-<li>例：<span class="arithmatex">\( R_3 \to R_3 + \lambda R_1 \)</span></li>
+<li>例：$ R_3 \to R_3 + \lambda R_1 $</li>
 </ol>
 <p>これらの操作は、連立方程式の解が変わらない（同値変形）という性質を利用しています。</p>
 <hr />
@@ -1720,13 +1720,13 @@ x + 2y - z = 3, \
 </ol>
 <h4 id="_11">例</h4>
 <p>次の行列は簡約階段形です：
-[
+$$
 \begin{pmatrix}
-1 &amp; 0 &amp; 2 \
-0 &amp; 1 &amp; -3 \
+1 &amp; 0 &amp; 2 \\
+0 &amp; 1 &amp; -3 \\
 0 &amp; 0 &amp; 0
 \end{pmatrix}
-]</p>
+$$</p>
 <hr />
 <h3 id="_12">行基本変形と簡約階段形</h3>
 <p>行基本変形を用いると、任意の行列を簡約階段形に変形することができます。この操作により、行列の性質（例えば、連立方程式の解の一意性や自由度）が明確になります。</p>
@@ -1743,115 +1743,115 @@ x + 2y - z = 3, \
 - 階数は、行列の簡約階段形において非ゼロ行の数と一致します。</p>
 <h4 id="_15">例</h4>
 <p>行列
-[
+$$
 \begin{pmatrix}
-1 &amp; 2 &amp; 3 \
-2 &amp; 4 &amp; 6 \
+1 &amp; 2 &amp; 3 \\
+2 &amp; 4 &amp; 6 \\
 0 &amp; 1 &amp; 1
 \end{pmatrix}
-]
+$$
 に対して、行基本変形を施すと：
-[
+$$
 \begin{pmatrix}
-1 &amp; 2 &amp; 3 \
-0 &amp; 0 &amp; 0 \
+1 &amp; 2 &amp; 3 \\
+0 &amp; 0 &amp; 0 \\
 0 &amp; 1 &amp; 1
 \end{pmatrix}
-]
+$$
 さらに変形して簡約階段形にすると：
-[
+$$
 \begin{pmatrix}
-1 &amp; 0 &amp; 2 \
-0 &amp; 1 &amp; 1 \
+1 &amp; 0 &amp; 2 \\
+0 &amp; 1 &amp; 1 \\
 0 &amp; 0 &amp; 0
 \end{pmatrix}
-]
+$$
 となり、ピボットは2個なので、この行列の階数は2です。</p>
 <hr />
 <h3 id="_16">演習問題＋解答</h3>
 <p><strong>問題 2.</strong><br />
 次の行列の階数を求めるため、簡約階段形に変形せよ：
-[
+$$
 A = \begin{pmatrix}
-1 &amp; 3 &amp; 2 \
-2 &amp; 6 &amp; 4 \
+1 &amp; 3 &amp; 2 \\
+2 &amp; 6 &amp; 4 \\
 -1 &amp; -3 &amp; 0
 \end{pmatrix}
-]</p>
+$$</p>
 <p><strong>解答例：</strong></p>
 <ol>
 <li>
 <p><strong>初期の行列</strong>
-   [
+   $$
    \begin{pmatrix}
-   1 &amp; 3 &amp; 2 \
-   2 &amp; 6 &amp; 4 \
+   1 &amp; 3 &amp; 2 \\
+   2 &amp; 6 &amp; 4 \\
    -1 &amp; -3 &amp; 0
    \end{pmatrix}
-   ]</p>
+   $$</p>
 </li>
 <li>
 <p><strong>第2行の処理</strong><br />
-<span class="arithmatex">\( R_2 \to R_2 - 2R_1 \)</span>：
-   [
+   $ R_2 \to R_2 - 2R_1 $：
+   $$
    (2-2\cdot1,\ 6-2\cdot3,\ 4-2\cdot2) = (0, 0, 0).
-   ]</p>
+   $$</p>
 </li>
 <li>
 <p><strong>第3行の処理</strong><br />
-<span class="arithmatex">\( R_3 \to R_3 + R_1 \)</span>：
-   [
+   $ R_3 \to R_3 + R_1 $：
+   $$
    (-1+1,\ -3+3,\ 0+2) = (0, 0, 2).
-   ]</p>
+   $$</p>
 </li>
 </ol>
 <p>変形後の行列：
-   [
+   $$
    \begin{pmatrix}
-   1 &amp; 3 &amp; 2 \
-   0 &amp; 0 &amp; 0 \
+   1 &amp; 3 &amp; 2 \\
+   0 &amp; 0 &amp; 0 \\
    0 &amp; 0 &amp; 2
    \end{pmatrix}
-   ]</p>
+   $$</p>
 <ol>
 <li>
 <p><strong>行の入れ替え</strong><br />
-   ピボットが上に来るように、<span class="arithmatex">\( R_2 \)</span> と <span class="arithmatex">\( R_3 \)</span> を交換：
-   [
+   ピボットが上に来るように、$ R_2 $ と $ R_3 $ を交換：
+   $$
    \begin{pmatrix}
-   1 &amp; 3 &amp; 2 \
-   0 &amp; 0 &amp; 2 \
+   1 &amp; 3 &amp; 2 \\
+   0 &amp; 0 &amp; 2 \\
    0 &amp; 0 &amp; 0
    \end{pmatrix}
-   ]</p>
+   $$</p>
 </li>
 <li>
 <p><strong>ピボットの正規化</strong><br />
-<span class="arithmatex">\( R_2 \to \frac{1}{2} R_2 \)</span>：
-   [
+   $ R_2 \to \frac{1}{2} R_2 $：
+   $$
    \begin{pmatrix}
-   1 &amp; 3 &amp; 2 \
-   0 &amp; 0 &amp; 1 \
+   1 &amp; 3 &amp; 2 \\
+   0 &amp; 0 &amp; 1 \\
    0 &amp; 0 &amp; 0
    \end{pmatrix}
-   ]</p>
+   $$</p>
 </li>
 <li>
 <p><strong>上の行の調整</strong><br />
-<span class="arithmatex">\( R_1 \to R_1 - 2R_2 \)</span>：
-   [
+   $ R_1 \to R_1 - 2R_2 $：
+   $$
    (1, 3, 2-2\cdot1) = (1, 3, 0).
-   ]</p>
+   $$</p>
 </li>
 </ol>
 <p>最終形：
-   [
+   $$
    \begin{pmatrix}
-   1 &amp; 3 &amp; 0 \
-   0 &amp; 0 &amp; 1 \
+   1 &amp; 3 &amp; 0 \\
+   0 &amp; 0 &amp; 1 \\
    0 &amp; 0 &amp; 0
    \end{pmatrix}
-   ]</p>
+   $$</p>
 <p>非ゼロ行は2行あるので、行列の階数は <strong>2</strong> です。</p>
 <hr />
 <h2 id="1_3">連立1次方程式とその解</h2>
@@ -1860,13 +1860,13 @@ A = \begin{pmatrix}
 拡大係数行列に対して行基本変形を適用することで、解の存在や一意性、あるいは無限解・解なしといった性質を明確に判断できます。</p>
 <h4 id="_17">例</h4>
 <p>先ほどの例で示した
-[
+$$
 \left[\begin{array}{cc|c}
-2 &amp; 3 &amp; 5 \
+2 &amp; 3 &amp; 5 \\
 4 &amp; -1 &amp; 1
 \end{array}\right]
-]
-に行基本変形を適用することで、解 <span class="arithmatex">\( x = \frac{4}{7},\, y = \frac{9}{7} \)</span> が得られました。</p>
+$$
+に行基本変形を適用することで、解 $ x = \frac{4}{7},\, y = \frac{9}{7} $ が得られました。</p>
 <hr />
 <h3 id="_18">解の存在と自由度</h3>
 <p>連立1次方程式の解の性質は、大きく以下の3種類に分類されます：</p>
@@ -1889,68 +1889,68 @@ A = \begin{pmatrix}
 </ol>
 <h4 id="_19">例</h4>
 <p>次の連立方程式を考えます：
-[
+$$
 \begin{cases}
-x + y + z = 2, \
-2x + 2y + 2z = 4, \
+x + y + z = 2, \\
+2x + 2y + 2z = 4, \\
 x - y + z = 0.
 \end{cases}
-]
+$$
 拡大係数行列に行基本変形を施すと、第1行と第2行が比例しているため、実質的に2つの独立な方程式しかなくなります。<br />
 この場合、未知数が3つで階数が2なので、自由変数が1つ現れ、無限解が存在します。</p>
 <hr />
 <h3 id="1_5">同次連立1次方程式</h3>
 <p><strong>同次連立1次方程式</strong>は、定数項がすべて0の連立方程式のことです。すなわち、
-[
+$$
 A\mathbf{x} = \mathbf{0}
-]
+$$
 の形をしています。</p>
 <ul>
 <li>同次連立方程式は必ず自明解（すべての変数が0）を持ちます。</li>
 <li>もし係数行列の階数が未知数の数より小さい場合は、非自明な解（自明解以外の解）が存在し、解空間は自由度の次元を持ちます。</li>
 </ul>
 <h4 id="_20">例</h4>
-<p>[
+<p>$$
 \begin{cases}
-x + 2y - z = 0, \
+x + 2y - z = 0, \\
 3x + 6y - 3z = 0.
 \end{cases}
-]
+$$
 第2行は第1行の3倍になっているため、実質的に1つの独立な方程式です。<br />
 未知数が3つで階数が1なので、自由変数は2つとなり、非自明解が無限に存在します。</p>
 <hr />
 <h3 id="_21">演習問題＋解答</h3>
 <p><strong>問題 3.</strong><br />
 次の同次連立方程式の解空間の次元（自由度）を求めよ：
-[
+$$
 \begin{cases}
-2x - y + z = 0, \
-4x - 2y + 2z = 0, \
+2x - y + z = 0, \\
+4x - 2y + 2z = 0, \\
 - x + \frac{1}{2}y - \frac{1}{2}z = 0.
 \end{cases}
-]</p>
+$$</p>
 <p><strong>解答例：</strong></p>
 <ol>
 <li>
 <p><strong>拡大係数行列の作成</strong>（右側は全て0なので、係数行列のみを考えます）：
-   [
+   $$
    A = \begin{pmatrix}
-   2 &amp; -1 &amp; 1 \
-   4 &amp; -2 &amp; 2 \
+   2 &amp; -1 &amp; 1 \\
+   4 &amp; -2 &amp; 2 \\
    -1 &amp; \frac{1}{2} &amp; -\frac{1}{2}
    \end{pmatrix}
-   ]</p>
+   $$</p>
 </li>
 <li>
 <p><strong>行基本変形による簡約階段形への変形</strong>  </p>
 </li>
 <li>第2行は第1行の2倍になっているので、実質的に1つの独立な方程式です。  </li>
 <li>
-<p>第3行も第1行と比例関係にある（実際に <span class="arithmatex">\( R_3 \to R_3 + \frac{1}{2}R_1 \)</span> などの操作で0行になる）ため、階数は1です。</p>
+<p>第3行も第1行と比例関係にある（実際に $ R_3 \to R_3 + \frac{1}{2}R_1 $ などの操作で0行になる）ため、階数は1です。</p>
 </li>
 <li>
 <p><strong>自由度の計算</strong><br />
-   未知数は3つ、階数が1なので、自由変数の数は <span class="arithmatex">\( 3 - 1 = 2 \)</span> となり、解空間の次元は2です。</p>
+   未知数は3つ、階数が1なので、自由変数の数は $ 3 - 1 = 2 $ となり、解空間の次元は2です。</p>
 </li>
 </ol>
 <p><em>したがって、この同次連立方程式の解空間の自由度は2です。</em></p>
