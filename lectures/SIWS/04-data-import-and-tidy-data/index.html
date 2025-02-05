@@ -22,7 +22,7 @@
     
     
       
-        <title>04 data import and tidy data - Statistical Learning Laboratory</title>
+        <title>Data Importing and "Tidy" Data - Statistical Learning Laboratory</title>
       
     
     
@@ -73,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#data-importing-and-tidy-data" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -103,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              04 data import and tidy data
+              Data Importing and "Tidy" Data
             
           </span>
         </div>
@@ -734,6 +739,217 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. データのインポート
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. データのインポート">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 CSV ファイルのインポート
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Excel ファイルのインポート
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tidy-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. "Tidy" Data（整然としたデータ）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. "Tidy" Data（整然としたデータ）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 ワイド形式とロング形式の例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 ワイド形式とロング形式の例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ワイド形式の例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      ワイド形式からロング形式への変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ロング形式からワイド形式への再変換
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 整然データの利点を活かした可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 整然データの利点を活かした可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-drinks" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 例：drinks データの整形と棒グラフの作成
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tidy-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. "Tidy" Data の定義と例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-case-study-democracy-in-guatemala" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Case Study: Democracy in Guatemala
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Case Study: Democracy in Guatemala">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 グアテマラのデータ抽出
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 ワイド形式からロング形式への変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 時系列プロットの作成
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-python-tidy-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Python における "Tidy" Data 処理のまとめ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 追加リソースと今後の展開
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      今後の展開
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -748,9 +964,255 @@
                   
 
 
-  <h1>04 data import and tidy data</h1>
+<h1 id="data-importing-and-tidy-data">Data Importing and "Tidy" Data</h1>
+<h2 id="_1">はじめに</h2>
+<p>データサイエンスにおいて、<strong>データフレーム</strong>（表形式データ）は、各行が観測（例：個々の飛行機のフライト、国ごとの統計など）、各列が観測の変数（例：年齢、スコア、日付など）を表すものです。本章では、R 版「Data Science with tidyverse」で扱われた内容をもとに、<br />
+・データのインポート方法<br />
+・「整然とした（tidy）」データの概念とその重要性<br />
+・ワイド形式とロング形式のデータ変換<br />
+・整然なデータを用いた可視化<br />
+などを、Python の主要ライブラリ（numpy, pandas, matplotlib, seaborn）を使って実演します。</p>
+<p>「<strong>tidy（整然とした）</strong>データ」とは、以下の3原則に基づくデータ構造のことです：</p>
+<ol>
+<li>
+<p><strong>各変数は 1 列に格納される</strong><br />
+   例：身長、体重、年齢などはそれぞれ独立した列に配置する。</p>
+</li>
+<li>
+<p><strong>各観測は 1 行に格納される</strong><br />
+   例：1 人の被験者の全情報が 1 行にまとまっている。</p>
+</li>
+<li>
+<p><strong>各観測単位は別のテーブルにまとめる</strong><br />
+   例：学生データと教師データが混在せず、それぞれ個別のテーブルに保存される。</p>
+</li>
+</ol>
+<p>これらの原則により、データのフィルタリング、変形、集約、結合、可視化などの操作が効率よく行えるようになります。<br />
+また、後続の解析（回帰分析や統計的推論など）においても、この整然としたデータ形式は必須です。</p>
+<hr />
+<h2 id="1">1. データのインポート</h2>
+<p>ここでは、実際のデータを自分のコンピュータやオンライン上から読み込む方法について説明します。<br />
+スプレッドシートのデータは、主に以下の形式で保存されます。</p>
+<ul>
+<li>
+<p><strong>CSV（Comma Separated Values）ファイル</strong><br />
+  各行が観測（1行＝1観測）、各値はカンマで区切られ、最初の行がヘッダーの場合が多い。</p>
+</li>
+<li>
+<p><strong>Excel（.xlsx）ファイル</strong><br />
+  Microsoft Excel の形式で、CSV よりも多くのメタデータ（フォント、セルの色、列幅、数式など）を含む。</p>
+</li>
+<li>
+<p><strong>Google Sheets</strong><br />
+  クラウド上のスプレッドシート。CSV や Excel 形式でダウンロード可能。</p>
+</li>
+</ul>
+<h3 id="11-csv">1.1 CSV ファイルのインポート</h3>
+<p>ここでは、インターネット上にある CSV ファイル <code>dem_score.csv</code>（<a href="https://moderndive.com/data/dem_score.csv">https://moderndive.com/data/dem_score.csv</a>）を pandas の <code>read_csv()</code> 関数を用いて読み込みます。</p>
+<pre><code class="language-python">import pandas as pd
 
+# CSV ファイルをオンラインから読み込む
+dem_score = pd.read_csv(&quot;https://moderndive.com/data/dem_score.csv&quot;)
+print(&quot;【dem_scoreデータフレーム】&quot;)
+print(dem_score.head())
+</code></pre>
+<p>このデータでは、各国の民主主義度（democracy_score）が測定されており、値が -10 で高度な独裁国家、10 で高度な民主国家を表します。</p>
+<h3 id="12-excel">1.2 Excel ファイルのインポート</h3>
+<p>Excel ファイルの場合は、<code>read_excel()</code> 関数を使用します。<br />
+※ Python では RStudio のような GUI を用いたインポートは標準では提供されませんが、ファイルエクスプローラー等でダウンロードした後、以下のように読み込みます。</p>
+<pre><code class="language-python"># 事前に &quot;dem_score.xlsx&quot; をダウンロードして作業ディレクトリに保存しておく
+dem_score_excel = pd.read_excel(&quot;dem_score.xlsx&quot;)
+print(&quot;【dem_score (Excel) データフレーム】&quot;)
+print(dem_score_excel.head())
+</code></pre>
+<hr />
+<h2 id="2-tidy-data">2. "Tidy" Data（整然としたデータ）</h2>
+<p>ここからは、整然とした（tidy）データの概念と、ワイド形式⇄ロング形式への変換の例を紹介します。</p>
+<h3 id="21">2.1 ワイド形式とロング形式の例</h3>
+<h4 id="_2">ワイド形式の例</h4>
+<p>次の例は、各国ごとに 1999 年と 2000 年の「疾病発生件数（cases）」が記録されたワイド形式のデータです（各年が個別の列になっています）。</p>
+<pre><code class="language-python"># ワイド形式のデータ例
+df_wide = pd.DataFrame({
+    'country': ['Afghanistan', 'Brazil', 'China'],
+    '1999': [745, 37737, 212258],
+    '2000': [2666, 80488, 213766]
+})
+print(&quot;【ワイド形式のデータ】&quot;)
+print(df_wide)
+</code></pre>
+<h4 id="_3">ワイド形式からロング形式への変換</h4>
+<p>pandas の <code>melt()</code> 関数を用いることで、ワイド形式のデータをロング形式（整然としたデータ）に変換できます。<br />
+ここでは、<code>country</code> 列はそのまま残し、残りの各列（年）を 1 つの変数 <code>year</code> として、対応する値を <code>cases</code> 列にまとめます。</p>
+<pre><code class="language-python"># ワイド形式からロング形式へ変換
+df_long = pd.melt(df_wide, id_vars=['country'], var_name='year', value_name='cases')
+print(&quot;\n【ロング形式に変換したデータ】&quot;)
+print(df_long)
+</code></pre>
+<h4 id="_4">ロング形式からワイド形式への再変換</h4>
+<p>逆に、<code>pivot()</code> や <code>pivot_table()</code> 関数を使って、ロング形式のデータをワイド形式に戻すことも可能です。</p>
+<pre><code class="language-python"># ロング形式からワイド形式に再変換
+df_wide_again = df_long.pivot(index='country', columns='year', values='cases').reset_index()
+print(&quot;\n【ロング形式から再構築したワイド形式のデータ】&quot;)
+print(df_wide_again)
+</code></pre>
+<hr />
+<h2 id="3">3. 整然データの利点を活かした可視化</h2>
+<p>整然としたデータ形式は、データの可視化や操作を非常に効率よく行うための前提条件となります。<br />
+以下の例では、整形前のデータ <code>drinks_smaller</code>（ワイド形式）を、整然なロング形式に変換してから、国ごとに各種アルコールの摂取量をサイドバイサイドの棒グラフで比較しています。</p>
+<h3 id="31-drinks">3.1 例：drinks データの整形と棒グラフの作成</h3>
+<p>まず、サンプルデータとして「drinks」データ（アルコール摂取量のデータ）を作成します。<br />
+ここでは、アメリカ、China、Italy、Saudi Arabia の 4 カ国のデータとして、ビール、スピリッツ、ワインの摂取量を用います。</p>
+<pre><code class="language-python">import pandas as pd
 
+# サンプルデータ：drinks_smaller（ワイド形式）
+drinks_smaller = pd.DataFrame({
+    'country': ['USA', 'China', 'Italy', 'Saudi Arabia'],
+    'beer_servings': [245, 89, 212, 15],
+    'spirit_servings': [150, 110, 98, 5],
+    'wine_servings': [50, 20, 300, 0]
+})
+
+# 列名の変更（rename）
+drinks_smaller = drinks_smaller.rename(columns={
+    'beer_servings': 'beer',
+    'spirit_servings': 'spirit',
+    'wine_servings': 'wine'
+})
+print(&quot;【drinks_smaller (ワイド形式)】&quot;)
+print(drinks_smaller)
+</code></pre>
+<p>次に、pandas の <code>melt()</code> 関数を用いて、ワイド形式のデータをロング形式（整然データ）に変換します。</p>
+<pre><code class="language-python"># ワイド形式からロング形式へ変換
+drinks_smaller_tidy = pd.melt(drinks_smaller, id_vars=['country'],
+                              var_name='type', value_name='servings')
+print(&quot;\n【drinks_smaller_tidy (整然なロング形式のデータ)】&quot;)
+print(drinks_smaller_tidy)
+</code></pre>
+<p>この整然なデータを用いて、seaborn の <code>barplot()</code> を使いサイドバイサイドの棒グラフを作成します。</p>
+<pre><code class="language-python">import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.set(style=&quot;whitegrid&quot;)
+
+plt.figure(figsize=(8, 4))
+sns.barplot(data=drinks_smaller_tidy, x='country', y='servings', hue='type', dodge=True)
+plt.xlabel(&quot;国&quot;)
+plt.ylabel(&quot;サービング数&quot;)
+plt.title(&quot;4 カ国におけるアルコール摂取量の比較&quot;)
+plt.show()
+</code></pre>
+<hr />
+<h2 id="4-tidy-data">4. "Tidy" Data の定義と例</h2>
+<p>整然としたデータ（tidy data）とは、以下のルールに従って構造化されたデータです：</p>
+<ol>
+<li><strong>各変数は 1 列に</strong>  </li>
+<li><strong>各観測は 1 行に</strong>  </li>
+<li><strong>各観測単位は 1 テーブルに</strong></li>
+</ol>
+<p>例えば、以下は株価データのワイド形式（非 tidy）の例です。</p>
+<pre><code class="language-python">import pandas as pd
+
+stocks = pd.DataFrame({
+    'Date': pd.date_range(&quot;2009-01-01&quot;, periods=5),
+    'Boeing stock price': [&quot;$173.55&quot;, &quot;$172.61&quot;, &quot;$173.86&quot;, &quot;$170.77&quot;, &quot;$174.29&quot;],
+    'Amazon stock price': [&quot;$174.90&quot;, &quot;$171.42&quot;, &quot;$171.58&quot;, &quot;$173.89&quot;, &quot;$170.16&quot;],
+    'Google stock price': [&quot;$174.34&quot;, &quot;$170.04&quot;, &quot;$173.65&quot;, &quot;$174.87&quot;, &quot;$172.19&quot;]
+})
+print(&quot;【株価データ（非 tidy）】&quot;)
+print(stocks.head(2))
+</code></pre>
+<p>このデータは、各銘柄ごとに列が分かれているため非 tidy です。<br />
+これを、各観測単位（Date）ごとに「Stock Name」と「Stock Price」という 2 列に変換すると tidy になります。</p>
+<pre><code class="language-python"># ワイド形式からロング形式（tidy 形式）へ変換
+stocks_tidy = stocks.melt(id_vars=['Date'], 
+                          var_name='Stock Name', 
+                          value_name='Stock Price')
+print(&quot;\n【株価データ（tidy 形式）】&quot;)
+print(stocks_tidy.head(6))
+</code></pre>
+<p>なお、同様に他のデータ（例：気象情報や航空安全情報など）も、整然なデータ形式にすることで、pandas や seaborn、matplotlib での解析・可視化が容易になります。</p>
+<hr />
+<h2 id="5-case-study-democracy-in-guatemala">5. Case Study: Democracy in Guatemala</h2>
+<p>ここでは、先ほどインポートした <code>dem_score</code> データセットを用い、Guatemala（グアテマラ）の民主主義スコアの時系列変化をプロットする例を示します。<br />
+このデータは、1952 年から 1992 年までの各年のスコアがワイド形式になっていますので、まず整然な（ロング形式）データに変換します。</p>
+<h3 id="51">5.1 グアテマラのデータ抽出</h3>
+<pre><code class="language-python"># dem_score は既に上記で読み込んであるものとする
+# Guatemala のみ抽出
+guat_dem = dem_score[dem_score['country'] == &quot;Guatemala&quot;]
+print(&quot;【Guatemala のデータ (ワイド形式)】&quot;)
+print(guat_dem)
+</code></pre>
+<h3 id="52">5.2 ワイド形式からロング形式への変換</h3>
+<p>ここでは、<code>pd.melt()</code> を用いて、列名（各年）を <code>year</code> 変数、値を <code>democracy_score</code> 変数として抽出します。<br />
+※ pandas では、列名は文字列として扱われるため、必要に応じて型変換します。</p>
+<pre><code class="language-python"># country 列はそのままで、残りの列（年）を melt する
+guat_dem_tidy = pd.melt(guat_dem, id_vars=['country'],
+                        var_name='year', value_name='democracy_score')
+# year 列を整数型に変換
+guat_dem_tidy['year'] = guat_dem_tidy['year'].astype(int)
+print(&quot;\n【Guatemala のデータ (tidy 形式)】&quot;)
+print(guat_dem_tidy)
+</code></pre>
+<h3 id="53">5.3 時系列プロットの作成</h3>
+<p>seaborn または matplotlib の <code>plot</code> 機能を使って、1952 年から 1992 年までの民主主義スコアの変化を線グラフで描きます。</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 4))
+plt.plot(guat_dem_tidy['year'], guat_dem_tidy['democracy_score'], marker='o', linestyle='-')
+plt.xlabel(&quot;Year&quot;)
+plt.ylabel(&quot;Democracy Score&quot;)
+plt.title(&quot;Guatemala における 1952～1992 年の民主主義スコアの変化&quot;)
+plt.grid(True)
+plt.show()
+</code></pre>
+<p>※ もし <code>year</code> 列の型変換を行わなかった場合、プロット時に正しい順序で並ばないエラーが出る可能性があります。</p>
+<hr />
+<h2 id="6-python-tidy-data">6. Python における "Tidy" Data 処理のまとめ</h2>
+<p>本章では、以下の内容を学びました：</p>
+<ul>
+<li><strong>データのインポート</strong>  </li>
+<li>
+<p>pandas の <code>read_csv()</code> や <code>read_excel()</code> を用いた CSV／Excel データの読み込み</p>
+</li>
+<li>
+<p><strong>整然とした（tidy）データの概念</strong>  </p>
+</li>
+<li>
+<p>各変数は 1 列、各観測は 1 行、各観測単位は 1 テーブルにまとめるというルール</p>
+</li>
+<li>
+<p><strong>データの変形操作</strong>  </p>
+</li>
+<li>ワイド形式からロング形式への変換：<code>pd.melt()</code> を使用  </li>
+<li>
+<p>ロング形式からワイド形式への変換：<code>pivot()</code> / <code>pivot_table()</code> を使用</p>
+</li>
+<li>
+<p><strong>整然データを用いた可視化</strong>  </p>
+</li>
+<li>seaborn や matplotlib を用いた棒グラフや線グラフの作成</li>
+</ul>
+<p>整然なデータ形式により、Python のデータ操作ライブラリ間で一貫した入力・出力が可能となり、解析・可視化のプロセスが大幅に簡略化されます。</p>
+<hr />
+<h2 id="7">7. 追加リソースと今後の展開</h2>
+<p>Python では、pandas、matplotlib、seaborn に加えて、numpy などもデータ解析で頻繁に利用されます。<br />
+R の tidyverse パッケージのように、Python には一連のパッケージが連携して動作するため、データの整形、解析、可視化の各工程がスムーズに連携します。</p>
+<p>また、以下のリソースも参考にしてください：</p>
+<ul>
+<li><a href="https://pandas.pydata.org/docs/">pandas ドキュメント</a></li>
+<li><a href="https://seaborn.pydata.org/">seaborn ドキュメント</a></li>
+<li><a href="https://matplotlib.org/stable/contents.html">matplotlib チートシート</a></li>
+<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/">Python Data Science Handbook</a></li>
+</ul>
+<hr />
+<h2 id="_5">今後の展開</h2>
+<p>おめでとうございます！<br />
+これで「Python によるデータのインポートと整然としたデータ」の内容を学習しました。<br />
+次のステップとして、これまでの前処理・可視化のスキルを活かして、回帰分析や統計的推論など、さらに高度なデータモデリングに進んでいきます。</p>
+<hr />
+<!-- 結果の補足として、参考用のコードファイルへのリンク（必要に応じて追加） -->
+<p>```</p>
+<hr />
 
 
 
