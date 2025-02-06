@@ -1126,13 +1126,13 @@
   線形代数学の基礎概念（固有値・固有ベクトルや行列分解）を用いて、多次元データから重要な情報を抽出し、次元削減を行う手法です。  </li>
 <li><strong>具体例:</strong><br />
   実際のIrisデータセットを用いて、4次元のデータを2次元に縮約し、データのクラスタリング傾向を視覚化します。  </li>
-<li><strong>コード例:</strong>
-  ```python
+<li><strong>コード例:</strong></li>
+</ul>
+<p>```python
   import numpy as np
   import matplotlib.pyplot as plt
   from sklearn.datasets import load_iris
-  from sklearn.decomposition import PCA</li>
-</ul>
+  from sklearn.decomposition import PCA</p>
 <p># Irisデータセットの読み込み
   iris = load_iris()
   X = iris.data
@@ -1156,11 +1156,11 @@
   線形代数学の応用として、正規方程式を用いて与えられたデータに対して最適な直線をフィッティングする手法です。  </li>
 <li><strong>具体例:</strong><br />
   ランダムに生成したサンプルデータに対して、独立変数と従属変数の関係を線形モデルで近似し、最適なパラメータ（切片と傾き）を求めます。  </li>
-<li><strong>コード例:</strong>
-  ```python
-  import numpy as np
-  import matplotlib.pyplot as plt</li>
+<li><strong>コード例:</strong></li>
 </ul>
+<p>```python
+  import numpy as np
+  import matplotlib.pyplot as plt</p>
 <p># サンプルデータの生成
   np.random.seed(0)
   X = 2 * np.random.rand(100, 1)
@@ -1189,13 +1189,13 @@
   医療分野では、多数の測定値から病気の状態を評価する際に、データの次元削減が有効です。ここでは、乳がんデータセットを用いてPCAによりデータの低次元表現を取得し、良性と悪性のサンプルを視覚化します。  </li>
 <li><strong>具体例:</strong><br />
   scikit-learnの乳がんデータセットを利用し、PCAで2次元に縮約して、各クラス（良性、悪性）の分布を散布図で示します。  </li>
-<li><strong>コード例:</strong>
-  ```python
+<li><strong>コード例:</strong></li>
+</ul>
+<p>```python
   import numpy as np
   import matplotlib.pyplot as plt
   from sklearn.datasets import load_breast_cancer
-  from sklearn.decomposition import PCA</li>
-</ul>
+  from sklearn.decomposition import PCA</p>
 <p># 乳がんデータセットの読み込み
   cancer = load_breast_cancer()
   X = cancer.data
@@ -1219,13 +1219,13 @@
   画像処理では、特に画像圧縮やノイズ除去の分野で線形代数学が活用されます。ここでは、特異値分解（SVD）を用いて画像の低ランク近似を行い、元の画像と近似画像の比較を行います。  </li>
 <li><strong>具体例:</strong><br />
   skimageのサンプル画像を用いて、SVDで画像を分解し、上位の特異値のみを用いた再構成画像を表示します。  </li>
-<li><strong>コード例:</strong>
-  ```python
+<li><strong>コード例:</strong></li>
+</ul>
+<p>```python
   import numpy as np
   import matplotlib.pyplot as plt
   from skimage import data
-  from skimage.color import rgb2gray</li>
-</ul>
+  from skimage.color import rgb2gray</p>
 <p># サンプル画像（カメラ画像）の読み込み
   image = data.camera()</p>
 <p># SVD分解
