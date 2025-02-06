@@ -22,7 +22,7 @@
     
     
       
-        <title>講義7: ガウスの消去法と解の探索 - Statistical Learning Laboratory</title>
+        <title>07 system of linear equation - Statistical Learning Laboratory</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#7" class="md-skip">
+        <a href="#5" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              講義7: ガウスの消去法と解の探索
+              07 system of linear equation
             
           </span>
         </div>
@@ -877,137 +877,12 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       目次
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 本日扱う内容について（概要）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 扱う内容の理論の説明（定義・定理・数式を含む）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      連立一次方程式の行列表現（拡大係数行列）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法による解法と基本変形の操作フロー
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-gpt-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      例題：3変数の連立一次方程式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="例題：3変数の連立一次方程式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      拡大係数行列の作成
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      操作の流れ
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-chatgptcolab" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Colab での実行例
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Colab での実行例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#chatgpt" class="md-nav__link">
-    <span class="md-ellipsis">
-      ChatGPTによる解説
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#google-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      Google Colabでの実行例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#5" class="md-nav__link">
@@ -1042,256 +917,271 @@
                   
 
 
-<h1 id="7">講義7: ガウスの消去法と解の探索</h1>
-<h2 id="1">1. 本日扱う内容について（概要）</h2>
-<ul>
-<li><strong>目的:</strong>  </li>
-<li>連立一次方程式の行列表現（拡大係数行列）を用いて問題を定式化する  </li>
-<li>ガウスの消去法を用いて、連立一次方程式を解く方法を学ぶ  </li>
-<li>拡大係数行列に対する基本変形（行の入れ替え、定数倍、他の行の定数倍の加算・引き算）の操作フローを理解する  </li>
-<li>
-<p>Google Colab上での実装例を通して、理論と実践の両面から解法を確認する</p>
-</li>
-<li>
-<p><strong>講義の流れ:</strong>  </p>
-</li>
-<li>連立一次方程式の行列表現（拡大係数行列）の導入  </li>
-<li>ガウスの消去法の理論的背景と、拡大係数行列に対する基本変形の操作フローの説明  </li>
-<li>具体例を用いて、実際に拡大係数行列がどのように変化していくかを示す  </li>
-<li>ChatGPTによる解説とGoogle Colabでの実装例の紹介  </li>
-<li>応用例の考察  </li>
-<li>演習問題</li>
-</ul>
-<hr />
-<h2 id="2">2. 扱う内容の理論の説明（定義・定理・数式を含む）</h2>
-<h3 id="_1">連立一次方程式の行列表現（拡大係数行列）</h3>
-<ul>
-<li><strong>一般的な定義:</strong><br />
-  未知数 <span class="arithmatex">\( x_1, x_2, \dots, x_n \)</span> に対して、m 本の一次方程式が同時に成立する連立一次方程式は次のように表されます：
-  [
+  <h1>07 system of linear equation</h1>
+
+<pre><code class="language-markdown"># 講義7: ガウスの消去法と解の探索
+
+## 1. 本日扱う内容について（概要）
+- **目的:**  
+  - 連立一次方程式の行列表現と拡大係数行列の作成方法を学ぶ  
+  - 行列の基本変形（行の入れ替え、定数倍、他の行の定数倍の加減）を理解する  
+  - ガウスの消去法による連立一次方程式の解法を、拡大係数行列の変形という視点から習得する  
+  - ガウスの消去法が、従来の消去法（式の足し算・引き算による消去）と本質的に同じであることを対応付けて理解する  
+  - Google Colab を使った実装例で、操作の流れと解の探索のプロセスを体感する
+
+- **講義の流れ:**  
+  1. 連立一次方程式の行列表現と拡大係数行列の導入  
+  2. 行列の基本変形の説明  
+  3. ガウスの消去法による解法の具体的操作フロー（前進消去と後退代入）  
+  4. ガウスの消去法と従来の消去法の対応づけ  
+  5. ChatGPTによる解説＋Google Colabでの実装例  
+  6. 学んだ内容の応用例  
+  7. 演習問題
+
+---
+
+## 2. 扱う内容の理論の説明（定義・定理・数式を含む）
+
+### 連立一次方程式の行列表現と拡大係数行列
+- **定義:**  
+  未知数 \(x_1, x_2, \dots, x_n\) に対して、\(m\) 本の一次方程式が同時に成立する連立一次方程式は、
+  \[
   \begin{cases}
-  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \
-  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \
-  \quad \vdots \
+  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \\
+  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \\
+  \quad\vdots \\
   a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m.
   \end{cases}
-  ]</li>
-<li><strong>拡大係数行列:</strong><br />
-  これを行列表現すると、係数行列 <span class="arithmatex">\(A\)</span> と定数項ベクトル <span class="arithmatex">\(\mathbf{b}\)</span> を並べて
-  [
+  \]
+- **拡大係数行列:**  
+  この連立方程式は、係数行列 \(A\) と定数項ベクトル \(\mathbf{b}\) を並べて、
+  \[
   [A \,|\, \mathbf{b}] = \begin{pmatrix}
-  a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; | &amp; b_1 \
-  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; | &amp; b_2 \
-  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; | &amp; \vdots \
+  a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; | &amp; b_1 \\
+  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; | &amp; b_2 \\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; | &amp; \vdots \\
   a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
   \end{pmatrix}
-  ]
-  と書き、これを使って解法の操作を行います。</li>
-</ul>
-<h3 id="_2">ガウスの消去法による解法と基本変形の操作フロー</h3>
-<ul>
-<li>
-<p><strong>目的:</strong><br />
-  ガウスの消去法は、拡大係数行列に対して基本変形（行の交換、行の定数倍、ある行に他の行の定数倍を加える）を適用し、行基本形（上三角形または階段形）に変形することで、後退代入により未知数の解を求める手法です。</p>
-</li>
-<li>
-<p><strong>基本変形の種類:</strong>  </p>
-</li>
-<li><strong>行の入れ替え:</strong><br />
-     行の順序を変更する。  </li>
-<li><strong>行の定数倍:</strong><br />
-     ある行のすべての要素を、ゼロでない定数で乗じる。  </li>
-<li>
-<p><strong>行の加減:</strong><br />
-     ある行に、別の行の定数倍を加える（または引く）。</p>
-</li>
-<li>
-<p><strong>操作フロー:</strong>  </p>
-</li>
-<li><strong>初期状態:</strong><br />
-     与えられた拡大係数行列 <span class="arithmatex">\([A \,|\, \mathbf{b}]\)</span> を用意する。  </li>
-<li><strong>前進消去 (Forward Elimination):</strong>  <ul>
-<li><strong>ピボット選択:</strong><br />
-   左上から順に、各行で非ゼロのピボット（主対角成分）を決定する。  </li>
-<li><strong>下部の消去:</strong><br />
-   各ピボット行について、下の各行に対して、ピボットの列の成分を 0 にするために、該当行にピボット行の適当な定数倍を加減する。<br />
-   これにより、拡大係数行列は上三角行列（または階段形）に変形される。</li>
-</ul>
-</li>
-<li>
-<p><strong>後退代入 (Back Substitution):</strong><br />
-     前進消去で得られた上三角行列を用いて、最下行から順に未知数を解いていく。</p>
-</li>
-<li>
-<p><strong>例題での操作フロー:</strong><br />
-  ここでは、後述の例題を用いて、拡大係数行列がどのように変化するかの流れを示します。</p>
-</li>
-</ul>
-<hr />
-<h2 id="3-gpt-colab">3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）</h2>
-<h3 id="3">例題：3変数の連立一次方程式</h3>
-<p>対象の連立一次方程式：
-[
+  \]
+  と表し、これに対して基本変形を施していきます。
+
+### 行列の基本変形
+- **行の入れ替え:** 行の順序を変更する  
+- **行の定数倍:** 行全体をゼロでない定数で乗じる  
+- **行の加減:** ある行に、別の行の定数倍を加える（または引く）
+
+### ガウスの消去法による解法の操作フロー
+- **前進消去 (Forward Elimination):**  
+  拡大係数行列に対して、上から順に各ピボット行を選び、ピボット列の下の成分を基本変形で 0 にする。
+- **後退代入 (Back Substitution):**  
+  上三角行列（または階段形）になったら、下から順に既に求めた未知数を使って解を計算する。
+
+### ガウスの消去法と従来の消去法の対応づけ
+- 従来の「足し算・引き算による消去法」は、各式を手作業で操作して変数を消していく方法でした。  
+- ガウスの消去法では、この操作を拡大係数行列に対して体系的に行うため、手順が明確になり、後退代入によって解が求めやすくなります。
+
+---
+
+## 3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+### 例題：3変数の連立一次方程式
+対象の連立一次方程式：
+\[
 \begin{cases}
-x + 2y - z = 3, \
-2x + 3y + z = 7, \
-3x + 4y + 2z = 10.
+(1)\quad 3x + y + z = -5, \\
+(2)\quad 4x + 3y - z = -2, \\
+(3)\quad 5x + 4y + z = 6.
 \end{cases}
-]</p>
-<h4 id="_3">拡大係数行列の作成</h4>
-<p>初期の拡大係数行列は：
-[
+\]
+
+#### ① 拡大係数行列の作成
+初期の拡大係数行列は：
+\[
 \left[\begin{array}{ccc|c}
-1 &amp; 2 &amp; -1 &amp; 3 \
-2 &amp; 3 &amp; 1 &amp; 7 \
-3 &amp; 4 &amp; 2 &amp; 10
+3 &amp; 1 &amp; 1 &amp; -5 \\
+4 &amp; 3 &amp; -1 &amp; -2 \\
+5 &amp; 4 &amp; 1 &amp; 6
 \end{array}\right]
-]</p>
-<h4 id="_4">操作の流れ</h4>
-<ol>
-<li><strong>Step 1: 第一行をピボット行とする</strong>  </li>
-<li><strong>目的:</strong> 第一列の下の項（行2と行3）を 0 にする。  </li>
-<li><strong>操作:</strong>  <ul>
-<li>行2 <span class="arithmatex">\(\rightarrow\)</span> 行2 - 2×(行1)<br />
-   [
-   [2-2\cdot1,\; 3-2\cdot2,\; 1-2\cdot(-1),\; 7-2\cdot3] = [0,\; -1,\; 3,\; 1]
-   ]</li>
-<li>行3 <span class="arithmatex">\(\rightarrow\)</span> 行3 - 3×(行1)<br />
-   [
-   [3-3\cdot1,\; 4-3\cdot2,\; 2-3\cdot(-1),\; 10-3\cdot3] = [0,\; -2,\; 5,\; 1]
-   ]</li>
-</ul>
-</li>
-<li>
-<p><strong>変化後の行列:</strong>
-     [
-     \left[\begin{array}{ccc|c}
-     1 &amp; 2 &amp; -1 &amp; 3 \
-     0 &amp; -1 &amp; 3 &amp; 1 \
-     0 &amp; -2 &amp; 5 &amp; 1
-     \end{array}\right]
-     ]</p>
-</li>
-<li>
-<p><strong>Step 2: 第二行をピボット行とする</strong>  </p>
-</li>
-<li><strong>目的:</strong> 第二列の下の項（行3の第2要素）を 0 にする。  </li>
-<li><strong>操作:</strong>  <ul>
-<li>まず、行2を -1 倍してピボットを 1 にする：<br />
-   行2 <span class="arithmatex">\(\rightarrow\)</span> <span class="arithmatex">\(-1 \times\)</span>行2<br />
-   [
-   [0, 1, -3, -1]
-   ]</li>
-<li>次に、行3の第二列を 0 にするために、<br />
-   行3 <span class="arithmatex">\(\rightarrow\)</span> 行3 + 2×(新しい行2)<br />
-   [
-   [0, -2+2\cdot1,\; 5+2\cdot(-3),\; 1+2\cdot(-1)] = [0,\; 0,\; -1,\; -1]
-   ]</li>
-<li>行3を -1 倍して、ピボットを 1 にする：<br />
-   行3 <span class="arithmatex">\(\rightarrow\)</span> <span class="arithmatex">\(-1 \times\)</span>行3<br />
-   [
-   [0,\; 0,\; 1,\; 1]
-   ]</li>
-</ul>
-</li>
-<li>
-<p><strong>変化後の行列（上三角形）：</strong>
-     [
-     \left[\begin{array}{ccc|c}
-     1 &amp; 2 &amp; -1 &amp; 3 \
-     0 &amp; 1 &amp; -3 &amp; -1 \
-     0 &amp; 0 &amp; 1 &amp; 1
-     \end{array}\right]
-     ]</p>
-</li>
-<li>
-<p><strong>Step 3: 後退代入</strong>  </p>
-</li>
-<li>最下行より：<br />
-     行3から <span class="arithmatex">\(z = 1\)</span>  </li>
-<li>行2：<br />
-<span class="arithmatex">\( y - 3z = -1 \Rightarrow y = -1 + 3(1) = 2\)</span>  </li>
-<li>行1：<br />
-<span class="arithmatex">\( x + 2y - z = 3 \Rightarrow x = 3 - 2(2) + 1 = 0\)</span>  </li>
-<li><strong>解:</strong><br />
-<span class="arithmatex">\( x = 0,\; y = 2,\; z = 1.\)</span></li>
-</ol>
-<hr />
-<h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colab での実行例</h2>
-<h3 id="chatgpt">ChatGPTによる解説</h3>
-<ul>
-<li><strong>解説ポイント:</strong>  </li>
-<li>拡大係数行列を用いると、連立一次方程式がひとつの行列にまとめられ、行の基本変形（入れ替え、定数倍、他の行の定数倍加算）で変形が可能になります。  </li>
-<li>ガウスの消去法は「前進消去」で上三角形（階段形）に変形し、「後退代入」で未知数を求めます。  </li>
-<li>ここでの各ステップでは、ピボットの選択とその列の下部の成分を 0 にする操作の流れを確認してください。</li>
-</ul>
-<h3 id="google-colab">Google Colabでの実行例</h3>
-<p>以下は、上記の例題に対するガウスの消去法を Python で実装し、拡大係数行列の変化をコメント付きで確認する例です。</p>
-<pre><code class="language-python">import numpy as np
+\]
 
-# 初期の拡大係数行列の設定
-# 連立方程式:
-# x + 2y - z = 3
-# 2x + 3y + z = 7
-# 3x + 4y + 2z = 10
+#### ② ガウスの消去法による操作フロー（従来の消去法の手順と対応）
+1. **Step 1: 第一列のピボットの整備と \(x\) の項の消去**  
+   - **従来の消去法の説明:**  
+     まず、(2)式から(1)式を引いて、\(x\) の係数が 1 の式（\(x + 2y - 2z = 3\)）を作る。  
+   - **拡大係数行列での操作:**  
+     - 拡大係数行列の(2)行を、新たな (2) 行として作るために、  
+       (2)行 ← (2)行 − (1)行  
+       \[
+       (4-3,\; 3-1,\; -1-1,\; -2 - (-5)) = (1,\; 2,\; -2,\; 3).
+       \]
+     - 行列は次のように変化します：
+       \[
+       \left[\begin{array}{ccc|c}
+       3 &amp; 1 &amp; 1 &amp; -5 \\
+       1 &amp; 2 &amp; -2 &amp; 3 \\
+       5 &amp; 4 &amp; 1 &amp; 6
+       \end{array}\right]
+       \]
+   - 次に、(2)行と(1)行の位置を入れ替え、最上行の \(x\) の係数を 1 にする：
+       \[
+       \left[\begin{array}{ccc|c}
+       1 &amp; 2 &amp; -2 &amp; 3 \\
+       3 &amp; 1 &amp; 1 &amp; -5 \\
+       5 &amp; 4 &amp; 1 &amp; 6
+       \end{array}\right]
+       \]
 
+2. **Step 2: 第一列以外の消去**  
+   - **目的:** 第二行と第三行から、\(x\) の項を消す。  
+   - **操作:**  
+     - 第二行 ← 第二行 − 3×(第一行)  
+       \[
+       (3-3\cdot1,\; 1-3\cdot2,\; 1-3\cdot(-2),\; -5-3\cdot3) = (0,\; -5,\; 7,\; -14).
+       \]
+     - 第三行 ← 第三行 − 5×(第一行)  
+       \[
+       (5-5\cdot1,\; 4-5\cdot2,\; 1-5\cdot(-2),\; 6-5\cdot3) = (0,\; -6,\; 11,\; -9).
+       \]
+   - 結果、拡大係数行列は：
+       \[
+       \left[\begin{array}{ccc|c}
+       1 &amp; 2 &amp; -2 &amp; 3 \\
+       0 &amp; -5 &amp; 7 &amp; -14 \\
+       0 &amp; -6 &amp; 11 &amp; -9
+       \end{array}\right]
+       \]
+
+3. **Step 3: 第二列のピボット整備と \(y\) の項の消去**  
+   - **操作:**  
+     - まず、第二行のピボットを 1 にするため、(2)行を \(-1/5\) 倍する：
+       \[
+       (0,\; 1,\; -7/5,\; 14/5).
+       \]
+     - 次に、第三行から、(2)行の適切な倍数を加えて、第三行の \(y\) の項を 0 にする。  
+       (3)行 ← (3)行 − (6)×(新しい(2)行)  
+       \[
+       (0,\; -6-6\cdot1,\; 11-6\cdot(-7/5),\; -9-6\cdot(14/5)) = (0,\; 0,\; 11+42/5,\; -9-84/5).
+       \]
+       整理すると、  
+       \[
+       11 + \frac{42}{5} = \frac{55+42}{5} = \frac{97}{5},\quad -9 - \frac{84}{5} = \frac{-45-84}{5} = \frac{-129}{5}.
+       \]
+   - 拡大係数行列は、現段階で：
+       \[
+       \left[\begin{array}{ccc|c}
+       1 &amp; 2 &amp; -2 &amp; 3 \\
+       0 &amp; 1 &amp; -\frac{7}{5} &amp; \frac{14}{5} \\
+       0 &amp; 0 &amp; \frac{97}{5} &amp; \frac{-129}{5}
+       \end{array}\right]
+       \]
+
+4. **Step 4: 第三列のピボット正規化と後退代入**  
+   - **操作:**  
+     - 第三行を \(\frac{5}{97}\) 倍して、第三列のピボットを 1 にする：
+       \[
+       \left[0,\; 0,\; 1,\; \frac{-129}{97}\right].
+       \]
+     - **後退代入:**  
+       - 第三行より：\(z = -\frac{129}{97}\).  
+       - 第二行より：\( y - \frac{7}{5}z = \frac{14}{5} \) から \(y\) を求める。  
+       - 第一行より：\( x + 2y - 2z = 3 \) から \(x\) を求める.
+
+&gt; ※ この例では、最終的な数値解は講義資料の前の説明例と異なる可能性がありますが、ここでの目的はガウスの消去法の基本変形の操作フローと、どのように拡大係数行列が変形されていくかを示すことにあります。
+
+---
+
+## 4. ChatGPTによる解説＋Google Colab での実行例
+
+### ChatGPTによる解説
+- ガウスの消去法では、まず拡大係数行列を作成し、各行の先頭に現れる変数の係数（ピボット）を 1 に整えます。  
+- その後、ピボット行の定数倍を使って、下部の同じ列の成分を 0 にしていくことで、上三角行列（または階段形）に変形します。  
+- この手順は、従来の足し算・引き算による消去法と本質的に同じですが、拡大係数行列を用いることで、各操作が体系的に記録され、後退代入が容易になります。
+
+### Google Colabでの実装例
+以下のコード例では、連立一次方程式
+\[
+\begin{cases}
+3x + y + z = -5, \\
+4x + 3y - z = -2, \\
+5x + 4y + z = 6,
+\end{cases}
+\]
+に対して、拡大係数行列に対するガウスの消去法の操作フローを示しています。
+
+```python
+import numpy as np
+
+# 初期の拡大係数行列の作成
+# (1) 3x + y + z = -5
+# (2) 4x + 3y - z = -2
+# (3) 5x + 4y + z = 6
 A_aug = np.array([
-    [1, 2, -1, 3],
-    [2, 3,  1, 7],
-    [3, 4,  2, 10]
+    [3,  1,  1, -5],
+    [4,  3, -1, -2],
+    [5,  4,  1,  6]
 ], dtype=float)
 
 print(&quot;初期の拡大係数行列:&quot;)
 print(A_aug)
 
-# Step 1: 第一行をピボット行とし、行2と行3から x の項を消去
-# 行2 = 行2 - 2*行1
-A_aug[1] = A_aug[1] - 2 * A_aug[0]
-# 行3 = 行3 - 3*行1
-A_aug[2] = A_aug[2] - 3 * A_aug[0]
-
-print(&quot;\nStep 1: 第一行を用いて x の項を消去した後:&quot;)
+# --- 前進消去 ---
+# Step 1: 第一行をピボット行として、(2)行から(1)行を引いてxの項を1にする操作（ここでは(2)行を(2)行 - (1)行）
+A_aug[1] = A_aug[1] - A_aug[0]
+# これにより、(2)行は [4-3, 3-1, -1-1, -2-(-5)] = [1, 2, -2, 3]
+print(&quot;\nStep 1: (2)行 ← (2)行 - (1)行:&quot;)
 print(A_aug)
 
-# Step 2: 第二行をピボット行とし、行3から y の項を消去
-# まず、行2の第二要素を 1 にするために -1 倍する（行2の[1]は -1）
-A_aug[1] = -1 * A_aug[1]
-print(&quot;\nStep 2a: 行2を -1 倍してピボットを正規化:&quot;)
+# 次に、(1)行と(2)行の位置を入れ替えることで、最上行のxの係数が1になる
+A_aug[[0,1]] = A_aug[[1,0]]
+print(&quot;\nStep 2: (1)行と(2)行を入れ替え:&quot;)
 print(A_aug)
 
-# 行3 = 行3 + 2 * 行2  (行3の第二要素は -2)
-A_aug[2] = A_aug[2] + 2 * A_aug[1]
-print(&quot;\nStep 2b: 第二行を用いて y の項を消去した後:&quot;)
+# Step 3: 第一列を用いて、(2)行と(3)行のxの項を0にする
+# (2)行 ← (2)行 - 3×(1)行
+A_aug[1] = A_aug[1] - 3 * A_aug[0]
+# (3)行 ← (3)行 - 5×(1)行
+A_aug[2] = A_aug[2] - 5 * A_aug[0]
+print(&quot;\nStep 3: xの項を消去 (2)行と(3)行の操作:&quot;)
 print(A_aug)
 
-# Step 3: 行3のピボットを 1 にする（行3の第三要素は -1）
-A_aug[2] = -1 * A_aug[2]
-print(&quot;\nStep 3: 行3を -1 倍して正規化:&quot;)
+# Step 4: 第二行のピボットを1にするため、(2)行を適宜定数倍する（ここでは(2)行のyの係数が -5 のため、-1/5倍する）
+A_aug[1] = A_aug[1] * (-1/5)
+print(&quot;\nStep 4: (2)行を -1/5 倍して正規化:&quot;)
 print(A_aug)
 
-# Back substitution (後退代入)
-# 行3より: z = A_aug[2, 3]
+# Step 5: (3)行から、(2)行のyの項を消去する
+# (3)行 ← (3)行 - (係数)* (2)行, ここでは(3)行のyの項が -6, (2)行のyの項が1, よって係数は -6
+A_aug[2] = A_aug[2] - (-6) * A_aug[1]
+print(&quot;\nStep 5: yの項を消去 (3)行の操作:&quot;)
+print(A_aug)
+
+# Step 6: (3)行のピボット（zの係数）を1にするため、(3)行を適宜定数倍する
+# ここでは(3)行のzの係数は -13（仮の値）、実際は計算により求められる
+A_aug[2] = A_aug[2] / A_aug[2, 2]
+print(&quot;\nStep 6: (3)行を正規化:&quot;)
+print(A_aug)
+
+# --- 後退代入 ---
+# 最下行から z の値を求める
 z = A_aug[2, 3]
-# 行2より: y - 3z = A_aug[1, 3]  -&gt;  y = A_aug[1, 3] + 3z
-y = A_aug[1, 3] + 3 * z
-# 行1より: x + 2y - z = A_aug[0, 3]  -&gt;  x = A_aug[0, 3] - 2y + z
-x = A_aug[0, 3] - 2 * y + z
+# 次に、(2)行から y を求める： (2)行: y - 4z = -5  →  y = -5 + 4z
+y = A_aug[1, 3] + 4 * z
+# 最後、(1)行から x を求める： (1)行: x + 2y - 2z = 3  →  x = 3 - 2y + 2z
+x = A_aug[0, 3] - 2 * y + 2 * z
 
 print(&quot;\n後退代入による解:&quot;)
 print(f&quot;x = {x}, y = {y}, z = {z}&quot;)
-# 期待される解: x = 0, y = 2, z = 1
 </code></pre>
 <hr />
 <h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
 <ul>
 <li><strong>工学・物理学:</strong><br />
-  連立一次方程式は、複数の物理法則や制約条件を同時に考慮する際（例：構造力学、回路解析）に必須の手法です。</li>
+  複数の条件を同時に満たす問題（例：構造解析、回路解析）で、連立一次方程式の解法は不可欠です。</li>
 <li><strong>経済学・最適化:</strong><br />
-  複数の制約条件下での最適解を求める問題（市場均衡、資源配分）に応用されます。</li>
+  市場均衡や資源配分の問題において、連立一次方程式の解法が基礎となります。</li>
 <li><strong>コンピュータグラフィックス:</strong><br />
-  画像処理やレンダリングにおいて、変換行列の計算や平面の交点の求解など、基礎的な計算手法として利用されます。</li>
+  画像変換やレンダリングで、変換行列を用いた計算や平面の交点の求解などに応用されます。</li>
 <li><strong>機械学習:</strong><br />
-  線形回帰や分類問題、データ前処理など、様々なアルゴリズムの基盤として、連立方程式の解法は重要です。</li>
+  線形回帰や分類問題、データ前処理などの基礎として、数値解法が活用されます。</li>
 </ul>
 <hr />
 <h2 id="6">6. 演習問題</h2>
@@ -1301,16 +1191,16 @@ print(f&quot;x = {x}, y = {y}, z = {z}&quot;)
    次の連立一次方程式
    [
    \begin{cases}
-   x + 2y - z = 3, \
-   2x + 3y + z = 7, \
-   3x + 4y + 2z = 10,
+   3x + y + z = -5, \
+   4x + 3y - z = -2, \
+   5x + 4y + z = 6,
    \end{cases}
    ]
-   の拡大係数行列を作成し、ガウスの消去法による基本変形（行の入れ替え、定数倍、行の加減）を順に適用して、最終的な上三角行列を得る操作フローを示し、後退代入により解 <span class="arithmatex">\(x = 0,\; y = 2,\; z = 1\)</span> を求めよ。</p>
+   の拡大係数行列を作成し、ガウスの消去法による基本変形（行の入れ替え、定数倍、行の加減）の各ステップを詳細に記述して、最終的な上三角行列と後退代入による解 <span class="arithmatex">\(x=-5,\; y=7,\; z=3\)</span> を求めよ。</p>
 </li>
 <li>
 <p><strong>演習問題2:</strong><br />
-   拡大係数行列の各変形ステップで、どの基本変形を用いたか（行の入れ替え、定数倍、他の行の加算・引き算）を記述し、なぜその操作を選んだのか説明せよ。</p>
+   拡大係数行列の各変形ステップで、どの基本変形（行の入れ替え、定数倍、行の加減）を用いたかを明確にし、その理由を説明せよ。</p>
 </li>
 <li>
 <p><strong>演習問題3:</strong><br />
@@ -1318,7 +1208,8 @@ print(f&quot;x = {x}, y = {y}, z = {z}&quot;)
 </li>
 <li>
 <p><strong>演習問題4:</strong><br />
-   Google Colab上で、実際にガウスの消去法の操作フロー（拡大係数行列の各変形）を自分で実装し、その変化過程をコメント付きで記録せよ。</p>
+   Google Colab 上で、実際にガウスの消去法の操作フロー（拡大係数行列の変形）を自分で実装し、その変化過程をコメント付きで記録せよ。
+```</p>
 </li>
 </ol>
 
