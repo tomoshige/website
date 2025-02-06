@@ -2,50 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://tomoshige.github.io/website/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
          <loc>https://tomoshige.github.io/website/lectures/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
          <loc>https://tomoshige.github.io/website/lectures/LA/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
-         <loc>https://tomoshige.github.io/website/lectures/LA/01-vector-and-matrix/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <loc>https://tomoshige.github.io/website/lectures/LA/01-introduction/</loc>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
-         <loc>https://tomoshige.github.io/website/lectures/LA/02-system-of-linear-equation/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <loc>https://tomoshige.github.io/website/lectures/LA/02-vector-and-matrix/</loc>
+         <lastmod>2025-02-06</lastmod>
+    </url>
+    <url>
+         <loc>https://tomoshige.github.io/website/lectures/LA/03-vector-and-matrix2/</loc>
+         <lastmod>2025-02-06</lastmod>
+    </url>
+    <url>
+         <loc>https://tomoshige.github.io/website/lectures/LA/04-vector-and-matrix3/</loc>
+         <lastmod>2025-02-06</lastmod>
+    </url>
+    <url>
+         <loc>https://tomoshige.github.io/website/lectures/LA/05-vector-and-matrix4/</loc>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
          <loc>https://tomoshige.github.io/website/lectures/SIWS/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
          <loc>https://tomoshige.github.io/website/lectures/SIWS/01-getting-started/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
          <loc>https://tomoshige.github.io/website/lectures/SIWS/02-visualization/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
          <loc>https://tomoshige.github.io/website/lectures/SIWS/03-wrangling/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
          <loc>https://tomoshige.github.io/website/lectures/SIWS/04-data-import-and-tidy-data/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
          <loc>https://tomoshige.github.io/website/lectures/SP/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
     <url>
          <loc>https://tomoshige.github.io/website/research/</loc>
-         <lastmod>2025-02-05</lastmod>
+         <lastmod>2025-02-06</lastmod>
     </url>
 </urlset>
