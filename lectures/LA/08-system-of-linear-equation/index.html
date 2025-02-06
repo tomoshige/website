@@ -12,13 +12,9 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/07-system-of-linear-equation/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/08-system-of-linear-equation/">
       
       
-        <link rel="prev" href="../06-system-of-linear-equation/">
-      
-      
-        <link rel="next" href="../../SIWS/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>7. System of Linear Equation - Statistical Learning Laboratory</title>
+        <title>講義8: ランクの概念とその計算 - Statistical Learning Laboratory</title>
       
     
     
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#7" class="md-skip">
+        <a href="#8" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -112,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              7. System of Linear Equation
+              講義8: ランクの概念とその計算
             
           </span>
         </div>
@@ -208,12 +204,10 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../" class="md-tabs__link">
           
   
@@ -316,8 +310,6 @@
       
   
   
-    
-  
   
   
     
@@ -336,19 +328,18 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
         
           
           
@@ -364,13 +355,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Lectures
@@ -383,8 +374,6 @@
                 
   
   
-    
-  
   
   
     
@@ -413,17 +402,16 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
         
           
           
@@ -439,13 +427,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Linear algebra
@@ -584,30 +572,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    7. System of Linear Equation
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../07-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -616,185 +584,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 本日扱う内容について（概要）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 扱う内容の理論の説明（定義・定理・数式を含む）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      連立一次方程式の行列表現と拡大係数行列
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列の基本変形
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法による解法の操作フロー
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法と従来の消去法の対応づけ
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-gpt-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      例題：3変数の連立一次方程式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="例題：3変数の連立一次方程式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ① 拡大係数行列の作成
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ② ガウスの消去法による操作フロー（従来の消去法の手順と対応）
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-chatgptgoogle-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Google Colab での実行例
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Google Colab での実行例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#chatgpt" class="md-nav__link">
-    <span class="md-ellipsis">
-      ChatGPTによる解説
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#google-colab-print" class="md-nav__link">
-    <span class="md-ellipsis">
-      Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. 学んだ内容がどのように応用されるか
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. 演習問題
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -834,13 +623,10 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
@@ -862,7 +648,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -987,13 +773,10 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
@@ -1146,9 +929,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#row-echelon-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      階段行列 (Row Echelon Form)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduced-row-echelon-form-rref" class="md-nav__link">
+    <span class="md-ellipsis">
+      簡約階段行列 (Reduced Row Echelon Form, RREF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      連立一次方程式の行列表現と拡大係数行列
+      行基本変形による簡約階段行列の導出方法
     </span>
   </a>
   
@@ -1157,25 +958,7 @@
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      行列の基本変形
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法による解法の操作フロー
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法と従来の消去法の対応づけ
+      行列のランクの定義
     </span>
   </a>
   
@@ -1197,19 +980,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      例題：3変数の連立一次方程式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="例題：3変数の連立一次方程式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#1_1" class="md-nav__link">
     <span class="md-ellipsis">
-      ① 拡大係数行列の作成
+      例1: 階段行列と簡約階段行列の例
     </span>
   </a>
   
@@ -1218,14 +991,18 @@
           <li class="md-nav__item">
   <a href="#2_1" class="md-nav__link">
     <span class="md-ellipsis">
-      ② ガウスの消去法による操作フロー（従来の消去法の手順と対応）
+      例2: 行基本変形による簡約階段行列の導出
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例3: 行列のランクの定義の確認
+    </span>
+  </a>
   
 </li>
         
@@ -1254,9 +1031,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#google-colab-print" class="md-nav__link">
+  <a href="#google-colab" class="md-nav__link">
     <span class="md-ellipsis">
-      Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）
+      Google Colabでの実装例
     </span>
   </a>
   
@@ -1300,315 +1077,216 @@
                   
 
 
-<h1 id="7">講義7: ガウスの消去法と解の探索</h1>
+<h1 id="8">講義8: ランクの概念とその計算</h1>
 <h2 id="1">1. 本日扱う内容について（概要）</h2>
 <ul>
 <li><strong>目的:</strong>  </li>
-<li>連立一次方程式の行列表現と拡大係数行列の作成方法を学ぶ  </li>
-<li>行列の基本変形（行の入れ替え、定数倍、他の行の定数倍の加減）を理解する  </li>
-<li>ガウスの消去法による連立一次方程式の解法を、拡大係数行列の変形という視点から習得する  </li>
-<li>ガウスの消去法が、従来の消去法（式の足し算・引き算による消去）と本質的に同じであることを対応付けて理解する  </li>
-<li>
-<p>Google Colab を使った実装例で、操作の流れと解の探索のプロセスを体感する</p>
-</li>
-<li>
-<p><strong>講義の流れ:</strong>  </p>
-</li>
-<li>連立一次方程式の行列表現と拡大係数行列の導入  </li>
-<li>行列の基本変形の説明  </li>
-<li>ガウスの消去法による解法の具体的操作フロー（前進消去と後退代入）  </li>
-<li>ガウスの消去法と従来の消去法の対応づけ  </li>
+<li>行列の階段行列および簡約階段行列の概念を理解する  </li>
+<li>行基本変形を用いて拡大係数行列から簡約階段行列を導出する手法を学ぶ  </li>
+<li>行列のランクの定義と、その計算方法について習得する  </li>
+<li><strong>講義の流れ:</strong>  </li>
+<li>行列の階段行列および簡約階段行列の理論的定義の説明  </li>
+<li>階段行列と簡約階段行列の具体例の提示  </li>
+<li>行基本変形による簡約階段行列への導出方法の詳細な解説  </li>
+<li>行列のランクの定義と、ランク計算の意義の説明  </li>
 <li>ChatGPTによる解説＋Google Colabでの実装例  </li>
-<li>学んだ内容の応用例  </li>
+<li>ランクの概念がどのように応用されるかの事例紹介  </li>
 <li>演習問題</li>
 </ul>
 <hr />
 <h2 id="2">2. 扱う内容の理論の説明（定義・定理・数式を含む）</h2>
-<h3 id="_1">連立一次方程式の行列表現と拡大係数行列</h3>
+<h3 id="row-echelon-form">階段行列 (Row Echelon Form)</h3>
 <ul>
 <li><strong>定義:</strong><br />
-  未知数 <span class="arithmatex">\(x_1, x_2, \dots, x_n\)</span> に対して、<span class="arithmatex">\(m\)</span> 本の一次方程式が同時に成立する連立一次方程式は、
-  $$
-  \begin{cases}
-  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \\
-  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \\
-  \quad\vdots \\
-  a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m.
-  \end{cases}
-  $$</li>
-<li><strong>拡大係数行列:</strong><br />
-  この連立方程式は、係数行列 <span class="arithmatex">\(A\)</span> と定数項ベクトル <span class="arithmatex">\(\mathbf{b}\)</span> を並べて、
-  $$
-  [A \,|\, \mathbf{b}] = \begin{pmatrix}
-  a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; | &amp; b_1 \\
-  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; | &amp; b_2 \\
-  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; | &amp; \vdots \\
-  a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
-  \end{pmatrix}
-  $$
-  と表し、これに対して基本変形を施していきます。</li>
+  行列 <span class="arithmatex">\(A\)</span> が階段行列であるとは、以下の条件を満たすときにいいます。  </li>
+<li>ゼロ行（すべての成分が0の行）が存在する場合、これらはすべて行列の下部に位置する。  </li>
+<li>非ゼロ行の各行において、最初に現れる非ゼロ成分（リーディングエントリ、ピボット）は、その行の左側にある全ての成分が0であり、かつ、その下の行のリーディングエントリは必ずその右側に位置する。</li>
 </ul>
-<h3 id="_2">行列の基本変形</h3>
+<h3 id="reduced-row-echelon-form-rref">簡約階段行列 (Reduced Row Echelon Form, RREF)</h3>
 <ul>
-<li><strong>行の入れ替え:</strong> 行の順序を変更する  </li>
-<li><strong>行の定数倍:</strong> 行全体をゼロでない定数で乗じる  </li>
-<li><strong>行の加減:</strong> ある行に、別の行の定数倍を加える（または引く）</li>
+<li><strong>定義:</strong><br />
+  階段行列 <span class="arithmatex">\(A\)</span> がさらに以下の条件を満たすとき、簡約階段行列であるといいます。  </li>
+<li>各非ゼロ行のリーディングエントリは1である。  </li>
+<li>各リーディングエントリは、その列の中で唯一の非ゼロ成分である（他の成分はすべて0）。</li>
 </ul>
-<h3 id="_3">ガウスの消去法による解法の操作フロー</h3>
+<h3 id="_1">行基本変形による簡約階段行列の導出方法</h3>
 <ul>
-<li><strong>前進消去 (Forward Elimination):</strong><br />
-  拡大係数行列に対して、上から順に各ピボット行を選び、ピボット列の下の成分を基本変形で 0 にする。</li>
-<li><strong>後退代入 (Back Substitution):</strong><br />
-  上三角行列（または階段形）になったら、下から順に既に求めた未知数を使って解を計算する。</li>
+<li><strong>基本変形:</strong>  </li>
+<li><strong>行の入れ替え:</strong> 2つの行の順序を入れ替える。  </li>
+<li><strong>行の定数倍:</strong> 行全体をゼロでない定数で乗じる。  </li>
+<li><strong>行の加減:</strong> ある行に他の行の定数倍を加える（または引く）。  </li>
+<li><strong>操作フロー:</strong>  </li>
+<li>拡大係数行列（または任意の行列）を用意する。  </li>
+<li>前進消去を行い、左上から順に各行のピボット（最初の非ゼロ成分）を1に正規化し、その列の下部の成分を0にする。  </li>
+<li>後退消去を行い、各ピボットの上部の成分も0にして、簡約階段行列に変形する。</li>
 </ul>
-<h3 id="_4">ガウスの消去法と従来の消去法の対応づけ</h3>
+<h3 id="_2">行列のランクの定義</h3>
 <ul>
-<li>従来の「足し算・引き算による消去法」は、各式を手作業で操作して変数を消していく方法でした。  </li>
-<li>ガウスの消去法では、この操作を拡大係数行列に対して体系的に行うため、手順が明確になり、後退代入によって解が求めやすくなります。</li>
+<li><strong>定義:</strong><br />
+  行列のランクとは、その行列の簡約階段行列において、ゼロでない行の個数を指します。  </li>
+<li>ランクは、その行列が持つ線形独立な行（または列）の最大数と同値です。  </li>
+<li>ランクは、連立一次方程式の解の一意性や、行列の可逆性の判定に重要な役割を果たします。</li>
 </ul>
 <hr />
 <h2 id="3-gpt-colab">3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）</h2>
-<h3 id="3">例題：3変数の連立一次方程式</h3>
-<p>対象の連立一次方程式：
-$$
-\begin{cases}
-(1)\quad 3x + y + z = -5, \\
-(2)\quad 4x + 3y - z = -2, \\
-(3)\quad 5x + 4y + z = 6.
-\end{cases}
-$$</p>
-<h4 id="1_1">① 拡大係数行列の作成</h4>
-<p>初期の拡大係数行列は：
-$$
-\left[\begin{array}{ccc|c}
-3 &amp; 1 &amp; 1 &amp; -5 \\
-4 &amp; 3 &amp; -1 &amp; -2 \\
-5 &amp; 4 &amp; 1 &amp; 6
-\end{array}\right]
-$$</p>
-<h4 id="2_1">② ガウスの消去法による操作フロー（従来の消去法の手順と対応）</h4>
-<ol>
-<li><strong>Step 1: 第1行の <span class="arithmatex">\(x\)</span> の係数が1になるように基本操作を行う</strong>  </li>
-<li><strong>従来の消去法の説明:</strong><br />
-     まず、(2)式から(1)式を引いて、<span class="arithmatex">\(x\)</span> の係数が 1 の式（<span class="arithmatex">\(x + 2y - 2z = 3\)</span>）を作る。  </li>
-<li><strong>拡大係数行列での操作:</strong>  <ul>
-<li>拡大係数行列の(2)行を、新たな (2) 行として作るために、<br />
-   (2)行 ← (2)行 − (1)行<br />
-   $$
-   (4-3,\; 3-1,\; -1-1,\; -2 - (-5)) = (1,\; 2,\; -2,\; 3).
-   $$</li>
-<li>行列は次のように変化します：
-   $$
-   \left[\begin{array}{ccc|c}
-   3 &amp; 1 &amp; 1 &amp; -5 \\
-   1 &amp; 2 &amp; -2 &amp; 3 \\
-   5 &amp; 4 &amp; 1 &amp; 6
-   \end{array}\right]
-   $$</li>
-</ul>
-</li>
-<li>
-<p>次に、(2)行と(1)行の位置を入れ替え、最上行の <span class="arithmatex">\(x\)</span> の係数を 1 にする：
-       $$
-       \left[\begin{array}{ccc|c}
-       1 &amp; 2 &amp; -2 &amp; 3 \\
-       3 &amp; 1 &amp; 1 &amp; -5 \\
-       5 &amp; 4 &amp; 1 &amp; 6
-       \end{array}\right]
-       $$</p>
-</li>
-<li>
-<p><strong>Step 2: 第1列の第1行目以外の係数を0にする</strong>  </p>
-</li>
-<li><strong>目的:</strong> 第二行と第三行から、<span class="arithmatex">\(x\)</span> の項を消す。  </li>
-<li><strong>操作:</strong>  <ul>
-<li>第二行 ← 第二行 − 3×(第一行)<br />
-   $$
-   (3-3\cdot1,\; 1-3\cdot2,\; 1-3\cdot(-2),\; -5-3\cdot3) = (0,\; -5,\; 7,\; -14).
-   $$</li>
-<li>第三行 ← 第三行 − 5×(第一行)<br />
-   $$
-   (5-5\cdot1,\; 4-5\cdot2,\; 1-5\cdot(-2),\; 6-5\cdot3) = (0,\; -6,\; 11,\; -9).
-   $$</li>
-</ul>
-</li>
-<li>
-<p>結果、拡大係数行列は：
-       $$
-       \left[\begin{array}{ccc|c}
-       1 &amp; 2 &amp; -2 &amp; 3 \\
-       0 &amp; -5 &amp; 7 &amp; -14 \\
-       0 &amp; -6 &amp; 11 &amp; -9
-       \end{array}\right]
-       $$</p>
-</li>
-<li>
-<p><strong>Step 3: 第2列の <span class="arithmatex">\(y\)</span> の係数を1にする</strong>  </p>
-</li>
-<li><strong>操作:</strong>  <ul>
-<li>まず、第二行のピボットを 1 にするため、第3行を第2行に加える
-   $$
-    (0,\; 1,\; -4,\; -5).
-   $$</li>
-</ul>
-</li>
-<li>
-<p>拡大係数行列は、現段階で：
-       $$
-       \left[\begin{array}{ccc|c}
-       1 &amp; 2 &amp; -2 &amp; 3 \\
-       0 &amp; 1 &amp; -4 &amp; -5 \\
-       0 &amp; -6 &amp; 11 &amp; -9
-       \end{array}\right]
-       $$</p>
+<h3 id="1_1">例1: 階段行列と簡約階段行列の例</h3>
 <ul>
-<li>次に、第2列の第3行を<code>0</code>にするために、第3行に、第2行の6倍を加える
-    $$
-   \left[\begin{array}{ccc|c}
-   1 &amp; 2 &amp; -2 &amp; 3 \\
-   0 &amp; 1 &amp; -4 &amp; -5 \\
-   0 &amp; 0 &amp; -13 &amp; -39
-   \end{array}\right]
-   $$</li>
-</ul>
+<li>
+<p><strong>階段行列の例:</strong><br />
+  [
+  A = \begin{pmatrix}
+  1 &amp; 2 &amp; -1 \
+  0 &amp; 3 &amp; 4 \
+  0 &amp; 0 &amp; 5
+  \end{pmatrix}
+  ]
+  この行列は各行のリーディングエントリが右にずれており、ゼロ行が存在しないため階段行列です。</p>
 </li>
 <li>
-<p><strong>Step 4: 第3列の第3行の係数を<code>1</code>にする</strong>  </p>
+<p><strong>簡約階段行列の例:</strong><br />
+  [
+  A_{\text{RREF}} = \begin{pmatrix}
+  1 &amp; 0 &amp; 2 \
+  0 &amp; 1 &amp; -3 \
+  0 &amp; 0 &amp; 0
+  \end{pmatrix}
+  ]
+  ここでは、各リーディングエントリは1であり、各リーディングエントリ以外の同じ列の要素はすべて0です。</p>
 </li>
-<li><strong>操作:</strong>  <ul>
-<li>第3行を 13 で割る。
-   $$
-   \left[\begin{array}{ccc|c}
-   1 &amp; 2 &amp; -2 &amp; 3 \\
-   0 &amp; 1 &amp; -4 &amp; -5 \\
-   0 &amp; 0 &amp; 1 &amp; 3
-   \end{array}\right]
-   $$</li>
-<li><strong>後退代入:</strong>  </li>
-<li>第三行より：<span class="arithmatex">\(z = 3\)</span>.  </li>
-<li>第二行より：$ y - 4z = -5 $ から <span class="arithmatex">\(y\)</span> を求める。  </li>
-<li>第一行より：$ x + 2y - 2z = 3 $ から <span class="arithmatex">\(x\)</span> を求める.</li>
 </ul>
-</li>
-</ol>
-<p>このガウスの消去法によって得られた行列は、下の行に進むにつれて<code>1</code>のある列が後ろ側にずれていっている。言い換えると、ある行で、<code>0</code>以外の数字が出現する最初の列に着目すると、その数字より下の行は<code>0</code>となっている。このような行列を「<strong>階段行列</strong>」と呼ぶ。階段行列については、次の授業で詳しく扱う。</p>
+<h3 id="2_1">例2: 行基本変形による簡約階段行列の導出</h3>
+<ul>
+<li>ある行列を基本変形により簡約階段行列に変形する例として、<br />
+  [
+  B = \begin{pmatrix}
+  2 &amp; 4 &amp; -2 \
+  4 &amp; 9 &amp; -3 \
+  -2 &amp; -3 &amp; 7
+  \end{pmatrix}
+  ]
+  を考え、行の入れ替え、定数倍、行の加減を適用して RREF にする操作を行うことで、最終的にランクが2であることが確認できる（具体的な数値例は講義で口頭説明する）。</li>
+</ul>
+<h3 id="3">例3: 行列のランクの定義の確認</h3>
+<ul>
+<li>ある行列が簡約階段行列に変形されたとき、非ゼロ行の個数がその行列のランクであることを確認します。<br />
+  例えば、上記の <span class="arithmatex">\( A_{\text{RREF}} \)</span> の場合、非ゼロ行は2行なので、ランクは2です。</li>
+</ul>
 <hr />
 <h2 id="4-chatgptgoogle-colab">4. ChatGPTによる解説＋Google Colab での実行例</h2>
 <h3 id="chatgpt">ChatGPTによる解説</h3>
 <ul>
-<li>ガウスの消去法では、まず拡大係数行列を作成し、各行の先頭に現れる変数の係数（ピボット）を 1 に整えます。  </li>
-<li>その後、ピボット行の定数倍を使って、下部の同じ列の成分を 0 にしていくことで、上三角行列（または階段形）に変形します。  </li>
-<li>実際に手計算では、うまく計算して<code>1</code>を作りましたが、コンピュータでは<code>1</code>を作るのは先頭の数字で割ればよいので、次のように計算できます。</li>
+<li><strong>解説ポイント:</strong>  </li>
+<li>連立一次方程式の解法において、行列のランクは解の存在や一意性の判断に非常に重要です。  </li>
+<li>階段行列と簡約階段行列の変形を通じて、どの行が線形独立かを明確にでき、ランクはその数値として現れます。  </li>
+<li>この変形は、基本変形のルールに従って行われ、どの操作も行列のランクを変えないため、解の正しさが保証されます。</li>
 </ul>
-<p>以下のコードは、連立一次方程式
-$$
-\begin{cases}
-3x + y + z = -5, \\
-4x + 3y - z = -2, \\
-5x + 4y + z = 6,
-\end{cases}
-$$
-に対して、拡大係数行列を使い、ガウスの消去法によって解に辿り着くまでの各ステップを print で表示します。</p>
-<h3 id="google-colab-print">Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）</h3>
+<h3 id="google-colab">Google Colabでの実装例</h3>
+<p>以下は、ある行列に対して、基本変形を用いて簡約階段行列（RREF）に変形し、ランクを計算する Python のコード例です。途中経過も print で表示して、どのような手順でランクが求められるかを確認します。</p>
 <pre><code class="language-python">import numpy as np
 
-def gauss_elimination_verbose(A_aug):
+def rref_verbose(A):
     &quot;&quot;&quot;
-    ガウスの消去法を実装し、途中の過程を print で表示する関数。
-
+    行列 A を簡約階段行列 (RREF) に変形し、その途中経過を print で表示する関数。
     入力:
-      A_aug: 拡大係数行列 (形状: (n, n+1))
+      A: 任意の m x n 行列
     出力:
-      x: 連立一次方程式の解を含むベクトル (形状: (n,))
+      RREF に変形された行列
     &quot;&quot;&quot;
-    n = A_aug.shape[0]
+    A = A.copy().astype(float)
+    m, n = A.shape
+    row = 0
+    for col in range(n):
+        if row &gt;= m:
+            break
+        # ピボット行の選択：col 列で非ゼロの要素がある行を探す
+        pivot_row = None
+        for r in range(row, m):
+            if not np.isclose(A[r, col], 0):
+                pivot_row = r
+                break
+        if pivot_row is None:
+            continue
+        # 行の入れ替え：現在の行 row と pivot_row を入れ替える
+        A[[row, pivot_row]] = A[[pivot_row, row]]
+        print(f&quot;\n--- 行 {row} と 行 {pivot_row} の入れ替え ---&quot;)
+        print(A)
 
-    print(&quot;初期の拡大係数行列:&quot;)
-    print(A_aug)
+        # 行の定数倍：ピボットを 1 にする
+        pivot = A[row, col]
+        A[row] = A[row] / pivot
+        print(f&quot;\n--- 行 {row} を {pivot:.3f} で割って正規化 ---&quot;)
+        print(A)
 
-    # 前進消去
-    for i in range(n):
-        # 部分ピボット選択：i列目の絶対値が最大の行を選ぶ
-        max_row = i + np.argmax(np.abs(A_aug[i:, i]))
-        print(f&quot;\n列 {i} のピボット選択: 行 {max_row} を選択&quot;)
+        # 行の加減：ピボット行を使って、他の行の col 列を 0 にする
+        for r in range(m):
+            if r != row:
+                factor = A[r, col]
+                A[r] = A[r] - factor * A[row]
+                print(f&quot;\n--- 行 {r} から {factor:.3f}×行 {row} を引く ---&quot;)
+                print(A)
+        row += 1
+    return A
 
-        # 行の入れ替え
-        A_aug[[i, max_row]] = A_aug[[max_row, i]]
-        print(f&quot;行 {i} と 行 {max_row} を入れ替えた後:&quot;)
-        print(A_aug)
-
-        # ピボットの値
-        pivot = A_aug[i, i]
-        if np.isclose(pivot, 0):
-            raise ValueError(&quot;行列は特異またはほぼ特異です。&quot;)
-
-        # 行の定数倍：ピボット行を pivot で割り、ピボットを 1 にする
-        A_aug[i] = A_aug[i] / pivot
-        print(f&quot;行 {i} を {pivot:.3f} で割って正規化した後:&quot;)
-        print(A_aug)
-
-        # 下の行から、現在の列の要素を 0 にする
-        for j in range(i + 1, n):
-            factor = A_aug[j, i]
-            A_aug[j] = A_aug[j] - factor * A_aug[i]
-            print(f&quot;行 {j} から {factor:.3f}×行 {i} を引いた後:&quot;)
-            print(A_aug)
-
-    # 後退代入
-    x = np.zeros(n)
-    print(&quot;\n--- 後退代入開始 ---&quot;)
-    for i in range(n - 1, -1, -1):
-        x[i] = A_aug[i, -1] - np.dot(A_aug[i, i+1:n], x[i+1:n])
-        print(f&quot;x[{i}] = {x[i]:.3f} を計算&quot;)
-
-    return x
-
-# 連立一次方程式の例：
-# (1) 3x + y + z = -5
-# (2) 4x + 3y - z = -2
-# (3) 5x + 4y + z = 6
-
-A_aug = np.array([
-    [3, 1, 1, -5],
-    [4, 3, -1, -2],
-    [5, 4, 1, 6]
+# 例題：連立一次方程式の係数行列（拡大係数行列ではなく、純粋な係数行列でランクを計算）
+# ここでは、講義例として以下の行列を考える：
+# M = [ [3, 1, 1],
+#       [4, 3, -1],
+#       [5, 4, 1] ]
+M = np.array([
+    [3, 1, 1],
+    [4, 3, -1],
+    [5, 4, 1]
 ], dtype=float)
 
-solution = gauss_elimination_verbose(A_aug.copy())
-print(&quot;\n連立一次方程式の解:&quot;)
-print(f&quot;x = {solution[0]:.3f}, y = {solution[1]:.3f}, z = {solution[2]:.3f}&quot;)
-# 期待される解: x = -5, y = 7, z = 3
+print(&quot;初期行列 M:&quot;)
+print(M)
+
+RREF = rref_verbose(M)
+print(&quot;\n最終的な簡約階段行列 (RREF):&quot;)
+print(RREF)
+
+# ランクの計算：RREF の非ゼロ行の個数を数える
+rank = np.sum(~np.all(np.isclose(RREF, 0), axis=1))
+print(f&quot;\n行列のランクは {rank} です。&quot;)
 </code></pre>
 <hr />
 <h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
 <ul>
-<li><strong>工学・物理学:</strong><br />
-  複数の条件を同時に満たす問題（例：構造解析、回路解析）で、連立一次方程式の解法は不可欠です。</li>
-<li><strong>経済学・最適化:</strong><br />
-  市場均衡や資源配分の問題において、連立一次方程式の解法が基礎となります。</li>
-<li><strong>コンピュータグラフィックス:</strong><br />
-  画像変換やレンダリングで、変換行列を用いた計算や平面の交点の求解などに応用されます。</li>
-<li><strong>機械学習:</strong><br />
-  線形回帰や分類問題、データ前処理などの基礎として、数値解法が活用されます。</li>
+<li><strong>連立方程式の解の判定:</strong><br />
+  ランクを用いることで、連立一次方程式の解が一意であるか、無限解が存在するか、または解が存在しないかを判断できます。</li>
+<li><strong>行列の可逆性:</strong><br />
+  正方行列のランクがそのサイズと等しければ、その行列は可逆であると判定できます。</li>
+<li><strong>統計学と機械学習:</strong><br />
+  主成分分析（PCA）など、データの次元削減や特徴抽出において、データ行列のランクは重要な役割を果たします。</li>
+<li><strong>システムのモデリング:</strong><br />
+  物理や工学のシステムにおいて、システムの状態や制約条件を表す行列のランクは、システムの自由度や冗長性の評価に利用されます。</li>
 </ul>
 <hr />
 <h2 id="6">6. 演習問題</h2>
 <ol>
 <li>
 <p><strong>演習問題1:</strong><br />
-   次の連立一次方程式
-   $$
-   \begin{cases}
-   3x + y + z = -5, \\
-   4x + 3y - z = -2, \\
-   5x + 4y + z = 6,
-   \end{cases}
-   $$
-   の拡大係数行列を作成し、ガウスの消去法による基本変形（行の入れ替え、定数倍、行の加減）の各ステップを詳細に記述して、最終的な上三角行列と後退代入による解 <span class="arithmatex">\(x=-5,\; y=7,\; z=3\)</span> を求めよ。</p>
+   次の連立一次方程式の係数行列
+   [
+   A = \begin{pmatrix}
+   3 &amp; 1 &amp; 1 \
+   4 &amp; 3 &amp; -1 \
+   5 &amp; 4 &amp; 1
+   \end{pmatrix}
+   ]
+   を用いて、ガウスの消去法により簡約階段行列 (RREF) を求め、その非ゼロ行の個数から行列のランクを計算せよ。</p>
 </li>
 <li>
 <p><strong>演習問題2:</strong><br />
-   拡大係数行列の各変形ステップで、どの基本変形（行の入れ替え、定数倍、行の加減）を用いたかを明確にし、その理由を説明せよ。</p>
+   以下の行列
+   [
+   B = \begin{pmatrix}
+   2 &amp; 4 &amp; -2 \
+   4 &amp; 9 &amp; -3 \
+   -2 &amp; -3 &amp; 7
+   \end{pmatrix}
+   ]
+   に対して、行基本変形を用いて簡約階段行列に変形し、ランクを求めよ。変形の各ステップで用いた操作の種類と理由を説明せよ。</p>
 </li>
 <li>
 <p><strong>演習問題3:</strong><br />
@@ -1616,7 +1294,7 @@ print(f&quot;x = {solution[0]:.3f}, y = {solution[1]:.3f}, z = {solution[2]:.3f}
 </li>
 <li>
 <p><strong>演習問題4:</strong><br />
-   Google Colab 上で、実際にガウスの消去法の操作フロー（拡大係数行列の変形）を自分で実装し、その変化過程をコメント付きで記録せよ。</p>
+   Google Colab 上で、実際にガウスの消去法の操作フロー（拡大係数行列の変形）を実装し、各変形の過程をコメント付きで記録せよ。</p>
 </li>
 </ol>
 
