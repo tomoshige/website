@@ -1276,36 +1276,42 @@
 <p><strong>Google Colabでの実行例:</strong></p>
 </li>
 </ul>
-<p>```python
-  import numpy as np
-  import matplotlib.pyplot as plt</p>
-<p># 二次元ベクトルの定義
-  a = np.array([2, 3])
-  b = np.array([-1, 4])</p>
-<p># ベクトルの和
-  sum_ab = a + b</p>
-<p># スカラー倍
-  scalar_multiple = 2 * a</p>
-<p># 結果の出力
-  print("ベクトル a:", a)
-  print("ベクトル b:", b)
-  print("a + b:", sum_ab)
-  print("2 * a:", scalar_multiple)</p>
-<p># ベクトルの可視化
-  origin = [0, 0]  # 原点</p>
-<p>plt.figure(figsize=(6,6))
-  plt.quiver(<em>origin, </em>a, angles='xy', scale_units='xy', scale=1, color='r', label='a')
-  plt.quiver(<em>origin, </em>b, angles='xy', scale_units='xy', scale=1, color='b', label='b')
-  plt.quiver(<em>origin, </em>sum_ab, angles='xy', scale_units='xy', scale=1, color='g', label='a+b')</p>
-<p>plt.xlim(-5, 5)
-  plt.ylim(-5, 5)
-  plt.axhline(0, color='black', linewidth=0.5)
-  plt.axvline(0, color='black', linewidth=0.5)
-  plt.legend()
-  plt.title("二次元ベクトルの和とスカラー倍")
-  plt.grid()
-  plt.show()
-  ```</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# 二次元ベクトルの定義
+a = np.array([2, 3])
+b = np.array([-1, 4])
+
+# ベクトルの和
+sum_ab = a + b
+
+# スカラー倍
+scalar_multiple = 2 * a
+
+# 結果の出力
+print(&quot;ベクトル a:&quot;, a)
+print(&quot;ベクトル b:&quot;, b)
+print(&quot;a + b:&quot;, sum_ab)
+print(&quot;2 * a:&quot;, scalar_multiple)
+
+# ベクトルの可視化
+origin = [0, 0]  # 原点
+
+plt.figure(figsize=(6,6))
+plt.quiver(*origin, *a, angles='xy', scale_units='xy', scale=1, color='r', label='a')
+plt.quiver(*origin, *b, angles='xy', scale_units='xy', scale=1, color='b', label='b')
+plt.quiver(*origin, *sum_ab, angles='xy', scale_units='xy', scale=1, color='g', label='a+b')
+
+plt.xlim(-5, 5)
+plt.ylim(-5, 5)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.legend()
+plt.title(&quot;二次元ベクトルの和とスカラー倍&quot;)
+plt.grid()
+plt.show()
+</code></pre>
 <h2 id="5">5. 演習問題</h2>
 <ol>
 <li>

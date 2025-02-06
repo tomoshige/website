@@ -1266,41 +1266,47 @@
 <p><strong>Google Colabでの実行例:</strong></p>
 </li>
 </ul>
-<p>```python
-  import numpy as np
-  import matplotlib.pyplot as plt</p>
-<p># 二次元ベクトルの定義
-  a = np.array([3, 4])
-  b = np.array([2, -1])</p>
-<p># 内積の計算
-  inner_product = np.dot(a, b)
-  print("内積:", inner_product)</p>
-<p># ベクトルの大きさの計算
-  norm_a = np.linalg.norm(a)
-  norm_b = np.linalg.norm(b)
-  print("aの大きさ:", norm_a)
-  print("bの大きさ:", norm_b)</p>
-<p># 角度の計算（ラジアン）
-  theta = np.arccos(inner_product / (norm_a * norm_b))
-  print("aとbのなす角（ラジアン）:", theta)</p>
-<p># aをbに射影する計算
-  proj_a_on_b = (np.dot(a, b) / np.dot(b, b)) * b
-  print("aのbへの射影:", proj_a_on_b)</p>
-<p># ベクトルの可視化
-  origin = [0, 0]
-  plt.figure(figsize=(6,6))
-  plt.quiver(<em>origin, </em>a, angles='xy', scale_units='xy', scale=1, color='r', label='a')
-  plt.quiver(<em>origin, </em>b, angles='xy', scale_units='xy', scale=1, color='b', label='b')
-  plt.quiver(<em>origin, </em>proj_a_on_b, angles='xy', scale_units='xy', scale=1, color='g', label='proj a on b')</p>
-<p>plt.xlim(-5, 5)
-  plt.ylim(-5, 5)
-  plt.axhline(0, color='black', linewidth=0.5)
-  plt.axvline(0, color='black', linewidth=0.5)
-  plt.title("内積と射影の可視化")
-  plt.grid(True)
-  plt.legend()
-  plt.show()
-  ```</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# 二次元ベクトルの定義
+a = np.array([3, 4])
+b = np.array([2, -1])
+
+# 内積の計算
+inner_product = np.dot(a, b)
+print(&quot;内積:&quot;, inner_product)
+
+# ベクトルの大きさの計算
+norm_a = np.linalg.norm(a)
+norm_b = np.linalg.norm(b)
+print(&quot;aの大きさ:&quot;, norm_a)
+print(&quot;bの大きさ:&quot;, norm_b)
+
+# 角度の計算（ラジアン）
+theta = np.arccos(inner_product / (norm_a * norm_b))
+print(&quot;aとbのなす角（ラジアン）:&quot;, theta)
+
+# aをbに射影する計算
+proj_a_on_b = (np.dot(a, b) / np.dot(b, b)) * b
+print(&quot;aのbへの射影:&quot;, proj_a_on_b)
+
+# ベクトルの可視化
+origin = [0, 0]
+plt.figure(figsize=(6,6))
+plt.quiver(*origin, *a, angles='xy', scale_units='xy', scale=1, color='r', label='a')
+plt.quiver(*origin, *b, angles='xy', scale_units='xy', scale=1, color='b', label='b')
+plt.quiver(*origin, *proj_a_on_b, angles='xy', scale_units='xy', scale=1, color='g', label='proj a on b')
+
+plt.xlim(-5, 5)
+plt.ylim(-5, 5)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.title(&quot;内積と射影の可視化&quot;)
+plt.grid(True)
+plt.legend()
+plt.show()
+</code></pre>
 <h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
 <ul>
 <li><strong>機械学習・データ解析:</strong>  </li>
