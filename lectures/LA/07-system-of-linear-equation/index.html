@@ -1096,8 +1096,9 @@
 - その後、ピボット行の定数倍を使って、下部の同じ列の成分を 0 にしていくことで、上三角行列（または階段形）に変形します。  
 - この手順は、従来の足し算・引き算による消去法と本質的に同じですが、拡大係数行列を用いることで、各操作が体系的に記録され、後退代入が容易になります。
 
-### Google Colabでの実装例
-以下のコード例では、連立一次方程式
+```python
+### Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）
+以下のコードは、連立一次方程式
 \[
 \begin{cases}
 3x + y + z = -5, \\
@@ -1105,71 +1106,77 @@
 5x + 4y + z = 6,
 \end{cases}
 \]
-に対して、拡大係数行列に対するガウスの消去法の操作フローを示しています。
+に対して、拡大係数行列を使い、ガウスの消去法によって解に辿り着くまでの各ステップを print で表示します。
 
 ```python
 import numpy as np
 
-# 初期の拡大係数行列の作成
+def gauss_elimination_verbose(A_aug):
+    &quot;&quot;&quot;
+    ガウスの消去法を実装し、途中の過程を print で表示する関数。
+
+    入力:
+      A_aug: 拡大係数行列 (形状: (n, n+1))
+    出力:
+      x: 連立一次方程式の解を含むベクトル (形状: (n,))
+    &quot;&quot;&quot;
+    n = A_aug.shape[0]
+
+    print(&quot;初期の拡大係数行列:&quot;)
+    print(A_aug)
+
+    # 前進消去
+    for i in range(n):
+        # 部分ピボット選択：i列目の絶対値が最大の行を選ぶ
+        max_row = i + np.argmax(np.abs(A_aug[i:, i]))
+        print(f&quot;\n列 {i} のピボット選択: 行 {max_row} を選択&quot;)
+
+        # 行の入れ替え
+        A_aug[[i, max_row]] = A_aug[[max_row, i]]
+        print(f&quot;行 {i} と 行 {max_row} を入れ替えた後:&quot;)
+        print(A_aug)
+
+        # ピボットの値
+        pivot = A_aug[i, i]
+        if np.isclose(pivot, 0):
+            raise ValueError(&quot;行列は特異またはほぼ特異です。&quot;)
+
+        # 行の定数倍：ピボット行を pivot で割り、ピボットを 1 にする
+        A_aug[i] = A_aug[i] / pivot
+        print(f&quot;行 {i} を {pivot:.3f} で割って正規化した後:&quot;)
+        print(A_aug)
+
+        # 下の行から、現在の列の要素を 0 にする
+        for j in range(i + 1, n):
+            factor = A_aug[j, i]
+            A_aug[j] = A_aug[j] - factor * A_aug[i]
+            print(f&quot;行 {j} から {factor:.3f}×行 {i} を引いた後:&quot;)
+            print(A_aug)
+
+    # 後退代入
+    x = np.zeros(n)
+    print(&quot;\n--- 後退代入開始 ---&quot;)
+    for i in range(n - 1, -1, -1):
+        x[i] = A_aug[i, -1] - np.dot(A_aug[i, i+1:n], x[i+1:n])
+        print(f&quot;x[{i}] = {x[i]:.3f} を計算&quot;)
+
+    return x
+
+# 連立一次方程式の例：
 # (1) 3x + y + z = -5
 # (2) 4x + 3y - z = -2
 # (3) 5x + 4y + z = 6
+
 A_aug = np.array([
-    [3,  1,  1, -5],
-    [4,  3, -1, -2],
-    [5,  4,  1,  6]
+    [3, 1, 1, -5],
+    [4, 3, -1, -2],
+    [5, 4, 1, 6]
 ], dtype=float)
 
-print(&quot;初期の拡大係数行列:&quot;)
-print(A_aug)
-
-# --- 前進消去 ---
-# Step 1: 第一行をピボット行として、(2)行から(1)行を引いてxの項を1にする操作（ここでは(2)行を(2)行 - (1)行）
-A_aug[1] = A_aug[1] - A_aug[0]
-# これにより、(2)行は [4-3, 3-1, -1-1, -2-(-5)] = [1, 2, -2, 3]
-print(&quot;\nStep 1: (2)行 ← (2)行 - (1)行:&quot;)
-print(A_aug)
-
-# 次に、(1)行と(2)行の位置を入れ替えることで、最上行のxの係数が1になる
-A_aug[[0,1]] = A_aug[[1,0]]
-print(&quot;\nStep 2: (1)行と(2)行を入れ替え:&quot;)
-print(A_aug)
-
-# Step 3: 第一列を用いて、(2)行と(3)行のxの項を0にする
-# (2)行 ← (2)行 - 3×(1)行
-A_aug[1] = A_aug[1] - 3 * A_aug[0]
-# (3)行 ← (3)行 - 5×(1)行
-A_aug[2] = A_aug[2] - 5 * A_aug[0]
-print(&quot;\nStep 3: xの項を消去 (2)行と(3)行の操作:&quot;)
-print(A_aug)
-
-# Step 4: 第二行のピボットを1にするため、(2)行を適宜定数倍する（ここでは(2)行のyの係数が -5 のため、-1/5倍する）
-A_aug[1] = A_aug[1] * (-1/5)
-print(&quot;\nStep 4: (2)行を -1/5 倍して正規化:&quot;)
-print(A_aug)
-
-# Step 5: (3)行から、(2)行のyの項を消去する
-# (3)行 ← (3)行 - (係数)* (2)行, ここでは(3)行のyの項が -6, (2)行のyの項が1, よって係数は -6
-A_aug[2] = A_aug[2] - (-6) * A_aug[1]
-print(&quot;\nStep 5: yの項を消去 (3)行の操作:&quot;)
-print(A_aug)
-
-# Step 6: (3)行のピボット（zの係数）を1にするため、(3)行を適宜定数倍する
-# ここでは(3)行のzの係数は -13（仮の値）、実際は計算により求められる
-A_aug[2] = A_aug[2] / A_aug[2, 2]
-print(&quot;\nStep 6: (3)行を正規化:&quot;)
-print(A_aug)
-
-# --- 後退代入 ---
-# 最下行から z の値を求める
-z = A_aug[2, 3]
-# 次に、(2)行から y を求める： (2)行: y - 4z = -5  →  y = -5 + 4z
-y = A_aug[1, 3] + 4 * z
-# 最後、(1)行から x を求める： (1)行: x + 2y - 2z = 3  →  x = 3 - 2y + 2z
-x = A_aug[0, 3] - 2 * y + 2 * z
-
-print(&quot;\n後退代入による解:&quot;)
-print(f&quot;x = {x}, y = {y}, z = {z}&quot;)
+solution = gauss_elimination_verbose(A_aug.copy())
+print(&quot;\n連立一次方程式の解:&quot;)
+print(f&quot;x = {solution[0]:.3f}, y = {solution[1]:.3f}, z = {solution[2]:.3f}&quot;)
+# 期待される解: x = -5, y = 7, z = 3
 </code></pre>
 <hr />
 <h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
