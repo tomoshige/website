@@ -12,13 +12,13 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/04-vector-and-matrix/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/06-system-of-linear-equation/">
       
       
-        <link rel="prev" href="../03-vector-and-matrix/">
+        <link rel="prev" href="../05-vector-and-matrix/">
       
       
-        <link rel="next" href="../05-vector-and-matrix/">
+        <link rel="next" href="../../SIWS/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>4. Vector and Matrix3 - Statistical Learning Laboratory</title>
+        <title>6. System of Linear Equation - Statistical Learning Laboratory</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#4" class="md-skip">
+        <a href="#6" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4. Vector and Matrix3
+              6. System of Linear Equation
             
           </span>
         </div>
@@ -519,6 +519,48 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -535,7 +577,7 @@
           
   
   <span class="md-ellipsis">
-    4. Vector and Matrix3
+    6. System of Linear Equation
   </span>
   
 
@@ -546,7 +588,7 @@
         
   
   <span class="md-ellipsis">
-    4. Vector and Matrix3
+    6. System of Linear Equation
   </span>
   
 
@@ -589,7 +631,16 @@
           <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      行列の定義と表記
+      連立一次方程式の定義
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題として用いる3変数の連立一次方程式
     </span>
   </a>
   
@@ -598,7 +649,7 @@
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      行列の加法
+      代入法による解法の例とその煩雑さ
     </span>
   </a>
   
@@ -607,16 +658,7 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      行列のスカラー倍
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列とベクトルの関係性
+      式の足し算・引き算による消去法の説明
     </span>
   </a>
   
@@ -628,28 +670,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-gpt-colab" class="md-nav__link">
+  <a href="#3_1" class="md-nav__link">
     <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+      3. 扱う内容の例 （別の連立方程式）
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
+    <nav class="md-nav" aria-label="3. 扱う内容の例 （別の連立方程式）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
+  <a href="#3_2" class="md-nav__link">
     <span class="md-ellipsis">
-      例1: 正方行列の加法とスカラー倍
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      例2: 非正方行列の加法とスカラー倍
+      例: 3変数の連立一次方程式
     </span>
   </a>
   
@@ -667,6 +700,54 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Colab での実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chatgpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      ChatGPTによる解説
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colabで視覚的に確認する実行例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Colabで視覚的に確認する実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (1) 幾何学的可視化：2次元の直線の交点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      (2) 幾何学的可視化：3次元の平面の交点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -679,7 +760,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
+  <a href="#6_1" class="md-nav__link">
     <span class="md-ellipsis">
       6. 演習問題
     </span>
@@ -691,48 +772,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../05-vector-and-matrix/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    5. Vector and Matrix4
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../06-system-of-linear-equation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    6. System of Linear Equation
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1086,7 +1125,16 @@
           <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      行列の定義と表記
+      連立一次方程式の定義
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題として用いる3変数の連立一次方程式
     </span>
   </a>
   
@@ -1095,7 +1143,7 @@
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      行列の加法
+      代入法による解法の例とその煩雑さ
     </span>
   </a>
   
@@ -1104,16 +1152,7 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      行列のスカラー倍
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列とベクトルの関係性
+      式の足し算・引き算による消去法の説明
     </span>
   </a>
   
@@ -1125,28 +1164,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-gpt-colab" class="md-nav__link">
+  <a href="#3_1" class="md-nav__link">
     <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+      3. 扱う内容の例 （別の連立方程式）
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
+    <nav class="md-nav" aria-label="3. 扱う内容の例 （別の連立方程式）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
+  <a href="#3_2" class="md-nav__link">
     <span class="md-ellipsis">
-      例1: 正方行列の加法とスカラー倍
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      例2: 非正方行列の加法とスカラー倍
+      例: 3変数の連立一次方程式
     </span>
   </a>
   
@@ -1164,6 +1194,54 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Colab での実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chatgpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      ChatGPTによる解説
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colabで視覚的に確認する実行例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Colabで視覚的に確認する実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (1) 幾何学的可視化：2次元の直線の交点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      (2) 幾何学的可視化：3次元の平面の交点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1176,7 +1254,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
+  <a href="#6_1" class="md-nav__link">
     <span class="md-ellipsis">
       6. 演習問題
     </span>
@@ -1199,195 +1277,267 @@
                   
 
 
-<h1 id="4">講義4: 行列の基礎（定義・加法・スカラー倍）</h1>
+<h1 id="6">講義6: 連立一次方程式の表現と解法の基礎</h1>
 <h2 id="1">1. 本日扱う内容について（概要）</h2>
 <ul>
 <li><strong>目的:</strong>  </li>
-<li>行列の定義や表記法を理解する  </li>
-<li>行列の基本演算（加法およびスカラー倍）を習得する  </li>
-<li>異なるサイズの行列（正方行列に限らず、例えば2×3行列など）の特徴と、同じサイズでなければ加算ができないという性質を理解する  </li>
+<li>連立一次方程式の基本概念とその行列表現を理解する  </li>
+<li>3変数（3つの未知数）を含む連立一次方程式を例題として扱い、<br />
+    ・代入法による解法の煩雑さを実例で示す<br />
+    ・式の足し算・引き算（消去法）による解法を最後まで示す  </li>
 <li>
-<p>行列とベクトルの関係性を確認し、行列がどのように線形代数学の基礎となるかを理解する</p>
+<p>幾何学的に、2次元では直線の交点、3次元では平面の交点として解をイメージする</p>
 </li>
 <li>
 <p><strong>講義の流れ:</strong>  </p>
 </li>
-<li>行列の定義と表記方法の説明  </li>
-<li>行列の加法およびスカラー倍の演算（数式を含む）の解説  </li>
-<li>異なるサイズの行列の取り扱いについての注意点の確認  </li>
-<li>具体的な実例の提示  </li>
-<li>ChatGPTによる解説とGoogle Colabでの実行例の紹介  </li>
-<li>行列の概念が応用される分野についての考察  </li>
-<li>演習問題による理解の定着</li>
+<li>連立一次方程式の定義（一般的な m 本の式、n 個の未知数の場合）と行列表現の導入  </li>
+<li>【例題】以下の連立方程式を用いて、  <ul>
+<li>代入法で解を求めるときの煩雑さを実際に示す  </li>
+<li>同じ例題を消去法（足し算・引き算のみ）で解く方法を示す  </li>
 </ul>
+</li>
+<li>ChatGPTによる解説およびGoogle Colabでの実行例（幾何学的可視化を含む）  </li>
+<li>応用例の考察  </li>
+<li>演習問題</li>
+</ul>
+<hr />
 <h2 id="2">2. 扱う内容の理論の説明（定義・定理・数式を含む）</h2>
-<h3 id="_1">行列の定義と表記</h3>
+<h3 id="_1">連立一次方程式の定義</h3>
 <ul>
-<li><strong>定義:</strong><br />
-  行列とは、数や式を長方形状に並べた集合であり、各要素は <span class="arithmatex">\(a_{ij}\)</span> で表される。<br />
-<span class="arithmatex">\(m\)</span> 行 <span class="arithmatex">\(n\)</span> 列の行列 <span class="arithmatex">\(A\)</span> は以下のように表される：
+<li><strong>一般的な定義:</strong><br />
+  連立一次方程式とは、未知数 $ x_1, x_2, \dots, x_n $ に関して、m 本の一次方程式が同時に成り立つ問題です。<br />
+  具体的には、以下のように表されます：
   $$
-  A = \begin{pmatrix}
-  a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \
-  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \
-  \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
-  a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
-  \end{pmatrix}
-  $$</li>
-<li><strong>注意:</strong><br />
-  行列は正方行列（例：2×2、3×3など）だけでなく、2×3や3×4など行と列の数が異なる非正方行列も存在する。これらも同様の基本演算（加法、スカラー倍など）の対象となるが、加算を行う際は<strong>行数と列数が一致している必要がある</strong>。</li>
+  \begin{cases}
+  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \\
+  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \\
+  \quad \vdots \\
+  a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m.
+  \end{cases}
+  $$
+  ここで、$ a_{ij} $ は各式の係数、$ b_i $ は定数項といいます。</li>
 </ul>
-<h3 id="_2">行列の加法</h3>
+<h3 id="3">例題として用いる3変数の連立一次方程式</h3>
+<p>今回の例題として、以下の連立一次方程式（m = 3, n = 3）を扱います：
+$$
+\begin{cases}
+3x + y + z = -5, \\
+4x + 3y - z = -2, \\
+5x + 4y + z = 6.
+\end{cases}
+$$</p>
+<p>この連立1次方程式を解くことで、連立1次方程式の一般的な解き方について学びましょう。
+これまで連立方程式を解く時には、<strong>代入法</strong> を用いて解いてきたという人もいるはずです。
+しかし、代入法で計算する際には、式を消去するための操作が多くなりがちで、煩雑になる場合が多いです。
+一方で、今回学ぶ解法は<strong>消去法</strong>と言います。式と式を足したり、引いたりすることで、連立方程式の解を求めます。
+以下の例で、代入法と消去法のそれぞれを説明します。</p>
+<h3 id="_2">代入法による解法の例とその煩雑さ</h3>
 <ul>
-<li><strong>定義:</strong><br />
-  2つの行列 <span class="arithmatex">\(A = [a_{ij}]\)</span> と <span class="arithmatex">\(B = [b_{ij}]\)</span> の加法は、両行列が同じサイズである場合に、対応する要素同士を加える操作である：
-  $$
-  A + B = [a_{ij} + b_{ij}]
-  $$</li>
-<li><strong>重要な注意点:</strong><br />
-  異なるサイズの行列（例えば、<span class="arithmatex">\(A\)</span> が2×3行列で <span class="arithmatex">\(B\)</span> が3×2行列の場合など）は加算できない。必ず同じ行数・列数の行列のみが加算可能である。</li>
+<li><strong>代入法の手順:</strong>  </li>
+<li>式(1)から $ z $ を解く：
+     $$
+     z = -5 - 3x - y.
+     $$</li>
+<li>この $ z $ を式(2)に代入：
+     $$
+     4x + 3y - (-5 - 3x - y) = -2 \quad \Rightarrow \quad 4x + 3y + 5 + 3x + y = -2,
+     $$
+     $$
+     7x + 4y = -7. \quad \text{（中間結果①）}
+     $$</li>
+<li>同様に、$ z $ を式(3)に代入：
+     $$
+     5x + 4y + (-5 - 3x - y) = 6 \quad \Rightarrow \quad 2x + 3y = 11. \quad \text{（中間結果②）}
+     $$</li>
+<li>ここから、さらに $ y $ を $ x $ の式で表し代入する必要があり、代入法では計算の過程が複雑になり、ミスが生じやすくなります。</li>
 </ul>
-<h3 id="_3">行列のスカラー倍</h3>
+<h3 id="_3">式の足し算・引き算による消去法の説明</h3>
 <ul>
-<li><strong>定義:</strong><br />
-  スカラー <span class="arithmatex">\(c\)</span> と行列 <span class="arithmatex">\(A = [a_{ij}]\)</span> の積は、各成分に <span class="arithmatex">\(c\)</span> をかけた行列となる：
-  $$
-  cA = [c \cdot a_{ij}]
-  $$
-  ここで、行列のサイズは変わらず、各要素がスカラー倍される。</li>
+<li><strong>消去法の手順:</strong><br />
+    同じ例題を用いて、以下の手順で解を求めます。<ul>
+<li>まずは連立方程式から <span class="arithmatex">\(z\)</span> を消去して見ます。そこで、(1)式を1倍して(2)式に加え、(3)式を-1倍して(1)式に加えます。
+$$
+\begin{cases}
+3x + y + z = -5, \\
+7x + 4y - 0z = -7, \\
+2x + 3y + 0z = 11.
+\end{cases}
+$$</li>
+<li>次に、(2)式 か (3) 式から <span class="arithmatex">\(x\)</span> を消去します。分数が出てくるのは嫌なので、まずは (2)式に、(3)式の -3倍を加えます。
+\begin{cases}
+3x + y + z = -5, \\
+x - 5y - 0z = -40, \\
+2x + 3y + 0z = 11.
+\end{cases}
+$$</li>
+<li>次に、(2)の-2倍を (1)式に加えましょう。すると、以下の式が導かれます。
+\begin{cases}
+3x + y + z = -5, \\
+x - 5y - 0z = -40, \\
+0x + 13y + 0z = 91.
+\end{cases}
+$$</li>
+<li>最後の式に注目すると、<code>y = 7</code> とわかります。次に、(2)式に代入すると、<code>x = -5</code> とわかります。最後に、(1)式から <code>z = 3</code> となります。</li>
 </ul>
-<h3 id="_4">行列とベクトルの関係性</h3>
-<ul>
-<li><strong>説明:</strong><br />
-  ベクトルは行列の特別な場合とみなすことができる。  </li>
-<li><strong>列ベクトル:</strong> <span class="arithmatex">\(n \times 1\)</span> の行列  </li>
-<li><strong>行ベクトル:</strong> <span class="arithmatex">\(1 \times n\)</span> の行列<br />
-  この関係性を理解することで、行列の操作がベクトルの演算や変換（例えば、線形写像の表現）にどのように応用されるかを把握できる。</li>
+</li>
 </ul>
-<h2 id="3-gpt-colab">3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）</h2>
-<h3 id="1_1">例1: 正方行列の加法とスカラー倍</h3>
-<ul>
-<li><strong>与えられた行列:</strong><br />
-  $$
-  A = \begin{pmatrix} 1 &amp; 2 \ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \ 7 &amp; 8 \end{pmatrix}
-  $$</li>
-<li><strong>加法の計算:</strong><br />
-  $$
-  A + B = \begin{pmatrix} 1+5 &amp; 2+6 \ 3+7 &amp; 4+8 \end{pmatrix} = \begin{pmatrix} 6 &amp; 8 \ 10 &amp; 12 \end{pmatrix}
-  $$</li>
-<li><strong>スカラー倍の計算（例: <span class="arithmatex">\(c=2\)</span>）：</strong><br />
-  $$
-  2A = \begin{pmatrix} 2 \cdot 1 &amp; 2 \cdot 2 \ 2 \cdot 3 &amp; 2 \cdot 4 \end{pmatrix} = \begin{pmatrix} 2 &amp; 4 \ 6 &amp; 8 \end{pmatrix}
-  $$</li>
-</ul>
-<h3 id="2_1">例2: 非正方行列の加法とスカラー倍</h3>
-<ul>
-<li><strong>与えられた行列:</strong><br />
-  $$
-  C = \begin{pmatrix} 1 &amp; 3 &amp; 5 \ 2 &amp; 4 &amp; 6 \end{pmatrix} \quad \text{（2×3行列）}
-  $$</li>
-<li><strong>加法の例:</strong><br />
-  もし同じサイズの行列<br />
-  $$
-  D = \begin{pmatrix} 7 &amp; 8 &amp; 9 \ 10 &amp; 11 &amp; 12 \end{pmatrix}
-  $$
-  が与えられた場合、<br />
-  $$
-  C + D = \begin{pmatrix} 1+7 &amp; 3+8 &amp; 5+9 \ 2+10 &amp; 4+11 &amp; 6+12 \end{pmatrix} = \begin{pmatrix} 8 &amp; 11 &amp; 14 \ 12 &amp; 15 &amp; 18 \end{pmatrix}
-  $$</li>
-<li><strong>スカラー倍の計算（例: <span class="arithmatex">\(c=-1\)</span>）：</strong><br />
-  $$
-  -1 \cdot C = \begin{pmatrix} -1 &amp; -3 &amp; -5 \ -2 &amp; -4 &amp; -6 \end{pmatrix}
-  $$</li>
-</ul>
+<hr />
+<h2 id="3_1">3. 扱う内容の例 （別の連立方程式）</h2>
+<h3 id="3_2">例: 3変数の連立一次方程式</h3>
+<p>与えられた連立方程式：
+$$
+\begin{cases}
+3x + y - 5z = -4, \\
+-x + 2y - 3z = -1, \\
+-2x + 6y - 9z = -2.
+\end{cases}
+$$</p>
+<p>この連立方程式を消去法を使って解いていこう。
+まずは、(2)式を使って、(1)式と(3)式の <code>x</code> を消去してみよう。
+そのためには、(2)式 の 3倍を (1)式に加え、(2)式の -2倍を (3)式に加える。すると、次の式になる。</p>
+<div class="arithmatex">\[
+\begin{cases}
+0x + 7y - 14z = -7, \\\
+-x + 2y - 3z = -1, \\\
+0x + 2y - 3z = 0.
+\end{cases}
+\]</div>
+<p>ここで、(1)式は、全ての項が 7の倍数だから、7で割る。すると、次の式が導かれる。</p>
+<div class="arithmatex">\[
+\begin{cases}
+0x + y - 2z = -1, \\\
+-x + 2y - 3z = -1, \\\
+0x + 2y - 3z = 0.
+\end{cases}
+\]</div>
+<p>次に、(3)式から <code>y</code> を消去しよう。そのためには、(1)式の -2倍を (3)式に加えれば良い。すると、次の式が導かれる。</p>
+<div class="arithmatex">\[
+\begin{cases}
+0x + y - 2z = -1, \\\
+-x + 2y - 3z = -1, \\\
+0x + 0y + z = 2.
+\end{cases}
+\]</div>
+<p>順番を並び替えても、解は変化しないから、並び替えて見やすくする。</p>
+<div class="arithmatex">\[
+\begin{cases}
+-x + 2y - 3z = -1, \\\
+0x + y - 2z = -1, \\\
+0x + 0y + z = 2.
+\end{cases}
+\]</div>
+<p>これで、(3)式から　<code>z = 2</code> だとわかる。次に、(2)式に、<code>z = 2</code> を代入すると、<code>y = 3</code> と求められる。最後に (1)式に それぞれを代入すると <code>x = 5</code> と求めることができる。</p>
+<hr />
 <h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colab での実行例</h2>
+<h3 id="chatgpt">ChatGPTによる解説</h3>
 <ul>
-<li>
-<p><strong>ChatGPTによる解説:</strong><br />
-  行列の加法とスカラー倍は、線形代数学の基本操作であり、他の複雑な演算（例えば行列の積や逆行列の計算）を理解するための基礎となります。<br />
-  特に、加法においては、行列同士のサイズが一致していなければ計算ができないというルールは重要です。これは、各成分ごとに対応して計算を行う必要があるためです。<br />
-  また、行列は正方行列だけでなく、2×3行列や3×4行列などの非正方行列も存在し、それらにも同じ基本演算が適用できることを覚えておきましょう。</p>
-</li>
-<li>
-<p><strong>Google Colabでの実行例:</strong></p>
-</li>
+<li><strong>ポイント:</strong>  </li>
+<li>代入法では、1つの変数を他の変数の式として表し、他の式に代入するため、特に3変数以上の場合、途中で現れる複雑な分数や長い式の整理が必要となり、非常に手間がかかる。  </li>
+<li>消去法では、式同士を足し引きして変数を打ち消すことで、シンプルな2変数の連立方程式に還元でき、計算が整理される。</li>
+<li>また、連立一次方程式は幾何学的に、2変数の場合は直線の交点、3変数の場合は平面の交点として解釈でき、視覚的に確認することができる。</li>
 </ul>
+<h3 id="google-colab">Google Colabで視覚的に確認する実行例</h3>
+<h4 id="1-2">(1) 幾何学的可視化：2次元の直線の交点</h4>
+<p>（2変数の連立一次方程式の例）</p>
 <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
 
-# 正方行列の定義
-A = np.array([[1, 2], [3, 4]])
-B = np.array([[5, 6], [7, 8]])
+# 例: 2直線の連立方程式
+# 直線1: 2x + 3y = 8  → y = (8 - 2x)/3
+# 直線2: x - y = 1     → y = x - 1
 
-# 正方行列の加法
-sum_AB = A + B
-print(&quot;A + B =\n&quot;, sum_AB)
+x_vals = np.linspace(-2, 6, 400)
+y_line1 = (8 - 2 * x_vals) / 3
+y_line2 = x_vals - 1
 
-# 正方行列のスカラー倍
-scalar_A = 2 * A
-print(&quot;2 * A =\n&quot;, scalar_A)
+# 代数的に求めた解 (x, y) = (11/5, 11/5 - 1)
+x_intersect = 11/5
+y_intersect = x_intersect - 1
 
-# 非正方行列（2×3行列）の定義
-C = np.array([[1, 3, 5], [2, 4, 6]])
-D = np.array([[7, 8, 9], [10, 11, 12]])
-
-# 非正方行列の加法
-sum_CD = C + D
-print(&quot;C + D =\n&quot;, sum_CD)
-
-# 非正方行列のスカラー倍
-scalar_C = -1 * C
-print(&quot;-1 * C =\n&quot;, scalar_C)
+plt.figure(figsize=(8,6))
+plt.plot(x_vals, y_line1, label=&quot;2x + 3y = 8&quot;)
+plt.plot(x_vals, y_line2, label=&quot;x - y = 1&quot;)
+plt.plot(x_intersect, y_intersect, 'ro', label=f&quot;交点 ({x_intersect:.2f}, {y_intersect:.2f})&quot;)
+plt.xlabel(&quot;x&quot;)
+plt.ylabel(&quot;y&quot;)
+plt.title(&quot;2直線の交点&quot;)
+plt.legend()
+plt.grid(True)
+plt.show()
 </code></pre>
+<h4 id="2-3">(2) 幾何学的可視化：3次元の平面の交点</h4>
+<p>（例として、上記の3変数連立一次方程式の解をもとに3平面の交点を可視化）</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# 解は (x, y, z) = (-5, 7, 3)
+solution = np.array([-5, 7, 3])
+
+# グリッド作成のための範囲設定
+x = np.linspace(-10, 10, 20)
+y = np.linspace(-10, 10, 20)
+X, Y = np.meshgrid(x, y)
+
+# 各平面の定義（z = f(x,y) の形で表現）
+Z1 = (-4 - 3 * X - Y) / (-5)      # 平面1: 3x + y - 5z = -4  →  z = (3x + y + 4)/5
+Z2 = (-1 + X - 2 * Y) / 3          # 平面2: -x + 2y - 3z = -1  →  z = (x - 2y + 1)/3
+Z3 = (-2 + 2 * X - 6 * Y) / (-9)   # 平面3: -2x + 6y - 9z = -2  →  z = (2x - 6y + 2)/9
+
+fig = plt.figure(figsize=(12,10))
+ax = fig.add_subplot(111, projection='3d')
+
+ax.plot_surface(X, Y, Z1, alpha=0.5, color='cyan', edgecolor='none', label=&quot;平面1&quot;)
+ax.plot_surface(X, Y, Z2, alpha=0.5, color='magenta', edgecolor='none', label=&quot;平面2&quot;)
+ax.plot_surface(X, Y, Z3, alpha=0.5, color='yellow', edgecolor='none', label=&quot;平面3&quot;)
+
+ax.scatter(solution[0], solution[1], solution[2], color='red', s=100, label=&quot;交点 (-5, 7, 3)&quot;)
+
+ax.set_xlabel(&quot;x&quot;)
+ax.set_ylabel(&quot;y&quot;)
+ax.set_zlabel(&quot;z&quot;)
+ax.set_title(&quot;3平面の交点の可視化&quot;)
+ax.legend()
+plt.show()
+</code></pre>
+<hr />
 <h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
 <ul>
-<li>
-<p><strong>システムの表現:</strong><br />
-  行列は、連立一次方程式の表現や解法、そして線形変換の記述に不可欠であり、物理システムや工学システムのモデリングに広く利用される。</p>
-</li>
-<li>
-<p><strong>コンピュータグラフィックス:</strong><br />
-  画像の回転、拡大縮小、平行移動などの変換操作は、行列を用いて実現される。</p>
-</li>
-<li>
-<p><strong>機械学習:</strong><br />
-  ニューラルネットワークの重み行列やデータの前処理、次元削減など、行列演算は多くのアルゴリズムの基盤となっている。</p>
-</li>
+<li><strong>工学・物理学:</strong><br />
+  複数の法則や条件（例：力の釣り合いや回路解析）を同時に満たす解を求める際に、連立一次方程式は基本ツールとなります。</li>
+<li><strong>経済学・最適化:</strong><br />
+  市場均衡や資源配分問題など、複数の制約条件下での解の探索に利用されます。</li>
+<li><strong>コンピュータグラフィックス:</strong><br />
+  2次元の直線や3次元の平面の交点は、画像変換、レンダリング、衝突判定などの基盤技術です。</li>
+<li><strong>機械学習:</strong><br />
+  線形回帰や分類モデルのパラメータ推定、データ前処理などにおける数値解法の基礎として利用されます。</li>
 </ul>
-<h2 id="6">6. 演習問題</h2>
+<hr />
+<h2 id="6_1">6. 演習問題</h2>
 <ol>
 <li>
 <p><strong>演習問題1:</strong><br />
-   以下の正方行列<br />
+   次の3変数の連立一次方程式
    $$
-   A = \begin{pmatrix} 2 &amp; 3 \ 4 &amp; 5 \end{pmatrix}, \quad B = \begin{pmatrix} 1 &amp; 0 \ 0 &amp; 1 \end{pmatrix}
+   \begin{cases}
+   3x + y - 5z = -4, \\
+   -x + 2y - 3z = -1, \\
+   -2x + 6y - 9z = -2,
+   \end{cases}
    $$
-   の和 <span class="arithmatex">\(A + B\)</span> を求めよ。</p>
+   について、まず代入法で解こうとする手順（中間式も含む）を自分で書き出し、なぜ計算が煩雑になるかを説明せよ。その後、式の足し算・引き算による消去法を用いて最終的な解 <span class="arithmatex">\(x = -5,\; y = 7,\; z = 3\)</span> を導け。</p>
 </li>
 <li>
 <p><strong>演習問題2:</strong><br />
-   行列<br />
-   $$
-   C = \begin{pmatrix} -1 &amp; 4 \ 3 &amp; 0 \end{pmatrix}
-   $$
-   に対して、スカラー <span class="arithmatex">\(3\)</span> をかけた行列 <span class="arithmatex">\(3C\)</span> を求めよ。</p>
+   2変数の連立一次方程式（例: <span class="arithmatex">\(2x + 3y = 8\)</span> と <span class="arithmatex">\(x - y = 1\)</span>）を、足し算・引き算だけで解き、その解をグラフで直線の交点として可視化せよ。</p>
 </li>
 <li>
 <p><strong>演習問題3:</strong><br />
-   2×3行列<br />
-   $$
-   D = \begin{pmatrix} 1 &amp; 2 &amp; 3 \ 4 &amp; 5 &amp; 6 \end{pmatrix}
-   $$
-   と同じサイズの行列<br />
-   $$
-   E = \begin{pmatrix} 6 &amp; 5 &amp; 4 \ 3 &amp; 2 &amp; 1 \end{pmatrix}
-   $$
-   の和 <span class="arithmatex">\(D + E\)</span> を計算せよ。また、異なるサイズの行列同士（例えば、<span class="arithmatex">\(D\)</span> と3×2行列）の加算がなぜできないのかを説明せよ。</p>
-</li>
-<li>
-<p><strong>演習問題4:</strong><br />
-   ベクトル <span class="arithmatex">\(\mathbf{v} = (7, -2, 5)\)</span> を行列の特殊なケースとして説明し、列ベクトルと行ベクトルの違いについて論じなさい。</p>
+   上記の3変数の連立一次方程式を用いて、Google Colab上で3平面のグラフと交点を可視化し、幾何学的に解の存在（または無限に存在する場合のパラメータ表示）を確認せよ。</p>
 </li>
 </ol>
+<hr />
 
 
 
