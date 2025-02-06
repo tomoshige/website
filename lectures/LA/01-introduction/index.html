@@ -1135,28 +1135,30 @@
   実際のIrisデータセットを用いて、4次元のデータを2次元に縮約し、データのクラスタリング傾向を視覚化します。  </li>
 <li><strong>コード例:</strong></li>
 </ul>
-<p>```python
-  import numpy as np
-  import matplotlib.pyplot as plt
-  from sklearn.datasets import load_iris
-  from sklearn.decomposition import PCA</p>
-<p># Irisデータセットの読み込み
-  iris = load_iris()
-  X = iris.data
-  y = iris.target</p>
-<p># PCAで4次元から2次元に次元削減
-  pca = PCA(n_components=2)
-  X_pca = pca.fit_transform(X)</p>
-<p># 結果の散布図を作成
-  plt.figure(figsize=(8,6))
-  for label in np.unique(y):
-      plt.scatter(X_pca[y == label, 0], X_pca[y == label, 1], label=iris.target_names[label])
-  plt.xlabel('第1主成分')
-  plt.ylabel('第2主成分')
-  plt.title('IrisデータセットのPCA結果')
-  plt.legend()
-  plt.show()
-  ```</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+
+# Irisデータセットの読み込み
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# PCAで4次元から2次元に次元削減
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+# 結果の散布図を作成
+plt.figure(figsize=(8,6))
+for label in np.unique(y):
+    plt.scatter(X_pca[y == label, 0], X_pca[y == label, 1], label=iris.target_names[label])
+plt.xlabel('第1主成分')
+plt.ylabel('第2主成分')
+plt.title('IrisデータセットのPCA結果')
+plt.legend()
+plt.show()
+</code></pre>
 <h3 id="32">3.2 統計学・機械学習への応用例: 最小二乗法による線形回帰</h3>
 <ul>
 <li><strong>概要:</strong><br />
@@ -1201,28 +1203,30 @@ plt.show()
   scikit-learnの乳がんデータセットを利用し、PCAで2次元に縮約して、各クラス（良性、悪性）の分布を散布図で示します。  </li>
 <li><strong>コード例:</strong></li>
 </ul>
-<p>```python
-  import numpy as np
-  import matplotlib.pyplot as plt
-  from sklearn.datasets import load_breast_cancer
-  from sklearn.decomposition import PCA</p>
-<p># 乳がんデータセットの読み込み
-  cancer = load_breast_cancer()
-  X = cancer.data
-  y = cancer.target</p>
-<p># PCAで特徴量を2次元に縮約
-  pca = PCA(n_components=2)
-  X_pca = pca.fit_transform(X)</p>
-<p># 結果の散布図を作成（0: 悪性, 1: 良性）
-  plt.figure(figsize=(8,6))
-  plt.scatter(X_pca[y == 0, 0], X_pca[y == 0, 1], alpha=0.7, label='悪性')
-  plt.scatter(X_pca[y == 1, 0], X_pca[y == 1, 1], alpha=0.7, label='良性')
-  plt.xlabel('第1主成分')
-  plt.ylabel('第2主成分')
-  plt.title('乳がんデータセットのPCA結果')
-  plt.legend()
-  plt.show()
-  ```</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.decomposition import PCA
+
+# 乳がんデータセットの読み込み
+cancer = load_breast_cancer()
+X = cancer.data
+y = cancer.target
+
+# PCAで特徴量を2次元に縮約
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+# 結果の散布図を作成（0: 悪性, 1: 良性）
+plt.figure(figsize=(8,6))
+plt.scatter(X_pca[y == 0, 0], X_pca[y == 0, 1], alpha=0.7, label='悪性')
+plt.scatter(X_pca[y == 1, 0], X_pca[y == 1, 1], alpha=0.7, label='良性')
+plt.xlabel('第1主成分')
+plt.ylabel('第2主成分')
+plt.title('乳がんデータセットのPCA結果')
+plt.legend()
+plt.show()
+</code></pre>
 <h3 id="34-svd">3.4 画像処理への応用例: SVDによる画像の低ランク近似</h3>
 <ul>
 <li><strong>概要:</strong><br />
@@ -1231,31 +1235,35 @@ plt.show()
   skimageのサンプル画像を用いて、SVDで画像を分解し、上位の特異値のみを用いた再構成画像を表示します。  </li>
 <li><strong>コード例:</strong></li>
 </ul>
-<p>```python
-  import numpy as np
-  import matplotlib.pyplot as plt
-  from skimage import data
-  from skimage.color import rgb2gray</p>
-<p># サンプル画像（カメラ画像）の読み込み
-  image = data.camera()</p>
-<p># SVD分解
-  U, s, Vt = np.linalg.svd(image, full_matrices=False)</p>
-<p># 低ランク近似: 特異値の上位 k 個を利用
-  k = 50
-  S = np.diag(s[:k])
-  image_approx = U[:, :k] @ S @ Vt[:k, :]</p>
-<p># 画像の表示
-  plt.figure(figsize=(12, 6))
-  plt.subplot(1,2,1)
-  plt.imshow(image, cmap='gray')
-  plt.title('元の画像')
-  plt.axis('off')</p>
-<p>plt.subplot(1,2,2)
-  plt.imshow(image_approx, cmap='gray')
-  plt.title(f'低ランク近似 (k={k})')
-  plt.axis('off')
-  plt.show()
-  ```</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from skimage import data
+from skimage.color import rgb2gray
+
+# サンプル画像（カメラ画像）の読み込み
+image = data.camera()
+
+# SVD分解
+U, s, Vt = np.linalg.svd(image, full_matrices=False)
+
+# 低ランク近似: 特異値の上位 k 個を利用
+k = 50
+S = np.diag(s[:k])
+image_approx = U[:, :k] @ S @ Vt[:k, :]
+
+# 画像の表示
+plt.figure(figsize=(12, 6))
+plt.subplot(1,2,1)
+plt.imshow(image, cmap='gray')
+plt.title('元の画像')
+plt.axis('off')
+
+plt.subplot(1,2,2)
+plt.imshow(image_approx, cmap='gray')
+plt.title(f'低ランク近似 (k={k})')
+plt.axis('off')
+plt.show()
+</code></pre>
 <h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colabでの実行例</h2>
 <ul>
 <li><strong>ChatGPTによる解説:</strong>  </li>
