@@ -733,6 +733,8 @@
       
         
       
+        
+      
     
     
       
@@ -831,6 +833,27 @@
   
     <li class="md-nav__item">
       <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1158,49 +1181,49 @@
 <ul>
 <li><strong>内積（ドット積）:</strong><br />
 <span class="arithmatex">\(n\)</span> 次元のベクトル <span class="arithmatex">\(\mathbf{u} = (u_1, u_2, \dots, u_n)\)</span> と <span class="arithmatex">\(\mathbf{v} = (v_1, v_2, \dots, v_n)\)</span> に対して、内積は<br />
-  [
+  $$
   \langle \mathbf{u}, \mathbf{v} \rangle = \sum_{i=1}^{n} u_i v_i
-  ]
+  $$
   と定義される。</li>
 </ul>
 <h3 id="_2">内積の基本性質</h3>
 <ol>
 <li><strong>交換法則:</strong><br />
-   [
+   $$
    \langle \mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{u} \rangle
-   ]</li>
+   $$</li>
 <li><strong>分配法則:</strong><br />
-   [
+   $$
    \langle \mathbf{u} + \mathbf{v}, \mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{w} \rangle + \langle \mathbf{v}, \mathbf{w} \rangle
-   ]</li>
+   $$</li>
 <li><strong>スカラー倍:</strong><br />
-   [
+   $$
    \langle c\mathbf{u}, \mathbf{v} \rangle = c \langle \mathbf{u}, \mathbf{v} \rangle
-   ]</li>
+   $$</li>
 <li><strong>正定値性:</strong><br />
-   [
+   $$
    \langle \mathbf{u}, \mathbf{u} \rangle \geq 0,\quad \langle \mathbf{u}, \mathbf{u} \rangle = 0 \iff \mathbf{u} = \mathbf{0}
-   ]</li>
+   $$</li>
 </ol>
 <h3 id="_3">幾何学的解釈</h3>
 <ul>
 <li>
 <p><strong>角度の計算:</strong><br />
   内積は、ベクトルの大きさとその間の角度 <span class="arithmatex">\(\theta\)</span> との関係で表される。<br />
-  [
+  $$
   \langle \mathbf{u}, \mathbf{v} \rangle = |\mathbf{u}|\,|\mathbf{v}|\,\cos \theta
-  ]
+  $$
   より、<br />
-  [
+  $$
   \theta = \arccos\left(\frac{\langle \mathbf{u}, \mathbf{v} \rangle}{|\mathbf{u}|\,|\mathbf{v}|}\right)
-  ]</p>
+  $$</p>
 </li>
 <li>
 <p><strong>射影:</strong><br />
   ベクトル <span class="arithmatex">\(\mathbf{u}\)</span> を <span class="arithmatex">\(\mathbf{v}\)</span> に射影した結果得られるベクトルは<br />
-  [
+  $$
   \text{proj}_{\mathbf{v}} \mathbf{u} = \frac{\langle \mathbf{u}, \mathbf{v} \rangle}{\langle \mathbf{v}, \mathbf{v} \rangle}\,\mathbf{v}
-  ]
+  $$
   と定義される。</p>
 </li>
 </ul>
@@ -1210,9 +1233,9 @@
 <li><strong>与えられたベクトル:</strong><br />
 <span class="arithmatex">\(\mathbf{a} = (3, 4)\)</span> と <span class="arithmatex">\(\mathbf{b} = (2, -1)\)</span></li>
 <li><strong>内積の計算:</strong><br />
-  [
+  $$
   \langle \mathbf{a}, \mathbf{b} \rangle = 3 \times 2 + 4 \times (-1) = 6 - 4 = 2
-  ]</li>
+  $$</li>
 <li><strong>角度の計算のための準備:</strong><br />
 <span class="arithmatex">\(\|\mathbf{a}\| = \sqrt{3^2+4^2} = 5\)</span>,<br />
 <span class="arithmatex">\(\|\mathbf{b}\| = \sqrt{2^2+(-1)^2} = \sqrt{4+1} = \sqrt{5}\)</span></li>
@@ -1222,15 +1245,15 @@
 <li><strong>与えられたベクトル:</strong><br />
 <span class="arithmatex">\(\mathbf{u} = (4, 3)\)</span> と <span class="arithmatex">\(\mathbf{v} = (1, 0)\)</span></li>
 <li><strong>内積の計算:</strong><br />
-  [
+  $$
   \langle \mathbf{u}, \mathbf{v} \rangle = 4 \times 1 + 3 \times 0 = 4
-  ]</li>
+  $$</li>
 <li><strong>射影の計算:</strong><br />
 <span class="arithmatex">\(\langle \mathbf{v}, \mathbf{v} \rangle = 1^2 + 0^2 = 1\)</span><br />
   よって、<br />
-  [
+  $$
   \text{proj}_{\mathbf{v}} \mathbf{u} = \frac{4}{1}\,(1, 0) = (4, 0)
-  ]</li>
+  $$</li>
 </ul>
 <h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colabでの実行例</h2>
 <ul>

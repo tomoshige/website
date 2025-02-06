@@ -742,6 +742,8 @@
       
         
       
+        
+      
     
     
       
@@ -840,6 +842,27 @@
   
     <li class="md-nav__item">
       <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1180,14 +1203,14 @@
 <li><strong>定義:</strong><br />
   行列とは、数や式を長方形状に並べた集合であり、各要素は <span class="arithmatex">\(a_{ij}\)</span> で表される。<br />
 <span class="arithmatex">\(m\)</span> 行 <span class="arithmatex">\(n\)</span> 列の行列 <span class="arithmatex">\(A\)</span> は以下のように表される：
-  [
+  $$
   A = \begin{pmatrix}
   a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \
   a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \
   \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
   a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
   \end{pmatrix}
-  ]</li>
+  $$</li>
 <li><strong>注意:</strong><br />
   行列は正方行列（例：2×2、3×3など）だけでなく、2×3や3×4など行と列の数が異なる非正方行列も存在する。これらも同様の基本演算（加法、スカラー倍など）の対象となるが、加算を行う際は<strong>行数と列数が一致している必要がある</strong>。</li>
 </ul>
@@ -1195,9 +1218,9 @@
 <ul>
 <li><strong>定義:</strong><br />
   2つの行列 <span class="arithmatex">\(A = [a_{ij}]\)</span> と <span class="arithmatex">\(B = [b_{ij}]\)</span> の加法は、両行列が同じサイズである場合に、対応する要素同士を加える操作である：
-  [
+  $$
   A + B = [a_{ij} + b_{ij}]
-  ]</li>
+  $$</li>
 <li><strong>重要な注意点:</strong><br />
   異なるサイズの行列（例えば、<span class="arithmatex">\(A\)</span> が2×3行列で <span class="arithmatex">\(B\)</span> が3×2行列の場合など）は加算できない。必ず同じ行数・列数の行列のみが加算可能である。</li>
 </ul>
@@ -1205,9 +1228,9 @@
 <ul>
 <li><strong>定義:</strong><br />
   スカラー <span class="arithmatex">\(c\)</span> と行列 <span class="arithmatex">\(A = [a_{ij}]\)</span> の積は、各成分に <span class="arithmatex">\(c\)</span> をかけた行列となる：
-  [
+  $$
   cA = [c \cdot a_{ij}]
-  ]
+  $$
   ここで、行列のサイズは変わらず、各要素がスカラー倍される。</li>
 </ul>
 <h3 id="_4">行列とベクトルの関係性</h3>
@@ -1222,37 +1245,37 @@
 <h3 id="1_1">例1: 正方行列の加法とスカラー倍</h3>
 <ul>
 <li><strong>与えられた行列:</strong><br />
-  [
+  $$
   A = \begin{pmatrix} 1 &amp; 2 \ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \ 7 &amp; 8 \end{pmatrix}
-  ]</li>
+  $$</li>
 <li><strong>加法の計算:</strong><br />
-  [
+  $$
   A + B = \begin{pmatrix} 1+5 &amp; 2+6 \ 3+7 &amp; 4+8 \end{pmatrix} = \begin{pmatrix} 6 &amp; 8 \ 10 &amp; 12 \end{pmatrix}
-  ]</li>
+  $$</li>
 <li><strong>スカラー倍の計算（例: <span class="arithmatex">\(c=2\)</span>）：</strong><br />
-  [
+  $$
   2A = \begin{pmatrix} 2 \cdot 1 &amp; 2 \cdot 2 \ 2 \cdot 3 &amp; 2 \cdot 4 \end{pmatrix} = \begin{pmatrix} 2 &amp; 4 \ 6 &amp; 8 \end{pmatrix}
-  ]</li>
+  $$</li>
 </ul>
 <h3 id="2_1">例2: 非正方行列の加法とスカラー倍</h3>
 <ul>
 <li><strong>与えられた行列:</strong><br />
-  [
+  $$
   C = \begin{pmatrix} 1 &amp; 3 &amp; 5 \ 2 &amp; 4 &amp; 6 \end{pmatrix} \quad \text{（2×3行列）}
-  ]</li>
+  $$</li>
 <li><strong>加法の例:</strong><br />
   もし同じサイズの行列<br />
-  [
+  $$
   D = \begin{pmatrix} 7 &amp; 8 &amp; 9 \ 10 &amp; 11 &amp; 12 \end{pmatrix}
-  ]
+  $$
   が与えられた場合、<br />
-  [
+  $$
   C + D = \begin{pmatrix} 1+7 &amp; 3+8 &amp; 5+9 \ 2+10 &amp; 4+11 &amp; 6+12 \end{pmatrix} = \begin{pmatrix} 8 &amp; 11 &amp; 14 \ 12 &amp; 15 &amp; 18 \end{pmatrix}
-  ]</li>
+  $$</li>
 <li><strong>スカラー倍の計算（例: <span class="arithmatex">\(c=-1\)</span>）：</strong><br />
-  [
+  $$
   -1 \cdot C = \begin{pmatrix} -1 &amp; -3 &amp; -5 \ -2 &amp; -4 &amp; -6 \end{pmatrix}
-  ]</li>
+  $$</li>
 </ul>
 <h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colab での実行例</h2>
 <ul>
@@ -1263,11 +1286,11 @@
   また、行列は正方行列だけでなく、2×3行列や3×4行列などの非正方行列も存在し、それらにも同じ基本演算が適用できることを覚えておきましょう。</p>
 </li>
 <li>
-<p><strong>Google Colabでの実行例:</strong>
-  ```python
-  import numpy as np</p>
+<p><strong>Google Colabでの実行例:</strong></p>
 </li>
 </ul>
+<p>```python
+  import numpy as np</p>
 <p># 正方行列の定義
   A = np.array([[1, 2], [3, 4]])
   B = np.array([[5, 6], [7, 8]])</p>
@@ -1307,29 +1330,29 @@
 <li>
 <p><strong>演習問題1:</strong><br />
    以下の正方行列<br />
-   [
+   $$
    A = \begin{pmatrix} 2 &amp; 3 \ 4 &amp; 5 \end{pmatrix}, \quad B = \begin{pmatrix} 1 &amp; 0 \ 0 &amp; 1 \end{pmatrix}
-   ]
+   $$
    の和 <span class="arithmatex">\(A + B\)</span> を求めよ。</p>
 </li>
 <li>
 <p><strong>演習問題2:</strong><br />
    行列<br />
-   [
+   $$
    C = \begin{pmatrix} -1 &amp; 4 \ 3 &amp; 0 \end{pmatrix}
-   ]
+   $$
    に対して、スカラー <span class="arithmatex">\(3\)</span> をかけた行列 <span class="arithmatex">\(3C\)</span> を求めよ。</p>
 </li>
 <li>
 <p><strong>演習問題3:</strong><br />
    2×3行列<br />
-   [
+   $$
    D = \begin{pmatrix} 1 &amp; 2 &amp; 3 \ 4 &amp; 5 &amp; 6 \end{pmatrix}
-   ]
+   $$
    と同じサイズの行列<br />
-   [
+   $$
    E = \begin{pmatrix} 6 &amp; 5 &amp; 4 \ 3 &amp; 2 &amp; 1 \end{pmatrix}
-   ]
+   $$
    の和 <span class="arithmatex">\(D + E\)</span> を計算せよ。また、異なるサイズの行列同士（例えば、<span class="arithmatex">\(D\)</span> と3×2行列）の加算がなぜできないのかを説明せよ。</p>
 </li>
 <li>

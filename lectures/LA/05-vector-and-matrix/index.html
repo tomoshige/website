@@ -757,6 +757,8 @@
       
         
       
+        
+      
     
     
       
@@ -855,6 +857,27 @@
   
     <li class="md-nav__item">
       <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1200,7 +1223,7 @@
 <li>行列とベクトルの積による1次変換の紹介  </li>
 <li>手計算による具体的な例題の提示と、非可換性の具体例  </li>
 <li>ChatGPTによる解説およびGoogle Colabでの実行例（エラー例、幾何的解釈、回転行列の例、画像の変換例）  </li>
-<li>学んだ内容がどのように応用されるかの考察  </li>
+<li>学んだ内容がどのように応用されるかの考察</li>
 <li>演習問題による理解の確認</li>
 </ul>
 <h2 id="2">2. 扱う内容の理論の説明（定義・定理・数式を含む）</h2>
@@ -1208,71 +1231,71 @@
 <ul>
 <li>
 <p><strong>定義:</strong><br />
-  行列 <span class="arithmatex">\( A \)</span> が <span class="arithmatex">\( m \times n \)</span> 行列、行列 <span class="arithmatex">\( B \)</span> が <span class="arithmatex">\( n \times p \)</span> 行列の場合、行列積 <span class="arithmatex">\( AB \)</span> は定義され、結果は <span class="arithmatex">\( m \times p \)</span> 行列となる。</p>
+  行列 $ A $ が $ m \times n $ 行列、行列 $ B $ が $ n \times p $ 行列の場合、行列積 $ AB $ は定義され、結果は $ m \times p $ 行列となる。</p>
 </li>
 <li>
 <p><strong>計算ルール:</strong><br />
   行列積の各要素 <span class="arithmatex">\((AB)_{ij}\)</span> は以下の式に従って計算される：
-  [
+  $$
   (AB)<em>{ij} = \sum</em>{k=1}^{n} A_{ik} \cdot B_{kj}
-  ]
+  $$
   <strong>計算の流れ：</strong>  </p>
 </li>
-<li><span class="arithmatex">\( A \)</span> の <span class="arithmatex">\( i \)</span> 行目の成分 <span class="arithmatex">\( A_{i1}, A_{i2}, \dots, A_{in} \)</span> を取り出す。  </li>
-<li><span class="arithmatex">\( B \)</span> の <span class="arithmatex">\( j \)</span> 列目の成分 <span class="arithmatex">\( B_{1j}, B_{2j}, \dots, B_{nj} \)</span> を取り出す。  </li>
+<li>$ A $ の $ i $ 行目の成分 $ A_{i1}, A_{i2}, \dots, A_{in} $ を取り出す。  </li>
+<li>$ B $ の $ j $ 列目の成分 $ B_{1j}, B_{2j}, \dots, B_{nj} $ を取り出す。  </li>
 <li>
-<p>対応する成分同士 <span class="arithmatex">\( (A_{ik} \)</span> と <span class="arithmatex">\( B_{kj}) \)</span> を掛け合わせ、その結果を全て加算する。</p>
+<p>対応する成分同士 $ (A_{ik} $ と $ B_{kj}) $ を掛け合わせ、その結果を全て加算する。</p>
 </li>
 <li>
 <p><strong>重要な注意点:</strong>  </p>
 </li>
 <li><strong>サイズの一致:</strong><br />
-    行列積を計算するには、行列 <span class="arithmatex">\( A \)</span> の列数と行列 <span class="arithmatex">\( B \)</span> の行数が一致している必要がある。サイズが一致しない場合、計算は定義されず、プログラムではエラーが発生する。  </li>
+    行列積を計算するには、行列 $ A $ の列数と行列 $ B $ の行数が一致している必要がある。サイズが一致しない場合、計算は定義されず、プログラムではエラーが発生する。  </li>
 <li><strong>非可換性:</strong><br />
-    一般に、行列積は可換ではなく <span class="arithmatex">\( AB \neq BA \)</span> となる。これは、各行と各列の要素の組み合わせが順序に依存するためである。</li>
+    一般に、行列積は可換ではなく $ AB \neq BA $ となる。これは、各行と各列の要素の組み合わせが順序に依存するためである。</li>
 </ul>
 <h3 id="1_1">行列とベクトルの積による1次変換</h3>
 <ul>
 <li>
 <p><strong>定義:</strong><br />
-  行列 <span class="arithmatex">\( A \)</span>（サイズが <span class="arithmatex">\( m \times n \)</span>）と列ベクトル <span class="arithmatex">\( \mathbf{v} \)</span>（サイズが <span class="arithmatex">\( n \times 1 \)</span>）の積 <span class="arithmatex">\( A\mathbf{v} \)</span> は、<span class="arithmatex">\( m \times 1 \)</span> の新たなベクトルとなる。</p>
+  行列 $ A $（サイズが $ m \times n $）と列ベクトル $ \mathbf{v} $（サイズが $ n \times 1 $）の積 $ A\mathbf{v} $ は、$ m \times 1 $ の新たなベクトルとなる。</p>
 </li>
 <li>
 <p><strong>幾何学的意味:</strong><br />
-  この積は、ベクトル <span class="arithmatex">\( \mathbf{v} \)</span> に対して線形変換を作用させるもので、例えば回転、拡大縮小、せん断などの変換を表す。特に、回転行列を用いると、ベクトルの方向がどのように変化するかを視覚的に確認できる。</p>
+  この積は、ベクトル $ \mathbf{v} $ に対して線形変換を作用させるもので、例えば回転、拡大縮小、せん断などの変換を表す。特に、回転行列を用いると、ベクトルの方向がどのように変化するかを視覚的に確認できる。</p>
 </li>
 </ul>
 <h2 id="3-gpt-colab">3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）</h2>
 <h3 id="1_2">例1: 正方行列の積と非可換性の例</h3>
 <ul>
 <li><strong>与えられた行列:</strong><br />
-  [
-  A = \begin{pmatrix} 1 &amp; 2 \ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \ 7 &amp; 8 \end{pmatrix}
-  ]</li>
+  $$
+  A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}
+  $$</li>
 <li><strong>計算:</strong><br />
-  [
+  $$
   AB = \begin{pmatrix}
-  1 \times 5 + 2 \times 7 &amp; 1 \times 6 + 2 \times 8 \
+  1 \times 5 + 2 \times 7 &amp; 1 \times 6 + 2 \times 8 \\
   3 \times 5 + 4 \times 7 &amp; 3 \times 6 + 4 \times 8
-  \end{pmatrix} = \begin{pmatrix} 19 &amp; 22 \ 43 &amp; 50 \end{pmatrix}
-  ]</li>
+  \end{pmatrix} = \begin{pmatrix} 19 &amp; 22 \\ 43 &amp; 50 \end{pmatrix}
+  $$</li>
 <li><strong>非可換性の例:</strong><br />
-  [
+  $$
   BA = \begin{pmatrix}
-  5 \times 1 + 6 \times 3 &amp; 5 \times 2 + 6 \times 4 \
+  5 \times 1 + 6 \times 3 &amp; 5 \times 2 + 6 \times 4 \\
   7 \times 1 + 8 \times 3 &amp; 7 \times 2 + 8 \times 4
-  \end{pmatrix} = \begin{pmatrix} 23 &amp; 34 \ 31 &amp; 46 \end{pmatrix}
-  ]
-  ここで、<span class="arithmatex">\( AB \neq BA \)</span> となることが確認できる。</li>
+  \end{pmatrix} = \begin{pmatrix} 23 &amp; 34 \\ 31 &amp; 46 \end{pmatrix}
+  $$
+  ここで、$ AB \neq BA $ となることが確認できる。</li>
 </ul>
 <h3 id="2-1">例2: 行列とベクトルの積による1次変換</h3>
 <ul>
 <li><strong>回転行列の例:</strong><br />
-  2次元の回転行列（角度 <span class="arithmatex">\( \theta \)</span> の回転）：
-  [
-  R(\theta) = \begin{pmatrix} \cos \theta &amp; -\sin \theta \ \sin \theta &amp; \cos \theta \end{pmatrix}
-  ]
-  任意の2次元ベクトル <span class="arithmatex">\( \mathbf{v} = \begin{pmatrix} x \\ y \end{pmatrix} \)</span> に対して、積 <span class="arithmatex">\( R(\theta)\mathbf{v} \)</span> は、<span class="arithmatex">\( \theta \)</span> だけ回転した新たなベクトルを表す。</li>
+  2次元の回転行列（角度 $ \theta $ の回転）：
+  $$
+  R(\theta) = \begin{pmatrix} \cos \theta &amp; -\sin \theta \\ \sin \theta &amp; \cos \theta \end{pmatrix}
+  $$
+  任意の2次元ベクトル $ \mathbf{v} = \begin{pmatrix} x \\ y \end{pmatrix} $ に対して、積 $ R(\theta)\mathbf{v} $ は、$ \theta $ だけ回転した新たなベクトルを表す。</li>
 </ul>
 <h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colab での実行例</h2>
 <h3 id="1_3">(1) 行列積の基本例と非可換性、サイズ不一致の例</h3>
@@ -1403,19 +1426,19 @@ plt.show()
 <li>
 <p><strong>演習問題1:</strong><br />
    以下の行列<br />
-   [
-   A = \begin{pmatrix} 1 &amp; 2 \ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \ 7 &amp; 8 \end{pmatrix}
-   ]
-   の積 <span class="arithmatex">\( AB \)</span> と <span class="arithmatex">\( BA \)</span> を計算し、結果が異なること（非可換性）を確認せよ。</p>
+   $$
+   A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}
+   $$
+   の積 $ AB $ と $ BA $ を計算し、結果が異なること（非可換性）を確認せよ。</p>
 </li>
 <li>
 <p><strong>演習問題2:</strong><br />
    サイズが一致しない行列の積を試み、Python（Google Colab）でどのようなエラーが発生するか確認せよ。<br />
-   例：<span class="arithmatex">\( A \)</span>（2×2行列）と <span class="arithmatex">\( D \)</span>（3×2行列）の積を計算してみる。</p>
+   例：$ A $（2×2行列）と $ D $（3×2行列）の積を計算してみる。</p>
 </li>
 <li>
 <p><strong>演習問題3:</strong><br />
-   2次元回転行列 <span class="arithmatex">\( R(\theta) \)</span> を用いて、任意の角度 <span class="arithmatex">\( \theta \)</span> での回転変換を実装し、元のベクトルと回転後のベクトルの位置関係を図示して、幾何学的な意味を説明せよ。</p>
+   2次元回転行列 $ R(\theta) $ を用いて、任意の角度 $ \theta $ での回転変換を実装し、元のベクトルと回転後のベクトルの位置関係を図示して、幾何学的な意味を説明せよ。</p>
 </li>
 <li>
 <p><strong>演習問題4:</strong><br />
