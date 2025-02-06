@@ -539,8 +539,44 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 統計学・機械学習への応用例: 最小二乗法による線形回帰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-pca" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 医療データへの応用例: 乳がんデータセットのPCA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-svd" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 画像処理への応用例: SVDによる画像の低ランク近似
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptcolab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Colabでの実行例
+    </span>
+  </a>
   
 </li>
       
@@ -977,8 +1013,44 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 統計学・機械学習への応用例: 最小二乗法による線形回帰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-pca" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 医療データへの応用例: 乳がんデータセットのPCA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-svd" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 画像処理への応用例: SVDによる画像の低ランク近似
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptcolab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Colabでの実行例
+    </span>
+  </a>
   
 </li>
       
@@ -1061,32 +1133,30 @@
   線形代数学の基礎概念（固有値・固有ベクトルや行列分解）を用いて、多次元データから重要な情報を抽出し、次元削減を行う手法です。  </li>
 <li><strong>具体例:</strong><br />
   実際のIrisデータセットを用いて、4次元のデータを2次元に縮約し、データのクラスタリング傾向を視覚化します。  </li>
-<li>
-<p><strong>コード例:</strong></p>
-<p>```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.datasets import load_iris
-from sklearn.decomposition import PCA</p>
-<h1 id="iris">Irisデータセットの読み込み</h1>
-<p>iris = load_iris()
-X = iris.data
-y = iris.target</p>
-<h1 id="pca42">PCAで4次元から2次元に次元削減</h1>
-<p>pca = PCA(n_components=2)
-X_pca = pca.fit_transform(X)</p>
-<h1 id="_1">結果の散布図を作成</h1>
-<p>plt.figure(figsize=(8,6))
-for label in np.unique(y):
-    plt.scatter(X_pca[y == label, 0], X_pca[y == label, 1], label=iris.target_names[label])
-plt.xlabel('第1主成分')
-plt.ylabel('第2主成分')
-plt.title('IrisデータセットのPCA結果')
-plt.legend()
-plt.show()
-```</p>
-</li>
+<li><strong>コード例:</strong></li>
 </ul>
+<p>```python
+  import numpy as np
+  import matplotlib.pyplot as plt
+  from sklearn.datasets import load_iris
+  from sklearn.decomposition import PCA</p>
+<p># Irisデータセットの読み込み
+  iris = load_iris()
+  X = iris.data
+  y = iris.target</p>
+<p># PCAで4次元から2次元に次元削減
+  pca = PCA(n_components=2)
+  X_pca = pca.fit_transform(X)</p>
+<p># 結果の散布図を作成
+  plt.figure(figsize=(8,6))
+  for label in np.unique(y):
+      plt.scatter(X_pca[y == label, 0], X_pca[y == label, 1], label=iris.target_names[label])
+  plt.xlabel('第1主成分')
+  plt.ylabel('第2主成分')
+  plt.title('IrisデータセットのPCA結果')
+  plt.legend()
+  plt.show()
+  ```</p>
 <h3 id="32">3.2 統計学・機械学習への応用例: 最小二乗法による線形回帰</h3>
 <ul>
 <li><strong>概要:</strong><br />
@@ -1095,31 +1165,34 @@ plt.show()
   ランダムに生成したサンプルデータに対して、独立変数と従属変数の関係を線形モデルで近似し、最適なパラメータ（切片と傾き）を求めます。  </li>
 <li><strong>コード例:</strong></li>
 </ul>
-<p>```python
-  import numpy as np
-  import matplotlib.pyplot as plt</p>
-<p># サンプルデータの生成
-  np.random.seed(0)
-  X = 2 * np.random.rand(100, 1)
-  y = 4 + 3 * X + np.random.randn(100, 1)</p>
-<p># バイアス項を含む行列X_bの作成（Xに1の列を追加）
-  X_b = np.c_[np.ones((100, 1)), X]</p>
-<p># 正規方程式を用いて最小二乗解を計算
-  theta_best = np.linalg.inv(X_b.T.dot(X_b)).dot(X_b.T).dot(y)
-  print("最適なパラメータ:", theta_best)</p>
-<p># 回帰直線をプロット
-  plt.figure(figsize=(8,6))
-  plt.scatter(X, y, label="データ")
-  X_new = np.array([[0], [2]])
-  X_new_b = np.c_[np.ones((2, 1)), X_new]
-  y_predict = X_new_b.dot(theta_best)
-  plt.plot(X_new, y_predict, color="red", label="回帰直線")
-  plt.xlabel("X")
-  plt.ylabel("y")
-  plt.title("単回帰モデルの最小二乗解")
-  plt.legend()
-  plt.show()
-  ```</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# サンプルデータの生成
+np.random.seed(0)
+X = 2 * np.random.rand(100, 1)
+y = 4 + 3 * X + np.random.randn(100, 1)
+
+# バイアス項を含む行列X_bの作成（Xに1の列を追加）
+X_b = np.c_[np.ones((100, 1)), X]
+
+# 正規方程式を用いて最小二乗解を計算
+theta_best = np.linalg.inv(X_b.T.dot(X_b)).dot(X_b.T).dot(y)
+print(&quot;最適なパラメータ:&quot;, theta_best)
+
+# 回帰直線をプロット
+plt.figure(figsize=(8,6))
+plt.scatter(X, y, label=&quot;データ&quot;)
+X_new = np.array([[0], [2]])
+X_new_b = np.c_[np.ones((2, 1)), X_new]
+y_predict = X_new_b.dot(theta_best)
+plt.plot(X_new, y_predict, color=&quot;red&quot;, label=&quot;回帰直線&quot;)
+plt.xlabel(&quot;X&quot;)
+plt.ylabel(&quot;y&quot;)
+plt.title(&quot;単回帰モデルの最小二乗解&quot;)
+plt.legend()
+plt.show()
+</code></pre>
 <h3 id="33-pca">3.3 医療データへの応用例: 乳がんデータセットのPCA</h3>
 <ul>
 <li><strong>概要:</strong><br />
