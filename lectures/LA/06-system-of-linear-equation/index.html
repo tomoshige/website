@@ -1378,13 +1378,13 @@ $$</p>
     同じ例題を用いて、手順を説明します。</p>
 <ul>
 <li>
-<p>まずは連立方程式をうまく足し算・引き算することで、左上の係数を<code>1</code>にしましょう。そのために、まずは (2)式から、(1)式を引けばよいですね。
+<p>まずは連立方程式をうまく足し算・引き算することで、左上の係数を<code>1</code>にしましょう。いま連立方程式の<code>x</code>の係数で<code>1</code>の式はありません。そこで、まずは (2)式から、(1)式を引いて、<code>x</code>の係数が<code>1</code>の式を作りましょう。
     $$
     \begin{cases}
     3x + y + z = -5, \\
     4x + 3y - z = -2, \\
     5x + 4y + z = 6.
-    \end{cases} \rightarrow 
+    \end{cases} \longrightarrow 
     \begin{cases}
     3x + y + z = -5, \\
     x + 2y - 2z = 3, \\
@@ -1393,13 +1393,13 @@ $$</p>
     $$</p>
 </li>
 <li>
-<p>次に、(2)式 と (1)式の位置を入れ替えます。
+<p>次に、(2)式 と (1)式の位置を入れ替えることで、一番上の式の<code>x</code>の係数が<code>1</code>になります。
     $$
     \begin{cases}
     3x + y + z = -5, \\
     x + 2y - 2z = 3, \\
     5x + 4y + z = 6.
-    \end{cases}\rightarrow 
+    \end{cases}\longrightarrow 
     \begin{cases}
     x + 2y - 2z = 3, \\
     3x + y + z = -5, \\
@@ -1413,20 +1413,20 @@ $$</p>
     x + 2y - 2z = 3, \\
     3x + y + z = -5, \\
     5x + 4y + z = 6.
-    \end{cases} \rightarrow 
+    \end{cases} \longrightarrow 
     \begin{cases}
     x + 2y - 2z = 3, \\
     0x - 5y + 7z = -14, \\
     0x - 6y + 11z = -9.
     \end{cases}
     $$</li>
-<li>次は、第2式の<code>y</code>の係数を<code>1</code>にしたいので、(2)式に、(3)式の<code>-1</code>倍を加えましょう。
+<li>ここで、(1)式は求める形になっているので、これ以降は触りません。次は、第2式の<code>y</code>の係数を<code>1</code>にしたいので、(2)式に、(3)式の<code>-1</code>倍を加えましょう。
     $$
     \begin{cases}
     x + 2y - 2z = 3, \\
     0x - 5y + 7z = -14, \\
     0x - 6y + 11z = -9.
-    \end{cases} \rightarrow 
+    \end{cases} \longrightarrow 
     \begin{cases}
     x + 2y - 2z = 3, \\
     0x + y - 4z = -5, \\
@@ -1439,7 +1439,7 @@ $$</p>
     x + 2y - 2z = 3, \\
     0x + y - 4z = -5, \\
     0x - 6y + 11z = -9.
-    \end{cases} \rightarrow 
+    \end{cases} \longrightarrow 
     \begin{cases}
     x + 2y - 2z = 3, \\
     0x + y - 4z = -5, \\
