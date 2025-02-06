@@ -15,6 +15,10 @@
         <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/02-vector-and-matrix/">
       
       
+        <link rel="prev" href="../01-introduction/">
+      
+      
+        <link rel="next" href="../03-vector-and-matrix/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -22,7 +26,7 @@
     
     
       
-        <title>講義2: ベクトルの定義と基本操作① - Statistical Learning Laboratory</title>
+        <title>2. Vector and Matrix1 - Statistical Learning Laboratory</title>
       
     
     
@@ -108,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              講義2: ベクトルの定義と基本操作①
+              2. Vector and Matrix1
             
           </span>
         </div>
@@ -204,10 +208,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../" class="md-tabs__link">
           
   
@@ -310,6 +316,8 @@
       
   
   
+    
+  
   
   
     
@@ -328,18 +336,19 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           
@@ -355,13 +364,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Lectures
@@ -374,6 +383,8 @@
                 
   
   
+    
+  
   
   
     
@@ -398,16 +409,17 @@
       
       
         
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
+          
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
         
           
           
@@ -423,13 +435,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Linear algebra
@@ -463,10 +475,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../01-vector-and-matrix.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -475,6 +507,137 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 本日扱う内容について（概要）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 扱う内容の理論の説明（定義・定理・数式を含む）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ベクトルの定義と表現方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ベクトルの和
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      スカラー倍
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      幾何学的意味
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpt-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例1: 二次元平面のベクトル
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例2: 三次元空間のベクトル
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptcolab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Colabでの実行例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -487,7 +650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-vector-and-matrix2.md" class="md-nav__link">
+      <a href="../03-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -508,7 +671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-vector-and-matrix3.md" class="md-nav__link">
+      <a href="../04-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -529,7 +692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-vector-and-matrix4.md" class="md-nav__link">
+      <a href="../05-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -575,10 +738,13 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -600,7 +766,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -704,10 +870,13 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -990,35 +1159,35 @@
 <li>
 <p><strong>定義:</strong><br />
   ベクトルは、大きさ（長さ）と方向を持つ量であり、数値の並びで表現される。<br />
-  一般に、<span class="arithmatex">\( n \)</span>次元空間のベクトルは<br />
-  [
-  \mathbf{v} = \begin{pmatrix} v_1 \ v_2 \ \vdots \ v_n \end{pmatrix}
-  ]
+  一般に、$ n $次元空間のベクトルは<br />
+  $$
+  \mathbf{v} = \begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix}
+  $$
   と表される。</p>
 </li>
 <li>
 <p><strong>表現方法:</strong>  </p>
 </li>
 <li><strong>列ベクトル:</strong><br />
-<span class="arithmatex">\(\mathbf{v} = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}\)</span>  </li>
+<span class="arithmatex">\(\mathbf{v} = \begin{pmatrix} v_1 \\\ v_2 \end{pmatrix}\)</span>  </li>
 <li><strong>行ベクトル:</strong><br />
 <span class="arithmatex">\(\mathbf{v} = (v_1, v_2)\)</span></li>
 </ul>
 <h3 id="_2">ベクトルの和</h3>
 <ul>
 <li><strong>定義:</strong><br />
-  2つのベクトル <span class="arithmatex">\(\mathbf{u} = \begin{pmatrix} u_1 \\ u_2 \end{pmatrix}\)</span> と <span class="arithmatex">\(\mathbf{v} = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}\)</span> の和は、各成分ごとに加算する操作である。<br />
-  [
-  \mathbf{u} + \mathbf{v} = \begin{pmatrix} u_1 + v_1 \ u_2 + v_2 \end{pmatrix}
-  ]</li>
+  2つのベクトル <span class="arithmatex">\(\mathbf{u} = \begin{pmatrix} u_1 \\\ u_2 \end{pmatrix}\)</span> と <span class="arithmatex">\(\mathbf{v} = \begin{pmatrix} v_1 \\\ v_2 \end{pmatrix}\)</span> の和は、各成分ごとに加算する操作である。<br />
+  $$
+  \mathbf{u} + \mathbf{v} = \begin{pmatrix} u_1 + v_1 \\ u_2 + v_2 \end{pmatrix}
+  $$</li>
 </ul>
 <h3 id="_3">スカラー倍</h3>
 <ul>
 <li><strong>定義:</strong><br />
-  ベクトル <span class="arithmatex">\(\mathbf{v} = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}\)</span> に対して、スカラー <span class="arithmatex">\( c \)</span> をかける操作は、各成分に <span class="arithmatex">\( c \)</span> を掛けることで行う。<br />
-  [
-  c\mathbf{v} = \begin{pmatrix} c\,v_1 \ c\,v_2 \end{pmatrix}
-  ]</li>
+  ベクトル <span class="arithmatex">\(\mathbf{v} = \begin{pmatrix} v_1 \\\ v_2 \end{pmatrix}\)</span> に対して、スカラー $ c $ をかける操作は、各成分に $ c $ を掛けることで行う。<br />
+  $$
+  c\mathbf{v} = \begin{pmatrix} c\,v_1 \\ c\,v_2 \end{pmatrix}
+  $$</li>
 </ul>
 <h3 id="_4">幾何学的意味</h3>
 <ul>
@@ -1036,40 +1205,40 @@
 <ul>
 <li>
 <p><strong>与えられたベクトル:</strong><br />
-<span class="arithmatex">\(\mathbf{a} = \begin{pmatrix} 2 \\ 3 \end{pmatrix}\)</span><br />
-<span class="arithmatex">\(\mathbf{b} = \begin{pmatrix} -1 \\ 4 \end{pmatrix}\)</span></p>
+<span class="arithmatex">\(\mathbf{a} = \begin{pmatrix} 2 \\\ 3 \end{pmatrix}\)</span><br />
+<span class="arithmatex">\(\mathbf{b} = \begin{pmatrix} -1 \\\ 4 \end{pmatrix}\)</span></p>
 </li>
 <li>
 <p><strong>和の計算:</strong><br />
-  [
-  \mathbf{a} + \mathbf{b} = \begin{pmatrix} 2 + (-1) \ 3 + 4 \end{pmatrix} = \begin{pmatrix} 1 \ 7 \end{pmatrix}
-  ]</p>
+  $$
+  \mathbf{a} + \mathbf{b} = \begin{pmatrix} 2 + (-1) \\ 3 + 4 \end{pmatrix} = \begin{pmatrix} 1 \\ 7 \end{pmatrix}
+  $$</p>
 </li>
 <li>
 <p><strong>スカラー倍の計算:</strong><br />
-  [
-  2\mathbf{a} = \begin{pmatrix} 2 \times 2 \ 2 \times 3 \end{pmatrix} = \begin{pmatrix} 4 \ 6 \end{pmatrix}
-  ]</p>
+  $$
+  2\mathbf{a} = \begin{pmatrix} 2 \times 2 \\ 2 \times 3 \end{pmatrix} = \begin{pmatrix} 4 \\ 6 \end{pmatrix}
+  $$</p>
 </li>
 </ul>
 <h3 id="2_1">例2: 三次元空間のベクトル</h3>
 <ul>
 <li>
 <p><strong>与えられたベクトル:</strong><br />
-<span class="arithmatex">\(\mathbf{u} = \begin{pmatrix} 1 \\ 0 \\ -2 \end{pmatrix}\)</span><br />
-<span class="arithmatex">\(\mathbf{v} = \begin{pmatrix} 3 \\ 5 \\ 1 \end{pmatrix}\)</span></p>
+<span class="arithmatex">\(\mathbf{u} = \begin{pmatrix} 1 \\\ 0 \\\ -2 \end{pmatrix}\)</span><br />
+<span class="arithmatex">\(\mathbf{v} = \begin{pmatrix} 3 \\\ 5 \\\ 1 \end{pmatrix}\)</span></p>
 </li>
 <li>
 <p><strong>和の計算:</strong><br />
-  [
-  \mathbf{u} + \mathbf{v} = \begin{pmatrix} 1+3 \ 0+5 \ -2+1 \end{pmatrix} = \begin{pmatrix} 4 \ 5 \ -1 \end{pmatrix}
-  ]</p>
+  $$
+  \mathbf{u} + \mathbf{v} = \begin{pmatrix} 1+3 \\ 0+5 \\ -2+1 \end{pmatrix} = \begin{pmatrix} 4 \\ 5 \\ -1 \end{pmatrix}
+  $$</p>
 </li>
 <li>
 <p><strong>スカラー倍の計算:</strong><br />
-  [
-  -3\mathbf{v} = \begin{pmatrix} -3 \times 3 \ -3 \times 5 \ -3 \times 1 \end{pmatrix} = \begin{pmatrix} -9 \ -15 \ -3 \end{pmatrix}
-  ]</p>
+  $$
+  -3\mathbf{v} = \begin{pmatrix} -3 \times 3 \\ -3 \times 5 \\ -3 \times 1 \end{pmatrix} = \begin{pmatrix} -9 \\ -15 \\ -3 \end{pmatrix}
+  $$</p>
 </li>
 </ul>
 <h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colabでの実行例</h2>
@@ -1119,18 +1288,18 @@
 <li>
 <p><strong>演習問題1:</strong><br />
    次の二次元ベクトル<br />
-   [
-   \mathbf{x} = \begin{pmatrix} 4 \ -2 \end{pmatrix}, \quad \mathbf{y} = \begin{pmatrix} 1 \ 3 \end{pmatrix}
-   ]<br />
-   の和と、<span class="arithmatex">\(\mathbf{x}\)</span> のスカラー倍 <span class="arithmatex">\( -3\mathbf{x} \)</span> を計算せよ。</p>
+   $$
+   \mathbf{x} = \begin{pmatrix} 4 \\ -2 \end{pmatrix}, \quad \mathbf{y} = \begin{pmatrix} 1 \\ 3 \end{pmatrix}
+   $$<br />
+   の和と、<span class="arithmatex">\(\mathbf{x}\)</span> のスカラー倍 $ -3\mathbf{x} $ を計算せよ。</p>
 </li>
 <li>
 <p><strong>演習問題2:</strong><br />
    三次元ベクトル<br />
-   [
-   \mathbf{p} = \begin{pmatrix} 2 \ 0 \ 5 \end{pmatrix}, \quad \mathbf{q} = \begin{pmatrix} -1 \ 4 \ 2 \end{pmatrix}
-   ]<br />
-   を用いて、<span class="arithmatex">\(\mathbf{p} + \mathbf{q}\)</span> を求め、さらに <span class="arithmatex">\(\mathbf{q}\)</span> のスカラー倍 <span class="arithmatex">\( 0.5\mathbf{q} \)</span> を計算せよ。</p>
+   $$
+   \mathbf{p} = \begin{pmatrix} 2 \\ 0 \\ 5 \end{pmatrix}, \quad \mathbf{q} = \begin{pmatrix} -1 \\ 4 \\ 2 \end{pmatrix}
+   $$<br />
+   を用いて、<span class="arithmatex">\(\mathbf{p} + \mathbf{q}\)</span> を求め、さらに <span class="arithmatex">\(\mathbf{q}\)</span> のスカラー倍 $ 0.5\mathbf{q} $ を計算せよ。</p>
 </li>
 <li>
 <p><strong>ディスカッション:</strong><br />
