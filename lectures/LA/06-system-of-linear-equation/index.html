@@ -1354,35 +1354,43 @@ $$</p>
 </ul>
 <h3 id="_3">式の足し算・引き算による消去法の説明</h3>
 <ul>
-<li><strong>消去法の手順:</strong><br />
-    同じ例題を用いて、以下の手順で解を求めます。<ul>
-<li>まずは連立方程式から <span class="arithmatex">\(z\)</span> を消去して見ます。そこで、(1)式を1倍して(2)式に加え、(3)式を-1倍して(1)式に加えます。
-$$
-\begin{cases}
-3x + y + z = -5, \\
-7x + 4y - 0z = -7, \\
-2x + 3y + 0z = 11.
-\end{cases}
-$$</li>
-<li>次に、(2)式 か (3) 式から <span class="arithmatex">\(x\)</span> を消去します。分数が出てくるのは嫌なので、まずは (2)式に、(3)式の -3倍を加えます。
-\begin{cases}
-3x + y + z = -5, \\
-x - 5y - 0z = -40, \\
-2x + 3y + 0z = 11.
-\end{cases}
-$$</li>
+<li>
+<p><strong>消去法の手順:</strong><br />
+    同じ例題を用いて、以下の手順で解を求めます。</p>
+<ul>
+<li>
+<p>まずは連立方程式から <span class="arithmatex">\(z\)</span> を消去してみます。そこで、(1)式を1倍して(2)式に加え、(3)式を-1倍して(1)式に加えます。
+    $$
+    \begin{cases}
+    3x + y + z = -5, \\
+    7x + 4y - 0z = -7, \\
+    2x + 3y + 0z = 11.
+    \end{cases}
+    $$</p>
+</li>
+<li>
+<p>次に、(2)式 か (3) 式から <span class="arithmatex">\(x\)</span> を消去します。分数が出てくるのは嫌なので、まずは (2)式に、(3)式の -3倍を加えます。
+    $$
+    \begin{cases}
+    3x + y + z = -5, \\
+    x - 5y - 0z = -40, \\
+    2x + 3y + 0z = 11.
+    \end{cases}
+    $$</p>
+</li>
 <li>次に、(2)の-2倍を (1)式に加えましょう。すると、以下の式が導かれます。
-\begin{cases}
-3x + y + z = -5, \\
-x - 5y - 0z = -40, \\
-0x + 13y + 0z = 91.
-\end{cases}
-$$</li>
+    $$
+    \begin{cases}
+    3x + y + z = -5, \\
+    x - 5y - 0z = -40, \\
+    0x + 13y + 0z = 91.
+    \end{cases}
+    $$</li>
 <li>最後の式に注目すると、<code>y = 7</code> とわかります。次に、(2)式に代入すると、<code>x = -5</code> とわかります。最後に、(1)式から <code>z = 3</code> となります。</li>
 </ul>
+<hr />
 </li>
 </ul>
-<hr />
 <h2 id="3_1">3. 扱う内容の例 （別の連立方程式）</h2>
 <h3 id="3_2">例: 3変数の連立一次方程式</h3>
 <p>与えられた連立方程式：
@@ -1472,34 +1480,35 @@ plt.show()
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-# 解は (x, y, z) = (-5, 7, 3)
-solution = np.array([-5, 7, 3])
+# 4x -2y + z =11
+# -2x +4y -2z = -16
+# x -2y + 4z = 17
 
 # グリッド作成のための範囲設定
-x = np.linspace(-10, 10, 20)
-y = np.linspace(-10, 10, 20)
-X, Y = np.meshgrid(x, y)
+x, y = np.linspace(-8,8,100), np.linspace(-8,8,100)
+X, Y = np.meshgrid(x,y)
 
 # 各平面の定義（z = f(x,y) の形で表現）
-Z1 = (-4 - 3 * X - Y) / (-5)      # 平面1: 3x + y - 5z = -4  →  z = (3x + y + 4)/5
-Z2 = (-1 + X - 2 * Y) / 3          # 平面2: -x + 2y - 3z = -1  →  z = (x - 2y + 1)/3
-Z3 = (-2 + 2 * X - 6 * Y) / (-9)   # 平面3: -2x + 6y - 9z = -2  →  z = (2x - 6y + 2)/9
+Z1 = 11 - 4*X + 2*Y
+Z2 = (16 - 2*X + 4*Y) / 2
+Z3 = (17 - X + 2*Y) / 4
 
 fig = plt.figure(figsize=(12,10))
 ax = fig.add_subplot(111, projection='3d')
 
-ax.plot_surface(X, Y, Z1, alpha=0.5, color='cyan', edgecolor='none', label=&quot;平面1&quot;)
-ax.plot_surface(X, Y, Z2, alpha=0.5, color='magenta', edgecolor='none', label=&quot;平面2&quot;)
-ax.plot_surface(X, Y, Z3, alpha=0.5, color='yellow', edgecolor='none', label=&quot;平面3&quot;)
+ax.plot_surface(X,Y,Z1, alpha=0.5, rstride=100, cstride=100, label=&quot;平面1&quot;)
+ax.plot_surface(X,Y,Z2, alpha=0.5, rstride=100, cstride=100, label=&quot;平面2&quot;)
 
-ax.scatter(solution[0], solution[1], solution[2], color='red', s=100, label=&quot;交点 (-5, 7, 3)&quot;)
-
+ax.plot_surface(X,Y,Z3, alpha=0.5, facecolors='g', rstride=100, cstride=100, label=&quot;平面3&quot;)
+ax.plot((1,1),(-8,8),(-9,23), lw=2, c='b')
+ax.plot((1,),(-2,),(3,), lw=2, c='k', marker='o')
 ax.set_xlabel(&quot;x&quot;)
 ax.set_ylabel(&quot;y&quot;)
 ax.set_zlabel(&quot;z&quot;)
 ax.set_title(&quot;3平面の交点の可視化&quot;)
 ax.legend()
 plt.show()
+
 </code></pre>
 <hr />
 <h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
@@ -1521,12 +1530,12 @@ plt.show()
    次の3変数の連立一次方程式
    $$
    \begin{cases}
-   3x + y - 5z = -4, \\
-   -x + 2y - 3z = -1, \\
-   -2x + 6y - 9z = -2,
+   4x -2y + z =11 \\
+   -2x +4y -2z = -16 \\
+   x -2y + 4z = 17
    \end{cases}
    $$
-   について、まず代入法で解こうとする手順（中間式も含む）を自分で書き出し、なぜ計算が煩雑になるかを説明せよ。その後、式の足し算・引き算による消去法を用いて最終的な解 <span class="arithmatex">\(x = -5,\; y = 7,\; z = 3\)</span> を導け。</p>
+   について、まず代入法で解こうとする手順（中間式も含む）を自分で書き出し、なぜ計算が煩雑になるかを考えなさい。その後、式の足し算・引き算による消去法を用いて最終的な解 <span class="arithmatex">\(x = 1,\; y = -2,\; z = 3\)</span> を導きなさい。</p>
 </li>
 <li>
 <p><strong>演習問題2:</strong><br />
