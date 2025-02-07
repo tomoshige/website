@@ -77,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#5" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -635,6 +640,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    9. System of Linear Equation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -644,6 +660,41 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 学んだ内容がどのように応用されるか
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -968,6 +1019,32 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 学んだ内容がどのように応用されるか
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -983,7 +1060,210 @@
 
   <h1>9. System of Linear Equation</h1>
 
+<pre><code class="language-markdown"># 講義9: 連立方程式の解の存在条件
 
+## 1. 本日扱う内容について（概要）
+- **目的:**  
+  - 連立一次方程式の行列表現および拡大係数行列を復習する  
+  - 未知数が \( n \) 個で方程式の数が \( m \) 個の場合の連立一次方程式の解の存在条件（解の種類：一意解、無数解、解なし）を理解する  
+  - 行列のランクと拡大係数行列のランクの関係を通して、連立方程式が解を持つかどうか、またその解が一意か無限かを判定する方法を学ぶ  
+  - 例として、方程式の数が 3 つで未知数が 4 つの連立一次方程式を考え、実際に Google Colab でシミュレーションする
+
+- **講義の流れ:**  
+  1. 連立方程式と拡大係数行列の復習  
+  2. 未知数 \( n \) 個、方程式 \( m \) 本の連立一次方程式の解の存在条件の理論的背景  
+  3. 解の種類（一意解、無数解、解なし）の条件と、行列のランクと拡大係数行列のランクとの関係の説明  
+  4. 実例：方程式が 3 つで未知数が 4 つの場合のシステムを考察  
+  5. ChatGPTによる解説＋Google Colabでのシミュレーション例  
+  6. 学んだ内容の応用例  
+  7. 演習問題
+
+---
+
+## 2. 扱う内容の理論の説明（定義・定理・数式を含む）
+
+### 連立一次方程式の復習
+- **連立一次方程式の一般形:**  
+  未知数 \( x_1, x_2, \dots, x_n \) に対して、\( m \) 本の一次方程式は
+  \[
+  \begin{cases}
+  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \\
+  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \\
+  \quad\vdots \\
+  a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m.
+  \end{cases}
+  \]
+
+- **拡大係数行列:**  
+  これを行列表現すると、係数行列 \( A \) と定数項ベクトル \( \mathbf{b} \) を連結して
+  \[
+  [A \,|\, \mathbf{b}] = \begin{pmatrix}
+  a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; | &amp; b_1 \\
+  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; | &amp; b_2 \\
+  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; | &amp; \vdots \\
+  a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
+  \end{pmatrix}
+  \]
+  と書く。
+
+### 連立方程式の解の存在条件と解の種類
+- **系が解を持つ条件（整合性条件）：**  
+  連立方程式 \( A\mathbf{x} = \mathbf{b} \) が解を持つ（整合）ための必要十分条件は、
+  \[
+  \operatorname{rank}(A) = \operatorname{rank}([A \,|\, \mathbf{b}]).
+  \]
+  つまり、係数行列のランクと拡大係数行列のランクが一致する場合に、解が存在します。
+
+- **解の種類:**  
+  - **一意解:**  
+    解が一意であるのは、かつ \( \operatorname{rank}(A) = \operatorname{rank}([A \,|\, \mathbf{b}]) = n \) のときです（未知数の数とランクが等しい）。
+  - **無数解:**  
+    解が無数に存在するのは、\( \operatorname{rank}(A) = \operatorname{rank}([A \,|\, \mathbf{b}]) &lt; n \) のときです（自由変数が存在）。
+  - **解なし:**  
+    解が存在しない（矛盾する）のは、\( \operatorname{rank}(A) &lt; \operatorname{rank}([A \,|\, \mathbf{b}]) \) のときです。
+
+### 例: 方程式の数が 3 つで未知数が 4 つの連立方程式
+- **システムの例:**  
+  未知数 \( x_1, x_2, x_3, x_4 \) に対して、3 本の方程式
+  \[
+  \begin{cases}
+  a_{11} x_1 + a_{12} x_2 + a_{13} x_3 + a_{14} x_4 = b_1, \\
+  a_{21} x_1 + a_{22} x_2 + a_{23} x_3 + a_{24} x_4 = b_2, \\
+  a_{31} x_1 + a_{32} x_2 + a_{33} x_3 + a_{34} x_4 = b_3.
+  \end{cases}
+  \]
+- **考察:**  
+  この場合、未知数の数が 4 で方程式の数が 3 なので、ランクが 3 以下であれば、整合な系であれば自由変数が 1 つ存在し、無数解となります。  
+  一方、もし \( \operatorname{rank}(A) &lt; \operatorname{rank}([A \,|\, \mathbf{b}]) \) なら、解は存在しません。
+
+---
+
+## 3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+
+### 例1: 3 本の方程式と 4 つの未知数（無数解の例）
+考える系：
+\[
+\begin{cases}
+x + 2y + 3z + 4w = 5, \\
+2x + 4y + 6z + 8w = 10, \\
+3x + 6y + 9z + 12w = 15.
+\end{cases}
+\]
+- **解説:**  
+  ここでは、2 行目は 1 行目の 2 倍、3 行目は 1 行目の 3 倍となるため、係数行列のランクは 1 です。  
+  拡大係数行列のランクも 1 であれば、この系は整合で、未知数が 4 つに対してランクが 1 なので、自由変数が 3 つ存在し、無数解となります。
+
+### 例2: 3 本の方程式と 4 つの未知数（矛盾系の例）
+考える系：
+\[
+\begin{cases}
+x + y + z + w = 4, \\
+2x + 2y + 2z + 2w = 8, \\
+x + y + z + w = 5.
+\end{cases}
+\]
+- **解説:**  
+  最初の 2 式は一致しているが、3 式は矛盾しています。  
+  この場合、係数行列のランクは 1 または 2 であっても、拡大係数行列のランクが 2 以上となり、解は存在しません。
+
+---
+
+## 4. ChatGPTによる解説＋Google Colab での実行例
+
+### ChatGPTによる解説
+- **ポイント:**  
+  - 連立一次方程式の解の存在条件は、係数行列のランクと拡大係数行列のランクの一致によって決まります。  
+  - 未知数の数とランクの関係により、解が一意、無数、または解なしになるかを判定できます。  
+  - 例として、方程式の数が 3 つで未知数が 4 つの場合、整合な系であれば必ず自由変数が存在し、無数解となります。
+
+### Google Colabでの実行例
+以下は、方程式の数が 3 つで未知数が 4 つの系の例を用いて、拡大係数行列のランクを計算し、整合性と解の種類（無数解）のシミュレーションを行う例です。
+
+```python
+import numpy as np
+
+# 例: 未知数が 4 つ、方程式が 3 つの連立一次方程式（無数解の例）
+# 系:
+# (1) x + 2y + 3z + 4w = 5
+# (2) 2x + 4y + 6z + 8w = 10
+# (3) 3x + 6y + 9z + 12w = 15
+
+# 拡大係数行列の作成
+A = np.array([
+    [1, 2, 3, 4],
+    [2, 4, 6, 8],
+    [3, 6, 9, 12]
+], dtype=float)
+
+b = np.array([5, 10, 15], dtype=float)
+A_aug = np.column_stack((A, b))
+print(&quot;拡大係数行列:&quot;)
+print(A_aug)
+
+# ランクの計算
+rank_A = np.linalg.matrix_rank(A)
+rank_A_aug = np.linalg.matrix_rank(A_aug)
+print(&quot;\n係数行列 A のランク:&quot;, rank_A)
+print(&quot;拡大係数行列 [A | b] のランク:&quot;, rank_A_aug)
+
+# 解の種類の判定
+n = A.shape[1]  # 未知数の数は 4
+if rank_A != rank_A_aug:
+    print(&quot;\nこの連立方程式は解なしです。&quot;)
+elif rank_A == n:
+    print(&quot;\nこの連立方程式は一意解を持ちます。&quot;)
+elif rank_A &lt; n:
+    print(&quot;\nこの連立方程式は無数解を持ちます。&quot;)
+</code></pre>
+<p><em>このシミュレーションでは、係数行列のランクと拡大係数行列のランクが一致し、かつ <span class="arithmatex">\( \operatorname{rank}(A) &lt; n \)</span> であるため、無数解が存在することが確認されます。</em></p>
+<hr />
+<h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
+<ul>
+<li><strong>工学・物理学:</strong><br />
+  システムの自由度や制約条件の数を評価し、解の存在性や一意性を判断するために、行列のランクは重要です。  </li>
+<li><strong>経済学・最適化:</strong><br />
+  複数の制約条件下での最適解や均衡解の存在を判定するために、ランクの概念が応用されます。  </li>
+<li><strong>コンピュータグラフィックス:</strong><br />
+  変換行列のランクや、複数の条件が満たされるかどうかを確認する際に利用されます。  </li>
+<li><strong>機械学習:</strong><br />
+  データ行列のランクは、次元削減（例：主成分分析）や特徴選択において、データの冗長性や有効な情報の次元を評価する指標となります。</li>
+</ul>
+<hr />
+<h2 id="6">6. 演習問題</h2>
+<ol>
+<li>
+<p><strong>演習問題1:</strong><br />
+   未知数が 4 つで方程式の数が 3 つの連立一次方程式
+   [
+   \begin{cases}
+   x + 2y + 3z + 4w = 5, \
+   2x + 4y + 6z + 8w = 10, \
+   3x + 6y + 9z + 12w = 15,
+   \end{cases}
+   ]
+   の拡大係数行列を作成し、係数行列と拡大係数行列のランクを計算せよ。また、解の存在条件に基づいて、この系がどの種類の解（無数解、一意解、解なし）を持つか説明せよ。</p>
+</li>
+<li>
+<p><strong>演習問題2:</strong><br />
+   次の連立一次方程式について、拡大係数行列を作成し、ランクを計算して、解が一意解か無数解か、または解が存在しないかを判定せよ。
+   [
+   \begin{cases}
+   2x - y + 3z = 4, \
+   4x - 2y + 6z = 9, \
+   -x + y - z = -2.
+   \end{cases}
+   ]</p>
+</li>
+<li>
+<p><strong>演習問題3:</strong><br />
+   2変数の連立一次方程式（例: <span class="arithmatex">\(2x + 3y = 8\)</span> と <span class="arithmatex">\(x - y = 1\)</span>）に対して、拡大係数行列を用いたランクの計算を行い、その結果から解の存在条件を確認せよ。また、その解をグラフで直線の交点として可視化せよ。</p>
+</li>
+<li>
+<p><strong>演習問題4:</strong><br />
+   Google Colab 上で、今回の講義で学んだ方法を用いて、非正方行列（例えば 3×4 行列）の RREF 変形とランク計算を実装し、その変形過程と結果（RREF とランク）を詳細に報告せよ。
+```</p>
+</li>
+</ol>
 
 
 
