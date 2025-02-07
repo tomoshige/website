@@ -1615,44 +1615,55 @@ $$
     0 &amp; 1 &amp; 2 &amp; 3
     \end{pmatrix}
     $$
-    次に、第1行のピボットの下を<span class="arithmatex">\(0\)</span>にします。
-    - 2行目から、1行目の2倍を引く。
-    $$
-    A = \begin{pmatrix}
-    1 &amp; 3 &amp; 5 &amp; 7 \\
-    0 &amp; -2 &amp; -4 &amp; -6 \\
-    0 &amp; 1 &amp; 2 &amp; 3
-    \end{pmatrix}
-    $$
-    つぎに、第2行の(2,2)要素を<span class="arithmatex">\(1\)</span>にしたいので、
-    - 3行目と2行目を入れ替えます。
-    $$
-    A = \begin{pmatrix}
-    1 &amp; 3 &amp; 5 &amp; 7 \\
-    0 &amp; 1 &amp; 2 &amp; 3 \\
-    0 &amp; -2 &amp; -4 &amp; -6
-    \end{pmatrix}
-    $$
-    次に、第2行のピボットの下の要素を<span class="arithmatex">\(0\)</span>にします。
-    - 第3行に、第2行の2倍を加えます。
-    $$
-    A = \begin{pmatrix}
-    1 &amp; 3 &amp; 5 &amp; 7 \\
-    0 &amp; 1 &amp; 2 &amp; 3 \\
-    0 &amp; 0 &amp; 0 &amp; 0
-    \end{pmatrix}
-    $$
-    偶然、第3行目がすべて<span class="arithmatex">\(0\)</span>になったので、これで階段行列が完成しました。次に簡約階段行列へ変形します。
-    そのためには、各ピボットの上・下の要素が<span class="arithmatex">\(0\)</span>にする必要があります。よって、
-    - 第1行から、第2行の3倍を引きます。
-    $$
-    A = \begin{pmatrix}
-    1 &amp; 0 &amp; -1 &amp; -2 \\
-    0 &amp; 1 &amp; 2 &amp; 3 \\
-    0 &amp; 0 &amp; 0 &amp; 0
-    \end{pmatrix}
-    $$
-    これで、簡約階段形になりました。</p>
+    次に、第1行のピボットの下を<span class="arithmatex">\(0\)</span>にします。</p>
+<pre><code>- 2行目から、1行目の2倍を引く。
+
+$$
+A = \begin{pmatrix}
+1 &amp; 3 &amp; 5 &amp; 7 \\\
+0 &amp; -2 &amp; -4 &amp; -6 \\\
+0 &amp; 1 &amp; 2 &amp; 3
+\end{pmatrix}
+$$
+
+つぎに、第2行の(2,2)要素を$1$にしたいので、
+
+- 3行目と2行目を入れ替えます。
+
+$$
+A = \begin{pmatrix}
+1 &amp; 3 &amp; 5 &amp; 7 \\\
+0 &amp; 1 &amp; 2 &amp; 3 \\\
+0 &amp; -2 &amp; -4 &amp; -6
+\end{pmatrix}
+$$
+
+次に、第2行のピボットの下の要素を$0$にします。
+
+- 第3行に、第2行の2倍を加えます。
+
+$$
+A = \begin{pmatrix}
+1 &amp; 3 &amp; 5 &amp; 7 \\\
+0 &amp; 1 &amp; 2 &amp; 3 \\\
+0 &amp; 0 &amp; 0 &amp; 0
+\end{pmatrix}
+$$
+
+偶然、第3行目がすべて$0$になったので、これで階段行列が完成しました。次に簡約階段行列へ変形します。
+そのためには、各ピボットの上・下の要素が$0$にする必要があります。よって、
+
+- 第1行から、第2行の3倍を引きます。
+
+$$
+A = \begin{pmatrix}
+1 &amp; 0 &amp; -1 &amp; -2 \\\
+0 &amp; 1 &amp; 2 &amp; 3 \\\
+0 &amp; 0 &amp; 0 &amp; 0
+\end{pmatrix}
+$$
+これで、簡約階段形になりました。
+</code></pre>
 <hr />
 <h2 id="4-chatgptgoogle-colab">4. ChatGPTによる解説＋Google Colab での実行例</h2>
 <h3 id="chatgpt">ChatGPTによる解説</h3>
