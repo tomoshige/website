@@ -1451,7 +1451,7 @@
     0 &amp; 0 &amp; 0 &amp; 0
     \end{pmatrix}
     $$
-    は階段行列です。まず全て<span class="arithmatex">\(0\)</span>の行は、少なくとも1つは<span class="arithmatex">\(0\)</span>ではない行よりも下にあります。次に、各行の最初に出てくる<span class="arithmatex">\(0\)</span>ではない数字の下側は、<span class="arithmatex">\(0\)</span>になっています。よって、階段行列の性質を満たすことがわかります。また、ランクは少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行の数なので、<span class="arithmatex">\(2\)</span>です。</p>
+    は階段行列です。まず全て<span class="arithmatex">\(0\)</span>の行は、少なくとも1つは<span class="arithmatex">\(0\)</span>ではない行よりも下にあります。次に、各行の最初に出てくる<span class="arithmatex">\(0\)</span>ではない数字の下側は、<span class="arithmatex">\(0\)</span>になっています。よって、階段行列の性質を満たすことがわかります。また、ランクは少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行の数なので、<span class="arithmatex">\(rank(A) = 2\)</span>です。</p>
 </li>
 <li>
 <p><strong>階段行列ではない例:</strong><br />
@@ -1484,7 +1484,7 @@
     0 &amp; 0 &amp; 0 &amp; 0
     \end{pmatrix}
     $$
-    は階段行列です。2行目の2つの目の要素が<span class="arithmatex">\(0\)</span>なので、戸惑うかもしれません。階段行列では、各行の<span class="arithmatex">\(0\)</span>ではない先頭の数字の下が<span class="arithmatex">\(0\)</span>になっていればよいので、この行列はその性質を満たします。よって階段行列です。また、ランクは少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行の数なので、<span class="arithmatex">\(2\)</span>です。</p>
+    は階段行列です。2行目の2つの目の要素が<span class="arithmatex">\(0\)</span>なので、戸惑うかもしれません。階段行列では、各行の<span class="arithmatex">\(0\)</span>ではない先頭の数字の下が<span class="arithmatex">\(0\)</span>になっていればよいので、この行列はその性質を満たします。よって階段行列です。また、ランクは少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行の数なので、<span class="arithmatex">\(rank(A) = 2\)</span>です。</p>
 </li>
 <li>
 <p><strong>階段行列の例:</strong><br />
@@ -1495,7 +1495,7 @@
     0 &amp; 0 &amp; 0 &amp; 0
     \end{pmatrix}
     $$
-    は階段行列です。階段行列で勘違いしがちなことですが、第1行目の最初の要素が<span class="arithmatex">\(0\)</span>でも大丈夫？ということがあります。大丈夫です。階段行列であるための条件に、第1行目の第1要素が<span class="arithmatex">\(0\)</span>ではいけないとは書いていません。第1行目のピボットである<span class="arithmatex">\(2\)</span>の下は<span class="arithmatex">\(0\)</span>になっていますし、第2行目のピボット<span class="arithmatex">\(1\)</span>の下側は<span class="arithmatex">\(0\)</span>になっているので、階段行列の性質を満たします。また、ランクは少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行の数なので、<span class="arithmatex">\(2\)</span>です。</p>
+    は階段行列です。階段行列で勘違いしがちなことですが、第1行目の最初の要素が<span class="arithmatex">\(0\)</span>でも大丈夫？ということがあります。大丈夫です。階段行列であるための条件に、第1行目の第1要素が<span class="arithmatex">\(0\)</span>ではいけないとは書いていません。第1行目のピボットである<span class="arithmatex">\(2\)</span>の下は<span class="arithmatex">\(0\)</span>になっていますし、第2行目のピボット<span class="arithmatex">\(1\)</span>の下側は<span class="arithmatex">\(0\)</span>になっているので、階段行列の性質を満たします。また、ランクは少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行の数なので、<span class="arithmatex">\(rank(A) = 2\)</span>です。</p>
 </li>
 </ul>
 <h3 id="_3">例: 簡約階段行列である例と、簡約階段行列ではない例</h3>
@@ -1618,7 +1618,7 @@ $$
     0 &amp; 0 &amp; 0
     \end{pmatrix}
     $$
-    これで、簡約階段形になりました。</p>
+    これで、簡約階段形になりました。また、この行列のランクは、非ゼロな行の数なので、<span class="arithmatex">\(rank(A) = 3\)</span>です。</p>
 <h3 id="2-34">例2: 3×4 行列の例</h3>
 <p>別の例も考えてみましょう。次は、<span class="arithmatex">\(3 \times 4\)</span>行列を簡約階段行列に変形します。
 $$
@@ -1686,7 +1686,7 @@ A = \begin{pmatrix}
 0 &amp; 0 &amp; 0 &amp; 0
 \end{pmatrix}
 $$
-これで、簡約階段形になりました。
+これで、簡約階段形になりました。また、この行列のランクは、非ゼロな行の数なので、$rank(A) = 2$です。
 </code></pre>
 <hr />
 <h2 id="4-chatgptgoogle-colab">4. ChatGPTによる解説＋Google Colab での実行例</h2>
