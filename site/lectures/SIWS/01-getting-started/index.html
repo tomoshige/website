@@ -1,0 +1,2224 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/01-getting-started/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02-visualization/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>1. Getting-Started - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Getting-Started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/06-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/07-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/08-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/09-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-google-colaboratory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python と Google Colaboratoryとは？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python と Google Colaboratoryとは？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-colaboratory-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colaboratory で Python を始める
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-colaboratory-python_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colaboratory で Python を使う
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python の基本的な書き方
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python の基本的な書き方">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      プログラミングの基礎と概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="プログラミングの基礎と概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      リスト (List)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      データフレーム (DataFrame)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditionals" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件分岐 (Conditionals)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      関数 (Functions)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      エラー、警告、メッセージ {#messages}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="エラー、警告、メッセージ {#messages}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      エラー (Errors)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warnings" class="md-nav__link">
+    <span class="md-ellipsis">
+      警告 (Warnings)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messages_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      メッセージ (Messages)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      プログラミングを学ぶ上での心得
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pythonのライブラリとは？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pythonのライブラリとは？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pythonライブラリのインストール
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ライブラリの読み込み
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ライブラリの利用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      初めてのデータセットを探索してみよう
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="初めてのデータセットを探索してみよう">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの読み込み
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      データフレームの構造を確認する
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      データフレームの探索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの基本統計量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="まとめ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      追加リソース
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      今後の展開
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      理解度チェック課題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理解度チェック課題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 1: データの読み込み
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 2: データの統計情報
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 3: データの可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 4: 他の広告媒体との関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 5: データの応用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-google-colaboratory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python と Google Colaboratoryとは？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python と Google Colaboratoryとは？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-colaboratory-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colaboratory で Python を始める
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-colaboratory-python_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colaboratory で Python を使う
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python の基本的な書き方
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python の基本的な書き方">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      プログラミングの基礎と概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="プログラミングの基礎と概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      リスト (List)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      データフレーム (DataFrame)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditionals" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件分岐 (Conditionals)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      関数 (Functions)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      エラー、警告、メッセージ {#messages}
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="エラー、警告、メッセージ {#messages}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      エラー (Errors)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warnings" class="md-nav__link">
+    <span class="md-ellipsis">
+      警告 (Warnings)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messages_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      メッセージ (Messages)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      プログラミングを学ぶ上での心得
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pythonのライブラリとは？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pythonのライブラリとは？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pythonライブラリのインストール
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ライブラリの読み込み
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ライブラリの利用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      初めてのデータセットを探索してみよう
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="初めてのデータセットを探索してみよう">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの読み込み
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      データフレームの構造を確認する
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      データフレームの探索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      データの基本統計量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="まとめ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      追加リソース
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      今後の展開
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      理解度チェック課題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理解度チェック課題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 1: データの読み込み
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 2: データの統計情報
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 3: データの可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 4: 他の広告媒体との関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 5: データの応用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="python">Pythonでのデータ分析を始めよう</h1>
+<p>Pythonを使ってデータを探索する前に、まず理解しておくべき重要な概念があります。</p>
+<ol>
+<li>PythonとGoogle Colaboratoryとは何か？</li>
+<li>Pythonのコードの書き方</li>
+<li>Pythonのモジュールとは？</li>
+</ol>
+<p>これらの概念について、次のセクションで詳しく説明します（セクションaaa）。すでにある程度の知識がある場合は、セクションaaa に進んで、最初のデータセットを紹介する部分から読み始めても構いません。本書では、2013年にニューヨーク市（NYC）の主要3空港から出発したすべての国内線フライトのデータ を扱い、以降の章で詳しく分析していきます。</p>
+<h2 id="python-google-colaboratory">Python と Google Colaboratoryとは？</h2>
+<p>本書では、PythonをGoogle Colaboratory（以下、Google Colab） を通じて使用することを前提とします。初めての方の中には、PythonとGoogle Colabの違いがわかりにくいと感じることがあるかもしれません。これをわかりやすく説明すると、Pythonは車のエンジン、Google Colabは車のダッシュボード のような関係にあります（図を参照）。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ここにイメージ図を挿入</p>
+</div>
+<p>もう少し詳しく説明すると、Pythonは計算を実行するプログラミング言語 であり、一方でGoogle Colabは、Google社が提供する機械学習向けの統合開発環境（IDE） です。Google Colabには、Pythonを便利に使うためのさまざまな機能やツールが追加されています。</p>
+<p>これは、運転するときにスピードメーターやバックミラー、ナビゲーションシステムがあることで安全かつスムーズに運転できるのと同じように、Google Colabを使うことでPythonをより直感的かつ効率的に操作できる ということです。</p>
+<h3 id="google-colaboratory-python">Google Colaboratory で Python を始める</h3>
+<p><strong>Google Colaboratory（Google Colab）</strong> は、Google が提供する<strong>無料のクラウド環境</strong>で、Python をブラウザ上で実行できるプラットフォームです。インストール不要で使えるため、初心者でも簡単に Python を始められます。</p>
+<ol>
+<li>Google Colab を使う準備</li>
+</ol>
+<p>Google Colab を使用するには、Google アカウントが必要です。以下の手順に従ってセットアップを行いましょう。</p>
+<ol>
+<li>
+<p>Google Colab にアクセス</p>
+</li>
+<li>
+<p><a href="https://colab.research.google.com/">Google Colaboratory</a> にアクセスします。</p>
+</li>
+<li>
+<p>Google アカウントでログインします。</p>
+</li>
+<li>
+<p>新しいノートブックを作成</p>
+</li>
+<li>
+<p>Google Colab のホーム画面で <strong>「新しいノートブック」</strong> をクリックします。</p>
+</li>
+<li>
+<p>新しい Python の Jupyter Notebook が開きます。</p>
+</li>
+<li>
+<p>簡単な Python コードを実行</p>
+</li>
+<li>
+<p>ノートブックのセルに以下のコードを入力します：
+  <code>python
+  print("Hello, Google Colab!")</code></p>
+</li>
+<li>Shift + Enter を押すか、セルの左側にある再生ボタン ▶ をクリックして実行します。</li>
+<li>出力として <code>Hello, Google Colab!</code> と表示されれば成功です。</li>
+</ol>
+<h3 id="google-colaboratory-python_1">Google Colaboratory で Python を使う</h3>
+<p>以前の車のアナロジーを思い出してください。私たちはエンジンを直接操作するのではなく、ダッシュボード上の要素を使って車を運転します。同様に、Python を直接操作するのではなく、<strong>Google Colaboratory（Google Colab）</strong> を使用して Python を実行します。</p>
+<p>Google Colab は、Google が提供するクラウドベースの Jupyter Notebook 環境です。これを利用することで、Python の環境構築を行うことなく、ブラウザ上でコードを書き、実行することができます。</p>
+<p>Google Colab を開くと、以下のようなインターフェースが表示されます。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ここに Google Colab のインターフェースの画像を挿入</p>
+</div>
+<p>Google Colab の画面は、大きく分けて 3 つの部分に分かれています。</p>
+<ol>
+<li><strong>コードセル</strong>: ここに Python コードを記述し、実行します。</li>
+<li><strong>出力エリア</strong>: コードの実行結果が表示される場所です。</li>
+<li><strong>ファイル管理エリア</strong>: Google ドライブやローカルファイルを管理できます。</li>
+</ol>
+<hr />
+<h2 id="python_1">Python の基本的な書き方</h2>
+<p>Python を使い始めると、「Python はどうやって使うの？」という疑問が浮かぶでしょう。Python は <strong>インタプリタ型のプログラミング言語</strong> であり、Excel や SPSS のような <strong>ポイント &amp; クリック</strong> 操作ではなく、<strong>コードを入力して実行する</strong> ことで動作します。</p>
+<p>Python を使うには、基本的なプログラミングの概念を理解する必要があります。本書はプログラミングに特化した書籍ではありませんが、データを探索・分析するために必要な最低限のプログラミング知識を学んでいきます。</p>
+<hr />
+<h3 id="_1">プログラミングの基礎と概念</h3>
+<p>基本的なプログラミングの概念と用語について説明します。すべてを暗記する必要はなく、「実際にやりながら学ぶ」ことを目指します。このガイドでは、通常の文章と <code>computer_code</code> を区別するために異なるフォントを使用します。</p>
+<p>学習を進める上で、Python と Google Colaboratory を活用しながら、繰り返し練習することが重要です。</p>
+<h4 id="_2">基本概念</h4>
+<ul>
+<li><em>コードセル (Code Cell)</em>: Google Colaboratory でコードを入力し、実行する場所。</li>
+<li><em>コードの実行</em>: Python に命令を与え、実際に処理を行わせること。</li>
+<li><em>変数 (Variables)</em>: 値を保存するためのオブジェクト。変数に値を <em>代入</em> し、その内容を表示する方法を学びます。</li>
+<li><em>データ型 (Data Types)</em>: <code>int</code> (整数), <code>float</code> (浮動小数点数), <code>bool</code> (論理型), <code>str</code> (文字列) など。</li>
+<li>整数 (<code>int</code>): <code>-1, 0, 2, 4092</code> など。</li>
+<li>浮動小数点数 (<code>float</code>): <code>-24.932, 0.8</code> など。</li>
+<li>論理型 (<code>bool</code>): <code>True</code> または <code>False</code>。</li>
+<li>文字列 (<code>str</code>): <code>"cabbage"</code>, <code>"Hamilton"</code>, <code>"This ramen is delicious."</code> など。</li>
+</ul>
+<h4 id="list">リスト (List)</h4>
+<p>複数の値をまとめたデータ構造で、<code>[]</code> を使って作成します。</p>
+<pre><code class="language-python">numbers = [6, 11, 13, 31, 90, 92]
+</code></pre>
+<h4 id="dataframe">データフレーム (DataFrame)</h4>
+<p>表形式のデータ構造であり、<code>pandas</code> ライブラリを使用して作成します。</p>
+<pre><code class="language-python">import pandas as pd
+
+data = {'Name': ['Alice', 'Bob', 'Charlie'],
+        'Age': [25, 30, 35],
+        'City': ['New York', 'Los Angeles', 'Chicago']}
+df = pd.DataFrame(data)
+print(df)
+</code></pre>
+<h4 id="conditionals">条件分岐 (Conditionals)</h4>
+<ul>
+<li><code>==</code> を使って等価性を比較 (<code>=</code> は代入のために使用)。
+  <code>python
+  print(2 + 1 == 3)  # True</code></li>
+<li>ブール演算: <code>True</code> / <code>False</code> の評価。
+  <code>python
+  print(4 + 2 &gt;= 3)  # True
+  print(3 + 5 &lt;= 1)  # False</code></li>
+<li>論理演算子: <code>and</code> (かつ), <code>or</code> (または)。
+  <code>python
+  print((2 + 1 == 3) and (2 + 1 == 4))  # False
+  print((2 + 1 == 3) or (2 + 1 == 4))   # True</code></li>
+</ul>
+<h4 id="functions">関数 (Functions)</h4>
+<p>関数は特定のタスクを実行するためのものです。Python では <code>def</code> キーワードを使用して関数を定義できます。</p>
+<pre><code class="language-python">def greet(name):
+    return f&quot;Hello, {name}!&quot;
+
+print(greet(&quot;Alice&quot;))
+</code></pre>
+<p>また、組み込み関数の <code>range()</code> を使用すると、数値のシーケンスを作成できます。</p>
+<pre><code class="language-python">list(range(2, 6))  # [2, 3, 4, 5]
+</code></pre>
+<hr />
+<h3 id="messages">エラー、警告、メッセージ {#messages}</h3>
+<p>Google Colaboratory で Python を使う際、エラー、警告、メッセージが表示されることがあります。これらは赤字で表示されるため、最初は戸惑うかもしれませんが、冷静に対応すれば問題ありません。</p>
+<p>Python で表示される赤字のメッセージには以下の種類があります。</p>
+<h4 id="errors"><strong>エラー (Errors)</strong></h4>
+<p>プログラムが正常に動作しない場合に発生し、コードの実行が停止します。</p>
+<pre><code class="language-python">print(1 / 0)  # ZeroDivisionError: division by zero
+</code></pre>
+<p>この場合、<code>0</code> での割り算が許可されていないためエラーが発生します。</p>
+<h4 id="warnings"><strong>警告 (Warnings)</strong></h4>
+<p>コードの実行は継続できるものの、注意すべきことがある場合に表示されます。</p>
+<pre><code class="language-python">import warnings
+warnings.warn(&quot;This is a warning message!&quot;)
+</code></pre>
+<h4 id="messages_1"><strong>メッセージ (Messages)</strong></h4>
+<p>通常の診断情報や処理結果が表示される場合。</p>
+<pre><code class="language-python">print(&quot;Data loaded successfully!&quot;)
+</code></pre>
+<p>エラーや警告が表示されても焦らず、</p>
+<ul>
+<li><strong>エラー</strong>: コードが実行できないので修正が必要 → <span style="color:red">赤信号: 停止して問題を確認</span></li>
+<li><strong>警告</strong>: 実行できるが注意が必要 → <span style="color:gold">黄色信号: 注意しながら進行</span></li>
+<li><strong>メッセージ</strong>: 単なる情報提供 → <span style="color:green">緑信号: 問題なし</span></li>
+</ul>
+<p>と考えるとよいでしょう。</p>
+<p>Python と Google Colaboratory を活用しながら、繰り返し練習していきましょう！</p>
+<h3 id="_3">プログラミングを学ぶ上での心得</h3>
+<p>プログラミングを学ぶことは、外国語を学ぶことに似ています。最初は難しく、挫折することもあるかもしれません。しかし、間違いを恐れずに努力を続ければ、誰でも学び、上達することができます。プログラミングを学ぶ際に役立ついくつかのポイントを紹介します。</p>
+<ul>
+<li>
+<p><strong>コンピュータは実はそれほど賢くない</strong>: コンピュータやスマートフォンは「賢い」と思われがちですが、それは人間が多くの時間とエネルギーを費やして設計した結果です。実際には、コンピュータにはすべての指示を明確かつ正確に伝える必要があります。曖昧な指示やミスがあると、正しく動作しません。</p>
+</li>
+<li>
+<p><strong>「コピー、ペースト、修正」アプローチを活用する</strong>: 最初にプログラミング言語を学ぶときや、特に複雑なコードを理解する必要があるときは、既存の動作するコードをコピーし、自分の目的に合わせて修正するのが効率的です。これを <em>「コピー、ペースト、修正」</em> アプローチと呼びます。最初は暗記してコードを書くのではなく、提供されたサンプルコードをコピーし、それを修正しながら学ぶことを推奨します。これは自転車の補助輪のようなもので、慣れてくれば徐々に補助なしでコードを書けるようになります。</p>
+</li>
+<li>
+<p><strong>実践を通じて学ぶのが最良の方法</strong>: プログラミングのスキルを向上させる最も効果的な方法は、実際に手を動かしてコードを書くことです。特に、自分が興味のあるデータを分析するなど、具体的なプロジェクトを持つと、学習がスムーズに進みます。</p>
+</li>
+<li>
+<p><strong>練習が鍵</strong>: 外国語を上達させる唯一の方法が繰り返し話すことであるように、プログラミングを上達させる唯一の方法も多くの練習を積むことです。心配しないでください！ 私たちは十分な練習の機会を提供します。</p>
+</li>
+</ul>
+<p>Python と Google Colaboratory を活用しながら、繰り返し練習していきましょう！</p>
+<h2 id="python_2">Pythonのライブラリとは？</h2>
+<p>Python初心者が最初に戸惑う概念のひとつに、Pythonのライブラリ（またはパッケージ）があります。Pythonライブラリは、追加の関数、データ、そしてドキュメントを提供することで、Pythonの機能を拡張します。これらのライブラリは、世界中のPythonユーザーによって作られており、通常はPyPI（Python Package Index）などから無料でダウンロードすることができます。例えば、本書で使用するライブラリの中には、以下のものがあります：</p>
+<ul>
+<li>matplotlib: データの可視化のために使用します。</li>
+<li>Pandas: データの整形や操作のために使用します。</li>
+<li>NumPy: 数値計算や配列操作のために使用します。</li>
+</ul>
+<p>Pythonライブラリは、スマートフォンにダウンロードできるアプリに例えることができます。つまり、Python自体は新しいスマートフォンのようなものです。最初は基本的な機能は備わっていますが、すべての機能が揃っているわけではありません。Pythonライブラリは、スマートフォンにApp StoreやGoogle Playからアプリをダウンロードするのと同じように、必要に応じて追加することで、あなたの作業環境を拡張してくれます。</p>
+<p>このアナロジーを続けるために、写真の編集や共有に使うInstagramアプリを例に考えてみましょう。たとえば、新しいスマートフォンを購入して、撮った写真を友人や家族とInstagramで共有したいとします。その場合、以下のステップが必要です：</p>
+<ol>
+<li>
+<p>アプリのインストール:新しいスマートフォンにはInstagramアプリがプリインストールされていないため、App StoreやGoogle Playからアプリをダウンロードする必要があります。一度インストールすれば、その後はアップデートがあるまで再インストールする必要はありません。</p>
+</li>
+<li>
+<p>アプリの起動:インストールが完了したら、Instagramアプリを起動します。</p>
+</li>
+</ol>
+<p>Instagramアプリを起動すれば、写真を友人や家族と共有できるようになります。これと同様に、Pythonライブラリを利用する場合も次の2つのステップを踏みます：</p>
+<ol>
+<li>
+<p>ライブラリのインストール:これは、スマートフォンにアプリをインストールするのと同じです。多くのライブラリは、PythonやGoogle Colaboratoryの初期状態には含まれていないため、初めて使用する際にはpipなどを使ってインストールする必要があります。一度インストールすれば、通常は更新が必要になるまで再インストールすることはありません。</p>
+</li>
+<li>
+<p>ライブラリのインポート:これは、インストールしたアプリを起動するのと同じです。Pythonでは、使用するライブラリをプログラム内で毎回import文を用いて読み込む必要があります。</p>
+</li>
+</ol>
+<p>では、データの可視化のためのmatplotlibライブラリを例に、この2つのステップを実際に行ってみましょう。</p>
+<pre><code class="language-python"># matplotlibのインストール
+!pip install matplotlib
+
+# matplotlibのインポート
+import matplotlib.pyplot as plt
+
+# 簡単な折れ線グラフの描画
+x = [1, 2, 3, 4, 5]
+y = [10, 20, 25, 30, 40]
+plt.plot(x, y)
+plt.xlabel(&quot;X軸&quot;)
+plt.ylabel(&quot;Y軸&quot;)
+plt.title(&quot;Matplotlibのサンプルグラフ&quot;)
+plt.show()
+</code></pre>
+<h3 id="python_3">Pythonライブラリのインストール</h3>
+<blockquote>
+<p><strong>Google Colaboratoryについての注意</strong>: 
+Google Colaboratoryでは、多くのライブラリが事前にインストールされていますが、追加で必要なライブラリは自分でインストールする必要があります。Google Colaboratoryを使わずにローカル環境でPythonを実行する場合も、ライブラリのインストール手順を知っておくことが重要です（今回はローカル環境は使用しませんが、今後利用する際の参考に記載しておきます）。</p>
+</blockquote>
+<p>Pythonのライブラリをインストールする方法は2種類あります。</p>
+<ol>
+<li><strong>簡単な方法</strong>（Google ColaboratoryまたはJupyter Notebookで実行）:
+    <code>!pip install</code> コマンドを用いてライブラリをインストールします。</li>
+</ol>
+<pre><code class="language-python">!pip install seaborn pandas numpy matplotlib
+</code></pre>
+<ol>
+<li><strong>ローカル環境でのインストール</strong>（ターミナルまたはコマンドプロンプトで実行：今回は利用しない）:</li>
+</ol>
+<pre><code class="language-sh">pip install seaborn pandas numpy matplotlib
+</code></pre>
+<p>ローカル環境においては、スマートフォンのアプリと同様、一度インストールすれば再度インストールする必要はありませんが、Google Colaboratoryの環境においては、時間が経過するとリセットされるため、再度インストールが必要になる場合があります。イメージとしては、貸し出しスマホです。一度店に返却すると中身のデータが消されていて、再度アプリを入れ直す必要があるのと同じです。</p>
+<h3 id="_4">ライブラリの読み込み</h3>
+<p>ライブラリをインストールした後、それをPythonプログラム内で使用するためには「読み込む」必要があります。以下のコードを実行することで、ライブラリを読み込むことができます。</p>
+<pre><code class="language-python"># libraryの読み込み
+import seaborn as sns
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+</code></pre>
+<p>もし以下のようなエラーが表示された場合:</p>
+<pre><code>ModuleNotFoundError: No module named 'seaborn'
+</code></pre>
+<p>これはライブラリがインストールされていないことを示しています。その場合は、前述の<code>pip install</code>コマンドを実行してください。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>pip</code> を用いて、<code>seaborn</code> をインストールしてみてください。</p>
+</div>
+<h3 id="_5">ライブラリの利用</h3>
+<p>Pythonでデータ分析を行う際、適切にライブラリをインストールし、読み込むことが重要です。例えば、<code>seaborn</code> を使用してデータの可視化を行う場合、以下のコードを実行するとシンプルな散布図を描画できます。</p>
+<pre><code class="language-python"># サンプルデータの作成
+np.random.seed(10)
+data = pd.DataFrame({
+    &quot;x&quot;: np.random.rand(50),
+    &quot;y&quot;: np.random.rand(50)
+})
+
+# Seabornを使った散布図の描画
+sns.scatterplot(x=&quot;x&quot;, y=&quot;y&quot;, data=data)
+plt.title(&quot;Seabornを用いた散布図の例&quot;)
+plt.show()
+</code></pre>
+<p>このように、ライブラリを正しくインストールし、読み込むことで、Pythonでのデータ分析や可視化が簡単に行えるようになります。</p>
+<h2 id="_6">初めてのデータセットを探索してみよう</h2>
+<p>これまで学んだことを活用して、実際のデータを探索してみましょう。データは画像、テキスト、数値などさまざまな形式で存在しますが、本書では主に「スプレッドシート」形式のデータセットに焦点を当てます。これは多くの分野でデータが収集・保存される最も一般的な方法です。Pythonでは、これらの「スプレッドシート」形式のデータセットを<strong>データフレーム</strong>と呼びます。以降、本書ではデータフレームとして保存されたデータの操作に注目していきます。</p>
+<p>まず、必要なパッケージを読み込みます。以下のコードを実行してください。</p>
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+</code></pre>
+<h3 id="_7">データの読み込み</h3>
+<p>今回は、広告費用と売上の関係を示したデータセットを使用します。このデータセットには、TV、ラジオ、新聞に投じた予算と売上の情報が含まれています。データを読み込むには、以下のコードを実行してください。</p>
+<pre><code class="language-python">url = 'https://raw.githubusercontent.com/a-martyn/ISL-python/ee156568a8f7307be71dad5390bae12b51dcd93f/Notebooks/data/Advertising.csv'
+data = pd.read_csv(url, index_col=0)
+</code></pre>
+<h3 id="_8">データフレームの構造を確認する</h3>
+<p>データフレームの構造を理解するために、以下のコードを実行してみましょう。</p>
+<pre><code class="language-python">data.info()
+</code></pre>
+<p>この出力から、データフレームには200行と4列があり、各列のデータ型と欠損値の有無が確認できます。</p>
+<p>次に、データの最初の数行を表示して、データの内容を確認します。</p>
+<pre><code class="language-python">data.head()
+</code></pre>
+<p>この出力から、各列の名前と最初の5行のデータが表示され、データの概要を把握できます。</p>
+<h3 id="_9">データフレームの探索</h3>
+<p>データフレームを探索する方法はいくつかあります。ここでは、3つの方法を紹介します。</p>
+<ol>
+<li>
+<p><strong><code>head()</code>メソッド</strong>: データフレームの最初の数行を表示します。</p>
+<p><code>python
+data.head()</code></p>
+</li>
+<li>
+<p><strong><code>describe()</code>メソッド</strong>: 数値データの基本的な統計量を表示します。</p>
+<p><code>python
+data.describe()</code></p>
+</li>
+<li>
+<p><strong><code>columns</code>属性</strong>: データフレームの列名を表示します。</p>
+<p><code>python
+data.columns</code></p>
+</li>
+</ol>
+<p>これらの方法を組み合わせて、データの概要を把握しましょう。</p>
+<h3 id="_10">データの可視化</h3>
+<p>データの関係性を視覚的に理解するために、散布図を作成してみましょう。例えば、TV広告費用と売上の関係を確認するには、以下のコードを実行します。</p>
+<pre><code class="language-python">plt.scatter(data['TV'], data['Sales'])
+plt.xlabel('TV Advertising Budget (in thousands of dollars)')
+plt.ylabel('Sales (in thousands of units)')
+plt.title('TV Advertising vs Sales')
+plt.show()
+</code></pre>
+<p>この散布図から、TV広告費用と売上の間に正の相関があることが視覚的に確認できます。</p>
+<p>同様に、ラジオや新聞の広告費用と売上の関係も散布図で確認してみましょう。</p>
+<pre><code class="language-python"># ラジオ広告費用と売上の関係
+plt.scatter(data['Radio'], data['Sales'])
+plt.xlabel('Radio Advertising Budget (in thousands of dollars)')
+plt.ylabel('Sales (in thousands of units)')
+plt.title('Radio Advertising vs Sales')
+plt.show()
+
+# 新聞広告費用と売上の関係
+plt.scatter(data['Newspaper'], data['Sales'])
+plt.xlabel('Newspaper Advertising Budget (in thousands of dollars)')
+plt.ylabel('Sales (in thousands of units)')
+plt.title('Newspaper Advertising vs Sales')
+plt.show()
+</code></pre>
+<p>これらの散布図を通じて、各広告媒体の予算と売上の関係性を視覚的に理解することができます。</p>
+<h3 id="_11">データの基本統計量</h3>
+<p>データの基本的な統計量を確認することで、データの分布や中心傾向を理解できます。以下のコードを実行してみましょう。</p>
+<pre><code class="language-python">data.describe()
+</code></pre>
+<p>この出力から、各変数の平均値、標準偏差、最小値、最大値、四分位数などの情報が得られます。以上の手順で、PythonとPandasを使用してデータセットを読み込み、その構造を理解し、基本的な統計量を確認し、データの可視化を行いました。これらの方法を活用して、さまざまなデータセットを探索し、分析の基礎を築いていきましょう。</p>
+<h2 id="_12">まとめ</h2>
+<p>本章では、Pythonを使用してデータを探索するための基本的なツールセットを紹介しました。この章にすべての知識が含まれているわけではありません。すべてを盛り込むと膨大な量になり、実用的ではなくなってしまうからです！最も重要なのは、Google Colaboratory上で実際にコードを実行し、試行錯誤を繰り返しながら学ぶことです。</p>
+<h3 id="_13">追加リソース</h3>
+<p>もし、PythonやGoogle Colaboratory、データ分析に不慣れで、より詳細な入門書を求めている場合は、以下のリソースを参照することをおすすめします。</p>
+<ul>
+<li>
+<p><a href="https://jakevdp.github.io/PythonDataScienceHandbook/">Python Data Science Handbook</a><br />
+  NumPy、Pandas、Matplotlib、Scikit-Learnなど、Pythonを使ったデータサイエンスの基礎を学ぶための包括的なガイドです。</p>
+</li>
+<li>
+<p><a href="https://colab.research.google.com/notebooks/welcome.ipynb">Google Colaboratoryの公式ドキュメント</a><br />
+  Google Colabの基本的な使い方を学ぶことができます。クラウド環境でPythonを実行できるため、環境構築なしにすぐに始められます。</p>
+</li>
+<li>
+<p><a href="https://pandas.pydata.org/docs/">Pandasの公式ドキュメント</a><br />
+  データフレーム操作の詳細なリファレンスです。</p>
+</li>
+<li>
+<p><a href="https://matplotlib.org/stable/contents.html">Matplotlibの公式ドキュメント</a><br />
+  データの可視化に関する詳細な情報が得られます。</p>
+</li>
+</ul>
+<h3 id="_14">今後の展開</h3>
+<p>次の章では、「データサイエンスにおける最も重要なツールの1つ」とも言えるデータの可視化について学びます。PandasとMatplotlibを活用し、視覚的にデータを探索する方法を探求していきます。</p>
+<p>データ可視化は、<code>head()</code> や <code>describe()</code> のような関数では捉えきれないパターンや傾向を明らかにする強力なツールです。以下のような基本的なプロットを学び、データの背後にあるストーリーを読み解く力を養いましょう。</p>
+<pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# データの読み込み
+url = 'https://raw.githubusercontent.com/a-martyn/ISL-python/ee156568a8f7307be71dad5390bae12b51dcd93f/Notebooks/data/Advertising.csv'
+data = pd.read_csv(url, index_col=0)
+
+# 散布図の作成（TV広告費と売上の関係）
+plt.scatter(data['TV'], data['Sales'])
+plt.xlabel('TV Advertising Budget (in thousands of dollars)')
+plt.ylabel('Sales (in thousands of units)')
+plt.title('TV Advertising vs Sales')
+plt.show()
+</code></pre>
+<p>このように、次の章ではデータのパターンをより直感的に理解する方法を学びます。データサイエンスの旅を続けていきましょう！</p>
+<p>次の章では、「データサイエンスにおける最も重要なツールの1つ」とも言えるデータの可視化について学びます。PandasとMatplotlibを活用し、視覚的にデータを探索する方法を探求していきます。</p>
+<p>データ可視化は、<code>head()</code> や <code>describe()</code> のような関数では捉えきれないパターンや傾向を明らかにする強力なツールです。以下のような基本的なプロットを学び、データの背後にあるストーリーを読み解く力を養いましょう。</p>
+<pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# データの読み込み
+url = 'https://raw.githubusercontent.com/a-martyn/ISL-python/ee156568a8f7307be71dad5390bae12b51dcd93f/Notebooks/data/Advertising.csv'
+data = pd.read_csv(url, index_col=0)
+
+# 散布図の作成（TV広告費と売上の関係）
+plt.scatter(data['TV'], data['Sales'])
+plt.xlabel('TV Advertising Budget (in thousands of dollars)')
+plt.ylabel('Sales (in thousands of units)')
+plt.title('TV Advertising vs Sales')
+plt.show()
+</code></pre>
+<h2 id="_15">理解度チェック課題</h2>
+<p>以下の問題を解いて、Python、Google Colaboratory、Pandas、Matplotlibを用いたデータ探索の理解を深めましょう。</p>
+<h3 id="1">問題 1: データの読み込み</h3>
+<p>以下のコードを実行すると、どのようなデータが表示されますか？<br />
+データの概要を説明してください。</p>
+<pre><code class="language-python">import pandas as pd
+
+url = 'https://raw.githubusercontent.com/a-martyn/ISL-python/ee156568a8f7307be71dad5390bae12b51dcd93f/Notebooks/data/Advertising.csv'
+data = pd.read_csv(url, index_col=0)
+print(data.head())
+</code></pre>
+<h3 id="2">問題 2: データの統計情報</h3>
+<p>以下のコードを実行すると、どのような情報が得られますか？<br />
+得られた情報から、どの広告媒体が売上に最も影響を与えていると考えられますか？</p>
+<pre><code class="language-python">print(data.describe())
+</code></pre>
+<h3 id="3">問題 3: データの可視化</h3>
+<p>以下のコードを実行して、TV広告費と売上の関係をプロットしてください。<br />
+グラフの傾向を説明し、売上に対するTV広告の影響について考察してください。</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+plt.scatter(data['TV'], data['Sales'])
+plt.xlabel('TV Advertising Budget (in thousands of dollars)')
+plt.ylabel('Sales (in thousands of units)')
+plt.title('TV Advertising vs Sales')
+plt.show()
+</code></pre>
+<h3 id="4">問題 4: 他の広告媒体との関係</h3>
+<p>ラジオ (<code>Radio</code>) や新聞 (<code>Newspaper</code>) の広告費と売上の関係を調べるために、<br />
+上記のコードを修正して、それぞれの散布図を作成してください。<br />
+結果から、どの広告媒体が売上に対して最も大きな影響を持つか考察してください。</p>
+<h3 id="5">問題 5: データの応用</h3>
+<p>企業が広告費を最適に配分するためには、どのような分析を行うべきでしょうか？<br />
+また、PandasやMatplotlibを活用して、どのような追加の視覚化や統計分析ができるか提案してください。</p>
+<hr />
+<p>以上の問題を解くことで、Pythonを用いたデータの探索と可視化の基礎を確認できます。
+実際にコードを実行し、得られた結果をもとに考察を深めてみてください。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

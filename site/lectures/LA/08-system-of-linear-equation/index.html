@@ -1,0 +1,1909 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/08-system-of-linear-equation/">
+      
+      
+        <link rel="prev" href="../07-system-of-linear-equation/">
+      
+      
+        <link rel="next" href="../09-system-of-linear-equation/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>8. System of Linear Equation - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              8. System of Linear Equation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    8. System of Linear Equation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    8. System of Linear Equation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 本日扱う内容について（概要）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 扱う内容の理論の説明（定義・定理・数式を含む）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#row-echelon-form-ref" class="md-nav__link">
+    <span class="md-ellipsis">
+      階段行列 (Row Echelon Form, REF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduced-row-echelon-form-rref" class="md-nav__link">
+    <span class="md-ellipsis">
+      簡約階段行列 (Reduced Row Echelon Form, RREF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      簡約階段行列への変形
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pivot" class="md-nav__link">
+    <span class="md-ellipsis">
+      ピボット (Pivot)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rank" class="md-nav__link">
+    <span class="md-ellipsis">
+      行列のランク (Rank)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpt-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      階段行列である例と、階段行列ではない例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例: 簡約階段行列である例と、簡約階段行列ではない例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      例: 簡約階段行列の導き方
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-34" class="md-nav__link">
+    <span class="md-ellipsis">
+      例2: 3×4 行列の例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptgoogle-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Google Colab での実行例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Google Colab での実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chatgpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      ChatGPTによる解説
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colabでの実装例（非正方行列のランク計算）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 学んだ内容がどのように応用されるか
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 本日扱う内容について（概要）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 扱う内容の理論の説明（定義・定理・数式を含む）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#row-echelon-form-ref" class="md-nav__link">
+    <span class="md-ellipsis">
+      階段行列 (Row Echelon Form, REF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduced-row-echelon-form-rref" class="md-nav__link">
+    <span class="md-ellipsis">
+      簡約階段行列 (Reduced Row Echelon Form, RREF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      簡約階段行列への変形
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pivot" class="md-nav__link">
+    <span class="md-ellipsis">
+      ピボット (Pivot)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rank" class="md-nav__link">
+    <span class="md-ellipsis">
+      行列のランク (Rank)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpt-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      階段行列である例と、階段行列ではない例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例: 簡約階段行列である例と、簡約階段行列ではない例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      例: 簡約階段行列の導き方
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-34" class="md-nav__link">
+    <span class="md-ellipsis">
+      例2: 3×4 行列の例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptgoogle-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Google Colab での実行例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Google Colab での実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chatgpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      ChatGPTによる解説
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colabでの実装例（非正方行列のランク計算）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 学んだ内容がどのように応用されるか
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="8">講義8: ランクの概念とその計算</h1>
+<h2 id="1">1. 本日扱う内容について（概要）</h2>
+<ul>
+<li>
+<p><strong>目的:</strong>  </p>
+<ul>
+<li>行列の階段行列（Row Echelon Form, REF）および簡約階段行列（Reduced Row Echelon Form, RREF）の定義とその導出方法を理解する  </li>
+<li>ピボットの概念を明確にし、非正方行列（例：5×3行列、3×4行列）を例に、行基本変形によって簡約階段行列に変形する手順を学ぶ  </li>
+<li>行列のランクの定義と、その計算方法を習得する</li>
+</ul>
+</li>
+<li>
+<p><strong>講義の流れ:</strong>  </p>
+<ol>
+<li>連立一次方程式の行列表現と拡大係数行列の復習（必要に応じて）  </li>
+<li>階段行列および簡約階段行列の定義とピボットの概念の説明  </li>
+<li>非正方行列（5×3行列、3×4行列）の例を用いて、階段行列と簡約階段行列の例、ならびにそれらでない例も紹介  </li>
+<li>行基本変形による簡約階段行列の導出方法の説明  </li>
+<li>行列のランクの定義と、非正方行列におけるランクの計算方法の解説  </li>
+<li>ChatGPTによる解説＋Google Colabでの実装例  </li>
+<li>学んだ内容の応用例  </li>
+<li>演習問題</li>
+</ol>
+</li>
+</ul>
+<hr />
+<h2 id="2">2. 扱う内容の理論の説明（定義・定理・数式を含む）</h2>
+<p>今回の講義では、一度連立方程式から離れて一般的な行列を扱います（あとで連立方程式にも適用されます）。そのため、今回の講義では行列の行の数<span class="arithmatex">\(m\)</span> と列の数<span class="arithmatex">\(n\)</span>は等しいとは限らないという状況を想定しましょう。</p>
+<h3 id="row-echelon-form-ref">階段行列 (Row Echelon Form, REF)</h3>
+<ul>
+<li><strong>定義:</strong><br />
+    行列 $ A = [a_{ij}] $ が階段行列であるとは、以下の条件を満たすときに言います：  <ol>
+<li>すべての零行（全ての成分が 0 の行）は、非零行の下にある。</li>
+<li>各非零行の最初の非零成分（ピボット）の位置は、上の行よりも右にある。</li>
+</ol>
+</li>
+</ul>
+<p>前回の連立方程式では、この階段形式に直すという操作を行って、解を求めました（ガウスの消去法）。階段行列は前回の連立方程式のような<strong>きれいな段々</strong>の形とは限らず、段が飛び飛びになるような場合もあります。次の例で、階段行列の例を通して理解を深めてください。</p>
+<h3 id="reduced-row-echelon-form-rref">簡約階段行列 (Reduced Row Echelon Form, RREF)</h3>
+<ul>
+<li><strong>定義:</strong><br />
+    階段行列がさらに以下の条件を満たすとき、簡約階段行列と呼びます：  <ol>
+<li>各ピボットは 1 である。  </li>
+<li>各ピボットの上および下のすべての要素は 0 である（すなわち、各ピボットはその列で唯一の非零成分である）。</li>
+</ol>
+</li>
+</ul>
+<p>階段行列に対して、さらに基本操作をすることによって簡約階段行列を導くことができます。
+この「簡約階段行列」は、行列に対してただ1つしかなく、一意に定まることが知られています。
+今回の講義の目標は、<strong>行列<span class="arithmatex">\(A\)</span>を基本操作によって簡約階段行列に変形する</strong>ことです。</p>
+<h3 id="_1">簡約階段行列への変形</h3>
+<ul>
+<li><strong>定理</strong>
+    どんな行列であっても、行に対して基本変形を行うことによって、簡約階段行列へと変形することができる。
+    また、行列に対して簡約階段行列はただ1つしかなく、一意に定まる。</li>
+</ul>
+<h3 id="pivot">ピボット (Pivot)</h3>
+<ul>
+<li><strong>定義:</strong><br />
+    階段行列または簡約階段行列において、各非零行の最初の非零成分をピボットという。</li>
+</ul>
+<h3 id="rank">行列のランク (Rank)</h3>
+<ul>
+<li><strong>定義:</strong>
+    行列のランクとは、行基本変形を施して得られる（簡約）階段行列における非零行の数です。
+    行列<span class="arithmatex">\(A\)</span>のランクが<span class="arithmatex">\(2\)</span>であることを、<span class="arithmatex">\(rank(A)=2\)</span>と書きます。</li>
+</ul>
+<p>行列のランクは、その行列が持つ線形独立な行（または列）の最大個数であり（後で勉強します）、連立一次方程式の解の性質の判定に利用されます。</p>
+<hr />
+<h2 id="3-gpt-colab">3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）</h2>
+<h3 id="_2">階段行列である例と、階段行列ではない例</h3>
+<ul>
+<li>
+<p><strong>階段行列の例:</strong><br />
+    $$
+    \begin{pmatrix}
+    2 &amp; 2 &amp; 0 &amp; 2\\
+    0 &amp; 3 &amp; 4 &amp; 1\\
+    0 &amp; 0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    は階段行列です。まず全て<span class="arithmatex">\(0\)</span>の行は、少なくとも1つは<span class="arithmatex">\(0\)</span>ではない行よりも下にあります。次に、各行の最初に出てくる<span class="arithmatex">\(0\)</span>ではない数字の下側は、<span class="arithmatex">\(0\)</span>になっています。よって、階段行列の性質を満たすことがわかります。また、ランクは少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行の数なので、<span class="arithmatex">\(rank(A) = 2\)</span>です。</p>
+</li>
+<li>
+<p><strong>階段行列ではない例:</strong><br />
+    $$
+    \begin{pmatrix}
+    2 &amp; 2 &amp; 0 &amp; 2\\
+    1 &amp; 3 &amp; 4 &amp; 1\\
+    0 &amp; 0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    は階段行列ではありません。第1行のピボットである<span class="arithmatex">\(2\)</span>の下の行に<span class="arithmatex">\(1\)</span>があります。階段行列は、上の段のピボットの列に着目した時、ピボットより下の行の数字はすべて<span class="arithmatex">\(0\)</span>である必要があります。この状態からは、ランクは計算できません。ランクを計算するためには、この行列を後で説明する行に対して基本操作を行い、階段行列または簡約階段行列にする必要があります。</p>
+</li>
+<li>
+<p><strong>階段行列ではない例:</strong><br />
+    $$
+    \begin{pmatrix}
+    2 &amp; 2 &amp; 0 &amp; 2\\
+    0 &amp; 0 &amp; 0 &amp; 0\\
+    0 &amp; 3 &amp; 4 &amp; 1
+    \end{pmatrix}
+    $$
+    は階段行列ではありません。第2行は全ての要素が<span class="arithmatex">\(0\)</span>です。全ての要素が<span class="arithmatex">\(0\)</span>の行は、少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行よりも下になければなりません。よって、これは階段行列ではありません。この状態からは、ランクは計算できません。ランクを計算するためには、この行列を後で説明する行に対して基本操作を行い、階段行列または簡約階段行列にする必要があります。</p>
+</li>
+<li>
+<p><strong>階段行列の例:</strong><br />
+    $$
+    \begin{pmatrix}
+    2 &amp; 2 &amp; 0 &amp; 2\\
+    0 &amp; 0 &amp; 1 &amp; 1\\
+    0 &amp; 0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    は階段行列です。2行目の2つの目の要素が<span class="arithmatex">\(0\)</span>なので、戸惑うかもしれません。階段行列では、各行の<span class="arithmatex">\(0\)</span>ではない先頭の数字の下が<span class="arithmatex">\(0\)</span>になっていればよいので、この行列はその性質を満たします。よって階段行列です。また、ランクは少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行の数なので、<span class="arithmatex">\(rank(A) = 2\)</span>です。</p>
+</li>
+<li>
+<p><strong>階段行列の例:</strong><br />
+    $$
+    \begin{pmatrix}
+    0 &amp; 2 &amp; 0 &amp; 2\\
+    0 &amp; 0 &amp; 0 &amp; 1\\
+    0 &amp; 0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    は階段行列です。階段行列で勘違いしがちなことですが、第1行目の最初の要素が<span class="arithmatex">\(0\)</span>でも大丈夫？ということがあります。大丈夫です。階段行列であるための条件に、第1行目の第1要素が<span class="arithmatex">\(0\)</span>ではいけないとは書いていません。第1行目のピボットである<span class="arithmatex">\(2\)</span>の下は<span class="arithmatex">\(0\)</span>になっていますし、第2行目のピボット<span class="arithmatex">\(1\)</span>の下側は<span class="arithmatex">\(0\)</span>になっているので、階段行列の性質を満たします。また、ランクは少なくとも1つの要素が<span class="arithmatex">\(0\)</span>ではない行の数なので、<span class="arithmatex">\(rank(A) = 2\)</span>です。</p>
+</li>
+</ul>
+<h3 id="_3">例: 簡約階段行列である例と、簡約階段行列ではない例</h3>
+<p>次は簡約階段行列について説明します。簡約階段行列は、階段行列であることは大前提で、ピボットの数字が<code>1</code>であることと、各行のピボットの上と下が<span class="arithmatex">\(0\)</span>であることが条件です。</p>
+<ul>
+<li>
+<p><strong>簡約階段行列の例:</strong><br />
+    $$
+    \begin{pmatrix}
+    1 &amp; 0 &amp; 0 &amp; 2\\
+    0 &amp; 1 &amp; 4 &amp; 1\\
+    0 &amp; 0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    まず、階段行列の性質は満たされることがわかります。その上で、簡約階段行列の性質を満たすかを確認すると、各行のピボットは<span class="arithmatex">\(1\)</span>になっています。さらに第1行と第2行のピボットの上・下の数字はすべて<span class="arithmatex">\(0\)</span>となっています。よって、簡約階段行列です。</p>
+</li>
+<li>
+<p><strong>簡約階段行列ではない例:</strong><br />
+    $$
+    \begin{pmatrix}
+    1 &amp; 2 &amp; 0 &amp; 2\\
+    0 &amp; 1 &amp; 4 &amp; 1\\
+    0 &amp; 0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    まず、階段行列の性質は満たされることがわかります。その上で、簡約階段行列の性質を満たすかを確認すると、第2行のピボットの上の数字<span class="arithmatex">\(0\)</span>になっていません。よって、簡約階段行列ではありません。</p>
+</li>
+<li>
+<p><strong>簡約階段行列ではない例:</strong><br />
+    $$
+    \begin{pmatrix}
+    1 &amp; 0 &amp; 0 &amp; 2\\
+    0 &amp; 2 &amp; 4 &amp; 1\\
+    0 &amp; 0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    まず、階段行列の性質は満たされることがわかります。その上で、簡約階段行列の性質を満たすかを確認すると、第2行のピボットの数字が、<span class="arithmatex">\(1\)</span>ではなく<span class="arithmatex">\(2\)</span>になっています。よって、簡約階段行列ではありません。</p>
+</li>
+</ul>
+<h3 id="_4">例: 簡約階段行列の導き方</h3>
+<p>例として、次の行列<span class="arithmatex">\(A\)</span>を簡約階段行列へと変形するという問題を考えます。
+$$
+A = \begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+0 &amp; 1 &amp; 4 \\
+2 &amp; 4 &amp; 8 \\
+-1 &amp; -2 &amp; -3 \\
+3 &amp; 5 &amp; 7
+\end{pmatrix}
+$$
+- <strong>解説:</strong><br />
+    行に対して基本操作を用いて、簡約階段形にする手順は、(1) まずは階段形を作る、(2) その後で簡約階段形を作る。という2つのステップで行います。
+    階段形を作るのは、連立方程式を解く際のガウスの消去法と同様の操作を行っていきます。
+    まずは、行列<span class="arithmatex">\(A\)</span>に対して、(1,1)要素がすでに<span class="arithmatex">\(1\)</span>になっているので、その下の要素をすべて<span class="arithmatex">\(0\)</span>にしましょう。
+    - 3行目から1行目の2倍を引く
+    - 4行目に、1行目を加える
+    - 5行目から、1行目の3倍を引く
+    $$
+    A = \begin{pmatrix}
+    1 &amp; 2 &amp; 3 \\
+    0 &amp; 1 &amp; 4 \\
+    0 &amp; 0 &amp; 2 \\
+    0 &amp; 0 &amp; 0 \\
+    0 &amp; -1 &amp; -2
+    \end{pmatrix}
+    $$
+    次に、(2,2)要素がすでに<span class="arithmatex">\(1\)</span>になっているので、その下の要素をすべて<span class="arithmatex">\(0\)</span>にしましょう。
+    - 5行目に、2行目を加える。
+    $$
+    A = \begin{pmatrix}
+    1 &amp; 2 &amp; 3 \\
+    0 &amp; 1 &amp; 4 \\
+    0 &amp; 0 &amp; 2 \\
+    0 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 2
+    \end{pmatrix}
+    $$
+    最後に、(3,3)要素に着目すると<span class="arithmatex">\(2\)</span>になっていて、その下の要素を<span class="arithmatex">\(0\)</span>にしましょう。
+    - 5行目から、3行目を引く
+    $$
+    A = \begin{pmatrix}
+    1 &amp; 2 &amp; 3 \\
+    0 &amp; 1 &amp; 4 \\
+    0 &amp; 0 &amp; 2 \\
+    0 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    これで階段行列が完成しました。次に、各行のピボットを<span class="arithmatex">\(1\)</span>にしましょう。
+    - 第3行を2で割ります。
+    $$
+    A = \begin{pmatrix}
+    1 &amp; 2 &amp; 3 \\
+    0 &amp; 1 &amp; 4 \\
+    0 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    そして、各行のピボットの上と下の要素を<span class="arithmatex">\(0\)</span>にします。
+    - 第3行の -3倍を、第1行に加えます。
+    - 第3行の -4倍を、第2行に加えます。
+    $$
+    A = \begin{pmatrix}
+    1 &amp; 2 &amp; 0 \\
+    0 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    次に、
+    - 第2行の -2倍を、第1行に加えます。
+    $$
+    A = \begin{pmatrix}
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 0
+    \end{pmatrix}
+    $$
+    これで、簡約階段形になりました。また、この行列のランクは、非ゼロな行の数なので、<span class="arithmatex">\(rank(A) = 3\)</span>です。</p>
+<h3 id="2-34">例2: 3×4 行列の例</h3>
+<p>別の例も考えてみましょう。次は、<span class="arithmatex">\(3 \times 4\)</span>行列を簡約階段行列に変形します。
+$$
+A = \begin{pmatrix}
+2 &amp; 4 &amp; 6 &amp; 8 \\
+1 &amp; 3 &amp; 5 &amp; 7 \\
+0 &amp; 1 &amp; 1 &amp; 2
+\end{pmatrix}
+$$
+- <strong>解説:</strong><br />
+    先ほど同様に考えます。(1) まずは階段形を作る、(2) その後で簡約階段形を作る。という2つのステップで行います。
+    階段形を作るのは、連立方程式を解く際のガウスの消去法と同様の操作を行っていきます。
+    まずは、行列<span class="arithmatex">\(A\)</span>に対して、第2行の先頭(2,1)要素が<span class="arithmatex">\(1\)</span>になっているので、この行を第1行と入れ替えます。
+    $$
+    A = \begin{pmatrix}
+    1 &amp; 3 &amp; 5 &amp; 7 \\
+    2 &amp; 4 &amp; 6 &amp; 8 \\
+    0 &amp; 1 &amp; 2 &amp; 3
+    \end{pmatrix}
+    $$
+    次に、第1行のピボットの下を<span class="arithmatex">\(0\)</span>にします。</p>
+<pre><code>- 2行目から、1行目の2倍を引く。
+
+$$
+A = \begin{pmatrix}
+1 &amp; 3 &amp; 5 &amp; 7 \\\
+0 &amp; -2 &amp; -4 &amp; -6 \\\
+0 &amp; 1 &amp; 2 &amp; 3
+\end{pmatrix}
+$$
+
+つぎに、第2行の(2,2)要素を$1$にしたいので、
+
+- 3行目と2行目を入れ替えます。
+
+$$
+A = \begin{pmatrix}
+1 &amp; 3 &amp; 5 &amp; 7 \\\
+0 &amp; 1 &amp; 2 &amp; 3 \\\
+0 &amp; -2 &amp; -4 &amp; -6
+\end{pmatrix}
+$$
+
+次に、第2行のピボットの下の要素を$0$にします。
+
+- 第3行に、第2行の2倍を加えます。
+
+$$
+A = \begin{pmatrix}
+1 &amp; 3 &amp; 5 &amp; 7 \\\
+0 &amp; 1 &amp; 2 &amp; 3 \\\
+0 &amp; 0 &amp; 0 &amp; 0
+\end{pmatrix}
+$$
+
+偶然、第3行目がすべて$0$になったので、これで階段行列が完成しました。次に簡約階段行列へ変形します。
+そのためには、各ピボットの上・下の要素が$0$にする必要があります。よって、
+
+- 第1行から、第2行の3倍を引きます。
+
+$$
+A = \begin{pmatrix}
+1 &amp; 0 &amp; -1 &amp; -2 \\\
+0 &amp; 1 &amp; 2 &amp; 3 \\\
+0 &amp; 0 &amp; 0 &amp; 0
+\end{pmatrix}
+$$
+これで、簡約階段形になりました。また、この行列のランクは、非ゼロな行の数なので、$rank(A) = 2$です。
+</code></pre>
+<hr />
+<h2 id="4-chatgptgoogle-colab">4. ChatGPTによる解説＋Google Colab での実行例</h2>
+<h3 id="chatgpt">ChatGPTによる解説</h3>
+<ul>
+<li><strong>ポイント:</strong>  <ul>
+<li>行基本変形（行の入れ替え、定数倍、加減）を用いて、任意の行列を簡約階段行列 (RREF) に変形する過程で、各ピボットがどこに現れるかを追跡することが重要です。  </li>
+<li>非正方行列の場合でも、変形後の非零行の数がその行列のランクとなり、これが線形独立な行の数や列の次元に対応します。</li>
+</ul>
+</li>
+</ul>
+<h3 id="google-colab">Google Colabでの実装例（非正方行列のランク計算）</h3>
+<p>以下のコード例では、5×3 行列と 3×4 行列それぞれの階段行列に変形し、ランクを求める過程を途中の過程を print で表示しながら示します。</p>
+<pre><code class="language-python">import numpy as np
+
+def rref_verbose(A):
+    &quot;&quot;&quot;
+    行列 A を簡約階段行列 (RREF) に変換し、途中の変形過程を表示する関数。
+    入力:
+      A: 行列 (形状: (m, n))
+    出力:
+      A_rref: A の RREF, rank: 非零行の数
+    &quot;&quot;&quot;
+    A = A.copy().astype(float)
+    m, n = A.shape
+    pivot_row = 0
+    # --- 前進消去 (Forward Elimination) ---
+    for j in range(n):
+        # 部分ピボット選択: 列 j で、pivot_row 以降の行の中で最大の絶対値を持つ行を選ぶ
+        max_row = pivot_row + np.argmax(np.abs(A[pivot_row:, j]))
+        if np.isclose(A[max_row, j], 0):
+            continue  # この列は全て 0 ならスキップ
+        # 行の入れ替え
+        A[[pivot_row, max_row]] = A[[max_row, pivot_row]]
+        print(f&quot;\n列 {j}: 行 {pivot_row} と 行 {max_row} を入れ替えた後:&quot;)
+        print(A)
+        # ピボット行を正規化（ピボットを 1 にする）
+        pivot = A[pivot_row, j]
+        A[pivot_row] = A[pivot_row] / pivot
+        print(f&quot;\n列 {j}: 行 {pivot_row} を {pivot:.3f} で割って正規化した後:&quot;)
+        print(A)
+        # 下の行の消去: ピボット列 j の下部の要素を 0 にする
+        for i in range(pivot_row + 1, m):
+            factor = A[i, j]
+            A[i] = A[i] - factor * A[pivot_row]
+            print(f&quot;\n列 {j}: 行 {i} から {factor:.3f}×行 {pivot_row} を引いた後:&quot;)
+            print(A)
+        pivot_row += 1
+        if pivot_row == m:
+            break
+
+    # --- 後退消去 (Backward Elimination) ---
+    for j in range(n - 1, -1, -1):
+        # ピボットが存在する行を探す
+        pivot_rows = np.where(~np.isclose(A[:, j], 0))[0]
+        if len(pivot_rows) == 0:
+            continue
+        pivot_row = pivot_rows[0]  # 最上位のピボット行
+        # pivot_row より上の各行で、列 j の要素を 0 にする
+        for i in range(0, pivot_row):
+            factor = A[i, j]
+            A[i] = A[i] - factor * A[pivot_row]
+            print(f&quot;\n上部消去: 行 {i} から {factor:.3f}×行 {pivot_row} を引いて列 {j} を 0 にした後:&quot;)
+            print(A)
+
+    # ランクの計算：非零行の数
+    rank = np.sum(~np.all(np.isclose(A, 0), axis=1))
+    return A, rank
+
+# --- 使用例 ---
+
+# 例1: 5×3 行列の例
+A_5x3 = np.array([
+    [1, 2, 3],
+    [0, 1, 4],
+    [2, 4, 8],
+    [-1, -2, -3],
+    [3, 5, 7]
+], dtype=float)
+
+print(&quot;=== 5×3 行列の RREF とランク ===&quot;)
+rref_5x3, rank_5x3 = rref_verbose(A_5x3)
+print(&quot;\n最終的な RREF (5×3 行列):&quot;)
+print(rref_5x3)
+print(f&quot;5×3 行列のランク: {rank_5x3}\n&quot;)
+
+# 例2: 3×4 行列の例
+A_3x4 = np.array([
+    [2, 4, 6, 8],
+    [1, 3, 5, 7],
+    [0, 1, 1, 2]
+], dtype=float)
+
+print(&quot;=== 3×4 行列の RREF とランク ===&quot;)
+rref_3x4, rank_3x4 = rref_verbose(A_3x4)
+print(&quot;\n最終的な RREF (3×4 行列):&quot;)
+print(rref_3x4)
+print(f&quot;3×4 行列のランク: {rank_3x4}&quot;)
+</code></pre>
+<hr />
+<h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
+<ul>
+<li><strong>工学・物理学:</strong><br />
+    システムの自由度や制約条件の数を評価するため、行列のランクは重要な役割を果たします。  </li>
+<li><strong>経済学・最適化:</strong><br />
+    連立一次方程式のランクにより、解の存在性や一意性、または無限解の存在などを判定できます。  </li>
+<li><strong>コンピュータグラフィックス:</strong><br />
+    変換行列のランクを調べることで、射影やその他の変換の情報量を評価できます。  </li>
+<li><strong>機械学習:</strong><br />
+    データ行列のランクは、次元削減（例えば PCA）や特徴選択の際に、データの冗長性を判断する指標として利用されます。</li>
+</ul>
+<hr />
+<h2 id="6">6. 演習問題</h2>
+<ol>
+<li>
+<p><strong>演習問題1:</strong><br />
+    以下の 5×3 行列
+    $$
+    A_{5\times3} = \begin{pmatrix}
+    1 &amp; 2 &amp; 3 \\
+    0 &amp; 1 &amp; 4 \\
+    2 &amp; 4 &amp; 8 \\
+    -1 &amp; -2 &amp; -3 \\
+    3 &amp; 5 &amp; 7
+    \end{pmatrix}
+    $$
+    を RREF に変形し、その途中過程と最終的なランクを求めよ。</p>
+</li>
+<li>
+<p><strong>演習問題2:</strong><br />
+    次の 3×4 行列
+    $$
+    A_{3\times4} = \begin{pmatrix}
+    2 &amp; 4 &amp; 6 &amp; 8 \\
+    1 &amp; 3 &amp; 5 &amp; 7 \\
+    0 &amp; 1 &amp; 1 &amp; 2
+    \end{pmatrix}
+    $$
+    を RREF に変形し、その途中過程と最終的なランクを求めよ。</p>
+</li>
+<li>
+<p><strong>演習問題3:</strong><br />
+    階段行列および簡約階段行列の定義を自分の言葉で説明し、以下の行列がそれぞれどの形式に当てはまるかを判断せよ：</p>
+<ul>
+<li>$ \begin{pmatrix} 1 &amp; 2 &amp; 0 \\ 0 &amp; 3 &amp; 4 \\ 0 &amp; 0 &amp; 5 \end{pmatrix} $</li>
+<li>$ \begin{pmatrix} 1 &amp; 0 &amp; 2 \\ 0 &amp; 1 &amp; -3 \\ 0 &amp; 0 &amp; 0 \end{pmatrix} $</li>
+<li>$ \begin{pmatrix} 0 &amp; 1 &amp; 2 \\ 1 &amp; 3 &amp; 4 \\ 0 &amp; 0 &amp; 5 \end{pmatrix} $</li>
+</ul>
+</li>
+<li>
+<p><strong>演習問題4:</strong><br />
+    Google Colab 上で、今回のガウスの消去法の実装コードを自分で実装し、非正方行列（5×3 行列または 3×4 行列）の RREF 変形過程を記録せよ。その結果、得られる RREF とランクを報告せよ。</p>
+</li>
+</ol>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

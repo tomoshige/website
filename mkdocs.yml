@@ -1,0 +1,88 @@
+site_name: 'Statistical Learning Laboratory'
+site_url: https://tomoshige.github.io/website/
+site_author: Tomoshige Nakamura
+site_description: >-
+  Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University
+
+# Repository
+repo_name: tomoshige/website
+repo_url: https://tomoshige.github.io/website
+
+docs_dir: 'docs'
+
+# Copyright
+copyright: Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+
+
+theme:
+  name: material
+  language: ja
+  palette:
+    primary: indigo
+    accent: indigo
+  features:
+    - navigation.tabs
+    - navigation.expand
+    - navigation.path
+    # - navigation.footer
+    - navigation.indexes
+    # - navigation.instant
+    # - navigation.instant.prefetch
+    # - navigation.instant.progress
+    # - navigation.prune
+    - navigation.sections
+    # - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    # - search.highlight
+    # - search.share
+    # - search.suggest
+    - toc.follow
+    # - toc.integrate
+
+nav:
+  - Home : index.md
+  - Lectures : 
+      - lectures/index.md
+      - Linear algebra : 
+        - lectures/LA/index.md
+        - 1. Introduction : lectures/LA/01-introduction.md
+        - 2. Vector and Matrix1 : lectures/LA/02-vector-and-matrix.md
+        - 3. Vector and Matrix2 : lectures/LA/03-vector-and-matrix.md
+        - 4. Vector and Matrix3 : lectures/LA/04-vector-and-matrix.md
+        - 5. Vector and Matrix4 : lectures/LA/05-vector-and-matrix.md
+        - 6. System of Linear Equation : lectures/LA/06-system-of-linear-equation.md
+        - 7. System of Linear Equation : lectures/LA/07-system-of-linear-equation.md
+        - 8. System of Linear Equation : lectures/LA/08-system-of-linear-equation.md
+        - 9. System of Linear Equation : lectures/LA/09-system-of-linear-equation.md
+      - Data Science without syntax : 
+        - lectures/SIWS/index.md
+        - 1. Getting-Started : lectures/SIWS/01-getting-started.md
+        - 2. Data Visualizaion : lectures/SIWS/02-visualization.md
+        - 3. Data Wrangling : lectures/SIWS/03-wrangling.md
+        - 3. Data Wrangling : lectures/SIWS/04-data-import-and-tidy-data.md
+      - Statistics and Probability : 
+        - lectures/SP/index.md
+  - Research : 
+      - research/index.md
+      - Causal Mediation Analysis : research/note/causal-mediation-analysis.md
+
+  - Blog : 
+    - blog/index.md
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - admonition
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+
+extra_css:
+  - https://unpkg.com/katex@0/dist/katex.min.css
+
+extra:
+  generator: false

@@ -1,0 +1,2794 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/03-wrangling/">
+      
+      
+        <link rel="prev" href="../02-visualization/">
+      
+      
+        <link rel="next" href="../04-data-import-and-tidy-data/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>3. Data Wrangling - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-data-wrangling" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3. Data Wrangling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/06-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/07-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/08-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/09-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 必要なライブラリのインポート
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 必要なライブラリのインポート">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 実データの読み込みと確認
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. データのフィルタリング
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 必要な列の選択
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mutate" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 新しい変数の作成（mutate に相当）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 新しい変数の作成（mutate に相当）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-arrange" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 行の並べ替え（arrange に相当）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-group_by-summarise" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. グループ化と要約（group_by &amp; summarise に相当）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. グループ化と要約（group_by & summarise に相当）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 性別ごとの数学の平均スコア
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) テスト準備コース別に数学、読解、作文の平均スコアを集計
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. データの結合（Join）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. データの結合（Join）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 追加情報の DataFrame 作成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-wide-long" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. データの再構築（ピボット操作：wide ⇄ long）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. データの再構築（ピボット操作：wide ⇄ long）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) ワイド形式からロング形式への変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) ロング形式からワイド形式への再変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. データの可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. データの可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 散布図：数学スコアと読解スコアの関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) ボックスプロット：性別ごとの数学スコアの分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習問題（データ整形）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習問題（データ整形）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 1: データの読み込みと基本確認
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 1: データの読み込みと基本確認">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 2: データのフィルタリングと列選択
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 2: データのフィルタリングと列選択">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 3: 新しい変数の作成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 3: 新しい変数の作成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 4: 並べ替え
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 4: 並べ替え">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 5: グループ化と要約
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 5: グループ化と要約">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 6: データの結合（Join）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 6: データの結合（Join）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 7: ピボット操作（ワイド⇄ロング変換）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 7: ピボット操作（ワイド⇄ロング変換）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 8: データの可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 8: データの可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 9: 応用問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 9: 応用問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 9-1: 複合的なグループ化と可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例 9-1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 9-2: 仮説検証のための前処理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例 9-2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-to-come" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's to come?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 必要なライブラリのインポート
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 必要なライブラリのインポート">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 実データの読み込みと確認
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. データのフィルタリング
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 必要な列の選択
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mutate" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 新しい変数の作成（mutate に相当）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 新しい変数の作成（mutate に相当）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-arrange" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 行の並べ替え（arrange に相当）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-group_by-summarise" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. グループ化と要約（group_by &amp; summarise に相当）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. グループ化と要約（group_by & summarise に相当）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 性別ごとの数学の平均スコア
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) テスト準備コース別に数学、読解、作文の平均スコアを集計
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. データの結合（Join）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. データの結合（Join）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 追加情報の DataFrame 作成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-wide-long" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. データの再構築（ピボット操作：wide ⇄ long）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. データの再構築（ピボット操作：wide ⇄ long）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) ワイド形式からロング形式への変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) ロング形式からワイド形式への再変換
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. データの可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. データの可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (a) 散布図：数学スコアと読解スコアの関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (b) ボックスプロット：性別ごとの数学スコアの分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      詳細説明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習問題（データ整形）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習問題（データ整形）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 1: データの読み込みと基本確認
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 1: データの読み込みと基本確認">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 2: データのフィルタリングと列選択
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 2: データのフィルタリングと列選択">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 3: 新しい変数の作成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 3: 新しい変数の作成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 4: 並べ替え
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 4: 並べ替え">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 5: グループ化と要約
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 5: グループ化と要約">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 6: データの結合（Join）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 6: データの結合（Join）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 7: ピボット操作（ワイド⇄ロング変換）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 7: ピボット操作（ワイド⇄ロング変換）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 8: データの可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 8: データの可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習 9: 応用問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="演習 9: 応用問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 9-1: 複合的なグループ化と可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例 9-1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題 9-2: 仮説検証のための前処理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      解答例 9-2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-to-come" class="md-nav__link">
+    <span class="md-ellipsis">
+      What's to come?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="python-data-wrangling">Python による データ整形（Data Wrangling）</h1>
+<h2 id="_1">はじめに</h2>
+<p>本章では、データサイエンスにおいて最も重要な前処理・変換作業である <strong>データ整形（データ・ワリングリング）</strong> の基本的な操作方法を学びます。<br />
+具体的には、以下の内容を取り扱います。</p>
+<ul>
+<li>
+<p><strong>データの読み込みと確認</strong><br />
+  実データ（Students Performance in Exams）を読み込み、データの内容や構造を把握する方法。</p>
+</li>
+<li>
+<p><strong>行のフィルタリングと列の選択</strong><br />
+  必要なデータのみを抽出するための条件指定や、解析に必要な列だけを取り出す方法。</p>
+</li>
+<li>
+<p><strong>新しい変数の作成</strong><br />
+  既存の変数から新たな指標（例：総得点、平均点）を計算し、データに追加する方法。</p>
+</li>
+<li>
+<p><strong>データの並べ替え</strong><br />
+  特定の基準（例：平均点の降順）に基づいてデータをソートする方法。</p>
+</li>
+<li>
+<p><strong>グループ化と集約</strong><br />
+  カテゴリごとにデータをまとめ、平均値などの統計量を算出する方法。</p>
+</li>
+<li>
+<p><strong>データの結合と再構築（ピボット操作）</strong><br />
+  複数のデータセットを結合したり、データの形式を変換（ワイド形式⇄ロング形式）する方法。</p>
+</li>
+<li>
+<p><strong>データの可視化</strong><br />
+  データの傾向や分布を視覚的に把握するためのグラフ作成手法。</p>
+</li>
+</ul>
+<p>これらの操作は、データのクレンジング、特徴量エンジニアリング、分析の前処理など、実際のデータサイエンスプロジェクトにおいて不可欠なステップです。<br />
+正確なデータ整形は、後続のモデル構築や分析の精度向上に直結するため、本章で学ぶ内容は非常に重要です。</p>
+<hr />
+<h2 id="1">1. 必要なライブラリのインポート</h2>
+<p>まず、数値計算、データ操作、グラフ描画のために必要なライブラリをインポートします。</p>
+<h3 id="_2">説明</h3>
+<ul>
+<li><strong>numpy</strong>: 数値計算ライブラリ（今回は補助的に利用）。</li>
+<li><strong>pandas</strong>: データ操作や解析のためのライブラリで、DataFrame を用いて表形式データを扱います。</li>
+<li><strong>matplotlib</strong> と <strong>seaborn</strong>: データの可視化ライブラリです。<code>seaborn</code> は <code>matplotlib</code> をベースにしており、見やすいグラフを簡単に作成できます。</li>
+</ul>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# グラフのスタイル設定（見た目を整えるためのオプション）
+sns.set(style=&quot;whitegrid&quot;)
+</code></pre>
+<hr />
+<h2 id="2">2. 実データの読み込みと確認</h2>
+<p>今回は、Kaggle などで公開されている「Students Performance in Exams」データセットを使用します。<br />
+データには、以下のような列が含まれています：<br />
+- <code>gender</code><br />
+- <code>race/ethnicity</code><br />
+- <code>parental level of education</code><br />
+- <code>lunch</code><br />
+- <code>test preparation course</code><br />
+- <code>math score</code><br />
+- <code>reading score</code><br />
+- <code>writing score</code></p>
+<p>データは、GitHub 上に公開されている CSV ファイルから読み込みます。</p>
+<pre><code class="language-python"># データセットの URL（※実際の利用時はデータの出所・ライセンスに注意してください）
+data_url = &quot;https://raw.githubusercontent.com/selva86/datasets/master/StudentsPerformance.csv&quot;
+
+# CSV ファイルからデータを読み込む
+df = pd.read_csv(data_url)
+
+# データの先頭部分を確認
+print(&quot;=== オリジナルデータ ===&quot;)
+print(df.head())
+</code></pre>
+<hr />
+<h2 id="3">3. データのフィルタリング</h2>
+<p>特定の条件に合致する行のみを抽出する操作です。<br />
+ここでは例として、「数学のスコアが 70 点以上」の生徒のみを抽出します。<br />
+pandas では、ブールインデックスを用いて条件を指定します。</p>
+<pre><code class="language-python"># 数学のスコアが70以上の生徒のみ抽出
+df_filtered = df[df['math score'] &gt;= 70]
+print(&quot;\n=== 数学のスコアが70以上のデータ ===&quot;)
+print(df_filtered.head())
+</code></pre>
+<hr />
+<h2 id="4">4. 必要な列の選択</h2>
+<p>解析に必要な列だけを抽出します。<br />
+ここでは、<code>gender</code>、<code>math score</code>、<code>reading score</code>、<code>writing score</code> の4列のみを選択します。</p>
+<pre><code class="language-python"># 必要な列だけを抽出
+df_selected = df[['gender', 'math score', 'reading score', 'writing score']]
+print(&quot;\n=== 選択した列 (gender, math score, reading score, writing score) ===&quot;)
+print(df_selected.head())
+</code></pre>
+<hr />
+<h2 id="5-mutate">5. 新しい変数の作成（mutate に相当）</h2>
+<p>R の <code>mutate()</code> と同様に、新たな列を追加して計算結果を保存します。<br />
+ここでは、各生徒の総得点 (<code>total_score</code>) と平均点 (<code>mean_score</code>) を計算して追加します。</p>
+<pre><code class="language-python"># 新しい列の作成：総得点と平均点を追加
+df = df.assign(
+    total_score = df['math score'] + df['reading score'] + df['writing score'],
+    mean_score = df[['math score', 'reading score', 'writing score']].mean(axis=1)
+)
+print(&quot;\n=== 新しい変数 (total_score, mean_score) を追加したデータ ===&quot;)
+print(df.head())
+</code></pre>
+<h3 id="_3">詳細説明</h3>
+<ul>
+<li><code>df.assign(...)</code> は、元の DataFrame に対して新しい列を追加し、結果の DataFrame を返します。  </li>
+<li><code>mean(axis=1)</code> は、各行（axis=1）ごとに平均を計算する指定です。</li>
+</ul>
+<hr />
+<h2 id="6-arrange">6. 行の並べ替え（arrange に相当）</h2>
+<p>データを特定の列に基づいて並べ替えます。<br />
+ここでは、<code>mean_score</code>（平均点）の降順に並べ替えを行います。</p>
+<pre><code class="language-python"># 平均点の降順で並べ替え
+df_sorted = df.sort_values(by='mean_score', ascending=False)
+print(&quot;\n=== 平均点で降順ソートしたデータ ===&quot;)
+print(df_sorted.head())
+</code></pre>
+<hr />
+<h2 id="7-group_by-summarise">7. グループ化と要約（group_by &amp; summarise に相当）</h2>
+<h3 id="a">(a) 性別ごとの数学の平均スコア</h3>
+<p>性別ごとにグループ化し、各グループ内の「math score」の平均を算出します。</p>
+<pre><code class="language-python"># 性別ごとの数学の平均スコア
+mean_math_by_gender = df.groupby('gender')['math score'].mean().reset_index()
+print(&quot;\n=== 性別ごとの数学の平均スコア ===&quot;)
+print(mean_math_by_gender)
+</code></pre>
+<h3 id="b">(b) テスト準備コース別に数学、読解、作文の平均スコアを集計</h3>
+<p>生徒がテスト準備コースを受講したかどうかで、各科目の平均スコアを集計します。</p>
+<pre><code class="language-python"># テスト準備コースごとに数学、読解、作文の平均スコアを集計
+mean_scores_by_prep = df.groupby('test preparation course').agg({
+    'math score': 'mean',
+    'reading score': 'mean',
+    'writing score': 'mean'
+}).reset_index()
+print(&quot;\n=== テスト準備コースごとの各科目の平均スコア ===&quot;)
+print(mean_scores_by_prep)
+</code></pre>
+<h3 id="_4">詳細説明</h3>
+<ul>
+<li><code>groupby()</code> により、指定した列（ここでは <code>gender</code> や <code>test preparation course</code>）でデータをグループ化します。  </li>
+<li><code>agg()</code> を使用して、各グループに対して複数の集約関数（例：<code>mean</code>）を適用できます。  </li>
+<li><code>reset_index()</code> により、グループ化後のインデックスを通常の列に戻します。</li>
+</ul>
+<hr />
+<h2 id="8-join">8. データの結合（Join）</h2>
+<p>複数の DataFrame を共通のキーで結合する操作です。<br />
+ここでは、元のデータに「親の学歴」を数値化した情報を付加する例を示します。</p>
+<h3 id="a-dataframe">(a) 追加情報の DataFrame 作成</h3>
+<p>親の学歴は文字列ですが、ここでは便宜上、各レベルに数値の「ランク」を割り当てた DataFrame を作成します。<br />
+例として、以下のランク付けを行います：
+- <code>some high school</code>: 1<br />
+- <code>high school</code>: 2<br />
+- <code>some college</code>: 3<br />
+- <code>associate's degree</code>: 4<br />
+- <code>bachelor's degree</code>: 5<br />
+- <code>master's degree</code>: 6  </p>
+<p>※実際のデータでは、値の種類や表記が異なる場合があるため、適宜調整してください。</p>
+<pre><code class="language-python"># 親の学歴とそのランクのマッピング情報
+parent_ed_levels = pd.DataFrame({
+    'parental level of education': [
+        'some high school', 'high school', 'some college', 
+        &quot;associate's degree&quot;, &quot;bachelor's degree&quot;, &quot;master's degree&quot;
+    ],
+    'edu_rank': [1, 2, 3, 4, 5, 6]
+})
+
+# 作成したマッピング情報を、元のデータと「親の学歴」をキーに左結合（left join）
+df_joined = pd.merge(df, parent_ed_levels, on='parental level of education', how='left')
+print(&quot;\n=== 親の学歴のランク情報を結合したデータ ===&quot;)
+print(df_joined[['parental level of education', 'edu_rank']].drop_duplicates())
+</code></pre>
+<h3 id="_5">詳細説明</h3>
+<ul>
+<li><code>pd.merge()</code> は、2 つの DataFrame を共通のキー（ここでは <code>parental level of education</code>）で結合するための関数です。  </li>
+<li><code>how='left'</code> とすることで、左側（元のデータ）の全行を保持し、右側の DataFrame から対応する情報を追加します。</li>
+</ul>
+<hr />
+<h2 id="9-wide-long">9. データの再構築（ピボット操作：wide ⇄ long）</h2>
+<h3 id="a_1">(a) ワイド形式からロング形式への変換</h3>
+<p>3 科目（数学、読解、作文）のスコアが個別の列として存在するデータを、<br />
+<code>pd.melt()</code> を用いて「subject」と「score」の 2 列からなるロング形式に変換します。</p>
+<pre><code class="language-python"># 数学、読解、作文のスコアをロング形式に変換
+df_long = pd.melt(df,
+                  id_vars=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
+                  value_vars=['math score', 'reading score', 'writing score'],
+                  var_name='subject',
+                  value_name='score')
+print(&quot;\n=== ロング形式のデータ ===&quot;)
+print(df_long.head())
+</code></pre>
+<h3 id="b_1">(b) ロング形式からワイド形式への再変換</h3>
+<p>先ほどのロング形式のデータを、<code>pivot_table()</code> を用いて元のワイド形式に戻します。</p>
+<pre><code class="language-python"># ロング形式からワイド形式に変換
+df_wide = df_long.pivot_table(index=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
+                              columns='subject',
+                              values='score').reset_index()
+print(&quot;\n=== ワイド形式に戻したデータ ===&quot;)
+print(df_wide.head())
+</code></pre>
+<h3 id="_6">詳細説明</h3>
+<ul>
+<li><code>pd.melt()</code> は、複数の列を 1 つの「値」列にまとめ、対応する「変数名」を示す列を作成します。  </li>
+<li><code>pivot_table()</code> を用いると、指定したインデックスと列名を元にデータを再構築し、ワイド形式に戻すことができます。</li>
+</ul>
+<hr />
+<h2 id="10">10. データの可視化</h2>
+<p>ここでは、整形したデータを基に可視化を行い、データの傾向や分布を把握します。</p>
+<h3 id="a_2">(a) 散布図：数学スコアと読解スコアの関係</h3>
+<p>性別ごとに色分けして、数学スコアと読解スコアの関係を散布図で表示します。</p>
+<pre><code class="language-python">plt.figure(figsize=(8, 6))
+sns.scatterplot(data=df, x='math score', y='reading score', hue='gender', s=100)
+plt.title('数学スコアと読解スコアの関係')
+plt.xlabel('数学スコア')
+plt.ylabel('読解スコア')
+plt.show()
+</code></pre>
+<h3 id="b_2">(b) ボックスプロット：性別ごとの数学スコアの分布</h3>
+<p>各性別における数学スコアの分布（中央値、四分位範囲、外れ値など）をボックスプロットで可視化します。</p>
+<pre><code class="language-python">plt.figure(figsize=(8, 6))
+sns.boxplot(data=df, x='gender', y='math score')
+plt.title('性別ごとの数学スコアの分布')
+plt.xlabel('性別')
+plt.ylabel('数学スコア')
+plt.show()
+</code></pre>
+<h3 id="_7">詳細説明</h3>
+<ul>
+<li><code>sns.scatterplot()</code> は、散布図を作成するための関数です。<code>hue</code> パラメータにより性別ごとに色分けを行っています。  </li>
+<li><code>sns.boxplot()</code> は、カテゴリ別のデータ分布（中央値、四分位範囲、外れ値など）を視覚的に把握するために使用します。</li>
+</ul>
+<hr />
+<h2 id="_8">まとめ</h2>
+<p>本ドキュメントでは、実際の「Students Performance in Exams」データセットを用い、Python によるデータ整形と操作の基本的な手法を以下の流れで解説しました。</p>
+<ul>
+<li>
+<p><strong>データの読み込み・確認</strong><br />
+  → CSV ファイルからデータを読み込み、<code>head()</code> で先頭部分を表示。</p>
+</li>
+<li>
+<p><strong>行のフィルタリング</strong><br />
+  → 例として、数学スコアが 70 点以上の生徒を抽出。</p>
+</li>
+<li>
+<p><strong>列の選択</strong><br />
+  → 解析に必要な列（例：<code>gender</code>, <code>math score</code>, <code>reading score</code>, <code>writing score</code>）を選択。</p>
+</li>
+<li>
+<p><strong>新しい変数の作成</strong><br />
+  → <code>assign()</code> を用い、総得点 (<code>total_score</code>) や平均点 (<code>mean_score</code>) を計算して追加。</p>
+</li>
+<li>
+<p><strong>並べ替え</strong><br />
+  → <code>sort_values()</code> により、平均点の降順で並べ替え。</p>
+</li>
+<li>
+<p><strong>グループ化と要約</strong><br />
+  → <code>groupby()</code> と <code>agg()</code> を使い、性別やテスト準備コースごとに各科目の平均スコアを算出。</p>
+</li>
+<li>
+<p><strong>データの結合</strong><br />
+  → 別途作成した「親の学歴ランク」情報の DataFrame と結合し、付加情報を追加。</p>
+</li>
+<li>
+<p><strong>データの再構築（ピボット操作）</strong><br />
+  → <code>melt()</code> でワイド形式のスコア列をロング形式に変換し、<code>pivot_table()</code> でワイド形式に戻す操作を実施。</p>
+</li>
+<li>
+<p><strong>データの可視化</strong><br />
+  → seaborn と matplotlib を用いて、散布図やボックスプロットでデータの傾向や分布を視覚化。</p>
+</li>
+</ul>
+<p>これらの基本操作は、データクレンジング、特徴量エンジニアリング、そして正確な分析結果を得るための前処理として、データサイエンスの現場で必須のスキルです。<br />
+本章で学んだ手法を身につけることで、実際のプロジェクトにおけるデータ解析やモデリングの精度向上につながります。</p>
+<hr />
+<h2 id="_9">演習問題（データ整形）</h2>
+<p>このドキュメントでは、これまで学んだ内容を復習するための演習問題です。ただし、これらのコードを覚える必要はありません。
+このコードは「こういう意味か」と理解できれば問題はないです。 まずは、実際にコードを動かして、出力結果やグラフを確認してください。
+その後で、それぞれのプログラムがどのような意味なのかを学び直しましょう。</p>
+<hr />
+<h3 id="1_1">演習 1: データの読み込みと基本確認</h3>
+<h4 id="_10">問題</h4>
+<ol>
+<li>データセットの URL<br />
+<code>https://raw.githubusercontent.com/selva86/datasets/master/StudentsPerformance.csv</code><br />
+   からデータを読み込み、DataFrame を作成してください。  </li>
+<li>読み込んだデータの先頭 10 行を表示してください。</li>
+</ol>
+<h4 id="_11">解答例</h4>
+<pre><code class="language-python">import pandas as pd
+
+# データセットの URL
+data_url = &quot;https://raw.githubusercontent.com/selva86/datasets/master/StudentsPerformance.csv&quot;
+
+# CSV ファイルからデータを読み込む
+df = pd.read_csv(data_url)
+
+# データの先頭 10 行を表示
+print(&quot;データの先頭10行:&quot;)
+print(df.head(10))
+</code></pre>
+<hr />
+<h3 id="2_1">演習 2: データのフィルタリングと列選択</h3>
+<h4 id="_12">問題</h4>
+<ol>
+<li>「math score」が 80 点以上の生徒のみを抽出してください。  </li>
+<li>抽出したデータから、<code>gender</code>、<code>math score</code>、<code>reading score</code>、<code>writing score</code> の 4 列だけを選択してください。</li>
+</ol>
+<h4 id="_13">解答例</h4>
+<pre><code class="language-python"># math scoreが80点以上の生徒を抽出
+df_filtered = df[df['math score'] &gt;= 80]
+print(&quot;math scoreが80以上のデータ:&quot;)
+print(df_filtered.head())
+
+# 必要な列のみを選択
+df_selected = df_filtered[['gender', 'math score', 'reading score', 'writing score']]
+print(&quot;選択した列:&quot;)
+print(df_selected.head())
+</code></pre>
+<hr />
+<h3 id="3_1">演習 3: 新しい変数の作成</h3>
+<h4 id="_14">問題</h4>
+<ol>
+<li>「reading-writing average」という列を追加し、<code>reading score</code> と <code>writing score</code> の平均を計算してください。  </li>
+<li>各生徒の総得点 (<code>total_score</code>: <code>math score</code> + <code>reading score</code> + <code>writing score</code>) を計算し、列として追加してください。</li>
+</ol>
+<h4 id="_15">解答例</h4>
+<pre><code class="language-python"># 新しい列の作成：reading-writing average と total_score
+df['reading-writing average'] = df[['reading score', 'writing score']].mean(axis=1)
+df['total_score'] = df['math score'] + df['reading score'] + df['writing score']
+
+print(&quot;新しい列を追加したデータ:&quot;)
+print(df[['reading-writing average', 'total_score']].head())
+</code></pre>
+<hr />
+<h3 id="4_1">演習 4: 並べ替え</h3>
+<h4 id="_16">問題</h4>
+<p>総得点 (<code>total_score</code>) に基づいてデータを降順に並べ替え、上位 5 件のデータを表示してください。</p>
+<h4 id="_17">解答例</h4>
+<pre><code class="language-python"># total_score に基づいて降順に並べ替え
+df_sorted = df.sort_values(by='total_score', ascending=False)
+print(&quot;総得点で降順に並べ替えた上位5件:&quot;)
+print(df_sorted.head(5))
+</code></pre>
+<hr />
+<h3 id="5">演習 5: グループ化と要約</h3>
+<h4 id="_18">問題</h4>
+<ol>
+<li>性別ごとにグループ化し、<code>math score</code> の平均値を計算して表示してください。  </li>
+<li><code>test preparation course</code> 別に、<code>math score</code>、<code>reading score</code>、<code>writing score</code> の各平均値を集計してください。</li>
+</ol>
+<h4 id="_19">解答例</h4>
+<pre><code class="language-python"># 性別ごとの math score の平均を計算
+mean_math_by_gender = df.groupby('gender')['math score'].mean().reset_index()
+print(&quot;性別ごとの math score の平均:&quot;)
+print(mean_math_by_gender)
+
+# test preparation course 別に各科目の平均値を集計
+mean_scores_by_prep = df.groupby('test preparation course').agg({
+    'math score': 'mean',
+    'reading score': 'mean',
+    'writing score': 'mean'
+}).reset_index()
+print(&quot;test preparation course 別の各科目の平均:&quot;)
+print(mean_scores_by_prep)
+</code></pre>
+<hr />
+<h3 id="6-join">演習 6: データの結合（Join）</h3>
+<h4 id="_20">問題</h4>
+<ol>
+<li>「parental level of education」に対して、以下のルールで数値のランクを付与する DataFrame を作成してください。  </li>
+<li><code>some high school</code>: 1  </li>
+<li><code>high school</code>: 2  </li>
+<li><code>some college</code>: 3  </li>
+<li><code>associate's degree</code>: 4  </li>
+<li><code>bachelor's degree</code>: 5  </li>
+<li><code>master's degree</code>: 6  </li>
+<li>作成した DataFrame を、元のデータと <code>parental level of education</code> をキーに左結合し、<code>parental level of education</code> と <code>edu_rank</code> のユニークな組み合わせを表示してください。</li>
+</ol>
+<h4 id="_21">解答例</h4>
+<pre><code class="language-python"># 親の学歴ランクの DataFrame を作成
+parent_ed_levels = pd.DataFrame({
+    'parental level of education': [
+        'some high school',
+        'high school',
+        'some college',
+        &quot;associate's degree&quot;,
+        &quot;bachelor's degree&quot;,
+        &quot;master's degree&quot;
+    ],
+    'edu_rank': [1, 2, 3, 4, 5, 6]
+})
+
+# 元のデータと左結合
+df_joined = pd.merge(df, parent_ed_levels, on='parental level of education', how='left')
+print(&quot;親の学歴とedu_rankのユニークな組み合わせ:&quot;)
+print(df_joined[['parental level of education', 'edu_rank']].drop_duplicates())
+</code></pre>
+<hr />
+<h3 id="7">演習 7: ピボット操作（ワイド⇄ロング変換）</h3>
+<h4 id="_22">問題</h4>
+<ol>
+<li><code>pd.melt()</code> を用いて、<code>math score</code>、<code>reading score</code>、<code>writing score</code> の各列を「subject」と「score」の 2 列に変換してください。<br />
+   ※ <code>id_vars</code> として <code>gender</code>、<code>race/ethnicity</code>、<code>parental level of education</code>、<code>lunch</code>、<code>test preparation course</code> を指定してください。  </li>
+<li>先ほどのロング形式データを <code>pivot_table()</code> を使って、元のワイド形式（各科目が別の列）に戻してください。</li>
+</ol>
+<h4 id="_23">解答例</h4>
+<details>
+
+<pre><code class="language-python"># ワイド形式からロング形式に変換
+df_long = pd.melt(df,
+                  id_vars=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
+                  value_vars=['math score', 'reading score', 'writing score'],
+                  var_name='subject',
+                  value_name='score')
+print(&quot;ロング形式のデータ:&quot;)
+print(df_long.head())
+
+# ロング形式からワイド形式に再変換
+df_wide = df_long.pivot_table(index=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
+                              columns='subject',
+                              values='score').reset_index()
+print(&quot;ワイド形式に戻したデータ:&quot;)
+print(df_wide.head())
+</code></pre>
+
+</details>
+
+<hr />
+<h3 id="8">演習 8: データの可視化</h3>
+<h4 id="_24">問題</h4>
+<ol>
+<li>性別ごとに色分けした散布図を作成し、「math score」と「reading score」の関係を可視化してください。  </li>
+<li><code>lunch</code> 別に「writing score」の分布を示すボックスプロットを作成してください。</li>
+</ol>
+<h4 id="_25">解答例</h4>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import seaborn as sns
+
+# 散布図の作成: math score vs reading score (性別で色分け)
+plt.figure(figsize=(8, 6))
+sns.scatterplot(data=df, x='math score', y='reading score', hue='gender', s=100)
+plt.title('Math Score vs Reading Score by Gender')
+plt.xlabel('Math Score')
+plt.ylabel('Reading Score')
+plt.show()
+
+# ボックスプロットの作成: lunch 別の writing score 分布
+plt.figure(figsize=(8, 6))
+sns.boxplot(data=df, x='lunch', y='writing score')
+plt.title('Writing Score Distribution by Lunch')
+plt.xlabel('Lunch')
+plt.ylabel('Writing Score')
+plt.show()
+</code></pre>
+<hr />
+<h3 id="9">演習 9: 応用問題</h3>
+<h4 id="9-1">問題 9-1: 複合的なグループ化と可視化</h4>
+<p>ロング形式に変換したデータを用いて、各科目ごとに「parental level of education」別の平均スコアを算出し、棒グラフで可視化してください。</p>
+<h4 id="9-1_1">解答例 9-1</h4>
+<pre><code class="language-python"># ロング形式 (df_long) を用いて、parental level of education と subject 別の平均スコアを計算
+grouped = df_long.groupby(['parental level of education', 'subject'])['score'].mean().reset_index()
+print(&quot;parental level of education と subject 別の平均スコア:&quot;)
+print(grouped)
+
+# 棒グラフの作成
+plt.figure(figsize=(10, 6))
+sns.barplot(data=grouped, x='parental level of education', y='score', hue='subject')
+plt.title('Average Score by Parental Level of Education and Subject')
+plt.xlabel('Parental Level of Education')
+plt.ylabel('Average Score')
+plt.xticks(rotation=45)
+plt.show()
+</code></pre>
+<h4 id="9-2">問題 9-2: 仮説検証のための前処理</h4>
+<p>ここでは、<strong>test preparation course</strong> が <strong>total_score</strong> に与える影響を検証する例を示します。<br />
+- <code>test preparation course</code> 別に <strong>total_score</strong> の分布をボックスプロットで可視化し、<br />
+- 各グループの平均 <strong>total_score</strong> を算出してください。</p>
+<h4 id="9-2_1">解答例 9-2</h4>
+<pre><code class="language-python"># ボックスプロットによる可視化: test preparation course 別の total_score 分布
+plt.figure(figsize=(8, 6))
+sns.boxplot(data=df, x='test preparation course', y='total_score')
+plt.title('Total Score by Test Preparation Course')
+plt.xlabel('Test Preparation Course')
+plt.ylabel('Total Score')
+plt.show()
+
+# test preparation course 別の平均 total_score を計算
+mean_total_by_prep = df.groupby('test preparation course')['total_score'].mean().reset_index()
+print(&quot;Test Preparation Course 別の平均 Total Score:&quot;)
+print(mean_total_by_prep)
+</code></pre>
+<h2 id="whats-to-come">What's to come?</h2>
+<p>So far in this book, we've explored, visualized, and wrangled data saved in data frames. These data frames were saved in a spreadsheet-like format: in a rectangular shape with a certain number of rows corresponding to observations and a certain number of columns corresponding to variables describing these observations. </p>
+<p>We'll see in the upcoming Chapter \@ref(tidy) that there are actually two ways to represent data in spreadsheet-type rectangular format: (1) "wide" format and (2) "tall/narrow" format. The tall/narrow format is also known as <em>"tidy"</em> format in R user circles. While the distinction between "tidy" and non-"tidy" formatted data is subtle, it has immense implications for our data science work. This is because almost all the packages used in this book, including the <code>ggplot2</code> package for data visualization and the <code>dplyr</code> package for data wrangling, all assume that all data frames are in "tidy" format. </p>
+<p>Furthermore, up until now we've only explored, visualized, and wrangled data saved within R packages. But what if you want to analyze data that you have saved in a Microsoft Excel, a Google Sheets, or a "Comma-Separated Values" (CSV) file? In Section \@ref(csv), we'll show you how to import this data into R using the <code>readr</code> package. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
