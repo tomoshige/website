@@ -66,10 +66,9 @@ nav:
         - lectures/SP/index.md
   - Research : 
       - research/index.md
-      - Causal Mediation Analysis : research/note/causal-mediation-analysis.md
-
-  - Blog : 
-    - blog/index.md
+      - Generalized random forests : research/note/generalized-random-forests.md
+      - Causal mediation analysis : research/note/causal-mediation-analysis.md
+      - Causal data repository : research/note/causal-data-repository.md
 
 markdown_extensions:
   - pymdownx.arithmatex:
