@@ -1,0 +1,1411 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/factor-analysis/">
+      
+      
+        <link rel="prev" href="../causal-data-repository/">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Factor analysis - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#factor-analysis" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Factor analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../lectures/" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/06-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/07-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/08-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/09-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="factor-analysis">Factor analysis</h1>
+<ol>
+<li><a href="#序論">序論</a></li>
+<li>1.1 <a href="#背景と研究の動機">背景と研究の動機</a></li>
+<li>
+<p>1.2 <a href="#レビューの目的と範囲">レビューの目的と範囲</a></p>
+</li>
+<li>
+<p><a href="#因子分析の基礎理論">因子分析の基礎理論</a></p>
+</li>
+<li>2.1 <a href="#因子モデルの定義と基本概念">因子モデルの定義と基本概念</a></li>
+<li>2.2 <a href="#観測変数と潜在因子の関係">観測変数と潜在因子の関係</a></li>
+<li>
+<p>2.3 <a href="#共分散構造の理論">共分散構造の理論</a></p>
+</li>
+<li>
+<p><a href="#数理的定式化">数理的定式化</a></p>
+</li>
+<li>3.1 <a href="#線形因子モデルの数式表現">線形因子モデルの数式表現</a><ul>
+<li>$ \mathbf{x} = \mathbf{\Lambda}\mathbf{f} + \boldsymbol{\epsilon} $</li>
+</ul>
+</li>
+<li>3.2 <a href="#行列分解と固有値問題">行列分解と固有値問題</a></li>
+<li>
+<p>3.3 <a href="#同一性・判別性の問題">同一性・判別性の問題</a></p>
+</li>
+<li>
+<p><a href="#推定方法と最適化アルゴリズム">推定方法と最適化アルゴリズム</a></p>
+</li>
+<li>4.1 <a href="#最尤法">最尤法 (Maximum Likelihood Estimation)</a></li>
+<li>4.2 <a href="#最小二乗法">最小二乗法 (Least Squares)</a></li>
+<li>
+<p>4.3 <a href="#回転法とその数理的根拠">回転法とその数理的根拠</a></p>
+</li>
+<li>
+<p><a href="#評価指標とモデル検証">評価指標とモデル検証</a></p>
+</li>
+<li>5.1 <a href="#chi2-検定と適合度指標"><span class="arithmatex">\(\chi^2\)</span> 検定と適合度指標</a></li>
+<li>5.2 <a href="#モデル選択基準">モデル選択基準 (AIC, BIC など)</a></li>
+<li>
+<p>5.3 <a href="#感度分析とロバスト性の検討">感度分析とロバスト性の検討</a></p>
+</li>
+<li>
+<p><a href="#シミュレーション研究と実データ解析">シミュレーション研究と実データ解析</a></p>
+</li>
+<li>6.1 <a href="#シミュレーションの設計と解析">シミュレーションの設計と解析</a></li>
+<li>
+<p>6.2 <a href="#実データへの適用例と課題">実データへの適用例と課題</a></p>
+</li>
+<li>
+<p><a href="#拡張因子分析モデル">拡張因子分析モデル</a></p>
+</li>
+<li>7.1 <a href="#多水準因子分析">多水準因子分析</a></li>
+<li>7.2 <a href="#時系列因子分析">時系列因子分析</a></li>
+<li>
+<p>7.3 <a href="#非線形因子分析とその数理的アプローチ">非線形因子分析とその数理的アプローチ</a></p>
+</li>
+<li>
+<p><a href="#議論と今後の展望">議論と今後の展望</a></p>
+</li>
+<li>8.1 <a href="#数理的課題と理論的限界">数理的課題と理論的限界</a></li>
+<li>
+<p>8.2 <a href="#将来的な研究方向性">将来的な研究方向性</a></p>
+</li>
+<li>
+<p><a href="#結論">結論</a></p>
+</li>
+<li>
+<p><a href="#参考文献">参考文献</a></p>
+</li>
+</ol>
+<hr />
+<h1 id="_1">序論</h1>
+<p>因子分析は、観測された多変量データに潜む共通の構造―すなわち、直接観測できない潜在因子―を抽出し、その関係性を解明するための統計的手法です。もともとは心理学や社会科学の領域で、知能や性格といった抽象的な概念を定量化するために発展しましたが、現在では経済学、生物統計学、マーケティングリサーチなど多岐にわたる分野で応用されています。</p>
+<h2 id="11">1.1 背景と研究の動機</h2>
+<p>因子分析の歴史は、初期の心理学における知能研究にその起源を持ちます。Spearmanの提唱した一般因子（<span class="arithmatex">\(g\)</span>因子）の概念や、Thurstoneによる多因子モデルの展開は、観測変数間の相関構造に潜む共通の要因を抽出するという考え方を確立しました。これにより、複雑な多変量データの背後にある単純な構造を明らかにする試みが始まりました。</p>
+<p>現代においては、計算機資源の飛躍的な向上に伴い、大規模かつ複雑なデータセットに対しても因子分析が適用可能となりました。従来の線形モデルに留まらず、非線形モデルや多水準モデル、時系列データに対応した拡張因子分析など、新たな理論的枠組みが提案されています。さらに、因子モデルの同一性（identifiability）の問題や、推定方法（例えば最尤法や最小二乗法）の数理的な根拠が精緻化されることで、より厳密な解析が可能となってきました。</p>
+<p>これらの背景は、因子分析が単なるデータ縮約の手法を超えて、複雑なデータ構造の理解や潜在変数の解釈を深めるための強力なツールであることを示しています。本レビューでは、これらの動機に基づき、因子分析の数理的側面を包括的に検証し、基礎理論から最新の応用・拡張までを論じることを目的とします。</p>
+<h2 id="12">1.2 レビューの目的と範囲</h2>
+<p>本章では、因子分析に関する基礎概念とその数理的背景を概観し、以下の点に重点を置いて解説を進めます。</p>
+<ul>
+<li>
+<p><strong>因子分析の基本構造:</strong><br />
+  観測変数 <span class="arithmatex">\(\mathbf{x}\)</span> と潜在因子 <span class="arithmatex">\(\mathbf{f}\)</span> の関係を、一般的に<br />
+  $$ \mathbf{x} = \mathbf{\Lambda}\mathbf{f} + \boldsymbol{\epsilon} $$<br />
+  という線形モデルで表現し、各構成要素の意味と役割を明確にします。</p>
+</li>
+<li>
+<p><strong>歴史的背景と応用領域:</strong><br />
+  初期の心理学的アプローチから現代の大規模データ解析まで、因子分析がどのように発展してきたかを概観するとともに、その応用領域の広がりを示します。</p>
+</li>
+<li>
+<p><strong>数理的な問題と挑戦:</strong><br />
+  モデルの同一性問題、固有値分解や行列分解に基づく解析手法、さらには最尤法や最小二乗法などの推定技法の数学的背景について、後章で詳細に議論するための基礎知識を整理します。</p>
+</li>
+<li>
+<p><strong>本レビューの構成と意義:</strong><br />
+  本レビューは、因子分析の基礎理論と応用を統合的に理解するためのリファレンスとして、研究者や実務者にとって有用な情報を提供することを目的としています。以降の各章では、より詳細な数理的定式化、推定方法、評価指標、さらには拡張モデルに関する最新の研究成果を取り上げ、因子分析の理論と実践の両面に光を当てます。</p>
+</li>
+</ul>
+<p>以上のように、本章では因子分析の基本的な考え方とその発展の経緯、そして本レビュー全体の目的と範囲について概説しました。これにより、読者は因子分析の全体像を把握するとともに、以降の詳細な議論への理解の土台を築くことができると考えます。</p>
+<hr />
+<h1 id="2">第2章: 因子分析の基礎理論</h1>
+<p>本章では、因子分析の根幹をなす理論について解説します。ここでは、観測変数が潜在因子の線形結合としてどのように記述されるか、その数学的な枠組みと前提条件、さらにこの枠組みから導かれる共分散構造について詳述します。これにより、因子分析の基礎理論を体系的に理解できることを目指します。</p>
+<h2 id="21">2.1 因子モデルの定義と基本概念</h2>
+<p>因子分析は、<span class="arithmatex">\(p\)</span> 個の観測変数 <span class="arithmatex">\(\mathbf{x} = (x_1, x_2, \dots, x_p)^T\)</span> が <span class="arithmatex">\(m\)</span> 個の潜在因子 <span class="arithmatex">\(\mathbf{f} = (f_1, f_2, \dots, f_m)^T\)</span> の線形結合と誤差項 <span class="arithmatex">\(\boldsymbol{\epsilon}\)</span> により記述されると仮定します。最も基本的な線形因子モデルは、以下の形で表現されます。</p>
+<div class="arithmatex">\[
+\mathbf{x} = \mathbf{\Lambda}\mathbf{f} + \boldsymbol{\epsilon},
+\]</div>
+<p>ここで、</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{\Lambda}\)</span> は <span class="arithmatex">\(p \times m\)</span> の因子負荷行列（factor loading matrix）であり、各要素 <span class="arithmatex">\(\lambda_{ij}\)</span> は変数 <span class="arithmatex">\(x_i\)</span> と因子 <span class="arithmatex">\(f_j\)</span> の関連度合いを示します。</li>
+<li><span class="arithmatex">\(\mathbf{f}\)</span> は潜在因子ベクトルであり、各因子は直接観測できないが、共通の情報源としてデータの背後に存在すると考えられます。</li>
+<li><span class="arithmatex">\(\boldsymbol{\epsilon}\)</span> は固有因子（unique factors）または特異誤差項を表し、各観測変数に固有の変動を担います。</li>
+</ul>
+<p>このモデルでは、以下のような前提が一般的に採用されます。</p>
+<ol>
+<li>
+<p><strong>潜在因子の標準化:</strong><br />
+   潜在因子は平均 <span class="arithmatex">\(0\)</span>、分散 <span class="arithmatex">\(1\)</span> として標準化されることが多いです。また、因子間の相関は <span class="arithmatex">\(\mathbf{\Phi}\)</span> として記述され、単純な場合は単位行列（独立である場合）とされます。</p>
+</li>
+<li>
+<p><strong>誤差項の独立性:</strong><br />
+   誤差項 <span class="arithmatex">\(\boldsymbol{\epsilon}\)</span> は通常、互いに無相関かつ潜在因子とも独立であると仮定され、分散共分散行列は対角行列 <span class="arithmatex">\(\mathbf{\Psi}\)</span> で表されます。</p>
+</li>
+<li>
+<p><strong>線形性:</strong><br />
+   観測変数と潜在因子との関係が線形であるという前提により、解析が容易になり、行列分解や固有値分解といった数学的手法が適用可能となります。</p>
+</li>
+</ol>
+<p>このような前提の下、因子モデルは複雑な多変量データの背後に潜むシンプルな構造を抽出するための有効な手法となります。</p>
+<h2 id="22">2.2 観測変数と潜在因子の関係および共分散構造の理論</h2>
+<p>因子モデルにおいて、観測変数間の相関は、潜在因子によって共通に説明される部分と、各変数固有の誤差による部分に分解されます。前節で定義したモデルから、観測変数の分散共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> は次のように導かれます。</p>
+<div class="arithmatex">\[
+\mathbf{\Sigma} = \mathrm{Cov}(\mathbf{x}) = \mathbf{\Lambda} \, \mathbf{\Phi} \, \mathbf{\Lambda}^T + \mathbf{\Psi}.
+\]</div>
+<p>ここで、</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{\Lambda} \, \mathbf{\Phi} \, \mathbf{\Lambda}^T\)</span> の項は、<strong>共通因子</strong>による寄与を示し、観測変数間の相関の根底にある構造を捉えます。</li>
+<li><span class="arithmatex">\(\mathbf{\Psi}\)</span> は各変数の固有性（uniqueness）を表し、固有の誤差や特異な要因に起因する分散を表現します。</li>
+</ul>
+<p>この分解により、観測変数の相関構造がどの程度潜在因子によって説明されるのか、またどの部分が変数固有のノイズや誤差に由来するのかを定量的に把握することが可能です。</p>
+<p>さらに、因子分析における重要な概念として <strong>共通性（communality）</strong> と <strong>特殊性（specificity）</strong> があります。</p>
+<ul>
+<li>
+<p><strong>共通性:</strong><br />
+  ある観測変数 <span class="arithmatex">\(x_i\)</span> における共通因子の寄与は、<span class="arithmatex">\(\lambda_{i1}^2 + \lambda_{i2}^2 + \cdots + \lambda_{im}^2\)</span> で表され、これはその変数がどれだけ共通因子によって説明されているかを示します。</p>
+</li>
+<li>
+<p><strong>特殊性:</strong><br />
+  対応する誤差項の分散 <span class="arithmatex">\(\psi_i\)</span> は、その観測変数固有の変動を示します。したがって、<span class="arithmatex">\(x_i\)</span> の全分散は、共通性と特殊性の和として表されます。</p>
+</li>
+</ul>
+<p>また、<strong>同一性の問題（identifiability）</strong> も因子分析において重要な理論的課題です。因子負荷行列 <span class="arithmatex">\(\mathbf{\Lambda}\)</span> と潜在因子 <span class="arithmatex">\(\mathbf{f}\)</span> は、回転不変性（rotational indeterminacy）を持つため、同一の共分散構造 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> を生成する複数の解が存在することになります。この問題に対処するために、直交回転や斜交回転といった手法を用いて、解の一意性をある程度確保する工夫がなされます。</p>
+<p>以上の議論から、因子分析は単なるデータ圧縮の手法ではなく、観測変数間の相関構造の背後にある潜在的な因子を数学的に明示化する強力なツールであることが分かります。観測変数と潜在因子の線形関係、及びその結果として現れる共分散構造の理解は、後続の推定方法やモデル検証、さらには拡張モデルの構築において不可欠な基礎となります。</p>
+<hr />
+<h1 id="3">第3章: 数理的定式化</h1>
+<p>本章では、因子分析の数理的定式化について、観測変数と潜在因子の関係を明示する基本モデルから、共分散構造の分解、さらには同一性・判別性の問題に至るまで、詳細かつ体系的に議論します。これにより、因子分析の理論的基盤を深く理解できることを目指します。</p>
+<hr />
+<h2 id="31">3.1 線形因子モデルの数式表現</h2>
+<p>因子分析の基本的な考え方は、<span class="arithmatex">\(p\)</span> 個の観測変数 <span class="arithmatex">\(\mathbf{x} = (x_1, x_2, \dots, x_p)^T\)</span> が、<span class="arithmatex">\(m\)</span> 個の潜在因子 <span class="arithmatex">\(\mathbf{f} = (f_1, f_2, \dots, f_m)^T\)</span> の線形結合と、変数固有の誤差項 <span class="arithmatex">\(\boldsymbol{\epsilon} = (\epsilon_1, \epsilon_2, \dots, \epsilon_p)^T\)</span> により説明できるという前提に立ちます。最も基本的な線形因子モデルは、次のように定式化されます。</p>
+<div class="arithmatex">\[
+\mathbf{x} = \mathbf{\Lambda} \mathbf{f} + \boldsymbol{\epsilon},
+\]</div>
+<p>ここで、</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{\Lambda}\)</span> は <span class="arithmatex">\(p \times m\)</span> の因子負荷行列で、各成分 <span class="arithmatex">\(\lambda_{ij}\)</span> は変数 <span class="arithmatex">\(x_i\)</span> に対する因子 <span class="arithmatex">\(f_j\)</span> の寄与度（loading）を示します。</li>
+<li><span class="arithmatex">\(\mathbf{f}\)</span> は潜在因子ベクトルであり、通常は <span class="arithmatex">\(E[\mathbf{f}] = \mathbf{0}\)</span> および分散共分散行列 <span class="arithmatex">\(\mathrm{Cov}(\mathbf{f}) = \mathbf{\Phi}\)</span>（しばしば <span class="arithmatex">\(\mathbf{\Phi} = \mathbf{I}_m\)</span> と仮定される）と設定されます。</li>
+<li><span class="arithmatex">\(\boldsymbol{\epsilon}\)</span> は各観測変数に固有の誤差または特殊因子を表し、<span class="arithmatex">\(E[\boldsymbol{\epsilon}] = \mathbf{0}\)</span>、<span class="arithmatex">\(\mathrm{Cov}(\boldsymbol{\epsilon}) = \mathbf{\Psi}\)</span>（通常は対角行列）と仮定されます。</li>
+</ul>
+<h3 id="311">3.1.1 中心化と独立性の前提</h3>
+<p>多くの場合、データは中心化（平均0にする）された上で解析されます。すなわち、</p>
+<div class="arithmatex">\[
+E[\mathbf{x}] = \mathbf{\Lambda} E[\mathbf{f}] + E[\boldsymbol{\epsilon}] = \mathbf{0}.
+\]</div>
+<p>また、潜在因子 <span class="arithmatex">\(\mathbf{f}\)</span> と誤差項 <span class="arithmatex">\(\boldsymbol{\epsilon}\)</span> の間には独立性が課され、$ \mathrm{Cov}(\mathbf{f}, \boldsymbol{\epsilon}) = \mathbf{0} $ となると仮定します。これにより、観測変数の分散共分散行列の分解が可能になります。</p>
+<h3 id="312">3.1.2 観測変数の分散共分散行列</h3>
+<p>上記の仮定の下、観測変数 <span class="arithmatex">\(\mathbf{x}\)</span> の分散共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> は以下のように展開されます。</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{\Sigma} &amp;= \mathrm{Cov}(\mathbf{x}) \\
+&amp;= \mathrm{Cov}(\mathbf{\Lambda}\mathbf{f} + \boldsymbol{\epsilon}) \\
+&amp;= \mathbf{\Lambda} \, \mathrm{Cov}(\mathbf{f}) \, \mathbf{\Lambda}^T + \mathrm{Cov}(\boldsymbol{\epsilon}) \\
+&amp;= \mathbf{\Lambda}\mathbf{\Phi}\mathbf{\Lambda}^T + \mathbf{\Psi}.
+\end{aligned}
+\]</div>
+<p>この分解は、観測変数間の相関が共通因子由来の部分（<span class="arithmatex">\(\mathbf{\Lambda}\mathbf{\Phi}\mathbf{\Lambda}^T\)</span>）と、特殊な誤差項由来の部分（<span class="arithmatex">\(\mathbf{\Psi}\)</span>）に分けられることを示しています。</p>
+<hr />
+<h2 id="32">3.2 行列分解と固有値問題</h2>
+<p>観測変数の分散共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> の構造解析は、因子分析の数理的定式化において重要な役割を果たします。特に、<span class="arithmatex">\(\mathbf{\Sigma}\)</span> の固有値分解や特異値分解は、因子負荷行列の初期推定や因子数の決定に活用されます。</p>
+<h3 id="321">3.2.1 固有値分解の基本</h3>
+<p><span class="arithmatex">\(\mathbf{\Sigma}\)</span> は対称行列であるため、固有値分解が適用可能です。すなわち、</p>
+<div class="arithmatex">\[
+\mathbf{\Sigma} = \mathbf{Q}\mathbf{D}\mathbf{Q}^T,
+\]</div>
+<p>ここで、</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{Q}\)</span> は <span class="arithmatex">\(\mathbf{\Sigma}\)</span> の固有ベクトルを列に持つ直交行列。</li>
+<li><span class="arithmatex">\(\mathbf{D}\)</span> は対角行列であり、各対角成分 <span class="arithmatex">\(d_i\)</span> は <span class="arithmatex">\(\mathbf{\Sigma}\)</span> の固有値です。</li>
+</ul>
+<p>固有値が大きい順に並べられると、上位の固有値に対応する固有ベクトルが、データの分散の大部分を説明する成分となります。これを踏まえ、因子数の決定や因子負荷行列の初期推定（例：主因子法や主成分法に基づく推定）が行われます。</p>
+<h3 id="322">3.2.2 低ランク近似と因子負荷行列</h3>
+<p>因子分析では、通常 <span class="arithmatex">\(m &lt; p\)</span> として潜在因子の数を仮定するため、<span class="arithmatex">\(\mathbf{\Lambda}\mathbf{\Phi}\mathbf{\Lambda}^T\)</span> は <span class="arithmatex">\(\mathbf{\Sigma}\)</span> の低ランク近似とみなされます。特に、<span class="arithmatex">\(\mathbf{\Phi} = \mathbf{I}_m\)</span>（潜在因子の直交性を仮定）の場合、因子負荷行列 <span class="arithmatex">\(\mathbf{\Lambda}\)</span> は固有値の平方根と対応する固有ベクトルを用いて近似的に構築されることが多いです。これにより、データの主要な変動成分を抽出し、誤差項による分散（特殊性）を明確に分離することが可能となります。</p>
+<h3 id="323">3.2.3 因子数の決定と固有値基準</h3>
+<p>固有値分解の結果は、因子数の決定にも寄与します。たとえば、Kaiser基準では、固有値が <span class="arithmatex">\(1\)</span> 以上の因子を採用するという方法が一般的です。また、スクリープロット（scree plot）を用いて固有値の急激な減少点を確認する手法も広く用いられます。これらの方法により、過剰な因子の導入を避け、解釈可能なモデル構築が促進されます。</p>
+<hr />
+<h2 id="33">3.3 同一性・判別性の問題</h2>
+<p>因子分析において、パラメータ（特に因子負荷行列 <span class="arithmatex">\(\mathbf{\Lambda}\)</span> と潜在因子 <span class="arithmatex">\(\mathbf{f}\)</span>）の一意性（同一性: identifiability）は、理論的にも実践的にも重要な課題です。以下では、この問題に関する理論的背景とその対処法について詳述します。</p>
+<h3 id="331">3.3.1 回転不変性とスケーリングの問題</h3>
+<p>因子分析モデルは、以下の性質により同一性の問題を抱えます。</p>
+<ul>
+<li><strong>回転不変性（Rotational Indeterminacy）:</strong><br />
+  任意の正則な <span class="arithmatex">\(m \times m\)</span> 行列 <span class="arithmatex">\(\mathbf{H}\)</span> に対して、以下の等式が成立します。</li>
+</ul>
+<p>$$
+  \mathbf{\Lambda}\mathbf{f} = (\mathbf{\Lambda}\mathbf{H})(\mathbf{H}^{-1}\mathbf{f}).
+  $$</p>
+<p>このため、<span class="arithmatex">\(\mathbf{\Lambda}\)</span> と <span class="arithmatex">\(\mathbf{f}\)</span> は任意の回転変換を受けても同じ観測変数 <span class="arithmatex">\(\mathbf{x}\)</span> を生成するため、真の解が一意に定まらなくなります。</p>
+<ul>
+<li><strong>スケーリングの問題:</strong><br />
+  潜在因子と因子負荷の間にはスケールの自由度が存在します。すなわち、例えば因子 <span class="arithmatex">\(f_j\)</span> の分散が任意に変化する場合、それに応じて因子負荷 <span class="arithmatex">\(\lambda_{ij}\)</span> もスケールが調整されるため、実質的な寄与は変わらず、一意な解を得るための追加の制約が必要となります。</li>
+</ul>
+<h3 id="332">3.3.2 同一性を確保するための制約</h3>
+<p>上記の不定性に対処するため、因子分析では以下のような制約が一般に課されます。</p>
+<ol>
+<li>
+<p><strong>因子の標準化:</strong><br />
+   潜在因子の分散を <span class="arithmatex">\(1\)</span> に固定する、すなわち <span class="arithmatex">\(Var(f_j) = 1\)</span> とすることで、スケーリングの自由度を除去します。</p>
+</li>
+<li>
+<p><strong>因子負荷行列の構造制約:</strong><br />
+   特定の因子負荷を <span class="arithmatex">\(0\)</span> に固定する、または上三角行列形式に制限するなどの方法で、回転不変性による冗長性を排除します。これにより、解釈可能な形で因子負荷行列を特定できます。</p>
+</li>
+<li>
+<p><strong>回転法の適用:</strong><br />
+   オルソゴナル回転（例：Varimax回転）や斜交回転（例：Promax回転）を適用することで、因子負荷行列の構造がより解釈しやすい形に整えられると同時に、同一性の問題が部分的に解消されます。</p>
+</li>
+</ol>
+<h3 id="333">3.3.3 自由度とパラメータ数の関係</h3>
+<p>観測変数の分散共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> は対称行列であり、その独立な要素の数は</p>
+<div class="arithmatex">\[
+\frac{p(p+1)}{2}
+\]</div>
+<p>個です。一方、因子分析モデルに含まれるパラメータは、</p>
+<ul>
+<li>因子負荷行列 <span class="arithmatex">\(\mathbf{\Lambda}\)</span> の <span class="arithmatex">\(pm\)</span> 個の要素</li>
+<li>潜在因子の共分散行列 <span class="arithmatex">\(\mathbf{\Phi}\)</span> の <span class="arithmatex">\(\frac{m(m+1)}{2}\)</span> 個の要素（<span class="arithmatex">\(\mathbf{\Phi}\)</span> をパラメータとする場合）</li>
+<li>誤差項の分散 <span class="arithmatex">\(\mathbf{\Psi}\)</span> の <span class="arithmatex">\(p\)</span> 個の要素</li>
+</ul>
+<p>これらのパラメータが <span class="arithmatex">\(\frac{p(p+1)}{2}\)</span> 個の観測可能な要素をどの程度説明できるかが、モデルの同一性（あるいは過剰パラメータ化）の評価に直結します。適切な制約を導入することで、自由度を確保し、信頼性の高い推定を実現する必要があります。</p>
+<hr />
+<h2 id="34">3.4 まとめ</h2>
+<p>本章では、因子分析の数理的定式化について、以下の点を詳細に論じました。</p>
+<ul>
+<li>
+<p><strong>線形因子モデルの表現:</strong><br />
+  観測変数 <span class="arithmatex">\(\mathbf{x}\)</span> が因子負荷行列 <span class="arithmatex">\(\mathbf{\Lambda}\)</span> と潜在因子 <span class="arithmatex">\(\mathbf{f}\)</span> の線形結合＋誤差項 <span class="arithmatex">\(\boldsymbol{\epsilon}\)</span> により表現される基本モデルを定義し、その前提条件（中心化、独立性、対角誤差行列）を明示しました。</p>
+</li>
+<li>
+<p><strong>行列分解と固有値問題:</strong><br />
+  観測変数の分散共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> を、共通因子の寄与と特殊因子の寄与に分解する方法、固有値分解による因子負荷行列の初期推定や因子数の決定に関する理論を展開しました。</p>
+</li>
+<li>
+<p><strong>同一性・判別性の問題:</strong><br />
+  回転不変性およびスケーリングの問題から生じる同一性の課題と、これに対する制約（標準化、構造制約、回転法）の導入方法について詳述し、パラメータ数と自由度の関係も議論しました。</p>
+</li>
+</ul>
+<p>これらの数理的な定式化は、因子分析モデルの正確な推定と解釈を可能にするための基盤であり、後続の推定方法やモデル検証の理論展開に不可欠な役割を果たします。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
