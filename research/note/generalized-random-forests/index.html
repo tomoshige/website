@@ -2010,7 +2010,7 @@ $$
 <h4 id="wager-et-al-2014-2018">Wager et al., 2014-2018の貢献</h4>
 <p>次に、Stefan Wager が Stanfordの研究グループで取り組んだランダムフォレストの一致性と漸近正規性、および漸近分散の導出、さらにオリジナルのcausal forestの提案までの流れを説明します。まず、ランダムフォレストの一致性について<a href="https://arxiv.org/abs/1503.06388">Wager and Walther (2014)</a> では、Scornet et al.,(2015)とは異なる仮定をおいて一致性を示しています。まず、木の葉の数<span class="arithmatex">\(k_n\)</span>に対して、
 $$
-    \lim_{n\rightarrow \infty}\frac{\log(n)\max \left{\log(d), \log\log(n)\right}}{k} = 0
+    \lim_{n\rightarrow \infty}\frac{\log(n)\max \left(\log(d), \log\log(n)\right)}{k} = 0
 $$
 の仮定および Sparse signal の仮定をおく。すなわち、<span class="arithmatex">\(p\)</span>次元の特徴量<span class="arithmatex">\(X\)</span>に対して、有効な次元の集合<span class="arithmatex">\(\mathcal{Q} =\{1,2,...,s\}\)</span>次元で、<span class="arithmatex">\((Y,X_{\mathcal{Q}}) \perp \!\!\! \perp (X_{-\mathcal{Q}})\)</span> が成り立つ。
 さらに、Monotone signal の仮定をおく。この仮定は、<span class="arithmatex">\(j \in \mathcal{Q}\)</span>（有効な次元）に対して、<span class="arithmatex">\(x_{(-j)} \in [0,1]^{d-1}\)</span> を固定した時に、以下の式を満たすような最小の効果<span class="arithmatex">\(\beta &gt; 0\)</span>が存在することである。
