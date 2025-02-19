@@ -1828,24 +1828,24 @@
 <hr />
 <h2 id="121">12.1 行列分解の基礎</h2>
 <h3 id="1211-eigenvalue-decomposition">12.1.1 固有値分解（Eigenvalue Decomposition）</h3>
-<p>任意の <span class="arithmatex">\( p \times p \)</span> の対称行列 <span class="arithmatex">\( \mathbf{A} \)</span>（例えば分散共分散行列 <span class="arithmatex">\( \Sigma \)</span>）は、固有値分解により次のように表されます。</p>
+<p>任意の $ p \times p $ の対称行列 $ \mathbf{A} $（例えば分散共分散行列 $ \Sigma $）は、固有値分解により次のように表されます。</p>
 <div class="arithmatex">\[
 \mathbf{A} = \mathbf{Q} \mathbf{\Lambda} \mathbf{Q}^\top,
 \]</div>
 <ul>
-<li><span class="arithmatex">\( \mathbf{Q} \)</span> は直交行列であり、その列は <span class="arithmatex">\( \mathbf{A} \)</span> の固有ベクトル</li>
-<li><span class="arithmatex">\( \mathbf{\Lambda} \)</span> は対角行列で、対角要素は固有値 <span class="arithmatex">\(\lambda_1, \lambda_2, \dots, \lambda_p\)</span></li>
+<li>$ \mathbf{Q} $ は直交行列であり、その列は $ \mathbf{A} $ の固有ベクトル</li>
+<li>$ \mathbf{\Lambda} $ は対角行列で、対角要素は固有値 <span class="arithmatex">\(\lambda_1, \lambda_2, \dots, \lambda_p\)</span></li>
 </ul>
 <p>この分解は、主成分分析（PCA）や因子分析における次元削減の基礎となります。</p>
 <h3 id="1212-singular-value-decomposition-svd">12.1.2 特異値分解（Singular Value Decomposition, SVD）</h3>
-<p>任意の <span class="arithmatex">\( m \times n \)</span> 行列 <span class="arithmatex">\( \mathbf{X} \)</span> に対して、SVD は次のように分解されます。</p>
+<p>任意の $ m \times n $ 行列 $ \mathbf{X} $ に対して、SVD は次のように分解されます。</p>
 <div class="arithmatex">\[
 \mathbf{X} = \mathbf{U} \mathbf{S} \mathbf{V}^\top,
 \]</div>
 <ul>
-<li><span class="arithmatex">\( \mathbf{U} \)</span> は <span class="arithmatex">\( m \times m \)</span> の直交行列</li>
-<li><span class="arithmatex">\( \mathbf{S} \)</span> は <span class="arithmatex">\( m \times n \)</span> の対角行列（ただし、対角要素は非負の特異値）</li>
-<li><span class="arithmatex">\( \mathbf{V} \)</span> は <span class="arithmatex">\( n \times n \)</span> の直交行列</li>
+<li>$ \mathbf{U} $ は $ m \times m $ の直交行列</li>
+<li>$ \mathbf{S} $ は $ m \times n $ の対角行列（ただし、対角要素は非負の特異値）</li>
+<li>$ \mathbf{V} $ は $ n \times n $ の直交行列</li>
 </ul>
 <p>SVDは、データの構造を明示するための強力なツールであり、PCA の計算においても広く用いられています。</p>
 <hr />
@@ -1856,16 +1856,16 @@
 <div class="arithmatex">\[
 \mathbf{X} = \mathbf{U} \mathbf{S} \mathbf{V}^\top.
 \]</div>
-<p>主成分は、右側の直交行列 <span class="arithmatex">\( \mathbf{V} \)</span> の列ベクトルであり、固有値は <span class="arithmatex">\( \mathbf{S}^2/(n-1) \)</span> に対応します。<br />
+<p>主成分は、右側の直交行列 $ \mathbf{V} $ の列ベクトルであり、固有値は $ \mathbf{S}^2/(n-1) $ に対応します。<br />
 この枠組みで、分散の大部分を占める成分を抽出することにより次元削減が実現されます。</p>
 <h3 id="1222">12.2.2 因子分析モデルとの比較</h3>
-<p>因子分析モデルは、観測変数 <span class="arithmatex">\( \mathbf{x} \)</span> を潜在因子 <span class="arithmatex">\( \mathbf{f} \)</span> と特有誤差 <span class="arithmatex">\( \boldsymbol{\epsilon} \)</span> の線形結合としてモデル化します。</p>
-<p>[
+<p>因子分析モデルは、観測変数 $ \mathbf{x} $ を潜在因子 $ \mathbf{f} $ と特有誤差 $ \boldsymbol{\epsilon} $ の線形結合としてモデル化します。</p>
+<div class="arithmatex">\[
 \mathbf{x} = \Lambda \mathbf{f} + \boldsymbol{\epsilon},
-]
-[
+$$
+$$
 \operatorname{Cov}(\mathbf{x}) = \Sigma = \Lambda\Lambda^\top + \Psi,
-]</p>
+\]</div>
 <p>ここで、<span class="arithmatex">\(\Lambda\)</span> は因子負荷行列、<span class="arithmatex">\(\Psi\)</span> は特有分散（対角行列）です。<br />
 PCAの場合、全分散の構造に基づき直交変換を行うのに対し、因子分析は共通因子（<span class="arithmatex">\(\Lambda\Lambda^\top\)</span>）と特有因子（<span class="arithmatex">\(\Psi\)</span>）に分解する点で異なります。</p>
 <h4 id="_1">同定性の問題</h4>
@@ -1882,19 +1882,19 @@ PCAの場合、全分散の構造に基づき直交変換を行うのに対し�
 <p>ただし、<span class="arithmatex">\(\Psi\)</span> は対角行列であるという制約があります。<br />
 この問題は、低ランク近似の一種として、行列分解の枠組みで理解できます。</p>
 <h3 id="1232">12.3.2 回転と非一意性</h3>
-<p>行列 <span class="arithmatex">\(\Lambda\)</span> の解は、任意の直交行列 <span class="arithmatex">\( \mathbf{T} \)</span> に対して、</p>
-<p>[
-\Lambda^<em> = \Lambda \mathbf{T}
-]
-[
-\Lambda^</em>(\Lambda^*)^\top = \Lambda \mathbf{T} \mathbf{T}^\top \Lambda^\top = \Lambda\Lambda^\top,
-]</p>
+<p>行列 <span class="arithmatex">\(\Lambda\)</span> の解は、任意の直交行列 $ \mathbf{T} $ に対して、</p>
+<div class="arithmatex">\[
+\Lambda^* = \Lambda \mathbf{T}
+$$
+$$
+\Lambda^*(\Lambda^*)^\top = \Lambda \mathbf{T} \mathbf{T}^\top \Lambda^\top = \Lambda\Lambda^\top,
+\]</div>
 <p>となるため、因子分析の解は非一意です。<br />
 この性質は、因子回転（Varimax, Promax など）の理論的根拠ともなり、解釈を容易にするための「単純構造」を目指す際の自由度として利用されます。</p>
 <hr />
 <h2 id="124">12.4 数理的な推定と最尤法</h2>
 <h3 id="1241">12.4.1 最尤法の定式化</h3>
-<p>因子分析の最尤法では、観測データ <span class="arithmatex">\( \mathbf{x}_i \)</span> が多変量正規分布に従うと仮定します。</p>
+<p>因子分析の最尤法では、観測データ $ \mathbf{x}_i $ が多変量正規分布に従うと仮定します。</p>
 <div class="arithmatex">\[
 \mathbf{x}_i \sim N(\mathbf{0}, \Sigma) \quad \text{で} \quad \Sigma = \Lambda\Lambda^\top + \Psi.
 \]</div>
@@ -1902,10 +1902,10 @@ PCAの場合、全分散の構造に基づき直交変換を行うのに対し�
 <div class="arithmatex">\[
 \ell(\Lambda, \Psi) = -\frac{n}{2} \left[ \ln |\Sigma| + \operatorname{tr}(S \Sigma^{-1}) \right] + \text{定数},
 \]</div>
-<p>ここで、<span class="arithmatex">\( S \)</span> はサンプル共分散行列です。<br />
+<p>ここで、$ S $ はサンプル共分散行列です。<br />
 この最尤関数を最大化する問題は、非線形最適化問題として解かれ、数値的手法（例：EMアルゴリズム、Newton-Raphson 法）によって推定されます。</p>
 <h3 id="1242-em">12.4.2 EMアルゴリズムと潜在変数の扱い</h3>
-<p>EMアルゴリズムは、潜在変数 <span class="arithmatex">\( \mathbf{f} \)</span> を「欠測データ」とみなして、Eステップでその条件付き期待値と共分散を計算し、Mステップでパラメータ <span class="arithmatex">\( \Lambda \)</span> と <span class="arithmatex">\( \Psi \)</span> を更新する反復的手法です。<br />
+<p>EMアルゴリズムは、潜在変数 $ \mathbf{f} $ を「欠測データ」とみなして、Eステップでその条件付き期待値と共分散を計算し、Mステップでパラメータ $ \Lambda $ と $ \Psi $ を更新する反復的手法です。<br />
 この手法は、行列分解の視点からも、データの完全なモデルを「分解」していく過程と解釈できます。</p>
 <hr />
 <h2 id="125">12.5 因子分析とその他の行列分解手法との比較</h2>
@@ -1915,10 +1915,10 @@ PCAの場合、全分散の構造に基づき直交変換を行うのに対し�
 <p><strong>PCA:</strong><br />
   PCAは、データ行列のSVDに基づいて、データの分散を最大限に説明する直交基底を抽出します。<br />
   数学的には、中心化されたデータ <span class="arithmatex">\(\mathbf{X}\)</span> に対し、
-  [
+  $$
   \mathbf{X} = \mathbf{U} \mathbf{S} \mathbf{V}^\top
-  ]
-  と分解し、主成分は <span class="arithmatex">\( \mathbf{V} \)</span> の列ベクトルです。</p>
+  $$
+  と分解し、主成分は $ \mathbf{V} $ の列ベクトルです。</p>
 </li>
 <li>
 <p><strong>因子分析:</strong><br />
@@ -1943,7 +1943,7 @@ PCAの場合、全分散の構造に基づき直交変換を行うのに対し�
 </li>
 <li>
 <p><strong>因子分析モデルにおける分解:</strong><br />
-   因子分析は、共分散行列 <span class="arithmatex">\( \Sigma \)</span> を <span class="arithmatex">\( \Lambda\Lambda^\top + \Psi \)</span> に分解する問題として定式化され、その推定は最尤法やEMアルゴリズムを通じて行われます。</p>
+   因子分析は、共分散行列 $ \Sigma $ を $ \Lambda\Lambda^\top + \Psi $ に分解する問題として定式化され、その推定は最尤法やEMアルゴリズムを通じて行われます。</p>
 </li>
 <li>
 <p><strong>回転と非一意性:</strong><br />
