@@ -2063,7 +2063,35 @@ $$
 <h3 id="guess-and-check-forest_1"><strong>Guess-and-Check Forest</strong></h3>
 <p>Guess-and-Check Forest は、上記のプロシージャに従って <strong>独立に生成された <span class="arithmatex">\( B \)</span> 本の Guess-and-Check 木の平均</strong> を取ることで構築される。</p>
 <hr />
-<p>次は、Random forestの漸近分散の推定法に関する結果である。まず、漸近正規性の結果に先立って、<a href="https://jmlr.org/papers/volume15/wager14a/wager14a.pdf">Wager, Hastie and Efron (2014)</a> では、<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2013.823775">Efron (2014)</a> においてモデル選択によるデータ駆動型のアプローチがもたらす予測誤差の過小評価を補正する方法として提案した Infinitesimal Jacknifeによる方法を、ランダムフォレストに拡張し、ランダムフォレストによる推定量のばらつきを評価する方法を提案した。ただし、この結果はEmpiricalな評価にとどまっており、実際に漸近分散と一致することを示したのは、このあとの<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2017.1319839">Wager and Athey (2019)</a>である。漸近正規性の議論に移る前にもう1つの重要な論文は、<a href="https://www.pnas.org/doi/10.1073/pnas.1510489113">Athey and Imbens (2016)</a> において指摘された木構造モデルの学習におけるバイアスの問題である。木構造モデルを学習する際には、テストデータへの当てはまりがよくなるように学習を行う必要がある。しかし、一般的なCARTのような学習では訓練データを用いて木構造の学習と木による予測値の両方を学習するため、実はテストデータに対しての当てはまりを最適化しているのではないということを示している。また、この論文では、ランダム化比較試験に対する介入効果の異質性を発見する回帰木としてCausal Treeを提案している。従来のCART的なアプローチでは、共変量<span class="arithmatex">\(X\)</span>の分割と分割によって生成された葉の値には相関があるため、相関に依存した因果効果が検出されてしまう。そこで、Honest（誠実性）と呼ばれる概念を導入することで、この問題を解消する。誠実性とは、データを2つに分け、一方で木構造を学習させ、もう一方で予測値の計算と検定を行えば、分割と予測値は独立になるため、効果の検証ができるということである。ここで、導入された<strong>誠実性</strong>が次に示す漸近正規性を示すための1つの鍵になります。</p>
+<p>次は、Random forestの漸近分散の推定法に関する結果である。まず、漸近正規性の結果に先立って、<a href="https://jmlr.org/papers/volume15/wager14a/wager14a.pdf">Wager, Hastie and Efron (2014)</a> では、<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2013.823775">Efron (2014)</a> においてモデル選択によるデータ駆動型のアプローチがもたらす予測誤差の過小評価を補正する方法として提案した Infinitesimal Jacknifeによる方法を、ランダムフォレストに拡張し、ランダムフォレストによる推定量のばらつきを評価する方法を提案した。
+<span class="arithmatex">\(b=1,2,...,B\)</span>番目の回帰木による推定値を<span class="arithmatex">\(\hat{f}_{b}(x)\)</span>とし、 <span class="arithmatex">\(N_{ib} \in \{0,1\}\)</span> が <span class="arithmatex">\(b\)</span>番目の回帰木（Double Sample Treeの場合には、いずれか一方のグループに含まれる場合に<span class="arithmatex">\(N_{bi}=1\)</span>と定義する）に含まれるかどうかを表す指示関数とする。
+$$
+    \hat{V}<em>{IJ}(x) = \frac{n-1}{n} \left(\frac{n}{n-s}\right)^2 \sum</em>{i=1}^{n}\mathrm{Cov}^{<em>}\left[\hat{f}_{b}^{</em>}(x), N_{ib}^{<em>}\right]^2
+$$
+これに対して、有限標本化での推定量は
+$$
+    \hat{V}<em>{IJ}^{B}(x) = \frac{n-1}{n} \left(\frac{n}{n-s}\right)^2 \sum</em>{i=1}^{n}\frac{1}{B}\sum_{b=1}^{B}\left(N_{bi}^{</em>}-\frac{s}{n}\right)\left(t_{b}^{<em>}(x)-\bar{t}^{</em>}(x)\right)
+$$
+となる。ただし、この結果はEmpiricalな評価にとどまっており、実際に漸近分散と一致することを示したのは、このあとの<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2017.1319839">Wager and Athey (2019)</a>である。漸近正規性の議論に移る前にもう1つの重要な論文は、<a href="https://www.pnas.org/doi/10.1073/pnas.1510489113">Athey and Imbens (2016)</a> において指摘された木構造モデルの学習におけるバイアスの問題である。木構造モデルを学習する際には、テストデータへの当てはまりがよくなるように学習を行う必要がある。しかし、一般的なCARTのような学習では訓練データを用いて木構造の学習と木による予測値の両方を学習するため、実はテストデータに対しての当てはまりを最適化しているのではないということを示している。また、この論文では、ランダム化比較試験に対する介入効果の異質性を発見する回帰木としてCausal Treeを提案している。従来のCART的なアプローチでは、共変量<span class="arithmatex">\(X\)</span>の分割と分割によって生成された葉の値には相関があるため、相関に依存した因果効果が検出されてしまう。そこで、<strong>Honest（誠実性）</strong> と呼ばれる概念を導入することで、この問題を解消する。誠実性とは、データを2つに分け、一方で木構造を学習させ、もう一方で予測値の計算と検定を行えば、分割と予測値は独立になるため、効果の検証ができるということである。ここで、導入された<strong>誠実性</strong>が次に示す漸近正規性を示すための1つの鍵となる。</p>
+<p><a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2017.1319839">Wager and Athey (2019)</a> では、次の性質を満たすbagging treeに対して、有限標本化でのバイアスを評価し、漸近正規性を示した。
+- サブサンプルを2つに分割し、サブサンプルの片方を木構造の学習に、もう一方を葉の推定値の計算に用いる Double Sample Tree を 弱学習器として採用する
+- 任意の特徴量<span class="arithmatex">\(X^{(j)}, \, j=1,2,...,d\)</span>が、ノードの分割で選択される確率が<span class="arithmatex">\(0\)</span>ではない。
+- subsample size <span class="arithmatex">\(s_n\)</span> は、サンプルサイズ<span class="arithmatex">\(n\)</span>、次元<span class="arithmatex">\(d\)</span>、および分割を制御するパラメータ<span class="arithmatex">\(\alpha \leq 0.2\)</span> に対して、次の関係式を満たす。
+    $$
+        s_n \approx n^{\beta}, \qquad 1-\left(1+\frac{d}{\pi}\frac{\log(\alpha^{-1})}{\log\left((1-\alpha)^{-1}\right)}\right)^{-1} &lt; \beta &lt; 1
+    $$
+- <span class="arithmatex">\(\mu(x) := E[Y|X]\)</span> が リプシッツ連続 である。</p>
+<p>また、この論文では上記に述べた<span class="arithmatex">\(\hat{V}_{IJ}\)</span>がランダムフォレストの漸近分散に対する一致推定量であることが示されており、ランダムフォレストによる推定量の分散を与えた点で画期的な論文であった。</p>
+<p>これに加えて<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2017.1319839">Wager and Athey (2019)</a>では、因果効果を推定する方法として、causal forestを提案している。このcausal forestは現在はほとんど採用されないが、概念だけ紹介しておく。causal forest は、<a href="https://www.pnas.org/doi/10.1073/pnas.1510489113">Athey and Imbens (2016)</a> で提案された causal tree を弱学習器として用いるランダムフォレストである。causal tree は、回帰におけるノードの分割基準を、処置効果推定の文脈へと拡張したものである。ただし、単純に拡張したものではなく、テストデータへの当てはまりを最適化するような基準を用いている。
+$$
+\begin{align<em>}
+    -\widehat{\text{EMSE}}<em>{r} \left( \mathcal{S}^{\text{tr}}, N^{\text{est}}, \Pi \right) 
+    &amp;\equiv \frac{1}{N^{\text{tr}}} \sum</em>{i \in \mathcal{S}^{\text{tr}}} \hat{\tau}^2 \left( X_i, \mathcal{S}^{\text{tr}}, \Pi \right) \
+    &amp;\quad - \left( \frac{1}{N^{\text{tr}}} + \frac{1}{N^{\text{est}}} \right) \cdot \sum_{\ell \in \Pi} 
+    \left( \frac{S^2_{\mathcal{S}^{\text{tr}}<em>{\text{treat}}} (\ell)}{p} 
+    + \frac{S^2</em>{\mathcal{S}^{\text{tr}}_{\text{control}}} (\ell)}{1 - p} \right).
+\end{align</em>}
+$$</p>
 <h2 id="_2">一般化ランダムフォレストの一致性・漸近正規性</h2>
 <h3 id="_3">一般化ランダムフォレストと局所推定方程式</h3>
 <h3 id="_4">一般化ランダムフォレストの一致性</h3>
