@@ -12,22 +12,28 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/factor-analysis/02-factor/">
       
       
+        <link rel="prev" href="../01-introduction/">
       
-      <link rel="icon" href="/website/assets/images/favicon.png">
+      
+        <link rel="next" href="../03-factor-loading-matrix/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>Statistical Learning Laboratory</title>
+        <title>2. Vector and Matrix1 - Statistical Learning Laboratory</title>
       
     
     
-      <link rel="stylesheet" href="/website/assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="/website/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,7 +54,7 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("/website/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -71,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#2" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -81,7 +92,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="ヘッダー">
-    <a href="/website/." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -101,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              2. Vector and Matrix1
             
           </span>
         </div>
@@ -182,7 +193,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/website/." class="md-tabs__link">
+      <a href="../../../.." class="md-tabs__link">
         
   
     
@@ -201,7 +212,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/website/lectures/" class="md-tabs__link">
+        <a href="../../../../lectures/" class="md-tabs__link">
           
   
     
@@ -217,11 +228,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/website/research/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
           
   
     
@@ -256,7 +269,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/website/." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -286,7 +299,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -337,7 +350,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/website/lectures/" class="md-nav__link ">
+            <a href="../../../../lectures/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -413,7 +426,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/website/lectures/LA/" class="md-nav__link ">
+            <a href="../../../../lectures/LA/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -446,7 +459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/LA/01-introduction/" class="md-nav__link">
+      <a href="../../../../lectures/LA/01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -467,7 +480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/LA/02-vector-and-matrix/" class="md-nav__link">
+      <a href="../../../../lectures/LA/02-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -488,7 +501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/LA/03-vector-and-matrix/" class="md-nav__link">
+      <a href="../../../../lectures/LA/03-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -509,7 +522,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/LA/04-vector-and-matrix/" class="md-nav__link">
+      <a href="../../../../lectures/LA/04-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -530,7 +543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/LA/05-vector-and-matrix/" class="md-nav__link">
+      <a href="../../../../lectures/LA/05-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -551,7 +564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/LA/06-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../../lectures/LA/06-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -572,7 +585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/LA/07-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../../lectures/LA/07-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -593,7 +606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/LA/08-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../../lectures/LA/08-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -614,7 +627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/LA/09-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../../lectures/LA/09-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -676,7 +689,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/website/lectures/SIWS/" class="md-nav__link ">
+            <a href="../../../../lectures/SIWS/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -709,7 +722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/SIWS/01-getting-started/" class="md-nav__link">
+      <a href="../../../../lectures/SIWS/01-getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -730,7 +743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/SIWS/02-visualization/" class="md-nav__link">
+      <a href="../../../../lectures/SIWS/02-visualization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -751,7 +764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/SIWS/03-wrangling/" class="md-nav__link">
+      <a href="../../../../lectures/SIWS/03-wrangling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -772,7 +785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+      <a href="../../../../lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -826,7 +839,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/website/lectures/SP/" class="md-nav__link ">
+            <a href="../../../../lectures/SP/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -866,6 +879,8 @@
       
   
   
+    
+  
   
   
     
@@ -886,23 +901,24 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/website/research/" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -913,13 +929,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Research
@@ -935,7 +951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/generalized-random-forests/" class="md-nav__link">
+      <a href="../../generalized-random-forests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -956,7 +972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/causal-mediation-analysis/" class="md-nav__link">
+      <a href="../../causal-mediation-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -977,7 +993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/causal-data-repository/" class="md-nav__link">
+      <a href="../../causal-data-repository/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -995,6 +1011,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1033,21 +1051,22 @@
       
       
         
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
+          
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/website/research/note/factor-analysis/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1058,13 +1077,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_5">
             <span class="md-nav__icon md-icon"></span>
             Factor analysis
@@ -1080,7 +1099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/01-introduction/" class="md-nav__link">
+      <a href="../01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1098,10 +1117,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/02-factor/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1110,6 +1147,66 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      第2章 因子とは何か
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第2章 因子とは何か">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      潜在因子の役割
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      具体的な事例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      因子の数学的定義
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1122,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+      <a href="../03-factor-loading-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1143,7 +1240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+      <a href="../04-latent-factor-estimation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1164,7 +1261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+      <a href="../05-rotation-and-interpretation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1185,7 +1282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+      <a href="../06-sensitivity-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1206,7 +1303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+      <a href="../07-analysis-step/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1227,7 +1324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/08-simulation/" class="md-nav__link">
+      <a href="../08-simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1248,7 +1345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+      <a href="../09-pima-indians-diabetes-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1269,7 +1366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+      <a href="../10-ordered-categorical-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1290,7 +1387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+      <a href="../11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1311,7 +1408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/website/research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+      <a href="../12-technical-note-matrix-factorization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1358,6 +1455,56 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      第2章 因子とは何か
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第2章 因子とは何か">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      潜在因子の役割
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      具体的な事例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      因子の数学的定義
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1368,8 +1515,65 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  <h1>2. Vector and Matrix1</h1>
+
+<h2 id="2">第2章 因子とは何か</h2>
+<p>因子とは、<strong>観測された複数の変数に共通して影響を与える、直接観測できない潜在的な変数</strong>のことを指します。<br />
+因子分析では、これらの潜在因子を推定することにより、変数間の相関パターンを解明し、背後にある共通の構造を明らかにしようとします。</p>
+<h3 id="_1">潜在因子の役割</h3>
+<ul>
+<li>
+<p><strong>次元圧縮:</strong><br />
+  多くの観測変数が、実際には少数の因子によって支配されていると仮定することで、複雑なデータをよりシンプルな構造に要約できます。たとえば、心理学的検査では、複数のテスト項目が「記憶力」や「注意力」といった少数の基礎的な因子によって説明される場合があります。</p>
+</li>
+<li>
+<p><strong>共通性の説明:</strong><br />
+  ある因子が高い負荷量を持つ変数は、その因子が背後にある共通の要因であることを示唆します。これにより、表面的には異なるように見える観測変数の間に、実は共通の要因が存在することを理解できます。</p>
+</li>
+</ul>
+<h3 id="_2">具体的な事例</h3>
+<ol>
+<li>
+<p><strong>知能検査における一般因子（g因子）:</strong><br />
+   スペアマンは、複数の知能検査の結果に共通する「一般知能」を示す因子が存在すると仮定しました。各検査項目（例えば、言語理解、数理能力、空間認識など）の成績は、この共通因子の寄与と、個別の能力や測定誤差によって説明されると考えられます。</p>
+</li>
+<li>
+<p><strong>マーケティングリサーチにおける潜在セグメント:</strong><br />
+   アンケート調査により収集された消費者の嗜好や購買行動のデータに対して因子分析を実施すると、背後に「品質重視」や「価格重視」などの潜在因子が抽出される場合があります。これにより、消費者の購買決定に影響を与える主要な要因を把握することが可能となります。</p>
+</li>
+<li>
+<p><strong>健康診断データの解析:</strong><br />
+   複数の生体指標（血圧、血糖値、コレステロール値など）に対して因子分析を行うと、これらの指標に共通して影響を与える「生活習慣」や「遺伝的素因」といった因子が抽出されることがあります。これにより、健康リスクの背後にある潜在的な因子を特定し、予防策の策定に役立てることができます。</p>
+</li>
+</ol>
+<h3 id="_3">因子の数学的定義</h3>
+<p>数学的には、因子は次のようなモデルで表されます。</p>
+<div class="arithmatex">\[
+x_i = \lambda_{i1} f_1 + \lambda_{i2} f_2 + \cdots + \lambda_{im} f_m + \epsilon_i,\quad (i = 1, 2, \dots, p)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(x_i\)</span>：観測変数  </li>
+<li><span class="arithmatex">\(f_j\)</span>：潜在因子  </li>
+<li><span class="arithmatex">\(\lambda_{ij}\)</span>：因子 <span class="arithmatex">\(f_j\)</span> が変数 <span class="arithmatex">\(x_i\)</span> に与える影響（因子負荷量）  </li>
+<li><span class="arithmatex">\(\epsilon_i\)</span>：その変数固有の誤差または特有因子</li>
+</ul>
+<p>このモデルは、観測変数の分散が共通因子による部分と、特有因子による部分に分解できるという前提に基づいています。因子負荷行列を通して、各因子がどの程度各変数に寄与しているかが数値的に示されるため、因子分析はデータの構造理解において非常に強力な手法となっています。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -1408,12 +1612,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/website/", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "/website/assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
     
     
-      <script src="/website/assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="/website/javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
