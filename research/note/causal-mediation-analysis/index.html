@@ -407,6 +407,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -564,11 +574,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../lectures/LA/06-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../lectures/LA/06-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    6. System of Linear Equation
+    6. Vector and Matrix5
   </span>
   
 
@@ -585,11 +595,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../lectures/LA/07-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../lectures/LA/07-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    7. System of Linear Equation
+    7. Vector and Matrix6
   </span>
   
 
@@ -606,11 +616,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../lectures/LA/08-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../lectures/LA/08-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    8. System of Linear Equation
+    8. Vector and Matrix7
   </span>
   
 
@@ -632,6 +642,111 @@
   
   <span class="md-ellipsis">
     9. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
   </span>
   
 
@@ -898,6 +1013,8 @@
       
         
       
+        
+      
     
     
       
@@ -1071,6 +1188,27 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
       
@@ -1119,7 +1257,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
         
           
           
@@ -1135,14 +1273,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
             <span class="md-nav__icon md-icon"></span>
             Factor analysis
           </label>
@@ -1876,72 +2014,72 @@ Y = \beta_0 + \beta_1 T + \beta_2 M + \beta_3 X + \epsilon_Y,
 <p>以下に、Python を用いたシンプルなシミュレーションのデモを示します。このデモでは、処置 <span class="arithmatex">\(T\)</span>、共変量 <span class="arithmatex">\(X\)</span>、媒介変数 <span class="arithmatex">\(M\)</span>、および結果 <span class="arithmatex">\(Y\)</span> の関係を上記のモデルに基づいてデータ生成し、回帰モデルにより自然間接効果（<span class="arithmatex">\(\alpha_1 \times \beta_2\)</span>）および自然直接効果（<span class="arithmatex">\(\beta_1\)</span>）を推定します。</p>
 <h2 id="713-python">7.1.3 Pythonによるシミュレーションデモ</h2>
 <p>以下のコードは、1000サンプルのデータを生成し、媒介変数モデルと結果モデルをOLS回帰で推定する例です。</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
 
-# 再現性のため乱数シードを設定
-np.random.seed(42)
+<span class="c1"># 再現性のため乱数シードを設定</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-# サンプルサイズ
-n = 1000
+<span class="c1"># サンプルサイズ</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
 
-# 共変量 X を標準正規分布から生成
-X = np.random.normal(0, 1, n)
+<span class="c1"># 共変量 X を標準正規分布から生成</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
-# 処置 T は二項分布（成功確率0.5）から生成（0または1）
-T = np.random.binomial(1, 0.5, n)
+<span class="c1"># 処置 T は二項分布（成功確率0.5）から生成（0または1）</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
-# 媒介変数モデルのパラメータ
-alpha0 = 0.5
-alpha1 = 1.0  # 処置の媒介変数への影響
-alpha2 = 0.5  # 共変量 X の影響
+<span class="c1"># 媒介変数モデルのパラメータ</span>
+<span class="n">alpha0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">alpha1</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># 処置の媒介変数への影響</span>
+<span class="n">alpha2</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># 共変量 X の影響</span>
 
-# 誤差項 ε_M は標準正規分布から生成
-error_M = np.random.normal(0, 1, n)
-# 媒介変数 M の生成
-M = alpha0 + alpha1 * T + alpha2 * X + error_M
+<span class="c1"># 誤差項 ε_M は標準正規分布から生成</span>
+<span class="n">error_M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="c1"># 媒介変数 M の生成</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">alpha0</span> <span class="o">+</span> <span class="n">alpha1</span> <span class="o">*</span> <span class="n">T</span> <span class="o">+</span> <span class="n">alpha2</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">error_M</span>
 
-# 結果モデルのパラメータ
-beta0 = 0.5
-beta1 = 0.5  # 処置の直接効果（自然直接効果）
-beta2 = 1.5  # 媒介変数の効果（間接効果の一部）
-beta3 = 0.5  # 共変量 X の影響
+<span class="c1"># 結果モデルのパラメータ</span>
+<span class="n">beta0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">beta1</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># 処置の直接効果（自然直接効果）</span>
+<span class="n">beta2</span> <span class="o">=</span> <span class="mf">1.5</span>  <span class="c1"># 媒介変数の効果（間接効果の一部）</span>
+<span class="n">beta3</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># 共変量 X の影響</span>
 
-# 誤差項 ε_Y は標準正規分布から生成
-error_Y = np.random.normal(0, 1, n)
-# 結果 Y の生成
-Y = beta0 + beta1 * T + beta2 * M + beta3 * X + error_Y
+<span class="c1"># 誤差項 ε_Y は標準正規分布から生成</span>
+<span class="n">error_Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="c1"># 結果 Y の生成</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta1</span> <span class="o">*</span> <span class="n">T</span> <span class="o">+</span> <span class="n">beta2</span> <span class="o">*</span> <span class="n">M</span> <span class="o">+</span> <span class="n">beta3</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">error_Y</span>
 
-# データフレームにまとめる
-data = pd.DataFrame({'Y': Y, 'T': T, 'M': M, 'X': X})
+<span class="c1"># データフレームにまとめる</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="n">Y</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="n">M</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">})</span>
 
-# 媒介変数モデルの推定： M ~ T + X
-mediator_model = smf.ols('M ~ T + X', data=data).fit()
-print(&quot;【媒介変数モデルの結果】&quot;)
-print(mediator_model.summary())
+<span class="c1"># 媒介変数モデルの推定： M ~ T + X</span>
+<span class="n">mediator_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;M ~ T + X&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;【媒介変数モデルの結果】&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mediator_model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
 
-# 結果モデルの推定： Y ~ T + M + X
-outcome_model = smf.ols('Y ~ T + M + X', data=data).fit()
-print(&quot;\n【結果モデルの結果】&quot;)
-print(outcome_model.summary())
+<span class="c1"># 結果モデルの推定： Y ~ T + M + X</span>
+<span class="n">outcome_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;Y ~ T + M + X&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">【結果モデルの結果】&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">outcome_model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
 
-# 推定された媒介変数モデルから T の係数（alpha1の推定値）を取得
-alpha1_est = mediator_model.params['T']
-# 推定された結果モデルから M の係数（beta2の推定値）を取得
-beta2_est = outcome_model.params['M']
+<span class="c1"># 推定された媒介変数モデルから T の係数（alpha1の推定値）を取得</span>
+<span class="n">alpha1_est</span> <span class="o">=</span> <span class="n">mediator_model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span>
+<span class="c1"># 推定された結果モデルから M の係数（beta2の推定値）を取得</span>
+<span class="n">beta2_est</span> <span class="o">=</span> <span class="n">outcome_model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
 
-# 間接効果の推定値： alpha1_est * beta2_est
-indirect_effect = alpha1_est * beta2_est
+<span class="c1"># 間接効果の推定値： alpha1_est * beta2_est</span>
+<span class="n">indirect_effect</span> <span class="o">=</span> <span class="n">alpha1_est</span> <span class="o">*</span> <span class="n">beta2_est</span>
 
-# 直接効果の推定値： 結果モデルの T の係数（beta1の推定値）
-direct_effect = outcome_model.params['T']
+<span class="c1"># 直接効果の推定値： 結果モデルの T の係数（beta1の推定値）</span>
+<span class="n">direct_effect</span> <span class="o">=</span> <span class="n">outcome_model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span>
 
-print(&quot;\n【推定された効果】&quot;)
-print(&quot;間接効果 (alpha1 * beta2): {:.4f}&quot;.format(indirect_effect))
-print(&quot;直接効果 (beta1): {:.4f}&quot;.format(direct_effect))
-</code></pre>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">【推定された効果】&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;間接効果 (alpha1 * beta2): </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">indirect_effect</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;直接効果 (beta1): </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">direct_effect</span><span class="p">))</span>
+</code></pre></div>
 <h3 id="714">7.1.4 デモコードの解説</h3>
 <ol>
 <li><strong>データ生成:</strong>  </li>
@@ -1999,80 +2137,80 @@ print(&quot;直接効果 (beta1): {:.4f}&quot;.format(direct_effect))
 </ol>
 <h3 id="python">Python コード例</h3>
 <p>以下は、上記の手順に基づいた感度分析のデモコードです。</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
-import statsmodels.formula.api as smf
-import matplotlib.pyplot as plt
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-# 再現性のため乱数シードを設定
-np.random.seed(42)
+<span class="c1"># 再現性のため乱数シードを設定</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-# サンプルサイズ
-n = 1000
+<span class="c1"># サンプルサイズ</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
 
-# 共変量 X と処置 T の生成
-X = np.random.normal(0, 1, n)
-T = np.random.binomial(1, 0.5, n)
+<span class="c1"># 共変量 X と処置 T の生成</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
-# シミュレーションの真のパラメータ設定
-alpha0, alpha1, alpha2 = 0.5, 1.0, 0.5
-beta0, beta1, beta2, beta3 = 0.5, 0.5, 1.5, 0.5
+<span class="c1"># シミュレーションの真のパラメータ設定</span>
+<span class="n">alpha0</span><span class="p">,</span> <span class="n">alpha1</span><span class="p">,</span> <span class="n">alpha2</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span>
+<span class="n">beta0</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">beta3</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span>
 
-# 感度パラメータ (エラー項の相関) の範囲
-rho_values = np.arange(-0.5, 0.6, 0.1)
-indirect_effect_estimates = []
-direct_effect_estimates = []
+<span class="c1"># 感度パラメータ (エラー項の相関) の範囲</span>
+<span class="n">rho_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">indirect_effect_estimates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">direct_effect_estimates</span> <span class="o">=</span> <span class="p">[]</span>
 
-# 各 rho 値に対する推定を実施
-for rho in rho_values:
-    # 共分散行列の設定：分散1, 相関 rho
-    cov_matrix = np.array([[1, rho],
-                           [rho, 1]])
+<span class="c1"># 各 rho 値に対する推定を実施</span>
+<span class="k">for</span> <span class="n">rho</span> <span class="ow">in</span> <span class="n">rho_values</span><span class="p">:</span>
+    <span class="c1"># 共分散行列の設定：分散1, 相関 rho</span>
+    <span class="n">cov_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="n">rho</span><span class="p">],</span>
+                           <span class="p">[</span><span class="n">rho</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 
-    # 多変量正規分布から誤差項 (ε_M, ε_Y) を生成
-    errors = np.random.multivariate_normal(mean=[0, 0], cov=cov_matrix, size=n)
-    error_M = errors[:, 0]
-    error_Y = errors[:, 1]
+    <span class="c1"># 多変量正規分布から誤差項 (ε_M, ε_Y) を生成</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov_matrix</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">error_M</span> <span class="o">=</span> <span class="n">errors</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">error_Y</span> <span class="o">=</span> <span class="n">errors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
 
-    # 媒介変数 M の生成
-    M = alpha0 + alpha1 * T + alpha2 * X + error_M
+    <span class="c1"># 媒介変数 M の生成</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">alpha0</span> <span class="o">+</span> <span class="n">alpha1</span> <span class="o">*</span> <span class="n">T</span> <span class="o">+</span> <span class="n">alpha2</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">error_M</span>
 
-    # 結果 Y の生成
-    Y = beta0 + beta1 * T + beta2 * M + beta3 * X + error_Y
+    <span class="c1"># 結果 Y の生成</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta1</span> <span class="o">*</span> <span class="n">T</span> <span class="o">+</span> <span class="n">beta2</span> <span class="o">*</span> <span class="n">M</span> <span class="o">+</span> <span class="n">beta3</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">error_Y</span>
 
-    # データフレームの作成
-    data = pd.DataFrame({'Y': Y, 'T': T, 'M': M, 'X': X})
+    <span class="c1"># データフレームの作成</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="n">Y</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="n">M</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">})</span>
 
-    # 媒介変数モデルの推定: M ~ T + X
-    mediator_model = smf.ols('M ~ T + X', data=data).fit()
+    <span class="c1"># 媒介変数モデルの推定: M ~ T + X</span>
+    <span class="n">mediator_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;M ~ T + X&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
-    # 結果モデルの推定: Y ~ T + M + X
-    outcome_model = smf.ols('Y ~ T + M + X', data=data).fit()
+    <span class="c1"># 結果モデルの推定: Y ~ T + M + X</span>
+    <span class="n">outcome_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;Y ~ T + M + X&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
-    # 各モデルからパラメータの推定値を抽出
-    alpha1_est = mediator_model.params['T']
-    beta2_est = outcome_model.params['M']
+    <span class="c1"># 各モデルからパラメータの推定値を抽出</span>
+    <span class="n">alpha1_est</span> <span class="o">=</span> <span class="n">mediator_model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span>
+    <span class="n">beta2_est</span> <span class="o">=</span> <span class="n">outcome_model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
 
-    # 間接効果と直接効果の計算
-    indirect_effect = alpha1_est * beta2_est
-    direct_effect = outcome_model.params['T']
+    <span class="c1"># 間接効果と直接効果の計算</span>
+    <span class="n">indirect_effect</span> <span class="o">=</span> <span class="n">alpha1_est</span> <span class="o">*</span> <span class="n">beta2_est</span>
+    <span class="n">direct_effect</span> <span class="o">=</span> <span class="n">outcome_model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span>
 
-    indirect_effect_estimates.append(indirect_effect)
-    direct_effect_estimates.append(direct_effect)
+    <span class="n">indirect_effect_estimates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indirect_effect</span><span class="p">)</span>
+    <span class="n">direct_effect_estimates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">direct_effect</span><span class="p">)</span>
 
-# 結果の可視化
-plt.figure(figsize=(8, 6))
-plt.plot(rho_values, indirect_effect_estimates, marker='o', label='推定間接効果')
-plt.plot(rho_values, direct_effect_estimates, marker='x', label='推定直接効果')
-plt.axhline(alpha1 * beta2, color='gray', linestyle='--', label='真の間接効果')
-plt.axhline(beta1, color='black', linestyle='--', label='真の直接効果')
-plt.xlabel('誤差項間の相関 (rho)')
-plt.ylabel('効果の推定値')
-plt.title('感度分析: 誤差項相関による効果推定の変動')
-plt.legend()
-plt.grid(True)
-plt.show()
-</code></pre>
+<span class="c1"># 結果の可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rho_values</span><span class="p">,</span> <span class="n">indirect_effect_estimates</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;推定間接効果&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rho_values</span><span class="p">,</span> <span class="n">direct_effect_estimates</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;推定直接効果&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">alpha1</span> <span class="o">*</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;真の間接効果&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">beta1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;真の直接効果&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;誤差項間の相関 (rho)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;効果の推定値&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;感度分析: 誤差項相関による効果推定の変動&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
 <h3 id="_2">コードの解説</h3>
 <ul>
 <li>

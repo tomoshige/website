@@ -12,13 +12,13 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/05-vector-and-matrix/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/08-vector-and-matrix/">
       
       
-        <link rel="prev" href="../04-vector-and-matrix/">
+        <link rel="prev" href="../07-vector-and-matrix/">
       
       
-        <link rel="next" href="../06-vector-and-matrix/">
+        <link rel="next" href="../09-system-of-linear-equation/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>5. Vector and Matrix4 - Statistical Learning Laboratory</title>
+        <title>8. Vector and Matrix7 - Statistical Learning Laboratory</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#5" class="md-skip">
+        <a href="#8-2" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              5. Vector and Matrix4
+              8. Vector and Matrix7
             
           </span>
         </div>
@@ -556,30 +556,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    5. Vector and Matrix4
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../05-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -588,161 +568,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 本日扱う内容について（概要）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 扱う内容の理論の説明（定義・定理・数式を含む）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列積の定義と計算ルール
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列とベクトルの積による1次変換
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-gpt-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      例1: 正方行列の積と非可換性の例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      例2: 行列とベクトルの積による1次変換
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-chatgptcolab" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Colab での実行例
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Colab での実行例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      (1) 行列積の基本例と非可換性、サイズ不一致の例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      (2) 行列とベクトルの積による1次変換（回転行列）の例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      (3) 画像の拡大・回転・縮小による1次変換の例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. 学んだ内容がどのように応用されるか
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. 演習問題
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -794,10 +619,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../08-vector-and-matrix/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -806,6 +651,236 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義概要
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 理論的背景と内容の説明
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 理論的背景と内容の説明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 定義・基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 定理・命題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 数式・証明の詳細
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 実際の計算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【例題】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ1: 平均ベクトルの計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ2: 偏差行列の作成】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ3: 共分散行列の計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ4: 相関係数の計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      【まとめ】
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpt-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 扱う内容の実例（GPT, Colab等は使用せず）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 扱う内容の実例（GPT, Colab等は使用せず）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      【例題】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ1: 平均ベクトルの計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ2: 偏差行列の作成】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ3: 共分散行列の計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ4: 相関係数の計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      【まとめ】
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptcolab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Colabでの実行例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 学んだ内容の応用例（optional)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1707,7 +1782,7 @@
         <li class="md-nav__item">
   <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. 本日扱う内容について（概要）
+      1. 講義概要
     </span>
   </a>
   
@@ -1716,17 +1791,53 @@
         <li class="md-nav__item">
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. 扱う内容の理論の説明（定義・定理・数式を含む）
+      2. 理論的背景と内容の説明
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
+    <nav class="md-nav" aria-label="2. 理論的背景と内容の説明">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 定義・基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 定理・命題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 数式・証明の詳細
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 実際の計算
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      行列積の定義と計算ルール
+      【例題】
     </span>
   </a>
   
@@ -1735,7 +1846,43 @@
           <li class="md-nav__item">
   <a href="#1_1" class="md-nav__link">
     <span class="md-ellipsis">
-      行列とベクトルの積による1次変換
+      【ステップ1: 平均ベクトルの計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ2: 偏差行列の作成】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ3: 共分散行列の計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ4: 相関係数の計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      【まとめ】
     </span>
   </a>
   
@@ -1749,26 +1896,62 @@
         <li class="md-nav__item">
   <a href="#3-gpt-colab" class="md-nav__link">
     <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+      3. 扱う内容の実例（GPT, Colab等は使用せず）
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
+    <nav class="md-nav" aria-label="3. 扱う内容の実例（GPT, Colab等は使用せず）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      例1: 正方行列の積と非可換性の例
+      【例題】
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-1" class="md-nav__link">
+  <a href="#1_2" class="md-nav__link">
     <span class="md-ellipsis">
-      例2: 行列とベクトルの積による1次変換
+      【ステップ1: 平均ベクトルの計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ2: 偏差行列の作成】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ3: 共分散行列の計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ4: 相関係数の計算】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      【まとめ】
     </span>
   </a>
   
@@ -1782,49 +1965,16 @@
         <li class="md-nav__item">
   <a href="#4-chatgptcolab" class="md-nav__link">
     <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Colab での実行例
+      4. ChatGPTによる解説＋Colabでの実行例
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Colab での実行例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      (1) 行列積の基本例と非可換性、サイズ不一致の例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      (2) 行列とベクトルの積による1次変換（回転行列）の例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      (3) 画像の拡大・回転・縮小による1次変換の例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5_1" class="md-nav__link">
+  <a href="#5-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      5. 学んだ内容がどのように応用されるか
+      5. 学んだ内容の応用例（optional)
     </span>
   </a>
   
@@ -1854,247 +2004,532 @@
                   
 
 
-<h1 id="5">講義5: 行列積の理論と例題</h1>
-<h2 id="1">1. 本日扱う内容について（概要）</h2>
+<h1 id="8-2">講義8: 2次元データと行列の積</h1>
+<h2 id="1">1. 講義概要</h2>
 <ul>
-<li><strong>目的:</strong>  </li>
-<li>行列積の定義と計算ルールを、より分かりやすく丁寧に学ぶ  </li>
-<li>行列積の基本的注意点（サイズの一致、非可換性）を理解する  </li>
-<li>行列とベクトルの積が1次変換（線形変換）としてどのように作用するかを確認する  </li>
-<li>
-<p>画像を対象とした行列による拡大・回転・縮小の例を通して、1次変換の効果を視覚的に理解する</p>
-</li>
-<li>
-<p><strong>講義の流れ:</strong>  </p>
-</li>
-<li>行列積の理論的背景（定義、計算ルール、性質）の詳細な説明  </li>
-<li>行列とベクトルの積による1次変換の紹介  </li>
-<li>手計算による具体的な例題の提示と、非可換性の具体例  </li>
-<li>ChatGPTによる解説およびGoogle Colabでの実行例（エラー例、幾何的解釈、回転行列の例、画像の変換例）  </li>
-<li>学んだ内容がどのように応用されるかの考察</li>
-<li>演習問題による理解の確認</li>
+<li><strong>講義時間:</strong> 60分　/　<strong>演習時間:</strong> 30分</li>
+<li><strong>目的:</strong><br />
+  2次元データ（各観測が2つの変数からなるデータ）を行列として扱い、ベクトル・行列演算を用いて共分散および相関係数の計算方法を理解する。</li>
+<li><strong>今日の目標:</strong><br />
+  ・2次元データの表現方法と、行列・ベクトルを用いた統計量（共分散、相関係数）の計算手法を習得する。<br />
+  ・具体的な計算例を通して、理論と実践の橋渡しを行い、Google Colab上で計算確認できるようになる。</li>
 </ul>
-<h2 id="2">2. 扱う内容の理論の説明（定義・定理・数式を含む）</h2>
-<h3 id="_1">行列積の定義と計算ルール</h3>
+<h2 id="2">2. 理論的背景と内容の説明</h2>
+<h3 id="21">2.1 定義・基本概念</h3>
 <ul>
-<li>
-<p><strong>定義:</strong><br />
-  行列 $ A $ が $ m \times n $ 行列、行列 $ B $ が $ n \times p $ 行列の場合、行列積 $ AB $ は定義され、結果は $ m \times p $ 行列となる。</p>
-</li>
-<li>
-<p><strong>計算ルール:</strong><br />
-  行列積の各要素 <span class="arithmatex">\((AB)_{ij}\)</span> は以下の式に従って計算される：
+<li><strong>2次元データの表現:</strong><br />
+  複数の観測値が2つの変数からなる場合、各観測を行ベクトルとして、全体をデータ行列 <span class="arithmatex">\(X \in \mathbb{R}^{n \times 2}\)</span> として表現する。<br />
+  例：<br />
   $$
-  (AB)<em>{ij} = \sum</em>{k=1}^{n} A_{ik} \cdot B_{kj}
-  $$
-  <strong>計算の流れ：</strong>  </p>
-</li>
-<li>$ A $ の $ i $ 行目の成分 $ A_{i1}, A_{i2}, \dots, A_{in} $ を取り出す。  </li>
-<li>$ B $ の $ j $ 列目の成分 $ B_{1j}, B_{2j}, \dots, B_{nj} $ を取り出す。  </li>
-<li>
-<p>対応する成分同士 $ (A_{ik} $ と $ B_{kj}) $ を掛け合わせ、その結果を全て加算する。</p>
-</li>
-<li>
-<p><strong>重要な注意点:</strong>  </p>
-</li>
-<li><strong>サイズの一致:</strong><br />
-    行列積を計算するには、行列 $ A $ の列数と行列 $ B $ の行数が一致している必要がある。サイズが一致しない場合、計算は定義されず、プログラムではエラーが発生する。  </li>
-<li><strong>非可換性:</strong><br />
-    一般に、行列積は可換ではなく $ AB \neq BA $ となる。これは、各行と各列の要素の組み合わせが順序に依存するためである。</li>
-</ul>
-<h3 id="1_1">行列とベクトルの積による1次変換</h3>
-<ul>
-<li>
-<p><strong>定義:</strong><br />
-  行列 $ A $（サイズが $ m \times n $）と列ベクトル $ \mathbf{v} $（サイズが $ n \times 1 $）の積 $ A\mathbf{v} $ は、$ m \times 1 $ の新たなベクトルとなる。</p>
-</li>
-<li>
-<p><strong>幾何学的意味:</strong><br />
-  この積は、ベクトル $ \mathbf{v} $ に対して線形変換を作用させるもので、例えば回転、拡大縮小、せん断などの変換を表す。特に、回転行列を用いると、ベクトルの方向がどのように変化するかを視覚的に確認できる。</p>
-</li>
-</ul>
-<h2 id="3-gpt-colab">3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）</h2>
-<h3 id="1_2">例1: 正方行列の積と非可換性の例</h3>
-<ul>
-<li><strong>与えられた行列:</strong><br />
-  $$
-  A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}
+  X = \begin{pmatrix}
+  x_{11} &amp; x_{12} \
+  x_{21} &amp; x_{22} \
+  \vdots &amp; \vdots \
+  x_{n1} &amp; x_{n2}
+  \end{pmatrix}.
   $$</li>
-<li><strong>計算:</strong><br />
+<li><strong>データの平均ベクトル:</strong><br />
+  各変数の平均を <span class="arithmatex">\(\bar{x}_1, \bar{x}_2\)</span> として、<br />
   $$
-  AB = \begin{pmatrix}
-  1 \times 5 + 2 \times 7 &amp; 1 \times 6 + 2 \times 8 \\
-  3 \times 5 + 4 \times 7 &amp; 3 \times 6 + 4 \times 8
-  \end{pmatrix} = \begin{pmatrix} 19 &amp; 22 \\ 43 &amp; 50 \end{pmatrix}
+  \bar{\mathbf{x}} = \begin{pmatrix} \bar{x}<em>1 \ \bar{x}_2 \end{pmatrix} = \frac{1}{n} \sum</em>{i=1}^{n} \begin{pmatrix} x_{i1} \ x_{i2} \end{pmatrix}.
   $$</li>
-<li><strong>非可換性の例:</strong><br />
+<li><strong>偏差行列:</strong><br />
+  各観測から平均を引いた行列は、<br />
   $$
-  BA = \begin{pmatrix}
-  5 \times 1 + 6 \times 3 &amp; 5 \times 2 + 6 \times 4 \\
-  7 \times 1 + 8 \times 3 &amp; 7 \times 2 + 8 \times 4
-  \end{pmatrix} = \begin{pmatrix} 23 &amp; 34 \\ 31 &amp; 46 \end{pmatrix}
+  X - \mathbf{1}\bar{\mathbf{x}}^T,
   $$
-  ここで、$ AB \neq BA $ となることが確認できる。</li>
+  ここで <span class="arithmatex">\(\mathbf{1} \in \mathbb{R}^{n}\)</span> は全ての成分が1のベクトル。</li>
+<li><strong>共分散:</strong><br />
+  2変量間の共分散は、<br />
+  $$
+  \operatorname{Cov}(x_1, x_2) = \frac{1}{n}\sum_{i=1}^n (x_{i1} - \bar{x}<em>1)(x</em>{i2} - \bar{x}_2).
+  $$</li>
+<li><strong>相関係数:</strong><br />
+  共分散を各変数の標準偏差で正規化したもので、<br />
+  $$
+  \rho_{x_1,x_2} = \frac{\operatorname{Cov}(x_1, x_2)}{\sigma_{x_1}\sigma_{x_2}},
+  $$
+  と定義される。</li>
 </ul>
-<h3 id="2-1">例2: 行列とベクトルの積による1次変換</h3>
+<h3 id="22">2.2 定理・命題</h3>
 <ul>
-<li><strong>回転行列の例:</strong><br />
-  2次元の回転行列（角度 $ \theta $ の回転）：
+<li><strong>共分散行列の定義:</strong><br />
+  2次元データの場合、共分散行列は<br />
   $$
-  R(\theta) = \begin{pmatrix} \cos \theta &amp; -\sin \theta \\ \sin \theta &amp; \cos \theta \end{pmatrix}
+  \Sigma = \frac{1}{n}(X - \mathbf{1}\bar{\mathbf{x}}^T)^T (X - \mathbf{1}\bar{\mathbf{x}}^T)
   $$
-  任意の2次元ベクトル $ \mathbf{v} = \begin{pmatrix} x \\ y \end{pmatrix} $ に対して、積 $ R(\theta)\mathbf{v} $ は、$ \theta $ だけ回転した新たなベクトルを表す。</li>
+  と表され、<br />
+  $$
+  \Sigma = \begin{pmatrix}
+  \operatorname{Var}(x_1) &amp; \operatorname{Cov}(x_1, x_2) \
+  \operatorname{Cov}(x_2, x_1) &amp; \operatorname{Var}(x_2)
+  \end{pmatrix}.
+  $$
+  この行列は必ず対称行列となる。</li>
+<li><strong>相関係数の範囲:</strong><br />
+  相関係数は <span class="arithmatex">\(-1 \leq \rho_{x_1,x_2} \leq 1\)</span> の範囲にあり、値が1または-1の場合は完全な線形関係を意味する。</li>
 </ul>
-<h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colab での実行例</h2>
-<h3 id="1_3">(1) 行列積の基本例と非可換性、サイズ不一致の例</h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># 正方行列の例</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
-
-<span class="c1"># 正しいサイズでの積</span>
-<span class="n">AB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
-<span class="n">BA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A * B =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">AB</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B * A =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">BA</span><span class="p">)</span>  <span class="c1"># AB と BA が異なる（非可換性の例）</span>
-
-<span class="c1"># サイズ不一致の例</span>
-<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>  <span class="c1"># 3×2行列</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A * D =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;サイズが一致しないためエラーが発生:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-</code></pre></div>
-<h3 id="2-1_1">(2) 行列とベクトルの積による1次変換（回転行列）の例</h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-
-<span class="c1"># 回転角度（ラジアン）: 45度</span>
-<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span>
-
-<span class="c1"># 2次元回転行列の定義</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)],</span>
-              <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span>  <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)]])</span>
-
-<span class="c1"># 元のベクトル（例: x軸方向の単位ベクトル）</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">v_rotated</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;回転行列 R =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;元のベクトル v =&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;回転後のベクトル R*v =&quot;</span><span class="p">,</span> <span class="n">v_rotated</span><span class="p">)</span>
-
-<span class="c1"># 可視化</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">origin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="o">*</span><span class="n">origin</span><span class="p">,</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;v (元)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="o">*</span><span class="n">origin</span><span class="p">,</span> <span class="o">*</span><span class="n">v_rotated</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R*v (回転後)&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;回転行列によるベクトルの変換（45度回転）&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div>
-<h3 id="3-1">(3) 画像の拡大・回転・縮小による1次変換の例</h3>
-<p>ここでは、オープンアクセスの画像を用いて、行列による拡大、回転、縮小の変換を示し、1次変換の効果を視覚的に確認します。以下の例では、<code>skimage</code> ライブラリの画像を利用しています。</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span><span class="p">,</span> <span class="n">transform</span>
-
-<span class="c1"># オープンアクセス画像の読み込み（astronaut画像）</span>
-<span class="n">image</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">()</span>
-
-<span class="c1"># 1. 回転変換のみ（45度回転）</span>
-<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">rotation_tform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">AffineTransform</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
-<span class="n">image_rotated</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">warp</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">rotation_tform</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
-
-<span class="c1"># 2. 拡大変換のみ（拡大率1.5）</span>
-<span class="n">scaling_enlarge_tform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">AffineTransform</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span>
-<span class="n">image_enlarged</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">warp</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">scaling_enlarge_tform</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
-
-<span class="c1"># 3. 縮小変換のみ（縮小率0.5）</span>
-<span class="n">scaling_shrink_tform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">AffineTransform</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
-<span class="n">image_shrunk</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">warp</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">scaling_shrink_tform</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
-
-<span class="c1"># 4. 拡大と回転の組み合わせ</span>
-<span class="n">combined_matrix</span> <span class="o">=</span> <span class="n">scaling_enlarge_tform</span><span class="o">.</span><span class="n">params</span> <span class="o">@</span> <span class="n">rotation_tform</span><span class="o">.</span><span class="n">params</span>
-<span class="n">combined_tform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">AffineTransform</span><span class="p">(</span><span class="n">matrix</span><span class="o">=</span><span class="n">combined_matrix</span><span class="p">)</span>
-<span class="n">image_combined</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">warp</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">combined_tform</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
-
-<span class="c1"># 画像の表示</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original Image&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_rotated</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rotated Image (45°)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_enlarged</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Enlarged Image (scale=1.5)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_shrunk</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Shrunk Image (scale=0.5)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># さらに、拡大と回転を組み合わせた変換の例</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_combined</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Combined Transformation: Rotation + Enlargement&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div>
-<h2 id="5_1">5. 学んだ内容がどのように応用されるか</h2>
+<h3 id="23">2.3 数式・証明の詳細</h3>
 <ul>
-<li><strong>線形変換の合成:</strong><br />
-  複数の行列（各々が回転、拡大縮小、せん断などの変換を表す）を積むことで、連続した変換を一つの行列にまとめ、複雑な変換をシンプルに表現できる。</li>
-<li><strong>コンピュータグラフィックス:</strong><br />
-  画像の回転、拡大縮小、平行移動などの操作は、行列による1次変換を用いて効率的に実現され、3Dモデリングや画像処理の基盤技術となっている。</li>
-<li><strong>機械学習:</strong><br />
-  特徴抽出やデータ拡張（augmentation）など、画像処理の分野で行列を用いた変換は、モデルの精度向上に寄与する。</li>
+<li><strong>共分散の行列表示:</strong><br />
+  平均ベクトル <span class="arithmatex">\(\bar{\mathbf{x}}\)</span> を用いて偏差行列 <span class="arithmatex">\(D = X - \mathbf{1}\bar{\mathbf{x}}^T\)</span> を定義すると、<br />
+  $$
+  \Sigma = \frac{1}{n}D^T D.
+  $$
+  この形で計算すると、各要素は<br />
+  $$
+  \Sigma_{ij} = \frac{1}{n}\sum_{k=1}^n (x_{ki} - \bar{x}<em>i)(x</em>{kj} - \bar{x}_j)
+  $$
+  となる。</li>
+<li><strong>相関係数の行列表示:</strong><br />
+  標準偏差ベクトル <span class="arithmatex">\(\boldsymbol{\sigma} = (\sigma_{x_1}, \sigma_{x_2})^T\)</span> を用い、<br />
+  $$
+  R = \begin{pmatrix}
+  1 &amp; \rho_{x_1,x_2} \
+  \rho_{x_1,x_2} &amp; 1
+  \end{pmatrix} = \begin{pmatrix}
+  \frac{\Sigma_{11}}{\sigma_{x_1}^2} &amp; \frac{\Sigma_{12}}{\sigma_{x_1}\sigma_{x_2}} \
+  \frac{\Sigma_{21}}{\sigma_{x_1}\sigma_{x_2}} &amp; \frac{\Sigma_{22}}{\sigma_{x_2}^2}
+  \end{pmatrix}.
+  $$</li>
+</ul>
+<h3 id="24">2.4 実際の計算</h3>
+<p>以下は、0〜10点の小テストの得点を用いた具体例と、その計算手順を丁寧に説明したものです。</p>
+<hr />
+<h3 id="_1">【例題】</h3>
+<p>以下のデータは、あるクラスの5人の学生の数学と英語の小テストの得点（0〜10点）を表しています。<br />
+各行は1人の学生を表し、1列目が数学、2列目が英語の得点です。</p>
+<div class="arithmatex">\[
+X = \begin{pmatrix}
+8 &amp; 6 \\
+7 &amp; 8 \\
+6 &amp; 5 \\
+9 &amp; 7 \\
+5 &amp; 4
+\end{pmatrix}.
+\]</div>
+<hr />
+<h3 id="1_1">【ステップ1: 平均ベクトルの計算】</h3>
+<p>各科目の平均を求めます。</p>
+<ul>
+<li>
+<p><strong>数学の平均:</strong><br />
+<span class="arithmatex">\(<span class="arithmatex">\(\bar{x}_1 = \frac{8+7+6+9+5}{5} = \frac{35}{5} = 7.\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>英語の平均:</strong><br />
+<span class="arithmatex">\(<span class="arithmatex">\(\bar{x}_2 = \frac{6+8+5+7+4}{5} = \frac{30}{5} = 6.\)</span>\)</span></p>
+</li>
+</ul>
+<p>よって、平均ベクトルは</p>
+<div class="arithmatex">\[
+\bar{\mathbf{x}} = \begin{pmatrix} 7 \\ 6 \end{pmatrix}.
+\]</div>
+<hr />
+<h3 id="2_1">【ステップ2: 偏差行列の作成】</h3>
+<p>各観測から平均を引いて、偏差行列 <span class="arithmatex">\(D\)</span> を作成します。<br />
+各学生について計算すると、</p>
+<ul>
+<li>学生1: <span class="arithmatex">\((8,\,6) - (7,\,6) = (1,\,0)\)</span>  </li>
+<li>学生2: <span class="arithmatex">\((7,\,8) - (7,\,6) = (0,\,2)\)</span>  </li>
+<li>学生3: <span class="arithmatex">\((6,\,5) - (7,\,6) = (-1,\,-1)\)</span>  </li>
+<li>学生4: <span class="arithmatex">\((9,\,7) - (7,\,6) = (2,\,1)\)</span>  </li>
+<li>学生5: <span class="arithmatex">\((5,\,4) - (7,\,6) = (-2,\,-2)\)</span></li>
+</ul>
+<p>したがって、</p>
+<div class="arithmatex">\[
+D = X - \mathbf{1}\bar{\mathbf{x}}^T = \begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 2 \\
+-1 &amp; -1 \\
+2 &amp; 1 \\
+-2 &amp; -2
+\end{pmatrix}.
+\]</div>
+<hr />
+<h3 id="3">【ステップ3: 共分散行列の計算】</h3>
+<p>共分散行列 <span class="arithmatex">\(\Sigma\)</span> は、偏差行列 <span class="arithmatex">\(D\)</span> を用いて次のように求めます。</p>
+<div class="arithmatex">\[
+\Sigma = \frac{1}{n} D^T D,
+\]</div>
+<p>ここで <span class="arithmatex">\(n = 5\)</span> です。</p>
+<p>まず、<span class="arithmatex">\(D^T\)</span>（<span class="arithmatex">\(D\)</span> の転置）は</p>
+<div class="arithmatex">\[
+D^T = \begin{pmatrix}
+1 &amp; 0 &amp; -1 &amp; 2 &amp; -2 \\
+0 &amp; 2 &amp; -1 &amp; 1 &amp; -2
+\end{pmatrix}.
+\]</div>
+<p>次に、<span class="arithmatex">\(D^T D\)</span> を計算します。</p>
+<ul>
+<li>
+<p><span class="arithmatex">\((1,1)\)</span> 成分（数学の分散）:
+  $$
+  (D^T D)_{11} = 1^2 + 0^2 + (-1)^2 + 2^2 + (-2)^2 = 1 + 0 + 1 + 4 + 4 = 10.
+  $$</p>
+</li>
+<li>
+<p><span class="arithmatex">\((1,2)\)</span> 成分（数学と英語の共分散）:
+  $$
+  (D^T D)_{12} = (1)(0) + (0)(2) + (-1)(-1) + (2)(1) + (-2)(-2) = 0 + 0 + 1 + 2 + 4 = 7.
+  $$</p>
+</li>
+<li>
+<p><span class="arithmatex">\((2,2)\)</span> 成分（英語の分散）:
+  $$
+  (D^T D)_{22} = 0^2 + 2^2 + (-1)^2 + 1^2 + (-2)^2 = 0 + 4 + 1 + 1 + 4 = 10.
+  $$</p>
+</li>
+</ul>
+<p>対称性より、<span class="arithmatex">\((D^T D)_{21} = (D^T D)_{12} = 7\)</span> です。</p>
+<p>よって、</p>
+<div class="arithmatex">\[
+D^T D = \begin{pmatrix}
+10 &amp; 7 \\
+7 &amp; 10
+\end{pmatrix}.
+\]</div>
+<p>共分散行列は、</p>
+<div class="arithmatex">\[
+\Sigma = \frac{1}{5}\begin{pmatrix}
+10 &amp; 7 \\
+7 &amp; 10
+\end{pmatrix} = \begin{pmatrix}
+2.0 &amp; 1.4 \\
+1.4 &amp; 2.0
+\end{pmatrix}.
+\]</div>
+<hr />
+<h3 id="4">【ステップ4: 相関係数の計算】</h3>
+<p>各科目の標準偏差は、共分散行列の対角成分の平方根で求めます。</p>
+<ul>
+<li>
+<p>数学の標準偏差:<br />
+<span class="arithmatex">\(<span class="arithmatex">\(\sigma_{x_1} = \sqrt{2.0} \approx 1.414.\)</span>\)</span></p>
+</li>
+<li>
+<p>英語の標準偏差:<br />
+<span class="arithmatex">\(<span class="arithmatex">\(\sigma_{x_2} = \sqrt{2.0} \approx 1.414.\)</span>\)</span></p>
+</li>
+</ul>
+<p>数学と英語の相関係数 <span class="arithmatex">\(\rho_{x_1,x_2}\)</span> は、</p>
+<div class="arithmatex">\[
+\rho_{x_1,x_2} = \frac{\operatorname{Cov}(x_1,x_2)}{\sigma_{x_1}\sigma_{x_2}} = \frac{1.4}{1.414 \times 1.414} \approx \frac{1.4}{2} = 0.7.
+\]</div>
+<hr />
+<h3 id="_2">【まとめ】</h3>
+<ul>
+<li>
+<p><strong>平均ベクトル:</strong><br />
+<span class="arithmatex">\(\bar{\mathbf{x}} = \begin{pmatrix} 7 \\ 6 \end{pmatrix}\)</span></p>
+</li>
+<li>
+<p><strong>偏差行列:</strong><br />
+<span class="arithmatex">\(D = \begin{pmatrix}
+  1 &amp; 0 \\
+  0 &amp; 2 \\
+  -1 &amp; -1 \\
+  2 &amp; 1 \\
+  -2 &amp; -2
+  \end{pmatrix}\)</span></p>
+</li>
+<li>
+<p><strong>共分散行列:</strong><br />
+<span class="arithmatex">\(\Sigma = \begin{pmatrix}
+  2.0 &amp; 1.4 \\
+  1.4 &amp; 2.0
+  \end{pmatrix}\)</span></p>
+</li>
+<li>
+<p><strong>相関係数:</strong><br />
+<span class="arithmatex">\(\rho_{x_1,x_2} \approx 0.7\)</span></p>
+</li>
+</ul>
+<p>この手順を通じて、小テストの得点（0〜10点）のデータから、各科目の平均、偏差、共分散、そして相関係数を計算する方法を学びます。これにより、データのばらつきや、2科目間の線形な関係の強さを数理的に理解することができます。</p>
+<h2 id="3-gpt-colab">3. 扱う内容の実例（GPT, Colab等は使用せず）</h2>
+<ul>
+<li><strong>実例1 (更新版):</strong><br />
+  異なる科目のテストの点数を用いた2次元データの例を考える。<br />
+  例えば、あるクラスの5人の学生について、数学と英語のテストの点数が以下のように得られたとする。<br />
+  各行は1人の学生、1列目が数学、2列目が英語の点数を示す。<br />
+  $$
+  X = \begin{pmatrix}
+  70 &amp; 80 \
+  85 &amp; 75 \
+  90 &amp; 95 \
+  60 &amp; 65 \
+  75 &amp; 70
+  \end{pmatrix}.
+  $$
+  このデータを用いて、  </li>
+<li>各科目の平均点（平均ベクトル）を求め、  </li>
+<li>各学生の点数から平均を引いた偏差行列を作成し、  </li>
+<li>それらを内積計算することで共分散行列を得る。<br />
+  さらに、各科目の標準偏差を計算し、相関係数も求めることができる。  </li>
+</ul>
+<h3 id="_3">【例題】</h3>
+<p>以下のデータは、あるクラスの5人の学生の数学と英語のテストの点数を表しています。<br />
+各行は1人の学生を、1列目が数学、2列目が英語の点数を示しています。  </p>
+<div class="arithmatex">\[
+X = \begin{pmatrix}
+70 &amp; 80 \\
+85 &amp; 75 \\
+90 &amp; 95 \\
+60 &amp; 65 \\
+75 &amp; 70
+\end{pmatrix}.
+\]</div>
+<hr />
+<h3 id="1_2">【ステップ1: 平均ベクトルの計算】</h3>
+<p>各科目ごとに平均を求めます。</p>
+<ul>
+<li>
+<p><strong>数学の平均</strong><br />
+<span class="arithmatex">\(<span class="arithmatex">\(\bar{x}_1 = \frac{70 + 85 + 90 + 60 + 75}{5} = \frac{380}{5} = 76.\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>英語の平均</strong><br />
+<span class="arithmatex">\(<span class="arithmatex">\(\bar{x}_2 = \frac{80 + 75 + 95 + 65 + 70}{5} = \frac{385}{5} = 77.\)</span>\)</span></p>
+</li>
+</ul>
+<p>よって、平均ベクトルは</p>
+<div class="arithmatex">\[
+\bar{\mathbf{x}} = \begin{pmatrix} 76 \\ 77 \end{pmatrix}.
+\]</div>
+<hr />
+<h3 id="2_2">【ステップ2: 偏差行列の作成】</h3>
+<p>各観測から平均を引いて偏差行列 <span class="arithmatex">\(D\)</span> を求めます。<br />
+各学生ごとに計算すると、</p>
+<ul>
+<li>学生1: <span class="arithmatex">\((70,80) - (76,77) = (-6,\ 3)\)</span>  </li>
+<li>学生2: <span class="arithmatex">\((85,75) - (76,77) = (9,\ -2)\)</span>  </li>
+<li>学生3: <span class="arithmatex">\((90,95) - (76,77) = (14,\ 18)\)</span>  </li>
+<li>学生4: <span class="arithmatex">\((60,65) - (76,77) = (-16,\ -12)\)</span>  </li>
+<li>学生5: <span class="arithmatex">\((75,70) - (76,77) = (-1,\ -7)\)</span></li>
+</ul>
+<p>したがって、</p>
+<div class="arithmatex">\[
+D = X - \mathbf{1}\bar{\mathbf{x}}^T = \begin{pmatrix}
+-6 &amp; 3 \\
+9 &amp; -2 \\
+14 &amp; 18 \\
+-16 &amp; -12 \\
+-1 &amp; -7
+\end{pmatrix}.
+\]</div>
+<hr />
+<h3 id="3_1">【ステップ3: 共分散行列の計算】</h3>
+<p>共分散行列 <span class="arithmatex">\(\Sigma\)</span> は、偏差行列 <span class="arithmatex">\(D\)</span> を用いて次の式で求めます。</p>
+<div class="arithmatex">\[
+\Sigma = \frac{1}{n} D^T D,
+\]</div>
+<p>ここで <span class="arithmatex">\(n = 5\)</span> です。</p>
+<p>まず、<span class="arithmatex">\(D^T\)</span>（<span class="arithmatex">\(D\)</span>の転置）を求めると、</p>
+<div class="arithmatex">\[
+D^T = \begin{pmatrix}
+-6 &amp; 9 &amp; 14 &amp; -16 &amp; -1 \\
+3 &amp; -2 &amp; 18 &amp; -12 &amp; -7
+\end{pmatrix}.
+\]</div>
+<p>次に、<span class="arithmatex">\(D^T D\)</span> の各成分を計算します。</p>
+<ul>
+<li><span class="arithmatex">\((1,1)\)</span> 成分（数学の分散に相当）:</li>
+</ul>
+<p>$$
+  \Sigma_{11} = (-6)^2 + 9^2 + 14^2 + (-16)^2 + (-1)^2 = 36 + 81 + 196 + 256 + 1 = 570.
+  $$</p>
+<ul>
+<li><span class="arithmatex">\((1,2)\)</span> 成分（数学と英語の共分散）:</li>
+</ul>
+<p>$$
+  \Sigma_{12} = (-6)(3) + (9)(-2) + (14)(18) + (-16)(-12) + (-1)(-7) \
+  = -18 - 18 + 252 + 192 + 7 = 415.
+  $$</p>
+<ul>
+<li><span class="arithmatex">\((2,2)\)</span> 成分（英語の分散に相当）:</li>
+</ul>
+<p>$$
+  \Sigma_{22} = (3)^2 + (-2)^2 + (18)^2 + (-12)^2 + (-7)^2 = 9 + 4 + 324 + 144 + 49 = 530.
+  $$</p>
+<p>対称性より <span class="arithmatex">\(\Sigma_{21} = \Sigma_{12} = 415\)</span> です。</p>
+<p>よって、</p>
+<div class="arithmatex">\[
+D^T D = \begin{pmatrix}
+570 &amp; 415 \\
+415 &amp; 530
+\end{pmatrix}.
+\]</div>
+<p>最終的に、共分散行列は</p>
+<div class="arithmatex">\[
+\Sigma = \frac{1}{5}\begin{pmatrix}
+570 &amp; 415 \\
+415 &amp; 530
+\end{pmatrix} = \begin{pmatrix}
+114 &amp; 83 \\
+83 &amp; 106
+\end{pmatrix}.
+\]</div>
+<hr />
+<h3 id="4_1">【ステップ4: 相関係数の計算】</h3>
+<p>各科目の標準偏差は、共分散行列の対角成分の平方根で求められます。</p>
+<ul>
+<li>
+<p>数学の標準偏差:<br />
+<span class="arithmatex">\(<span class="arithmatex">\(\sigma_{x_1} = \sqrt{114} \approx 10.68.\)</span>\)</span></p>
+</li>
+<li>
+<p>英語の標準偏差:<br />
+<span class="arithmatex">\(<span class="arithmatex">\(\sigma_{x_2} = \sqrt{106} \approx 10.30.\)</span>\)</span></p>
+</li>
+</ul>
+<p>数学と英語の相関係数 <span class="arithmatex">\(\rho_{x_1, x_2}\)</span> は、</p>
+<div class="arithmatex">\[
+\rho_{x_1, x_2} = \frac{\operatorname{Cov}(x_1,x_2)}{\sigma_{x_1}\sigma_{x_2}} = \frac{83}{10.68 \times 10.30} \approx \frac{83}{109.99} \approx 0.755.
+\]</div>
+<hr />
+<h3 id="_4">【まとめ】</h3>
+<ul>
+<li>
+<p><strong>平均ベクトル:</strong><br />
+<span class="arithmatex">\(\bar{\mathbf{x}} = (76, 77)^T\)</span></p>
+</li>
+<li>
+<p><strong>偏差行列:</strong><br />
+<span class="arithmatex">\(D = \begin{pmatrix}
+  -6 &amp; 3 \\
+  9 &amp; -2 \\
+  14 &amp; 18 \\
+  -16 &amp; -12 \\
+  -1 &amp; -7
+  \end{pmatrix}\)</span></p>
+</li>
+<li>
+<p><strong>共分散行列:</strong><br />
+<span class="arithmatex">\(\Sigma = \begin{pmatrix}
+  114 &amp; 83 \\
+  83 &amp; 106
+  \end{pmatrix}\)</span></p>
+</li>
+<li>
+<p><strong>相関係数:</strong><br />
+<span class="arithmatex">\(\rho_{x_1,x_2} \approx 0.755\)</span></p>
+</li>
+</ul>
+<p>この計算を通して、異なる科目（数学と英語）の点数のばらつきや、両者の線形な関係の強さがどのように数式により表現されるかを理解できます。</p>
+<ul>
+<li><strong>実例2:</strong><br />
+  日常生活からの興味深い例として、夏のある地域における日別の気温とアイスクリームの売上データを考える。<br />
+  例えば、以下のようなデータが得られたとする：
+  $$
+  X = \begin{pmatrix}
+  30 &amp; 100 \
+  32 &amp; 110 \
+  31 &amp; 105 \
+  29 &amp;  95 \
+  28 &amp;  90 \
+  33 &amp; 115 \
+  34 &amp; 120
+  \end{pmatrix},
+  $$
+  ここで各行は1日分の観測で、1列目が気温（℃）、2列目がアイスクリームの売上（単位：個数）を示す。<br />
+  このデータを用いて、気温と売上の平均、偏差行列、共分散行列、さらには相関係数を計算すると、気温が上がるとアイスクリームの売上も増加するという正の相関が確認される。  </li>
+</ul>
+<h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colabでの実行例</h2>
+<ul>
+<li><strong>ChatGPT解説:</strong><br />
+  2次元データを行列で表現することで、各変数の平均や偏差を一括して扱うことができ、共分散行列も内積計算により効率的に求めることが可能となる。<br />
+  相関係数は、共分散を各変数の標準偏差で割ることで得られ、データの線形関係の強さや方向性を示す指標となる。</li>
+<li><strong>Colab実行例:</strong> 以下に、PythonとNumPyを用いたサンプルコードを示す。
+  <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># サンプル2次元データ: 各行が1つの観測、各列が変数</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># 各変数の平均を計算</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;平均ベクトル:&quot;</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span>
+
+<span class="c1"># 偏差行列の計算</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">mean</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;偏差行列:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+
+<span class="c1"># 共分散行列の計算（母分散の場合）</span>
+<span class="n">cov_matrix</span> <span class="o">=</span> <span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">D</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;共分散行列:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cov_matrix</span><span class="p">)</span>
+
+<span class="c1"># 各変数の標準偏差の計算</span>
+<span class="n">std_dev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">cov_matrix</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;標準偏差:&quot;</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">)</span>
+
+<span class="c1"># 相関係数の計算</span>
+<span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">cov_matrix</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">std_dev</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;相関係数行列:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">corr_matrix</span><span class="p">)</span>
+</code></pre></div></li>
+</ul>
+<h2 id="5-optional">5. 学んだ内容の応用例（optional)</h2>
+<ul>
+<li><strong>応用分野:</strong><br />
+  多変量解析、主成分分析（PCA）、金融リスク管理、機械学習の特徴量解析など</li>
+<li><strong>具体例:</strong>  </li>
+<li><strong>PCA:</strong> 共分散行列の固有値分解により、データの次元削減と主要な変動方向を求める。  </li>
+<li><strong>ポートフォリオ最適化:</strong> 資産間の相関関係を用いてリスクの低減を図る。  </li>
+<li><strong>画像処理:</strong> 複数の画像特徴量の相関を解析することで、ノイズ除去や特徴抽出に応用。</li>
 </ul>
 <h2 id="6">6. 演習問題</h2>
-<ol>
+<ul>
+<li><strong>問題1:</strong><br />
+  2次元データの定義と、平均ベクトル・偏差行列の求め方について説明せよ。<br />
+<em>【ヒント】</em> 行列 <span class="arithmatex">\(X\)</span> の各列の平均を求め、全体から引く操作を考える。</li>
+<li><strong>問題2:</strong><br />
+  以下のデータを用いて、手計算およびPythonコードで共分散行列と相関係数行列を求めよ。<br />
+  $$
+  X = \begin{pmatrix}
+  -3 &amp; 2 \
+  -1 &amp; 0 \
+  0 &amp; -2 \
+  2 &amp; 3 \
+  3 &amp; -1
+  \end{pmatrix}.
+  $$
+  <em>【ヒント】</em> 平均ベクトル、偏差行列、内積を用いた計算過程を明示せよ。</li>
+<li><strong>問題3:</strong><br />
+  行列とベクトルの演算を用いて、共分散行列の対称性および相関係数の範囲（-1から1）について説明せよ。</li>
 <li>
-<p><strong>演習問題1:</strong><br />
-   以下の行列<br />
-   $$
-   A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}
-   $$
-   の積 $ AB $ と $ BA $ を計算し、結果が異なること（非可換性）を確認せよ。</p>
+<p><strong>問題4:</strong><br />
+  2次元データにおいて、共分散が正の場合、負の場合、0の場合の意味を考察せよ。
+  <em>【ヒント】</em> 変数間の線形関係の強さと方向性に注目する。</p>
 </li>
 <li>
-<p><strong>演習問題2:</strong><br />
-   サイズが一致しない行列の積を試み、Python（Google Colab）でどのようなエラーが発生するか確認せよ。<br />
-   例：$ A $（2×2行列）と $ D $（3×2行列）の積を計算してみる。</p>
+<p><strong>問題5:</strong><br />
+  以下のデータは、ある変数 <span class="arithmatex">\( x \)</span> の値が<br />
+  $$
+  x = (-3,\ -2,\ -1,\ 0,\ 1,\ 2,\ 3)
+  $$<br />
+  であり、対応する <span class="arithmatex">\( y \)</span> の値は<br />
+  $$
+  y = x^2,
+  $$<br />
+  すなわち<br />
+  $$
+  y = (9,\ 4,\ 1,\ 0,\ 1,\ 4,\ 9)
+  $$<br />
+  となっています。  </p>
 </li>
 <li>
-<p><strong>演習問題3:</strong><br />
-   2次元回転行列 $ R(\theta) $ を用いて、任意の角度 $ \theta $ での回転変換を実装し、元のベクトルと回転後のベクトルの位置関係を図示して、幾何学的な意味を説明せよ。</p>
+<p>このデータを用いて、<span class="arithmatex">\( x \)</span> と <span class="arithmatex">\( y \)</span> のピアソンの相関係数を手計算またはプログラムで求めなさい。  </p>
 </li>
-<li>
-<p><strong>演習問題4:</strong><br />
-   画像に対して、行列積を用いた拡大、回転、縮小の変換を実装せよ。  </p>
-</li>
-<li>オープンアクセス画像（例：<code>skimage.data.astronaut()</code>）を使用すること。  </li>
-<li>各変換（回転のみ、拡大のみ、縮小のみ、及び回転と拡大の組み合わせ）の結果をプロットし、元画像と比較して説明せよ。</li>
-</ol>
+<li>得られた相関係数の値から、相関係数が「線形な関係しか捉えられない」ことを踏まえて、なぜこの場合に明らかな非線形な関係（<span class="arithmatex">\( y = x^2 \)</span>）が反映されないのかを説明しなさい。  </li>
+</ul>
+<p><em>【ヒント】</em><br />
+  - <span class="arithmatex">\( x \)</span> の値は対称に分布しているため、<span class="arithmatex">\( x \)</span> と <span class="arithmatex">\( x^2 \)</span> の共分散がゼロになる可能性があります。<br />
+  - ピアソンの相関係数は、線形関係の強さを示す指標であり、非線形な関係（例えば、二次関数）の場合、その関係性を十分に反映できないことに注意してください。</p>
 
 
 

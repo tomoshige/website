@@ -407,6 +407,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -564,11 +574,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../lectures/LA/06-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../../lectures/LA/06-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    6. System of Linear Equation
+    6. Vector and Matrix5
   </span>
   
 
@@ -585,11 +595,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../lectures/LA/07-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../../lectures/LA/07-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    7. System of Linear Equation
+    7. Vector and Matrix6
   </span>
   
 
@@ -606,11 +616,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../lectures/LA/08-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../../../lectures/LA/08-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    8. System of Linear Equation
+    8. Vector and Matrix7
   </span>
   
 
@@ -632,6 +642,111 @@
   
   <span class="md-ellipsis">
     9. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
   </span>
   
 
@@ -898,6 +1013,8 @@
       
         
       
+        
+      
     
     
       
@@ -1011,6 +1128,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1061,7 +1199,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
         
           
           
@@ -1077,14 +1215,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_6">
             <span class="md-nav__icon md-icon"></span>
             Factor analysis
           </label>
@@ -1716,164 +1854,164 @@
 <hr />
 <h3 id="81">8.1 シミュレーションデータの生成</h3>
 <p>まず、3つの潜在因子に基づく12個の観測変数を生成します。各変数は、設定した因子負荷量と独自の誤差を用いて作成されます。</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-# シードを設定して再現性を確保
-np.random.seed(0)
-n_samples = 300
+<span class="c1"># シードを設定して再現性を確保</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">300</span>
 
-# 潜在因子の生成（3因子を仮定）
-latent_factors = {
-    'F1': np.random.normal(0, 1, n_samples),
-    'F2': np.random.normal(0, 1, n_samples),
-    'F3': np.random.normal(0, 1, n_samples)
-}
+<span class="c1"># 潜在因子の生成（3因子を仮定）</span>
+<span class="n">latent_factors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;F1&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">),</span>
+    <span class="s1">&#39;F2&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">),</span>
+    <span class="s1">&#39;F3&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+<span class="p">}</span>
 
-# 因子負荷量を辞書で定義（例: 12個の観測変数）
-loadings = {
-    'Var1': [0.8, 0.1, 0.0],
-    'Var2': [0.75, 0.15, 0.05],
-    'Var3': [0.7, 0.0, 0.1],
-    'Var4': [0.0, 0.8, 0.2],
-    'Var5': [0.1, 0.75, 0.0],
-    'Var6': [0.05, 0.7, 0.1],
-    'Var7': [0.0, 0.2, 0.8],
-    'Var8': [0.1, 0.0, 0.75],
-    'Var9': [0.05, 0.1, 0.7],
-    'Var10': [0.4, 0.4, 0.3],
-    'Var11': [0.35, 0.45, 0.25],
-    'Var12': [0.3, 0.4, 0.35]
-}
+<span class="c1"># 因子負荷量を辞書で定義（例: 12個の観測変数）</span>
+<span class="n">loadings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Var1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="s1">&#39;Var2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+    <span class="s1">&#39;Var3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+    <span class="s1">&#39;Var4&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+    <span class="s1">&#39;Var5&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="s1">&#39;Var6&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+    <span class="s1">&#39;Var7&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
+    <span class="s1">&#39;Var8&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+    <span class="s1">&#39;Var9&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+    <span class="s1">&#39;Var10&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+    <span class="s1">&#39;Var11&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
+    <span class="s1">&#39;Var12&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">]</span>
+<span class="p">}</span>
 
-# データフレームの作成
-data = pd.DataFrame()
-for var, load in loadings.items():
-    # 各変数を共通因子の線形結合として生成
-    common_part = load[0] * latent_factors['F1'] + load[1] * latent_factors['F2'] + load[2] * latent_factors['F3']
-    # 特有誤差（平均0, 分散=0.5）
-    unique_part = np.random.normal(0, np.sqrt(0.5), n_samples)
-    data[var] = common_part + unique_part
+<span class="c1"># データフレームの作成</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">load</span> <span class="ow">in</span> <span class="n">loadings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># 各変数を共通因子の線形結合として生成</span>
+    <span class="n">common_part</span> <span class="o">=</span> <span class="n">load</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">latent_factors</span><span class="p">[</span><span class="s1">&#39;F1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">load</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">latent_factors</span><span class="p">[</span><span class="s1">&#39;F2&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">load</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">latent_factors</span><span class="p">[</span><span class="s1">&#39;F3&#39;</span><span class="p">]</span>
+    <span class="c1"># 特有誤差（平均0, 分散=0.5）</span>
+    <span class="n">unique_part</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">n_samples</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">common_part</span> <span class="o">+</span> <span class="n">unique_part</span>
 
-# シミュレーションデータの確認
-print(data.head())
-</code></pre>
+<span class="c1"># シミュレーションデータの確認</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</code></pre></div>
 <hr />
 <h3 id="82">8.2 データの前処理</h3>
 <p>次に、各変数のスケールを統一するために標準化を行います。</p>
-<pre><code class="language-python">from sklearn.preprocessing import StandardScaler
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 
-scaler = StandardScaler()
-data_std = pd.DataFrame(scaler.fit_transform(data), columns=data.columns)
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">data_std</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-# 標準化後のデータの要約統計量を確認
-print(data_std.describe())
-</code></pre>
+<span class="c1"># 標準化後のデータの要約統計量を確認</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_std</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</code></pre></div>
 <hr />
 <h3 id="83">8.3 因子抽出の実施</h3>
 <h4 id="831">8.3.1 適合性の検定</h4>
 <p>因子分析を行う前に、バートレットの球面性検定やKMO検定を実施して、データが因子分析に適しているか確認します。</p>
-<pre><code class="language-python">from factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">factor_analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_bartlett_sphericity</span><span class="p">,</span> <span class="n">calculate_kmo</span>
 
-chi_square_value, p_value = calculate_bartlett_sphericity(data_std)
-kmo_all, kmo_model = calculate_kmo(data_std)
+<span class="n">chi_square_value</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">calculate_bartlett_sphericity</span><span class="p">(</span><span class="n">data_std</span><span class="p">)</span>
+<span class="n">kmo_all</span><span class="p">,</span> <span class="n">kmo_model</span> <span class="o">=</span> <span class="n">calculate_kmo</span><span class="p">(</span><span class="n">data_std</span><span class="p">)</span>
 
-print(&quot;Bartlettの球面性検定: chi-square =&quot;, chi_square_value, &quot;, p-value =&quot;, p_value)
-print(&quot;KMO検定: KMO =&quot;, kmo_model)
-</code></pre>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bartlettの球面性検定: chi-square =&quot;</span><span class="p">,</span> <span class="n">chi_square_value</span><span class="p">,</span> <span class="s2">&quot;, p-value =&quot;</span><span class="p">,</span> <span class="n">p_value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KMO検定: KMO =&quot;</span><span class="p">,</span> <span class="n">kmo_model</span><span class="p">)</span>
+</code></pre></div>
 <h4 id="832">8.3.2 スクリープロットと因子数の決定</h4>
 <p>固有値のプロットを用いて、因子数の決定を行います。</p>
-<pre><code class="language-python">import matplotlib.pyplot as plt
-from factor_analyzer import FactorAnalyzer
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">factor_analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">FactorAnalyzer</span>
 
-fa_temp = FactorAnalyzer(rotation=None)
-fa_temp.fit(data_std)
-ev, v = fa_temp.get_eigenvalues()
+<span class="n">fa_temp</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">fa_temp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_std</span><span class="p">)</span>
+<span class="n">ev</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">fa_temp</span><span class="o">.</span><span class="n">get_eigenvalues</span><span class="p">()</span>
 
-plt.figure(figsize=(8, 4))
-plt.scatter(range(1, data_std.shape[1]+1), ev)
-plt.plot(range(1, data_std.shape[1]+1), ev, 'b-')
-plt.title('スクリープロット')
-plt.xlabel('因子数')
-plt.ylabel('固有値')
-plt.grid(True)
-plt.show()
-</code></pre>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">data_std</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">ev</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">data_std</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">ev</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;スクリープロット&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;因子数&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;固有値&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
 <p>このプロットから、固有値が1以上の因子数や折れ曲がり点を参考に因子数を決定します。ここでは例として3因子を採用します。</p>
 <h4 id="833">8.3.3 最尤法による因子抽出と回転</h4>
 <p>因子抽出を最尤法で行い、Varimax回転（直交回転）を実施します。</p>
-<pre><code class="language-python"># 因子分析の実施：3因子を抽出し、Varimax回転を適用
-fa = FactorAnalyzer(n_factors=3, rotation='varimax', method='ml')
-fa.fit(data_std)
+<div class="highlight"><pre><span></span><code><span class="c1"># 因子分析の実施：3因子を抽出し、Varimax回転を適用</span>
+<span class="n">fa</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;varimax&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ml&#39;</span><span class="p">)</span>
+<span class="n">fa</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_std</span><span class="p">)</span>
 
-# 因子負荷行列の表示
-loadings_df = pd.DataFrame(fa.loadings_, index=data_std.columns, columns=['Factor1', 'Factor2', 'Factor3'])
-print(&quot;因子負荷行列（Varimax回転）:&quot;)
-print(loadings_df)
-</code></pre>
+<span class="c1"># 因子負荷行列の表示</span>
+<span class="n">loadings_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fa</span><span class="o">.</span><span class="n">loadings_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">data_std</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Factor1&#39;</span><span class="p">,</span> <span class="s1">&#39;Factor2&#39;</span><span class="p">,</span> <span class="s1">&#39;Factor3&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;因子負荷行列（Varimax回転）:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loadings_df</span><span class="p">)</span>
+</code></pre></div>
 <hr />
 <h3 id="84">8.4 非正規性の検討と対処（オプション）</h3>
 <p>シミュレーションデータは正規分布に基づいて生成されていますが、実際のデータでは非正規性が問題となる場合があります。ここでは、データ変換の例として対数変換の手法を示します。</p>
-<pre><code class="language-python"># 仮に、すべての変数が正の値であると仮定して対数変換を行う場合の例
-data_log = data.copy()
-for col in data_log.columns:
-    # もしデータに0以下の値がある場合は、適当な定数（ここでは1）を足してから変換
-    data_log[col] = np.log(data_log[col] + 1)
+<div class="highlight"><pre><span></span><code><span class="c1"># 仮に、すべての変数が正の値であると仮定して対数変換を行う場合の例</span>
+<span class="n">data_log</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data_log</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="c1"># もしデータに0以下の値がある場合は、適当な定数（ここでは1）を足してから変換</span>
+    <span class="n">data_log</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data_log</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
-# 標準化と因子分析の再実施（変数変換後）
-data_log_std = pd.DataFrame(scaler.fit_transform(data_log), columns=data.columns)
+<span class="c1"># 標準化と因子分析の再実施（変数変換後）</span>
+<span class="n">data_log_std</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data_log</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-fa_log = FactorAnalyzer(n_factors=3, rotation='varimax', method='ml')
-fa_log.fit(data_log_std)
-loadings_log_df = pd.DataFrame(fa_log.loadings_, index=data_log_std.columns, columns=['Factor1', 'Factor2', 'Factor3'])
-print(&quot;因子負荷行列（対数変換後・Varimax回転）:&quot;)
-print(loadings_log_df)
-</code></pre>
+<span class="n">fa_log</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;varimax&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ml&#39;</span><span class="p">)</span>
+<span class="n">fa_log</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_log_std</span><span class="p">)</span>
+<span class="n">loadings_log_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fa_log</span><span class="o">.</span><span class="n">loadings_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">data_log_std</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Factor1&#39;</span><span class="p">,</span> <span class="s1">&#39;Factor2&#39;</span><span class="p">,</span> <span class="s1">&#39;Factor3&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;因子負荷行列（対数変換後・Varimax回転）:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loadings_log_df</span><span class="p">)</span>
+</code></pre></div>
 <hr />
 <h3 id="85">8.5 感度分析の実施</h3>
 <h4 id="851">8.5.1 ブートストラップ法の実例</h4>
 <p>ここでは、ブートストラップを用いて因子負荷量の信頼区間を評価する簡単な例を示します。</p>
-<pre><code class="language-python"># 必要なライブラリ
-import random
+<div class="highlight"><pre><span></span><code><span class="c1"># 必要なライブラリ</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 
-n_boot = 500  # ブートストラップ回数
-boot_loadings = []
+<span class="n">n_boot</span> <span class="o">=</span> <span class="mi">500</span>  <span class="c1"># ブートストラップ回数</span>
+<span class="n">boot_loadings</span> <span class="o">=</span> <span class="p">[]</span>
 
-for i in range(n_boot):
-    # 元のデータからブートストラップサンプルを抽出
-    boot_indices = np.random.choice(data_std.index, size=len(data_std), replace=True)
-    data_boot = data_std.loc[boot_indices]
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_boot</span><span class="p">):</span>
+    <span class="c1"># 元のデータからブートストラップサンプルを抽出</span>
+    <span class="n">boot_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">data_std</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data_std</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data_boot</span> <span class="o">=</span> <span class="n">data_std</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">boot_indices</span><span class="p">]</span>
 
-    # 因子分析の実施
-    fa_boot = FactorAnalyzer(n_factors=3, rotation='varimax', method='ml')
-    fa_boot.fit(data_boot)
-    boot_loadings.append(fa_boot.loadings_)
+    <span class="c1"># 因子分析の実施</span>
+    <span class="n">fa_boot</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;varimax&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ml&#39;</span><span class="p">)</span>
+    <span class="n">fa_boot</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_boot</span><span class="p">)</span>
+    <span class="n">boot_loadings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fa_boot</span><span class="o">.</span><span class="n">loadings_</span><span class="p">)</span>
 
-# 例として、最初の変数 (Var1) のFactor1の負荷量の信頼区間を計算
-var1_factor1 = [boot[i][0, 0] for boot in boot_loadings]  # boot[i]は配列形式
-lower_bound = np.percentile(var1_factor1, 2.5)
-upper_bound = np.percentile(var1_factor1, 97.5)
-print(&quot;Var1のFactor1負荷量の95%信頼区間: [{:.3f}, {:.3f}]&quot;.format(lower_bound, upper_bound))
-</code></pre>
+<span class="c1"># 例として、最初の変数 (Var1) のFactor1の負荷量の信頼区間を計算</span>
+<span class="n">var1_factor1</span> <span class="o">=</span> <span class="p">[</span><span class="n">boot</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">boot</span> <span class="ow">in</span> <span class="n">boot_loadings</span><span class="p">]</span>  <span class="c1"># boot[i]は配列形式</span>
+<span class="n">lower_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">var1_factor1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+<span class="n">upper_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">var1_factor1</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Var1のFactor1負荷量の95%信頼区間: [</span><span class="si">{:.3f}</span><span class="s2">, </span><span class="si">{:.3f}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">))</span>
+</code></pre></div>
 <h4 id="852">8.5.2 サンプル分割法の実例</h4>
 <p>サンプルを地域や年代などで分割し、各グループで因子分析を行い結果の一貫性を確認します。</p>
-<pre><code class="language-python"># ここでは、シミュレーションのためにランダムに2グループに分割する例を示します
-group1 = data_std.sample(frac=0.5, random_state=1)
-group2 = data_std.drop(group1.index)
+<div class="highlight"><pre><span></span><code><span class="c1"># ここでは、シミュレーションのためにランダムに2グループに分割する例を示します</span>
+<span class="n">group1</span> <span class="o">=</span> <span class="n">data_std</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">group2</span> <span class="o">=</span> <span class="n">data_std</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">group1</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
-fa_group1 = FactorAnalyzer(n_factors=3, rotation='varimax', method='ml')
-fa_group1.fit(group1)
-loadings_group1 = pd.DataFrame(fa_group1.loadings_, index=group1.columns, columns=['Factor1', 'Factor2', 'Factor3'])
+<span class="n">fa_group1</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;varimax&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ml&#39;</span><span class="p">)</span>
+<span class="n">fa_group1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">group1</span><span class="p">)</span>
+<span class="n">loadings_group1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fa_group1</span><span class="o">.</span><span class="n">loadings_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">group1</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Factor1&#39;</span><span class="p">,</span> <span class="s1">&#39;Factor2&#39;</span><span class="p">,</span> <span class="s1">&#39;Factor3&#39;</span><span class="p">])</span>
 
-fa_group2 = FactorAnalyzer(n_factors=3, rotation='varimax', method='ml')
-fa_group2.fit(group2)
-loadings_group2 = pd.DataFrame(fa_group2.loadings_, index=group2.columns, columns=['Factor1', 'Factor2', 'Factor3'])
+<span class="n">fa_group2</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;varimax&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ml&#39;</span><span class="p">)</span>
+<span class="n">fa_group2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">group2</span><span class="p">)</span>
+<span class="n">loadings_group2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fa_group2</span><span class="o">.</span><span class="n">loadings_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">group2</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Factor1&#39;</span><span class="p">,</span> <span class="s1">&#39;Factor2&#39;</span><span class="p">,</span> <span class="s1">&#39;Factor3&#39;</span><span class="p">])</span>
 
-print(&quot;グループ1の因子負荷行列:&quot;)
-print(loadings_group1)
-print(&quot;\nグループ2の因子負荷行列:&quot;)
-print(loadings_group2)
-</code></pre>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;グループ1の因子負荷行列:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loadings_group1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">グループ2の因子負荷行列:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loadings_group2</span><span class="p">)</span>
+</code></pre></div>
 <hr />
 <h3 id="86">8.6 結果の解釈とまとめ</h3>
 <p>シミュレーションデータに基づく因子分析の各ステップを通じて、以下の点が確認されました。</p>

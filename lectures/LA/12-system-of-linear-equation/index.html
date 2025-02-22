@@ -12,13 +12,13 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/05-vector-and-matrix/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/12-system-of-linear-equation/">
       
       
-        <link rel="prev" href="../04-vector-and-matrix/">
+        <link rel="prev" href="../11-system-of-linear-equation/">
       
       
-        <link rel="next" href="../06-vector-and-matrix/">
+        <link rel="next" href="../13-system-of-linear-equation/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>5. Vector and Matrix4 - Statistical Learning Laboratory</title>
+        <title>12. System of Linear Equation - Statistical Learning Laboratory</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#5" class="md-skip">
+        <a href="#9" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              5. Vector and Matrix4
+              12. System of Linear Equation
             
           </span>
         </div>
@@ -556,30 +556,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    5. Vector and Matrix4
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../05-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -588,161 +568,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 本日扱う内容について（概要）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 扱う内容の理論の説明（定義・定理・数式を含む）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列積の定義と計算ルール
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列とベクトルの積による1次変換
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-gpt-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      例1: 正方行列の積と非可換性の例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      例2: 行列とベクトルの積による1次変換
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-chatgptcolab" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Colab での実行例
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Colab での実行例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      (1) 行列積の基本例と非可換性、サイズ不一致の例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      (2) 行列とベクトルの積による1次変換（回転行列）の例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      (3) 画像の拡大・回転・縮小による1次変換の例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. 学んだ内容がどのように応用されるか
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. 演習問題
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -878,10 +703,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../12-system-of-linear-equation/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -890,6 +735,194 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 本日扱う内容について（概要）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 扱う内容の理論の説明（定義・定理・数式を含む）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      連立1次方程式の一般形
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      連立一次方程式の解の種類
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数式による条件（概念レベルの説明）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpt-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【2変数の連立一次方程式の場合】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      【3変数の連立一次方程式の場合】
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptgoogle-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Google Colab での実行例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Google Colab での実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chatgpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      ChatGPTによる解説
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colabでの実行例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Colabでの実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      【2変数の場合】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【3変数の場合】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-colab-plotly-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colab での Plotly を用いた 3次元可視化の実装例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 学んだ内容がどのように応用されるか
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1724,18 +1757,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1_1" class="md-nav__link">
     <span class="md-ellipsis">
-      行列積の定義と計算ルール
+      連立1次方程式の一般形
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      行列とベクトルの積による1次変換
+      連立一次方程式の解の種類
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数式による条件（概念レベルの説明）
     </span>
   </a>
   
@@ -1757,18 +1799,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_2" class="md-nav__link">
+  <a href="#2_1" class="md-nav__link">
     <span class="md-ellipsis">
-      例1: 正方行列の積と非可換性の例
+      【2変数の連立一次方程式の場合】
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-1" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      例2: 行列とベクトルの積による1次変換
+      【3変数の連立一次方程式の場合】
     </span>
   </a>
   
@@ -1780,37 +1822,56 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-chatgptcolab" class="md-nav__link">
+  <a href="#4-chatgptgoogle-colab" class="md-nav__link">
     <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Colab での実行例
+      4. ChatGPTによる解説＋Google Colab での実行例
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Colab での実行例">
+    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Google Colab での実行例">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1_3" class="md-nav__link">
+  <a href="#chatgpt" class="md-nav__link">
     <span class="md-ellipsis">
-      (1) 行列積の基本例と非可換性、サイズ不一致の例
+      ChatGPTによる解説
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-1_1" class="md-nav__link">
+  <a href="#google-colab" class="md-nav__link">
     <span class="md-ellipsis">
-      (2) 行列とベクトルの積による1次変換（回転行列）の例
+      Google Colabでの実行例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Colabでの実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      【2変数の場合】
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-1" class="md-nav__link">
+  <a href="#3_1" class="md-nav__link">
     <span class="md-ellipsis">
-      (3) 画像の拡大・回転・縮小による1次変換の例
+      【3変数の場合】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-colab-plotly-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Colab での Plotly を用いた 3次元可視化の実装例
     </span>
   </a>
   
@@ -1820,9 +1881,14 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#5_1" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
       5. 学んだ内容がどのように応用されるか
     </span>
@@ -1854,246 +1920,381 @@
                   
 
 
-<h1 id="5">講義5: 行列積の理論と例題</h1>
+<h1 id="9">講義9: 連立方程式の解の種類</h1>
 <h2 id="1">1. 本日扱う内容について（概要）</h2>
 <ul>
-<li><strong>目的:</strong>  </li>
-<li>行列積の定義と計算ルールを、より分かりやすく丁寧に学ぶ  </li>
-<li>行列積の基本的注意点（サイズの一致、非可換性）を理解する  </li>
-<li>行列とベクトルの積が1次変換（線形変換）としてどのように作用するかを確認する  </li>
 <li>
-<p>画像を対象とした行列による拡大・回転・縮小の例を通して、1次変換の効果を視覚的に理解する</p>
+<p><strong>目的:</strong>  </p>
+<ul>
+<li>連立一次方程式の解の種類（解が一意、解が無数、解が存在しない）の概念を理解する  </li>
+<li>3つの未知数を含む連立一次方程式を中心に、各解のパターンの例を学ぶ  </li>
+<li>Google Colab を用いて、2変数および3変数の場合のシミュレーションと図示により、幾何学的な解のパターン（直線の交点、平面の交点など）を視覚的に理解する</li>
+</ul>
 </li>
 <li>
 <p><strong>講義の流れ:</strong>  </p>
+<ol>
+<li>連立一次方程式の解の種類の理論的背景（定義・定理・数式）  </li>
+<li>具体例の紹介（3変数の例：一意解、無数解、解なし；2変数の例も併せて）  </li>
+<li>ChatGPTによる解説＋Google Colabでの実行例（シミュレーションと図示）  </li>
+<li>学んだ内容の応用例  </li>
+<li>演習問題</li>
+</ol>
 </li>
-<li>行列積の理論的背景（定義、計算ルール、性質）の詳細な説明  </li>
-<li>行列とベクトルの積による1次変換の紹介  </li>
-<li>手計算による具体的な例題の提示と、非可換性の具体例  </li>
-<li>ChatGPTによる解説およびGoogle Colabでの実行例（エラー例、幾何的解釈、回転行列の例、画像の変換例）  </li>
-<li>学んだ内容がどのように応用されるかの考察</li>
-<li>演習問題による理解の確認</li>
 </ul>
+<hr />
 <h2 id="2">2. 扱う内容の理論の説明（定義・定理・数式を含む）</h2>
-<h3 id="_1">行列積の定義と計算ルール</h3>
 <ul>
 <li>
-<p><strong>定義:</strong><br />
-  行列 $ A $ が $ m \times n $ 行列、行列 $ B $ が $ n \times p $ 行列の場合、行列積 $ AB $ は定義され、結果は $ m \times p $ 行列となる。</p>
-</li>
-<li>
-<p><strong>計算ルール:</strong><br />
-  行列積の各要素 <span class="arithmatex">\((AB)_{ij}\)</span> は以下の式に従って計算される：
-  $$
-  (AB)<em>{ij} = \sum</em>{k=1}^{n} A_{ik} \cdot B_{kj}
-  $$
-  <strong>計算の流れ：</strong>  </p>
-</li>
-<li>$ A $ の $ i $ 行目の成分 $ A_{i1}, A_{i2}, \dots, A_{in} $ を取り出す。  </li>
-<li>$ B $ の $ j $ 列目の成分 $ B_{1j}, B_{2j}, \dots, B_{nj} $ を取り出す。  </li>
-<li>
-<p>対応する成分同士 $ (A_{ik} $ と $ B_{kj}) $ を掛け合わせ、その結果を全て加算する。</p>
-</li>
-<li>
-<p><strong>重要な注意点:</strong>  </p>
-</li>
-<li><strong>サイズの一致:</strong><br />
-    行列積を計算するには、行列 $ A $ の列数と行列 $ B $ の行数が一致している必要がある。サイズが一致しない場合、計算は定義されず、プログラムではエラーが発生する。  </li>
-<li><strong>非可換性:</strong><br />
-    一般に、行列積は可換ではなく $ AB \neq BA $ となる。これは、各行と各列の要素の組み合わせが順序に依存するためである。</li>
-</ul>
-<h3 id="1_1">行列とベクトルの積による1次変換</h3>
+<p>これまでの連立1次方程式</p>
 <ul>
-<li>
-<p><strong>定義:</strong><br />
-  行列 $ A $（サイズが $ m \times n $）と列ベクトル $ \mathbf{v} $（サイズが $ n \times 1 $）の積 $ A\mathbf{v} $ は、$ m \times 1 $ の新たなベクトルとなる。</p>
+<li>ここまでの議論では一般的な連立方程式を紹介しつつも、未知数の数と方程式の数が同じ連立方程式を扱ってきました。</li>
+<li>連立1次方程式は必ず解けて、解はただ1つに定まった。</li>
+</ul>
 </li>
 <li>
-<p><strong>幾何学的意味:</strong><br />
-  この積は、ベクトル $ \mathbf{v} $ に対して線形変換を作用させるもので、例えば回転、拡大縮小、せん断などの変換を表す。特に、回転行列を用いると、ベクトルの方向がどのように変化するかを視覚的に確認できる。</p>
+<p>これからの連立1次方程式</p>
+<ul>
+<li>未知数の数と方程式の数は同じではない。</li>
+<li>連立1次方程式の解がただ1つに定まる場合、解が存在しない場合や、解が無数に存在する場合もある</li>
+</ul>
 </li>
 </ul>
+<p>実際、現実に扱われる連立1次方程式では、未知数の数と方程式の数も異なるし、解が1つに定まるとは限りません。
+どのように、そのような連立1次方程式を解いていけば良いのか、解が存在するかを判断するかが1つの大きな問題です。</p>
+<h3 id="1_1">連立1次方程式の一般形</h3>
+<ul>
+<li><strong>定義:</strong><br />
+  未知数 <span class="arithmatex">\(x_1, x_2, \dots, x_n\)</span> に対して、<span class="arithmatex">\(m\)</span> 本の一次方程式が同時に成立する連立一次方程式は、以下のように書くことができる。
+  $$
+  \begin{cases}
+  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \\
+  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \\
+  \quad\vdots \\
+  a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m.
+  \end{cases}
+  $$</li>
+</ul>
+<h3 id="_1">連立一次方程式の解の種類</h3>
+<p>連立一次方程式の解のパターンは大きく3つに分類されます：</p>
+<ol>
+<li><strong>一意解 (Unique Solution):</strong><br />
+    すべての方程式が独立で、解がただ1つ定まる場合。<br />
+    （例：各方程式が異なる平面を表し、それらが一点で交わる場合）</li>
+<li><strong>無数の解 (Infinitely Many Solutions):</strong><br />
+    方程式同士に依存関係があり、自由変数が存在する場合。<br />
+    （例：3本の方程式のうち2本が独立で、残りがその組み合わせになっている場合）</li>
+<li><strong>解なし (No Solution):</strong><br />
+    複数の方程式が矛盾しており、どの解も満たせない場合。<br />
+    （例：同じ左辺に対して異なる右辺が設定されている場合）</li>
+</ol>
+<h3 id="_2">数式による条件（概念レベルの説明）</h3>
+<ul>
+<li><strong>一意解の場合:</strong><br />
+    方程式が独立で、自由変数がない場合。</li>
+<li><strong>無数の解の場合:</strong><br />
+    少なくとも1つの自由変数が存在し、解の集合がパラメータ表示できる場合。</li>
+<li><strong>解なしの場合:</strong><br />
+    複数の方程式が互いに矛盾しているため、共通の解が存在しない場合。</li>
+</ul>
+<blockquote>
+<p>※ 注意：本講義では拡大係数行列の操作は次回の講義で詳しく扱うため、今回は解の種類そのものと、その性質・条件に着目して説明します。</p>
+</blockquote>
+<hr />
 <h2 id="3-gpt-colab">3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）</h2>
-<h3 id="1_2">例1: 正方行列の積と非可換性の例</h3>
+<h3 id="2_1">【2変数の連立一次方程式の場合】</h3>
+<ol>
+<li>
+<p><strong>一意解の例:</strong><br />
+    $$
+    \begin{cases}
+    x + 2y = 5, \
+    3x - y = 4.
+    \end{cases}
+    $$</p>
 <ul>
-<li><strong>与えられた行列:</strong><br />
-  $$
-  A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}
-  $$</li>
-<li><strong>計算:</strong><br />
-  $$
-  AB = \begin{pmatrix}
-  1 \times 5 + 2 \times 7 &amp; 1 \times 6 + 2 \times 8 \\
-  3 \times 5 + 4 \times 7 &amp; 3 \times 6 + 4 \times 8
-  \end{pmatrix} = \begin{pmatrix} 19 &amp; 22 \\ 43 &amp; 50 \end{pmatrix}
-  $$</li>
-<li><strong>非可換性の例:</strong><br />
-  $$
-  BA = \begin{pmatrix}
-  5 \times 1 + 6 \times 3 &amp; 5 \times 2 + 6 \times 4 \\
-  7 \times 1 + 8 \times 3 &amp; 7 \times 2 + 8 \times 4
-  \end{pmatrix} = \begin{pmatrix} 23 &amp; 34 \\ 31 &amp; 46 \end{pmatrix}
-  $$
-  ここで、$ AB \neq BA $ となることが確認できる。</li>
+<li>直線同士が交わり、一点で交差するので、解は一意です。</li>
 </ul>
-<h3 id="2-1">例2: 行列とベクトルの積による1次変換</h3>
+</li>
+<li>
+<p><strong>無数の解の例:</strong><br />
+    $$
+    \begin{cases}
+    x + 2y = 5, \
+    2x + 4y = 10.
+    \end{cases}
+    $$</p>
 <ul>
-<li><strong>回転行列の例:</strong><br />
-  2次元の回転行列（角度 $ \theta $ の回転）：
-  $$
-  R(\theta) = \begin{pmatrix} \cos \theta &amp; -\sin \theta \\ \sin \theta &amp; \cos \theta \end{pmatrix}
-  $$
-  任意の2次元ベクトル $ \mathbf{v} = \begin{pmatrix} x \\ y \end{pmatrix} $ に対して、積 $ R(\theta)\mathbf{v} $ は、$ \theta $ だけ回転した新たなベクトルを表す。</li>
+<li>2行目は 1行目の倍数なので、2つの直線は同一であり、無数の解が存在します（直線全体が解集合）。</li>
 </ul>
-<h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colab での実行例</h2>
-<h3 id="1_3">(1) 行列積の基本例と非可換性、サイズ不一致の例</h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># 正方行列の例</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
-
-<span class="c1"># 正しいサイズでの積</span>
-<span class="n">AB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
-<span class="n">BA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A * B =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">AB</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B * A =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">BA</span><span class="p">)</span>  <span class="c1"># AB と BA が異なる（非可換性の例）</span>
-
-<span class="c1"># サイズ不一致の例</span>
-<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>  <span class="c1"># 3×2行列</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A * D =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;サイズが一致しないためエラーが発生:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-</code></pre></div>
-<h3 id="2-1_1">(2) 行列とベクトルの積による1次変換（回転行列）の例</h3>
+</li>
+<li>
+<p><strong>解が存在しない例:</strong><br />
+    $$
+    \begin{cases}
+    x + 2y = 5, \
+    2x + 4y = 11.
+    \end{cases}
+    $$</p>
+<ul>
+<li>2行目は 1行目の倍数ではないため、2つの直線は平行で交わらず、解は存在しません。</li>
+</ul>
+</li>
+</ol>
+<h3 id="3">【3変数の連立一次方程式の場合】</h3>
+<ol>
+<li>
+<p><strong>一意解の例</strong>
+    $$
+    \begin{cases}
+    3x + y + z = -5, \
+    4x + 3y - z = -2, \
+    5x + 4y + z = 6.
+    \end{cases}
+    $$
+    この系は独立な方程式で、一意解が存在し、（例として以前の講義で示したように）解は<br />
+    $$
+    x = -5,\quad y = 7,\quad z = 3.
+    $$</p>
+</li>
+<li>
+<p><strong>無数の解の例</strong>
+    $$
+    \begin{cases}
+    x + 2y - z = 1, \
+    2x -3y - 2z = 2, \
+    3x - y - 3z = 3.
+    \end{cases}
+    $$
+    ここでは、3番目と式は、1番目の式と2番目の式の和であるため、実質的に独立な式は 2 本となり、自由変数が1つ存在して無数の解（パラメータ表示）が得られます。</p>
+</li>
+<li>
+<p><strong>解が存在しない例</strong>
+    $$
+    \begin{cases}
+    x + y + z = 2, \
+    2x + 2y + 2z = 4, \
+    x + y + z = 3.
+    \end{cases}
+    $$
+    1番目と3番目の式は同じ左辺ですが右辺が異なるため、矛盾が生じ、解は存在しません。</p>
+</li>
+</ol>
+<hr />
+<h2 id="4-chatgptgoogle-colab">4. ChatGPTによる解説＋Google Colab での実行例</h2>
+<h3 id="chatgpt">ChatGPTによる解説</h3>
+<ul>
+<li><strong>解説ポイント:</strong>  </li>
+<li>連立一次方程式の解の種類は、係数行列の線形独立性に依存します。  </li>
+<li>一意解が得られる場合は、各方程式が独立しており、未知数の数と方程式のランクが一致します。  </li>
+<li>無数の解がある場合、方程式間に線形依存性があり、自由変数が存在するため、解集合はパラメータで表される線形空間（直線や平面）となります。  </li>
+<li>解が存在しない場合、方程式間で矛盾があり、条件を同時に満たす解が存在しません。  </li>
+<li>これらの概念を、2変数の場合の直線の交点、また 3変数の場合の平面の交点の図示によって視覚的に理解します。</li>
+</ul>
+<h3 id="google-colab">Google Colabでの実行例</h3>
+<h4 id="2_2">【2変数の場合】</h4>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="c1"># 回転角度（ラジアン）: 45度</span>
-<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span>
+<span class="c1"># 一意解の例: 直線の交点</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="c1"># 直線1: x + 2y = 5  → y = (5 - x)/2</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="c1"># 直線2: 3x - y = 4  → y = 3x - 4</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">4</span>
 
-<span class="c1"># 2次元回転行列の定義</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)],</span>
-              <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span>  <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)]])</span>
-
-<span class="c1"># 元のベクトル（例: x軸方向の単位ベクトル）</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">v_rotated</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;回転行列 R =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;元のベクトル v =&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;回転後のベクトル R*v =&quot;</span><span class="p">,</span> <span class="n">v_rotated</span><span class="p">)</span>
-
-<span class="c1"># 可視化</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">origin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="o">*</span><span class="n">origin</span><span class="p">,</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;v (元)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="o">*</span><span class="n">origin</span><span class="p">,</span> <span class="o">*</span><span class="n">v_rotated</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R*v (回転後)&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;回転行列によるベクトルの変換（45度回転）&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;x + 2y = 5&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;3x - y = 4&quot;</span><span class="p">)</span>
+<span class="c1"># 解を代数的に求める（交点）</span>
+<span class="c1"># 交点: 解 x, y を求める</span>
+<span class="c1"># 例として、交点が (1, 2) とする（実際の計算は省略）</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;交点 (1,2)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;一意解: 直線の交点&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 無数解の例: 同一の直線</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;x + 2y = 5&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2x + 4y = 10 (同じ直線)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;無数解: 同一の直線&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 解が存在しない例: 平行な直線</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;x + 2y = 5&quot;</span><span class="p">)</span>
+<span class="c1"># 2行目: 2x + 4y = 11 → y = (11 - 2x)/4</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">11</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2x + 4y = 11&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;解が存在しない: 平行な直線&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
-<h3 id="3-1">(3) 画像の拡大・回転・縮小による1次変換の例</h3>
-<p>ここでは、オープンアクセスの画像を用いて、行列による拡大、回転、縮小の変換を示し、1次変換の効果を視覚的に確認します。以下の例では、<code>skimage</code> ライブラリの画像を利用しています。</p>
+<h4 id="3_1">【3変数の場合】</h4>
+<p>3変数の場合は、各方程式は平面を表し、以下の例でシミュレーションします。</p>
+<ol>
+<li>
+<p><strong>一意解の例 (Unique Solution):</strong><br />
+   例題：<br />
+   $$
+   \begin{cases}
+   x + y + z = 6, \
+   2x + 3y + 4z = 14, \
+   3x + 4y + 5z = 20.
+   \end{cases}
+   $$
+   この場合、3平面は一点で交わり、一意解が得られます。</p>
+</li>
+<li>
+<p><strong>無数の解の例 (Infinitely Many Solutions):</strong><br />
+   例題：<br />
+   $$
+   \begin{cases}
+   x + y + z = 6, \
+   2x + 3y + 4z = 14, \
+   3x + 4y + 5z = 20.
+   \end{cases}
+   $$
+   ※ 実は、3行目が1行目と2行目の線形結合になっている場合、ランクは 2 となり、解は無限に存在します。</p>
+</li>
+<li>
+<p><strong>解が存在しない例 (No Solution):</strong><br />
+   例題：<br />
+   $$
+   \begin{cases}
+   x + y + z = 6, \
+   2x + 3y + 4z = 14, \
+   3x + 4y + 5z = 21.
+   \end{cases}
+   $$
+   この場合、3行目が矛盾するため、平面は交わらず解は存在しません。</p>
+</li>
+</ol>
+<p>以下は、3変数の場合のシンプルな 3D プロット例（ただし、ここでは解の計算の詳細は省略し、概念図示に重点を置いています）。</p>
+<h4 id="google-colab-plotly-3">Google Colab での Plotly を用いた 3次元可視化の実装例</h4>
+<p>以下のコードは、例A（一意解の例）の3変数連立一次方程式に対する3平面の交点（解）の 3D 可視化を、Plotly を用いてインタラクティブに表示します。Plotly の図は回転や拡大縮小が可能です。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span><span class="p">,</span> <span class="n">transform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
 
-<span class="c1"># オープンアクセス画像の読み込み（astronaut画像）</span>
-<span class="n">image</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astronaut</span><span class="p">()</span>
+<span class="c1"># グリッドの定義</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
-<span class="c1"># 1. 回転変換のみ（45度回転）</span>
-<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">rotation_tform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">AffineTransform</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
-<span class="n">image_rotated</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">warp</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">rotation_tform</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+<span class="c1"># 平面の定義（例Aの各式を z = f(x, y) の形に変形）</span>
+<span class="c1"># (1) 3x + y + z = -5  →  z = -5 - 3x - y</span>
+<span class="n">Z1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">X</span> <span class="o">-</span> <span class="n">Y</span>
+<span class="c1"># (2) 4x + 3y - z = -2  →  z = 4x + 3y + 2</span>
+<span class="n">Z2</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="c1"># (3) 5x + 4y + z = 6   →  z = 6 - 5x - 4y</span>
+<span class="n">Z3</span> <span class="o">=</span> <span class="mi">6</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">X</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">Y</span>
 
-<span class="c1"># 2. 拡大変換のみ（拡大率1.5）</span>
-<span class="n">scaling_enlarge_tform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">AffineTransform</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">))</span>
-<span class="n">image_enlarged</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">warp</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">scaling_enlarge_tform</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+<span class="c1"># 一意解の例の解（例として前回示した解）</span>
+<span class="n">solution</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 
-<span class="c1"># 3. 縮小変換のみ（縮小率0.5）</span>
-<span class="n">scaling_shrink_tform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">AffineTransform</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
-<span class="n">image_shrunk</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">warp</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">scaling_shrink_tform</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+<span class="c1"># Plotly の Figure を作成して各平面を追加</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 
-<span class="c1"># 4. 拡大と回転の組み合わせ</span>
-<span class="n">combined_matrix</span> <span class="o">=</span> <span class="n">scaling_enlarge_tform</span><span class="o">.</span><span class="n">params</span> <span class="o">@</span> <span class="n">rotation_tform</span><span class="o">.</span><span class="n">params</span>
-<span class="n">combined_tform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">AffineTransform</span><span class="p">(</span><span class="n">matrix</span><span class="o">=</span><span class="n">combined_matrix</span><span class="p">)</span>
-<span class="n">image_combined</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">warp</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">combined_tform</span><span class="o">.</span><span class="n">inverse</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">Z1</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+                         <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;Viridis&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;平面 1: 3x + y + z = -5&#39;</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">Z2</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+                         <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;Cividis&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;平面 2: 4x + 3y - z = -2&#39;</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">Z3</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+                         <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;Plasma&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;平面 3: 5x + 4y + z = 6&#39;</span><span class="p">))</span>
 
-<span class="c1"># 画像の表示</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="c1"># 解の点をプロット（Scatter3d）</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter3d</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">solution</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">solution</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+    <span class="n">z</span><span class="o">=</span><span class="p">[</span><span class="n">solution</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;markers&#39;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">),</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;解 (-5, 7, 3)&#39;</span>
+<span class="p">))</span>
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original Image&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="c1"># レイアウトの更新（軸タイトルなど）</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;3次元連立一次方程式（例A）の解の可視化&#39;</span><span class="p">,</span>
+    <span class="n">scene</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
+        <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span>
+        <span class="n">zaxis_title</span><span class="o">=</span><span class="s1">&#39;z&#39;</span>
+    <span class="p">),</span>
+    <span class="n">autosize</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_rotated</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rotated Image (45°)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_enlarged</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Enlarged Image (scale=1.5)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_shrunk</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Shrunk Image (scale=0.5)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># さらに、拡大と回転を組み合わせた変換の例</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_combined</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Combined Transformation: Rotation + Enlargement&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="5_1">5. 学んだ内容がどのように応用されるか</h2>
+<p>※ 同様に、無数解や解が存在しない場合のシミュレーションも、各平面（または直線）の関係を変えることで図示可能です。<br />
+たとえば、無数解の場合は平面が共通部分として直線または平面で交わり、解が存在しない場合は少なくとも一部の平面が平行で交わらないなどの状況を図示します。</p>
+<hr />
+<h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
 <ul>
-<li><strong>線形変換の合成:</strong><br />
-  複数の行列（各々が回転、拡大縮小、せん断などの変換を表す）を積むことで、連続した変換を一つの行列にまとめ、複雑な変換をシンプルに表現できる。</li>
+<li><strong>工学・物理学:</strong><br />
+  連立一次方程式の解の種類の理解は、システムの自由度や制約条件を把握する上で重要です。たとえば、構造物の変形や回路解析などにおいて、システムが一意解を持つかどうかが設計の安全性や動作に直結します。</li>
+<li><strong>経済学・最適化:</strong><br />
+  市場均衡や資源配分問題では、連立一次方程式の解の存在性や一意性が経済モデルの安定性に影響します。</li>
 <li><strong>コンピュータグラフィックス:</strong><br />
-  画像の回転、拡大縮小、平行移動などの操作は、行列による1次変換を用いて効率的に実現され、3Dモデリングや画像処理の基盤技術となっている。</li>
+  画像や3Dモデルの変換、レンダリングでは、平面や直線の交点の計算が重要な役割を果たします。</li>
 <li><strong>機械学習:</strong><br />
-  特徴抽出やデータ拡張（augmentation）など、画像処理の分野で行列を用いた変換は、モデルの精度向上に寄与する。</li>
+  線形モデル（例：線形回帰）の解の一意性や多様な解の存在は、モデルの学習や解釈に影響し、次元削減などの技法とも密接に関連しています。</li>
 </ul>
+<hr />
 <h2 id="6">6. 演習問題</h2>
 <ol>
 <li>
 <p><strong>演習問題1:</strong><br />
-   以下の行列<br />
+   次の3変数の連立一次方程式について、解の種類（一意解、無数解、または解が存在しない）を判定せよ。<br />
+   例題 (一意解の例):<br />
    $$
-   A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}
+   \begin{cases}
+   x + y + z = 6, \
+   2x + 3y + 4z = 14, \
+   3x + 4y + 5z = 20.
+   \end{cases}
    $$
-   の積 $ AB $ と $ BA $ を計算し、結果が異なること（非可換性）を確認せよ。</p>
+   ※ 解が一意であれば、解を求めなさい。</p>
 </li>
 <li>
 <p><strong>演習問題2:</strong><br />
-   サイズが一致しない行列の積を試み、Python（Google Colab）でどのようなエラーが発生するか確認せよ。<br />
-   例：$ A $（2×2行列）と $ D $（3×2行列）の積を計算してみる。</p>
+   次の3変数の連立一次方程式について、解の種類を判定せよ。<br />
+   例題 (無数解の例):<br />
+   $$
+   \begin{cases}
+   x + y + z = 6, \
+   2x + 3y + 4z = 14, \
+   3x + 4y + 5z = 20.
+   \end{cases}
+   $$
+   ※ ただし、3行目が1行目と2行目の線形結合になっている場合の状況を示すこと。</p>
 </li>
 <li>
 <p><strong>演習問題3:</strong><br />
-   2次元回転行列 $ R(\theta) $ を用いて、任意の角度 $ \theta $ での回転変換を実装し、元のベクトルと回転後のベクトルの位置関係を図示して、幾何学的な意味を説明せよ。</p>
+   次の3変数の連立一次方程式について、解の種類を判定せよ。<br />
+   例題 (解が存在しない例):<br />
+   $$
+   \begin{cases}
+   x + y + z = 6, \
+   2x + 3y + 4z = 14, \
+   3x + 4y + 5z = 21.
+   \end{cases}
+   $$
+   ※ なぜ解が存在しないか、その理由を説明せよ。</p>
 </li>
 <li>
 <p><strong>演習問題4:</strong><br />
-   画像に対して、行列積を用いた拡大、回転、縮小の変換を実装せよ。  </p>
+   2変数の連立一次方程式（例: <span class="arithmatex">\(x + 2y = 5\)</span> と <span class="arithmatex">\(3x - y = 4\)</span>）および3変数の連立一次方程式の各解のパターン（一意解、無数解、解なし）のシミュレーションを Google Colab 上で実装し、図示して、幾何学的な違いを説明せよ。</p>
 </li>
-<li>オープンアクセス画像（例：<code>skimage.data.astronaut()</code>）を使用すること。  </li>
-<li>各変換（回転のみ、拡大のみ、縮小のみ、及び回転と拡大の組み合わせ）の結果をプロットし、元画像と比較して説明せよ。</li>
 </ol>
 
 
