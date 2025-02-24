@@ -12,13 +12,13 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/18-determinant/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/24-determinant/">
       
       
-        <link rel="prev" href="../17-system-of-linear-equation/">
+        <link rel="prev" href="../23-determinant/">
       
       
-        <link rel="next" href="../19-determinant/">
+        <link rel="next" href="../25-exercise/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>18. Determinant - Statistical Learning Laboratory</title>
+        <title>24. Determinant - Statistical Learning Laboratory</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#18" class="md-skip">
+        <a href="#21-4" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              18. Determinant
+              24. Determinant
             
           </span>
         </div>
@@ -442,6 +442,20 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -663,11 +677,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-system-of-linear-equation/" class="md-nav__link">
+      <a href="../09-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    9. System of Linear Equation
+    9. Exersice
   </span>
   
 
@@ -849,6 +863,132 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -865,7 +1005,7 @@
           
   
   <span class="md-ellipsis">
-    18. Determinant
+    24. Determinant
   </span>
   
 
@@ -876,7 +1016,7 @@
         
   
   <span class="md-ellipsis">
-    18. Determinant
+    24. Determinant
   </span>
   
 
@@ -959,18 +1099,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
+  <a href="#1-4" class="md-nav__link">
     <span class="md-ellipsis">
-      3.1. 単位行列の行列式
+      実例1: 還元定理による4次行列の計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="実例1: 還元定理による4次行列の計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ1】第1列の下部成分の除去
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
+  <a href="#22_1" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2. 線形性（行または列についての線形性）
+      【ステップ2】第2列の下部成分の除去
     </span>
   </a>
   
@@ -979,18 +1129,65 @@
           <li class="md-nav__item">
   <a href="#33" class="md-nav__link">
     <span class="md-ellipsis">
-      3.3. 交代性（行または列の交換による符号反転）
+      【ステップ3】第3列の下部成分の除去
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#34" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      3.4 積の行列式
+      【行列式の計算】
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      実例2: 余因子展開による4次行列の計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="実例2: 余因子展開による4次行列の計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ1】第一列に沿った余因子展開
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ2】各項の評価
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ3】最終的な計算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1026,15 +1223,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      付録・参考資料
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1051,11 +1239,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../19-determinant/" class="md-nav__link">
+      <a href="../25-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    19. Determinant
+    25. Exercise
   </span>
   
 
@@ -1072,11 +1260,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../20-determinant/" class="md-nav__link">
+      <a href="../22-vector-space-and-inner-product.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    20. Determinant
+    26. Vector space
   </span>
   
 
@@ -1093,11 +1281,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../21-determinant/" class="md-nav__link">
+      <a href="../23-vector-space-and-inner-product.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    21. Determinant
+    27. Vector space
   </span>
   
 
@@ -1114,11 +1302,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../22-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../24-vector-space-and-inner-product.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    22. Vector space
+    28. Vector space
   </span>
   
 
@@ -1135,11 +1323,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../23-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../29-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    23. Vector space
+    29. Exercise
   </span>
   
 
@@ -1156,11 +1344,32 @@
   
   
     <li class="md-nav__item">
-      <a href="../24-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../30-exercise.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    24. Vector space
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
   </span>
   
 
@@ -1999,18 +2208,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
+  <a href="#1-4" class="md-nav__link">
     <span class="md-ellipsis">
-      3.1. 単位行列の行列式
+      実例1: 還元定理による4次行列の計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="実例1: 還元定理による4次行列の計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ1】第1列の下部成分の除去
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
+  <a href="#22_1" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2. 線形性（行または列についての線形性）
+      【ステップ2】第2列の下部成分の除去
     </span>
   </a>
   
@@ -2019,18 +2238,65 @@
           <li class="md-nav__item">
   <a href="#33" class="md-nav__link">
     <span class="md-ellipsis">
-      3.3. 交代性（行または列の交換による符号反転）
+      【ステップ3】第3列の下部成分の除去
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#34" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      3.4 積の行列式
+      【行列式の計算】
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      実例2: 余因子展開による4次行列の計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="実例2: 余因子展開による4次行列の計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ1】第一列に沿った余因子展開
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ2】各項の評価
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      【ステップ3】最終的な計算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2066,15 +2332,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      付録・参考資料
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2090,360 +2347,345 @@
                   
 
 
-<h1 id="18">講義18: 行列式の定義と基本性質</h1>
+<h1 id="21-4">講義タイトル: 講義21: 4次以上の行列式</h1>
 <h2 id="1">1. 講義概要</h2>
 <ul>
 <li><strong>講義時間:</strong> 60分　/　<strong>演習時間:</strong> 30分</li>
 <li><strong>目的:</strong><br />
-  行列式の定義や基本的な性質（線形性、交代性、積の性質など）を理解し、1次、2次、3次の具体例や幾何的な解釈を通して、行列式が線形代数学において果たす役割を把握する。</li>
+  4次以上の正方行列に対する行列式の計算手法として、還元定理と余因子展開の両方を理解し、実際の計算に応用できる能力を身につける。</li>
 <li><strong>今日の目標:</strong><br />
-  ・行列式とは何か、その定義や計算方法（1次、2次、3次の場合）を明確にする。 
-  ・Google Colab を利用して、実際に行列式を計算し、理論と実践の関係を確認する。</li>
+  ・4次以上の行列式の定義と基本性質の確認<br />
+  ・還元定理と余因子展開の理論的背景の整理<br />
+  ・具体例を通して両手法の計算手順を理解する<br />
+  ・Google Colab を用いた実装例を確認し、計算方法を実践的に習得する</li>
 </ul>
 <h2 id="2">2. 理論的背景と内容の説明</h2>
 <h3 id="21">2.1 定義・基本概念</h3>
 <ul>
-<li><strong>行列式とは:</strong><br />
-  行列式は、正方行列に対して定義される数値で、行列に対応する線形変換が空間の面積や体積をどのように拡大・縮小するか、またその変換の向きを反転するか（符号によって示される）を表す指標です。</li>
-<li><strong>行列式の定義（1次, 2次, 3次）:</strong>  </li>
-<li><strong>1次の行列式:</strong><br />
-    $ A = (a) $ に対して、<span class="arithmatex">\(\det(A) = a\)</span> です。</li>
-<li><strong>2次の行列式:</strong><br />
-    $ A = \begin{pmatrix} a &amp; b \ c &amp; d \end{pmatrix} $ に対して、<br />
-    $$
-    \det(A) = ad - bc.
-    $$</li>
-<li><strong>3次の行列式:</strong><br />
-    $ A = \begin{pmatrix} a &amp; b &amp; c \ d &amp; e &amp; f \ g &amp; h &amp; i \end{pmatrix} $ に対して、<br />
-    $$
-    \det(A) = a(ei - fh) - b(di - fg) + c(dh - eg).
-    $$</li>
-<li><strong>基本性質:</strong><br />
-  行列式は以下の性質を持ちます。</li>
-<li><strong>単位行列</strong>: 単位行列<span class="arithmatex">\(I\)</span>の行列式は<span class="arithmatex">\(|I| =1\)</span>である</li>
-<li><strong>線形性:</strong> 行または列に関して線形である。  </li>
-<li><strong>交代性:</strong> 2つの行（または列）を入れ替えると符号が反転する。  </li>
+<li><strong>4次以上の行列式:</strong><br />
+  任意の <span class="arithmatex">\(n\times n\)</span> 行列 <span class="arithmatex">\(A=\left(a_{ij}\right)\)</span> (<span class="arithmatex">\(n\ge 4\)</span>) に対する行列式も、2次・3次の場合同様に、基本変形や還元定理、余因子展開を用いて計算することができます。</li>
+</ul>
+<p>ただし、2次・3次行列とは異なり、4次以上の行列に対する行列式の公式は実質的にない（作ろうと思えば作れますが、公式で計算するような計算量ではない）ので、</p>
+<ul>
+<li><strong>還元定理（基本変形を用いた計算）:</strong><br />
+  行列 <span class="arithmatex">\(A\)</span> に対して、以下の基本変形を順次適用することで上三角行列 <span class="arithmatex">\(U\)</span> に変形する：</li>
+<li><strong>行の交換:</strong><br />
+    $$ \det(A') = -\det(A) $$</li>
+<li><strong>行の定数倍:</strong><br />
+    $$ \det(cR_i) = c\, \det(A) $$</li>
+<li><strong>行の加減算:</strong><br />
+    $$ \det(R_i + kR_j) = \det(A) \quad (i \neq j) $$</li>
+</ul>
+<p>上三角行列 <span class="arithmatex">\(U\)</span> の行列式は対角成分の積として求まる：
+  $$ \det(U)=\prod_{i=1}^{n} u_{ii}. $$</p>
+<ul>
+<li><strong>余因子展開:</strong><br />
+  任意の正方行列 <span class="arithmatex">\(A=\left(a_{ij}\right)\)</span> に対して、任意の行 <span class="arithmatex">\(i\)</span>（または列 <span class="arithmatex">\(j\)</span>）に沿って行列式は展開できる：
+  $$
+  \det(A)=\sum_{j=1}^{n} a_{ij} \, C_{ij},
+  $$
+  ここで各余因子 <span class="arithmatex">\(C_{ij}\)</span> は<br />
+  $$
+  C_{ij} = (-1)^{i+j}\det(A_{ij})
+  $$
+  と定義され、<span class="arithmatex">\(A_{ij}\)</span> は <span class="arithmatex">\(A\)</span> から第 <span class="arithmatex">\(i\)</span> 行と第 <span class="arithmatex">\(j\)</span> 列を除いた <span class="arithmatex">\((n-1)\times (n-1)\)</span> 部分行列である。<br />
+  4次以上の行列の場合、余因子展開は再帰的に3次、2次の行列式計算へと分解される。</li>
 </ul>
 <h3 id="22">2.2 定理・命題</h3>
 <ul>
+<li><strong>還元定理に関する命題:</strong><br />
+  基本変形（行の交換、定数倍、行の加減算）を用いると、行列式の値は以下の性質に従って変化する：</li>
+<li>行の交換で符号が反転する。</li>
+<li>行の定数倍でその定数倍となる。</li>
 <li>
-<p><strong>定理1: 逆行列の存在条件と行列式</strong><br />
-  正方行列 $ A $ に対し、<br />
-  $$
-  A \text{ が正則} \quad \Longleftrightarrow \quad \det(A) \neq 0.
-  $$
-  つまり、行列式がゼロでなければ $ A $ は逆行列 $ A^{-1} $ を持ち、ゼロならば逆行列は存在しません。</p>
+<p>行の加減算では行列式は不変となる。<br />
+  これにより、複雑な4次以上の行列も、上三角形など計算しやすい形へ変形できる。</p>
 </li>
 <li>
-<p><strong>定理2: 積の性質</strong><br />
-  任意の正方行列 $ A $ と $ B $ に対して、<br />
+<p><strong>余因子展開の基本定理:</strong><br />
+  任意の <span class="arithmatex">\(n\times n\)</span> 行列 <span class="arithmatex">\(A\)</span> に対し、任意の固定行（または列）を選び、<br />
   $$
-  \det(AB) = \det(A) \det(B).
+  \det(A)=\sum_{j=1}^{n} a_{ij}(-1)^{i+j}\det(A_{ij})
   $$
-  この性質は、線形変換の面積・体積の拡大率が積で表されることと一致します。</p>
+  と展開できる。<br />
+  この定理は帰納法により証明され、4次以上の行列に対しても再帰的に適用可能である。</p>
 </li>
-<li>
-<p><strong>命題: 幾何的解釈</strong>  </p>
-</li>
-<li>2次の行列式 <span class="arithmatex">\(\det(A)\)</span> は、2次元空間における対応する線形変換が単位正方形の面積をどのように拡大または縮小するか（または反転するか）を示し、絶対値が拡大率、符号が向きの反転を表します。  </li>
-<li>3次の行列式は、3次元空間における単位立方体の体積の拡大率と向き（右手系か左手系か）を示します。</li>
 </ul>
 <h3 id="23">2.3 数式・証明の詳細</h3>
 <ul>
-<li><strong>1次・2次・3次の行列式の具体的な計算例:</strong>  </li>
-<li><strong>1次:</strong><br />
-    $ A = (a) $ → <span class="arithmatex">\(\det(A)=a\)</span>.  </li>
-<li><strong>2次:</strong><br />
-    $ A = \begin{pmatrix} a &amp; b \ c &amp; d \end{pmatrix} $ →<br />
-    $$
-    \det(A) = ad - bc.
-    $$
-    この式は、行列の2つの行（または列）をスカラー倍し、交差する項を引くことで得られる。</li>
-<li><strong>3次:</strong><br />
-    $ A = \begin{pmatrix} a &amp; b &amp; c \ d &amp; e &amp; f \ g &amp; h &amp; i \end{pmatrix} $<br />
-    の場合、 
-    $$
-    \det(A) = a(ei - fh) - b(di - fg) + c(dh - eg).
-    $$</li>
-<li><strong>幾何的な解釈の詳細:</strong>  </li>
-<li><strong>2次の場合:</strong><br />
-    $ A = \begin{pmatrix} a &amp; b \ c &amp; d \end{pmatrix} $ において、<br />
-    $ \det(A) $ の絶対値は、線形変換 $ A $ が単位正方形の面積を拡大・縮小したときの面積（= $ |ad - bc| $ ）となる。<br />
-    例えば、2つのベクトル $ \mathbf{v}_1 = \begin{pmatrix} a \ c \end{pmatrix} $ と $ \mathbf{v}_2 = \begin{pmatrix} b \ d \end{pmatrix} $ により生成される平行四辺形の面積は $ |ad - bc| $ となる。</li>
-<li><strong>3次の場合:</strong><br />
-    同様に、3つのベクトル $ \mathbf{v}_1, \mathbf{v}_2, \mathbf{v}_3 $ により張られる平行六面体の体積は、<br />
-    $ |\det(A)| $ によって表され、符号は空間の向き（右手系・左手系）を反映する。</li>
+<li>
+<p><strong>還元定理の具体的証明例:</strong><br />
+  4次行列 <span class="arithmatex">\(A\)</span> に対し、基本変形を連続して適用することで、上三角行列 <span class="arithmatex">\(U\)</span> に変形する過程を示す。変形過程で各操作に対応する係数（符号反転や定数倍）を考慮し、最終的に<br />
+  $$
+  \det(A)=\left(\prod \text{変形時の係数}\right)\prod_{i=1}^{4} u_{ii}
+  $$
+  として求める手法を解説する。</p>
+</li>
+<li>
+<p><strong>余因子展開の再帰的計算:</strong><br />
+  4次行列 <span class="arithmatex">\(A\)</span> の第一行に沿った余因子展開を例に取ると、
+  $$
+  \det(A)=a_{11}(-1)^{2}\det(A_{11})+a_{12}(-1)^{3}\det(A_{12})+a_{13}(-1)^{4}\det(A_{13})+a_{14}(-1)^{5}\det(A_{14}),
+  $$
+  各 <span class="arithmatex">\(A_{1j}\)</span> は 3次行列となり、既知の方法（前回の講義内容）により計算可能である。<br />
+  図表やフローチャートを用い、再帰的な計算手順を視覚的に示す。</p>
+</li>
 </ul>
 <h2 id="3-gpt-colab">3. 扱う内容の実例（GPT, Colab等は使用せず）</h2>
-<ul>
-<li>
-<p><strong>実例1: 2次の行列式の計算</strong><br />
-  例として、<br />
-  $$
-  A = \begin{pmatrix} 3 &amp; 4 \ 2 &amp; 5 \end{pmatrix}
-  $$
-  の行列式は、<br />
-  $$
-  \det(A) = 3 \times 5 - 4 \times 2 = 15 - 8 = 7.
-  $$
-  この計算により、行列 $ A $ が単位正方形の面積を7倍に拡大する線形変換であることが分かります。</p>
-</li>
-<li>
-<p><strong>実例2: 3次の行列式の計算</strong><br />
-  例として、<br />
-  $$
-  B = \begin{pmatrix} 1 &amp; 2 &amp; 3 \ 0 &amp; 4 &amp; 5 \ 1 &amp; 0 &amp; 6 \end{pmatrix}
-  $$
-  の行列式を計算すると、<br />
-  $$
-  \det(B) = 1(4 \times 6 - 5 \times 0) - 2(0 \times 6 - 5 \times 1) + 3(0 \times 0 - 4 \times 1) = 24 + 10 - 12 = 22.
-  $$
-  幾何的には、この値の絶対値 $ |22| $ は $ B $ が単位立方体の体積を22倍に拡大することを示します。</p>
-</li>
-</ul>
-<h4 id="31">3.1. 単位行列の行列式</h4>
-<ul>
-<li><strong>2次の場合:</strong><br />
-  単位行列<br />
-  $$
-  I_2 = \begin{pmatrix} 1 &amp; 0 \ 0 &amp; 1 \end{pmatrix}
-  $$
-  の行列式は<br />
-  $$
-  \det(I_2) = 1 \times 1 - 0 \times 0 = 1.
-  $$</li>
-<li><strong>3次の場合:</strong><br />
-  単位行列<br />
-  $$
-  I_3 = \begin{pmatrix} 1 &amp; 0 &amp; 0 \ 0 &amp; 1 &amp; 0 \ 0 &amp; 0 &amp; 1 \end{pmatrix}
-  $$
-  の行列式は<br />
-  $$
-  \det(I_3) = 1.
-  $$</li>
-</ul>
-<h4 id="32">3.2. 線形性（行または列についての線形性）</h4>
-<p>行列式は、任意の行（または列）に対して線形な写像です。<br />
-具体例として、2次の行列で考えます。</p>
-<ul>
-<li><strong>2次の例:</strong><br />
-  次の2×2行列を考えます。<br />
-  $$
-  A = \begin{pmatrix}
-  (1+2) &amp; (3+4) \
-  5     &amp; 6
-  \end{pmatrix}.
-  $$
-  ここで、行1の各要素はそれぞれ <span class="arithmatex">\(1+2\)</span> と <span class="arithmatex">\(3+4\)</span> の和になっています。<br />
-  線形性により、<br />
-  $$
-  \det(A) = \det\left(\begin{pmatrix} 1 &amp; 3 \ 5 &amp; 6 \end{pmatrix}\right) + \det\left(\begin{pmatrix} 2 &amp; 4 \ 5 &amp; 6 \end{pmatrix}\right).
-  $$
-  個別に計算すると、  </li>
-<li><span class="arithmatex">\( \det\begin{pmatrix} 1 &amp; 3 \\ 5 &amp; 6 \end{pmatrix} = 1\times6 - 3\times5 = 6 - 15 = -9 \)</span>,  </li>
-<li>
-<p><span class="arithmatex">\( \det\begin{pmatrix} 2 &amp; 4 \\ 5 &amp; 6 \end{pmatrix} = 2\times6 - 4\times5 = 12 - 20 = -8 \)</span>.<br />
-  よって、合計は <span class="arithmatex">\(-9 + (-8) = -17\)</span>。<br />
-  なお、直接計算すると、<br />
-  $$
-  A = \begin{pmatrix} 3 &amp; 7 \ 5 &amp; 6 \end{pmatrix}, \quad \det(A) = 3\times6 - 7\times5 = 18 - 35 = -17.
-  $$
-  これにより、行1の和の線形性が確認できます。</p>
-</li>
-<li>
-<p><strong>3次の例:</strong><br />
-  3次の行列でも、例えば1列目が2つの列の和である場合、<br />
-  $$
-  B = \begin{pmatrix}
-  1+2 &amp; b_{12} &amp; b_{13} \
-  3+4 &amp; b_{22} &amp; b_{23} \
-  5+6 &amp; b_{32} &amp; b_{33}
-  \end{pmatrix},
-  $$
-  は、線形性により<br />
-  $$
-  \det(B) = \det\begin{pmatrix} 1 &amp; b_{12} &amp; b_{13} \ 3 &amp; b_{22} &amp; b_{23} \ 5 &amp; b_{32} &amp; b_{33} \end{pmatrix} + \det\begin{pmatrix} 2 &amp; b_{12} &amp; b_{13} \ 4 &amp; b_{22} &amp; b_{23} \ 6 &amp; b_{32} &amp; b_{33} \end{pmatrix}.
-  $$
-  具体の数値を入れて確認すると、各部分の行列式の和が元の行列式に一致することがわかります（詳細な計算は演習問題として提示可能です）。</p>
-</li>
-</ul>
-<h4 id="33">3.3. 交代性（行または列の交換による符号反転）</h4>
-<ul>
-<li>
-<p><strong>2次の例:</strong><br />
-  2×2行列<br />
-  $$
-  A = \begin{pmatrix} 2 &amp; 3 \ 4 &amp; 5 \end{pmatrix}
-  $$
-  の行列式は<br />
-  $$
-  \det(A) = 2\times5 - 3\times4 = 10 - 12 = -2.
-  $$
-  ここで、行を入れ替えた行列<br />
-  $$
-  A' = \begin{pmatrix} 4 &amp; 5 \ 2 &amp; 3 \end{pmatrix}
-  $$
-  の行列式は<br />
-  $$
-  \det(A') = 4\times3 - 5\times2 = 12 - 10 = 2.
-  $$
-  元の行列式の符号が反転していることが確認できます。</p>
-</li>
-<li>
-<p><strong>3次の例:</strong><br />
-  3×3行列<br />
-  $$
-  C = \begin{pmatrix}
-  1 &amp; 2 &amp; 3 \
-  4 &amp; 5 &amp; 6 \
-  7 &amp; 8 &amp; 9
-  \end{pmatrix}
-  $$
-  は、実は <span class="arithmatex">\(\det(C)=0\)</span> ですが、交代性の性質を示すために、別の行列を考えます。<br />
-  例えば、<br />
-  $$
-  D = \begin{pmatrix}
-  1 &amp; 2 &amp; 3 \
-  0 &amp; 4 &amp; 5 \
-  1 &amp; 0 &amp; 6
-  \end{pmatrix}.
-  $$
-  計算すると、<br />
-  $$
-  \det(D) = 1(4\times6 - 5\times0) - 2(0\times6 - 5\times1) + 3(0\times0 - 4\times1) = 24 + 10 - 12 = 22.
-  $$
-  次に、例えば行1と行2を入れ替えた行列<br />
-  $$
-  D' = \begin{pmatrix}
-  0 &amp; 4 &amp; 5 \
-  1 &amp; 2 &amp; 3 \
-  1 &amp; 0 &amp; 6
-  \end{pmatrix}
-  $$
-  の行列式は、計算すると<br />
-  $$
-  \det(D') = -22,
-  $$
-  となり、行交換により符号が反転する性質が確認されます。</p>
-</li>
-</ul>
-<p>以上の例を通して、行列式の「単位行列の行列式は1」「線形性」「交代性」の3つの基本性質が、具体的な2次および3次の行列で確認できることが分かります。</p>
-<h4 id="34">3.4 積の行列式</h4>
-<p>例として、以下の2×2行列 <span class="arithmatex">\(A\)</span> と <span class="arithmatex">\(B\)</span> を考えます。
+<h3 id="1-4">実例1: 還元定理による4次行列の計算</h3>
+<p>ここでは、以下の4次行列<br />
 $$
-A = \begin{pmatrix} 2 &amp; 3 \ 1 &amp; 4 \end{pmatrix}, \quad
-B = \begin{pmatrix} 5 &amp; 6 \ 7 &amp; 8 \end{pmatrix}.
-$$</p>
-<p>まず、それぞれの行列式を計算します。</p>
+A=\begin{pmatrix}
+2 &amp; 1 &amp; 0 &amp; 3 \
+0 &amp; 4 &amp; 2 &amp; 1 \
+3 &amp; 0 &amp; 5 &amp; 2 \
+1 &amp; 2 &amp; 0 &amp; 4
+\end{pmatrix}
+$$<br />
+に対して、基本変形を用いて上三角行列へ変形し、対角成分の積から行列式を求める過程を詳細に示します。</p>
+<h4 id="11">【ステップ1】第1列の下部成分の除去</h4>
 <ul>
 <li>
-<p><span class="arithmatex">\(A\)</span> の行列式:
-  $$
-  \det(A) = 2\cdot4 - 3\cdot1 = 8 - 3 = 5.
-  $$</p>
+<p><strong>対象:</strong> 第1列のピボットは <span class="arithmatex">\(a_{11}=2\)</span>。これを用いて、行3と行4の第1列の成分を 0 にします。</p>
 </li>
 <li>
-<p><span class="arithmatex">\(B\)</span> の行列式:
-  $$
-  \det(B) = 5\cdot8 - 6\cdot7 = 40 - 42 = -2.
-  $$</p>
+<p><strong>行3の変形:</strong><br />
+   行3の第1成分は 3 なので、<br />
+   $$ R_3 \leftarrow R_3 - \frac{3}{2} R_1. $$</p>
+</li>
+<li><span class="arithmatex">\(R_1=(2,\;1,\;0,\;3)\)</span> より、<span class="arithmatex">\(\frac{3}{2}R_1=(3,\;1.5,\;0,\;4.5)\)</span>  </li>
+<li>
+<p><span class="arithmatex">\(R_3=(3,\;0,\;5,\;2)\)</span> より、<br />
+<span class="arithmatex">\(<span class="arithmatex">\(R_3'=(3-3,\;0-1.5,\;5-0,\;2-4.5)=(0,\;-1.5,\;5,\;-2.5).\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>行4の変形:</strong><br />
+   行4の第1成分は 1 なので、<br />
+   $$ R_4 \leftarrow R_4 - \frac{1}{2} R_1. $$</p>
+</li>
+<li><span class="arithmatex">\(\frac{1}{2}R_1=(1,\;0.5,\;0,\;1.5)\)</span>  </li>
+<li>
+<p><span class="arithmatex">\(R_4=(1,\;2,\;0,\;4)\)</span> より、<br />
+<span class="arithmatex">\(<span class="arithmatex">\(R_4'=(1-1,\;2-0.5,\;0-0,\;4-1.5)=(0,\;1.5,\;0,\;2.5).\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>中間行列:</strong><br />
+   この操作後、行列は次のようになります。
+   $$
+   A^{(1)}=\begin{pmatrix}
+   2 &amp; 1 &amp; 0 &amp; 3 \
+   0 &amp; 4 &amp; 2 &amp; 1 \
+   0 &amp; -1.5 &amp; 5 &amp; -2.5 \
+   0 &amp; 1.5 &amp; 0 &amp; 2.5
+   \end{pmatrix}.
+   $$</p>
 </li>
 </ul>
-<p>したがって、行列式の積は
+<h4 id="22_1">【ステップ2】第2列の下部成分の除去</h4>
+<ul>
+<li>
+<p><strong>対象:</strong> 第2列のピボットは <span class="arithmatex">\(a_{22}=4\)</span>（行2）。これを用いて、行3と行4の第2列を 0 にします。</p>
+</li>
+<li>
+<p><strong>行3の変形:</strong><br />
+   行3の第2成分は <span class="arithmatex">\(-1.5\)</span> なので、<br />
+   $$ R_3 \leftarrow R_3 + \frac{1.5}{4} R_2. $$</p>
+</li>
+<li><span class="arithmatex">\(\frac{1.5}{4}=0.375\)</span>  </li>
+<li><span class="arithmatex">\(0.375\,R_2=0.375\times(0,\,4,\,2,\,1)=(0,\;1.5,\;0.75,\;0.375)\)</span>  </li>
+<li>
+<p><span class="arithmatex">\(R_3=(0,\;-1.5,\;5,\;-2.5)\)</span> より、<br />
+<span class="arithmatex">\(<span class="arithmatex">\(R_3'=(0,\;-1.5+1.5,\;5+0.75,\;-2.5+0.375)=(0,\;0,\;5.75,\;-2.125).\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>行4の変形:</strong><br />
+   行4の第2成分は <span class="arithmatex">\(1.5\)</span> なので、<br />
+   $$ R_4 \leftarrow R_4 - \frac{1.5}{4} R_2. $$</p>
+</li>
+<li><span class="arithmatex">\(\frac{1.5}{4}=0.375\)</span>  </li>
+<li><span class="arithmatex">\(0.375\,R_2=(0,\;1.5,\;0.75,\;0.375)\)</span>  </li>
+<li>
+<p><span class="arithmatex">\(R_4=(0,\;1.5,\;0,\;2.5)\)</span> より、<br />
+<span class="arithmatex">\(<span class="arithmatex">\(R_4'=(0,\;1.5-1.5,\;0-0.75,\;2.5-0.375)=(0,\;0,\;-0.75,\;2.125).\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>中間行列:</strong><br />
+   更新後の行列は次の通りです。
+   $$
+   A^{(2)}=\begin{pmatrix}
+   2 &amp; 1 &amp; 0 &amp; 3 \
+   0 &amp; 4 &amp; 2 &amp; 1 \
+   0 &amp; 0 &amp; 5.75 &amp; -2.125 \
+   0 &amp; 0 &amp; -0.75 &amp; 2.125
+   \end{pmatrix}.
+   $$</p>
+</li>
+</ul>
+<h4 id="33">【ステップ3】第3列の下部成分の除去</h4>
+<ul>
+<li>
+<p><strong>対象:</strong> 第3列のピボットは <span class="arithmatex">\(a_{33}=5.75\)</span>（行3）。これを用いて、行4の第3成分 <span class="arithmatex">\(-0.75\)</span> を 0 にします。</p>
+</li>
+<li>
+<p><strong>行4の変形:</strong><br />
+   $$ R_4 \leftarrow R_4 + k\, R_3 $$
+   ここで、<span class="arithmatex">\(k\)</span> は <span class="arithmatex">\(-0.75 + k \cdot 5.75 = 0\)</span> となるように選び、<br />
+   $$ k = \frac{0.75}{5.75} = \frac{3}{23}\approx0.1304. $$</p>
+</li>
+<li><span class="arithmatex">\(R_3=(0,\;0,\;5.75,\;-2.125)\)</span>  </li>
+<li><span class="arithmatex">\(k\,R_3=(0,\;0,\;5.75\times\frac{3}{23},\;-2.125\times\frac{3}{23})=(0,\;0,\;0.75,\;-0.2772)\)</span> (小数近似)  </li>
+<li>
+<p><span class="arithmatex">\(R_4=(0,\;0,\;-0.75,\;2.125)\)</span> より、<br />
+<span class="arithmatex">\(<span class="arithmatex">\(R_4'=(0,\;0,\;-0.75+0.75,\;2.125-0.2772)=(0,\;0,\;0,\;1.8478).\)</span>\)</span></p>
+</li>
+<li>
+<p><strong>最終的な上三角行列:</strong><br />
+   これで行列は上三角形となり、
+   $$
+   U=\begin{pmatrix}
+   2 &amp; 1 &amp; 0 &amp; 3 \
+   0 &amp; 4 &amp; 2 &amp; 1 \
+   0 &amp; 0 &amp; 5.75 &amp; -2.125 \
+   0 &amp; 0 &amp; 0 &amp; 1.8478
+   \end{pmatrix}.
+   $$</p>
+</li>
+</ul>
+<h4 id="_1">【行列式の計算】</h4>
+<p>上三角行列の行列式は対角成分の積なので、
 $$
-\det(A)\det(B) = 5 \times (-2) = -10.
+\det(A)=2 \times 4 \times 5.75 \times 1.8478.
+$$
+計算すると、
+- <span class="arithmatex">\(2\times4=8\)</span>
+- <span class="arithmatex">\(8\times5.75=46\)</span>
+- <span class="arithmatex">\(46\times1.8478\approx85\)</span></p>
+<p>よって、<span class="arithmatex">\(\det(A)=85\)</span> となります。</p>
+<hr />
+<h3 id="2-4">実例2: 余因子展開による4次行列の計算</h3>
+<p>次に、4次行列<br />
+$$
+B=\begin{pmatrix}
+1 &amp; 2 &amp; 3 &amp; 4 \
+0 &amp; 5 &amp; 6 &amp; 7 \
+0 &amp; 0 &amp; 8 &amp; 9 \
+0 &amp; 0 &amp; 0 &amp; 10
+\end{pmatrix}
+$$<br />
+に対して、余因子展開を用いた計算過程を示します。</p>
+<h4 id="1_1">【ステップ1】第一列に沿った余因子展開</h4>
+<p>余因子展開は任意の行または列を選んで行えます。ここでは、第一列を選びます。<br />
+余因子展開の公式は、
+$$
+\det(B)=\sum_{i=1}^{4} b_{i1}\, C_{i1},
+$$
+ただし <span class="arithmatex">\(C_{i1}=(-1)^{i+1}\det(B_{i1})\)</span> で、<span class="arithmatex">\(B_{i1}\)</span> は <span class="arithmatex">\(B\)</span> から第 <span class="arithmatex">\(i\)</span> 行と第1列を除いた <span class="arithmatex">\((4-1)\times(4-1)\)</span> 行列です。</p>
+<h4 id="2_1">【ステップ2】各項の評価</h4>
+<ul>
+<li><strong><span class="arithmatex">\(i=1\)</span> の項:</strong>  </li>
+<li><span class="arithmatex">\(b_{11}=1\)</span>  </li>
+<li><span class="arithmatex">\(B_{11}\)</span> は第1行と第1列を除いた行列、
+    $$
+    B_{11}=\begin{pmatrix}
+    5 &amp; 6 &amp; 7 \
+    0 &amp; 8 &amp; 9 \
+    0 &amp; 0 &amp; 10
+    \end{pmatrix}.
+    $$</li>
+<li><span class="arithmatex">\(C_{11}=(-1)^{1+1}\det(B_{11})=\det(B_{11})\)</span><br />
+    ※ <span class="arithmatex">\(B_{11}\)</span> は上三角行列なので、<br />
+<span class="arithmatex">\(<span class="arithmatex">\(\det(B_{11})=5\times8\times10=400.\)</span>\)</span></li>
+<li>
+<p>よって、1項目は <span class="arithmatex">\(1\times 400=400\)</span>。</p>
+</li>
+<li>
+<p><strong><span class="arithmatex">\(i=2,3,4\)</span> の項:</strong><br />
+  第一列のその他の成分は <span class="arithmatex">\(b_{21}=0,\; b_{31}=0,\; b_{41}=0\)</span> なので、これらの項はすべて 0 となります。</p>
+</li>
+</ul>
+<h4 id="3">【ステップ3】最終的な計算</h4>
+<p>全項を合計すると、
+$$
+\det(B)=400+0+0+0=400.
 $$</p>
-<p>次に、行列の積 <span class="arithmatex">\(AB\)</span> を計算します。</p>
-<div class="arithmatex">\[
-AB = \begin{pmatrix}
-2\cdot5+3\cdot7 &amp; 2\cdot6+3\cdot8 \\
-1\cdot5+4\cdot7 &amp; 1\cdot6+4\cdot8
-\end{pmatrix}
-= \begin{pmatrix}
-10+21 &amp; 12+24 \\
-5+28 &amp; 6+32
-\end{pmatrix}
-= \begin{pmatrix}
-31 &amp; 36 \\
-33 &amp; 38
-\end{pmatrix}.
-\]</div>
-<p>この積 <span class="arithmatex">\(AB\)</span> の行列式を求めると、</p>
-<div class="arithmatex">\[
-\det(AB) = 31\cdot38 - 36\cdot33 = 1178 - 1188 = -10.
-\]</div>
-<p>このように、<span class="arithmatex">\( \det(AB) = -10 \)</span> は <span class="arithmatex">\( \det(A) \cdot \det(B) = 5 \times (-2) = -10 \)</span> と一致するため、行列の積の行列式がそれぞれの行列の行列式の積であることが具体例から確認できます。</p>
+<p>このように、余因子展開を用いると、第一列にゼロが多い行を選択することで計算が大幅に簡略化できることが分かります。</p>
 <h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colabでの実行例</h2>
 <ul>
-<li><strong>ChatGPT解説:</strong><br />
-  行列式は、線形変換が空間の面積や体積をどの程度拡大・縮小するかを示す重要な概念です。<br />
-  1次、2次、3次の行列式の計算方法はそれぞれ単純な形をとり、特に2次・3次の場合は、幾何的な解釈（面積・体積の拡大率）と深く関わっています。<br />
-  Google Colab を利用すれば、Python の NumPy ライブラリで簡単に行列式を計算でき、視覚的にもその意味を確認できます。</li>
-<li><strong>Colab実行例:</strong> 以下に、1次、2次、3次の行列式を計算するサンプルコードを示します。
+<li>
+<p><strong>ChatGPT解説:</strong><br />
+  4次以上の行列式は、計算の複雑さから直接計算するよりも、還元定理による基本変形または余因子展開による再帰的計算のどちらかを用いると効率的です。<br />
+  ・還元定理は、行列を上三角形に変形し、対角成分の積で行列式を求めるため、計算ミスが少なくなるという利点があります。<br />
+  ・一方、余因子展開は任意の行または列を選択できるため、ゼロが多い行や列を選ぶことで計算量を減らすことができます。<br />
+  両手法のメリット・デメリットを踏まえ、4次以上の行列式に対して最適な方法を選択することが重要です。</p>
+</li>
+<li>
+<p><strong>Colab実行例:</strong><br />
+  以下に、Python (numpy) を用いたサンプルコードを示します。<br />
   <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="c1"># 1次の行列</span>
-<span class="n">A1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">7</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1次行列 A1 =&quot;</span><span class="p">,</span> <span class="n">A1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;det(A1) =&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">A1</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">()</span>
+<span class="c1"># 4次行列の例</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
-<span class="c1"># 2次の行列</span>
-<span class="n">A2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2次行列 A2 =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;det(A2) =&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">A2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">()</span>
+<span class="c1"># Numpy の linalg.det 関数（内部で還元定理等が利用される）</span>
+<span class="n">det_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4次行列 A の行列式（還元定理的手法）:&quot;</span><span class="p">,</span> <span class="n">det_A</span><span class="p">)</span>
 
-<span class="c1"># 3次の行列</span>
-<span class="n">A3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3次行列 A3 =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">A3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;det(A3) =&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">A3</span><span class="p">))</span>
+<span class="c1"># 余因子展開を用いた再帰的な行列式計算の実装</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cofactor_det</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">det</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">minor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">j</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">det</span> <span class="o">+=</span> <span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">0</span> <span class="o">+</span> <span class="n">j</span><span class="p">))</span> <span class="o">*</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">cofactor_det</span><span class="p">(</span><span class="n">minor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">det</span>
+
+<span class="n">det_A_cofactor</span> <span class="o">=</span> <span class="n">cofactor_det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;余因子展開による4次行列 A の行列式:&quot;</span><span class="p">,</span> <span class="n">det_A_cofactor</span><span class="p">)</span>
 </code></pre></div>
-  このコードを実行すると、それぞれの行列に対する行列式が出力され、理論と実践が一致することを確認できます。</li>
+  このコードでは、numpy の高速な行列式計算と、再帰的な余因子展開の両手法による計算結果を比較できます。</p>
+</li>
 </ul>
 <h2 id="5-optional">5. 学んだ内容の応用例（optional)</h2>
 <ul>
-<li><strong>応用分野:</strong>  </li>
-<li><strong>線形代数の基礎:</strong> 逆行列の計算、連立方程式の解法、固有値問題など。  </li>
-<li><strong>幾何学:</strong> 線形変換が面積・体積をどの程度変化させるかの解析。  </li>
-<li><strong>統計解析:</strong> 多変量解析における変数変換、確率密度関数の変換など。  </li>
-<li><strong>コンピュータグラフィックス:</strong> 変換行列を用いた画像のスケーリングや回転の計算。</li>
+<li><strong>応用分野:</strong><br />
+  ・コンピュータグラフィックス：変換行列の体積変換や逆行列計算で行列式が利用される。<br />
+  ・機械学習・統計解析：多変量正規分布の確率密度関数におけるヤコビアン計算、PCA での共分散行列の評価。<br />
+  ・物理学・工学：固有値問題、システムの安定性解析において、行列式が重要な指標となる。  </li>
 <li><strong>具体例:</strong><br />
-  行列式は、Cramer の公式による連立方程式の解法や、変数変換のヤコビアンとしても利用され、これらの応用は機械学習やシミュレーションにも広く使われています。</li>
+  4次以上の行列式の計算手法を応用して、線形変換による高次元空間での体積変化や、逆行列の存在条件の判定を行う実例を紹介。</li>
 </ul>
 <h2 id="6">6. 演習問題</h2>
 <ul>
-<li><strong>問題1:</strong><br />
-  以下の各行列の行列式を計算せよ。  </li>
-<li>$ A_1 = (5) $  </li>
-<li>$ A_2 = \begin{pmatrix} 2 &amp; 3 \ 1 &amp; 4 \end{pmatrix} $  </li>
 <li>
-<p>$ A_3 = \begin{pmatrix} 1 &amp; 2 &amp; 3 \ 0 &amp; 1 &amp; 4 \ 5 &amp; 6 &amp; 0 \end{pmatrix} $<br />
-<em>【ヒント】</em> 各定義に基づいて直接計算する。</p>
+<p><strong>問題1:</strong><br />
+  4次行列の還元定理を用いた行列式の計算手順を、基本変形（行の交換、定数倍、行の加減算）の観点から整理し、そのメリットと注意点を説明せよ。<br />
+  ※ヒント: 各変形が行列式に与える影響（符号反転、定数倍）を具体的に示すこと。</p>
 </li>
 <li>
 <p><strong>問題2:</strong><br />
-  2次の行列の行列式が、その行列に対応する線形変換が単位正方形の面積をどの程度拡大・縮小するかを示すことを、図を用いて説明せよ。<br />
-<em>【ヒント】</em> 平行四辺形の面積の計算と比較せよ。</p>
+  以下の4次行列<br />
+  $$
+  C=\begin{pmatrix}
+  1 &amp; 2 &amp; 3 &amp; 4 \
+  0 &amp; 5 &amp; 6 &amp; 7 \
+  0 &amp; 0 &amp; 8 &amp; 9 \
+  0 &amp; 0 &amp; 0 &amp; 10
+  \end{pmatrix}
+  $$
+  に対して、<br />
+  (a) 還元定理を用いて上三角形の対角成分から行列式を求めよ。<br />
+  (b) 第一列に沿った余因子展開により行列式を再計算し、結果を比較せよ。</p>
 </li>
 <li>
 <p><strong>問題3:</strong><br />
-  3次の行列の行列式の絶対値が、3次元空間における体積の拡大率を示すことを、具体的な数値例を用いて証明せよ。<br />
-<em>【ヒント】</em> $ \det(A) $ の計算結果と、3つのベクトルが張る平行六面体の体積の関係に注目すること。</p>
+  5次行列を例として、余因子展開を再帰的に適用して行列式を計算する手法を示せ。<br />
+  ※ヒント: 余因子展開の再帰的な性質を利用し、3次や4次の行列式計算との関連性に着目する。</p>
 </li>
-</ul>
-<h2 id="_1">付録・参考資料</h2>
-<ul>
-<li><strong>参考文献:</strong>  </li>
-<li>『線形代数学入門』、『数理線形代数学』  </li>
-<li>オンライン教材: Khan Academy, MIT OpenCourseWare, Coursera</li>
-<li><strong>補足資料:</strong>  </li>
-<li>詳細な解説スライド  </li>
-<li>追加例題とその解答例  </li>
-<li>FAQ: 行列式の計算方法、幾何的解釈に関する質問</li>
 </ul>
 
 

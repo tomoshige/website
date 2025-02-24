@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/10-system-of-linear-equation/">
       
       
-        <link rel="prev" href="../09-system-of-linear-equation/">
+        <link rel="prev" href="../09-exercise/">
       
       
         <link rel="next" href="../11-system-of-linear-equation/">
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#7" class="md-skip">
+        <a href="#9" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -442,6 +442,20 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -663,11 +677,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-system-of-linear-equation/" class="md-nav__link">
+      <a href="../09-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    9. System of Linear Equation
+    9. Exersice
   </span>
   
 
@@ -751,7 +765,16 @@
           <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      連立一次方程式の行列表現と拡大係数行列
+      連立一次方程式の定義
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題として用いる3変数の連立一次方程式
     </span>
   </a>
   
@@ -760,7 +783,7 @@
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      行列の基本変形
+      代入法による解法の例とその煩雑さ
     </span>
   </a>
   
@@ -769,16 +792,7 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      ガウスの消去法による解法の操作フロー
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法と従来の消去法の対応づけ
+      式の足し算・引き算による消去法の説明
     </span>
   </a>
   
@@ -790,45 +804,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-gpt-colab" class="md-nav__link">
+  <a href="#3_1" class="md-nav__link">
     <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+      3. 扱う内容の例 （別の連立方程式）
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
+    <nav class="md-nav" aria-label="3. 扱う内容の例 （別の連立方程式）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
+  <a href="#3_2" class="md-nav__link">
     <span class="md-ellipsis">
-      例題：3変数の連立一次方程式
+      例: 3変数の連立一次方程式
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="例題：3変数の連立一次方程式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ① 拡大係数行列の作成
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ② ガウスの消去法による操作フロー（従来の消去法の手順と対応）
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -838,13 +828,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-chatgptgoogle-colab" class="md-nav__link">
+  <a href="#4-chatgptcolab" class="md-nav__link">
     <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Google Colab での実行例
+      4. ChatGPTによる解説＋Colab での実行例
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Google Colab での実行例">
+    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Colab での実行例">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -857,11 +847,35 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#google-colab-print" class="md-nav__link">
+  <a href="#google-colab" class="md-nav__link">
     <span class="md-ellipsis">
-      Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）
+      Google Colabで視覚的に確認する実行例
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Google Colabで視覚的に確認する実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (1) 幾何学的可視化：2次元の直線の交点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      (2) 幾何学的可視化：3次元の平面の交点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1051,11 +1065,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../18-determinant/" class="md-nav__link">
+      <a href="../18-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    18. Determinant
+    18. System of Linear Equation
   </span>
   
 
@@ -1072,11 +1086,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../19-determinant/" class="md-nav__link">
+      <a href="../19-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    19. Determinant
+    19. Exercise
   </span>
   
 
@@ -1093,11 +1107,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../20-determinant/" class="md-nav__link">
+      <a href="../20-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    20. Determinant
+    20. Midterm Exam
   </span>
   
 
@@ -1135,11 +1149,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../22-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../22-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    22. Vector space
+    22. Determinant
   </span>
   
 
@@ -1156,11 +1170,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../23-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../23-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    23. Vector space
+    23. Determinant
   </span>
   
 
@@ -1177,11 +1191,158 @@
   
   
     <li class="md-nav__item">
-      <a href="../24-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../24-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    24. Vector space
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-vector-space-and-inner-product.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-vector-space-and-inner-product.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-vector-space-and-inner-product.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-exercise.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
   </span>
   
 
@@ -1980,7 +2141,16 @@
           <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      連立一次方程式の行列表現と拡大係数行列
+      連立一次方程式の定義
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題として用いる3変数の連立一次方程式
     </span>
   </a>
   
@@ -1989,7 +2159,7 @@
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      行列の基本変形
+      代入法による解法の例とその煩雑さ
     </span>
   </a>
   
@@ -1998,16 +2168,7 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      ガウスの消去法による解法の操作フロー
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法と従来の消去法の対応づけ
+      式の足し算・引き算による消去法の説明
     </span>
   </a>
   
@@ -2019,45 +2180,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-gpt-colab" class="md-nav__link">
+  <a href="#3_1" class="md-nav__link">
     <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+      3. 扱う内容の例 （別の連立方程式）
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
+    <nav class="md-nav" aria-label="3. 扱う内容の例 （別の連立方程式）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
+  <a href="#3_2" class="md-nav__link">
     <span class="md-ellipsis">
-      例題：3変数の連立一次方程式
+      例: 3変数の連立一次方程式
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="例題：3変数の連立一次方程式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ① 拡大係数行列の作成
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ② ガウスの消去法による操作フロー（従来の消去法の手順と対応）
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2067,13 +2204,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-chatgptgoogle-colab" class="md-nav__link">
+  <a href="#4-chatgptcolab" class="md-nav__link">
     <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Google Colab での実行例
+      4. ChatGPTによる解説＋Colab での実行例
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Google Colab での実行例">
+    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Colab での実行例">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2086,11 +2223,35 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#google-colab-print" class="md-nav__link">
+  <a href="#google-colab" class="md-nav__link">
     <span class="md-ellipsis">
-      Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）
+      Google Colabで視覚的に確認する実行例
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Google Colabで視覚的に確認する実行例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      (1) 幾何学的可視化：2次元の直線の交点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      (2) 幾何学的可視化：3次元の平面の交点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2132,325 +2293,346 @@
                   
 
 
-<h1 id="7">講義7: ガウスの消去法と解の探索</h1>
+<h1 id="9">講義9: 連立一次方程式の表現と解法の基礎</h1>
 <h2 id="1">1. 本日扱う内容について（概要）</h2>
 <ul>
-<li><strong>目的:</strong>  </li>
-<li>連立一次方程式の行列表現と拡大係数行列の作成方法を学ぶ  </li>
-<li>行列の基本変形（行の入れ替え、定数倍、他の行の定数倍の加減）を理解する  </li>
-<li>ガウスの消去法による連立一次方程式の解法を、拡大係数行列の変形という視点から習得する  </li>
-<li>ガウスの消去法が、従来の消去法（式の足し算・引き算による消去）と本質的に同じであることを対応付けて理解する  </li>
 <li>
-<p>Google Colab を使った実装例で、操作の流れと解の探索のプロセスを体感する</p>
+<p><strong>目的:</strong></p>
+<ol>
+<li>連立一次方程式の基本概念とその行列表現を理解する  </li>
+<li>3変数（3つの未知数）を含む連立一次方程式を例題として扱い、<br />
+・代入法による解法の煩雑さを実例で示す<br />
+・式の足し算・引き算（消去法）による解法を最後まで示す  </li>
+<li>幾何学的に、2次元では直線の交点、3次元では平面の交点として解をイメージする</li>
+</ol>
 </li>
 <li>
-<p><strong>講義の流れ:</strong>  </p>
+<p><strong>講義の流れ:</strong></p>
+<ol>
+<li>連立一次方程式の定義（一般的な m 本の式、n 個の未知数の場合）と行列表現の導入  </li>
+<li>【例題】以下の連立方程式を用いて、  <ul>
+<li>代入法で解を求めるときの煩雑さを実際に示す  </li>
+<li>同じ例題を消去法（足し算・引き算のみ）で解く方法を示す  </li>
+</ul>
 </li>
-<li>連立一次方程式の行列表現と拡大係数行列の導入  </li>
-<li>行列の基本変形の説明  </li>
-<li>ガウスの消去法による解法の具体的操作フロー（前進消去と後退代入）  </li>
-<li>ガウスの消去法と従来の消去法の対応づけ  </li>
-<li>ChatGPTによる解説＋Google Colabでの実装例  </li>
-<li>学んだ内容の応用例  </li>
+<li>ChatGPTによる解説およびGoogle Colabでの実行例（幾何学的可視化を含む）  </li>
+<li>応用例の考察  </li>
 <li>演習問題</li>
+</ol>
+</li>
 </ul>
 <hr />
 <h2 id="2">2. 扱う内容の理論の説明（定義・定理・数式を含む）</h2>
-<h3 id="_1">連立一次方程式の行列表現と拡大係数行列</h3>
+<h3 id="_1">連立一次方程式の定義</h3>
 <ul>
-<li><strong>定義:</strong><br />
-  未知数 <span class="arithmatex">\(x_1, x_2, \dots, x_n\)</span> に対して、<span class="arithmatex">\(m\)</span> 本の一次方程式が同時に成立する連立一次方程式は、
+<li><strong>一般的な定義:</strong><br />
+  連立一次方程式とは、未知数 $ x_1, x_2, \dots, x_n $ に関して、m 本の一次方程式が同時に成り立つ問題です。<br />
+  具体的には、以下のように表されます：
   $$
   \begin{cases}
   a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \\
   a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \\
-  \quad\vdots \\
+  \quad \vdots \\
   a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m.
   \end{cases}
-  $$</li>
-<li><strong>拡大係数行列:</strong><br />
-  この連立方程式は、係数行列 <span class="arithmatex">\(A\)</span> と定数項ベクトル <span class="arithmatex">\(\mathbf{b}\)</span> を並べて、
   $$
-  [A \,|\, \mathbf{b}] = \begin{pmatrix}
-  a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; | &amp; b_1 \\
-  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; | &amp; b_2 \\
-  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; | &amp; \vdots \\
-  a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
-  \end{pmatrix}
-  $$
-  と表し、これに対して基本変形を施していきます。</li>
+  ここで、$ a_{ij} $ は各式の係数、$ b_i $ は定数項といいます。</li>
 </ul>
-<h3 id="_2">行列の基本変形</h3>
-<ul>
-<li><strong>行の入れ替え:</strong> 行の順序を変更する  </li>
-<li><strong>行の定数倍:</strong> 行全体をゼロでない定数で乗じる  </li>
-<li><strong>行の加減:</strong> ある行に、別の行の定数倍を加える（または引く）</li>
-</ul>
-<h3 id="_3">ガウスの消去法による解法の操作フロー</h3>
-<ul>
-<li><strong>前進消去 (Forward Elimination):</strong><br />
-  拡大係数行列に対して、上から順に各ピボット行を選び、ピボット列の下の成分を基本変形で 0 にする。</li>
-<li><strong>後退代入 (Back Substitution):</strong><br />
-  上三角行列（または階段形）になったら、下から順に既に求めた未知数を使って解を計算する。</li>
-</ul>
-<h3 id="_4">ガウスの消去法と従来の消去法の対応づけ</h3>
-<ul>
-<li>従来の「足し算・引き算による消去法」は、各式を手作業で操作して変数を消していく方法でした。  </li>
-<li>ガウスの消去法では、この操作を拡大係数行列に対して体系的に行うため、手順が明確になり、後退代入によって解が求めやすくなります。</li>
-</ul>
-<hr />
-<h2 id="3-gpt-colab">3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）</h2>
-<h3 id="3">例題：3変数の連立一次方程式</h3>
-<p>対象の連立一次方程式：
-$$
-\begin{cases}
-(1)\quad 3x + y + z = -5, \\
-(2)\quad 4x + 3y - z = -2, \\
-(3)\quad 5x + 4y + z = 6.
-\end{cases}
-$$</p>
-<h4 id="1_1">① 拡大係数行列の作成</h4>
-<p>初期の拡大係数行列は：
-$$
-\left[\begin{array}{ccc|c}
-3 &amp; 1 &amp; 1 &amp; -5 \\
-4 &amp; 3 &amp; -1 &amp; -2 \\
-5 &amp; 4 &amp; 1 &amp; 6
-\end{array}\right]
-$$</p>
-<h4 id="2_1">② ガウスの消去法による操作フロー（従来の消去法の手順と対応）</h4>
-<ol>
-<li><strong>Step 1: 第1行の <span class="arithmatex">\(x\)</span> の係数が1になるように基本操作を行う</strong>  </li>
-<li><strong>従来の消去法の説明:</strong><br />
-     まず、(2)式から(1)式を引いて、<span class="arithmatex">\(x\)</span> の係数が 1 の式（<span class="arithmatex">\(x + 2y - 2z = 3\)</span>）を作る。  </li>
-<li><strong>拡大係数行列での操作:</strong>  <ul>
-<li>拡大係数行列の(2)行を、新たな (2) 行として作るために、<br />
-   (2)行 ← (2)行 − (1)行<br />
-   $$
-   (4-3,\; 3-1,\; -1-1,\; -2 - (-5)) = (1,\; 2,\; -2,\; 3).
-   $$</li>
-<li>行列は次のように変化します：
-   $$
-   \left[\begin{array}{ccc|c}
-   3 &amp; 1 &amp; 1 &amp; -5 \\
-   1 &amp; 2 &amp; -2 &amp; 3 \\
-   5 &amp; 4 &amp; 1 &amp; 6
-   \end{array}\right]
-   $$</li>
-</ul>
-</li>
-<li>
-<p>次に、(2)行と(1)行の位置を入れ替え、最上行の <span class="arithmatex">\(x\)</span> の係数を 1 にする：
-       $$
-       \left[\begin{array}{ccc|c}
-       1 &amp; 2 &amp; -2 &amp; 3 \\
-       3 &amp; 1 &amp; 1 &amp; -5 \\
-       5 &amp; 4 &amp; 1 &amp; 6
-       \end{array}\right]
-       $$</p>
-</li>
-<li>
-<p><strong>Step 2: 第1列の第1行目以外の係数を0にする</strong>  </p>
-</li>
-<li><strong>目的:</strong> 第二行と第三行から、<span class="arithmatex">\(x\)</span> の項を消す。  </li>
-<li><strong>操作:</strong>  <ul>
-<li>第二行 ← 第二行 − 3×(第一行)<br />
-   $$
-   (3-3\cdot1,\; 1-3\cdot2,\; 1-3\cdot(-2),\; -5-3\cdot3) = (0,\; -5,\; 7,\; -14).
-   $$</li>
-<li>第三行 ← 第三行 − 5×(第一行)<br />
-   $$
-   (5-5\cdot1,\; 4-5\cdot2,\; 1-5\cdot(-2),\; 6-5\cdot3) = (0,\; -6,\; 11,\; -9).
-   $$</li>
-</ul>
-</li>
-<li>
-<p>結果、拡大係数行列は：
-       $$
-       \left[\begin{array}{ccc|c}
-       1 &amp; 2 &amp; -2 &amp; 3 \\
-       0 &amp; -5 &amp; 7 &amp; -14 \\
-       0 &amp; -6 &amp; 11 &amp; -9
-       \end{array}\right]
-       $$</p>
-</li>
-<li>
-<p><strong>Step 3: 第2列の <span class="arithmatex">\(y\)</span> の係数を1にする</strong>  </p>
-</li>
-<li><strong>操作:</strong>  <ul>
-<li>まず、第二行のピボットを 1 にするため、第3行を第2行に加える
-   $$
-    (0,\; 1,\; -4,\; -5).
-   $$</li>
-</ul>
-</li>
-<li>
-<p>拡大係数行列は、現段階で：
-       $$
-       \left[\begin{array}{ccc|c}
-       1 &amp; 2 &amp; -2 &amp; 3 \\
-       0 &amp; 1 &amp; -4 &amp; -5 \\
-       0 &amp; -6 &amp; 11 &amp; -9
-       \end{array}\right]
-       $$</p>
-<ul>
-<li>次に、第2列の第3行を<code>0</code>にするために、第3行に、第2行の6倍を加える
-    $$
-   \left[\begin{array}{ccc|c}
-   1 &amp; 2 &amp; -2 &amp; 3 \\
-   0 &amp; 1 &amp; -4 &amp; -5 \\
-   0 &amp; 0 &amp; -13 &amp; -39
-   \end{array}\right]
-   $$</li>
-</ul>
-</li>
-<li>
-<p><strong>Step 4: 第3列の第3行の係数を<code>1</code>にする</strong>  </p>
-</li>
-<li><strong>操作:</strong>  <ul>
-<li>第3行を 13 で割る。
-   $$
-   \left[\begin{array}{ccc|c}
-   1 &amp; 2 &amp; -2 &amp; 3 \\
-   0 &amp; 1 &amp; -4 &amp; -5 \\
-   0 &amp; 0 &amp; 1 &amp; 3
-   \end{array}\right]
-   $$</li>
-<li><strong>後退代入:</strong>  </li>
-<li>第三行より：<span class="arithmatex">\(z = 3\)</span>.  </li>
-<li>第二行より：$ y - 4z = -5 $ から <span class="arithmatex">\(y\)</span> を求める。  </li>
-<li>第一行より：$ x + 2y - 2z = 3 $ から <span class="arithmatex">\(x\)</span> を求める.</li>
-</ul>
-</li>
-</ol>
-<p>このガウスの消去法によって得られた行列は、下の行に進むにつれて<code>1</code>のある列が後ろ側にずれていっている。言い換えると、ある行で、<code>0</code>以外の数字が出現する最初の列に着目すると、その数字より下の行は<code>0</code>となっている。このような行列を「<strong>階段行列</strong>」と呼ぶ。階段行列については、次の授業で詳しく扱う。</p>
-<hr />
-<h2 id="4-chatgptgoogle-colab">4. ChatGPTによる解説＋Google Colab での実行例</h2>
-<h3 id="chatgpt">ChatGPTによる解説</h3>
-<ul>
-<li>ガウスの消去法では、まず拡大係数行列を作成し、各行の先頭に現れる変数の係数（ピボット）を 1 に整えます。  </li>
-<li>その後、ピボット行の定数倍を使って、下部の同じ列の成分を 0 にしていくことで、上三角行列（または階段形）に変形します。  </li>
-<li>実際に手計算では、うまく計算して<code>1</code>を作りましたが、コンピュータでは<code>1</code>を作るのは先頭の数字で割ればよいので、次のように計算できます。</li>
-</ul>
-<p>以下のコードは、連立一次方程式
+<h3 id="3">例題として用いる3変数の連立一次方程式</h3>
+<p>今回の例題として、以下の連立一次方程式（m = 3, n = 3）を扱います：
 $$
 \begin{cases}
 3x + y + z = -5, \\
 4x + 3y - z = -2, \\
-5x + 4y + z = 6,
+5x + 4y + z = 6.
 \end{cases}
+$$</p>
+<p>この連立1次方程式を解くことで、連立1次方程式の一般的な解き方について学びましょう。
+これまで連立方程式を解く時には、<strong>代入法</strong> を用いて解いてきたという人もいるはずです。
+しかし、代入法で計算する際には、式を消去するための操作が多くなりがちで、煩雑になる場合が多いです。
+一方で、今回学ぶ解法は<strong>消去法</strong>と言います。式と式を足したり、引いたりすることで、連立方程式の解を求めます。
+以下の例で、代入法と消去法のそれぞれを説明します。</p>
+<h3 id="_2">代入法による解法の例とその煩雑さ</h3>
+<ul>
+<li><strong>代入法の手順:</strong>  </li>
+<li>式(1)から $ z $ を解く：
+     $$
+     z = -5 - 3x - y.
+     $$</li>
+<li>この $ z $ を式(2)に代入：
+     $$
+     4x + 3y - (-5 - 3x - y) = -2 \quad \Rightarrow \quad 4x + 3y + 5 + 3x + y = -2,
+     $$
+     $$
+     7x + 4y = -7. \quad \text{（中間結果①）}
+     $$</li>
+<li>同様に、$ z $ を式(3)に代入：
+     $$
+     5x + 4y + (-5 - 3x - y) = 6 \quad \Rightarrow \quad 2x + 3y = 11. \quad \text{（中間結果②）}
+     $$</li>
+<li>ここから、さらに $ y $ を $ x $ の式で表し代入する必要があり、代入法では計算の過程が複雑になり、ミスが生じやすくなります。</li>
+</ul>
+<h3 id="_3">式の足し算・引き算による消去法の説明</h3>
+<p>消去法では、連立方程式の式同士ををうまく足し算、引き算、式の順序の入れ替え、式を定数倍することにより、次のような形に変形することを目標にします。
 $$
-に対して、拡大係数行列を使い、ガウスの消去法によって解に辿り着くまでの各ステップを print で表示します。</p>
-<h3 id="google-colab-print">Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）</h3>
+\begin{cases}
+a_{11}x + a_{12}y + a_{13}z = b_1, \\
+a_{21}x + a_{22}y + c_{23}z = b_2, \\
+a_{31}x + a_{32}y + a_{33}z = b_3.
+\end{cases}
+\rightarrow
+\begin{cases}
+x + c_{12}y + c_{13}z = d_1, \\
+0x + y + c_{23}z = d_2, \\
+0x + 0y + z = d_3.
+\end{cases}
+$$</p>
+<p>では、手順を見ていきましょう。</p>
+<ul>
+<li>
+<p><strong>消去法の手順:</strong>
+    同じ例題を用いて、手順を説明します。</p>
+<ul>
+<li>
+<p>まずは連立方程式をうまく足し算・引き算することで、左上の係数を<code>1</code>にしましょう。いま連立方程式の<code>x</code>の係数で<code>1</code>の式はありません。そこで、まずは (2)式から、(1)式を引いて、<code>x</code>の係数が<code>1</code>の式を作りましょう。
+    $$
+    \begin{cases}
+    3x + y + z = -5, \\
+    4x + 3y - z = -2, \\
+    5x + 4y + z = 6.
+    \end{cases} \longrightarrow 
+    \begin{cases}
+    3x + y + z = -5, \\
+    x + 2y - 2z = 3, \\
+    5x + 4y + z = 6.
+    \end{cases}
+    $$</p>
+</li>
+<li>
+<p>次に、(2)式 と (1)式の位置を入れ替えることで、一番上の式の<code>x</code>の係数が<code>1</code>になります。
+    $$
+    \begin{cases}
+    3x + y + z = -5, \\
+    x + 2y - 2z = 3, \\
+    5x + 4y + z = 6.
+    \end{cases}\longrightarrow 
+    \begin{cases}
+    x + 2y - 2z = 3, \\
+    3x + y + z = -5, \\
+    5x + 4y + z = 6.
+    \end{cases}
+    $$</p>
+</li>
+<li>次に、(2)式と、(3)式の<code>x</code>の係数を<code>0</code>にするために、(2)式から(1)式の3倍を引き、(3)式から(1)式の5倍を引き算します。
+    $$
+    \begin{cases}
+    x + 2y - 2z = 3, \\
+    3x + y + z = -5, \\
+    5x + 4y + z = 6.
+    \end{cases} \longrightarrow 
+    \begin{cases}
+    x + 2y - 2z = 3, \\
+    0x - 5y + 7z = -14, \\
+    0x - 6y + 11z = -9.
+    \end{cases}
+    $$</li>
+<li>ここで、(1)式は求める形になっているので、これ以降は触りません。次は、第2式の<code>y</code>の係数を<code>1</code>にしたいので、(2)式に、(3)式の<code>-1</code>倍を加えましょう。
+    $$
+    \begin{cases}
+    x + 2y - 2z = 3, \\
+    0x - 5y + 7z = -14, \\
+    0x - 6y + 11z = -9.
+    \end{cases} \longrightarrow 
+    \begin{cases}
+    x + 2y - 2z = 3, \\
+    0x + y - 4z = -5, \\
+    0x - 6y + 11z = -9.
+    \end{cases}
+    $$</li>
+<li>では、第3式の<code>y</code>の係数を<code>0</code>にしたいので、(3)式に、(2)式の<code>6</code>倍を加えます。
+    $$
+    \begin{cases}
+    x + 2y - 2z = 3, \\
+    0x + y - 4z = -5, \\
+    0x - 6y + 11z = -9.
+    \end{cases} \longrightarrow 
+    \begin{cases}
+    x + 2y - 2z = 3, \\
+    0x + y - 4z = -5, \\
+    0x + 0y - 13z = -39.
+    \end{cases}
+    $$</li>
+<li>最後に、<code>z</code>の係数を<code>1</code>にします。(3)式を-13で割りましょう。
+    $$
+    \begin{cases}
+    x + 2y - 2z = 3, \\
+    0x + y - 4z = -5, \\
+    0x + 0y + z = 3.
+    \end{cases}
+    $$</li>
+<li>これによって、求める形になりました。</li>
+<li>この結果、(3)式から <code>z=3</code>がわかります。次に(2)式に、<code>z=3</code>を代入すると、<code>y=7</code>となります。最後に(1)式にこれらを代入すると、<code>x=-5</code>が得られました。最後に行った一番下の式から順々に解を計算していく方法を<strong>後退代入法</strong>といいます。</li>
+</ul>
+<hr />
+</li>
+</ul>
+<h2 id="3_1">3. 扱う内容の例 （別の連立方程式）</h2>
+<h3 id="3_2">例: 3変数の連立一次方程式</h3>
+<p>与えられた連立方程式：
+$$
+\begin{cases}
+3x + y - 5z = -4, \\
+-x + 2y - 3z = -1, \\
+-2x + 6y - 9z = -2.
+\end{cases}
+$$</p>
+<p>この連立方程式を消去法を使って解いていきます。まずは、一番上の式の<code>x</code>の係数を<code>1</code>にしたいので、(2)式を-1倍し、(1)式と入れ替える。</p>
+<div class="arithmatex">\[
+\begin{cases}
+x - 2y + 3z = 1, \\\
+3x + y - 5z = -4, \\\
+-2x + 6y - 9z = -2.
+\end{cases}
+\]</div>
+<p>次に、上の式の(1)式を使って、(2)式と(3)式の <code>x</code> を消去する。そこで、以下の操作を行う。</p>
+<ul>
+<li>(1)式 の -3倍を (2)式に加える。</li>
+<li>(1)式の 2倍を (3)式に加える。すると、次の式になる。</li>
+</ul>
+<div class="arithmatex">\[
+\begin{cases}
+x - 2y + 3z = 1, \\\
+0x + 7y - 14z = -7, \\\
+0x + 2y - 3z = 0.
+\end{cases}
+\]</div>
+<p>次は、(2)式の<code>y</code>の係数を<code>1</code>にしたいので、(2)式を7で割る。</p>
+<div class="arithmatex">\[
+\begin{cases}
+x - 2y + 3z = 1, \\\
+0x + y - 2z = -1, \\\
+0x + 2y - 3z = 0.
+\end{cases}
+\]</div>
+<p>次は、(3)式の <code>y</code> の係数を<code>0</code>にしたい。よって、(2)式の -2倍を (3)式に加える。</p>
+<div class="arithmatex">\[
+\begin{cases}
+x - 2y + 3z = 1, \\\
+0x + y - 2z = -1, \\\
+0x + 0y + z = 2.
+\end{cases}
+\]</div>
+<p>よって、求める形が完成したので後退代入法を用いると、(3)式から　<code>z = 2</code> だとわかる。次に、(2)式に、<code>z = 2</code> を代入すると、<code>y = 3</code> と求められる。最後に (1)式に それぞれを代入すると <code>x = 5</code> と求めることができる。</p>
+<hr />
+<h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colab での実行例</h2>
+<h3 id="chatgpt">ChatGPTによる解説</h3>
+<ul>
+<li><strong>ポイント:</strong>  </li>
+<li>代入法では、1つの変数を他の変数の式として表し、他の式に代入するため、特に3変数以上の場合、途中で現れる複雑な分数や長い式の整理が必要となり、非常に手間がかかる。  </li>
+<li>消去法では、式同士を足し引きして変数を打ち消すことで、シンプルな2変数の連立方程式に還元でき、計算が整理される。</li>
+<li>また、連立一次方程式は幾何学的に、2変数の場合は直線の交点、3変数の場合は平面の交点として解釈でき、視覚的に確認することができる。</li>
+</ul>
+<h3 id="google-colab">Google Colabで視覚的に確認する実行例</h3>
+<h4 id="1-2">(1) 幾何学的可視化：2次元の直線の交点</h4>
+<p>（2変数の連立一次方程式の例）
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">gauss_elimination_verbose</span><span class="p">(</span><span class="n">A_aug</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ガウスの消去法を実装し、途中の過程を print で表示する関数。</span>
+<span class="c1"># 例: 2直線の連立方程式</span>
+<span class="c1"># 直線1: 2x + 3y = 8  → y = (8 - 2x)/3</span>
+<span class="c1"># 直線2: x - y = 1     → y = x - 1</span>
 
-<span class="sd">    入力:</span>
-<span class="sd">      A_aug: 拡大係数行列 (形状: (n, n+1))</span>
-<span class="sd">    出力:</span>
-<span class="sd">      x: 連立一次方程式の解を含むベクトル (形状: (n,))</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">A_aug</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">y_line1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x_vals</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="n">y_line2</span> <span class="o">=</span> <span class="n">x_vals</span> <span class="o">-</span> <span class="mi">1</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;初期の拡大係数行列:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">A_aug</span><span class="p">)</span>
+<span class="c1"># 代数的に求めた解 (x, y) = (11/5, 11/5 - 1)</span>
+<span class="n">x_intersect</span> <span class="o">=</span> <span class="mi">11</span><span class="o">/</span><span class="mi">5</span>
+<span class="n">y_intersect</span> <span class="o">=</span> <span class="n">x_intersect</span> <span class="o">-</span> <span class="mi">1</span>
 
-    <span class="c1"># 前進消去</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="c1"># 部分ピボット選択：i列目の絶対値が最大の行を選ぶ</span>
-        <span class="n">max_row</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">:,</span> <span class="n">i</span><span class="p">]))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">列 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> のピボット選択: 行 </span><span class="si">{</span><span class="n">max_row</span><span class="si">}</span><span class="s2"> を選択&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_line1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2x + 3y = 8&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_line2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;x - y = 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_intersect</span><span class="p">,</span> <span class="n">y_intersect</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;交点 (</span><span class="si">{</span><span class="n">x_intersect</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">y_intersect</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;2直線の交点&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></p>
+<h4 id="2-3">(2) 幾何学的可視化：3次元の平面の交点</h4>
+<p>（例として、上記の3変数連立一次方程式の解をもとに3平面の交点を可視化）</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
 
-        <span class="c1"># 行の入れ替え</span>
-        <span class="n">A_aug</span><span class="p">[[</span><span class="n">i</span><span class="p">,</span> <span class="n">max_row</span><span class="p">]]</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[[</span><span class="n">max_row</span><span class="p">,</span> <span class="n">i</span><span class="p">]]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;行 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> と 行 </span><span class="si">{</span><span class="n">max_row</span><span class="si">}</span><span class="s2"> を入れ替えた後:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">A_aug</span><span class="p">)</span>
+<span class="c1"># 4x -2y + z =11</span>
+<span class="c1"># -2x +4y -2z = -16</span>
+<span class="c1"># x -2y + 4z = 17</span>
 
-        <span class="c1"># ピボットの値</span>
-        <span class="n">pivot</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">pivot</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;行列は特異またはほぼ特異です。&quot;</span><span class="p">)</span>
+<span class="c1"># グリッド作成のための範囲設定</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 
-        <span class="c1"># 行の定数倍：ピボット行を pivot で割り、ピボットを 1 にする</span>
-        <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">pivot</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;行 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> を </span><span class="si">{</span><span class="n">pivot</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> で割って正規化した後:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">A_aug</span><span class="p">)</span>
+<span class="c1"># 各平面の定義（z = f(x,y) の形で表現）</span>
+<span class="n">Z1</span> <span class="o">=</span> <span class="mi">11</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">Y</span>
+<span class="n">Z2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">Y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">Z3</span> <span class="o">=</span> <span class="p">(</span><span class="mi">17</span> <span class="o">-</span> <span class="n">X</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">Y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span>
 
-        <span class="c1"># 下の行から、現在の列の要素を 0 にする</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-            <span class="n">factor</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-            <span class="n">A_aug</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;行 </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> から </span><span class="si">{</span><span class="n">factor</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">×行 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> を引いた後:&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">A_aug</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 
-    <span class="c1"># 後退代入</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- 後退代入開始 ---&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] = </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> を計算&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;平面1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;平面2&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">x</span>
-
-<span class="c1"># 連立一次方程式の例：</span>
-<span class="c1"># (1) 3x + y + z = -5</span>
-<span class="c1"># (2) 4x + 3y - z = -2</span>
-<span class="c1"># (3) 5x + 4y + z = 6</span>
-
-<span class="n">A_aug</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
-<span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-
-<span class="n">solution</span> <span class="o">=</span> <span class="n">gauss_elimination_verbose</span><span class="p">(</span><span class="n">A_aug</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">連立一次方程式の解:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x = </span><span class="si">{</span><span class="n">solution</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, y = </span><span class="si">{</span><span class="n">solution</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, z = </span><span class="si">{</span><span class="n">solution</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="c1"># 期待される解: x = -5, y = 7, z = 3</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;平面3&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">),(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span><span class="mi">23</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="mi">1</span><span class="p">,),(</span><span class="o">-</span><span class="mi">2</span><span class="p">,),(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;z&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;3平面の交点の可視化&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 <hr />
 <h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
 <ul>
 <li><strong>工学・物理学:</strong><br />
-  複数の条件を同時に満たす問題（例：構造解析、回路解析）で、連立一次方程式の解法は不可欠です。</li>
+  複数の法則や条件（例：力の釣り合いや回路解析）を同時に満たす解を求める際に、連立一次方程式は基本ツールとなります。</li>
 <li><strong>経済学・最適化:</strong><br />
-  市場均衡や資源配分の問題において、連立一次方程式の解法が基礎となります。</li>
+  市場均衡や資源配分問題など、複数の制約条件下での解の探索に利用されます。</li>
 <li><strong>コンピュータグラフィックス:</strong><br />
-  画像変換やレンダリングで、変換行列を用いた計算や平面の交点の求解などに応用されます。</li>
+  2次元の直線や3次元の平面の交点は、画像変換、レンダリング、衝突判定などの基盤技術です。</li>
 <li><strong>機械学習:</strong><br />
-  線形回帰や分類問題、データ前処理などの基礎として、数値解法が活用されます。</li>
+  線形回帰や分類モデルのパラメータ推定、データ前処理などにおける数値解法の基礎として利用されます。</li>
 </ul>
 <hr />
 <h2 id="6">6. 演習問題</h2>
 <ol>
 <li>
 <p><strong>演習問題1:</strong><br />
-   次の連立一次方程式
+   次の3変数の連立一次方程式
    $$
    \begin{cases}
-   3x + y + z = -5, \\
-   4x + 3y - z = -2, \\
-   5x + 4y + z = 6,
+   4x -2y + z =11 \\
+   -2x +4y -2z = -16 \\
+   x -2y + 4z = 17
    \end{cases}
    $$
-   の拡大係数行列を作成し、ガウスの消去法による基本変形（行の入れ替え、定数倍、行の加減）の各ステップを詳細に記述して、最終的な上三角行列と後退代入による解 <span class="arithmatex">\(x=-5,\; y=7,\; z=3\)</span> を求めよ。</p>
+   について、まず代入法で解こうとする手順（中間式も含む）を自分で書き出し、なぜ計算が煩雑になるかを考えなさい。その後、式の足し算・引き算による消去法を用いて最終的な解 <span class="arithmatex">\(x = 1,\; y = -2,\; z = 3\)</span> を導きなさい。</p>
 </li>
 <li>
 <p><strong>演習問題2:</strong><br />
-   拡大係数行列の各変形ステップで、どの基本変形（行の入れ替え、定数倍、行の加減）を用いたかを明確にし、その理由を説明せよ。</p>
+   2変数の連立一次方程式（例: <span class="arithmatex">\(x + 3y = 2\)</span> と <span class="arithmatex">\(-2x + y = 3\)</span>）を、足し算・引き算だけで解き、その解をグラフで直線の交点として可視化せよ。</p>
 </li>
 <li>
 <p><strong>演習問題3:</strong><br />
-   2変数の連立一次方程式（例: <span class="arithmatex">\(2x + 3y = 8\)</span> と <span class="arithmatex">\(x - y = 1\)</span>）に対して、ガウスの消去法を用いて上三角行列に変形し、その解をグラフで直線の交点として可視化せよ。</p>
-</li>
-<li>
-<p><strong>演習問題4:</strong><br />
-   Google Colab 上で、実際にガウスの消去法の操作フロー（拡大係数行列の変形）を自分で実装し、その変化過程をコメント付きで記録せよ。</p>
+   上記の3変数の連立一次方程式を用いて、Google Colab上で3平面のグラフと交点を可視化し、幾何学的に解の存在（または無限に存在する場合のパラメータ表示）を確認せよ。</p>
 </li>
 </ol>
+<hr />
 
 
 
