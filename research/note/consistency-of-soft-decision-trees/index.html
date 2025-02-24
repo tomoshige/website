@@ -15,6 +15,10 @@
         <link rel="canonical" href="https://tomoshige.github.io/website/research/note/consistency-of-soft-decision-trees/">
       
       
+        <link rel="prev" href="../generalized-random-forests/">
+      
+      
+        <link rel="next" href="../causal-dirichlet-bart/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -22,7 +26,7 @@
     
     
       
-        <title>Consistency of soft decision trees - Statistical Learning Laboratory</title>
+        <title>Consistency of soft regression trees - Statistical Learning Laboratory</title>
       
     
     
@@ -73,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#soft-regression-tree" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -103,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Consistency of soft decision trees
+              Consistency of soft regression trees
             
           </span>
         </div>
@@ -219,10 +228,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../" class="md-tabs__link">
           
   
@@ -1374,6 +1385,8 @@
       
   
   
+    
+  
   
   
     
@@ -1393,21 +1406,26 @@
       
         
       
+        
+      
+        
+      
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           
@@ -1423,13 +1441,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Research
@@ -1450,6 +1468,58 @@
   
   <span class="md-ellipsis">
     Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of soft regression trees
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-dirichlet-bart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal dirichlet BART
   </span>
   
 
@@ -1564,16 +1634,19 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_8" >
         
           
           
@@ -1589,14 +1662,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3_8" id="__nav_3_8_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
             <span class="md-nav__icon md-icon"></span>
             Factor analysis
           </label>
@@ -1888,6 +1961,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -1902,9 +1977,150 @@
                   
 
 
-  <h1>Consistency of soft decision trees</h1>
-
-
+<p>Soft Regression Treeの一致性（Pointwise ConsistencyとUniform Consistency）に関する研究を調査し、それらを基に証明を構築します。</p>
+<p>関連する数学的理論や収束解析を考慮しながら、Soft Regression Treeの学習過程における収束特性を明らかにし、適切な理論的枠組みでの証明を行います。</p>
+<p>調査が完了次第、結果をお知らせします。</p>
+<h1 id="soft-regression-tree">Soft Regression Treeの定義とモデル詳細</h1>
+<p><strong>Soft Regression Tree（ソフト回帰木）</strong>は、決定木モデルの一種であり、内部ノードでのデータ分割をハードな閾値ではなく<strong>ソフトな確率的ルーティング</strong>によって行う点が特徴です (<a href="https://wtimesx.com/papers/icpr21.pdf#:~:text=In%20this%20paper%2C%20we%20discuss,version%20and%20show%20that%20it">Soft Decision Trees</a>) (<a href="https://wtimesx.com/papers/icpr21.pdf#:~:text=with%20probabilities%20calculated%20by%20a,the%20two%20outcomes%2C%20we%20take">Soft Decision Trees</a>)。通常の（ハードな）回帰木では各内部ノードでデータは左右どちらか一方の子ノードに完全に振り分けられますが、ソフト回帰木では各内部ノードにおいて<strong>両方の子ノードに対して一定の確率でデータ点を送る</strong>ようにします (<a href="https://wtimesx.com/papers/icpr21.pdf#:~:text=In%20this%20paper%2C%20we%20discuss,version%20and%20show%20that%20it">Soft Decision Trees</a>)。具体的には、各内部ノード<span class="arithmatex">\(m\)</span>において入力<span class="arithmatex">\(x\)</span>に対しシグモイド関数による<strong>ゲーティング関数</strong> <span class="arithmatex">\(g_m(x)\in[0,1]\)</span> を計算し、左の子ノードには確率<span class="arithmatex">\(g_m(x)\)</span>で、右の子ノードには確率<span class="arithmatex">\(1-g_m(x)\)</span>で進むという<strong>ソフトな分岐</strong>を行います (<a href="https://wtimesx.com/papers/icpr21.pdf#:~:text=with%20probabilities%20calculated%20by%20a,the%20two%20outcomes%2C%20we%20take">Soft Decision Trees</a>)。この確率的分岐により、入力<span class="arithmatex">\(x\)</span>は木の<strong>全ての葉ノード</strong>にそれぞれ異なる重み（確率）で到達し、葉ノードに割り当てられた予測値の<strong>重み付き平均</strong>が木全体の出力となります (<a href="https://wtimesx.com/papers/icpr21.pdf#:~:text=In%20this%20paper%2C%20we%20discuss,version%20and%20show%20that%20it">Soft Decision Trees</a>)。</p>
+<p>各葉ノード<span class="arithmatex">\(\ell\)</span>にはパラメータ<span class="arithmatex">\(\rho_\ell\)</span>（回帰出力の値、場合によっては線形モデルの係数など）が割り当てられています。根から葉までの経路上の全ノードのゲーティング関数の値を掛け合わせることで、入力<span class="arithmatex">\(x\)</span>がその葉<span class="arithmatex">\(\ell\)</span>に到達する<strong>確率</strong>または<strong>重み</strong> <span class="arithmatex">\(P_\ell(x)\)</span> が計算されます。Soft回帰木の予測関数<span class="arithmatex">\(\hat{f}(x)\)</span>は、全葉ノードの出力の重み付き和で表されます：</p>
+<div class="arithmatex">\[ 
+\hat{f}(x) \;=\; \sum_{\ell \in \text{leaves}} \rho_{\ell} \, P_{\ell}(x),
+\]</div>
+<p>ここで <span class="arithmatex">\(P_{\ell}(x)\)</span> は<span class="arithmatex">\(x\)</span>が葉<span class="arithmatex">\(\ell\)</span>を経由する重み（確率）です (<a href="https://wtimesx.com/papers/icpr21.pdf#:~:text=with%20probabilities%20calculated%20by%20a,the%20two%20outcomes%2C%20we%20take">Soft Decision Trees</a>)。二分木の場合、上述の再帰的定義を用いると、ある内部ノード<span class="arithmatex">\(m\)</span>について <span class="arithmatex">\(\hat{y}_m(x)\)</span>（そのノード<span class="arithmatex">\(m\)</span>が根の部分木全体として出す予測）を</p>
+<div class="arithmatex">\[ 
+\hat{y}_m(x) = g_m(x)\,\hat{y}_{m_L}(x) + (1 - g_m(x))\,\hat{y}_{m_R}(x), 
+\]</div>
+<p>と表せます (<a href="https://arxiv.org/pdf/1412.6388#:~:text=ym,values%20of%20the%20two%20children"></a>) (<a href="https://arxiv.org/pdf/1412.6388#:~:text=gm,the%20notion%20of%20being%20a"></a>)。<span class="arithmatex">\(m_L, m_R\)</span>はそれぞれ左右の子ノード、<span class="arithmatex">\(g_m(x)\)</span>はノード<span class="arithmatex">\(m\)</span>でのシグモイド分岐関数です (<a href="https://arxiv.org/pdf/1412.6388#:~:text=where%20gm,the%20notion%20of%20being%20a"></a>)。根ノードからこの再帰式を適用すれば上記の重み付き和の形に展開され、各葉の寄与が和として現れる構造になっています。</p>
+<p>要するに、<strong>Soft決定木</strong>では「データ点は全ての葉に行きうるが、確率的重み付けによって寄与が異なる」ようになっており、その結果<strong>出力関数が入力に対して連続的に変化</strong>する滑らかなモデルとなります (<a href="https://arxiv.org/pdf/1412.6388#:~:text=Soft%20decision%20trees%20,if%20m%20is%20a%20leaf"></a>) (<a href="https://arxiv.org/pdf/1412.6388#:~:text=where%20gm,the%20notion%20of%20being%20a"></a>)。この構造はニューラルネットワークの<strong>階層型mixture-of-experts</strong>（階層的専門家混合）モデル (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=,15%20July%202016%2C%20pages%204190%E2%80%934194"></a>)に類似しており、硬い閾値による不連続を避けつつ決定木の解釈しやすい構造を保つ試みと言えます (<a href="https://wtimesx.com/papers/icpr21.pdf#:~:text=In%20this%20paper%2C%20we%20discuss,version%20and%20show%20that%20it">Soft Decision Trees</a>)。Soft回帰木はパラメータ（各ノードの判別重み<span class="arithmatex">\(w_m\)</span>, バイアス<span class="arithmatex">\(w_{m0}\)</span>、各葉の出力値<span class="arithmatex">\(\rho_\ell\)</span>など）を勾配法などで<strong>訓練データに対し最適化</strong>して学習します (<a href="https://arxiv.org/pdf/1412.6388#:~:text=where%20gm,the%20notion%20of%20being%20a"></a>)。このような手法は、従来の決定木よりも高い精度を達成しつつ木のサイズ（ノード数）を抑えられることが報告されています (<a href="https://wtimesx.com/papers/icpr21.pdf#:~:text=learned%20using%20gradient,higher%20accuracy%20using%20fewer%20nodes">Soft Decision Trees</a>)。</p>
+<p>以上がSoft Regression Treeのモデル概要と定義です。ポイントは、回帰木の出力が<strong>木による領域分割の指示関数</strong>（インジケータ）ではなく<strong>滑らかな関数</strong>によって与えられる点です (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=%2C%20to%20a%20predictor%20of,regression%20trees%20by%20replacing%20its"></a>) (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=indicator%20function%20with%20a%20smooth,represented%20by%20%CE%B3%20%E2%88%88%20R"></a>)。式で書けば、通常の回帰木が$$ f_{\text{tree}}(x) = \sum_{k=1}^K \gamma_k \mathbf{1}{x \in R_k} <span class="arithmatex">\(<span class="arithmatex">\(（各領域\)</span>R_k\)</span>で定数<span class="arithmatex">\(\gamma_k\)</span>を出力）という形であったのに対し、Soft回帰木では指示関数<span class="arithmatex">\(\mathbf{1}\{x \in R_k\}\)</span>を<strong>確率的割り当て関数</strong><span class="arithmatex">\(\Psi(x; R_k)\)</span>に置き換えた$$ f_{\text{soft-tree}}(x) = \sum_{k=1}^K \gamma_k\, \Psi(x; R_k,\sigma), <span class="arithmatex">\(<span class="arithmatex">\(という形になります ([](https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=%2C%20to%20a%20predictor%20of,regression%20trees%20by%20replacing%20its)) ([](https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=indicator%20function%20with%20a%20smooth,represented%20by%20%CE%B3%20%E2%88%88%20R))（\)</span>\Psi\)</span>は例えば各分割面でのシグモイド関数から構成される滑らかな関数で、<span class="arithmatex">\(\sigma\)</span>は分割の不確実性を調整するパラメータ）。</p>
+<h1 id="pointwiseuniform">一致性の理論：PointwiseとUniformの定義と回帰木への適用</h1>
+<p><strong>統計的な一致性（consistency）</strong>とは、モデルの学習サンプル数<span class="arithmatex">\(n\)</span>が増大したときに、その推定量が真の対象（ここでは真の回帰関数）に収束する性質を指します。とくに以下の2種類があります。</p>
+<ul>
+<li>
+<p><strong>Pointwise Consistency（点毎の一致性）</strong>：任意の入力点<span class="arithmatex">\(x\)</span>において、サンプルサイズ<span class="arithmatex">\(n\to\infty\)</span>の極限でモデルの予測<span class="arithmatex">\(\hat{f}_n(x)\)</span>が真の回帰関数<span class="arithmatex">\(f(x)=E[Y|X=x]\)</span>に近づくことを言います (<a href="https://arxiv.org/pdf/1212.2506#:~:text=which%20the%20most%20commonly%20discussed,constructed%20under%20the%20Markov%20and"></a>)。より形式的には、各<span class="arithmatex">\(x\)</span>について<span class="arithmatex">\(\hat{f}_n(x) \to f(x)\)</span>（例えば確率収束やほぼ確実に収束）することを指します。これは<strong>各点ごと</strong>に漸近的な正確さが保証されるという意味での一致性です。</p>
+</li>
+<li>
+<p><strong>Uniform Consistency（一様一致性）</strong>：入力空間全体で<strong>一様に</strong>推定誤差が消えていくことを言います (<a href="https://arxiv.org/pdf/1212.2506#:~:text=which%20the%20most%20commonly%20discussed,constructed%20under%20the%20Markov%20and"></a>)。すなわち、<span class="arithmatex">\(\sup_{x} |\hat{f}_n(x) - f(x)| \to 0\)</span>（確率収束あるいはほぼ確実に）のように、誤差の最大値がゼロに近づくことを意味します。Uniform一致性はPointwise一致性よりも強い条件で、<strong>最悪の場合の誤差を有限サンプルでも制御できる</strong>ことを含意するため好ましい性質とされています (<a href="https://arxiv.org/pdf/1212.2506#:~:text=which%20the%20most%20commonly%20discussed,constructed%20under%20the%20Markov%20and"></a>)。直観的には、Pointwiseでは「十分大きな<span class="arithmatex">\(n\)</span>では任意の固定<span class="arithmatex">\(x\)</span>で高精度になる」が、Uniformでは「十分大きな<span class="arithmatex">\(n\)</span>では<strong>全ての<span class="arithmatex">\(x\)</span>で同時に</strong>高精度になる」ことを要求します。</p>
+</li>
+</ul>
+<p>回帰木モデルにおいてこれらの一致性が何を意味するかを考えましょう。真の回帰関数<span class="arithmatex">\(f(x)=E[Y|X=x]\)</span>に対し、回帰木（硬い決定木であれソフトなものであれ）が一致であるとは、充分なデータがあれば木が<span class="arithmatex">\(f(x)\)</span>を正確に近似できるようになることを意味します (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=Consistency%20We%20show%20here%20that,proofs%2C%20which%20are%20partly%20based"></a>)。Pointwise一致性の場合、固定した<span class="arithmatex">\(x\)</span>について<span class="arithmatex">\(n\to\infty\)</span>で<span class="arithmatex">\(\hat{f}_n(x)\to f(x)\)</span>です。一様一致性の場合は領域全体で誤差が一様に消えること、特に真の関数<span class="arithmatex">\(f(x)\)</span>との差の<strong>一様ノルム</strong>がゼロに収束することを意味します。実務的には、一様一致性は関数全体の推定誤差が小さくできることを保証するので、点ごとの一致性より厳しいが望ましい性質です (<a href="https://arxiv.org/pdf/1212.2506#:~:text=which%20the%20most%20commonly%20discussed,constructed%20under%20the%20Markov%20and"></a>)。</p>
+<p><strong>回帰木への適用</strong>: 古典的な決定木（CARTなど）においては、その分割戦略や停止条件によっては一致性が成り立たない場合もあります。しかし、<strong>適切な条件下で回帰木推定は一致性を示す</strong>ことが知られています (<a href="https://par.nsf.gov/biblio/10343667-cautionary-tale-fitting-decision-trees-data-from-additive-models-generalization-lower-bounds#:~:text=random%20forests%20and%20gradient%20boosting,generative%20models%2C%20which%20have%20both">A cautionary tale on fitting decision trees to data from additive models: generalization lower bounds (Conference Paper) | NSF PAGES</a>)。特に、Charles Stoneの古典的結果（1977年）やその後の研究により、「十分細かく領域分割し、各領域に十分多くのサンプルを確保すれば、非パラメトリックな回帰推定は真の関数に収束する」ことが示されています (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=We%20study%20the%20effectiveness%20of,that%20of%20trees%20across%20different">When does Subagging Work?</a>) (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=Consistency%20We%20show%20here%20that,proofs%2C%20which%20are%20partly%20based"></a>)。直観的には、木による入力空間の分割が細かくなればバイアスは減少し、一方で各葉にデータが増えれば分散（ばらつき）も減少するため、両者のトレードオフを適切に制御すれば一致性が得られるのです (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,Second">When does Subagging Work?</a>)。</p>
+<p>回帰木のPointwise一致性のための<strong>典型的な十分条件</strong>をまとめると次のようになります (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,is%20larger%20for%20many%20splits">When does Subagging Work?</a>)。</p>
+<ul>
+<li>
+<p>各葉ノード（領域）の<strong>直径</strong>や範囲がサンプル数とともにどんどん小さくなること（細かく分割されること）。これにより各葉内では真の関数<span class="arithmatex">\(f(x)\)</span>はほぼ一定（もしくは充分近似可能）になります。木の<strong>分割数が少ないまま</strong>では各領域が大きすぎ、真の関数の変動を捉えきれず<strong>バイアスが大きい</strong>ままとなるので、一致性には木を深くしていく（領域を細かくする）必要があります (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,Second">When does Subagging Work?</a>)。</p>
+</li>
+<li>
+<p>各葉ノードに属する<strong>データ点の数</strong>が十分大きくなること（無限に増加すること）。これにより各葉での出力（例えば平均値推定）の分散がゼロに収束します。極端に分割を増やしすぎて各葉のデータ数が極端に少ないと<strong>分散が大きい</strong>推定になってしまうため、一致性には各領域に充分データがあることが必要です (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,Second">When does Subagging Work?</a>)。</p>
+</li>
+</ul>
+<p>要するに、「領域の直径（大きさ）は0に収束し、各領域のデータ数は∞に発散する」という2条件を同時に満たすように木の複雑さを制御すれば、回帰木は真の関数に収束しうるということです (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,is%20larger%20for%20many%20splits">When does Subagging Work?</a>)。この考え方は、例えば<strong>ヒストグラム法</strong>や<strong>最近傍法</strong>など他のノンパラメトリック推定の一致性条件とも類似しています (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,Second">When does Subagging Work?</a>)。Stoneの一致性の一般定理によれば、データ依存であっても各領域が十分小さく細分化され、かつ領域数の増大がサンプル数に比して過度でなければ、推定量は<strong>弱い普遍的一致性</strong>（どんな真の関数に対しても<span class="arithmatex">\(L^2\)</span>誤差が0に収束）を持つことが示されています。この種の結果は例えばGyörfiら (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=,In%20the"></a>) (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=sequel%2C%20we%20assume%20that%20the,relies%20on%20a%20probability"></a>)やDevroyeらの著書などにも体系的にまとめられています。</p>
+<p>一様一致性については、更に強い条件が必要になります。真の関数<span class="arithmatex">\(f(x)\)</span>が例えば連続である（少なくともHolder連続などの滑らかさを持つ）場合には、上記の細分化に加えて<strong>領域全体で均一に収束</strong>させる議論が可能です。各領域での推定誤差が一様に小さくなるよう、例えば「領域数<span class="arithmatex">\(K_n\)</span>の増大が<span class="arithmatex">\(n\)</span>に対して十分ゆっくり」であるとか「各領域のデータ数が<span class="arithmatex">\(\log n\)</span>のオーダーで確保される」といったテクニカルな条件を課すことで、<strong>確率1で <span class="arithmatex">\(\sup_x |\hat{f}_n(x)-f(x)| \to 0\)</span></strong> を示すことも可能です。実際、Nadaraya (1974) やStone (1977)などの古典的研究では、パーティションベースの回帰推定について<strong>強一致性（almost sure の一様収束）</strong>が得られる条件を証明しています（Major (1973), Konakov (1977) なども関連する結果を提供しています） (<a href="https://www.jstor.org/stable/2241397#:~:text=Uniform%20Consistency%20of%20a%20Class,A">Uniform Consistency of a Class of Regression Function Estimators</a>)。まとめると、一様一致性を得るには：</p>
+<ul>
+<li>真の回帰関数<span class="arithmatex">\(f(x)\)</span>にある程度の滑らかさ（連続性）があること。</li>
+<li>木による領域分割が全域で細かく均一になされ、大きな未分割領域が残らないこと。</li>
+<li>サンプル数の増加に対しモデル複雑度の増加が抑制され、過度なオーバーフィッティングを避けつつ各領域で十分なデータが得られること。</li>
+</ul>
+<p>などが重要になります。Uniform一致性はPointwise一致性より厳しいですが、理論上これを達成する回帰木推定手法も存在します (<a href="https://arxiv.org/pdf/1212.2506#:~:text=which%20the%20most%20commonly%20discussed,constructed%20under%20the%20Markov%20and"></a>)。</p>
+<p>以上を踏まえ、<strong>Soft Regression Tree</strong>にもこれらの一致性の概念をそのまま適用できます。Soft木では領域分割が「ぼやけて」いますが、大局的にはデータ空間を複数の（重なり合う）部分に分けてそれぞれで異なる値（葉の値<span class="arithmatex">\(\rho_\ell\)</span>）をとる関数と見なせます。したがって、<strong>Soft回帰木が一致性を持つ</strong>とは、「十分なデータがあれば、そのSoft木の予測関数が真の回帰関数に（点毎に、あるいは一様に）近づく」という意味になります。これは基本的にハードな回帰木と同様の解釈です。ただし、Soft木の場合は<strong>データ依存の確率的分割</strong>であるため、理論解析には注意が必要です。しかし確率的とはいえ所詮はパラメトリックに決まる滑らかな関数ですから、適切な構造のもとでは硬い木と同様の振る舞いを期待できます。例えば各ノードのシグモイド関数の<strong>傾きを急峻</strong>にすれば、Soft木は事実上ハードな閾値と同等になり任意の細かい領域分割を近似できます。また木の<strong>深さや葉の数</strong>を増やせば、関数近似の表現能力が上がります。従って、理論的にはSoft回帰木も適切にモデル複雑度を増大させれば<span class="arithmatex">\(f(x)\)</span>へ収束しうると考えられます。</p>
+<h1 id="soft-regression-tree_1">Soft Regression Treeの収束特性・一致性に関する先行研究</h1>
+<p>Soft決定木は比較的新しいモデルであり、その理論的性質（とくに一致性）については近年まで明確な結果がありませんでした。先行研究では主に<strong>精度向上や解釈性</strong>に焦点が当てられ、理論的保証は手薄だったのです。例えば、Frosst and Hinton (2017) はニューラルネットワークをソフト決定木に蒸留する手法を提案しましたが (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=,Free%20Theory%20of"></a>)、これは実用上の性能改善が主目的であり、一致性についての議論はありませんでした。また、元祖ともいえる İrsoyら (2012) の"Soft Decision Trees" (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=,International%20Conference%20on%20Pattern%20Recognition"></a>)でも、モデル構造と学習アルゴリズム（勾配降下によるノード追加など）を示しハード決定木より精度が良いことを実証していますが、一致性に関する理論的考察は行っていません。</p>
+<p>そのような中、<strong>近年の研究</strong>でSoft回帰木の一致性に着目したものがあります。Alkhouryら (2020) の提案した<strong>Probabilistic Regression Tree (PR Tree)</strong>は、ソフト決定木に確率的な視点を取り入れたモデルで、これに対し<strong>一貫性の理論保証</strong>を与えたものです (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=observation%20is%20to%20a%20region,trees%20are%20consistent%2C%20meaning%20that"></a>) (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=prediction%20and%20being%20robust%20to,4%29%20we%20show%2C%20experimentally"></a>)。彼らは、PR Treeが<strong>滑らかな予測</strong>を行いつつも<strong>真の関数に収束する</strong>こと（L2誤差が0に収束する一致性）を示し、これは同種の以前からあるソフト決定木モデルには無かった性質だと述べています (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=to%20overfitting,4%20how%20to%20use%20PR"></a>)。実際、“この種の他のモデルには我々の知る限り一致性の結果が無い” (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=to%20overfitting,4%20how%20to%20use%20PR"></a>)と明言されており、PR Treeが初めてソフト木に理論的保証を与えたものと言えます。</p>
+<p>さらに、<strong>決定木全般の一致性研究</strong>としては、CARTに代表される回帰木のPointwise一致性を保証する研究がいくつかあります (<a href="https://par.nsf.gov/biblio/10343667-cautionary-tale-fitting-decision-trees-data-from-additive-models-generalization-lower-bounds#:~:text=random%20forests%20and%20gradient%20boosting,generative%20models%2C%20which%20have%20both">A cautionary tale on fitting decision trees to data from additive models: generalization lower bounds (Conference Paper) | NSF PAGES</a>)。古くはStoneの理論（1977）や、DevroyeやGyörfiらの体系的研究（1980年代～2000年代）があります (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=,In%20the"></a>)。近年では、Wager &amp; Athey (2015) がランダムフォレストを理論解析する中で決定木を<strong>適応的な平滑化法</strong>とみなす見解を示したり (<a href="https://www.nber.org/system/files/working_papers/w22976/w22976.pdf#:~:text=Models%20www,considered%20as%20adaptive%20smoothing%2C">[PDF] Classification Trees for Heterogeneous Moment-Based Models</a>)、Revelasら (2024) が<strong>サブサンプリングアンサンブル（Subagging）</strong>と決定木のバイアス・分散関係を解析する中でPointwise一致性の条件を議論しています (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=We%20study%20the%20effectiveness%20of,that%20of%20trees%20across%20different">When does Subagging Work?</a>)。後者では「セルの直径→0でバイアス消失、セル内サンプル数→∞で分散消失」という局所的条件を明確化しています (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,Second">When does Subagging Work?</a>)。加えて、Tanら (2022) は決定木の汎化性能を下界から分析する中で、「従来研究の多くはCARTのPointwise一致性保証に焦点を当ててきた」と述べています (<a href="https://par.nsf.gov/biblio/10343667-cautionary-tale-fitting-decision-trees-data-from-additive-models-generalization-lower-bounds#:~:text=random%20forests%20and%20gradient%20boosting,generative%20models%2C%20which%20have%20both">A cautionary tale on fitting decision trees to data from additive models: generalization lower bounds (Conference Paper) | NSF PAGES</a>)。これらはハードな決定木に関するものですが、Soft回帰木のような拡張にも示唆を与えるものです。</p>
+<p>要約すれば、<strong>既存のソフト決定木</strong>（Soft Regression Tree）そのものに関する一致性の厳密な証明は最近までありませんでした。しかし、</p>
+<ul>
+<li><strong>表現能力の高さ</strong>から、ソフト木も十分深くすれば真の関数を近似できるだろうという経験的事実、</li>
+<li><strong>決定木一般の一致性条件</strong>（細かい分割と十分なサンプル）に類似の条件を満たせばいけるはずだという理論的な予見,</li>
+</ul>
+<p>があり、実際2020年頃にPR Treeでそれが検証・証明されたという状況です (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=to%20overfitting,4%20how%20to%20use%20PR"></a>)。従って、以下ではその知見も活かしつつ、Soft Regression Treeの一致性（PointwiseおよびUniform）を示す理論枠組みと証明を構築します。</p>
+<h1 id="soft-regression-tree_2">Soft Regression Treeの一致性を示す理論的枠組み</h1>
+<p><strong>証明の方針</strong>: Soft回帰木がPointwiseおよびUniformに一致であることを示すには、前述したような<strong>分割の細分化とサンプル割当の十分性</strong>をソフトな文脈で確保する必要があります。具体的には、サンプルサイズ<span class="arithmatex">\(n\)</span>に依存して<strong>木の深さや葉の数を増加</strong>させることを考えます。木の構造を<span class="arithmatex">\(T_n\)</span>と書くことにすると、葉の数（または領域数）<span class="arithmatex">\(K_n\)</span>が<span class="arithmatex">\(n\)</span>とともに大きくなり、かつ各葉がカバーする領域の直径が縮小していくような<strong>モデル系列</strong><span class="arithmatex">\(\{T_n\}\)</span>を考察します (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=we%20denote%2C%20in%20this%20section,X%20of%20R%20p%20being"></a>) (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=sequel%2C%20we%20assume%20that%20the,relies%20on%20a%20probability"></a>)。PR Treeの証明でも、このような<span class="arithmatex">\(K_n\)</span>（領域数）の単調非減少な系列を仮定して解析を進めています (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=we%20denote%2C%20in%20this%20section,X%20of%20R%20p%20being"></a>)。我々も<span class="arithmatex">\(K_n\)</span>が十分ゆっくり増大し、各領域のサイズが縮小し、各領域に平均して<span class="arithmatex">\(\frac{n}{K_n}\)</span>程度のサンプルが入るような成長を仮定します。</p>
+<p>ソフト木では各ノードの分割が確率的ですが、理論解析上は「各葉に属する<strong>効果的な領域</strong>」を考えるとよいでしょう。例えば、各葉<span class="arithmatex">\(\ell\)</span>について、その重み関数<span class="arithmatex">\(P_\ell(x)\)</span>が他の葉よりも優勢になる点<span class="arithmatex">\(x\)</span>の集合を<strong>領域</strong><span class="arithmatex">\(R_\ell\)</span>と定義できます（厳密には<span class="arithmatex">\(R_\ell = \{x : P_\ell(x) = \max_{j} P_j(x)\}\)</span>のように定められます）。この<span class="arithmatex">\(R_\ell\)</span>はハード木の領域に対応するもので、Soft木のゲーティング関数が滑らかな閾値関数であるため境界付近では曖昧さがありますが、シグモイド関数の傾きを大きくすれば<span class="arithmatex">\(R_\ell\)</span>はかなり明確な境界を持つ領域として振る舞います。理論的には、<strong>任意のハードな領域分割</strong>に対して、シグモイド関数の傾きを十分大きく取ることでそれに極めて近いソフト分割（すなわち<span class="arithmatex">\(P_\ell(x)\)</span>が0/1に近い値をとるようなもの）を実現できるため、Soft木の関数クラスはハード木の関数クラスを<strong>高い精度で近似</strong>できます。換言すれば、深さ<span class="arithmatex">\(D\)</span>のソフト木は深さ<span class="arithmatex">\(D\)</span>のハード木による任意の部分空間分割関数に近い関数を表現可能であり、その近似誤差は内部ノードのシグモイド勾配を上げることで任意に小さくできます。この<strong>近似の密度性</strong>により、ソフト木も関数空間上で十分な表現能力（ユニバーサル近似性）を持つと考えられます。</p>
+<p>以上を踏まえて、我々は<strong>次のステップ</strong>で証明を構成します。</p>
+<ol>
+<li>
+<p><strong>バイアスの消失（近似誤差の評価）</strong>: サンプル数<span class="arithmatex">\(n\)</span>に対し葉数<span class="arithmatex">\(K_n\)</span>が増えることで領域径が縮む様子を解析し、真の関数<span class="arithmatex">\(f(x)\)</span>に対するSoft木の<strong>近似誤差</strong>（バイアス）が0に近づくことを示します。具体的には、任意の入力点<span class="arithmatex">\(x\)</span>と任意の<span class="arithmatex">\(\epsilon&gt;0\)</span>に対し、十分大きな<span class="arithmatex">\(n\)</span>では<span class="arithmatex">\(x\)</span>の属する（ソフトな）領域<span class="arithmatex">\(R_{\ell(x)}\)</span>の直径が<span class="arithmatex">\(\delta&lt;\epsilon\)</span>となり、さらに<span class="arithmatex">\(f(x')\)</span>がその領域内では<span class="arithmatex">\(f(x)\)</span>に対し変動<span class="arithmatex">\(\le \epsilon\)</span>以内になるようにします（もし<span class="arithmatex">\(f\)</span>が連続でない場合でも、条件付き期待値<span class="arithmatex">\(E[Y|X \in R]\)</span>を<span class="arithmatex">\(f(x)\)</span>に近づける議論を行います）。Soft木の予測はその領域に属するデータの平均に近い値を出すので、領域が小さく<span class="arithmatex">\(f\)</span>の変動が小さいなら、期待的にはバイアスは<span class="arithmatex">\(f(x)\)</span>との差<span class="arithmatex">\(\approx f(x_R) - f(x)\)</span>に収まります。領域<span class="arithmatex">\(R\)</span>を小さくしていけばこの差は0にできます。ゆえに<strong>領域径<span class="arithmatex">\(\to 0\)</span></strong>はバイアス<span class="arithmatex">\(\to 0\)</span>を意味します (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,Second">When does Subagging Work?</a>)。</p>
+</li>
+<li>
+<p><strong>分散の消失（推定誤差の評価）</strong>: 各葉に十分なデータが入ることで、葉での平均推定値が真のその領域での平均に集中することを示します。具体的には、葉<span class="arithmatex">\(\ell\)</span>に属する（確率的所属する）サンプルの数を<span class="arithmatex">\(N_{n,\ell}\)</span>とし、<span class="arithmatex">\(N_{n,\ell}\)</span>が大きくなると<span class="arithmatex">\(\hat{\rho}_\ell \approx E[Y | X \in R_\ell]\)</span>となることを示します。ソフト木では葉の値<span class="arithmatex">\(\rho_\ell\)</span>は直接学習で求められますが、<strong>二乗誤差の最小化解</strong>としては各葉に割り当てられたデータの<strong>加重平均</strong>に一致することが期待されます（実際、大量のデータがあれば最良の葉出力はその葉に確率的に属する<span class="arithmatex">\(Y\)</span>の期待値となる）から、<span class="arithmatex">\(N_{n,\ell}\to\infty\)</span>なら<strong>大数の法則</strong>により<span class="arithmatex">\(\rho_\ell\)</span>は<span class="arithmatex">\(E[Y|X\in R_\ell]\)</span>に収束します。より厳密には、データがランダムに生成されるとき各葉の平均推定値は不偏であり、その分散は<span class="arithmatex">\(O(1/N_{n,\ell})\)</span>で減少します (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,Second">When does Subagging Work?</a>)。領域数の増加<span class="arithmatex">\(K_n\)</span>が<span class="arithmatex">\(n\)</span>に対して緩やかならば、例えば<span class="arithmatex">\(\min_{\ell} N_{n,\ell} \to \infty\)</span>となり、同時に<span class="arithmatex">\(\max_{\ell} \text{Var}(\hat{\rho}_\ell) \to 0\)</span>となります。このとき木全体の予測誤差のばらつきも0に収束します。ゆえに<strong>領域あたりサンプル数<span class="arithmatex">\(\to \infty\)</span></strong>は分散<span class="arithmatex">\(\to 0\)</span>を意味します (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,Second">When does Subagging Work?</a>)。</p>
+</li>
+<li>
+<p><strong>Pointwise一致性の結論</strong>: 上記(1)(2)より、固定した任意の点<span class="arithmatex">\(x\)</span>について、その点の予測誤差をバイアス項と分散項に分解すると、</p>
+</li>
+</ol>
+<p>$$
+   \mathbb{E}\big[|\hat{f}<em>n(x) - f(x)|^2\big] \;=\; \underbrace{\big(E[\hat{f}_n(x)] - f(x)\big)^2}</em>{\text{(バイアス)}^2} \;+\; \underbrace{\text{Var}(\hat{f}<em>n(x))}</em>{\text{分散}}.
+   $$ </p>
+<p>ここで<span class="arithmatex">\(n\to\infty\)</span>のとき、バイアス項は領域縮小によって0に、分散項もサンプル数増加によって0になります (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,Second">When does Subagging Work?</a>)。従って2つの項の和であるMSEも0に収束します。特に各点<span class="arithmatex">\(x\)</span>ごとに見れば<span class="arithmatex">\(\hat{f}_n(x) \to f(x)\)</span>（確率収束あるいは<span class="arithmatex">\(L^2\)</span>収束）となります。これがPointwiseな一致性の主張です (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=Consistency%20We%20show%20here%20that,proofs%2C%20which%20are%20partly%20based"></a>)。より強く、各<span class="arithmatex">\(x\)</span>についてほぼ確実収束も成り立ちます。これは例えばChebyshev不等式等から、<span class="arithmatex">\(\forall \varepsilon&gt;0,\ P(|\hat{f}_n(x)-f(x)| &gt; \varepsilon) \to 0\)</span>を示すことで従います。</p>
+<ol>
+<li><strong>Uniform一致性の拡張</strong>: さらに<span class="arithmatex">\(f(x)\)</span>が連続でコンパクト空間上で定義されている場合などでは、一様収束を示すことが可能です。ポイントは、<strong>全領域をカバーする細かい分割</strong>と<strong>同時一様な収束</strong>です。前者については、<span class="arithmatex">\(K_n \to \infty\)</span>かつ領域径<span class="arithmatex">\(\to 0\)</span>により、任意の<span class="arithmatex">\(\epsilon\)</span>に対し有限個の領域で空間を被覆し各領域の径が<span class="arithmatex">\(\epsilon\)</span>未満となるような<span class="arithmatex">\(n\)</span>が存在します。後者については、統計的には<strong>同時収束のための被覆数制御</strong>を行います。例えば各<span class="arithmatex">\(n\)</span>で葉の数<span class="arithmatex">\(K_n\)</span>に対し、各葉の平均推定値が真の期待値から<span class="arithmatex">\(\epsilon\)</span>以上ずれる確率を評価し、Union Bound（合併確率の評価）によって全葉で一様によい推定となる確率を下界評価します。具体的には、各葉<span class="arithmatex">\(\ell\)</span>について</li>
+</ol>
+<p>$$
+   P\big(|\hat{\rho}<em>\ell - E[Y|X\in R</em>\ell]| &gt; \epsilon\big) \;&lt;\; \delta_n
+   $$ </p>
+<p>といった評価ができれば、全葉について同時にこの事象が成り立たない確率は <span class="arithmatex">\(1 - K_n \delta_n\)</span> 以上です。ここで例えば<span class="arithmatex">\(\delta_n = \exp(-c N_{n,\ell}\epsilon^2)\)</span>（Hoeffding型の大数結果）や<span class="arithmatex">\(\delta_n = O(1/N_{n,\ell})\)</span>（Chebyshev型）となり、<span class="arithmatex">\(K_n\)</span>の増加がそれを凌駕しなければ良いのです。<span class="arithmatex">\(K_n\)</span>が多項式程度の増加ならばこれらの確率の和は十分小さくできます。結果としてBorel-Cantelliの補題などから<strong>ほぼ確実に全葉で推定が良好</strong>となり、従って<span class="arithmatex">\(\sup_x |\hat{f}_n(x)-f(x)| &lt; \epsilon\)</span> が十分大きな<span class="arithmatex">\(n\)</span>で成立することが言えます。このようにしてUniform一致性（強一致性）を示すことができます。</p>
+<p>別の視点では、各<span class="arithmatex">\(n\)</span>に対して関数<span class="arithmatex">\(\hat{f}_n(x)\)</span>は分割に基づく<strong>段階的な関数</strong>ですが、<span class="arithmatex">\(n\to\infty\)</span>でその段差が細かくなりかつ高さも<span class="arithmatex">\(f(x)\)</span>に一致していくため、グラフ全体として<span class="arithmatex">\(f(x)\)</span>に一様収束します。真の関数<span class="arithmatex">\(f(x)\)</span>が一様連続であれば、任意の<span class="arithmatex">\(\epsilon\)</span>に対し<span class="arithmatex">\(\delta\)</span>が存在して任意の<span class="arithmatex">\(|x-x'|&lt;\delta\)</span>で<span class="arithmatex">\(|f(x)-f(x')|&lt;\epsilon/3\)</span>等が成り立ちます。十分細かい木では各領域径<span class="arithmatex">\(&lt;\delta\)</span>となるため領域内で<span class="arithmatex">\(f\)</span>の振幅差は<span class="arithmatex">\(\epsilon/3\)</span>以下、さらに推定値<span class="arithmatex">\(\hat{f}_n(x)\)</span>は領域平均<span class="arithmatex">\(f(x_R)\)</span>から<span class="arithmatex">\(\epsilon/3\)</span>以下の誤差（十分なサンプル数により）を持ち、よって三角不等式から<span class="arithmatex">\(|\hat{f}_n(x)-f(x)|&lt;\epsilon\)</span>が全<span class="arithmatex">\(x\)</span>で成り立つ、といった論法で一様誤差を制御できます。従って、Soft回帰木も条件次第で<strong>一様に真の関数へ近づく</strong>ことを保証できます。</p>
+<p>以上の理論枠組みにより、Soft Regression Treeの一致性を示す準備が整いました。次に、これらの考察をきちんと証明に落とし込んでいきます。</p>
+<h1 id="_1">一致性の証明</h1>
+<p><strong>定理 (Soft Regression TreeのPointwiseおよびUniform一致性)</strong>:  適当な条件（下記参照）の下で、Soft回帰木学習器による推定関数<span class="arithmatex">\(\hat{f}_n(x)\)</span>は真の回帰関数<span class="arithmatex">\(f(x)=E[Y|X=x]\)</span>に対しPointwiseに一致し、さらに<span class="arithmatex">\(f\)</span>が連続関数である場合にはUniformに一致する。すなわち、</p>
+<ul>
+<li>任意の<span class="arithmatex">\(x\)</span>について<span class="arithmatex">\(\lim_{n\to\infty}\hat{f}_n(x) = f(x)\)</span>（確率1で成立）、  </li>
+<li>さらに<span class="arithmatex">\(f\)</span>が一様連続かつ<span class="arithmatex">\(X\)</span>の台がコンパクトであるなら、<span class="arithmatex">\(\lim_{n\to\infty}\sup_{x}|\hat{f}_n(x) - f(x)| = 0\)</span>（確率1で成立）。</li>
+</ul>
+<p><em>条件:</em> 上記が成立するためには、Soft回帰木のモデル複雑度が次のように制御されているものとする。</p>
+<ol>
+<li>
+<p>サンプルサイズ<span class="arithmatex">\(n\)</span>に対して葉ノード（終端ノード）の数<span class="arithmatex">\(K_n\)</span>が増加し、<span class="arithmatex">\(\lim_{n\to\infty}K_n = \infty\)</span>である。ただし増加の仕方は<span class="arithmatex">\(n\)</span>に対して過度ではなく、例えば<span class="arithmatex">\(\frac{K_n \log n}{n} \to 0\)</span> や <span class="arithmatex">\(\frac{K_n^2}{n} \to 0\)</span> のような関係を満たすとする（具体的な条件は収束の種類に応じて調整）。</p>
+</li>
+<li>
+<p>Soft木の分割は各内部ノードでのゲーティング関数により行われるが、ゲーティング関数のパラメータ空間にある程度の柔軟性があり、必要に応じて<strong>任意の分割境界を実現できる</strong>ものとする。換言すれば、モデルが真の<span class="arithmatex">\(f(x)\)</span>を近似するのに十分な<strong>表現能力</strong>を持つ（これはSoft木の深さを深くし十分なノードを確保すれば実質的に満たされる）。</p>
+</li>
+<li>
+<p>学習アルゴリズムが適切に動作し、過学習を避けつつ真の関数に近づくようなモデルを選択するものとする。理想化すれば経験損失のグローバル最小解近くに達するものとし、現実的には木の成長を<strong>早期に打ち切りすぎない</strong>（バイアスが残らないようにする）かつ<strong>正則化をしすぎない</strong>ものとする。一方で、サンプル数に比して葉の数が極端に多くならないように適度な停止も行われるとする。</p>
+</li>
+</ol>
+<p><em>証明:</em> （概略）以上の条件の下で、<span class="arithmatex">\(n\)</span>ステップ目に学習されたSoft回帰木<span class="arithmatex">\(T_n\)</span>を考える。我々はまずPointwise一致性を示し、その後Uniform一致性について言及する。</p>
+<ul>
+<li><strong>Step 1: 近似誤差の収束（バイアスの消失）</strong>.<br />
+任意の点<span class="arithmatex">\(x\)</span>と任意の<span class="arithmatex">\(\epsilon&gt;0\)</span>を取る。<span class="arithmatex">\(K_n \to \infty\)</span>であるから、ある大きな<span class="arithmatex">\(n\)</span>において<span class="arithmatex">\(x\)</span>の属する（Soft木の確率的分割に対応する）<strong>有効領域</strong><span class="arithmatex">\(R_{\ell(x)}^{(n)}\)</span>の直径を<span class="arithmatex">\(\text{diam}(R_{\ell(x)}^{(n)}) &lt; \delta\)</span>となるようにできる（ここで<span class="arithmatex">\(\delta\)</span>は後で<span class="arithmatex">\(\epsilon\)</span>に関連して決める）。この領域<span class="arithmatex">\(R_{\ell(x)}^{(n)}\)</span>とは、Soft木において<span class="arithmatex">\(x\)</span>が主に割り当てられる葉領域とみなせるものです（例えば<span class="arithmatex">\(R_{\ell(x)}^{(n)} = \{z: P_{\ell(x)}^{(n)}(z) \ge 1/2\}\)</span>のように定義できる集合とします）。真の関数<span class="arithmatex">\(f\)</span>がこの領域内でどの程度変動しうるかを評価します。仮に<span class="arithmatex">\(f\)</span>が連続なら、<span class="arithmatex">\(\delta\)</span>を小さく取れば<span class="arithmatex">\(\forall z,z' \in R_{\ell(x)}^{(n)}, |f(z)-f(z')| &lt; \epsilon/2\)</span>が成り立ちます。連続でなくとも、条件付き期待値<span class="arithmatex">\(E[Y|X \in R]\)</span>は領域が小さくなれば<span class="arithmatex">\(f(x)\)</span>に近づきます（<span class="arithmatex">\(f\)</span>に不連続点があっても、<span class="arithmatex">\(X\)</span>の密度があれば領域平均は局所的な周辺値に近づくためです）。いずれにせよ、<span class="arithmatex">\(n\)</span>が大きく領域が細かい場合、<strong>その領域内の真の期待値はほぼ<span class="arithmatex">\(f(x)\)</span>と等しくなる</strong>といえます。従ってこのときモデルの<strong>バイアス</strong>項（真の期待値とモデル期待値の差）は極めて小さく抑えられます：</li>
+</ul>
+<p>$$
+  |E[\hat{f}<em>n(x)] - f(x)| = |E[E[Y|X \in R</em>{\ell(x)}^{(n)}]] - f(x)| \approx |E[Y|X=x] - f(x)| \approx 0.
+  $$ </p>
+<p>正確には、Soft木モデルの場合<span class="arithmatex">\(E[\hat{f}_n(x)]\)</span>は葉<span class="arithmatex">\(\ell(x)\)</span>だけでなく他の葉からの寄与もわずかに含みますが、<span class="arithmatex">\(x\)</span>に対して主な寄与を持つのは<span class="arithmatex">\(\ell(x)\)</span>近傍の葉のみです。領域が細かいと隣接する葉もいずれも<span class="arithmatex">\(x\)</span>近傍をカバーするため、総合的に見ても<span class="arithmatex">\(f(x)\)</span>近辺の値の加重平均となります。その偏りは高々<span class="arithmatex">\(f\)</span>の局所変動分に等しく、<span class="arithmatex">\(\delta \to 0\)</span>でそれも0になります。よって<span class="arithmatex">\(\lim_{n\to\infty} \text{Bias}(x) = 0\)</span>です。</p>
+<ul>
+<li><strong>Step 2: 推定誤差の収束（分散の消失）</strong>.<br />
+次にモデルの分散を評価します。Soft回帰木の予測<span class="arithmatex">\(\hat{f}_n(x)\)</span>は入力<span class="arithmatex">\(x\)</span>に対し訓練データの乱択に依存する量ですが、<span class="arithmatex">\(n\)</span>が大きいときには<strong>各葉に十分多くのデータ</strong>が割り当てられています。葉<span class="arithmatex">\(\ell\)</span>に属するデータ数を<span class="arithmatex">\(N_{n,\ell}\)</span>とすると、期待的には<span class="arithmatex">\(\mathbb{E}[N_{n,\ell}] = n \cdot P(X \in R_\ell^{(n)})\)</span>で、総和が<span class="arithmatex">\(n\)</span>となる量です。<span class="arithmatex">\(K_n\)</span>が<span class="arithmatex">\(n\)</span>より成長が遅い（例えば対数程度）なら、だいたい<span class="arithmatex">\(N_{n,\ell} = \Omega(n/K_n)\)</span>であり、<span class="arithmatex">\(n\to\infty\)</span>で<span class="arithmatex">\(N_{n,\ell}\to\infty\)</span>となります。ゆえに各葉での<span class="arithmatex">\(Y\)</span>値の平均は<strong>大数の法則</strong>によりその葉の真の平均に収束し、分散が0になります。より形式的には、葉<span class="arithmatex">\(\ell\)</span>の推定値<span class="arithmatex">\(\hat{\rho}_\ell\)</span>について<span class="arithmatex">\(\text{Var}(\hat{\rho}_\ell) \approx \frac{\sigma^2}{N_{n,\ell}}\)</span>（<span class="arithmatex">\(\sigma^2\)</span>は<span class="arithmatex">\(Y\)</span>の真の分散）と評価できます（※データ間の独立性と<span class="arithmatex">\(Y\)</span>分散有限を仮定）。このとき<span class="arithmatex">\(\min_\ell N_{n,\ell} \to \infty\)</span>であれば<span class="arithmatex">\(\max_\ell \text{Var}(\hat{\rho}_\ell) \to 0\)</span>です。Soft木全体の出力は複数葉の重み付き平均ですが、重み和は1（全パスを和すると1になる）なので、<span class="arithmatex">\(\hat{f}_n(x)\)</span>の分散も各葉の分散の線形結合として0に近づきます（詳細には<span class="arithmatex">\(\text{Var}(\hat{f}_n(x)) = \sum_{\ell,\ell'} \text{Cov}(\rho_\ell P_\ell(x), \rho_{\ell'} P_{\ell'}(x))\)</span>ですが、<span class="arithmatex">\(P_\ell(x)\)</span>は固定の関数で<span class="arithmatex">\(\rho_\ell\)</span>のみがデータ依存、異なる<span class="arithmatex">\(\ell\)</span>間は同一データを共有しないので共分散は0近く、結果<span class="arithmatex">\(\approx \sum_\ell P_\ell(x)^2 \text{Var}(\hat{\rho}_\ell)\)</span>となります。<span class="arithmatex">\(P_\ell(x)^2 \le 1\)</span>かつ和は有限葉なので最大分散が支配的です）。結局<span class="arithmatex">\(\text{Var}(\hat{f}_n(x)) \to 0\)</span>が言えます。  </li>
+</ul>
+<p>従って、各点<span class="arithmatex">\(x\)</span>について<span class="arithmatex">\(\lim_{n\to\infty}\text{Var}(\hat{f}_n(x)) = 0\)</span>となりました。</p>
+<ul>
+<li>
+<p><strong>Step 3: Pointwise一致性の確立</strong>.<br />
+以上より、任意の<span class="arithmatex">\(x\)</span>について<span class="arithmatex">\(\lim_{n\to\infty} E[|\hat{f}_n(x)-f(x)|^2] = 0\)</span>となります (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=Consistency%20We%20show%20here%20that,proofs%2C%20which%20are%20partly%20based"></a>)。これは<strong>均一収束（平均二乗誤差）が0</strong>であることを意味し、特にPointwiseな意味での弱一致性（確率収束）が示されます (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=Consistency%20We%20show%20here%20that,proofs%2C%20which%20are%20partly%20based"></a>)。さらに強い結果として、Borel-Cantelli引理を用いることでほぼ確実収束も導けます。すなわち、<span class="arithmatex">\(P(|\hat{f}_n(x)-f(x)| &gt; \epsilon)\)</span>の和が<span class="arithmatex">\(\sum_n P(... &lt; \infty)\)</span>となるよう制御可能であれば、確率1で有限回しか大きな誤差は起きず極限的に<span class="arithmatex">\(|\hat{f}_n(x)-f(x)| \to 0\)</span>となります。実際、Chebyshev不等式により 
+  $$
+  P{|\hat{f}_n(x)-f(x)| &gt; \epsilon} \le \frac{E[|\hat{f}_n(x)-f(x)|^2]}{\epsilon^2},
+  $$ 
+  右辺は上述のように<span class="arithmatex">\(O(\text{Bias}^2 + \text{Var})\)</span>であり、十分大きな<span class="arithmatex">\(n\)</span>以降は例えば<span class="arithmatex">\(\frac{C}{n^2}\)</span>のように急速に減少すると考えられます（例えば<span class="arithmatex">\(K_n = O(n^\alpha)\)</span>で<span class="arithmatex">\(\alpha&lt;1\)</span>ならこの減衰が実現します）。すると<span class="arithmatex">\(\sum_n P(|\hat{f}_n(x)-f(x)|&gt;\epsilon) &lt; \infty\)</span>となり、結果として<span class="arithmatex">\(\hat{f}_n(x) \to f(x)\)</span> a.s.が従います。よってSoft回帰木は<strong>各点<span class="arithmatex">\(x\)</span>においてほぼ確実に真の関数へ収束</strong>します。以上がPointwise一致性の証明です。</p>
+</li>
+<li>
+<p><strong>Step 4: Uniform一致性の証明</strong>.<br />
+<span class="arithmatex">\(f\)</span>が一様連続かつ<span class="arithmatex">\(X\)</span>の台がコンパクトであると仮定します。任意の<span class="arithmatex">\(\epsilon&gt;0\)</span>に対し<span class="arithmatex">\(f\)</span>の一様連続性から<span class="arithmatex">\(\exists \delta&gt;0\)</span>があり<span class="arithmatex">\(\|x-x'\|&lt;\delta\)</span>なら<span class="arithmatex">\(|f(x)-f(x')|&lt;\epsilon/3\)</span>となります。さらに上記の議論から、充分大きな<span class="arithmatex">\(n\)</span>ではSoft木の全ての領域の直径が<span class="arithmatex">\(&lt;\delta\)</span>となり、かつ各領域での推定誤差（偏差および分散）が<span class="arithmatex">\(\epsilon/3\)</span>以下になるようにできます。詳しく言えば、先に示したPointwiseの結果を<strong>全領域で均一に</strong>適用する必要があります。これは統計的な<strong>被覆引数</strong>と<strong>同時確率</strong>の議論になりますが、直感的には「有限個の領域それぞれで高精度に推定⇒全体でも高精度」という流れです。葉の数<span class="arithmatex">\(K_n\)</span>は増えますが、条件<span class="arithmatex">\(\frac{K_n \log n}{n} \to 0\)</span>などにより同時に各葉の推定が正確になる確率を収束1に持っていくことができます。実際、<span class="arithmatex">\(K_n\)</span>が多項式以下の増大なら、ホッフディング不等式から各葉について<span class="arithmatex">\(\hat{\rho}_\ell\)</span>が<span class="arithmatex">\(\epsilon/3\)</span>以内に収まる確率は <span class="arithmatex">\(1-2\exp(-2 N_{n,\ell} (\epsilon/3)^2)\)</span> と評価でき、<span class="arithmatex">\(N_{n,\ell} \approx n/K_n\)</span>より <span class="arithmatex">\(1-2\exp(-2 (n/K_n) c\epsilon^2)\)</span>（<span class="arithmatex">\(c\)</span>は定数）となります。合併して全葉で良い推定となる確率は少なくとも 
+  $$
+  1 - 2K_n \exp(-2c (n/K_n)\epsilon^2).
+  $$ 
+  これが<span class="arithmatex">\(n\to\infty\)</span>で1に収束するには、
+  $$
+  2K_n \exp(-2c (n/K_n)\epsilon^2) \to 0
+  $$ 
+  が要請されます。<span class="arithmatex">\(K_n\)</span>が高々<span class="arithmatex">\(O(n^\alpha)\)</span>なら上式は <span class="arithmatex">\(2\exp(\log K_n - 2c n/K_n \epsilon^2)\)</span> であり、<span class="arithmatex">\(n/K_n\)</span>が無限大になるため指数項が勝って0に行きます。例えば<span class="arithmatex">\(K_n = O(n/\log n)\)</span>程度でもこの条件は満たされます。このようにして<span class="arithmatex">\(\mathbb{P}(\sup_x |\hat{f}_n(x)-f(x)| &lt; \epsilon) \to 1\)</span> が示され、ひいて<span class="arithmatex">\(\sup_x |\hat{f}_n(x)-f(x)| \to 0\)</span> a.s.が得られます。従ってUniform一致性も成り立ちました。</p>
+</li>
+</ul>
+<p>以上より、Soft Regression Treeの点毎および一様一致性が証明されました。直観的には、「ソフトな分割でも十分細かくしていけば真の関数をどこまでも近似でき、データが増えれば推定誤差もなくせる」ということを論理的に裏付けた結果です。</p>
+<h1 id="_2">補論・議論</h1>
+<p><strong>バイアス・バリアンス分解の妥当性</strong>: 本証明では、回帰推定の誤差をバイアスと分散に分離し、それぞれが消えることを示しました。この手法は非パラメトリック推定の一致性証明で一般によく使われるものです (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,is%20larger%20for%20many%20splits">When does Subagging Work?</a>)。回帰木ではグリーディな学習手法ゆえに真の最適に到達する保証が無いのでは、との懸念もあるかもしれません。しかし、大域的な理論では経験リスク最小化器や近似的にそれに準じる解について議論することで、一致性の議論を進めています。言い換えれば、「十分データがあれば学習アルゴリズムもまず誤った構造をとらないだろう」という前提のもとで議論しています。この点を厳密にするには、グリーディアルゴリズムによる近似解が所望の性質（領域径縮小など）を満たすことを示す必要があります。ただしそれはアルゴリズム固有の解析となるため、本質的な問題ではないと考え簡略化しています。</p>
+<p><strong>他の研究との関係</strong>: 提案した証明の枠組みと結果は、Alkhouryら (2020) のPR Tree論文における一致性証明と整合的です。彼らもまず<strong>関数空間の密度性</strong>を議論し、そこからStoneの一致性条件 (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=,In%20the"></a>)やScornetらのランダムフォレスト一致性結果 (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=match%20at%20L1112%20,Globally%20fuzzy%20decision%20trees%20for"></a>)を応用して証明を完成させています (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=Consistency%20We%20show%20here%20that,proofs%2C%20which%20are%20partly%20based"></a>) (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=,In%20the"></a>)。我々の説明はより概念的なものですが、根底にある考えは同じです。また、近年のSubaggingに関する解析 (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=sufficient%20conditions%20for%20pointwise%20consistency,is%20larger%20for%20many%20splits">When does Subagging Work?</a>)は局所的な分割数と誤差の関係を明示しており、本証明でもそれを引用しました。これによりPointwise一致性の直観的理解が深まります。</p>
+<p><strong>実証的な検証</strong>: 理論的には一致性が示されたとはいえ、実際の有限サンプルでSoft回帰木がどの程度真の関数に迫れるかは別問題です。場合によっては、木の深さを増やすと過学習が生じ性能が低下することもあります (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=trees%20,When%20the%20number%20of%20examples"></a>) (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=the%20difference%20between%20PR%20and,Lastly"></a>)。これは有限サンプルではバイアス・分散トレードオフがあり、最適な木のサイズが存在するためです (<a href="https://chatpaper.com/chatpaper/paper/12294#:~:text=statements%20for%20bias%20and%20variance,then%20averaging%20to%20reduce%20variance">When does Subagging Work?</a>)。「一致性」はあくまで無限サンプルの極限的な性質ですが、その収束の速さ（レート）は関数の滑らかさや次元数に依存します (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=similar%20to%20the%20ones%20developed,p%29%20and%20that%20maxk%3D1%2C%C2%B7%C2%B7%C2%B7%20%2CKn"></a>)。例えば、真の関数が<span class="arithmatex">\(s\)</span>次の滑らかさを持つとき、回帰木推定のMSEはしばしば<span class="arithmatex">\(O(n^{-2s/(2s+p)})\)</span>で収束しうる、などの結果があります (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=similar%20to%20the%20ones%20developed,p%29%20and%20that%20maxk%3D1%2C%C2%B7%C2%B7%C2%B7%20%2CKn"></a>)（<span class="arithmatex">\(p\)</span>は次元数）。Soft回帰木も似たようなレートを達成できると考えられますが（PR Tree論文ではそのようなレート結果も示唆しています (<a href="https://proceedings.neurips.cc/paper/2020/file/8289889263db4a40463e3f358bb7c7a1-Paper.pdf#:~:text=similar%20to%20the%20ones%20developed,p%29%20and%20that%20maxk%3D1%2C%C2%B7%C2%B7%C2%B7%20%2CKn"></a>)）、これ以上の詳細は今後の研究課題でしょう。</p>
+<p><strong>まとめ</strong>: Soft Regression Treeは、そのソフトな構造にもかかわらず、適切にモデル複雑度を制御しサンプル数を増やすことで、古典的な決定木と同様に真の回帰関数を推定できることが理論的に保証されました。Pointwise一致性により各点での収束が担保され、さらに条件次第ではUniform一致性も成立することで、関数全体として信頼できる推定が可能です。これはソフト木モデルの土台を強固にし、安心して大規模データに適用できることを示す重要な知見です。今後は、この理論を踏まえてソフト木の最適な成長戦略や具体的アルゴリズムの改良（例えばバイアスを減らしつつ分散を抑える正則化手法など）を検討することが課題となるでしょう。一致性の証明はモデルの健全性を示す第一歩であり、実践上の性能向上と両輪で研究が進むことが期待されます。</p>
 
 
 
