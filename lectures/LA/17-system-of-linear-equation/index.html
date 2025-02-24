@@ -12,13 +12,13 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/10-system-of-linear-equation/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/17-system-of-linear-equation/">
       
       
-        <link rel="prev" href="../09-system-of-linear-equation/">
+        <link rel="prev" href="../16-system-of-linear-equation/">
       
       
-        <link rel="next" href="../11-system-of-linear-equation/">
+        <link rel="next" href="../18-determinant/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>10. System of Linear Equation - Statistical Learning Laboratory</title>
+        <title>17. System of Linear Equation - Statistical Learning Laboratory</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#7" class="md-skip">
+        <a href="#17-12" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              10. System of Linear Equation
+              17. System of Linear Equation
             
           </span>
         </div>
@@ -681,30 +681,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    10. System of Linear Equation
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../10-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -713,185 +693,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 本日扱う内容について（概要）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 扱う内容の理論の説明（定義・定理・数式を含む）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      連立一次方程式の行列表現と拡大係数行列
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      行列の基本変形
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法による解法の操作フロー
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法と従来の消去法の対応づけ
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-gpt-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      例題：3変数の連立一次方程式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="例題：3変数の連立一次方程式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ① 拡大係数行列の作成
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ② ガウスの消去法による操作フロー（従来の消去法の手順と対応）
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-chatgptgoogle-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Google Colab での実行例
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Google Colab での実行例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#chatgpt" class="md-nav__link">
-    <span class="md-ellipsis">
-      ChatGPTによる解説
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#google-colab-print" class="md-nav__link">
-    <span class="md-ellipsis">
-      Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. 学んだ内容がどのように応用されるか
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. 演習問題
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1027,10 +828,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../17-system-of-linear-equation/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1039,6 +860,122 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義概要
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 理論的背景と内容の説明
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 理論的背景と内容の説明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 定義・基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 定理・命題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 数式・証明の詳細
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpt-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 扱う内容の実例（GPT, Colab等は使用せず）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptcolab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Colabでの実行例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 学んだ内容の応用例（optional)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 付録・参考資料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1961,7 +1898,7 @@
         <li class="md-nav__item">
   <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. 本日扱う内容について（概要）
+      1. 講義概要
     </span>
   </a>
   
@@ -1970,44 +1907,35 @@
         <li class="md-nav__item">
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. 扱う内容の理論の説明（定義・定理・数式を含む）
+      2. 理論的背景と内容の説明
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. 扱う内容の理論の説明（定義・定理・数式を含む）">
+    <nav class="md-nav" aria-label="2. 理論的背景と内容の説明">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#21" class="md-nav__link">
     <span class="md-ellipsis">
-      連立一次方程式の行列表現と拡大係数行列
+      2.1 定義・基本概念
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#22" class="md-nav__link">
     <span class="md-ellipsis">
-      行列の基本変形
+      2.2 定理・命題
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#23" class="md-nav__link">
     <span class="md-ellipsis">
-      ガウスの消去法による解法の操作フロー
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      ガウスの消去法と従来の消去法の対応づけ
+      2.3 数式・証明の詳細
     </span>
   </a>
   
@@ -2021,88 +1949,25 @@
         <li class="md-nav__item">
   <a href="#3-gpt-colab" class="md-nav__link">
     <span class="md-ellipsis">
-      3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+      3. 扱う内容の実例（GPT, Colab等は使用せず）
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      例題：3変数の連立一次方程式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="例題：3変数の連立一次方程式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ① 拡大係数行列の作成
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ② ガウスの消去法による操作フロー（従来の消去法の手順と対応）
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-chatgptgoogle-colab" class="md-nav__link">
+  <a href="#4-chatgptcolab" class="md-nav__link">
     <span class="md-ellipsis">
-      4. ChatGPTによる解説＋Google Colab での実行例
+      4. ChatGPTによる解説＋Colabでの実行例
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="4. ChatGPTによる解説＋Google Colab での実行例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#chatgpt" class="md-nav__link">
-    <span class="md-ellipsis">
-      ChatGPTによる解説
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#google-colab-print" class="md-nav__link">
-    <span class="md-ellipsis">
-      Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
+  <a href="#5-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      5. 学んだ内容がどのように応用されるか
+      5. 学んだ内容の応用例（optional)
     </span>
   </a>
   
@@ -2112,6 +1977,15 @@
   <a href="#6" class="md-nav__link">
     <span class="md-ellipsis">
       6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 付録・参考資料
     </span>
   </a>
   
@@ -2132,325 +2006,325 @@
                   
 
 
-<h1 id="7">講義7: ガウスの消去法と解の探索</h1>
-<h2 id="1">1. 本日扱う内容について（概要）</h2>
+<h1 id="17-12">講義17: 連立1次方程式と2つの説明変数がある場合の線形回帰モデル</h1>
+<h2 id="1">1. 講義概要</h2>
 <ul>
-<li><strong>目的:</strong>  </li>
-<li>連立一次方程式の行列表現と拡大係数行列の作成方法を学ぶ  </li>
-<li>行列の基本変形（行の入れ替え、定数倍、他の行の定数倍の加減）を理解する  </li>
-<li>ガウスの消去法による連立一次方程式の解法を、拡大係数行列の変形という視点から習得する  </li>
-<li>ガウスの消去法が、従来の消去法（式の足し算・引き算による消去）と本質的に同じであることを対応付けて理解する  </li>
-<li>
-<p>Google Colab を使った実装例で、操作の流れと解の探索のプロセスを体感する</p>
-</li>
-<li>
-<p><strong>講義の流れ:</strong>  </p>
-</li>
-<li>連立一次方程式の行列表現と拡大係数行列の導入  </li>
-<li>行列の基本変形の説明  </li>
-<li>ガウスの消去法による解法の具体的操作フロー（前進消去と後退代入）  </li>
-<li>ガウスの消去法と従来の消去法の対応づけ  </li>
-<li>ChatGPTによる解説＋Google Colabでの実装例  </li>
-<li>学んだ内容の応用例  </li>
-<li>演習問題</li>
+<li><strong>講義時間:</strong> 60分　/　<strong>演習時間:</strong> 30分</li>
+<li><strong>目的:</strong><br />
+  2つの説明変数（独立変数）を持つ線形回帰モデルの数学的表現（ベクトル・行列による表現）と、最小二乗法によるパラメータ推定（正規方程式）の考え方を理解する。これにより、平面（3次元空間における回帰面）の推定とその解釈ができるようになる。</li>
+<li><strong>今日の目標:</strong><br />
+  ・2つの説明変数がある場合の線形回帰モデルの定式化と、そのベクトル・行列表示を明確にする。<br />
+  ・最小二乗法に基づく正規方程式の導出と、実際に数値例を通してパラメータ推定の過程を理解する。<br />
+  ・Google Colabを用いて、実データにモデルを当てはめ、推定結果を解釈できるようになる。</li>
 </ul>
-<hr />
-<h2 id="2">2. 扱う内容の理論の説明（定義・定理・数式を含む）</h2>
-<h3 id="_1">連立一次方程式の行列表現と拡大係数行列</h3>
+<h2 id="2">2. 理論的背景と内容の説明</h2>
+<h3 id="21">2.1 定義・基本概念</h3>
 <ul>
-<li><strong>定義:</strong><br />
-  未知数 <span class="arithmatex">\(x_1, x_2, \dots, x_n\)</span> に対して、<span class="arithmatex">\(m\)</span> 本の一次方程式が同時に成立する連立一次方程式は、
+<li><strong>統計モデルと線形回帰モデル:</strong><br />
+  統計モデルは、観測データに基づく現象の関係性を数理的に表現する枠組みです。<br />
+  単回帰モデルでは1つの説明変数を用いますが、本講義では2つの説明変数 <span class="arithmatex">\( x_1 \)</span> と <span class="arithmatex">\( x_2 \)</span> を用いるため、モデルは<br />
   $$
-  \begin{cases}
-  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \\
-  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \\
-  \quad\vdots \\
-  a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m.
-  \end{cases}
-  $$</li>
-<li><strong>拡大係数行列:</strong><br />
-  この連立方程式は、係数行列 <span class="arithmatex">\(A\)</span> と定数項ベクトル <span class="arithmatex">\(\mathbf{b}\)</span> を並べて、
+  y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \varepsilon
   $$
-  [A \,|\, \mathbf{b}] = \begin{pmatrix}
-  a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; | &amp; b_1 \\
-  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; | &amp; b_2 \\
-  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; | &amp; \vdots \\
-  a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
-  \end{pmatrix}
-  $$
-  と表し、これに対して基本変形を施していきます。</li>
-</ul>
-<h3 id="_2">行列の基本変形</h3>
-<ul>
-<li><strong>行の入れ替え:</strong> 行の順序を変更する  </li>
-<li><strong>行の定数倍:</strong> 行全体をゼロでない定数で乗じる  </li>
-<li><strong>行の加減:</strong> ある行に、別の行の定数倍を加える（または引く）</li>
-</ul>
-<h3 id="_3">ガウスの消去法による解法の操作フロー</h3>
-<ul>
-<li><strong>前進消去 (Forward Elimination):</strong><br />
-  拡大係数行列に対して、上から順に各ピボット行を選び、ピボット列の下の成分を基本変形で 0 にする。</li>
-<li><strong>後退代入 (Back Substitution):</strong><br />
-  上三角行列（または階段形）になったら、下から順に既に求めた未知数を使って解を計算する。</li>
-</ul>
-<h3 id="_4">ガウスの消去法と従来の消去法の対応づけ</h3>
-<ul>
-<li>従来の「足し算・引き算による消去法」は、各式を手作業で操作して変数を消していく方法でした。  </li>
-<li>ガウスの消去法では、この操作を拡大係数行列に対して体系的に行うため、手順が明確になり、後退代入によって解が求めやすくなります。</li>
-</ul>
-<hr />
-<h2 id="3-gpt-colab">3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）</h2>
-<h3 id="3">例題：3変数の連立一次方程式</h3>
-<p>対象の連立一次方程式：
-$$
-\begin{cases}
-(1)\quad 3x + y + z = -5, \\
-(2)\quad 4x + 3y - z = -2, \\
-(3)\quad 5x + 4y + z = 6.
-\end{cases}
-$$</p>
-<h4 id="1_1">① 拡大係数行列の作成</h4>
-<p>初期の拡大係数行列は：
-$$
-\left[\begin{array}{ccc|c}
-3 &amp; 1 &amp; 1 &amp; -5 \\
-4 &amp; 3 &amp; -1 &amp; -2 \\
-5 &amp; 4 &amp; 1 &amp; 6
-\end{array}\right]
-$$</p>
-<h4 id="2_1">② ガウスの消去法による操作フロー（従来の消去法の手順と対応）</h4>
-<ol>
-<li><strong>Step 1: 第1行の <span class="arithmatex">\(x\)</span> の係数が1になるように基本操作を行う</strong>  </li>
-<li><strong>従来の消去法の説明:</strong><br />
-     まず、(2)式から(1)式を引いて、<span class="arithmatex">\(x\)</span> の係数が 1 の式（<span class="arithmatex">\(x + 2y - 2z = 3\)</span>）を作る。  </li>
-<li><strong>拡大係数行列での操作:</strong>  <ul>
-<li>拡大係数行列の(2)行を、新たな (2) 行として作るために、<br />
-   (2)行 ← (2)行 − (1)行<br />
-   $$
-   (4-3,\; 3-1,\; -1-1,\; -2 - (-5)) = (1,\; 2,\; -2,\; 3).
-   $$</li>
-<li>行列は次のように変化します：
-   $$
-   \left[\begin{array}{ccc|c}
-   3 &amp; 1 &amp; 1 &amp; -5 \\
-   1 &amp; 2 &amp; -2 &amp; 3 \\
-   5 &amp; 4 &amp; 1 &amp; 6
-   \end{array}\right]
-   $$</li>
-</ul>
-</li>
-<li>
-<p>次に、(2)行と(1)行の位置を入れ替え、最上行の <span class="arithmatex">\(x\)</span> の係数を 1 にする：
-       $$
-       \left[\begin{array}{ccc|c}
-       1 &amp; 2 &amp; -2 &amp; 3 \\
-       3 &amp; 1 &amp; 1 &amp; -5 \\
-       5 &amp; 4 &amp; 1 &amp; 6
-       \end{array}\right]
-       $$</p>
-</li>
-<li>
-<p><strong>Step 2: 第1列の第1行目以外の係数を0にする</strong>  </p>
-</li>
-<li><strong>目的:</strong> 第二行と第三行から、<span class="arithmatex">\(x\)</span> の項を消す。  </li>
-<li><strong>操作:</strong>  <ul>
-<li>第二行 ← 第二行 − 3×(第一行)<br />
-   $$
-   (3-3\cdot1,\; 1-3\cdot2,\; 1-3\cdot(-2),\; -5-3\cdot3) = (0,\; -5,\; 7,\; -14).
-   $$</li>
-<li>第三行 ← 第三行 − 5×(第一行)<br />
-   $$
-   (5-5\cdot1,\; 4-5\cdot2,\; 1-5\cdot(-2),\; 6-5\cdot3) = (0,\; -6,\; 11,\; -9).
-   $$</li>
-</ul>
-</li>
-<li>
-<p>結果、拡大係数行列は：
-       $$
-       \left[\begin{array}{ccc|c}
-       1 &amp; 2 &amp; -2 &amp; 3 \\
-       0 &amp; -5 &amp; 7 &amp; -14 \\
-       0 &amp; -6 &amp; 11 &amp; -9
-       \end{array}\right]
-       $$</p>
-</li>
-<li>
-<p><strong>Step 3: 第2列の <span class="arithmatex">\(y\)</span> の係数を1にする</strong>  </p>
-</li>
-<li><strong>操作:</strong>  <ul>
-<li>まず、第二行のピボットを 1 にするため、第3行を第2行に加える
-   $$
-    (0,\; 1,\; -4,\; -5).
-   $$</li>
-</ul>
-</li>
-<li>
-<p>拡大係数行列は、現段階で：
-       $$
-       \left[\begin{array}{ccc|c}
-       1 &amp; 2 &amp; -2 &amp; 3 \\
-       0 &amp; 1 &amp; -4 &amp; -5 \\
-       0 &amp; -6 &amp; 11 &amp; -9
-       \end{array}\right]
-       $$</p>
-<ul>
-<li>次に、第2列の第3行を<code>0</code>にするために、第3行に、第2行の6倍を加える
+  と表され、これは3次元空間内の「平面」を推定する問題と捉えられます。</li>
+<li><strong>説明変数と反応変数:</strong><br />
+  説明変数（独立変数）は <span class="arithmatex">\( x_1, x_2 \)</span>、反応変数（従属変数）は <span class="arithmatex">\( y \)</span> です。<br />
+  切片 <span class="arithmatex">\( \beta_0 \)</span> は、説明変数がゼロのときの <span class="arithmatex">\( y \)</span> の予測値、回帰係数 <span class="arithmatex">\( \beta_1, \beta_2 \)</span> は、それぞれの説明変数が <span class="arithmatex">\( y \)</span> に与える影響を示します。</li>
+<li><strong>ベクトルと行列による表現:</strong><br />
+<span class="arithmatex">\( n \)</span> 個の観測があるとき、  </li>
+<li>説明変数行列 <span class="arithmatex">\( X \)</span> は、<br />
     $$
-   \left[\begin{array}{ccc|c}
-   1 &amp; 2 &amp; -2 &amp; 3 \\
-   0 &amp; 1 &amp; -4 &amp; -5 \\
-   0 &amp; 0 &amp; -13 &amp; -39
-   \end{array}\right]
-   $$</li>
+    X = \begin{pmatrix}
+    1 &amp; x_{11} &amp; x_{12} \
+    1 &amp; x_{21} &amp; x_{22} \
+    \vdots &amp; \vdots &amp; \vdots \
+    1 &amp; x_{n1} &amp; x_{n2}
+    \end{pmatrix} \in \mathbb{R}^{n \times 3},
+    $$</li>
+<li>反応変数ベクトル <span class="arithmatex">\( \mathbf{y} \)</span> は、<br />
+    $$
+    \mathbf{y} = \begin{pmatrix} y_1 \ y_2 \ \vdots \ y_n \end{pmatrix} \in \mathbb{R}^{n},
+    $$</li>
+<li>パラメータベクトルは、<br />
+    $$
+    \boldsymbol{\beta} = \begin{pmatrix} \beta_0 \ \beta_1 \ \beta_2 \end{pmatrix}.
+    $$
+  モデル全体は<br />
+  $$
+  \mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+  $$
+  と表現されます。</li>
 </ul>
+<h3 id="22">2.2 定理・命題</h3>
+<ul>
+<li><strong>定理1: 最小二乗推定解の一意性と正則性</strong><br />
+  観測データを表す設計行列 <span class="arithmatex">\( X \)</span> の列が線形独立（すなわち、<span class="arithmatex">\( X \)</span> の列空間の次元が説明変数の数と等しい）であるならば、  </li>
+<li>行列 <span class="arithmatex">\( X^T X \)</span> は正則（逆行列が存在）となる。  </li>
+<li>
+<p>このとき、正規方程式<br />
+    $$
+    X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y}
+    $$
+    は一意な解 <span class="arithmatex">\( \hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y} \)</span> を持つ。<br />
+  ※ この定理は、最小二乗法の解が唯一であるための必要十分条件として重要であり、実際のデータ解析では設計行列のランクが十分であるかを確認することが求められる。</p>
 </li>
 <li>
-<p><strong>Step 4: 第3列の第3行の係数を<code>1</code>にする</strong>  </p>
+<p><strong>定理2: 残差の直交性</strong><br />
+  最小二乗推定において、推定されたパラメータ <span class="arithmatex">\( \hat{\boldsymbol{\beta}} \)</span> により得られる予測値 <span class="arithmatex">\( \hat{\mathbf{y}} = X\hat{\boldsymbol{\beta}} \)</span> と、残差ベクトル<br />
+  $$
+  \mathbf{r} = \mathbf{y} - \hat{\mathbf{y}}
+  $$
+  は、設計行列 <span class="arithmatex">\( X \)</span> の各列に対して直交する（内積が0になる）。すなわち、<br />
+  $$
+  X^T \mathbf{r} = \mathbf{0}.
+  $$
+  これは、<span class="arithmatex">\( \hat{\mathbf{y}} \)</span> が <span class="arithmatex">\( \mathbf{y} \)</span> の <span class="arithmatex">\( X \)</span> の列空間への正射影であることを意味し、残差がその直交補空間に属することを示す。</p>
 </li>
-<li><strong>操作:</strong>  <ul>
-<li>第3行を 13 で割る。
-   $$
-   \left[\begin{array}{ccc|c}
-   1 &amp; 2 &amp; -2 &amp; 3 \\
-   0 &amp; 1 &amp; -4 &amp; -5 \\
-   0 &amp; 0 &amp; 1 &amp; 3
-   \end{array}\right]
-   $$</li>
-<li><strong>後退代入:</strong>  </li>
-<li>第三行より：<span class="arithmatex">\(z = 3\)</span>.  </li>
-<li>第二行より：$ y - 4z = -5 $ から <span class="arithmatex">\(y\)</span> を求める。  </li>
-<li>第一行より：$ x + 2y - 2z = 3 $ から <span class="arithmatex">\(x\)</span> を求める.</li>
-</ul>
+<li>
+<p><strong>命題: 目的関数の凸性とヘッセ行列</strong><br />
+  目的関数<br />
+  $$
+  S(\boldsymbol{\beta}) = |\mathbf{y} - X\boldsymbol{\beta}|^2 = (\mathbf{y} - X\boldsymbol{\beta})^T (\mathbf{y} - X\boldsymbol{\beta})
+  $$
+  は、二次形式で表されるため、<span class="arithmatex">\( \boldsymbol{\beta} \)</span> に関して凸関数となる。<br />
+  そのヘッセ行列は<br />
+  $$
+  H = 2X^T X,
+  $$
+  となり、<span class="arithmatex">\( X \)</span> の列が線形独立ならば <span class="arithmatex">\( H \)</span> は正定値となり、局所最小値は一意な大域的最小値であることが保証される。</p>
 </li>
-</ol>
-<p>このガウスの消去法によって得られた行列は、下の行に進むにつれて<code>1</code>のある列が後ろ側にずれていっている。言い換えると、ある行で、<code>0</code>以外の数字が出現する最初の列に着目すると、その数字より下の行は<code>0</code>となっている。このような行列を「<strong>階段行列</strong>」と呼ぶ。階段行列については、次の授業で詳しく扱う。</p>
-<hr />
-<h2 id="4-chatgptgoogle-colab">4. ChatGPTによる解説＋Google Colab での実行例</h2>
-<h3 id="chatgpt">ChatGPTによる解説</h3>
-<ul>
-<li>ガウスの消去法では、まず拡大係数行列を作成し、各行の先頭に現れる変数の係数（ピボット）を 1 に整えます。  </li>
-<li>その後、ピボット行の定数倍を使って、下部の同じ列の成分を 0 にしていくことで、上三角行列（または階段形）に変形します。  </li>
-<li>実際に手計算では、うまく計算して<code>1</code>を作りましたが、コンピュータでは<code>1</code>を作るのは先頭の数字で割ればよいので、次のように計算できます。</li>
-</ul>
-<p>以下のコードは、連立一次方程式
-$$
-\begin{cases}
-3x + y + z = -5, \\
-4x + 3y - z = -2, \\
-5x + 4y + z = 6,
-\end{cases}
-$$
-に対して、拡大係数行列を使い、ガウスの消去法によって解に辿り着くまでの各ステップを print で表示します。</p>
-<h3 id="google-colab-print">Google Colabでの一般的なガウスの消去法の実装例（途中経過を print で表示）</h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">gauss_elimination_verbose</span><span class="p">(</span><span class="n">A_aug</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ガウスの消去法を実装し、途中の過程を print で表示する関数。</span>
-
-<span class="sd">    入力:</span>
-<span class="sd">      A_aug: 拡大係数行列 (形状: (n, n+1))</span>
-<span class="sd">    出力:</span>
-<span class="sd">      x: 連立一次方程式の解を含むベクトル (形状: (n,))</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">A_aug</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;初期の拡大係数行列:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">A_aug</span><span class="p">)</span>
-
-    <span class="c1"># 前進消去</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="c1"># 部分ピボット選択：i列目の絶対値が最大の行を選ぶ</span>
-        <span class="n">max_row</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">:,</span> <span class="n">i</span><span class="p">]))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">列 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> のピボット選択: 行 </span><span class="si">{</span><span class="n">max_row</span><span class="si">}</span><span class="s2"> を選択&quot;</span><span class="p">)</span>
-
-        <span class="c1"># 行の入れ替え</span>
-        <span class="n">A_aug</span><span class="p">[[</span><span class="n">i</span><span class="p">,</span> <span class="n">max_row</span><span class="p">]]</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[[</span><span class="n">max_row</span><span class="p">,</span> <span class="n">i</span><span class="p">]]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;行 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> と 行 </span><span class="si">{</span><span class="n">max_row</span><span class="si">}</span><span class="s2"> を入れ替えた後:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">A_aug</span><span class="p">)</span>
-
-        <span class="c1"># ピボットの値</span>
-        <span class="n">pivot</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">pivot</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;行列は特異またはほぼ特異です。&quot;</span><span class="p">)</span>
-
-        <span class="c1"># 行の定数倍：ピボット行を pivot で割り、ピボットを 1 にする</span>
-        <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">pivot</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;行 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> を </span><span class="si">{</span><span class="n">pivot</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> で割って正規化した後:&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">A_aug</span><span class="p">)</span>
-
-        <span class="c1"># 下の行から、現在の列の要素を 0 にする</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-            <span class="n">factor</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-            <span class="n">A_aug</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;行 </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> から </span><span class="si">{</span><span class="n">factor</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">×行 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> を引いた後:&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">A_aug</span><span class="p">)</span>
-
-    <span class="c1"># 後退代入</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- 後退代入開始 ---&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_aug</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] = </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> を計算&quot;</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">x</span>
-
-<span class="c1"># 連立一次方程式の例：</span>
-<span class="c1"># (1) 3x + y + z = -5</span>
-<span class="c1"># (2) 4x + 3y - z = -2</span>
-<span class="c1"># (3) 5x + 4y + z = 6</span>
-
-<span class="n">A_aug</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
-<span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-
-<span class="n">solution</span> <span class="o">=</span> <span class="n">gauss_elimination_verbose</span><span class="p">(</span><span class="n">A_aug</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">連立一次方程式の解:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x = </span><span class="si">{</span><span class="n">solution</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, y = </span><span class="si">{</span><span class="n">solution</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, z = </span><span class="si">{</span><span class="n">solution</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="c1"># 期待される解: x = -5, y = 7, z = 3</span>
-</code></pre></div>
-<hr />
-<h2 id="5">5. 学んだ内容がどのように応用されるか</h2>
-<ul>
-<li><strong>工学・物理学:</strong><br />
-  複数の条件を同時に満たす問題（例：構造解析、回路解析）で、連立一次方程式の解法は不可欠です。</li>
-<li><strong>経済学・最適化:</strong><br />
-  市場均衡や資源配分の問題において、連立一次方程式の解法が基礎となります。</li>
-<li><strong>コンピュータグラフィックス:</strong><br />
-  画像変換やレンダリングで、変換行列を用いた計算や平面の交点の求解などに応用されます。</li>
-<li><strong>機械学習:</strong><br />
-  線形回帰や分類問題、データ前処理などの基礎として、数値解法が活用されます。</li>
 </ul>
 <hr />
+<h3 id="23">2.3 数式・証明の詳細</h3>
+<ul>
+<li>
+<p><strong>目的関数の設定と微分</strong><br />
+  最小二乗法では、残差の二乗和を最小にするパラメータ <span class="arithmatex">\( \boldsymbol{\beta} \)</span> を求めるため、以下の目的関数を定義します。<br />
+  $$
+  S(\boldsymbol{\beta}) = |\mathbf{y} - X\boldsymbol{\beta}|^2 = (\mathbf{y} - X\boldsymbol{\beta})^T (\mathbf{y} - X\boldsymbol{\beta}).
+  $$
+  この関数は <span class="arithmatex">\( \boldsymbol{\beta} \)</span> の二次形式であり、凸関数です。<br />
+<span class="arithmatex">\( S(\boldsymbol{\beta}) \)</span> を <span class="arithmatex">\( \boldsymbol{\beta} \)</span> で偏微分すると、
+  $$
+  \frac{\partial S}{\partial \boldsymbol{\beta}} = -2X^T(\mathbf{y} - X\boldsymbol{\beta}).
+  $$
+  これをゼロに等しくする条件
+  $$
+  -2X^T(\mathbf{y} - X\boldsymbol{\beta}) = \mathbf{0}
+  $$
+  を考えると、正規方程式
+  $$
+  X^T X\,\boldsymbol{\beta} = X^T \mathbf{y}
+  $$
+  が得られます。</p>
+</li>
+<li>
+<p><strong>正規方程式の解法</strong><br />
+  もし <span class="arithmatex">\( X^T X \)</span> が正則であれば、両辺に <span class="arithmatex">\( (X^T X)^{-1} \)</span> を作用させることで、<br />
+  $$
+  \hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y}
+  $$
+  が唯一の最小二乗解として得られます。<br />
+  この解は、目的関数 <span class="arithmatex">\( S(\boldsymbol{\beta}) \)</span> のグローバルミニマムに対応し、推定された <span class="arithmatex">\( \hat{\mathbf{y}} = X\hat{\boldsymbol{\beta}} \)</span> は、観測値 <span class="arithmatex">\( \mathbf{y} \)</span> の <span class="arithmatex">\( X \)</span> の列空間への直交射影となります。</p>
+</li>
+<li>
+<p><strong>幾何学的解釈</strong><br />
+  ここで、<span class="arithmatex">\( \hat{\mathbf{y}} \)</span> は <span class="arithmatex">\( X \)</span> の列空間に属し、残差 <span class="arithmatex">\( \mathbf{r} = \mathbf{y} - \hat{\mathbf{y}} \)</span> はその直交補空間に属することが先述の定理2により保証されます。<br />
+  つまり、<br />
+  $$
+  X^T(\mathbf{y} - \hat{\mathbf{y}}) = \mathbf{0},
+  $$
+  であり、これは <span class="arithmatex">\( \hat{\mathbf{y}} \)</span> が観測データ <span class="arithmatex">\( \mathbf{y} \)</span> に最も近い（ユークリッド距離が最小）点であることを意味します。</p>
+</li>
+<li>
+<p><strong>凸最適化の観点</strong><br />
+  目的関数 <span class="arithmatex">\( S(\boldsymbol{\beta}) \)</span> のヘッセ行列は <span class="arithmatex">\( 2X^T X \)</span> であり、これは <span class="arithmatex">\( X \)</span> の列が線形独立なら正定値です。<br />
+  このため、最小化問題は凸最適化問題となり、局所最小解が大域的最小解であることが保証されます。<br />
+  これが、正規方程式を解くことで得られる <span class="arithmatex">\( \hat{\boldsymbol{\beta}} \)</span> が、実際に「残差の二乗和」を最小にするパラメータである理由です。</p>
+</li>
+<li>
+<p><strong>平面の推定:</strong><br />
+  2つの説明変数の場合、得られる回帰モデルは <span class="arithmatex">\( \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \hat{\beta}_2 x_2 \)</span> であり、これは3次元空間における平面としてデータにフィットします。</p>
+</li>
+</ul>
+<h2 id="3-gpt-colab">3. 扱う内容の実例（GPT, Colab等は使用せず）</h2>
+<ul>
+<li><strong>実例1: 行列の乗算を用いた予測値の生成</strong><br />
+  例として、5人の学生のデータを考えます。<br />
+  各学生のデータ（例：勉強時間 <span class="arithmatex">\( x_1 \)</span> と睡眠時間 <span class="arithmatex">\( x_2 \)</span> ）と、テスト得点 <span class="arithmatex">\( y \)</span> を以下のように与えたとします。<br />
+  | 学生 | 勉強時間 (<span class="arithmatex">\( x_1 \)</span>) | 睡眠時間 (<span class="arithmatex">\( x_2 \)</span>) | 得点 (<span class="arithmatex">\( y \)</span>) |
+  |------|--------------------|-------------------|-------------|
+  | 1    | 2                  | 7                 | 65          |
+  | 2    | 3                  | 6                 | 70          |
+  | 3    | 4                  | 8                 | 75          |
+  | 4    | 5                  | 5                 | 80          |
+  | 5    | 3                  | 7                 | 68          |</li>
+</ul>
+<p>説明変数行列 <span class="arithmatex">\( X \)</span> は<br />
+  $$
+  X = \begin{pmatrix}
+  1 &amp; 2 &amp; 7 \
+  1 &amp; 3 &amp; 6 \
+  1 &amp; 4 &amp; 8 \
+  1 &amp; 5 &amp; 5 \
+  1 &amp; 3 &amp; 7
+  \end{pmatrix},
+  $$
+  パラメータベクトル <span class="arithmatex">\(\boldsymbol{\beta} = (\beta_0, \beta_1, \beta_2)^T\)</span> として、<br />
+  モデル <span class="arithmatex">\( \mathbf{y} = X\boldsymbol{\beta} \)</span> により各学生の予測得点が計算される仕組みを、行列の乗算で示します。</p>
+<ul>
+<li>
+<p><strong>実例2: 正規方程式による最小二乗推定の数値例</strong><br />
+  上記データを用いて、正規方程式<br />
+  $$
+  X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y}
+  $$
+  を構築し、<span class="arithmatex">\( X^T X \)</span> と <span class="arithmatex">\( X^T \mathbf{y} \)</span> を計算する過程をホワイトボードで示します。<br />
+  具体的な数値計算を通して、どのようにして最小二乗解が得られるか、その手順と意味を確認します。</p>
+</li>
+<li>
+<p><strong>実例3: 実世界のデータ例—広告費と商品の売上</strong><br />
+  実際のビジネス例として、ある企業の広告費を2種類（オンライン広告費 <span class="arithmatex">\( x_1 \)</span> とテレビ広告費 <span class="arithmatex">\( x_2 \)</span> ）と、それに伴う商品の売上 <span class="arithmatex">\( y \)</span> の関係を解析するケースを考えます。<br />
+  仮想データとして以下のような表を示します。<br />
+  | 企業 | オンライン広告費 (<span class="arithmatex">\( x_1 \)</span>) | テレビ広告費 (<span class="arithmatex">\( x_2 \)</span>) | 売上 (<span class="arithmatex">\( y \)</span>) |
+  |------|---------------------------|------------------------|-------------|
+  | A    | 10                        | 20                     | 150         |
+  | B    | 15                        | 25                     | 180         |
+  | C    | 12                        | 22                     | 160         |
+  | D    | 20                        | 30                     | 210         |
+  | E    | 18                        | 28                     | 200         |</p>
+</li>
+</ul>
+<p>このデータを用いて、設計行列 <span class="arithmatex">\( X \)</span> を作成し、正規方程式を解くことで、広告費が売上に与える影響（各回帰係数）の推定方法と、その解釈（例えば、オンライン広告費が1単位増加すると売上が何単位増えるか等）を具体的に説明します。</p>
+<h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colabでの実行例</h2>
+<ul>
+<li>
+<p><strong>ChatGPT解説:</strong><br />
+  2つの説明変数がある場合の線形回帰モデルは、<span class="arithmatex">\( y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 \)</span> という形で表現され、これは3次元空間における「平面」をデータにフィットさせる問題です。<br />
+  モデルをベクトル・行列形式で表すと、<br />
+  $$
+  \mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\varepsilon},
+  $$
+  となり、最小二乗法により、正規方程式<br />
+  $$
+  X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y}
+  $$
+  を解くことで、最も誤差が小さい回帰面が求められます。<br />
+  Google Colab では、Python の NumPy ライブラリを用いてこれらの計算が簡単に実装でき、さらに3次元プロットを使って推定された平面とデータ点を視覚的に確認することが可能です。</p>
+</li>
+<li>
+<p><strong>Colab実行例:</strong> 以下は、仮想データを用いて2つの説明変数がある場合の単回帰モデル（平面）のパラメータを推定し、結果をプロットするサンプルコードです。
+  <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
+
+<span class="c1"># サンプルデータ（例：学生の勉強時間、睡眠時間、テスト得点）</span>
+<span class="c1"># 各行: [1, x1 (勉強時間), x2 (睡眠時間)]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">65</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">68</span><span class="p">])</span>
+
+<span class="c1"># 正規方程式により最小二乗解を求める</span>
+<span class="n">beta_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;推定されたパラメータ (切片, β1, β2):&quot;</span><span class="p">,</span> <span class="n">beta_hat</span><span class="p">)</span>
+
+<span class="c1"># 予測値の計算</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">beta_hat</span>
+
+<span class="c1"># 3次元プロット</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="c1"># データ点のプロット</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;観測値&#39;</span><span class="p">)</span>
+<span class="c1"># 推定された回帰平面のプロット用グリッド</span>
+<span class="n">x1_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">x2_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1_range</span><span class="p">,</span> <span class="n">x2_range</span><span class="p">)</span>
+<span class="c1"># 回帰平面の計算</span>
+<span class="n">y_grid</span> <span class="o">=</span> <span class="n">beta_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta_hat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x1_grid</span> <span class="o">+</span> <span class="n">beta_hat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">x2_grid</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span><span class="p">,</span> <span class="n">y_grid</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;回帰平面&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;勉強時間 (x1)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;睡眠時間 (x2)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;テスト得点 (y)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;2変数線形回帰モデルによる回帰平面の推定&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+</ul>
+<h2 id="5-optional">5. 学んだ内容の応用例（optional)</h2>
+<ul>
+<li><strong>応用分野:</strong>  </li>
+<li><strong>マーケティング:</strong> 複数の広告媒体（例：オンライン広告費、テレビ広告費）を説明変数として、商品の売上を予測する。  </li>
+<li><strong>経済学:</strong> 経済指標（例：雇用率、消費者信頼感指数）を用いて、経済成長率を予測する。  </li>
+<li><strong>医療・健康科学:</strong> 患者の年齢、体重、血圧など複数の変数から治療効果や疾患リスクを推定する。  </li>
+<li><strong>環境科学:</strong> 気温、湿度、風速などのデータから、大気汚染レベルや気候変動の影響を解析する。  </li>
+<li><strong>具体例:</strong><br />
+  単回帰モデルの拡張として、2変数回帰モデルは多変量解析の基礎となり、PCAや機械学習の回帰モデルの発展にも直結するため、幅広い分野で実世界の問題解決に活用されています。</li>
+</ul>
 <h2 id="6">6. 演習問題</h2>
-<ol>
+<ul>
 <li>
-<p><strong>演習問題1:</strong><br />
-   次の連立一次方程式
-   $$
-   \begin{cases}
-   3x + y + z = -5, \\
-   4x + 3y - z = -2, \\
-   5x + 4y + z = 6,
-   \end{cases}
-   $$
-   の拡大係数行列を作成し、ガウスの消去法による基本変形（行の入れ替え、定数倍、行の加減）の各ステップを詳細に記述して、最終的な上三角行列と後退代入による解 <span class="arithmatex">\(x=-5,\; y=7,\; z=3\)</span> を求めよ。</p>
+<p><strong>問題1:</strong><br />
+  2つの説明変数 <span class="arithmatex">\( x_1, x_2 \)</span> と反応変数 <span class="arithmatex">\( y \)</span> を用いた線形回帰モデルにおいて、各パラメータ（切片 <span class="arithmatex">\( \beta_0 \)</span>、回帰係数 <span class="arithmatex">\( \beta_1, \beta_2 \)</span> ）の意味を自分の言葉で説明せよ。<br />
+<em>【ヒント】</em> 実際の例（例えば、勉強時間と睡眠時間がテスト得点に与える影響）を考えてみる。</p>
 </li>
 <li>
-<p><strong>演習問題2:</strong><br />
-   拡大係数行列の各変形ステップで、どの基本変形（行の入れ替え、定数倍、行の加減）を用いたかを明確にし、その理由を説明せよ。</p>
+<p><strong>問題2:</strong><br />
+  以下のデータを用いて、説明変数行列 <span class="arithmatex">\( X \)</span> と観測値ベクトル <span class="arithmatex">\( \mathbf{y} \)</span> を作成し、正規方程式<br />
+  $$
+  X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y}
+  $$
+  を構築せよ。<br />
+  データ例（各行： [1, <span class="arithmatex">\( x_1 \)</span>, <span class="arithmatex">\( x_2 \)</span>]）：<br />
+  $$
+  X = \begin{pmatrix}
+  1 &amp; 2 &amp; 7 \
+  1 &amp; 3 &amp; 6 \
+  1 &amp; 4 &amp; 8 \
+  1 &amp; 5 &amp; 5 \
+  1 &amp; 3 &amp; 7
+  \end{pmatrix}, \quad
+  \mathbf{y} = \begin{pmatrix}
+  65 \
+  70 \
+  75 \
+  80 \
+  68
+  \end{pmatrix}.
+  $$
+  <em>【ヒント】</em> <span class="arithmatex">\( X^T X \)</span> と <span class="arithmatex">\( X^T \mathbf{y} \)</span> をそれぞれ計算しなさい。</p>
 </li>
 <li>
-<p><strong>演習問題3:</strong><br />
-   2変数の連立一次方程式（例: <span class="arithmatex">\(2x + 3y = 8\)</span> と <span class="arithmatex">\(x - y = 1\)</span>）に対して、ガウスの消去法を用いて上三角行列に変形し、その解をグラフで直線の交点として可視化せよ。</p>
+<p><strong>問題3:</strong><br />
+  正規方程式の解 <span class="arithmatex">\( \hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y} \)</span> の導出過程を説明し、なぜこの解が残差の二乗和を最小にするのかを論じよ。<br />
+<em>【ヒント】</em> 目的関数 <span class="arithmatex">\( S(\boldsymbol{\beta}) = \|\mathbf{y} - X\boldsymbol{\beta}\|^2 \)</span> の最小化から導かれる条件に注目する。</p>
 </li>
 <li>
-<p><strong>演習問題4:</strong><br />
-   Google Colab 上で、実際にガウスの消去法の操作フロー（拡大係数行列の変形）を自分で実装し、その変化過程をコメント付きで記録せよ。</p>
+<p><strong>問題4:</strong><br />
+  Google Colab を用いて、実際のデータ（例：広告費2種類と売上、または複数の生活習慣指標と健康指標）に2変数線形回帰モデルを適用し、得られた回帰平面のパラメータとその解釈についてレポートを作成せよ。<br />
+<em>【ヒント】</em> データの前処理、設計行列の作成、正規方程式の解法、3次元プロットによる視覚化を含めること。</p>
 </li>
-</ol>
+<li>
+<p><strong>問題5 (応用):</strong><br />
+  2つの説明変数がある場合の線形回帰モデルで、もし <span class="arithmatex">\( X^T X \)</span> が特異またはほぼ特異な場合、どのような問題が発生するか、またそれをどのように解決するか（例：リッジ回帰などの正則化手法）を考察せよ。</p>
+</li>
+</ul>
+<h2 id="7">7. 付録・参考資料</h2>
+<ul>
+<li><strong>参考文献:</strong>  </li>
+<li>『多変量解析入門』、『線形代数学入門』、および統計学・回帰分析の教科書  </li>
+<li>ウェブリンク: Khan Academy, MIT OpenCourseWare, Coursera など</li>
+<li><strong>補足資料:</strong>  </li>
+<li>詳細な解説スライド  </li>
+<li>追加例題とその解答例  </li>
+<li>FAQ: 正規方程式や多変量回帰モデルに関するよくある質問</li>
+</ul>
 
 
 
