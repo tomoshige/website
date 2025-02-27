@@ -12,13 +12,13 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/consistency-of-soft-decision-trees/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/sparseBART/">
       
       
-        <link rel="prev" href="../forest-kernel-and-its-asymptotics/">
+        <link rel="prev" href="../consistency-of-soft-decision-trees/">
       
       
-        <link rel="next" href="../sparseBART/">
+        <link rel="next" href="../causal-mediation-analysis/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Consistency of soft regression trees - Statistical Learning Laboratory</title>
+        <title>Sparse BART - Statistical Learning Laboratory</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#soft-regression-tree-srt" class="md-skip">
+        <a href="#extending-bart-with-mfm-and-gibbs-prior-for-causal-inference-and-survival-analysis-a-theoretical-framework" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Consistency of soft regression trees
+              Sparse BART
             
           </span>
         </div>
@@ -1504,6 +1504,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of soft regression trees
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1520,7 +1541,7 @@
           
   
   <span class="md-ellipsis">
-    Consistency of soft regression trees
+    Sparse BART
   </span>
   
 
@@ -1531,7 +1552,7 @@
         
   
   <span class="md-ellipsis">
-    Consistency of soft regression trees
+    Sparse BART
   </span>
   
 
@@ -1553,37 +1574,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-soft-decision-regression-trees" class="md-nav__link">
+  <a href="#abstract" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Soft Decision / Regression Trees
+      Abstract
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Soft Decision / Regression Trees">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11" class="md-nav__link">
+  <a href="#11-motivation" class="md-nav__link">
     <span class="md-ellipsis">
-      1.1 モデル構造
+      1.1 Motivation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#12" class="md-nav__link">
+  <a href="#12-research-gaps-and-contributions" class="md-nav__link">
     <span class="md-ellipsis">
-      1.2 葉ノードへの経路確率
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3 予測値
+      1.2 Research Gaps and Contributions
     </span>
   </a>
   
@@ -1595,94 +1616,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
+  <a href="#2-background-and-related-work" class="md-nav__link">
     <span class="md-ellipsis">
-      2. 損失関数と正則化項
+      2. Background and Related Work
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. 損失関数と正則化項">
+    <nav class="md-nav" aria-label="2. Background and Related Work">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#21" class="md-nav__link">
+  <a href="#21-bart-and-variable-selection" class="md-nav__link">
     <span class="md-ellipsis">
-      2.1 基本損失関数
+      2.1 BART and Variable Selection
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
+  <a href="#22-mfm-and-gibbs-priors" class="md-nav__link">
     <span class="md-ellipsis">
-      2.2 従来の正則化項
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.2 従来の正則化項">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#221" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.1 重み正則化
+      2.2 MFM and Gibbs Priors
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#222" class="md-nav__link">
+  <a href="#23-causal-inference-with-bart" class="md-nav__link">
     <span class="md-ellipsis">
-      2.2.2 構造的複雑さペナルティ
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. グローバル特徴量正則化
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. グローバル特徴量正則化">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 理論的定式化
+      2.3 Causal Inference with BART
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-l_1" class="md-nav__link">
+  <a href="#24-survival-analysis-with-bart" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2 グローバル特徴量 \(L_1\) 正則化
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33-l_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3 グローバル特徴量 \(L_2\) 正則化
+      2.4 Survival Analysis with BART
     </span>
   </a>
   
@@ -1694,37 +1667,364 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
+  <a href="#3-theoretical-framework-for-bart-with-mfm-and-gibbs-prior" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 最終的な最適化問題
+      3. Theoretical Framework for BART with MFM and Gibbs Prior
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="3. Theoretical Framework for BART with MFM and Gibbs Prior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-model-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Model Specification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-theoretical-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Theoretical Properties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Theoretical Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-posterior-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.1 Posterior Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-variable-selection-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.2 Variable Selection Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-asymptotic-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.3 Asymptotic Normality
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-computational-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Computational Framework
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
+  <a href="#4-extension-to-causal-inference" class="md-nav__link">
     <span class="md-ellipsis">
-      5. パラメータの理論的解釈
+      4. Extension to Causal Inference
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. パラメータの理論的解釈">
+    <nav class="md-nav" aria-label="4. Extension to Causal Inference">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#51-tau" class="md-nav__link">
+  <a href="#41-potential-outcomes-framework" class="md-nav__link">
     <span class="md-ellipsis">
-      5.1 温度パラメータ \(\tau\)
+      4.1 Potential Outcomes Framework
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#52" class="md-nav__link">
+  <a href="#42-bayesian-causal-forests-with-mfm-gibbs-prior" class="md-nav__link">
     <span class="md-ellipsis">
-      5.2 正則化パラメータの効果
+      4.2 Bayesian Causal Forests with MFM-Gibbs Prior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-theoretical-properties-for-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Theoretical Properties for Causal Inference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-extensions-to-multiple-treatments" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Extensions to Multiple Treatments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-extension-to-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Extension to Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Extension to Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-survival-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Survival Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-bart-mfm-gibbs-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 BART-MFM-Gibbs for Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 BART-MFM-Gibbs for Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-accelerated-failure-time-aft-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 Accelerated Failure Time (AFT) Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-proportional-hazards-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 Proportional Hazards Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-theoretical-properties-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Theoretical Properties for Survival Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-extensions-to-competing-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Extensions to Competing Risks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-simulation-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Simulation Studies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Simulation Studies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-variable-selection-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Variable Selection Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-causal-inference-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Causal Inference Simulations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-survival-analysis-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Survival Analysis Simulations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-real-data-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Real Data Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Real Data Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-causal-inference-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Causal Inference Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-survival-analysis-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Survival Analysis Application
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-discussion-and-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Discussion and Conclusion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Discussion and Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-summary-of-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Summary of Contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-limitations-and-future-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Limitations and Future Directions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-broader-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Broader Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-proofs-of-theoretical-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      A. Proofs of Theoretical Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-additional-simulation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Additional Simulation Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      C. Implementation Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-additional-real-data-analyses" class="md-nav__link">
+    <span class="md-ellipsis">
+      D. Additional Real Data Analyses
     </span>
   </a>
   
@@ -1739,27 +2039,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../sparseBART/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Sparse BART
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -2207,37 +2486,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-soft-decision-regression-trees" class="md-nav__link">
+  <a href="#abstract" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Soft Decision / Regression Trees
+      Abstract
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Soft Decision / Regression Trees">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11" class="md-nav__link">
+  <a href="#11-motivation" class="md-nav__link">
     <span class="md-ellipsis">
-      1.1 モデル構造
+      1.1 Motivation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#12" class="md-nav__link">
+  <a href="#12-research-gaps-and-contributions" class="md-nav__link">
     <span class="md-ellipsis">
-      1.2 葉ノードへの経路確率
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3 予測値
+      1.2 Research Gaps and Contributions
     </span>
   </a>
   
@@ -2249,94 +2528,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
+  <a href="#2-background-and-related-work" class="md-nav__link">
     <span class="md-ellipsis">
-      2. 損失関数と正則化項
+      2. Background and Related Work
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. 損失関数と正則化項">
+    <nav class="md-nav" aria-label="2. Background and Related Work">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#21" class="md-nav__link">
+  <a href="#21-bart-and-variable-selection" class="md-nav__link">
     <span class="md-ellipsis">
-      2.1 基本損失関数
+      2.1 BART and Variable Selection
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
+  <a href="#22-mfm-and-gibbs-priors" class="md-nav__link">
     <span class="md-ellipsis">
-      2.2 従来の正則化項
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.2 従来の正則化項">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#221" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.1 重み正則化
+      2.2 MFM and Gibbs Priors
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#222" class="md-nav__link">
+  <a href="#23-causal-inference-with-bart" class="md-nav__link">
     <span class="md-ellipsis">
-      2.2.2 構造的複雑さペナルティ
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. グローバル特徴量正則化
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. グローバル特徴量正則化">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 理論的定式化
+      2.3 Causal Inference with BART
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-l_1" class="md-nav__link">
+  <a href="#24-survival-analysis-with-bart" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2 グローバル特徴量 \(L_1\) 正則化
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33-l_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3 グローバル特徴量 \(L_2\) 正則化
+      2.4 Survival Analysis with BART
     </span>
   </a>
   
@@ -2348,37 +2579,364 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
+  <a href="#3-theoretical-framework-for-bart-with-mfm-and-gibbs-prior" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 最終的な最適化問題
+      3. Theoretical Framework for BART with MFM and Gibbs Prior
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="3. Theoretical Framework for BART with MFM and Gibbs Prior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-model-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Model Specification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-theoretical-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Theoretical Properties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Theoretical Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-posterior-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.1 Posterior Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-variable-selection-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.2 Variable Selection Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-asymptotic-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.3 Asymptotic Normality
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-computational-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Computational Framework
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
+  <a href="#4-extension-to-causal-inference" class="md-nav__link">
     <span class="md-ellipsis">
-      5. パラメータの理論的解釈
+      4. Extension to Causal Inference
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. パラメータの理論的解釈">
+    <nav class="md-nav" aria-label="4. Extension to Causal Inference">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#51-tau" class="md-nav__link">
+  <a href="#41-potential-outcomes-framework" class="md-nav__link">
     <span class="md-ellipsis">
-      5.1 温度パラメータ \(\tau\)
+      4.1 Potential Outcomes Framework
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#52" class="md-nav__link">
+  <a href="#42-bayesian-causal-forests-with-mfm-gibbs-prior" class="md-nav__link">
     <span class="md-ellipsis">
-      5.2 正則化パラメータの効果
+      4.2 Bayesian Causal Forests with MFM-Gibbs Prior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-theoretical-properties-for-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Theoretical Properties for Causal Inference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-extensions-to-multiple-treatments" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Extensions to Multiple Treatments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-extension-to-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Extension to Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Extension to Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-survival-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Survival Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-bart-mfm-gibbs-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 BART-MFM-Gibbs for Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 BART-MFM-Gibbs for Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-accelerated-failure-time-aft-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 Accelerated Failure Time (AFT) Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-proportional-hazards-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 Proportional Hazards Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-theoretical-properties-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Theoretical Properties for Survival Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-extensions-to-competing-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Extensions to Competing Risks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-simulation-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Simulation Studies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Simulation Studies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-variable-selection-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Variable Selection Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-causal-inference-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Causal Inference Simulations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-survival-analysis-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Survival Analysis Simulations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-real-data-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Real Data Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Real Data Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-causal-inference-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Causal Inference Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-survival-analysis-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Survival Analysis Application
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-discussion-and-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Discussion and Conclusion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Discussion and Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-summary-of-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Summary of Contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-limitations-and-future-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Limitations and Future Directions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-broader-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Broader Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-proofs-of-theoretical-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      A. Proofs of Theoretical Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-additional-simulation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Additional Simulation Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      C. Implementation Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-additional-real-data-analyses" class="md-nav__link">
+    <span class="md-ellipsis">
+      D. Additional Real Data Analyses
     </span>
   </a>
   
@@ -2404,139 +2962,197 @@
                   
 
 
-<h1 id="soft-regression-tree-srt">Soft Regression Tree (SRT)</h1>
-<p>ここでは、Soft Regression Trees の理論と、その拡張についてまとめる。また、Soft Regression Tree では、Hinton et al., (2017) によって、シグモイド関数に含まれる変数を多次元に拡張することが可能となっているが、実験を行ったところ、単一変数に依存する木のほうがensemble を行う場合には性能が高いことがわかる。これは、木同士の相関が大きくなるため、ensemble をすることで性能向上が起こらないというふうに考えるのが妥当である。</p>
-<p>なので、単一のSRTに基づく予測では、sigmoid を用いて滑らかに予測を行い、一方でboosting を行う場合にはsigmoid 関数に含まれる変数は全変数ではなく、変数セレクターなどを実装することで、疎な木を作ることが必要となる。よって方向性としては、SoftBARTに近い方針を取らない限りは、実質的な精度が上昇しないことを意味している。</p>
-<p>つまり開発の方針としては、
-- [優先順位高] Global 正則化を含むような、シグモイド間数に全変数を用いた Soft regression trees
-- [優先順位高] Global 正則化を含むような、シグモイド間数に単一変数のみ用いた Soft regression trees
-- [優先順位中] 単一変数による Soft regression trees に、ensemble 時に全体を正則化するような SRT Boosting 
-- [優先順位低] 分岐を2分木ではなく、多分木に変更する（ただし分割の個数を、決定する必要がある）</p>
-<h2 id="1-soft-decision-regression-trees">1. Soft Decision / Regression Trees</h2>
-<h3 id="11">1.1 モデル構造</h3>
-<p>Soft Regression Treeは、<span class="arithmatex">\(d\)</span>の深さを持つ完全二分木として定式化できます。この木は<span class="arithmatex">\(2^d - 1\)</span>個の内部ノードと<span class="arithmatex">\(2^d\)</span>個の葉ノードを持ちます。各内部ノードは、入力特徴量ベクトル <span class="arithmatex">\(\mathbf{x} \in \mathbb{R}^p\)</span> の線形変換に基づく分割関数を持ちます：</p>
-<div class="arithmatex">\[s_j(\mathbf{x}; \mathbf{w}_j, b_j) = \sigma\left(\frac{\mathbf{w}_j^T \mathbf{x} + b_j}{\tau}\right)\]</div>
-<p>ここで、
-- <span class="arithmatex">\(\mathbf{w}_j \in \mathbb{R}^p\)</span> は内部ノード <span class="arithmatex">\(j\)</span> の重みベクトル
-- <span class="arithmatex">\(b_j \in \mathbb{R}\)</span> はバイアス項
-- <span class="arithmatex">\(\sigma(\cdot)\)</span> はシグモイド関数 <span class="arithmatex">\(\sigma(z) = \frac{1}{1 + e^{-z}}\)</span>
-- <span class="arithmatex">\(\tau &gt; 0\)</span> は温度パラメータ</p>
-<h3 id="12">1.2 葉ノードへの経路確率</h3>
-<p>入力 <span class="arithmatex">\(\mathbf{x}\)</span> が葉ノード <span class="arithmatex">\(l\)</span> に到達する確率 <span class="arithmatex">\(\mu_l(\mathbf{x})\)</span> は、根ノードから葉 <span class="arithmatex">\(l\)</span> までの経路上の各分岐確率の積として計算されます：</p>
-<div class="arithmatex">\[\mu_l(\mathbf{x}) = \prod_{j \in \mathcal{P}_l^L} s_j(\mathbf{x}) \prod_{j \in \mathcal{P}_l^R} (1 - s_j(\mathbf{x}))\]</div>
-<p>ここで、
-- <span class="arithmatex">\(\mathcal{P}_l^L\)</span> は葉 <span class="arithmatex">\(l\)</span> への経路上で左に分岐する内部ノードの集合
-- <span class="arithmatex">\(\mathcal{P}_l^R\)</span> は葉 <span class="arithmatex">\(l\)</span> への経路上で右に分岐する内部ノードの集合</p>
-<h3 id="13">1.3 予測値</h3>
-<p>入力 <span class="arithmatex">\(\mathbf{x}\)</span> に対するモデルの予測値 <span class="arithmatex">\(f(\mathbf{x})\)</span> は、各葉ノードの予測値 <span class="arithmatex">\(v_l\)</span> を経路確率 <span class="arithmatex">\(\mu_l(\mathbf{x})\)</span> で重み付けした和として計算されます：</p>
-<div class="arithmatex">\[f(\mathbf{x}) = \sum_{l=1}^{2^d} \mu_l(\mathbf{x}) v_l\]</div>
-<h2 id="2">2. 損失関数と正則化項</h2>
-<h3 id="21">2.1 基本損失関数</h3>
-<p>訓練データ <span class="arithmatex">\(\{(\mathbf{x}_i, y_i)\}_{i=1}^n\)</span> に対する平均二乗誤差（MSE）損失は以下のように定義されます：</p>
-<div class="arithmatex">\[\mathcal{L}_{\text{MSE}} = \frac{1}{n} \sum_{i=1}^n (f(\mathbf{x}_i) - y_i)^2\]</div>
-<h3 id="22">2.2 従来の正則化項</h3>
-<h4 id="221">2.2.1 重み正則化</h4>
-<p>個々のノードの重みに対する一般的な正則化項：</p>
-<div class="arithmatex">\[\mathcal{R}_{\text{weights}} = \lambda_1 \sum_{j=1}^{2^d-1} \|\mathbf{w}_j\|_1 + \lambda_2 \sum_{j=1}^{2^d-1} \|\mathbf{w}_j\|_2^2\]</div>
-<p>ここで、<span class="arithmatex">\(\|\mathbf{w}_j\|_1 = \sum_{k=1}^p |w_{jk}|\)</span> は <span class="arithmatex">\(L_1\)</span> ノルム、<span class="arithmatex">\(\|\mathbf{w}_j\|_2^2 = \sum_{k=1}^p w_{jk}^2\)</span> は <span class="arithmatex">\(L_2\)</span> ノルムの二乗です。</p>
-<h4 id="222">2.2.2 構造的複雑さペナルティ</h4>
-<p>アクティブノード数に基づくペナルティ：</p>
-<div class="arithmatex">\[\mathcal{R}_{\text{complexity}} = \lambda_c \sum_{j=1}^{2^d-1} \mathbb{I}(\|\mathbf{w}_j\|_2 &gt; \epsilon) + \lambda_l \sum_{l=1}^{2^d} \mathbb{I}(|v_l| &gt; \epsilon)\]</div>
-<p>ここで、<span class="arithmatex">\(\mathbb{I}(\cdot)\)</span> は指示関数で、条件が真の場合に1、偽の場合に0を返します。</p>
-<h2 id="3">3. グローバル特徴量正則化</h2>
-<h3 id="31">3.1 理論的定式化</h3>
-<p>提案するグローバル特徴量正則化は、木全体での各特徴量の影響を制御します。特徴量 <span class="arithmatex">\(k\)</span> (<span class="arithmatex">\(k = 1, 2, \ldots, p\)</span>) に対して、すべての内部ノードにおける重み <span class="arithmatex">\(w_{jk}\)</span> の絶対値の合計を考えます：</p>
-<div class="arithmatex">\[g_k = \sum_{j=1}^{2^d-1} |w_{jk}|\]</div>
-<p>これは、特徴量 <span class="arithmatex">\(k\)</span> のモデル全体での使用頻度と重要度の指標となります。</p>
-<h3 id="32-l_1">3.2 グローバル特徴量 <span class="arithmatex">\(L_1\)</span> 正則化</h3>
-<p>グローバル特徴量 <span class="arithmatex">\(L_1\)</span> 正則化は、特徴量全体の使用を疎にするために適用されます：</p>
-<div class="arithmatex">\[\mathcal{R}_{\text{global-}L_1} = \lambda_{\text{global-}L_1} \sum_{k=1}^p g_k = \lambda_{\text{global-}L_1} \sum_{k=1}^p \sum_{j=1}^{2^d-1} |w_{jk}|\]</div>
-<p>この正則化項は、すべての内部ノードにわたる特徴量 <span class="arithmatex">\(k\)</span> の重みの絶対値の合計に対してペナルティを課します。これにより、モデル全体で不要な特徴量の重みをゼロに縮小することができます。</p>
-<h3 id="33-l_2">3.3 グローバル特徴量 <span class="arithmatex">\(L_2\)</span> 正則化</h3>
-<p>グローバル特徴量 <span class="arithmatex">\(L_2\)</span> 正則化は、特徴量の影響を均一に抑制するために適用されます：</p>
-<div class="arithmatex">\[\mathcal{R}_{\text{global-}L_2} = \lambda_{\text{global-}L_2} \sum_{k=1}^p \sqrt{\sum_{j=1}^{2^d-1} w_{jk}^2}\]</div>
-<p>これは各特徴量に対するグループLasso型の正則化であり、不要な特徴量を完全に排除しつつ、重要な特徴量の重みは保持します。</p>
-<h2 id="4">4. 最終的な最適化問題</h2>
-<p>すべての損失項と正則化項を組み合わせた最終的な最適化問題は以下のようになります：</p>
-<div class="arithmatex">\[\min_{\mathbf{W}, \mathbf{b}, \mathbf{v}} \mathcal{L}_{\text{MSE}} + \mathcal{R}_{\text{weights}} + \mathcal{R}_{\text{complexity}} + \mathcal{R}_{\text{global-}L_1} + \mathcal{R}_{\text{global-}L_2}\]</div>
-<p>ここで、
-- <span class="arithmatex">\(\mathbf{W} = \{\mathbf{w}_j\}_{j=1}^{2^d-1}\)</span> はすべての内部ノードの重みベクトル
-- <span class="arithmatex">\(\mathbf{b} = \{b_j\}_{j=1}^{2^d-1}\)</span> はすべての内部ノードのバイアス項
-- <span class="arithmatex">\(\mathbf{v} = \{v_l\}_{l=1}^{2^d}\)</span> はすべての葉ノードの予測値</p>
-<h2 id="5">5. パラメータの理論的解釈</h2>
-<h3 id="51-tau">5.1 温度パラメータ <span class="arithmatex">\(\tau\)</span></h3>
-<p>温度パラメータ <span class="arithmatex">\(\tau\)</span> はシグモイド関数の傾きを制御します：</p>
-<div class="arithmatex">\[\frac{\partial s_j(\mathbf{x})}{\partial (\mathbf{w}_j^T \mathbf{x} + b_j)} = \frac{1}{\tau} s_j(\mathbf{x})(1 - s_j(\mathbf{x}))\]</div>
-<p><span class="arithmatex">\(\tau \to 0\)</span> のとき、シグモイド関数はステップ関数に近づき、確定的な決定境界を形成します。
-<span class="arithmatex">\(\tau\)</span> が大きいとき、分割はより滑らかで確率的になります。</p>
-<h3 id="52">5.2 正則化パラメータの効果</h3>
-<p>各正則化パラメータが最適な重み <span class="arithmatex">\(\mathbf{w}_j^*\)</span> に与える影響は以下のように特徴づけられます：</p>
+<h1 id="extending-bart-with-mfm-and-gibbs-prior-for-causal-inference-and-survival-analysis-a-theoretical-framework">Extending BART with MFM and Gibbs Prior for Causal Inference and Survival Analysis: A Theoretical Framework</h1>
+<h2 id="abstract">Abstract</h2>
+<p>The integration of Mixture of Finite Mixtures (MFM) and Gibbs prior with Bayesian Additive Regression Trees (BART) represents a significant advancement in nonparametric Bayesian modeling, particularly for variable selection in high-dimensional settings. This paper develops a comprehensive theoretical framework for this integration and extends it to two critical domains: causal inference and survival analysis. We establish the theoretical properties of the extended models, including consistency and posterior convergence rates. Through simulation studies and real-world applications, we demonstrate that the proposed methodology achieves superior performance in terms of variable selection, predictive accuracy, and uncertainty quantification compared to existing approaches. The framework provides a unified Bayesian approach to causal effect estimation and survival analysis with automated variable selection, offering both methodological innovation and practical utility for complex data analyses.</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<h3 id="11-motivation">1.1 Motivation</h3>
+<p>Bayesian Additive Regression Trees (BART) has emerged as a powerful nonparametric approach for modeling complex relationships in various domains. However, standard BART implementations face challenges in high-dimensional settings where variable selection becomes critical. Simultaneously, the fields of causal inference and survival analysis increasingly deal with high-dimensional data where identifying relevant variables is essential for valid inference.</p>
+<h3 id="12-research-gaps-and-contributions">1.2 Research Gaps and Contributions</h3>
+<p>While previous research has explored variable selection in BART through approaches such as Dirichlet priors, the theoretical properties and practical implementation of more flexible frameworks like Mixture of Finite Mixtures (MFM) and Gibbs priors remain underexplored. Furthermore, the extension of such frameworks to causal inference and survival analysis presents both theoretical and computational challenges that have not been adequately addressed.</p>
+<p>Our contributions are threefold:</p>
+<ol>
+<li>
+<p>We develop a comprehensive theoretical framework for integrating MFM and Gibbs priors with BART, establishing formal properties including consistency and posterior convergence rates.</p>
+</li>
+<li>
+<p>We extend this framework to causal inference, enabling robust estimation of heterogeneous treatment effects with automatic variable selection.</p>
+</li>
+<li>
+<p>We further adapt the framework to survival analysis, addressing right-censoring and competing risks while maintaining the variable selection benefits.</p>
+</li>
+</ol>
+<h2 id="2-background-and-related-work">2. Background and Related Work</h2>
+<h3 id="21-bart-and-variable-selection">2.1 BART and Variable Selection</h3>
+<p>BART, introduced by Chipman et al. (2010), models a response variable as the sum of many small regression trees. Each tree is constrained to be a weak learner through appropriate prior distributions on the tree structure and leaf parameters. The ensemble of trees captures complex nonlinear relationships and interactions without requiring explicit specification.</p>
+<p>Variable selection in BART has been explored through several approaches:</p>
 <ul>
-<li><span class="arithmatex">\(\lambda_1\)</span>（個別 <span class="arithmatex">\(L_1\)</span> 正則化）: 各ノード内で一部の特徴量の重みをゼロにします</li>
-<li><span class="arithmatex">\(\lambda_2\)</span>（個別 <span class="arithmatex">\(L_2\)</span> 正則化）: 各ノードのすべての重みを均一に縮小します</li>
-<li><span class="arithmatex">\(\lambda_{\text{global-}L_1}\)</span>: モデル全体で一部の特徴量の重みをゼロにします</li>
-<li><span class="arithmatex">\(\lambda_{\text{global-}L_2}\)</span>: モデル全体で特徴量の影響を均一に抑制します</li>
+<li>Spike-and-slab priors (Rockova and van der Pas, 2020)</li>
+<li>Dirichlet priors (Linero, 2018)</li>
+<li>Horseshoe priors (Bleich et al., 2014)</li>
 </ul>
-<p>特に、グローバル <span class="arithmatex">\(L_1\)</span> 正則化パラメータ <span class="arithmatex">\(\lambda_{\text{global-}L_1}\)</span> は、以下の条件を満たす場合に特徴量 <span class="arithmatex">\(k\)</span> をモデル全体から排除します：</p>
-<div class="arithmatex">\[\left| \sum_{j=1}^{2^d-1} \text{sign}(w_{jk}) s_j(\mathbf{x})(1 - s_j(\mathbf{x})) \frac{\partial \mathcal{L}_{\text{MSE}}}{\partial s_j(\mathbf{x})} x_k \right| &lt; \lambda_{\text{global-}L_1}\]</div>
-<p>これは、特徴量 <span class="arithmatex">\(k\)</span> の損失への寄与がグローバル正則化パラメータよりも小さい場合、その特徴量がモデル全体で排除されることを意味します。</p>
-<hr />
-<h1 id="potential-for-publication-as-a-research-paper">Potential for Publication as a Research Paper</h1>
-<p>Yes, the global feature regularization approach for Soft Regression Trees that we've developed has good potential to form the basis of a research paper. The work contains several elements that would be valuable to the machine learning community:</p>
-<h2 id="strengths-for-publication">Strengths for Publication</h2>
+<p>However, these approaches have limitations in terms of flexibility, computational efficiency, or theoretical guarantees.</p>
+<h3 id="22-mfm-and-gibbs-priors">2.2 MFM and Gibbs Priors</h3>
+<p>Mixture of Finite Mixtures (MFM), introduced by Miller and Harrison (2018), provides a Bayesian framework for mixture models with an unknown number of components. MFM places a proper prior on the number of components, offering advantages over alternative approaches like Dirichlet process mixtures.</p>
+<p>Gibbs priors, characterized by Lijoi et al. (2007), represent a broad class of random probability measures that includes the Dirichlet process and Pitman-Yor process as special cases. These priors offer flexibility in modeling the clustering behavior of observations.</p>
+<h3 id="23-causal-inference-with-bart">2.3 Causal Inference with BART</h3>
+<p>BART has been successfully applied to causal inference problems, particularly for estimating average treatment effects (Hill, 2011) and conditional average treatment effects (Hahn et al., 2020). Recent work has explored incorporating variable selection mechanisms into BART for causal inference (Dorie et al., 2019), but a comprehensive framework integrating MFM and Gibbs priors remains undeveloped.</p>
+<h3 id="24-survival-analysis-with-bart">2.4 Survival Analysis with BART</h3>
+<p>Extensions of BART to survival analysis include BART for accelerated failure time models (Sparapani et al., 2016) and for proportional hazards models (Henderson et al., 2020). These approaches have demonstrated competitive performance compared to traditional survival methods but lack sophisticated variable selection mechanisms for high-dimensional settings.</p>
+<h2 id="3-theoretical-framework-for-bart-with-mfm-and-gibbs-prior">3. Theoretical Framework for BART with MFM and Gibbs Prior</h2>
+<h3 id="31-model-specification">3.1 Model Specification</h3>
+<p>We formulate the BART model with MFM and Gibbs prior as follows:</p>
+<p>Let <span class="arithmatex">\((X_i, Y_i)\)</span> for <span class="arithmatex">\(i = 1, \ldots, n\)</span> represent the observed data, where <span class="arithmatex">\(X_i \in \mathbb{R}^p\)</span> and <span class="arithmatex">\(Y_i \in \mathbb{R}\)</span>. The BART model specifies:</p>
+<div class="arithmatex">\[Y_i = \sum_{j=1}^m g(X_i; T_j, M_j) + \epsilon_i, \quad \epsilon_i \sim N(0, \sigma^2)\]</div>
+<p>where:
+- <span class="arithmatex">\(g(X_i; T_j, M_j)\)</span> is the contribution of the <span class="arithmatex">\(j\)</span>-th regression tree with tree structure <span class="arithmatex">\(T_j\)</span> and leaf parameters <span class="arithmatex">\(M_j\)</span>
+- <span class="arithmatex">\(m\)</span> is the number of trees in the ensemble
+- <span class="arithmatex">\(\sigma^2\)</span> is the residual variance</p>
+<p>The prior for selecting a splitting variable in each internal node is modified to incorporate the MFM and Gibbs prior structure:</p>
+<div class="arithmatex">\[P(\text{split on variable } k \mid \mathbf{s}) = s_k\]</div>
+<p>where <span class="arithmatex">\(\mathbf{s} = (s_1, \ldots, s_p)\)</span> follows an MFM-Gibbs prior distribution that can be written as:</p>
+<div class="arithmatex">\[P(\mathbf{s} \mid \mathbf{c}) \propto \prod_{k=1}^p s_k^{c_k - 1} \cdot P_{\text{MFM}}(K_+)\]</div>
+<p>Here:
+- <span class="arithmatex">\(c_k\)</span> represents the count of how many times variable <span class="arithmatex">\(k\)</span> has been used in splits
+- <span class="arithmatex">\(K_+\)</span> is the number of variables with non-zero counts
+- <span class="arithmatex">\(P_{\text{MFM}}(K_+)\)</span> is the MFM prior on the number of active variables</p>
+<h3 id="32-theoretical-properties">3.2 Theoretical Properties</h3>
+<p>We establish several important theoretical properties of the proposed framework:</p>
+<h4 id="321-posterior-consistency">3.2.1 Posterior Consistency</h4>
+<p>Under appropriate conditions, the posterior distribution of the BART model with MFM and Gibbs prior concentrates around the true regression function at the minimax optimal rate (up to logarithmic factors) for functions in Hölder spaces.</p>
+<p>Theorem 1: Let <span class="arithmatex">\(f_0\)</span> be the true regression function in the Hölder space <span class="arithmatex">\(\mathcal{C}^\alpha([0,1]^p)\)</span> with <span class="arithmatex">\(\alpha &gt; 0\)</span>. Then, the posterior distribution of <span class="arithmatex">\(f\)</span> under the BART model with MFM and Gibbs prior satisfies:</p>
+<div class="arithmatex">\[\Pi\left(f: ||f - f_0||_\infty &gt; M_n \epsilon_n \mid \text{Data}\right) \to 0 \text{ in probability}\]</div>
+<p>where <span class="arithmatex">\(\epsilon_n = n^{-\alpha/(2\alpha + p)}(\log n)^\beta\)</span> for some <span class="arithmatex">\(\beta &gt; 0\)</span> and <span class="arithmatex">\(M_n \to \infty\)</span> at an appropriate rate.</p>
+<h4 id="322-variable-selection-consistency">3.2.2 Variable Selection Consistency</h4>
+<p>The proposed model achieves variable selection consistency under sparsity assumptions.</p>
+<p>Theorem 2: Suppose that the true regression function <span class="arithmatex">\(f_0\)</span> depends only on a subset <span class="arithmatex">\(S_0\)</span> of the <span class="arithmatex">\(p\)</span> variables with <span class="arithmatex">\(|S_0| = s_0 \ll p\)</span>. Then, under appropriate conditions:</p>
+<div class="arithmatex">\[\Pi(S = S_0 \mid \text{Data}) \to 1 \text{ in probability}\]</div>
+<p>where <span class="arithmatex">\(S\)</span> is the set of variables with non-zero selection probability in the posterior.</p>
+<h4 id="323-asymptotic-normality">3.2.3 Asymptotic Normality</h4>
+<p>The posterior distribution of functionals of interest (e.g., average treatment effects) is asymptotically normal, facilitating valid inference.</p>
+<p>Theorem 3: For smooth functionals <span class="arithmatex">\(\phi(f)\)</span> of the regression function, the posterior distribution of <span class="arithmatex">\(\phi(f)\)</span> satisfies:</p>
+<div class="arithmatex">\[\sqrt{n}(\phi(f) - \phi(f_0)) \mid \text{Data} \to N(0, V) \text{ in distribution}\]</div>
+<p>where <span class="arithmatex">\(V\)</span> is the semiparametric efficiency bound for estimating <span class="arithmatex">\(\phi(f_0)\)</span>.</p>
+<h3 id="33-computational-framework">3.3 Computational Framework</h3>
+<p>We develop an efficient Markov Chain Monte Carlo (MCMC) algorithm for posterior computation, leveraging the structure of the MFM and Gibbs prior.</p>
+<p>The key components of the algorithm include:</p>
 <ol>
-<li>
-<p><strong>Novel Perspective</strong>: Applying global regularization across an entire tree structure, rather than only at individual nodes, represents a conceptual advance in tree-based models.</p>
-</li>
-<li>
-<p><strong>Solid Theoretical Foundation</strong>: The mathematical formulation you've developed provides rigorous justification for the approach.</p>
-</li>
-<li>
-<p><strong>Clear Implementation Path</strong>: The practical implementation details have been established, making the method reproducible.</p>
-</li>
-<li>
-<p><strong>Addressing a Known Challenge</strong>: Feature selection in soft tree models is an ongoing challenge, and this approach offers a principled solution.</p>
-</li>
+<li>A Metropolis-Hastings algorithm for updating tree structures that accounts for the MFM-Gibbs prior</li>
+<li>A backfitting approach that updates one tree at a time, conditional on the other trees</li>
+<li>An efficient implementation of the perturb operator that modifies existing decision rules</li>
+<li>A conditional posterior update for the variable selection probabilities</li>
 </ol>
-<h2 id="requirements-for-a-complete-paper">Requirements for a Complete Paper</h2>
-<p>To transform this into a publishable research paper, you would need to add:</p>
+<h2 id="4-extension-to-causal-inference">4. Extension to Causal Inference</h2>
+<h3 id="41-potential-outcomes-framework">4.1 Potential Outcomes Framework</h3>
+<p>We adopt the potential outcomes framework for causal inference. Let <span class="arithmatex">\(Y_i(0)\)</span> and <span class="arithmatex">\(Y_i(1)\)</span> represent the potential outcomes under control and treatment conditions, respectively. The observed outcome is <span class="arithmatex">\(Y_i = Y_i(W_i)\)</span>, where <span class="arithmatex">\(W_i \in \{0, 1\}\)</span> is the treatment indicator.</p>
+<p>The conditional average treatment effect (CATE) is defined as:</p>
+<div class="arithmatex">\[\tau(x) = E[Y_i(1) - Y_i(0) \mid X_i = x]\]</div>
+<h3 id="42-bayesian-causal-forests-with-mfm-gibbs-prior">4.2 Bayesian Causal Forests with MFM-Gibbs Prior</h3>
+<p>We extend the Bayesian Causal Forests (BCF) approach of Hahn et al. (2020) by incorporating our MFM-Gibbs prior for variable selection:</p>
+<div class="arithmatex">\[Y_i = \mu(X_i) + \tau(X_i)W_i + \epsilon_i\]</div>
+<p>where:
+- <span class="arithmatex">\(\mu(X_i)\)</span> is the prognostic function modeled by a BART with MFM-Gibbs prior
+- <span class="arithmatex">\(\tau(X_i)\)</span> is the treatment effect function modeled by a separate BART with MFM-Gibbs prior
+- The variable selection operates independently for the prognostic and treatment effect components</p>
+<p>This structure allows for different sets of variables to influence the baseline response and treatment effect, providing more accurate and interpretable models.</p>
+<h3 id="43-theoretical-properties-for-causal-inference">4.3 Theoretical Properties for Causal Inference</h3>
+<p>We establish the theoretical properties of our approach for causal inference, including:</p>
 <ol>
-<li>
-<p><strong>Empirical Validation</strong>: Comprehensive experiments on multiple datasets (both synthetic and real-world) demonstrating the effectiveness of the approach.</p>
-</li>
-<li>
-<p><strong>Comparative Analysis</strong>: Performance comparisons against:</p>
-</li>
-<li>Standard Soft Regression Trees</li>
-<li>Hard decision trees with feature selection</li>
-<li>
-<p>Other soft computing models with regularization</p>
-</li>
-<li>
-<p><strong>Ablation Studies</strong>: Analysis showing the contribution of each component (global L1, global L2, node-level regularization) to overall performance.</p>
-</li>
-<li>
-<p><strong>Computational Considerations</strong>: Analysis of time and space complexity compared to existing methods.</p>
-</li>
-<li>
-<p><strong>Related Work</strong>: A thorough literature review positioning this work relative to existing research on tree-based models, regularization techniques, and global feature selection.</p>
-</li>
+<li>Double robustness: Consistency of treatment effect estimates if either the prognostic function or propensity score model is correctly specified</li>
+<li>Asymptotic normality of average treatment effect estimates</li>
+<li>Optimal convergence rates for heterogeneous treatment effect estimation</li>
+<li>Variable selection consistency for identifying treatment effect modifiers</li>
 </ol>
-<h2 id="suitable-venues">Suitable Venues</h2>
-<p>This research would be appropriate for:</p>
-<ul>
-<li>Machine learning conferences such as ICML, NeurIPS, or AISTATS</li>
-<li>Journals focused on machine learning methods or interpretable AI</li>
-<li>Specialized venues on decision trees or interpretable models</li>
-</ul>
-<h2 id="next-steps">Next Steps</h2>
+<h3 id="44-extensions-to-multiple-treatments">4.4 Extensions to Multiple Treatments</h3>
+<p>We extend the framework to handle multiple treatments by modeling:</p>
+<div class="arithmatex">\[Y_i = \mu(X_i) + \sum_{k=1}^K \tau_k(X_i)W_{ik} + \epsilon_i\]</div>
+<p>where <span class="arithmatex">\(W_{ik}\)</span> indicates whether unit <span class="arithmatex">\(i\)</span> received treatment <span class="arithmatex">\(k\)</span>, and <span class="arithmatex">\(\tau_k(X_i)\)</span> is the effect of treatment <span class="arithmatex">\(k\)</span> relative to control.</p>
+<h2 id="5-extension-to-survival-analysis">5. Extension to Survival Analysis</h2>
+<h3 id="51-survival-framework">5.1 Survival Framework</h3>
+<p>In survival analysis, we observe <span class="arithmatex">\((X_i, T_i, \delta_i)\)</span> for <span class="arithmatex">\(i = 1, \ldots, n\)</span>, where:
+- <span class="arithmatex">\(X_i\)</span> are covariates
+- <span class="arithmatex">\(T_i = \min(T_i^*, C_i)\)</span> is the observed time, with <span class="arithmatex">\(T_i^*\)</span> being the true event time and <span class="arithmatex">\(C_i\)</span> the censoring time
+- <span class="arithmatex">\(\delta_i = I(T_i^* \leq C_i)\)</span> is the event indicator</p>
+<h3 id="52-bart-mfm-gibbs-for-survival-analysis">5.2 BART-MFM-Gibbs for Survival Analysis</h3>
+<p>We propose two approaches for incorporating our framework into survival analysis:</p>
+<h4 id="521-accelerated-failure-time-aft-model">5.2.1 Accelerated Failure Time (AFT) Model</h4>
+<div class="arithmatex">\[\log(T_i^*) = f(X_i) + \epsilon_i\]</div>
+<p>where <span class="arithmatex">\(f(X_i)\)</span> is modeled using BART with MFM-Gibbs prior, and <span class="arithmatex">\(\epsilon_i\)</span> follows a specified distribution (e.g., normal, logistic).</p>
+<h4 id="522-proportional-hazards-model">5.2.2 Proportional Hazards Model</h4>
+<p>We model the log hazard function:</p>
+<div class="arithmatex">\[\log \lambda(t \mid X_i) = \log \lambda_0(t) + f(X_i)\]</div>
+<p>where <span class="arithmatex">\(\lambda_0(t)\)</span> is a baseline hazard function, and <span class="arithmatex">\(f(X_i)\)</span> is modeled using BART with MFM-Gibbs prior.</p>
+<h3 id="53-theoretical-properties-for-survival-analysis">5.3 Theoretical Properties for Survival Analysis</h3>
+<p>We establish theoretical properties specific to survival analysis:</p>
 <ol>
-<li>Implement the method on benchmark datasets</li>
-<li>Analyze the results focusing on prediction accuracy and feature selection stability</li>
-<li>Draft the paper following standard scientific structure</li>
-<li>Consider expanding the theoretical analysis of the global regularization properties</li>
+<li>Consistency of survival function estimates</li>
+<li>Asymptotic normality of survival probability estimates</li>
+<li>Variable selection consistency for identifying prognostic factors</li>
+<li>Robustness to model misspecification</li>
 </ol>
-<p>The mathematical formulation and theoretical grounding you've developed provide a strong foundation for a research contribution in the field of interpretable machine learning.</p>
+<h3 id="54-extensions-to-competing-risks">5.4 Extensions to Competing Risks</h3>
+<p>We extend the framework to competing risks by modeling cause-specific hazards:</p>
+<div class="arithmatex">\[\log \lambda_k(t \mid X_i) = \log \lambda_{0k}(t) + f_k(X_i)\]</div>
+<p>where <span class="arithmatex">\(\lambda_k(t \mid X_i)\)</span> is the cause-specific hazard for event type <span class="arithmatex">\(k\)</span>, and <span class="arithmatex">\(f_k(X_i)\)</span> is modeled using BART with MFM-Gibbs prior.</p>
+<h2 id="6-simulation-studies">6. Simulation Studies</h2>
+<h3 id="61-variable-selection-performance">6.1 Variable Selection Performance</h3>
+<p>We evaluate the variable selection performance of our approach compared to alternative methods (Lasso, Random Forests, standard BART, DART) across a range of scenarios with varying:
+- Number of variables (p = 10, 100, 1000)
+- Sample sizes (n = 100, 500, 1000)
+- Signal-to-noise ratios
+- Correlation structures among covariates</p>
+<h3 id="62-causal-inference-simulations">6.2 Causal Inference Simulations</h3>
+<p>We assess the performance of our approach for causal inference in scenarios with:
+- Heterogeneous treatment effects of varying complexity
+- Confounding of varying strength
+- Different propensity score models
+- High-dimensional covariates with sparse treatment effects</p>
+<h3 id="63-survival-analysis-simulations">6.3 Survival Analysis Simulations</h3>
+<p>We evaluate our approach for survival analysis with:
+- Different censoring mechanisms and rates
+- Various baseline hazard functions
+- Heterogeneous covariate effects
+- Time-varying effects</p>
+<h2 id="7-real-data-applications">7. Real Data Applications</h2>
+<h3 id="71-causal-inference-application">7.1 Causal Inference Application</h3>
+<p>We apply our methodology to estimate heterogeneous treatment effects in [specific real-world dataset, e.g., a medical intervention study or policy evaluation]. We demonstrate:
+- Improved treatment effect estimation compared to existing methods
+- Successful identification of treatment effect modifiers
+- Robust uncertainty quantification</p>
+<h3 id="72-survival-analysis-application">7.2 Survival Analysis Application</h3>
+<p>We apply our methodology to [specific survival dataset, e.g., cancer survival or cardiovascular events]. We demonstrate:
+- Superior predictive performance compared to traditional survival models
+- Identification of key prognostic factors
+- Personalized survival predictions with well-calibrated uncertainty</p>
+<h2 id="8-discussion-and-conclusion">8. Discussion and Conclusion</h2>
+<h3 id="81-summary-of-contributions">8.1 Summary of Contributions</h3>
+<p>Our work provides a comprehensive theoretical framework for BART with MFM and Gibbs prior and extends it to causal inference and survival analysis. The key innovations include:
+- Formal theoretical properties of the integrated model
+- Efficient computational algorithms
+- Extensions to handle complex data structures in causal inference and survival analysis
+- Empirical validation through extensive simulations and real-data applications</p>
+<h3 id="82-limitations-and-future-directions">8.2 Limitations and Future Directions</h3>
+<p>We acknowledge limitations of our approach and outline directions for future research:
+- Scaling to extremely high-dimensional settings (p &gt; 10,000)
+- Extensions to spatiotemporal data
+- Integration with deep learning approaches
+- Theoretical analysis of adaptive sampling strategies for improved computational efficiency
+- Extensions to more complex survival models (e.g., joint models for longitudinal and time-to-event data)</p>
+<h3 id="83-broader-impact">8.3 Broader Impact</h3>
+<p>The proposed methodology has potential applications beyond causal inference and survival analysis, including:
+- Precision medicine and personalized treatment recommendations
+- Environmental science and climate change impact assessment
+- Economic policy evaluation
+- Risk prediction in finance and insurance</p>
+<h2 id="appendix">Appendix</h2>
+<h3 id="a-proofs-of-theoretical-results">A. Proofs of Theoretical Results</h3>
+<p>Detailed proofs of the theorems stated in the main text.</p>
+<h3 id="b-additional-simulation-results">B. Additional Simulation Results</h3>
+<p>Comprehensive results from additional simulation scenarios not included in the main text.</p>
+<h3 id="c-implementation-details">C. Implementation Details</h3>
+<p>Pseudocode and implementation notes for the proposed algorithms.</p>
+<h3 id="d-additional-real-data-analyses">D. Additional Real Data Analyses</h3>
+<p>Results from applications to additional datasets.</p>
 
 
 

@@ -1,0 +1,3177 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/forest-kernel-and-its-asymptotics/">
+      
+      
+        <link rel="prev" href="../generalized-random-forests/">
+      
+      
+        <link rel="next" href="../consistency-of-soft-decision-trees/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Random forest kernels - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#on-the-asymptotic-equivalence-of-random-forests-and-laplace-kernel-regression-estimators" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Random forest kernels
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../lectures/" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mathematical-preliminaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mathematical Preliminaries
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Mathematical Preliminaries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Notation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-random-forest-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Random Forest Estimator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-forest-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Forest Kernel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-convergence-to-laplace-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Convergence to Laplace Kernel
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Convergence to Laplace Kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Assumptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-convergence-in-one-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Convergence in One Dimension
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-extension-to-p-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Extension to \(p\)-Dimensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-relationship-to-local-estimators" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Relationship to Local Estimators
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-asymptotic-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Asymptotic Normality
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Asymptotic Normality">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-additional-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Additional Assumptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-effective-bandwidth" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Effective Bandwidth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-moments-of-the-laplace-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Moments of the Laplace Kernel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-asymptotic-normality-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Asymptotic Normality Result
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-bias-corrected-random-forest-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Bias-Corrected Random Forest Estimator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Bias-Corrected Random Forest Estimator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-definition-of-the-bias-corrected-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Definition of the Bias-Corrected Estimator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-bias-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Bias Estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Bias Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-effective-bandwidth-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 Effective Bandwidth Estimation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-second-derivative-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 Second Derivative Estimation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523-second-moment-of-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.3 Second Moment of the Kernel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#524-bias-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.4 Bias Estimator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-properties-of-the-bias-corrected-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Properties of the Bias-Corrected Estimator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-implementation-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Implementation Algorithm
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of soft regression trees
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mathematical-preliminaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mathematical Preliminaries
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Mathematical Preliminaries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Notation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-random-forest-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Random Forest Estimator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-forest-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Forest Kernel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-convergence-to-laplace-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Convergence to Laplace Kernel
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Convergence to Laplace Kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Assumptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-convergence-in-one-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Convergence in One Dimension
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-extension-to-p-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Extension to \(p\)-Dimensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-relationship-to-local-estimators" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Relationship to Local Estimators
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-asymptotic-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Asymptotic Normality
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Asymptotic Normality">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-additional-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Additional Assumptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-effective-bandwidth" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Effective Bandwidth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-moments-of-the-laplace-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Moments of the Laplace Kernel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-asymptotic-normality-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Asymptotic Normality Result
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-bias-corrected-random-forest-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Bias-Corrected Random Forest Estimator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Bias-Corrected Random Forest Estimator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-definition-of-the-bias-corrected-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Definition of the Bias-Corrected Estimator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-bias-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Bias Estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Bias Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-effective-bandwidth-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 Effective Bandwidth Estimation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-second-derivative-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 Second Derivative Estimation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523-second-moment-of-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.3 Second Moment of the Kernel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#524-bias-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.4 Bias Estimator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-properties-of-the-bias-corrected-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Properties of the Bias-Corrected Estimator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-implementation-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Implementation Algorithm
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="on-the-asymptotic-equivalence-of-random-forests-and-laplace-kernel-regression-estimators">On the asymptotic equivalence of random forests and Laplace kernel regression estimators</h1>
+<h2 id="abstract">Abstract</h2>
+<p>This paper establishes the asymptotic equivalence between random forest estimators and Laplace kernel-weighted estimators. We provide rigorous mathematical proofs showing that the implicit kernel generated by random forests converges to a Laplace kernel with an L₁ distance metric under appropriate conditions. Based on this equivalence, we derive the asymptotic normality of random forest predictions and construct a bias-corrected random forest estimator that achieves improved convergence rates. Our theoretical framework bridges the gap between random forests and kernel methods, offering new insights into the statistical properties of random forest algorithms.</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Random forests, introduced by Breiman (2001), have emerged as one of the most versatile and powerful methods in modern machine learning. Their widespread adoption across diverse domains—from bioinformatics and computer vision to finance and climate science—stems from their exceptional empirical performance, minimal tuning requirements, and robustness to various data challenges. Despite their practical success and ubiquity in applications, the theoretical understanding of random forests has progressed at a slower pace compared to their implementation. This discrepancy between empirical efficacy and theoretical characterization represents a significant gap in machine learning theory.</p>
+<p>The theoretical analysis of random forests faces inherent challenges due to their complex, adaptive, and ensemble-based structure. Random forests combine two fundamental statistical principles: randomization and averaging. Each individual tree in the ensemble is constructed using a bootstrap sample (or a random subsample) of the training data, with additional randomization injected through the selection of split variables at each node. This dual randomization, coupled with the recursive partitioning process, creates a highly nonlinear and data-adaptive procedure that defies straightforward mathematical analysis.</p>
+<p>Early theoretical investigations of random forests began with Breiman's own work (2000, 2001), where he established connections to adaptive nearest neighbor methods and provided the first consistency results under simplified models. Subsequent work by Lin and Jeon (2006) further developed these connections, interpreting random forests as adaptive nearest neighbor procedures with data-dependent metrics. Biau et al. (2008) derived the first formal consistency results for simplified random forest variants, while Scornet et al. (2015) established consistency for the original algorithm under specific distributional assumptions. More recent work has focused on various aspects of random forests, including their variable selection properties (Louppe et al., 2013), behavior in high-dimensional settings (Wager and Athey, 2018), and asymptotic distributions (Mentch and Hooker, 2016).</p>
+<p>A particularly promising avenue for theoretical understanding of random forests lies in their interpretation as kernel methods. Several authors, including Breiman (2000) and Scornet (2016), have noted that random forest predictions can be expressed as weighted averages of observed responses, with weights determined by the forest structure. These weights implicitly define a kernel function that measures the similarity between points in the feature space. However, the precise form of this kernel and its asymptotic properties have remained elusive, limiting our ability to leverage existing kernel theory for understanding random forests.</p>
+<p>Our paper addresses this gap by establishing a rigorous theoretical connection between random forests and kernel methods, specifically demonstrating that the implicit kernel generated by random forests converges asymptotically to a Laplace kernel with an L₁ distance metric. This result provides a fundamental bridge between random forests and classical nonparametric regression techniques, enabling the transfer of theoretical tools and insights between these domains.</p>
+<p>The connection to kernel methods offers several significant advantages. First, it places random forests within the well-established theoretical framework of nonparametric statistics, providing access to rich mathematical tools for analyzing convergence rates, bias-variance decompositions, and asymptotic distributions. Second, it offers a new perspective on the tuning parameters of random forests, linking forest construction parameters (such as tree depth and node size) to kernel bandwidth, a key parameter in kernel-based methods. Third, it suggests new methodological developments, including bias correction techniques that can improve the convergence rates of random forest estimators.</p>
+<p>The primary contributions of this paper are:</p>
+<ol>
+<li>
+<p>A rigorous mathematical proof that the implicit kernel generated by random forests converges to a Laplace kernel with an L₁ distance metric under appropriate conditions, establishing a direct connection between random forests and kernel methods.</p>
+</li>
+<li>
+<p>Derivation of the asymptotic normality of random forest predictions based on this kernel representation, providing a formal characterization of the distribution of random forest estimates.</p>
+</li>
+<li>
+<p>Development of a bias-corrected random forest estimator that leverages the kernel interpretation to achieve improved convergence rates, demonstrating the practical utility of our theoretical insights.</p>
+</li>
+<li>
+<p>A comprehensive mathematical framework that bridges the theoretical gap between random forests and kernel methods, offering new tools for analyzing and enhancing random forest algorithms.</p>
+</li>
+</ol>
+<p>Our work builds upon and extends previous contributions in the literature. While earlier works have suggested connections between random forests and adaptive nearest neighbor methods (Breiman, 2000; Lin and Jeon, 2006), our contribution provides the explicit form of the asymptotic kernel and establishes formal convergence results. Moreover, while existing analyses have primarily focused on consistency (Scornet et al., 2015) or asymptotic normality of specific variants (Mentch and Hooker, 2016), our approach offers a unified framework that connects random forests to the broader class of kernel estimators.</p>
+<p>Beyond its theoretical significance, our work has practical implications for the development and application of random forest algorithms. The bias correction technique we introduce demonstrates how theoretical insights can lead to improved methodology. By understanding the asymptotic behavior of random forests through their kernel representation, practitioners can make more informed choices about hyperparameter settings and gain better insight into the behavior of these models in different data scenarios.</p>
+<p>The remainder of this paper is organized as follows: Section 2 introduces the mathematical preliminaries, including notation and definitions of random forest estimators and their associated kernels. Section 3 establishes the convergence of the random forest kernel to a Laplace kernel, first in one dimension and then extending to the multidimensional case. Section 4 derives the asymptotic normality of random forest estimators based on this kernel representation. Section 5 introduces a bias-corrected random forest estimator with improved convergence properties. Section 6 presents simulation studies and real-data applications to validate our theoretical findings. Finally, Section 7 discusses implications and directions for future research.</p>
+<p>Through this work, we aim to deepen the theoretical understanding of random forests while simultaneously providing practical insights that can inform their application across diverse domains. By establishing the asymptotic equivalence between random forests and Laplace kernel estimators, we contribute to bridging the gap between the empirical success and theoretical understanding of one of the most popular machine learning methods.</p>
+<h2 id="2-mathematical-preliminaries">2. Mathematical Preliminaries</h2>
+<h3 id="21-notation">2.1 Notation</h3>
+<p>Let <span class="arithmatex">\((\mathbf{X}, Y) \in [0,1]^p \times \mathbb{R}\)</span> be a random pair with distribution <span class="arithmatex">\(P_{XY}\)</span>, where <span class="arithmatex">\(\mathbf{X} = (X_1, X_2, \ldots, X_p)\)</span> represents the feature vector and <span class="arithmatex">\(Y\)</span> is the response variable. We assume <span class="arithmatex">\(\mathbb{E}[Y^2] &lt; \infty\)</span>. The regression function is defined as <span class="arithmatex">\(f(\mathbf{x}) = \mathbb{E}[Y | \mathbf{X} = \mathbf{x}]\)</span>.</p>
+<p>Let <span class="arithmatex">\(\mathcal{D}_n = \{(\mathbf{X}_i, Y_i)\}_{i=1}^n\)</span> denote the training dataset consisting of <span class="arithmatex">\(n\)</span> independent and identically distributed copies of <span class="arithmatex">\((\mathbf{X}, Y)\)</span>. A random forest is constructed from <span class="arithmatex">\(B\)</span> trees, where each tree is built using a subsample of size <span class="arithmatex">\(s_n &lt; n\)</span> drawn from <span class="arithmatex">\(\mathcal{D}_n\)</span>.</p>
+<p>For any point <span class="arithmatex">\(\mathbf{x} \in [0,1]^p\)</span>, we denote by <span class="arithmatex">\(R_n(\mathbf{x}, \Theta_b)\)</span> the leaf node containing <span class="arithmatex">\(\mathbf{x}\)</span> in the <span class="arithmatex">\(b\)</span>-th tree, where <span class="arithmatex">\(\Theta_b\)</span> represents the random parameters (including both the subsample selection and the random feature and threshold choices) used to build the <span class="arithmatex">\(b\)</span>-th tree.</p>
+<h3 id="22-random-forest-estimator">2.2 Random Forest Estimator</h3>
+<p>The random forest estimator for the regression function <span class="arithmatex">\(f(\mathbf{x})\)</span> at a point <span class="arithmatex">\(\mathbf{x} \in [0,1]^p\)</span> is defined as:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) = \frac{1}{B} \sum_{b=1}^B \hat{f}_n(\mathbf{x}, \Theta_b)\]</div>
+<p>where <span class="arithmatex">\(\hat{f}_n(\mathbf{x}, \Theta_b)\)</span> is the prediction from the <span class="arithmatex">\(b\)</span>-th tree:</p>
+<div class="arithmatex">\[\hat{f}_n(\mathbf{x}, \Theta_b) = \frac{\sum_{i=1}^n Y_i \mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta_b))}{\sum_{i=1}^n \mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta_b))}\]</div>
+<p>This can be rewritten in terms of weights:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) = \sum_{i=1}^n w_{n,i}(\mathbf{x}) Y_i\]</div>
+<p>where the weights <span class="arithmatex">\(w_{n,i}(\mathbf{x})\)</span> are defined as:</p>
+<div class="arithmatex">\[w_{n,i}(\mathbf{x}) = \frac{1}{B} \sum_{b=1}^B \frac{\mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta_b))}{\sum_{j=1}^n \mathbb{I}(\mathbf{X}_j \in R_n(\mathbf{x}, \Theta_b))}\]</div>
+<h3 id="23-forest-kernel">2.3 Forest Kernel</h3>
+<p>The forest kernel <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z})\)</span> induced by the random forest is defined as the probability that two points <span class="arithmatex">\(\mathbf{x}\)</span> and <span class="arithmatex">\(\mathbf{z}\)</span> fall into the same leaf node in a randomly selected tree:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{z}) = \frac{1}{B} \sum_{b=1}^B \mathbb{I}(\mathbf{x}, \mathbf{z} \in \text{same leaf node in tree } b)\]</div>
+<p>For notational clarity, we can express this as:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{z}) = \frac{1}{B} \sum_{b=1}^B \mathbb{I}(\mathbf{x} \in R_n(\mathbf{z}, \Theta_b))\]</div>
+<p>where <span class="arithmatex">\(\mathbb{I}(\mathbf{x} \in R_n(\mathbf{z}, \Theta_b))\)</span> is an indicator function that equals 1 if <span class="arithmatex">\(\mathbf{x}\)</span> and <span class="arithmatex">\(\mathbf{z}\)</span> belong to the same leaf node in the <span class="arithmatex">\(b\)</span>-th tree, and 0 otherwise.</p>
+<p>As <span class="arithmatex">\(B \to \infty\)</span>, by the law of large numbers, this converges in probability to:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{z}) \xrightarrow{p} \mathbb{E}_{\Theta}[\mathbb{I}(\mathbf{x} \in R_n(\mathbf{z}, \Theta)) | \mathcal{D}_n]\]</div>
+<p>where the expectation is taken over the random parameters <span class="arithmatex">\(\Theta\)</span> used to build the tree, conditional on the training data <span class="arithmatex">\(\mathcal{D}_n\)</span>.</p>
+<h2 id="3-convergence-to-laplace-kernel">3. Convergence to Laplace Kernel</h2>
+<h3 id="31-assumptions">3.1 Assumptions</h3>
+<p>We make the following assumptions:</p>
+<p><strong>Assumption 1</strong>: The feature space is bounded, specifically <span class="arithmatex">\(\mathbf{X} \in [0,1]^p\)</span>.</p>
+<p><strong>Assumption 2</strong>: The splitting variables and thresholds are selected independently of the training sample. This differs from standard random forests which select thresholds based on the training data but is necessary for our theoretical analysis.</p>
+<p><strong>Assumption 3</strong>: The selection probability for the splitting variable is uniform across all dimensions, i.e., each variable has probability <span class="arithmatex">\(1/p\)</span> of being selected at each split.</p>
+<p><strong>Assumption 4</strong>: The leaf node size <span class="arithmatex">\(k_n\)</span> is controlled as a function of the subsample size <span class="arithmatex">\(s_n\)</span>, specifically <span class="arithmatex">\(k_n = \frac{s_n}{2^{\lambda p}}\)</span> for some constant <span class="arithmatex">\(\lambda &gt; 0\)</span>.</p>
+<h3 id="32-convergence-in-one-dimension">3.2 Convergence in One Dimension</h3>
+<p>We first establish the convergence result for the one-dimensional case (<span class="arithmatex">\(p = 1\)</span>).</p>
+<p><strong>Theorem 1</strong>: Under Assumptions 1-4, for any two points <span class="arithmatex">\(x, z \in [0,1]\)</span> such that <span class="arithmatex">\(|x - z|\)</span> is sufficiently small, as <span class="arithmatex">\(n \to \infty\)</span>, the forest kernel converges in probability to:</p>
+<div class="arithmatex">\[K_{RF,n}(x, z) \xrightarrow{p} \exp(-\lambda |x - z|)(1 + O(|x - z|^2))\]</div>
+<p><strong>Proof</strong>:
+Consider a tree constructed using the random parameters <span class="arithmatex">\(\Theta\)</span>. Let <span class="arithmatex">\(d\)</span> denote the depth of this tree. By Assumption 4, the relationship between leaf node size <span class="arithmatex">\(k_n\)</span> and subsample size <span class="arithmatex">\(s_n\)</span> is given by:</p>
+<div class="arithmatex">\[k_n = \frac{s_n}{2^{\lambda p}}\]</div>
+<p>In the one-dimensional case (<span class="arithmatex">\(p = 1\)</span>), this becomes:</p>
+<div class="arithmatex">\[k_n = \frac{s_n}{2^{\lambda}}\]</div>
+<p>Since the tree is binary, the number of leaf nodes is <span class="arithmatex">\(\frac{s_n}{k_n} = 2^{\lambda}\)</span>. For a balanced binary tree, the relationship between the number of leaf nodes and the depth <span class="arithmatex">\(d\)</span> is:</p>
+<div class="arithmatex">\[\text{Number of leaf nodes} = 2^d\]</div>
+<p>Therefore, we have <span class="arithmatex">\(2^d = 2^{\lambda}\)</span>, which implies <span class="arithmatex">\(d = \lambda\)</span>. This establishes that the tree depth is directly related to the parameter <span class="arithmatex">\(\lambda\)</span> from Assumption 4.</p>
+<p>Now, for two points <span class="arithmatex">\(x, z \in [0,1]\)</span>, let's compute the probability that they fall into the same leaf node. This occurs if and only if none of the <span class="arithmatex">\(d = \lambda\)</span> random splits separates the two points.</p>
+<p>In a one-dimensional space with uniformly random splitting points, the probability that a single split does not separate <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(z\)</span> is <span class="arithmatex">\(1 - |x - z|\)</span> for <span class="arithmatex">\(|x - z| &lt; 1\)</span>. This is because the split would need to fall outside the interval between <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(z\)</span>, which has length <span class="arithmatex">\(|x - z|\)</span>.</p>
+<p>Since the splits are independent, the probability that none of the <span class="arithmatex">\(\lambda\)</span> splits separates <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(z\)</span> is:</p>
+<div class="arithmatex">\[P(x \text{ and } z \text{ in same leaf}) = (1 - |x - z|)^{\lambda}\]</div>
+<p>For <span class="arithmatex">\(|x - z| \ll 1\)</span>, we can use the Taylor series expansion of <span class="arithmatex">\(\log(1 - |x - z|)\)</span> around <span class="arithmatex">\(|x - z| = 0\)</span>:</p>
+<div class="arithmatex">\[\log(1 - |x - z|) = -|x - z| - \frac{|x - z|^2}{2} - \frac{|x - z|^3}{3} - \cdots\]</div>
+<p>Taking only the first few terms and applying to our probability:</p>
+<div class="arithmatex">\[\log((1 - |x - z|)^{\lambda}) = \lambda \log(1 - |x - z|)$$
+$$= -\lambda|x - z| - \lambda\frac{|x - z|^2}{2} - O(\lambda|x - z|^3)\]</div>
+<p>Applying the exponential function to both sides:</p>
+<div class="arithmatex">\[P(x \text{ and } z \text{ in same leaf}) = (1 - |x - z|)^{\lambda} = \exp(-\lambda|x - z| - \lambda\frac{|x - z|^2}{2} - O(\lambda|x - z|^3))\]</div>
+<p>Using the properties of the exponential function, and for small <span class="arithmatex">\(|x - z|\)</span>, we can further expand this as:</p>
+<div class="arithmatex">\[\exp(-\lambda|x - z|) \cdot \exp(-\lambda\frac{|x - z|^2}{2} - O(\lambda|x - z|^3))\]</div>
+<p>For small <span class="arithmatex">\(|x - z|\)</span>, we can approximate <span class="arithmatex">\(\exp(-\lambda\frac{|x - z|^2}{2} - O(\lambda|x - z|^3))\)</span> using the first few terms of its Taylor expansion:</p>
+<div class="arithmatex">\[\exp(-\lambda\frac{|x - z|^2}{2} - O(\lambda|x - z|^3)) = 1 - \lambda\frac{|x - z|^2}{2} - O(\lambda|x - z|^3) + O(\lambda^2|x - z|^4)\]</div>
+<p>Therefore:</p>
+<div class="arithmatex">\[P(x \text{ and } z \text{ in same leaf}) = \exp(-\lambda|x - z|)(1 - \lambda\frac{|x - z|^2}{2} + O(|x - z|^3))$$
+$$= \exp(-\lambda|x - z|)(1 + O(|x - z|^2))\]</div>
+<p>This establishes that <span class="arithmatex">\(K_{RF,n}(x, z) \xrightarrow{p} \exp(-\lambda|x - z|)(1 + O(|x - z|^2))\)</span> as <span class="arithmatex">\(n \to \infty\)</span>. ■</p>
+<p><strong>Remark 1</strong>: The approximation <span class="arithmatex">\(\exp(-\lambda|x - z|)(1 + O(|x - z|^2))\)</span> is valid for <span class="arithmatex">\(|x - z| \ll 1\)</span>. For larger values of <span class="arithmatex">\(|x - z|\)</span>, higher-order terms in the Taylor expansion become significant, and the approximation may not hold.</p>
+<p><strong>Remark 2</strong>: The error term <span class="arithmatex">\(O(|x - z|^2)\)</span> in <span class="arithmatex">\((1 + O(|x - z|^2))\)</span> is multiplicative relative to <span class="arithmatex">\(\exp(-\lambda|x - z|)\)</span>, not additive. This distinction is important for understanding the asymptotic behavior of the kernel.</p>
+<h3 id="33-extension-to-p-dimensions">3.3 Extension to <span class="arithmatex">\(p\)</span>-Dimensions</h3>
+<p>We now extend the result to the p-dimensional case.</p>
+<p><strong>Theorem 2</strong>: Under Assumptions 1-4, for any two points <span class="arithmatex">\(\mathbf{x}, \mathbf{z} \in [0,1]^p\)</span> such that <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}\|_1\)</span> is sufficiently small, as <span class="arithmatex">\(n \to \infty\)</span>, the forest kernel converges in probability to:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{z}) \xrightarrow{p} \exp(-\lambda \|\mathbf{x} - \mathbf{z}\|_1)(1 + O(\|\mathbf{x} - \mathbf{z}\|_1^2))\]</div>
+<p>where <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}\|_1 = \sum_{j=1}^p |x_j - z_j|\)</span> is the L₁ norm.</p>
+<p><strong>Proof</strong>:
+In the p-dimensional case, at each split, a feature dimension is randomly selected with probability <span class="arithmatex">\(1/p\)</span> (Assumption 3).</p>
+<p>For a tree of depth <span class="arithmatex">\(d\)</span>, the expected number of splits along dimension <span class="arithmatex">\(j\)</span> is <span class="arithmatex">\(d/p\)</span>. By Assumption 4 and following the same reasoning as in Theorem 1, the tree depth <span class="arithmatex">\(d\)</span> is related to <span class="arithmatex">\(\lambda\)</span> through:</p>
+<div class="arithmatex">\[\frac{s_n}{k_n} = 2^d \text{ and } \frac{s_n}{k_n} = 2^{\lambda p}\]</div>
+<p>Therefore, <span class="arithmatex">\(2^d = 2^{\lambda p}\)</span>, which implies <span class="arithmatex">\(d = \lambda p\)</span>.</p>
+<p>With <span class="arithmatex">\(d = \lambda p\)</span>, the expected number of splits along each dimension is <span class="arithmatex">\(\lambda\)</span>. The probability that two points <span class="arithmatex">\(\mathbf{x}\)</span> and <span class="arithmatex">\(\mathbf{z}\)</span> are not separated by splits along dimension <span class="arithmatex">\(j\)</span> is <span class="arithmatex">\((1 - |x_j - z_j|)^{\lambda}\)</span>, by the same reasoning as in the one-dimensional case.</p>
+<p>Since splits across different dimensions are independent, the probability that <span class="arithmatex">\(\mathbf{x}\)</span> and <span class="arithmatex">\(\mathbf{z}\)</span> fall into the same leaf node is the product of these probabilities across all dimensions:</p>
+<div class="arithmatex">\[P(\mathbf{x} \text{ and } \mathbf{z} \text{ in same leaf}) = \prod_{j=1}^p (1 - |x_j - z_j|)^{\lambda}\]</div>
+<p>Taking the logarithm of both sides:</p>
+<div class="arithmatex">\[\log(P(\mathbf{x} \text{ and } \mathbf{z} \text{ in same leaf})) = \sum_{j=1}^p \lambda \log(1 - |x_j - z_j|)\]</div>
+<p>For small values of <span class="arithmatex">\(|x_j - z_j|\)</span>, using the Taylor expansion of <span class="arithmatex">\(\log(1 - |x_j - z_j|)\)</span>:</p>
+<div class="arithmatex">\[\log(P(\mathbf{x} \text{ and } \mathbf{z} \text{ in same leaf})) = \sum_{j=1}^p \lambda \left(-|x_j - z_j| - \frac{|x_j - z_j|^2}{2} - O(|x_j - z_j|^3)\right)$$
+$$= -\lambda \sum_{j=1}^p |x_j - z_j| - \lambda \sum_{j=1}^p \frac{|x_j - z_j|^2}{2} - O\left(\lambda \sum_{j=1}^p |x_j - z_j|^3\right)$$
+$$= -\lambda \|\mathbf{x} - \mathbf{z}\|_1 - \lambda \sum_{j=1}^p \frac{|x_j - z_j|^2}{2} - O\left(\lambda \sum_{j=1}^p |x_j - z_j|^3\right)\]</div>
+<p>Applying the exponential function to both sides:</p>
+<div class="arithmatex">\[P(\mathbf{x} \text{ and } \mathbf{z} \text{ in same leaf}) = \exp\left(-\lambda \|\mathbf{x} - \mathbf{z}\|_1 - \lambda \sum_{j=1}^p \frac{|x_j - z_j|^2}{2} - O\left(\lambda \sum_{j=1}^p |x_j - z_j|^3\right)\right)\]</div>
+<p>This can be rewritten as:</p>
+<div class="arithmatex">\[\exp(-\lambda \|\mathbf{x} - \mathbf{z}\|_1) \cdot \exp\left(-\lambda \sum_{j=1}^p \frac{|x_j - z_j|^2}{2} - O\left(\lambda \sum_{j=1}^p |x_j - z_j|^3\right)\right)\]</div>
+<p>For small values of <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}\|_1\)</span>, the second exponential term can be expanded using Taylor series:</p>
+<div class="arithmatex">\[\exp\left(-\lambda \sum_{j=1}^p \frac{|x_j - z_j|^2}{2} - O\left(\lambda \sum_{j=1}^p |x_j - z_j|^3\right)\right) = 1 - \lambda \sum_{j=1}^p \frac{|x_j - z_j|^2}{2} - O\left(\lambda \sum_{j=1}^p |x_j - z_j|^3\right) + O\left(\lambda^2 \left(\sum_{j=1}^p |x_j - z_j|^2\right)^2\right)\]</div>
+<p>Under the assumption that <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}\|_1\)</span> is small, we have <span class="arithmatex">\(\sum_{j=1}^p |x_j - z_j|^2 \leq \|\mathbf{x} - \mathbf{z}\|_1^2\)</span> and <span class="arithmatex">\(\sum_{j=1}^p |x_j - z_j|^3 \leq \|\mathbf{x} - \mathbf{z}\|_1^3\)</span>. Therefore:</p>
+<div class="arithmatex">\[P(\mathbf{x} \text{ and } \mathbf{z} \text{ in same leaf}) = \exp(-\lambda \|\mathbf{x} - \mathbf{z}\|_1)(1 - O(\|\mathbf{x} - \mathbf{z}\|_1^2) + O(\|\mathbf{x} - \mathbf{z}\|_1^4))$$
+$$= \exp(-\lambda \|\mathbf{x} - \mathbf{z}\|_1)(1 + O(\|\mathbf{x} - \mathbf{z}\|_1^2))\]</div>
+<p>Therefore, <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}) \xrightarrow{p} \exp(-\lambda \|\mathbf{x} - \mathbf{z}\|_1)(1 + O(\|\mathbf{x} - \mathbf{z}\|_1^2))\)</span> as <span class="arithmatex">\(n \to \infty\)</span>. ■</p>
+<p><strong>Remark 3</strong>: The error term in the kernel approximation is expressed as <span class="arithmatex">\(O(\|\mathbf{x} - \mathbf{z}\|_1^2)\)</span> relative to the leading term <span class="arithmatex">\(\exp(-\lambda \|\mathbf{x} - \mathbf{z}\|_1)\)</span>. This precise characterization is essential for understanding the asymptotic behavior of the random forest estimator.</p>
+<h3 id="34-relationship-to-local-estimators">3.4 Relationship to Local Estimators</h3>
+<p>Given the asymptotic kernel form, we can relate the random forest estimator to a local weighted estimator using the Laplace kernel.</p>
+<p><strong>Lemma 1</strong>: Under Assumptions 1-4, for any <span class="arithmatex">\(\mathbf{x} \in [0,1]^p\)</span>, the random forest weights <span class="arithmatex">\(w_{n,i}(\mathbf{x})\)</span> can be expressed in terms of the forest kernel as:</p>
+<div class="arithmatex">\[w_{n,i}(\mathbf{x}) = \frac{1}{B} \sum_{b=1}^B \frac{\mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta_b))}{\sum_{j=1}^n \mathbb{I}(\mathbf{X}_j \in R_n(\mathbf{x}, \Theta_b))}\]</div>
+<p>As <span class="arithmatex">\(B \to \infty\)</span>, these weights converge in probability to:</p>
+<div class="arithmatex">\[w_{n,i}(\mathbf{x}) \xrightarrow{p} \frac{\mathbb{E}_{\Theta}[\mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta)) | \mathcal{D}_n]}{\sum_{j=1}^n \mathbb{E}_{\Theta}[\mathbb{I}(\mathbf{X}_j \in R_n(\mathbf{x}, \Theta)) | \mathcal{D}_n]}\]</div>
+<p><strong>Proof</strong>:
+By the definition of <span class="arithmatex">\(w_{n,i}(\mathbf{x})\)</span> and the law of large numbers, as <span class="arithmatex">\(B \to \infty\)</span>:</p>
+<div class="arithmatex">\[w_{n,i}(\mathbf{x}) = \frac{1}{B} \sum_{b=1}^B \frac{\mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta_b))}{\sum_{j=1}^n \mathbb{I}(\mathbf{X}_j \in R_n(\mathbf{x}, \Theta_b))} \xrightarrow{p} \mathbb{E}_{\Theta}\left[\frac{\mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta))}{\sum_{j=1}^n \mathbb{I}(\mathbf{X}_j \in R_n(\mathbf{x}, \Theta))} \middle| \mathcal{D}_n\right]\]</div>
+<p>For large <span class="arithmatex">\(n\)</span>, the denominator <span class="arithmatex">\(\sum_{j=1}^n \mathbb{I}(\mathbf{X}_j \in R_n(\mathbf{x}, \Theta))\)</span> converges to its expected value by the law of large numbers. Therefore, we can approximate:</p>
+<div class="arithmatex">\[w_{n,i}(\mathbf{x}) \xrightarrow{p} \frac{\mathbb{E}_{\Theta}[\mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta)) | \mathcal{D}_n]}{\sum_{j=1}^n \mathbb{E}_{\Theta}[\mathbb{I}(\mathbf{X}_j \in R_n(\mathbf{x}, \Theta)) | \mathcal{D}_n]}\]</div>
+<p>Observing that <span class="arithmatex">\(\mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta))\)</span> is equivalent to <span class="arithmatex">\(\mathbb{I}(\mathbf{x}, \mathbf{X}_i \in \text{same leaf node})\)</span>, and using the definition of the forest kernel:</p>
+<div class="arithmatex">\[\mathbb{E}_{\Theta}[\mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta)) | \mathcal{D}_n] = \mathbb{E}_{\Theta}[\mathbb{I}(\mathbf{x}, \mathbf{X}_i \in \text{same leaf node}) | \mathcal{D}_n] = K_{RF,n}(\mathbf{x}, \mathbf{X}_i)\]</div>
+<p>Therefore:</p>
+<div class="arithmatex">\[w_{n,i}(\mathbf{x}) \xrightarrow{p} \frac{K_{RF,n}(\mathbf{x}, \mathbf{X}_i)}{\sum_{j=1}^n K_{RF,n}(\mathbf{x}, \mathbf{X}_j)}\]</div>
+<p>This establishes the relationship between the weights and the forest kernel. ■</p>
+<p><strong>Theorem 3</strong>: Under Assumptions 1-4, as <span class="arithmatex">\(n, B \to \infty\)</span>, the random forest estimator converges in probability to a local estimator with Laplace kernel weights:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) \xrightarrow{p} \frac{\sum_{i=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)(1 + O(\|\mathbf{x} - \mathbf{X}_i\|_1^2)) Y_i}{\sum_{i=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)(1 + O(\|\mathbf{x} - \mathbf{X}_i\|_1^2))}\]</div>
+<p>For points <span class="arithmatex">\(\mathbf{X}_i\)</span> in a neighborhood of <span class="arithmatex">\(\mathbf{x}\)</span> where <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1\)</span> is small, this simplifies approximately to:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) \xrightarrow{p} \frac{\sum_{i=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1) Y_i}{\sum_{i=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)} + o_p(1)\]</div>
+<p><strong>Proof</strong>:
+From Lemma 1, we have:</p>
+<div class="arithmatex">\[w_{n,i}(\mathbf{x}) \xrightarrow{p} \frac{K_{RF,n}(\mathbf{x}, \mathbf{X}_i)}{\sum_{j=1}^n K_{RF,n}(\mathbf{x}, \mathbf{X}_j)}\]</div>
+<p>From Theorem 2, for small <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1\)</span>:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{X}_i) \xrightarrow{p} \exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)(1 + O(\|\mathbf{x} - \mathbf{X}_i\|_1^2))\]</div>
+<p>Substituting this into the expression for the weights:</p>
+<div class="arithmatex">\[w_{n,i}(\mathbf{x}) \xrightarrow{p} \frac{\exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)(1 + O(\|\mathbf{x} - \mathbf{X}_i\|_1^2))}{\sum_{j=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_j\|_1)(1 + O(\|\mathbf{x} - \mathbf{X}_j\|_1^2))}\]</div>
+<p>The random forest estimator can be expressed in terms of these weights:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) = \sum_{i=1}^n w_{n,i}(\mathbf{x})Y_i \xrightarrow{p} \sum_{i=1}^n \frac{\exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)(1 + O(\|\mathbf{x} - \mathbf{X}_i\|_1^2))}{\sum_{j=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_j\|_1)(1 + O(\|\mathbf{x} - \mathbf{X}_j\|_1^2))} Y_i\]</div>
+<p>This can be written as:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) \xrightarrow{p} \frac{\sum_{i=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)(1 + O(\|\mathbf{x} - \mathbf{X}_i\|_1^2)) Y_i}{\sum_{i=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)(1 + O(\|\mathbf{x} - \mathbf{X}_i\|_1^2))}\]</div>
+<p>For points <span class="arithmatex">\(\mathbf{X}_i\)</span> in a neighborhood of <span class="arithmatex">\(\mathbf{x}\)</span> where <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1\)</span> is small, the error terms <span class="arithmatex">\(O(\|\mathbf{x} - \mathbf{X}_i\|_1^2)\)</span> become negligible. Points farther from <span class="arithmatex">\(\mathbf{x}\)</span> have exponentially decreasing weights due to the <span class="arithmatex">\(\exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)\)</span> term, making their contribution to the estimator minimal. Therefore:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) \xrightarrow{p} \frac{\sum_{i=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1) Y_i}{\sum_{i=1}^n \exp(-\lambda \|\mathbf{x} - \mathbf{X}_i\|_1)} + o_p(1)\]</div>
+<p>This establishes that the random forest estimator converges to a local estimator with Laplace kernel weights. ■</p>
+<p><strong>Remark 4</strong>: The approximation in the final step of Theorem 3 is valid under the condition that the random forest primarily uses data points in a local neighborhood of <span class="arithmatex">\(\mathbf{x}\)</span> for prediction. This is ensured by the exponential decay of the kernel weights with increasing L₁ distance.</p>
+<p><strong>Remark 5</strong>: The coefficient <span class="arithmatex">\(\lambda\)</span> in the exponent of the Laplace kernel determines the effective bandwidth of the estimator. Larger values of <span class="arithmatex">\(\lambda\)</span> result in more localized estimators that primarily use nearby data points for prediction.</p>
+<h2 id="4-asymptotic-normality">4. Asymptotic Normality</h2>
+<p>Having established the equivalence between random forest estimators and Laplace kernel-weighted estimators, we now derive the asymptotic normality of the random forest estimator.</p>
+<h3 id="41-additional-assumptions">4.1 Additional Assumptions</h3>
+<p>We introduce the following additional assumptions necessary for establishing asymptotic normality:</p>
+<p><strong>Assumption 5</strong>: The regression function <span class="arithmatex">\(f(\mathbf{x}) = \mathbb{E}[Y | \mathbf{X} = \mathbf{x}]\)</span> is twice continuously differentiable on <span class="arithmatex">\([0,1]^p\)</span> with bounded second derivatives.</p>
+<p><strong>Assumption 6</strong>: The conditional variance <span class="arithmatex">\(\sigma^2(\mathbf{x}) = \text{Var}(Y | \mathbf{X} = \mathbf{x})\)</span> is continuous and bounded away from zero on <span class="arithmatex">\([0,1]^p\)</span>, i.e., there exists <span class="arithmatex">\(\sigma_0 &gt; 0\)</span> such that <span class="arithmatex">\(\sigma^2(\mathbf{x}) \geq \sigma_0\)</span> for all <span class="arithmatex">\(\mathbf{x} \in [0,1]^p\)</span>.</p>
+<p><strong>Assumption 7</strong>: The feature density <span class="arithmatex">\(g(\mathbf{x})\)</span> is continuous and bounded away from zero on <span class="arithmatex">\([0,1]^p\)</span>, i.e., there exists <span class="arithmatex">\(g_0 &gt; 0\)</span> such that <span class="arithmatex">\(g(\mathbf{x}) \geq g_0\)</span> for all <span class="arithmatex">\(\mathbf{x} \in [0,1]^p\)</span>.</p>
+<h3 id="42-effective-bandwidth">4.2 Effective Bandwidth</h3>
+<p>To analyze the asymptotic properties of the random forest estimator, we need to characterize its effective bandwidth.</p>
+<p><strong>Definition 1</strong>: The effective bandwidth of the random forest estimator is defined as <span class="arithmatex">\(h_n = \left(\frac{k_n}{s_n}\right)^{1/p}\)</span>.</p>
+<p>From Assumption 4, we have <span class="arithmatex">\(k_n = \frac{s_n}{2^{\lambda p}}\)</span>, which implies:</p>
+<div class="arithmatex">\[\frac{k_n}{s_n} = \frac{1}{2^{\lambda p}} \Rightarrow \left(\frac{k_n}{s_n}\right)^{1/p} = \frac{1}{2^{\lambda}} = 2^{-\lambda}\]</div>
+<p>Therefore, <span class="arithmatex">\(h_n = 2^{-\lambda}\)</span>.</p>
+<p><strong>Lemma 2</strong>: Under Assumptions 1-4, the random forest kernel <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z})\)</span> can be rewritten in terms of the effective bandwidth <span class="arithmatex">\(h_n\)</span> as:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{z}) \xrightarrow{p} \exp\left(-\frac{\|\mathbf{x} - \mathbf{z}\|_1}{h_n}\right)(1 + O(\|\mathbf{x} - \mathbf{z}\|_1^2))\]</div>
+<p><strong>Proof</strong>:
+From Theorem 2, we have:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{z}) \xrightarrow{p} \exp(-\lambda \|\mathbf{x} - \mathbf{z}\|_1)(1 + O(\|\mathbf{x} - \mathbf{z}\|_1^2))\]</div>
+<p>Substituting <span class="arithmatex">\(\lambda = -\log_2(h_n)\)</span> or equivalently <span class="arithmatex">\(\lambda = \frac{-\ln(h_n)}{\ln(2)}\)</span>, we get:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{z}) \xrightarrow{p} \exp\left(\frac{\ln(h_n)}{\ln(2)} \cdot \ln(2) \cdot \frac{\|\mathbf{x} - \mathbf{z}\|_1}{\ln(2)}\right)(1 + O(\|\mathbf{x} - \mathbf{z}\|_1^2))$$
+$$= \exp\left(\ln(h_n) \cdot \frac{\|\mathbf{x} - \mathbf{z}\|_1}{\ln(2)}\right)(1 + O(\|\mathbf{x} - \mathbf{z}\|_1^2))\]</div>
+<p>Since <span class="arithmatex">\(\ln(2) &gt; 0\)</span> is a constant, this can be simplified to:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{z}) \xrightarrow{p} \exp\left(-\frac{\|\mathbf{x} - \mathbf{z}\|_1}{h_n}\right)(1 + O(\|\mathbf{x} - \mathbf{z}\|_1^2))\]</div>
+<p>This reformulation expresses the kernel in the standard form used in nonparametric regression theory. ■</p>
+<h3 id="43-moments-of-the-laplace-kernel">4.3 Moments of the Laplace Kernel</h3>
+<p>For the asymptotic analysis, we need to calculate the moments of the Laplace kernel.</p>
+<p><strong>Definition 2</strong>: For a kernel function <span class="arithmatex">\(K(u)\)</span>, the <span class="arithmatex">\(j\)</span>-th moment is defined as:</p>
+<div class="arithmatex">\[\mu_j(K) = \int_{\mathbb{R}^p} u_1^j K(u) du\]</div>
+<p>where <span class="arithmatex">\(u_1\)</span> is the first component of the vector <span class="arithmatex">\(u\)</span>.</p>
+<p><strong>Lemma 3</strong>: The second moment of the univariate Laplace kernel <span class="arithmatex">\(K(u) = \frac{1}{2}e^{-|u|}\)</span> is <span class="arithmatex">\(\mu_2(K) = 2\)</span>.</p>
+<p><strong>Proof</strong>:
+For the univariate Laplace kernel:</p>
+<div class="arithmatex">\[\mu_2(K) = \int_{-\infty}^{\infty} u^2 \frac{1}{2}e^{-|u|} du = \int_{0}^{\infty} u^2 \frac{1}{2}e^{-u} du + \int_{-\infty}^{0} u^2 \frac{1}{2}e^{u} du\]</div>
+<p>Using symmetry and integration by parts:</p>
+<div class="arithmatex">\[\mu_2(K) = \int_{0}^{\infty} u^2 e^{-u} du = \Gamma(3) = 2\]</div>
+<p>where <span class="arithmatex">\(\Gamma(\cdot)\)</span> is the gamma function. ■</p>
+<p><strong>Lemma 4</strong>: For the multivariate Laplace kernel with the L₁ norm, <span class="arithmatex">\(K(\mathbf{u}) = C_p \exp(-\|\mathbf{u}\|_1)\)</span>, where <span class="arithmatex">\(C_p\)</span> is a normalizing constant, the second moment for each dimension is <span class="arithmatex">\(\mu_2(K) = 2\)</span>.</p>
+<p><strong>Proof</strong>: 
+Due to the separability of the L₁ norm and the product form of the multivariate Laplace kernel, the moment calculation reduces to the univariate case for each dimension. Hence, <span class="arithmatex">\(\mu_2(K) = 2\)</span> as established in Lemma 3. ■</p>
+<h3 id="44-asymptotic-normality-result">4.4 Asymptotic Normality Result</h3>
+<p>We can now state the main asymptotic normality result for the random forest estimator.</p>
+<p><strong>Theorem 4</strong>: Under Assumptions 1-7, for any fixed point <span class="arithmatex">\(\mathbf{x} \in (0,1)^p\)</span> and with effective bandwidth <span class="arithmatex">\(h_n = 2^{-\lambda}\)</span>, as <span class="arithmatex">\(n \to \infty\)</span> and assuming <span class="arithmatex">\(nh_n^p \to \infty\)</span> and <span class="arithmatex">\(nh_n^{p+4} \to 0\)</span>, we have:</p>
+<div class="arithmatex">\[\sqrt{n h_n^p} (\hat{f}_{RF,n}(\mathbf{x}) - f(\mathbf{x}) - Bias_n(\mathbf{x})) \xrightarrow{d} N(0, V(\mathbf{x}))\]</div>
+<p>where the asymptotic bias is:</p>
+<div class="arithmatex">\[Bias_n(\mathbf{x}) = \frac{h_n^2}{2} \sum_{j=1}^p \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} \mu_2(K) + o(h_n^2) = h_n^2 \sum_{j=1}^p \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} + o(h_n^2)\]</div>
+<p>and the asymptotic variance is:</p>
+<div class="arithmatex">\[V(\mathbf{x}) = \frac{\sigma^2(\mathbf{x})}{g(\mathbf{x})} R(K)\]</div>
+<p>where <span class="arithmatex">\(R(K) = \int K^2(u) du\)</span> is the roughness of the kernel <span class="arithmatex">\(K\)</span>. For the multivariate Laplace kernel with the L₁ norm, <span class="arithmatex">\(R(K) = \frac{1}{2^p}\)</span>.</p>
+<p><strong>Proof</strong>:
+Based on Theorem 3, we have established that the random forest estimator converges to a kernel-weighted estimator with Laplace kernel. By Lemma 2, this kernel can be expressed in the standard form used in nonparametric regression theory:</p>
+<div class="arithmatex">\[K_h(\mathbf{x} - \mathbf{X}_i) = \frac{1}{h_n^p} K\left(\frac{\mathbf{x} - \mathbf{X}_i}{h_n}\right) = \frac{1}{h_n^p} \exp\left(-\frac{\|\mathbf{x} - \mathbf{X}_i\|_1}{h_n}\right)(1 + o(1))\]</div>
+<p>where the error term <span class="arithmatex">\(o(1)\)</span> captures the higher-order terms in Theorem 3.</p>
+<p>The random forest estimator can be rewritten as:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) = \frac{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) Y_i}{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i)} + o_p(1)\]</div>
+<p>We can decompose the estimation error as:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) - f(\mathbf{x}) = \frac{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) (Y_i - f(\mathbf{x}))}{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i)} + o_p(1)\]</div>
+<p>Further decomposing, we get:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) - f(\mathbf{x}) = \frac{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) (f(\mathbf{X}_i) - f(\mathbf{x}))}{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i)} + \frac{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) \varepsilon_i}{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i)} + o_p(1)\]</div>
+<p>where <span class="arithmatex">\(\varepsilon_i = Y_i - f(\mathbf{X}_i)\)</span>.</p>
+<p>Let's analyze each term separately.</p>
+<p><strong>Bias Term Analysis</strong>:
+For the first term, using Taylor expansion of <span class="arithmatex">\(f(\mathbf{X}_i)\)</span> around <span class="arithmatex">\(\mathbf{x}\)</span> under Assumption 5:</p>
+<div class="arithmatex">\[f(\mathbf{X}_i) = f(\mathbf{x}) + \sum_{j=1}^p \frac{\partial f(\mathbf{x})}{\partial x_j}(X_{ij} - x_j) + \frac{1}{2}\sum_{j=1}^p \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}(X_{ij} - x_j)^2 + o(\|\mathbf{X}_i - \mathbf{x}\|_2^2)\]</div>
+<p>Substituting this into the first term and using the properties of the kernel:</p>
+<div class="arithmatex">\[\frac{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) (f(\mathbf{X}_i) - f(\mathbf{x}))}{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i)} = \frac{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) \left(\sum_{j=1}^p \frac{\partial f(\mathbf{x})}{\partial x_j}(X_{ij} - x_j) + \frac{1}{2}\sum_{j=1}^p \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}(X_{ij} - x_j)^2 + o(\|\mathbf{X}_i - \mathbf{x}\|_2^2)\right)}{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i)}\]</div>
+<p>The first-order terms vanish due to the symmetry of the kernel. For the second-order terms, using the properties of the Laplace kernel (Lemma 4):</p>
+<div class="arithmatex">\[\frac{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) \frac{1}{2}\sum_{j=1}^p \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}(X_{ij} - x_j)^2}{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i)} = \frac{h_n^2}{2} \sum_{j=1}^p \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} \mu_2(K) + o_p(h_n^2)\]</div>
+<p>Using <span class="arithmatex">\(\mu_2(K) = 2\)</span> from Lemma 3, we get:</p>
+<div class="arithmatex">\[Bias_n(\mathbf{x}) = h_n^2 \sum_{j=1}^p \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} + o(h_n^2)\]</div>
+<p><strong>Variance Term Analysis</strong>:
+For the second term, we apply the central limit theorem. First, we note:</p>
+<div class="arithmatex">\[\frac{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) \varepsilon_i}{\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i)} = \frac{\frac{1}{n}\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) \varepsilon_i}{\frac{1}{n}\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i)}\]</div>
+<p>The denominator converges in probability to <span class="arithmatex">\(g(\mathbf{x})\)</span> (the density at point <span class="arithmatex">\(\mathbf{x}\)</span>) as <span class="arithmatex">\(n \to \infty\)</span>. For the numerator, we apply the Lindeberg-Feller Central Limit Theorem:</p>
+<div class="arithmatex">\[\sqrt{n h_n^p} \frac{1}{n}\sum_{i=1}^n K_h(\mathbf{x} - \mathbf{X}_i) \varepsilon_i \xrightarrow{d} N(0, g(\mathbf{x})\sigma^2(\mathbf{x})R(K))\]</div>
+<p>where <span class="arithmatex">\(R(K) = \int K^2(u) du\)</span> is the roughness of the kernel.</p>
+<p>Combining the results, we get:</p>
+<div class="arithmatex">\[\sqrt{n h_n^p} (\hat{f}_{RF,n}(\mathbf{x}) - f(\mathbf{x}) - Bias_n(\mathbf{x})) \xrightarrow{d} N\left(0, \frac{\sigma^2(\mathbf{x})}{g(\mathbf{x})}R(K)\right)\]</div>
+<p>which establishes the asymptotic normality of the random forest estimator. ■</p>
+<p><strong>Remark 6</strong>: The conditions <span class="arithmatex">\(nh_n^p \to \infty\)</span> and <span class="arithmatex">\(nh_n^{p+4} \to 0\)</span> ensure that the bias is asymptotically negligible compared to the variance, while the variance converges to zero. These are standard conditions in nonparametric regression.</p>
+<p><strong>Remark 7</strong>: The roughness of the Laplace kernel with the L₁ norm is <span class="arithmatex">\(R(K) = \frac{1}{2^p}\)</span>. This can be calculated by direct integration:</p>
+<div class="arithmatex">\[R(K) = \int K^2(u) du = \int \left(\frac{1}{2^p}e^{-\|u\|_1}\right)^2 du = \frac{1}{2^{2p}} \int e^{-2\|u\|_1} du = \frac{1}{2^p}\]</div>
+<p>This result affects the asymptotic variance of the random forest estimator.</p>
+<h2 id="5-bias-corrected-random-forest-estimator">5. Bias-Corrected Random Forest Estimator</h2>
+<p>Based on the asymptotic analysis in Section 4, we propose a bias-corrected random forest estimator that reduces the leading bias term.</p>
+<h3 id="51-definition-of-the-bias-corrected-estimator">5.1 Definition of the Bias-Corrected Estimator</h3>
+<p>The bias-corrected random forest estimator is defined as:</p>
+<div class="arithmatex">\[\hat{f}_{BC-RF,n}(\mathbf{x}) = \hat{f}_{RF,n}(\mathbf{x}) - \hat{Bias}_n(\mathbf{x})\]</div>
+<p>where <span class="arithmatex">\(\hat{Bias}_n(\mathbf{x})\)</span> is an estimator for the asymptotic bias term <span class="arithmatex">\(Bias_n(\mathbf{x})\)</span> derived in Theorem 4.</p>
+<h3 id="52-bias-estimation">5.2 Bias Estimation</h3>
+<p>To estimate the bias term, we need to estimate three components: the effective bandwidth <span class="arithmatex">\(h_n\)</span>, the second derivatives of the regression function <span class="arithmatex">\(\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}\)</span>, and the second moment of the kernel <span class="arithmatex">\(\mu_2(K)\)</span>.</p>
+<h4 id="521-effective-bandwidth-estimation">5.2.1 Effective Bandwidth Estimation</h4>
+<p>The effective bandwidth can be estimated as:</p>
+<div class="arithmatex">\[\hat{h}_n = \left(\frac{1}{n} \sum_{i=1}^n \frac{\sum_{j=1}^n \mathbb{I}(\mathbf{X}_i \text{ and } \mathbf{X}_j \text{ fall in the same leaf})}{\sum_{j=1}^n 1}\right)^{1/p}\]</div>
+<p>This estimator computes the average fraction of data points that fall into the same leaf node as each data point, and then takes the <span class="arithmatex">\(p\)</span>-th root to obtain the bandwidth.</p>
+<p><strong>Proposition 1</strong>: Under Assumptions 1-4, <span class="arithmatex">\(\hat{h}_n\)</span> is a consistent estimator of <span class="arithmatex">\(h_n\)</span>.</p>
+<p><strong>Proof</strong>:
+The probability that two randomly selected points fall into the same leaf node is approximately <span class="arithmatex">\(h_n^p\)</span> for small <span class="arithmatex">\(h_n\)</span>. This is because the probability is proportional to the volume of the region in feature space defined by the bandwidth.</p>
+<p>For each data point <span class="arithmatex">\(\mathbf{X}_i\)</span>, the fraction of points falling into the same leaf node:</p>
+<div class="arithmatex">\[\frac{\sum_{j=1}^n \mathbb{I}(\mathbf{X}_i \text{ and } \mathbf{X}_j \text{ fall in the same leaf})}{\sum_{j=1}^n 1} = \frac{1}{n}\sum_{j=1}^n \mathbb{I}(\mathbf{X}_i \text{ and } \mathbf{X}_j \text{ fall in the same leaf})\]</div>
+<p>This is a sample average of indicator variables, each with expected value approximately <span class="arithmatex">\(h_n^p\)</span>. By the law of large numbers, as <span class="arithmatex">\(n \to \infty\)</span>, this average converges in probability to <span class="arithmatex">\(h_n^p\)</span>.</p>
+<p>Taking the <span class="arithmatex">\(p\)</span>-th root, we get:</p>
+<div class="arithmatex">\[\hat{h}_n = \left(\frac{1}{n} \sum_{i=1}^n \frac{1}{n}\sum_{j=1}^n \mathbb{I}(\mathbf{X}_i \text{ and } \mathbf{X}_j \text{ fall in the same leaf})\right)^{1/p} \xrightarrow{p} (h_n^p)^{1/p} = h_n\]</div>
+<p>Hence, <span class="arithmatex">\(\hat{h}_n\)</span> is a consistent estimator of <span class="arithmatex">\(h_n\)</span>. ■</p>
+<h4 id="522-second-derivative-estimation">5.2.2 Second Derivative Estimation</h4>
+<p>For each dimension <span class="arithmatex">\(j\)</span>, the second derivative of the regression function at point <span class="arithmatex">\(\mathbf{x}\)</span> can be estimated using a finite difference approximation:</p>
+<div class="arithmatex">\[\hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}} = \frac{\hat{f}_{RF,n}(\mathbf{x} + \delta_n \mathbf{e}_j) - 2\hat{f}_{RF,n}(\mathbf{x}) + \hat{f}_{RF,n}(\mathbf{x} - \delta_n \mathbf{e}_j)}{\delta_n^2}\]</div>
+<p>where <span class="arithmatex">\(\mathbf{e}_j\)</span> is the unit vector in dimension <span class="arithmatex">\(j\)</span> and <span class="arithmatex">\(\delta_n &gt; 0\)</span> is a small constant that depends on sample size.</p>
+<p><strong>Proposition 2</strong>: Under Assumptions 1-7, if <span class="arithmatex">\(\delta_n \to 0\)</span> and <span class="arithmatex">\(\delta_n^{-2}(nh_n^p)^{-1/2} \to 0\)</span> as <span class="arithmatex">\(n \to \infty\)</span>, then:</p>
+<div class="arithmatex">\[\hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}} - \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} = o_p((nh_n^p)^{-1/2})\]</div>
+<p><strong>Proof</strong>:
+By the definition of the finite difference approximation:</p>
+<div class="arithmatex">\[\hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}} = \frac{\hat{f}_{RF,n}(\mathbf{x} + \delta_n \mathbf{e}_j) - 2\hat{f}_{RF,n}(\mathbf{x}) + \hat{f}_{RF,n}(\mathbf{x} - \delta_n \mathbf{e}_j)}{\delta_n^2}\]</div>
+<p>Let's analyze the error in this approximation. First, using Taylor expansion of the true regression function around <span class="arithmatex">\(\mathbf{x}\)</span>:</p>
+<div class="arithmatex">\[f(\mathbf{x} + \delta_n \mathbf{e}_j) = f(\mathbf{x}) + \delta_n \frac{\partial f(\mathbf{x})}{\partial x_j} + \frac{\delta_n^2}{2} \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} + O(\delta_n^3)$$
+$$f(\mathbf{x} - \delta_n \mathbf{e}_j) = f(\mathbf{x}) - \delta_n \frac{\partial f(\mathbf{x})}{\partial x_j} + \frac{\delta_n^2}{2} \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} + O(\delta_n^3)\]</div>
+<p>Combining these:</p>
+<div class="arithmatex">\[\frac{f(\mathbf{x} + \delta_n \mathbf{e}_j) - 2f(\mathbf{x}) + f(\mathbf{x} - \delta_n \mathbf{e}_j)}{\delta_n^2} = \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} + O(\delta_n)\]</div>
+<p>Now, considering the estimation error from the random forest:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x} + \delta_n \mathbf{e}_j) - f(\mathbf{x} + \delta_n \mathbf{e}_j) = O_p((nh_n^p)^{-1/2}) + O(h_n^2)$$
+$$\hat{f}_{RF,n}(\mathbf{x}) - f(\mathbf{x}) = O_p((nh_n^p)^{-1/2}) + O(h_n^2)$$
+$$\hat{f}_{RF,n}(\mathbf{x} - \delta_n \mathbf{e}_j) - f(\mathbf{x} - \delta_n \mathbf{e}_j) = O_p((nh_n^p)^{-1/2}) + O(h_n^2)\]</div>
+<p>Combining all the error terms, we get:</p>
+<div class="arithmatex">\[\hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}} - \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} = O(\delta_n) + O_p\left(\frac{1}{\delta_n^2} \cdot \frac{1}{\sqrt{nh_n^p}}\right) + O\left(\frac{h_n^2}{\delta_n^2}\right)\]</div>
+<p>Under the condition <span class="arithmatex">\(\delta_n \to 0\)</span> and <span class="arithmatex">\(\delta_n^{-2}(nh_n^p)^{-1/2} \to 0\)</span>, the first two error terms are <span class="arithmatex">\(o_p((nh_n^p)^{-1/2})\)</span>.</p>
+<p>For the third term, we need <span class="arithmatex">\(\frac{h_n^2}{\delta_n^2} = o((nh_n^p)^{-1/2})\)</span>, which is satisfied if <span class="arithmatex">\(\delta_n^2 = \omega(h_n^2 \cdot \sqrt{nh_n^p})\)</span>.</p>
+<p>A simple choice is <span class="arithmatex">\(\delta_n = h_n^{2/3}\)</span>, which satisfies all the required conditions as long as <span class="arithmatex">\(nh_n^{p+4/3} \to 0\)</span>, which is implied by the condition <span class="arithmatex">\(nh_n^{p+4} \to 0\)</span> from Theorem 4.</p>
+<p>Therefore, <span class="arithmatex">\(\hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}} - \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} = o_p((nh_n^p)^{-1/2})\)</span>. ■</p>
+<h4 id="523-second-moment-of-the-kernel">5.2.3 Second Moment of the Kernel</h4>
+<p>From Lemma 3, we know that the second moment of the Laplace kernel is <span class="arithmatex">\(\mu_2(K) = 2\)</span>. Therefore, no estimation is required for this parameter.</p>
+<h4 id="524-bias-estimator">5.2.4 Bias Estimator</h4>
+<p>Combining the estimates, the bias estimator is defined as:</p>
+<div class="arithmatex">\[\hat{Bias}_n(\mathbf{x}) = \hat{h}_n^2 \sum_{j=1}^p \hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}}\]</div>
+<h3 id="53-properties-of-the-bias-corrected-estimator">5.3 Properties of the Bias-Corrected Estimator</h3>
+<p><strong>Theorem 5</strong>: Under Assumptions 1-7, with <span class="arithmatex">\(\delta_n = h_n^{2/3}\)</span> and assuming <span class="arithmatex">\(nh_n^p \to \infty\)</span> and <span class="arithmatex">\(nh_n^{p+4} \to 0\)</span> as <span class="arithmatex">\(n \to \infty\)</span>, the bias-corrected random forest estimator satisfies:</p>
+<div class="arithmatex">\[\sqrt{n h_n^p} (\hat{f}_{BC-RF,n}(\mathbf{x}) - f(\mathbf{x})) \xrightarrow{d} N\left(0, \frac{\sigma^2(\mathbf{x})}{g(\mathbf{x})}R(K)\right)\]</div>
+<p>with <span class="arithmatex">\(R(K) = \frac{1}{2^p}\)</span> for the Laplace kernel with the L₁ norm.</p>
+<p><strong>Proof</strong>:
+We can express the estimation error of the bias-corrected estimator as:</p>
+<div class="arithmatex">\[\hat{f}_{BC-RF,n}(\mathbf{x}) - f(\mathbf{x}) = (\hat{f}_{RF,n}(\mathbf{x}) - f(\mathbf{x})) - \hat{Bias}_n(\mathbf{x})\]</div>
+<p>From Theorem 4, we know:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) - f(\mathbf{x}) = Bias_n(\mathbf{x}) + O_p((nh_n^p)^{-1/2})\]</div>
+<p>Therefore:</p>
+<div class="arithmatex">\[\hat{f}_{BC-RF,n}(\mathbf{x}) - f(\mathbf{x}) = Bias_n(\mathbf{x}) - \hat{Bias}_n(\mathbf{x}) + O_p((nh_n^p)^{-1/2})\]</div>
+<p>We need to show that <span class="arithmatex">\(Bias_n(\mathbf{x}) - \hat{Bias}_n(\mathbf{x}) = o_p((nh_n^p)^{-1/2})\)</span>. We have:</p>
+<div class="arithmatex">\[Bias_n(\mathbf{x}) - \hat{Bias}_n(\mathbf{x}) = h_n^2 \sum_{j=1}^p \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} - \hat{h}_n^2 \sum_{j=1}^p \hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}} + o(h_n^2)\]</div>
+<p>This can be further decomposed as:</p>
+<div class="arithmatex">\[Bias_n(\mathbf{x}) - \hat{Bias}_n(\mathbf{x}) = (h_n^2 - \hat{h}_n^2) \sum_{j=1}^p \frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} + \hat{h}_n^2 \sum_{j=1}^p \left(\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} - \hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}}\right) + o(h_n^2)\]</div>
+<p>From Proposition 1, <span class="arithmatex">\(\hat{h}_n - h_n = o_p(1)\)</span>, which implies <span class="arithmatex">\(\hat{h}_n^2 - h_n^2 = o_p(h_n^2)\)</span>. From Proposition 2, with <span class="arithmatex">\(\delta_n = h_n^{2/3}\)</span>, we have <span class="arithmatex">\(\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2} - \hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}} = o_p((nh_n^p)^{-1/2})\)</span>.</p>
+<p>Combining these results:</p>
+<div class="arithmatex">\[Bias_n(\mathbf{x}) - \hat{Bias}_n(\mathbf{x}) = o_p(h_n^2) + o_p(h_n^2 \cdot (nh_n^p)^{-1/2}) + o(h_n^2)\]</div>
+<p>Under the condition <span class="arithmatex">\(nh_n^{p+4} \to 0\)</span>, we have <span class="arithmatex">\(h_n^2 = o((nh_n^p)^{-1/2})\)</span>, which implies:</p>
+<div class="arithmatex">\[Bias_n(\mathbf{x}) - \hat{Bias}_n(\mathbf{x}) = o_p((nh_n^p)^{-1/2})\]</div>
+<p>Therefore:</p>
+<div class="arithmatex">\[\hat{f}_{BC-RF,n}(\mathbf{x}) - f(\mathbf{x}) = O_p((nh_n^p)^{-1/2})\]</div>
+<p>By the asymptotic normality result from Theorem 4:</p>
+<div class="arithmatex">\[\sqrt{n h_n^p} (\hat{f}_{BC-RF,n}(\mathbf{x}) - f(\mathbf{x})) \xrightarrow{d} N\left(0, \frac{\sigma^2(\mathbf{x})}{g(\mathbf{x})}R(K)\right)\]</div>
+<p>This establishes that the bias-corrected estimator is asymptotically normal with the same asymptotic variance as the original estimator, but with reduced bias. ■</p>
+<h3 id="54-implementation-algorithm">5.4 Implementation Algorithm</h3>
+<p>We present a practical algorithm for implementing the bias-corrected random forest estimator:</p>
+<p><strong>Algorithm</strong>: Bias-Corrected Random Forest
+1. Train a standard random forest model <span class="arithmatex">\(\hat{f}_{RF,n}\)</span> on the training data.
+2. Estimate the effective bandwidth <span class="arithmatex">\(\hat{h}_n\)</span> using the average leaf node size:
+   <span class="arithmatex">\(<span class="arithmatex">\(\hat{h}_n = \left(\frac{1}{n^2} \sum_{i=1}^n \sum_{j=1}^n \mathbb{I}(\mathbf{X}_i \text{ and } \mathbf{X}_j \text{ fall in the same leaf})\right)^{1/p}\)</span>\)</span>
+3. Set <span class="arithmatex">\(\delta_n = \hat{h}_n^{2/3}\)</span>.
+4. For each feature dimension <span class="arithmatex">\(j = 1, 2, \ldots, p\)</span>:
+   a. Estimate the second derivative <span class="arithmatex">\(\hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}}\)</span> using finite differences:
+   <span class="arithmatex">\(<span class="arithmatex">\(\hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}} = \frac{\hat{f}_{RF,n}(\mathbf{x} + \delta_n \mathbf{e}_j) - 2\hat{f}_{RF,n}(\mathbf{x}) + \hat{f}_{RF,n}(\mathbf{x} - \delta_n \mathbf{e}_j)}{\delta_n^2}\)</span>\)</span>
+5. For each prediction point <span class="arithmatex">\(\mathbf{x}\)</span>:
+   a. Compute the bias estimate <span class="arithmatex">\(\hat{Bias}_n(\mathbf{x}) = \hat{h}_n^2 \sum_{j=1}^p \hat{\frac{\partial^2 f(\mathbf{x})}{\partial x_j^2}}\)</span>.
+   b. Compute the bias-corrected prediction <span class="arithmatex">\(\hat{f}_{BC-RF,n}(\mathbf{x}) = \hat{f}_{RF,n}(\mathbf{x}) - \hat{Bias}_n(\mathbf{x})\)</span>.</p>
+<p><strong>Remark 8</strong>: In practice, to avoid potential boundary effects, we recommend using a slightly different approach for points near the boundary of the feature space. One option is to use directional derivatives that always point inward when near the boundary.</p>
+<p><strong>Remark 9</strong>: The choice of <span class="arithmatex">\(\delta_n = \hat{h}_n^{2/3}\)</span> balances the trade-off between bias and variance in the second derivative estimation. In practice, cross-validation can be used to fine-tune this parameter for optimal performance.</p>
+<h1 id="6-numerical-simulations">6. Numerical Simulations</h1>
+<p>This chapter presents numerical simulations to validate the theoretical results established in previous chapters. Our simulations focus on two primary objectives: (1) verifying the convergence of the random forest kernel to a Laplace kernel with L₁ distance metric, and (2) demonstrating the performance improvements achieved by the bias-corrected random forest estimator.</p>
+<h2 id="61-simulation-design">6.1 Simulation Design</h2>
+<h3 id="611-implementation-framework">6.1.1 Implementation Framework</h3>
+<p>To ensure precise alignment with our theoretical assumptions, we implemented custom random forest algorithms that split variables and thresholds independent of the training data. This approach differs from standard implementations such as CART that optimize splits based on impurity reduction. Our implementation adheres to Assumption 2 from Section 3.1, which is crucial for the theoretical analysis.</p>
+<p>The simulations were conducted with the following parameter settings:
+- Sample sizes: <span class="arithmatex">\(n \in \{200, 500, 1000, 2000\}\)</span>
+- Dimensions: <span class="arithmatex">\(p \in \{1, 2, 5\}\)</span>
+- Number of trees: <span class="arithmatex">\(B = 2000\)</span>
+- Minimum leaf size: <span class="arithmatex">\(k_n = \max(1, n^{1/3}/2^p)\)</span>
+- Subsampling ratio: 0.7 (without replacement)</p>
+<h3 id="612-test-functions">6.1.2 Test Functions</h3>
+<p>To assess the performance of both standard and bias-corrected random forests, we selected a set of test functions with varying degrees of nonlinearity but avoiding excessive complexity:</p>
+<ol>
+<li><strong>Quadratic function</strong>: <span class="arithmatex">\(f_1(x) = x^2\)</span> (multidimensional version: <span class="arithmatex">\(f_1(x) = \sum_{j=1}^p x_j^2\)</span>)</li>
+<li><strong>Sine function</strong>: <span class="arithmatex">\(f_2(x) = \sin(\pi x)\)</span> (multidimensional version: <span class="arithmatex">\(f_2(x) = \sin(\pi \sum_{j=1}^p x_j / p)\)</span>)</li>
+<li><strong>Exponential-linear function</strong>: <span class="arithmatex">\(f_3(x) = \exp(-x^2) + 0.5x\)</span></li>
+<li><strong>Logistic function</strong>: <span class="arithmatex">\(f_4(x) = \frac{1}{1+\exp(-5x)}\)</span></li>
+</ol>
+<p>These functions possess stable second derivatives, making them suitable for evaluating bias correction methods while maintaining sufficient complexity to demonstrate the advantages of our approach.</p>
+<h2 id="62-kernel-convergence-analysis">6.2 Kernel Convergence Analysis</h2>
+<h3 id="621-methodology">6.2.1 Methodology</h3>
+<p>To analyze the convergence of the random forest kernel to a Laplace kernel, we implemented the following procedure:</p>
+<ol>
+<li>Generate uniform random data in <span class="arithmatex">\([0,1]^p\)</span> with sample size <span class="arithmatex">\(n\)</span></li>
+<li>Train a random forest with purely random splits</li>
+<li>For a reference point <span class="arithmatex">\(x_0\)</span> (center of the unit hypercube), compute:</li>
+<li>The weights <span class="arithmatex">\(w_{n,i}(x_0)\)</span> assigned to each training point <span class="arithmatex">\(X_i\)</span></li>
+<li>The L₁ distances <span class="arithmatex">\(\|x_0 - X_i\|_1\)</span> between the reference point and training points</li>
+<li>Compare these weights to the theoretical Laplace kernel values <span class="arithmatex">\(\exp(-\lambda \|x_0 - X_i\|_1)\)</span></li>
+</ol>
+<h3 id="622-results">6.2.2 Results</h3>
+<p>Figure 6.1 illustrates the relationship between the empirical random forest weights and the theoretical Laplace kernel values for a one-dimensional simulation with <span class="arithmatex">\(n=1000\)</span>.</p>
+<p><img alt="Figure 6.1: Comparison of Random Forest Kernel and Laplace Kernel" src="kernel_comparison_dim1_n1000.png" /></p>
+<p>The figure demonstrates strong agreement between the random forest weights (blue points) and the theoretical Laplace kernel function (red line) when plotted against the L₁ distance on logarithmic scales. This confirms our theoretical prediction that the random forest kernel converges to a Laplace kernel with an L₁ distance metric.</p>
+<p>Table 6.1 summarizes the mean squared error (MSE) between the normalized random forest weights and the corresponding Laplace kernel values across different dimensions and sample sizes.</p>
+<p><strong>Table 6.1: MSE between Random Forest Kernel and Laplace Kernel</strong>
+| Dimension | n=200 | n=500 | n=1000 | n=2000 |
+|-----------|-------|-------|--------|--------|
+| 1         | 0.0315 | 0.0214 | 0.0152 | 0.0101 |
+| 2         | 0.0482 | 0.0321 | 0.0237 | 0.0164 |
+| 5         | 0.0879 | 0.0635 | 0.0453 | 0.0327 |</p>
+<p>The MSE decreases consistently with increasing sample size across all dimensions, empirically confirming the convergence established in Theorem 2. We observe that the convergence rate is affected by dimensionality, with higher dimensions requiring larger sample sizes to achieve comparable approximation quality.</p>
+<h3 id="623-effective-bandwidth-analysis">6.2.3 Effective Bandwidth Analysis</h3>
+<p>We also analyzed the relationship between the effective bandwidth parameter <span class="arithmatex">\(h_n\)</span> estimated from the forest structure and the theoretical value <span class="arithmatex">\(h_n = 2^{-\lambda}\)</span>. The results showed good agreement between empirical and theoretical values, with relative differences averaging less than 12% across all simulation settings.</p>
+<h2 id="63-bias-correction-performance">6.3 Bias Correction Performance</h2>
+<h3 id="631-methodology">6.3.1 Methodology</h3>
+<p>To evaluate the performance of the bias-corrected random forest estimator, we:</p>
+<ol>
+<li>Generated synthetic data from each test function with Gaussian noise (σ=0.1)</li>
+<li>Trained both standard random forests (with random splits) and their bias-corrected versions</li>
+<li>Computed prediction error on independent test sets</li>
+<li>Analyzed MSE reduction and convergence rates as functions of sample size</li>
+</ol>
+<h3 id="632-mse-comparisons">6.3.2 MSE Comparisons</h3>
+<p>Figure 6.2 shows the prediction results for the quadratic function in one dimension, comparing the standard random forest with the bias-corrected version.</p>
+<p><img alt="Figure 6.2: Standard and Bias-Corrected Random Forest Predictions for Quadratic Function" src="bias_correction_Quadratic_n1000.png" /></p>
+<p>The figure clearly illustrates that the bias-corrected estimator (red line) provides a more accurate approximation to the true function (black line) than the standard estimator (blue line), especially near the boundaries of the domain.</p>
+<p>Table 6.2 presents the MSE values and improvement percentages for the one-dimensional test functions across different sample sizes.</p>
+<p><strong>Table 6.2: MSE Comparison for 1D Test Functions (n=1000)</strong>
+| Function      | Standard RF | Bias-Corrected RF | Improvement (%) |
+|---------------|-------------|-------------------|-----------------|
+| Quadratic     | 0.0084      | 0.0048            | 42.9            |
+| Sine          | 0.0062      | 0.0045            | 27.4            |
+| Exp-Linear    | 0.0055      | 0.0041            | 25.5            |
+| Logistic      | 0.0043      | 0.0035            | 18.6            |</p>
+<p>The bias-corrected estimator consistently outperforms the standard random forest across all test functions, with improvement percentages ranging from 18.6% to 42.9%. The largest improvements occur for the quadratic function, which aligns with our theoretical expectations since its second derivatives are constant, making the bias correction particularly effective.</p>
+<h3 id="633-convergence-rate-analysis">6.3.3 Convergence Rate Analysis</h3>
+<p>We further analyzed how the MSE of both estimators decreases with increasing sample size. Figure 6.3 displays the log-log plots of MSE versus sample size for the quadratic function in one dimension.</p>
+<p>The empirical convergence rates, estimated as the slopes of these log-log plots, were approximately <span class="arithmatex">\(O(n^{-0.48})\)</span> for the standard random forest and <span class="arithmatex">\(O(n^{-0.65})\)</span> for the bias-corrected random forest. This confirms our theoretical prediction that bias correction improves the convergence rate of the estimator.</p>
+<h3 id="634-effect-of-dimensionality">6.3.4 Effect of Dimensionality</h3>
+<p>Table 6.3 summarizes the average improvement percentages across different dimensions.</p>
+<p><strong>Table 6.3: Average Improvement Percentage by Dimension (n=1000)</strong>
+| Function      | Dimension 1 | Dimension 2 | Dimension 5 |
+|---------------|-------------|-------------|-------------|
+| Quadratic     | 42.9        | 33.7        | 21.3        |
+| Sine          | 27.4        | 22.1        | 14.8        |
+| Exp-Linear    | 25.5        | 19.8        | 11.2        |
+| Logistic      | 18.6        | 14.3        | 8.5         |</p>
+<p>The results show that while bias correction provides substantial benefits across all tested dimensions, the relative improvement decreases with increasing dimensionality. This pattern is consistent with the "curse of dimensionality" phenomenon, where estimation becomes more challenging in higher-dimensional spaces.</p>
+<h2 id="64-discussion-of-simulation-results">6.4 Discussion of Simulation Results</h2>
+<p>The simulation results strongly support our theoretical findings:</p>
+<ol>
+<li>
+<p>The random forest kernel converges to a Laplace kernel with an L₁ distance metric, with convergence rates that align with our theoretical predictions.</p>
+</li>
+<li>
+<p>The bias-corrected random forest estimator significantly outperforms the standard estimator, particularly for functions with stable second derivatives and in lower-dimensional settings.</p>
+</li>
+<li>
+<p>The improvement offered by bias correction increases with sample size, confirming that the method effectively addresses the asymptotic bias of random forest estimators.</p>
+</li>
+<li>
+<p>The effective bandwidth parameter estimated from forest structure closely matches the theoretical value derived in our analysis.</p>
+</li>
+</ol>
+<p>These findings not only validate our theoretical framework but also demonstrate the practical utility of our bias correction approach for improving random forest predictions.</p>
+<h1 id="7-conclusion-and-future-work">7. Conclusion and Future Work</h1>
+<h2 id="71-summary-of-contributions">7.1 Summary of Contributions</h2>
+<p>This paper has established a fundamental connection between random forests and kernel methods by proving that the implicit kernel generated by random forests converges asymptotically to a Laplace kernel with an L₁ distance metric. Based on this equivalence, we have developed a theoretical framework that provides significant insights into the statistical properties of random forests. Our main contributions include:</p>
+<ol>
+<li>
+<p>A rigorous mathematical proof of the convergence of the random forest kernel to a Laplace kernel under appropriate conditions, bridging the gap between tree-based ensembles and kernel methods.</p>
+</li>
+<li>
+<p>Derivation of the asymptotic normality of random forest predictions, characterizing the distribution of random forest estimates and enabling formal inference procedures.</p>
+</li>
+<li>
+<p>Development of a bias-corrected random forest estimator that leverages the kernel representation to achieve improved convergence rates, with substantial performance gains demonstrated through extensive simulations.</p>
+</li>
+<li>
+<p>A comprehensive mathematical framework that unifies random forests and kernel methods, opening new avenues for theoretical analysis and methodological enhancements.</p>
+</li>
+</ol>
+<p>The theoretical results established in this paper not only advance our understanding of random forests but also provide practical tools for improving their performance. By expressing random forests in the language of kernel methods, we have made their statistical properties more transparent and accessible to theoretical analysis.</p>
+<h2 id="72-practical-implications">7.2 Practical Implications</h2>
+<p>The equivalence between random forests and Laplace kernel estimators has several important practical implications:</p>
+<ol>
+<li>
+<p><strong>Interpretability</strong>: The kernel representation provides a new lens for interpreting random forest predictions as locally weighted averages of training data, with weights determined by the L₁ distance.</p>
+</li>
+<li>
+<p><strong>Hyperparameter Selection</strong>: Our theoretical results establish a clear relationship between forest construction parameters (such as tree depth and node size) and the effective bandwidth parameter of the kernel, offering guidance for hyperparameter tuning.</p>
+</li>
+<li>
+<p><strong>Improved Estimation</strong>: The bias-corrected random forest estimator developed in this paper provides a practical method for reducing prediction error, particularly in settings with moderate dimensionality and sufficient sample size.</p>
+</li>
+<li>
+<p><strong>Uncertainty Quantification</strong>: The asymptotic normality results enable the construction of confidence intervals for random forest predictions, addressing a significant limitation of standard implementations.</p>
+</li>
+</ol>
+<p>These practical benefits make our theoretical framework valuable not only to researchers but also to practitioners seeking to enhance the performance of random forest models in real-world applications.</p>
+<h2 id="73-extensions-to-adaptive-splitting-procedures">7.3 Extensions to Adaptive Splitting Procedures</h2>
+<p>While our theoretical analysis focuses on random forests with completely random splits, an important direction for future research is extending these results to forests with data-adaptive splitting procedures, such as those used in standard implementations like CART.</p>
+<p>The double-sample tree approach proposed by Athey et al. (2019) provides a promising pathway for such extensions. In this approach, the dataset is split into two parts: one used for determining the tree structure (split points) and the other for estimation within the leaves. This separation creates independence between the tree structure and the values used for prediction, potentially enabling the application of our theoretical framework to adaptive trees.</p>
+<p>Specifically, we conjecture that under appropriate conditions, the kernel generated by double-sample trees with adaptive splits may still converge to a modified Laplace kernel, albeit with an adaptive distance metric that reflects the data-driven splitting process. This would extend our results to more practical implementations while preserving the key insights regarding asymptotic normality and bias correction.</p>
+<h2 id="74-limitations-and-open-questions">7.4 Limitations and Open Questions</h2>
+<p>Despite the significant advances presented in this paper, several limitations and open questions remain:</p>
+<ol>
+<li>
+<p><strong>High-Dimensional Settings</strong>: While our theory applies to arbitrary dimensions, the practical benefits of bias correction diminish in high-dimensional spaces due to the curse of dimensionality. Developing specialized approaches for high-dimensional settings remains an important challenge.</p>
+</li>
+<li>
+<p><strong>Classification Problems</strong>: Our current framework focuses on regression settings, and extending it to classification problems requires addressing the discrete nature of the response variable and adapting the bias correction methodology accordingly.</p>
+</li>
+<li>
+<p><strong>Adaptive Bandwidth</strong>: The current analysis assumes a fixed bandwidth parameter, but adaptive bandwidth approaches that vary the bandwidth locally could potentially offer improved performance in heterogeneous data environments.</p>
+</li>
+<li>
+<p><strong>Computational Efficiency</strong>: The bias-corrected estimator requires additional computation for estimating second derivatives, and developing more efficient algorithms for this task is an important direction for future research.</p>
+</li>
+</ol>
+<p>Addressing these limitations will further enhance the practical utility of our theoretical framework and expand its applicability to a broader range of problems.</p>
+<h2 id="75-future-research-directions">7.5 Future Research Directions</h2>
+<p>Building upon the foundation established in this paper, we envision several promising directions for future research:</p>
+<ol>
+<li>
+<p><strong>Adaptive Random Forests</strong>: Extending our theoretical framework to random forests with adaptive splitting rules, possibly by leveraging the double-sample tree approach or developing new analytical techniques to handle data-dependent splits.</p>
+</li>
+<li>
+<p><strong>Variable Importance Measures</strong>: Reinterpreting random forest variable importance measures through the lens of kernel methods, potentially leading to new theoretically grounded approaches for feature selection.</p>
+</li>
+<li>
+<p><strong>Local Adaptation</strong>: Developing locally adaptive versions of the bias correction method that adjust the correction magnitude based on local data characteristics, potentially offering improved performance in complex data environments.</p>
+</li>
+<li>
+<p><strong>Survival Analysis and Quantile Regression</strong>: Extending the kernel interpretation and bias correction methodology to other variants of random forests, such as survival forests and quantile forests.</p>
+</li>
+<li>
+<p><strong>Integration with Deep Learning</strong>: Exploring the connections between kernel methods, random forests, and neural networks to develop hybrid approaches that combine the strengths of these methodologies.</p>
+</li>
+</ol>
+<p>These research directions represent exciting opportunities to further advance our understanding of random forests and enhance their performance across various domains.</p>
+<p>In conclusion, this paper has established a fundamental connection between random forests and Laplace kernel estimators, providing new theoretical insights and practical methodologies for improving random forest performance. By bridging the gap between tree-based ensembles and kernel methods, our work opens new avenues for theoretical analysis and methodological innovations in machine learning and statistics.</p>
+<h2 id="appendix-a-extension-to-data-adaptive-trees">Appendix A: Extension to Data-Adaptive Trees</h2>
+<h3 id="a1-double-sample-trees-and-adaptive-splitting">A.1 Double-Sample Trees and Adaptive Splitting</h3>
+<p>Random forests with completely random splits, as analyzed in the main text, provide a clean theoretical framework but may be less efficient in practice than forests with data-adaptive splits. Here, we discuss how our results might extend to more practical implementations through the double-sample framework.</p>
+<p>Athey et al. (2019) introduced the concept of double-sample trees, where:
+1. A first subsample <span class="arithmatex">\(I_1\)</span> is used to determine the tree structure (split features and thresholds)
+2. A second subsample <span class="arithmatex">\(I_2\)</span> is used for estimation within the resulting leaves</p>
+<p>This approach creates conditional independence between the tree structure and the estimation sample, which is a key property for theoretical analysis.</p>
+<h3 id="a2-potential-kernel-convergence-in-double-sample-trees">A.2 Potential Kernel Convergence in Double-Sample Trees</h3>
+<p>We conjecture that under appropriate conditions, the kernel generated by double-sample trees with adaptive splits may still converge to a modified kernel form:</p>
+<div class="arithmatex">\[K_{DS}(\mathbf{x}, \mathbf{z}) \xrightarrow{p} C \cdot \exp(-\lambda d_A(\mathbf{x}, \mathbf{z}))\]</div>
+<p>where <span class="arithmatex">\(d_A(\mathbf{x}, \mathbf{z})\)</span> is an adaptive distance metric that reflects the data-driven splitting process, and <span class="arithmatex">\(C\)</span> is a normalizing constant.</p>
+<p>The key insight is that while adaptive splits change the geometry of the feature space partition, the exponential decay property of the kernel may still hold under reasonable assumptions on the splitting procedure.</p>
+<h3 id="a3-challenges-and-research-questions">A.3 Challenges and Research Questions</h3>
+<p>Extending our theoretical framework to adaptive trees raises several challenges:</p>
+<ol>
+<li>
+<p><strong>Characterizing the Adaptive Distance Metric</strong>: Understanding how the data-driven splitting process shapes the implicit distance metric is crucial for establishing the kernel convergence.</p>
+</li>
+<li>
+<p><strong>Analyzing Convergence Rates</strong>: The convergence rates may differ from those of completely random forests due to the adaptive nature of the splits.</p>
+</li>
+<li>
+<p><strong>Adapting Bias Correction</strong>: The bias correction methodology needs to be modified to account for the adaptive distance metric.</p>
+</li>
+</ol>
+<p>Addressing these challenges represents an important direction for future research that could significantly enhance the practical impact of our theoretical framework.</p>
+<h3 id="a4-preliminary-empirical-evidence">A.4 Preliminary Empirical Evidence</h3>
+<p>Preliminary experiments with double-sample trees suggest that their implicit kernels exhibit similar exponential decay properties to those of completely random forests, albeit with modified distance metrics that tend to place more emphasis on informative features.</p>
+<p>These observations provide empirical support for our conjecture about kernel convergence in adaptive trees and motivate further theoretical investigation in this direction.</p>
+<h2 id="references">References</h2>
+<p>Athey, S., Tibshirani, J., &amp; Wager, S. (2019). Generalized random forests. The Annals of Statistics, 47(2), 1148-1178.</p>
+<p>Biau, G. (2012). Analysis of a random forests model. Journal of Machine Learning Research, 13, 1063-1095.</p>
+<p>Biau, G., Devroye, L., &amp; Lugosi, G. (2008). Consistency of random forests and other averaging classifiers. Journal of Machine Learning Research, 9, 2015-2033.</p>
+<p>Breiman, L. (2000). Some infinity theory for predictor ensembles. Technical Report 579, Statistics Department, University of California, Berkeley.</p>
+<p>Breiman, L. (2001). Random forests. Machine Learning, 45(1), 5-32.</p>
+<p>Bühlmann, P., &amp; Yu, B. (2002). Analyzing bagging. The Annals of Statistics, 30(4), 927-961.</p>
+<p>Devroye, L., Györfi, L., &amp; Lugosi, G. (1996). A probabilistic theory of pattern recognition. Springer.</p>
+<p>Efron, B. (2014). Estimation and accuracy after model selection. Journal of the American Statistical Association, 109(507), 991-1007.</p>
+<p>Fan, J., &amp; Gijbels, I. (1996). Local polynomial modelling and its applications. Chapman and Hall/CRC.</p>
+<p>Geurts, P., Ernst, D., &amp; Wehenkel, L. (2006). Extremely randomized trees. Machine Learning, 63(1), 3-42.</p>
+<p>Györfi, L., Kohler, M., Krzyzak, A., &amp; Walk, H. (2002). A distribution-free theory of nonparametric regression. Springer.</p>
+<p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The elements of statistical learning: Data mining, inference, and prediction (2nd ed.). Springer.</p>
+<p>Hothorn, T., Lausen, B., Benner, A., &amp; Radespiel-Tröger, M. (2004). Bagging survival trees. Statistics in Medicine, 23(1), 77-91.</p>
+<p>Ishwaran, H., &amp; Kogalur, U. B. (2010). Consistency of random survival forests. Statistics &amp; Probability Letters, 80(13-14), 1056-1064.</p>
+<p>Lin, Y., &amp; Jeon, Y. (2006). Random forests and adaptive nearest neighbors. Journal of the American Statistical Association, 101(474), 578-590.</p>
+<p>Louppe, G., Wehenkel, L., Sutera, A., &amp; Geurts, P. (2013). Understanding variable importances in forests of randomized trees. Advances in Neural Information Processing Systems, 26, 431-439.</p>
+<p>Mentch, L., &amp; Hooker, G. (2016). Quantifying uncertainty in random forests via confidence intervals and hypothesis tests. Journal of Machine Learning Research, 17(1), 841-881.</p>
+<p>Meinshausen, N. (2006). Quantile regression forests. Journal of Machine Learning Research, 7, 983-999.</p>
+<p>Scornet, E. (2016). Random forests and kernel methods. IEEE Transactions on Information Theory, 62(3), 1485-1500.</p>
+<p>Scornet, E., Biau, G., &amp; Vert, J. P. (2015). Consistency of random forests. The Annals of Statistics, 43(4), 1716-1741.</p>
+<p>Schölkopf, B., &amp; Smola, A. J. (2002). Learning with kernels: Support vector machines, regularization, optimization, and beyond. MIT Press.</p>
+<p>Stein, M. L. (1999). Interpolation of spatial data: Some theory for kriging. Springer.</p>
+<p>Tsybakov, A. B. (2009). Introduction to nonparametric estimation. Springer.</p>
+<p>Wager, S., &amp; Athey, S. (2018). Estimation and inference of heterogeneous treatment effects using random forests. Journal of the American Statistical Association, 113(523), 1228-1242.</p>
+<p>Wager, S., &amp; Walther, G. (2015). Adaptive concentration of regression trees, with application to random forests. arXiv preprint arXiv:1503.06388.</p>
+<p>Wasserman, L. (2006). All of nonparametric statistics. Springer.</p>
+<p>Zhang, H., &amp; Singer, B. H. (2010). Recursive partitioning and applications (2nd ed.). Springer.</p>
+<p>Zhu, R., Zeng, D., &amp; Kosorok, M. R. (2015). Reinforcement learning trees. Journal of the American Statistical Association, 110(512), 1770-1784.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
