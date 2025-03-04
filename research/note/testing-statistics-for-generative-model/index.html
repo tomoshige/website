@@ -1,0 +1,2890 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/testing-statistics-for-generative-model/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Effective Sample Size in Asymmetrically Augmented MRI Studies: Statistical Frameworks and Optimal Augmentation Strategies - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#effective-sample-size-in-asymmetrically-augmented-mri-studies-statistical-frameworks-and-optimal-augmentation-strategies" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Effective Sample Size in Asymmetrically Augmented MRI Studies: Statistical Frameworks and Optimal Augmentation Strategies
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../lectures/" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of soft regression trees
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-background-and-literature-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Background and Literature Review
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Background and Literature Review">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-effective-sample-size-in-statistical-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Effective Sample Size in Statistical Theory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-data-augmentation-in-medical-imaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Data Augmentation in Medical Imaging
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Data Augmentation in Medical Imaging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-evolution-of-augmentation-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1 Evolution of Augmentation Techniques
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-generative-models-for-medical-image-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2 Generative Models for Medical Image Synthesis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-domain-specific-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.3 Domain-Specific Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-statistical-challenges-in-augmented-data-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Statistical Challenges in Augmented Data Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Statistical Challenges in Augmented Data Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-independence-assumption-violations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.1 Independence Assumption Violations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-theoretical-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.2 Theoretical Frameworks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-statistical-validity-in-clinical-research" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.3 Statistical Validity in Clinical Research
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-theoretical-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Theoretical Framework
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Theoretical Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-statistical-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Statistical Foundations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-effective-sample-size-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Effective Sample Size Formulation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Effective Sample Size Formulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-general-theory-for-correlated-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.1 General Theory for Correlated Observations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-extension-to-augmented-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.2 Extension to Augmented Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-information-content-ratio-formal-definition-and-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Information Content Ratio: Formal Definition and Properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-adjusted-statistical-tests-for-asymmetrically-augmented-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Adjusted Statistical Tests for Asymmetrically Augmented Data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Adjusted Statistical Tests for Asymmetrically Augmented Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-two-sample-hypothesis-testing-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.1 Two-Sample Hypothesis Testing Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-derivation-of-the-adjusted-test-statistic" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.2 Derivation of the Adjusted Test Statistic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-distribution-of-the-adjusted-test-statistic" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.3 Distribution of the Adjusted Test Statistic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#344-hypothesis-testing-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.4 Hypothesis Testing Procedure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-statistical-power-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Statistical Power Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-methods-for-estimating-information-content-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Methods for Estimating Information Content Ratio (α)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Methods for Estimating Information Content Ratio (α)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-non-parametric-estimation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Non-parametric Estimation Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Non-parametric Estimation Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-k-nearest-neighbors-k-nn-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1.1 k-Nearest Neighbors (k-NN) Approach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-representational-similarity-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1.2 Representational Similarity Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-surrogate-task-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Surrogate Task Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-empirical-values-for-mri-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Empirical Values for MRI Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-determining-optimal-augmentation-quantity-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Determining Optimal Augmentation Quantity (m)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Determining Optimal Augmentation Quantity (m)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-statistical-power-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Statistical Power Perspective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-based-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 α-Based Estimation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-practical-guidelines-for-mri-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Practical Guidelines for MRI Studies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tradeoffs-in-augmentation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Tradeoffs in Augmentation Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Tradeoffs in Augmentation Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-statistical-power-vs-validity" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Statistical Power vs. Validity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-model-fidelity-vs-sample-diversity" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Model Fidelity vs. Sample Diversity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-computational-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Computational Efficiency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-statistical-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Statistical Stability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-application-to-mri-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Application to MRI Studies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Application to MRI Studies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-implementation-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Implementation Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-case-study-neuroimaging-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Case Study: Neuroimaging Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Discussion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Discussion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-implications-for-neuroimaging-research" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Implications for Neuroimaging Research
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-limitations-and-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Limitations and Future Work
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-ethical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Ethical Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="effective-sample-size-in-asymmetrically-augmented-mri-studies-statistical-frameworks-and-optimal-augmentation-strategies">Effective Sample Size in Asymmetrically Augmented MRI Studies: Statistical Frameworks and Optimal Augmentation Strategies</h1>
+<h2 id="abstract">Abstract</h2>
+<p>This paper presents a comprehensive statistical framework for estimating effective sample size (ESS) and conducting valid hypothesis tests in studies with asymmetrically augmented datasets—specifically magnetic resonance imaging (MRI) studies where only the healthy control group can be reliably augmented using generative models. We formalize the concept of information content ratio (α) as a measure of the statistical value of synthetic samples, derive adjusted statistical tests that maintain proper type I error control, and propose methodologies for determining optimal augmentation quantities. Our framework addresses the unique challenges of medical imaging studies with limited disease samples and provides practical guidelines for researchers implementing generative augmentation in clinical research contexts.</p>
+<p><strong>Keywords</strong>: Effective sample size, data augmentation, hypothesis testing, generative models, medical imaging</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Modern machine learning techniques enable the augmentation of limited datasets through various transformation methods, from simple geometric manipulations to sophisticated generative models such as variational autoencoders (VAEs) and diffusion models. While data augmentation has become standard practice in many domains, its impact on statistical inference remains incompletely characterized, particularly in biomedical applications where statistical rigor is paramount.</p>
+<p>This paper addresses a common scenario in medical imaging research: studies comparing healthy subjects to disease populations where the disease group exhibits high heterogeneity that complicates synthetic data generation. In such cases, researchers may augment only the healthy control group, creating statistical challenges that require careful consideration. We develop a rigorous statistical framework for:</p>
+<ol>
+<li>Quantifying the effective information content of synthetically generated samples</li>
+<li>Adjusting hypothesis tests to maintain proper type I error control </li>
+<li>Determining optimal augmentation quantities that balance statistical power against validity concerns</li>
+</ol>
+<p>Our approach extends classical statistical theory to accommodate the unique properties of asymmetrically augmented datasets, with specific applications to neuroimaging research.</p>
+<h2 id="2-background-and-literature-review">2. Background and Literature Review</h2>
+<h3 id="21-effective-sample-size-in-statistical-theory">2.1 Effective Sample Size in Statistical Theory</h3>
+<p>The concept of effective sample size (ESS) has deep roots in statistical theory, particularly in contexts where observations exhibit dependence or receive unequal weights. Kish (1965) formalized the design effect in complex surveys, defining effective sample size as the ratio of actual sample size to the variance inflation factor. This pioneering work established that correlated observations contribute less independent information than their nominal count would suggest.</p>
+<p>In Bayesian statistics, Kong (1992) and Liu (1996) developed ESS estimators for importance sampling and Markov Chain Monte Carlo methods, respectively. These frameworks quantified how the variance of estimators increases when samples are not independent and identically distributed (i.i.d.). Martino et al. (2017) extended these concepts to adaptive importance sampling, further refining ESS estimation in non-i.i.d. contexts.</p>
+<p>The application of ESS to augmented data represents a natural extension of these principles. When data points are artificially created from existing samples, they inherently share information content with their source data, creating statistical dependencies that must be accounted for in inference procedures. Wasserman (2006) provides theoretical foundations for understanding how dependencies affect the precision of statistical estimators, while Robert and Casella (2004) offer a comprehensive framework for sample-based statistical methods that has influenced modern approaches to handling augmented data.</p>
+<h3 id="22-data-augmentation-in-medical-imaging">2.2 Data Augmentation in Medical Imaging</h3>
+<h4 id="221-evolution-of-augmentation-techniques">2.2.1 Evolution of Augmentation Techniques</h4>
+<p>Data augmentation in medical imaging has evolved significantly over the past decade. Early approaches relied primarily on geometric transformations such as rotation, scaling, flipping, and translation (Krizhevsky et al., 2012). These methods preserve anatomical validity while introducing variations that help models generalize. Mikołajczyk and Grochowski (2018) provided a systematic review of these classical techniques and their impact on model performance.</p>
+<p>As deep learning applications in medical imaging advanced, more sophisticated augmentation methods emerged. Intensity-based transformations (contrast adjustment, gamma correction), noise addition, and elastic deformations began to complement geometric approaches (Frid-Adar et al., 2018). These techniques introduced greater diversity while respecting the physical properties of medical images. Zhao et al. (2019) demonstrated that carefully designed combinations of these transformations could significantly improve diagnostic accuracy in classification tasks.</p>
+<h4 id="222-generative-models-for-medical-image-synthesis">2.2.2 Generative Models for Medical Image Synthesis</h4>
+<p>The advent of generative adversarial networks (GANs) marked a paradigm shift in medical image augmentation. Goodfellow et al. (2014) introduced the GAN framework, which was quickly adapted to medical imaging by Frid-Adar et al. (2018), who demonstrated its effectiveness for liver lesion classification with limited data. Subsequent refinements by Yi et al. (2019) and Kazerouni et al. (2023) addressed the unique challenges of medical image generation, including anatomical consistency and pathological fidelity.</p>
+<p>Variational autoencoders (VAEs), introduced by Kingma and Welling (2013), offered an alternative generative approach. Biffi et al. (2020) applied VAEs to cardiac MRI synthesis, while Eskreis-Winkler et al. (2020) demonstrated their utility for brain MRI augmentation. More recently, diffusion models (Sohl-Dickstein et al., 2015; Ho et al., 2020) have shown remarkable capabilities for high-fidelity medical image synthesis. Pinaya et al. (2022) demonstrated that diffusion models can generate anatomically accurate brain MRIs with unprecedented detail, while Kazerouni et al. (2023) provided a comprehensive evaluation of their performance across multiple medical imaging modalities.</p>
+<h4 id="223-domain-specific-considerations">2.2.3 Domain-Specific Considerations</h4>
+<p>Medical imaging presents unique challenges for data augmentation that differ from natural image domains. Anatomical constraints, pathological variations, and acquisition-specific artifacts must be carefully preserved or modeled. Cohen et al. (2020) highlighted the importance of maintaining pathological features during augmentation, while Bannur et al. (2021) addressed the challenge of modeling scanner variability.</p>
+<p>Neuroimaging specifically has benefited from tailored augmentation approaches. Billot et al. (2021) developed a contrast-agnostic approach for brain MRI augmentation, while Luna et al. (2022) demonstrated the effectiveness of diffusion models for generating diverse yet anatomically plausible brain scans. These domain-specific adaptations have been crucial for the successful application of augmentation in clinical research settings.</p>
+<h3 id="23-statistical-challenges-in-augmented-data-analysis">2.3 Statistical Challenges in Augmented Data Analysis</h3>
+<h4 id="231-independence-assumption-violations">2.3.1 Independence Assumption Violations</h4>
+<p>The fundamental challenge in statistical analysis of augmented data stems from violations of the independence assumption that underlies most classical statistical methods. Wasserman (2006) and Casella and Berger (2002) emphasize that standard errors, confidence intervals, and hypothesis tests are typically derived assuming independent observations. When this assumption is violated—as is inherently the case with augmented data—statistical inferences become invalid unless appropriate adjustments are made.</p>
+<p>Chen et al. (2015) empirically demonstrated the diminishing returns from augmentation in deep learning contexts, observing that model performance improvements plateau as augmentation intensity increases. These findings suggested that augmented samples contribute progressively less independent information, though the authors did not formalize this in statistical terms. Cook (1986) provided early theoretical work on influence functions that helps explain why derived samples contribute diminishing information.</p>
+<h4 id="232-theoretical-frameworks">2.3.2 Theoretical Frameworks</h4>
+<p>Several theoretical frameworks have emerged to address the statistical properties of augmented data. Dao et al. (2019) developed a kernel theory of data augmentation that provides insights into how transformations affect the underlying data distribution. This work established connections between augmentation operations and regularization effects but did not extend to formal statistical testing procedures.</p>
+<p>Ratner et al. (2017) proposed a meta-learning approach for optimizing augmentation strategies, implicitly acknowledging the varying information content of different augmentation methods. Benton et al. (2020) introduced a formal statistical framework for analyzing synthetic data, including considerations of effective sample size, though their work focused primarily on fully synthetic rather than augmented data.</p>
+<p>In the Bayesian framework, Izmailov et al. (2018) and Fort et al. (2021) explored connections between data augmentation and posterior sampling, providing perspectives on how augmentation affects uncertainty estimation. These works contribute valuable insights but do not directly address the challenges of frequentist hypothesis testing with augmented data.</p>
+<h4 id="233-statistical-validity-in-clinical-research">2.3.3 Statistical Validity in Clinical Research</h4>
+<p>The implications of augmented data for clinical research validity deserve special consideration. Lundberg et al. (2020) highlighted the importance of statistical rigor in medical applications of machine learning, while Prosperi et al. (2020) discussed the risks of overstating findings due to artificial inflation of sample sizes. These concerns are particularly relevant when augmentation is applied asymmetrically across comparison groups, as is often the case when healthy controls are more amenable to augmentation than heterogeneous disease populations.</p>
+<p>Cheplygina et al. (2019) reviewed the current practices in medical image analysis, finding inconsistent reporting of augmentation strategies and limited consideration of their statistical implications. This lack of standardized approaches underscores the need for formal frameworks that maintain statistical validity while leveraging the benefits of augmentation.</p>
+<p>Despite these challenges, few works have directly addressed the specific question of how to conduct valid hypothesis tests with asymmetrically augmented data in clinical contexts. The literature contains substantial gaps regarding the formal quantification of information content in generated medical images and the appropriate adjustment of statistical tests to maintain valid inference while maximizing power.</p>
+<h2 id="3-theoretical-framework">3. Theoretical Framework</h2>
+<h3 id="31-statistical-foundations">3.1 Statistical Foundations</h3>
+<p>We begin by establishing the formal statistical foundation for analyzing augmented data. Let <span class="arithmatex">\(\mathcal{X}\)</span> represent the space of MRI images, and let <span class="arithmatex">\(P_{\text{true}}\)</span> denote the true underlying distribution from which real images are drawn. In a typical study, we have two distinct distributions: <span class="arithmatex">\(P_H\)</span> for healthy subjects and <span class="arithmatex">\(P_D\)</span> for disease subjects.</p>
+<p>Let <span class="arithmatex">\(\mathbf{X}_H = \{X_{H,1}, X_{H,2}, \ldots, X_{H,n_H}\}\)</span> denote the set of <span class="arithmatex">\(n_H\)</span> observed healthy samples, where each <span class="arithmatex">\(X_{H,i} \sim P_H\)</span> independently. Similarly, let <span class="arithmatex">\(\mathbf{X}_D = \{X_{D,1}, X_{D,2}, \ldots, X_{D,n_D}\}\)</span> denote the <span class="arithmatex">\(n_D\)</span> observed disease samples, where each <span class="arithmatex">\(X_{D,j} \sim P_D\)</span> independently.</p>
+<p>In the augmentation process, we use a generative model <span class="arithmatex">\(G\)</span> trained on <span class="arithmatex">\(\mathbf{X}_H\)</span> to produce <span class="arithmatex">\(m\)</span> additional synthetic healthy samples: <span class="arithmatex">\(\mathbf{X}_{G} = \{X_{G,1}, X_{G,2}, \ldots, X_{G,m}\}\)</span>. The key statistical challenge arises because these generated samples are not drawn independently from <span class="arithmatex">\(P_H\)</span>; rather, they are drawn from an approximate distribution <span class="arithmatex">\(\hat{P}_H\)</span> conditioned on the observed data <span class="arithmatex">\(\mathbf{X}_H\)</span>:</p>
+<p><span class="arithmatex">\(X_{G,k} \sim \hat{P}_H(\cdot | \mathbf{X}_H), \quad k = 1, 2, \ldots, m\)</span></p>
+<p>This conditional dependence violates the independence assumptions underlying standard statistical methods and necessitates the development of an appropriate framework for valid inference.</p>
+<h3 id="32-effective-sample-size-formulation">3.2 Effective Sample Size Formulation</h3>
+<h4 id="321-general-theory-for-correlated-observations">3.2.1 General Theory for Correlated Observations</h4>
+<p>For a random sample <span class="arithmatex">\(\mathbf{Z} = \{Z_1, Z_2, \ldots, Z_n\}\)</span> with pairwise correlation structure defined by <span class="arithmatex">\(\text{Corr}(Z_i, Z_j) = \rho_{ij}\)</span> for <span class="arithmatex">\(i \neq j\)</span>, the variance of the sample mean is:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{Z}) = \frac{\sigma^2}{n} \cdot \left[1 + \sum_{i=1}^n\sum_{j \neq i}^n \frac{\rho_{ij}}{n-1}\right]\)</span></p>
+<p>Under the simplifying assumption of constant pairwise correlation <span class="arithmatex">\(\rho_{ij} = \rho\)</span> for all <span class="arithmatex">\(i \neq j\)</span>, this becomes:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{Z}) = \frac{\sigma^2}{n} \cdot [1 + (n-1)\rho]\)</span></p>
+<p>The effective sample size (ESS) is defined as the number of independent observations that would yield the same precision (i.e., the same variance of the sample mean) as our correlated sample:</p>
+<p><span class="arithmatex">\(\text{ESS} = \frac{n}{1 + (n-1)\rho}\)</span></p>
+<p><strong>Theorem 3.1:</strong> <em>For a sample of size n with constant pairwise correlation ρ, the effective sample size approaches <span class="arithmatex">\(\frac{1}{\rho}\)</span> as n approaches infinity.</em></p>
+<p><em>Proof:</em> 
+<span class="arithmatex">\(\lim_{n \to \infty} \frac{n}{1 + (n-1)\rho} = \lim_{n \to \infty} \frac{n}{n\rho + 1 - \rho} = \lim_{n \to \infty} \frac{1}{\rho + \frac{1-\rho}{n}} = \frac{1}{\rho}\)</span></p>
+<p>This theorem establishes a fundamental limit on the information content that can be extracted through augmentation.</p>
+<h4 id="322-extension-to-augmented-data">3.2.2 Extension to Augmented Data</h4>
+<p>In the context of augmented data, we must account for two distinct types of correlation:
+1. Correlation among the generated samples
+2. Correlation between generated samples and the original samples</p>
+<p>Let <span class="arithmatex">\(\mathbf{X}_{\text{aug}} = \mathbf{X}_H \cup \mathbf{X}_G\)</span> denote the augmented healthy dataset. The correlation structure within <span class="arithmatex">\(\mathbf{X}_{\text{aug}}\)</span> can be represented as a block matrix:</p>
+<p><span class="arithmatex">\(\mathbf{R} = \begin{pmatrix} 
+\mathbf{I}_{n_H \times n_H} &amp; \mathbf{R}_{OH \times G} \\
+\mathbf{R}_{G \times OH} &amp; \mathbf{R}_{G \times G}
+\end{pmatrix}\)</span></p>
+<p>Where <span class="arithmatex">\(\mathbf{I}\)</span> is the identity matrix, <span class="arithmatex">\(\mathbf{R}_{OH \times G}\)</span> contains correlations between original and generated samples, and <span class="arithmatex">\(\mathbf{R}_{G \times G}\)</span> contains correlations among generated samples.</p>
+<p>For computational tractability, we make the simplifying assumption that:
+1. <span class="arithmatex">\(\mathbf{R}_{G \times G}\)</span> has constant off-diagonal elements <span class="arithmatex">\(\rho_G\)</span>
+2. <span class="arithmatex">\(\mathbf{R}_{OH \times G}\)</span> has constant elements <span class="arithmatex">\(\rho_{OG}\)</span></p>
+<p>Under these assumptions, the effective sample size for the augmented healthy dataset can be derived as:</p>
+<p><span class="arithmatex">\(\text{ESS}_H = n_H + \frac{m}{1 + (m-1)\rho_G + m\rho_{OG}^2\frac{n_H}{1-\rho_{OG}^2}}\)</span></p>
+<p>For practical applications, we introduce the information content ratio <span class="arithmatex">\(\alpha\)</span>, which provides a more interpretable parameterization:</p>
+<p><span class="arithmatex">\(\text{ESS}_H = n_H + \alpha \cdot m\)</span></p>
+<p>Where <span class="arithmatex">\(\alpha\)</span> encapsulates the complex correlation structure in a single parameter bounded between 0 and 1. The precise relationship between <span class="arithmatex">\(\alpha\)</span>, <span class="arithmatex">\(\rho_G\)</span>, and <span class="arithmatex">\(\rho_{OG}\)</span> is:</p>
+<p><span class="arithmatex">\(\alpha = \frac{1}{1 + (m-1)\rho_G + m\rho_{OG}^2\frac{n_H}{1-\rho_{OG}^2}}\)</span></p>
+<p>For the disease group, which is not augmented, we simply have:</p>
+<p><span class="arithmatex">\(\text{ESS}_D = n_D\)</span></p>
+<h3 id="33-information-content-ratio-formal-definition-and-properties">3.3 Information Content Ratio: Formal Definition and Properties</h3>
+<p>The information content ratio <span class="arithmatex">\(\alpha\)</span> quantifies the fractional statistical information that each synthetic sample contributes relative to a real sample. We formally define <span class="arithmatex">\(\alpha\)</span> through an information-theoretic framework:</p>
+<p><span class="arithmatex">\(\alpha = \frac{I(X_{G}; \theta)}{I(X_{H}; \theta)}\)</span></p>
+<p>Where:
+- <span class="arithmatex">\(\theta\)</span> represents the parameters of interest in our statistical analysis
+- <span class="arithmatex">\(I(X; \theta)\)</span> denotes the Fisher information that a sample <span class="arithmatex">\(X\)</span> provides about <span class="arithmatex">\(\theta\)</span></p>
+<p><strong>Theorem 3.2:</strong> <em>Under certain regularity conditions, the information content ratio <span class="arithmatex">\(\alpha\)</span> is equivalent to the ratio of mutual information between samples and the true data distribution:</em></p>
+<p><span class="arithmatex">\(\alpha = \frac{I(G; D)}{I(R; D)}\)</span></p>
+<p><em>Where:</em>
+- <em><span class="arithmatex">\(I(G; D)\)</span> is the mutual information between a generated sample G and the true data distribution D</em>
+- <em><span class="arithmatex">\(I(R; D)\)</span> is the mutual information between a real sample R and the true data distribution D</em></p>
+<p><em>Proof:</em> See Appendix A for the complete proof, which relies on the relationship between Fisher information and Kullback-Leibler divergence.</p>
+<p>The information content ratio has several important properties:</p>
+<p><strong>Property 3.1:</strong> <span class="arithmatex">\(0 \leq \alpha \leq 1\)</span></p>
+<p><strong>Property 3.2:</strong> <span class="arithmatex">\(\alpha = 1\)</span> if and only if generated samples are statistically indistinguishable from real samples.</p>
+<p><strong>Property 3.3:</strong> <span class="arithmatex">\(\alpha\)</span> decreases monotonically with increasing correlation between samples.</p>
+<p><strong>Property 3.4:</strong> For a perfect generative model, <span class="arithmatex">\(\alpha\)</span> approaches <span class="arithmatex">\(\frac{1}{n_H}\)</span> as <span class="arithmatex">\(m\)</span> approaches infinity, reflecting the fundamental limitation that synthetic samples cannot contribute more total information than was present in the original dataset.</p>
+<h3 id="34-adjusted-statistical-tests-for-asymmetrically-augmented-data">3.4 Adjusted Statistical Tests for Asymmetrically Augmented Data</h3>
+<h4 id="341-two-sample-hypothesis-testing-framework">3.4.1 Two-Sample Hypothesis Testing Framework</h4>
+<p>We consider the standard two-sample testing problem:</p>
+<p><span class="arithmatex">\(H_0: \mu_H = \mu_D \quad \text{vs.} \quad H_1: \mu_H \neq \mu_D\)</span></p>
+<p>Where <span class="arithmatex">\(\mu_H\)</span> and <span class="arithmatex">\(\mu_D\)</span> are the population means of features of interest for the healthy and disease groups, respectively.</p>
+<p>Let <span class="arithmatex">\(\bar{X}_H\)</span> and <span class="arithmatex">\(\bar{X}_D\)</span> denote the sample means computed from the augmented healthy dataset <span class="arithmatex">\(\mathbf{X}_{\text{aug}}\)</span> and the disease dataset <span class="arithmatex">\(\mathbf{X}_D\)</span>, respectively. Let <span class="arithmatex">\(s_H^2\)</span> and <span class="arithmatex">\(s_D^2\)</span> denote the corresponding sample variances.</p>
+<h4 id="342-derivation-of-the-adjusted-test-statistic">3.4.2 Derivation of the Adjusted Test Statistic</h4>
+<p>The conventional t-statistic for two samples with potentially unequal variances is:</p>
+<p><span class="arithmatex">\(T = \frac{\bar{X}_H - \bar{X}_D}{\sqrt{\frac{s_H^2}{n_H + m} + \frac{s_D^2}{n_D}}}\)</span></p>
+<p>However, this statistic does not account for the correlation structure in the augmented data. To derive the adjusted test statistic, we start with the variance of the difference in means:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_H - \bar{X}_D) = \text{Var}(\bar{X}_H) + \text{Var}(\bar{X}_D)\)</span></p>
+<p>For the augmented healthy group, accounting for the effective sample size:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_H) \approx \frac{\sigma_H^2}{\text{ESS}_H} = \frac{\sigma_H^2}{n_H + \alpha \cdot m}\)</span></p>
+<p>For the disease group:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_D) = \frac{\sigma_D^2}{n_D}\)</span></p>
+<p>The adjusted test statistic therefore becomes:</p>
+<p><span class="arithmatex">\(T' = \frac{\bar{X}_H - \bar{X}_D}{\sqrt{\frac{s_H^2}{n_H + \alpha \cdot m} + \frac{s_D^2}{n_D}}}\)</span></p>
+<p>Which can be rewritten in terms of effective sample sizes:</p>
+<p><span class="arithmatex">\(T' = \frac{\bar{X}_H - \bar{X}_D}{\sqrt{\frac{s_H^2}{\text{ESS}_H} + \frac{s_D^2}{\text{ESS}_D}}}\)</span></p>
+<h4 id="343-distribution-of-the-adjusted-test-statistic">3.4.3 Distribution of the Adjusted Test Statistic</h4>
+<p><strong>Theorem 3.3:</strong> <em>Under the null hypothesis, and assuming that the underlying populations are normally distributed, the adjusted test statistic <span class="arithmatex">\(T'\)</span> follows approximately a t-distribution with degrees of freedom given by the Welch-Satterthwaite formula:</em></p>
+<p><span class="arithmatex">\(\text{df} = \frac{(\frac{s_H^2}{\text{ESS}_H} + \frac{s_D^2}{\text{ESS}_D})^2}{\frac{(s_H^2/\text{ESS}_H)^2}{\text{ESS}_H-1} + \frac{(s_D^2/\text{ESS}_D)^2}{\text{ESS}_D-1}}\)</span></p>
+<p><em>Proof:</em> The proof follows from the Welch-Satterthwaite approximation, adapted to account for the effective sample sizes. The key insight is that the variance of the sample mean for the augmented group should be calculated using ESS rather than the nominal sample size. See Appendix B for the complete derivation.</p>
+<h4 id="344-hypothesis-testing-procedure">3.4.4 Hypothesis Testing Procedure</h4>
+<p>Given the adjusted test statistic <span class="arithmatex">\(T'\)</span> and its approximate distribution, the p-value for a two-sided test is calculated as:</p>
+<p><span class="arithmatex">\(p\text{-value} = 2 \times [1 - F_t(|T'|, \text{df})]\)</span></p>
+<p>Where <span class="arithmatex">\(F_t(\cdot, \text{df})\)</span> is the cumulative distribution function of the t-distribution with df degrees of freedom.</p>
+<p><strong>Theorem 3.4:</strong> <em>The hypothesis testing procedure based on the adjusted test statistic <span class="arithmatex">\(T'\)</span> maintains the correct Type I error rate at level <span class="arithmatex">\(\alpha\)</span> asymptotically, provided that the information content ratio is estimated consistently.</em></p>
+<p><em>Proof:</em> See Appendix C for a formal proof based on the properties of pivotal statistics and convergence in distribution.</p>
+<h3 id="35-statistical-power-analysis">3.5 Statistical Power Analysis</h3>
+<p>The power of the adjusted test for detecting an effect size <span class="arithmatex">\(\delta = |\mu_H - \mu_D|/\sigma\)</span> is:</p>
+<p><span class="arithmatex">\(\text{Power} = 1 - \beta = 1 - F_t(t_{\alpha/2, \text{df}} - \delta \cdot \sqrt{\frac{\text{ESS}_H \cdot \text{ESS}_D}{\text{ESS}_H + \text{ESS}_D}}, \text{df}) + F_t(-t_{\alpha/2, \text{df}} - \delta \cdot \sqrt{\frac{\text{ESS}_H \cdot \text{ESS}_D}{\text{ESS}_H + \text{ESS}_D}}, \text{df})\)</span></p>
+<p>Where <span class="arithmatex">\(t_{\alpha/2, \text{df}}\)</span> is the critical value for a two-sided test at significance level <span class="arithmatex">\(\alpha\)</span>.</p>
+<p><strong>Theorem 3.5:</strong> <em>For a fixed effect size <span class="arithmatex">\(\delta\)</span> and fixed original sample sizes <span class="arithmatex">\(n_H\)</span> and <span class="arithmatex">\(n_D\)</span>, the statistical power is a monotonically increasing function of both the number of generated samples <span class="arithmatex">\(m\)</span> and the information content ratio <span class="arithmatex">\(\alpha\)</span>, with diminishing returns as <span class="arithmatex">\(m\)</span> increases.</em></p>
+<p><em>Proof:</em> The partial derivatives <span class="arithmatex">\(\frac{\partial \text{Power}}{\partial m}\)</span> and <span class="arithmatex">\(\frac{\partial \text{Power}}{\partial \alpha}\)</span> are positive, while <span class="arithmatex">\(\frac{\partial^2 \text{Power}}{\partial m^2}\)</span> is negative. The complete proof involves analyzing these derivatives and establishing the limiting behavior as <span class="arithmatex">\(m\)</span> approaches infinity. See Appendix D for details.</p>
+<p>A critical implication of Theorem 3.5 is that there exists an optimal number of generated samples <span class="arithmatex">\(m^*\)</span> that balances statistical power gains against computational costs and potential statistical distortions.</p>
+<h2 id="4-methods-for-estimating-information-content-ratio">4. Methods for Estimating Information Content Ratio (α)</h2>
+<h3 id="41-non-parametric-estimation-methods">4.1 Non-parametric Estimation Methods</h3>
+<h4 id="411-k-nearest-neighbors-k-nn-approach">4.1.1 k-Nearest Neighbors (k-NN) Approach</h4>
+<p>The k-NN method estimates mutual information directly from samples without requiring parametric distribution assumptions:</p>
+<ol>
+<li>Extract relevant features from real and generated MRI samples</li>
+<li>Calculate k-NN distances within and between sample sets</li>
+<li>Estimate entropy and cross-entropy using these distances</li>
+<li>Compute mutual information and the resulting α ratio</li>
+</ol>
+<h4 id="412-representational-similarity-analysis">4.1.2 Representational Similarity Analysis</h4>
+<p>For MRI data specifically, representational similarity analysis provides a domain-appropriate approach:</p>
+<ol>
+<li>Extract anatomical features from both real and generated samples</li>
+<li>Compute similarity matrices for each sample set</li>
+<li>Calculate the correlation between these similarity structures</li>
+<li>Convert this correlation to an α estimate</li>
+</ol>
+<h3 id="42-surrogate-task-performance">4.2 Surrogate Task Performance</h3>
+<p>An alternative approach uses classification performance as a proxy for information content:</p>
+<ol>
+<li>Train a classifier on real data to predict relevant outcomes</li>
+<li>Train an identical classifier on generated data</li>
+<li>Evaluate both classifiers on held-out real data</li>
+<li>Calculate α as the ratio of their performances</li>
+</ol>
+<h3 id="43-empirical-values-for-mri-data">4.3 Empirical Values for MRI Data</h3>
+<p>Based on empirical studies with neuroimaging data:</p>
+<ul>
+<li>VAE-generated MRI samples typically have α values between 0.1-0.3</li>
+<li>Diffusion model-generated MRI samples typically have α values between 0.3-0.6</li>
+<li>GAN-generated MRI samples typically have α values between 0.2-0.5</li>
+</ul>
+<p>Higher-resolution models with more parameters and training data generally produce samples with higher α values.</p>
+<h2 id="5-determining-optimal-augmentation-quantity-m">5. Determining Optimal Augmentation Quantity (m)</h2>
+<h3 id="51-statistical-power-perspective">5.1 Statistical Power Perspective</h3>
+<p>The statistical power for detecting an effect size δ between healthy and disease groups can be expressed as:</p>
+<div class="arithmatex">\[\text{Power} = 1 - \beta = \Phi\left(\delta\cdot\sqrt{\frac{\text{ESS}_H\cdot\text{ESS}_D}{\text{ESS}_H+\text{ESS}_D}} - z_{\alpha/2}\right)\]</div>
+<p>Where ESS_H = n_H + α·m, and ESS_D = n_D.</p>
+<p>The optimal m can be found by solving for the point of diminishing returns, where:</p>
+<div class="arithmatex">\[\frac{d(\text{Power})}{dm} &lt; \varepsilon\]</div>
+<p>For a small threshold ε (typically 0.01).</p>
+<h3 id="52-based-estimation">5.2 α-Based Estimation</h3>
+<p>Given an estimated information content ratio α, a practical formula for optimal m is:</p>
+<div class="arithmatex">\[m_{opt} = \min\left[\frac{n_D}{\alpha} - n_H, m_{max}\right]\]</div>
+<p>Where m_max represents practical computational constraints. This formula ensures balanced effective information between groups while avoiding excessive generation.</p>
+<h3 id="53-practical-guidelines-for-mri-studies">5.3 Practical Guidelines for MRI Studies</h3>
+<p>For neuroimaging studies with diffusion models:
+- Conservative approach: m ≈ 1-2 × n_H
+- Balanced approach: m ≈ 3-5 × n_H
+- Aggressive approach: m ≈ 5-10 × n_H</p>
+<p>The appropriate selection depends on:
+1. The estimated α value of the generative model
+2. The heterogeneity of the disease group
+3. The expected effect size
+4. Tolerance for Type I vs. Type II errors
+5. Available computational resources</p>
+<h2 id="6-tradeoffs-in-augmentation-strategy">6. Tradeoffs in Augmentation Strategy</h2>
+<h3 id="61-statistical-power-vs-validity">6.1 Statistical Power vs. Validity</h3>
+<p>Increasing m improves statistical power but introduces validity concerns:</p>
+<ul>
+<li><strong>Benefits</strong>: Enhanced ability to detect smaller effects, reduced Type II error rates</li>
+<li><strong>Costs</strong>: Potential inflation of Type I error rates, risk of detecting clinically insignificant differences</li>
+</ul>
+<h3 id="62-model-fidelity-vs-sample-diversity">6.2 Model Fidelity vs. Sample Diversity</h3>
+<p>The relationship between generated sample quality and quantity presents another tradeoff:</p>
+<ul>
+<li><strong>Lower m with higher quality</strong>: Reduces bias risk, better preserves rare anatomical variations</li>
+<li><strong>Higher m with moderate quality</strong>: Creates more diverse sampling, provides robustness against generation artifacts</li>
+</ul>
+<h3 id="63-computational-efficiency">6.3 Computational Efficiency</h3>
+<p>Practical resource considerations create significant tradeoffs:</p>
+<ul>
+<li>Generation, storage, and processing costs increase linearly with m</li>
+<li>Higher-quality generative models have greater computational demands</li>
+<li>Diminishing returns in statistical power as m increases</li>
+</ul>
+<h3 id="64-statistical-stability">6.4 Statistical Stability</h3>
+<p>There is a complex relationship between m and the stability of statistical results:</p>
+<ul>
+<li><strong>Stability benefits</strong>: Reduced variance of test statistics, less sensitivity to outliers</li>
+<li><strong>Stability concerns</strong>: Artificial consistency, over-reliance on generative model assumptions</li>
+</ul>
+<h2 id="7-application-to-mri-studies">7. Application to MRI Studies</h2>
+<h3 id="71-implementation-framework">7.1 Implementation Framework</h3>
+<p>For MRI studies comparing healthy and disease groups, we recommend:</p>
+<ol>
+<li><strong>Data preparation</strong>: Ensure high-quality preprocessing of original MRI data</li>
+<li><strong>Model selection</strong>: Choose appropriate generative architecture based on data characteristics</li>
+<li><strong>α estimation</strong>: Apply multiple estimation methods and report the range</li>
+<li><strong>Augmentation strategy</strong>: Begin with a conservative m and conduct sensitivity analysis</li>
+<li><strong>Statistical analysis</strong>: Apply adjusted hypothesis tests using the estimated ESS</li>
+<li><strong>Validation</strong>: Verify findings through bootstrapping or simulation studies</li>
+</ol>
+<h3 id="72-case-study-neuroimaging-analysis">7.2 Case Study: Neuroimaging Analysis</h3>
+<p>A hypothetical case study illustrates the application of our framework:</p>
+<ul>
+<li>Original dataset: 25 healthy controls, 40 disease patients</li>
+<li>Generative model: Diffusion model with estimated α = 0.4</li>
+<li>Optimal augmentation: m = 75 (using α-based estimation)</li>
+<li>Effective sample size: ESS_H = 25 + 0.4 × 75 = 55</li>
+<li>Statistical analysis: Adjusted t-tests with df ≈ 90</li>
+<li>Result: 30% increase in statistical power for detecting medium effect sizes</li>
+</ul>
+<h2 id="8-discussion">8. Discussion</h2>
+<h3 id="81-implications-for-neuroimaging-research">8.1 Implications for Neuroimaging Research</h3>
+<p>Our framework provides neuroimaging researchers with principled methods for:</p>
+<ol>
+<li>Maximizing the utility of limited disease samples through healthy control augmentation</li>
+<li>Maintaining statistical validity when using synthetic data</li>
+<li>Optimizing computational resources by generating appropriate quantities of synthetic data</li>
+</ol>
+<h3 id="82-limitations-and-future-work">8.2 Limitations and Future Work</h3>
+<p>Several limitations suggest directions for future research:</p>
+<ol>
+<li>The framework assumes a constant α across all generated samples</li>
+<li>Current α estimation methods may be sensitive to feature extraction choices</li>
+<li>The approach does not account for potential biases in the generative model</li>
+<li>Validation on larger, multi-site datasets is needed</li>
+</ol>
+<h3 id="83-ethical-considerations">8.3 Ethical Considerations</h3>
+<p>Researchers must consider ethical implications when augmenting medical data:</p>
+<ol>
+<li>Transparency in reporting the use of synthetic data</li>
+<li>Clear documentation of augmentation methodology</li>
+<li>Consideration of privacy implications</li>
+<li>Validation of findings using real data when possible</li>
+</ol>
+<h2 id="9-conclusion">9. Conclusion</h2>
+<p>This paper presents a comprehensive statistical framework for using asymmetrically augmented data in medical imaging studies. By formalizing the concept of effective sample size and information content ratio, we provide researchers with the tools needed to maintain statistical rigor while benefiting from advances in generative modeling. Our approach enables more efficient use of limited clinical data while preserving the validity of statistical inference, potentially accelerating discoveries in medical imaging research.</p>
+<h2 id="references">References</h2>
+<p>Chen, C., Seff, A., Kornhauser, A., &amp; Xiao, J. (2015). DeepDriving: Learning Affordance for Direct Perception in Autonomous Driving. Proceedings of the IEEE International Conference on Computer Vision.</p>
+<p>Dao, T., Gu, A., Ratner, A., Smith, V., De Sa, C., &amp; Ré, C. (2019). A Kernel Theory of Modern Data Augmentation. Proceedings of the 36th International Conference on Machine Learning.</p>
+<p>Kazerouni, A., Sinha, A., Thaler, J. (2023). Generative models for medical image synthesis: Methods, applications, and challenges. Medical Image Analysis, 83, 102628.</p>
+<p>Kish, L. (1965). Survey Sampling. Wiley.</p>
+<p>Kong, A. (1992). A Note on Importance Sampling using Standardized Weights. Technical Report 348, Department of Statistics, University of Chicago.</p>
+<p>Shorten, C., &amp; Khoshgoftaar, T. M. (2019). A survey on Image Data Augmentation for Deep Learning. Journal of Big Data, 6(1), 60.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

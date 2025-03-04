@@ -1,0 +1,2783 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/OC/">
+      
+      
+        <link rel="prev" href="../SP/">
+      
+      
+        <link rel="next" href="../../research/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>生成AIは学びの優先順位の変化を起こす - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              生成AIは学びの優先順位の変化を起こす
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of soft regression trees
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. イントロダクション
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. AIの仕組みとケーススタディ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. AIの仕組みとケーススタディ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Transformer と 推論モデル
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Transformer と 推論モデル">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-transformer-and-self-attention-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.1 Transformer and Self-Attention Mechanism
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.2 強化学習の統合：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 知識問題に対する解答力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 東大数学・京大数学に対する生成AIの能力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 コードを書く能力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      リサーチ能力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rag-model-context-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAG から Model Context Protocolへ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 根本的なパラダイムシフト
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 根本的なパラダイムシフト">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 数学の問題の変化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 レポート課題の変化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 生成AIによって偏差値のみに依存しない社会が来る
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 生成AI時代に不可欠なスキル
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 生成AI時代に不可欠なスキル">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 ドメイン専門知識と問題理解の解像度向上
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 数学的形式化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 検証と妥当性確認
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 コミュニケーションとプロンプトエンジニアリング
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 構造化情報管理とテキストベースのドキュメンテーション
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 コードリテラシー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7 協働マインドセット
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 大学教育における実践的実装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 結論
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 結論">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      拡張結論と将来展望
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="ai">生成AIは学びの優先順位の変化を起こす</h1>
+<h2 id="1">1. イントロダクション</h2>
+<p>この講義では、2024年以降の生成AIの進化を概観し、それに基づいて私たちはこれからの時代に何を学ぶべきで、何を学ぶべきではないのかという点についてお話ししたいと思っています。つまり、旧時代的なスキルセットと、新時代におけるスキルセットが大きく異なる転換点を迎えているというのが今回の講義の話題です。</p>
+<p>皆さんが受験勉強を頑張っていた2024年は、生成AIの進化にとって実は根本的な変化が生まれた年でもありました。2022年10月にChatGPTが発表されて以来、人と会話できるAIが生まれたことにとても驚きを覚えました。</p>
+<p>特に最初のうちはハルシネーションが多く見られましたが、ただ最初の大きな変化は「英語」への翻訳の意味では、従来のモデルと比較して圧倒的に優秀であり、「英語」学習の意味が問い直される必要がありました。そのあと、ChatGPTからさまざまなサービスを利用するというPluginの利用ができるようになり、食べログなどの外部サービスとの連携が図られるようになりました。そして、2023年の終わり頃になると、日本語能力も向上し、人間がテーマを与えるとそれについて代筆する程度のことは可能になりました。</p>
+<p>これがきっかけで、2024年という年は、大学では生成AIで作られたレポート課題にどう対処するの？という大きな課題と向き合い始めることになりました。また、知能レベルも向上しており、医師国家試験に合格したり、薬剤師試験に合格するという国家試験レベルの問題にも対処できるだけの知識を持つようになります。しかし、この当時のAIは英語や国語の知識、文章問題に対する能力は高かったのですが、一方でSTEM領域の問題を解く能力はほとんどありませんでした。また、プログラミング能力も徐々に改善してはいましたが、まだまだ使い物にならないねという声がほとんどだったと思います。</p>
+<p>しかし、2024年の9月には Open AI o1-preview と呼ばれる従来の生成AIを大幅に上回るモデルが発表されました。この辺りから、STEM領域とプログラミング領域の能力が徐々に向上し始めます。これは「長考」ができるようになったことが大きな理由です。あとで説明しますが、長くじっくり考えるというのは、AI自身が何が正解かを探っているという状況を指します。これによるSTEM領域の圧倒的な性能向上が起こったのです。</p>
+<p><img alt="alt text" src="image.png" /></p>
+<p>さて、ここまで性能が伸びても、この先へ進んでいくために、o1-proが発表されています。o1よりもさらに長い思考ができ、数学、プログラミング、博士課程レベルの質問への回答能力が大幅に向上するという出来事が起こりました。</p>
+<p><img alt="alt text" src="image-1.png" /></p>
+<p>そして、いま Open AI は o3-mini-high, GPT 4.5を市場投入し、一方で Anthropic は Claude 3.7 Sonnet を市場に投入し、激しいAIの精度向上の戦いが行われています。そして、これらのAIはどれを採用しても、おそらく僕よりもはるかに賢く、はるかにデータサイエンスの問題も解けるはずです。</p>
+<p>では、そんな時代が来た今、私たちは何を優先的に学び、何を捨てるべきでしょうか？それが今回の講義でわたしから、皆さんに提案したいことです。</p>
+<hr />
+<h2 id="2-ai">2. AIの仕組みとケーススタディ</h2>
+<p>生成AIによって何が可能になるのかという話は、わたしたちの研究活動がどのように変化するのかという話題とも実は直結しています。ここでは、生成AIの基盤技術である  <strong>Transformer</strong> と、生成AIに思考力を加えるための<strong>強化学習</strong>アプローチについて紹介し、現在の生成AIの能力について正しい認識を獲得することを目標にします。ただし、これらについて全て理解できる必要はありませんが、ふんわりとした雰囲気を理解してください。</p>
+<h3 id="21-transformer">2.1 Transformer と 推論モデル</h3>
+<h4 id="211-transformer-and-self-attention-mechanism">2.1.1 <strong>Transformer and Self-Attention Mechanism</strong></h4>
+<p><a href="https://arxiv.org/abs/1706.03762">Attention is all you need</a>という論文で提案された手法です。図にすると、こんな感じにの仕組みになります。これだけを見ても、なにこれ？って感じですよね。この中に使われている、Multi-head Attentionと呼ばれる機構が非常に重要な役割を果たしています。</p>
+<p><img src="image-4.png" width="50%"></p>
+<p>一般的に私たちが文章を執筆することを想像してください。例えば「日本の人口ピラミッドの変化を考えた上で、医療費の負担の現状と今後について」というテーマについて文章を執筆しなさいという問題を考えましょう。その場合、執筆をするには何をしないといけないかというと、「<strong>テーマを記憶</strong>」しつつ、「<strong>次に続く文章を予測</strong>」して執筆する必要があります。この仕組みを実装しているのが、Transformerと呼ばれる仕組みです。そしてもう1つ重要なのは、人間が自然に行なっている「文章の意味理解」をどのようにしてコンピュータに行わせるのかという部分です。そこで重要なのが、この図のMulti-head attentionという部分になります。</p>
+<p>機械と私たちの間にある本質的な違いというのは、文字とイメージが結びついているかどうかという部分です。しましまな模様＋ウマという足し算は、私たちの中ではしまうまになるでしょうが、機械にとっては全然わからないものです。そこで機械にこの能力を獲得させるためには、単語と単語の距離や関係性を学習させる必要があります。また、文章であれば並び順を考える必要もあります。さらに、次に続く文章を予測するためには、質問文のどこに大事な単語があるのか、それは他の単語とどう繋がっているのかを理解する必要があります。これを可能にしたのが、Multi-Head Attentionの仕組みです。</p>
+<h4 id="212">2.1.2 <strong>強化学習の統合</strong>：</h4>
+<p>詳しい説明は、こちらの<a href="https://zenn.dev/asap/articles/34237ad87f8511">解説記事</a>がとても参考になります。強化学習のイメージを捉えていただくために、こちらの図だけ引用します。</p>
+<p>次の大きな問題は、生成した文章の良し悪しを評価していないということです。一度生成された文章を、生成AIが見直すことはありません。しかしそれだと、あくまでも確率に基づいた生成をしているので、嘘の情報や質の低い文章が生成されてしまいます。人間でも同じです。一回書いただけの文書を提出はしないでしょう。</p>
+<p>人間が執筆する、または問題を解く際には、何度も見直しをして文章の前後関係を精査したりすることで文章の質を高めますよね。同様に生成AIもこれを行います。文章の質の良し悪しを計算することができるような価値判断をするAIを作ることで、生成された文章の良し悪しを判別させます。つまり、この価値判断をするというのは、プロンプト（指示文）＋生成AIが出力した文章を入力すると、点数づけをしてくれるようなAIだと思うとわかりやすいです。</p>
+<p><img src="image-2.png" width="50%"></p>
+<p><img src="image-3.png" width="50%"></p>
+<p>そして、この文章の点数をつけるAIが、数学やプログラムなどに応じてさまざまなものを用意しておくと、数学やプログラム生成において、質問に対して十分に質の高い回答が得られるということになります。このような方法を用いて、強化された現在の生成AIの能力の高さを見てみましょう。</p>
+<h3 id="22">2.2 知識問題に対する解答力</h3>
+<p><a href="https://informa.medilink-study.com/web-informa/post45927.html/">こちら</a>のウェブサイトでは、2025年に実施された医師国家試験を、現在の生成AIに解かせて正答率を確認した結果が掲載されている。o3-mini-highによる得点は、必修の得点は上位10%程度で、一般臨床問題では第3位の成績に該当するとのこと。</p>
+<p><img src="https://informa.medilink-study.com/wordpress/wp-content/uploads/2025/02/bfdd931e658928145510eeb75b613ae0.png" width="70%"></p>
+<p>同様に、薬剤師国家試験についても2024年9月時点で<a href="https://u-lab.my-pharm.ac.jp/~mminfo/blog/3554/">こちら</a>で情報が発表されたが、o1-preview に解かせたところ正答率は100%だったとのことで、知識問題に対する正答率は十分であることがわかる。国家試験を受ける人は、これらのAIがどのように思考して解いているのかをトレースすることで正答率を上げることが可能かもしれない。</p>
+<h3 id="23-ai">2.3 東大数学・京大数学に対する生成AIの能力</h3>
+<p>2011年からロボットは東京大学に入れるか？というプロジェクトが、日本の国立情報学研究所が中心になって実施されてきた。2016年に大学入試センター試験、2021年に東大入試突破を目指してきたが、2016年に凍結されたプロジェクトがある。その中でも最も難関だったのは数学であり、1問も正解できないというレベルであった。</p>
+<p>2025年の入試問題の数学ではどうだったのか？といえば、東京大学の数学の問題は大問が6つあり、それを5完半した（<a href="https://x.com/issan_kyoto/status/1894587188886868258?t=rkQjOOMYQDwjDSvaEmevLA&amp;s=19">リンク</a>）さらに、京都大学の問題は全ての問題を正解したということだった。つまり、いよいよ与えられた問題を解くという力については、上位1％には到達していることがわかる（僕はそもそも5問も解ける自信がない...）。</p>
+<p>このことからもわかるように、<strong>数学的に正しく与えられた問題について</strong>は、生成AIは解くことができるようになっていることがわかる。</p>
+<h3 id="24">2.4 コードを書く能力</h3>
+<p>健康データサイエンスでは、スポーツ選手の動作分析や、リハビリテーションや介護の動作解析を行うという研究テーマがある。このような手法を、実際に自分でゼロからプログラムをするとなると、非常に困難でさまざまな知識が要求される。では、現在の生成AIのプログラミングの能力はどれくらいあるでしょうか？</p>
+<p>これを測るためのベンチマークとして、<strong>SWE-bench</strong> というものがあります。SWE-benchは実際のソフトウェア開発過程で発生する課題に対して、AIモデルの性能でどこまで対応できるかの測定を目的としており、以下の特徴があります。</p>
+<ul>
+<li>実際のGitHub IssueとPull Request(現在は主にPythonに関連したPyPlパッケージ関連のリポジトリがターゲット)から抽出された現実的なタスク解決を試みる</li>
+<li>単なるコード生成だけでなく、バグ修正や機能実装など多様なタスクを含む</li>
+<li>自動評価システムによる客観的な性能測定</li>
+</ul>
+<p>つまり現段階の最新大規模言語モデル(AI)が、　現代のリアルなアプリ開発やソフトウェアエンジニアリングの問題をどこまで人間と同じようにこなせるかを定量的に測ることを目的としたベンチマークスコアということです（<a href="https://qiita.com/tosenbo/items/57ed6ded19da2b24d900">リンク</a>）。</p>
+<p>これにおいて Claude 3.7 Sonnet の能力は以下の結果からもわかるように非常に高く、これを踏まえると、現在の人間のエンジニアの上位1％よりも上に位置する可能性があるそうです。</p>
+<p><img src="image-5.png" width="70%"></p>
+<p>つまりここから何が言えるのかというと、目的となるコードの方向性がわかっているなら、自分が書かなくても、適切に制御さえすればAIが書いてくれるということです。</p>
+<p>そこで、姿勢推定を行うタスクを claude 3.7 Sonnet を用いて自作してみた結果を示そうと思います（<a href="https://colab.research.google.com/drive/1v4hvqWfp9_017v0meqT0OArB8tqq81q7?usp=sharing">Google Colab</a>）。姿勢推定には、mediapipeや、YOLOなどさまざまなモデルがあります。今回はmediapipeを使って、静止姿勢を撮影し、その結果から姿勢の状況を答えてくれるアプリケーションを開発します。</p>
+<p>実はこの方法は、リアルタイムのデータにも応用できるため、動きを伴う動作の解析も可能です。例えば、左腕と右腕の可動域に差があるかどうかを検出したりできます。</p>
+<ul>
+<li><strong>姿勢推定技術</strong>：</li>
+<li>コンピュータビジョンアーキテクチャ（PoseNet、AlphaPose、OpenPose）</li>
+<li>2Dと3Dのポーズ推定方法論とトレードオフ</li>
+<li>複雑な環境における複数人追跡アルゴリズム</li>
+<li>
+<p>リアルタイム性能最適化技術</p>
+</li>
+<li>
+<p><strong>スポーツへの応用</strong>：</p>
+</li>
+<li>アスリートパフォーマンスにおける動作パターン分析</li>
+<li>生体力学的偏差からの傷害リスク評価</li>
+<li>即時フィードバックによるトレーニング技術の最適化</li>
+<li>
+<p>ケーススタディ：プロ野球の投球メカニクス、水泳のストローク分析</p>
+</li>
+<li>
+<p><strong>健康モニタリングシステム</strong>：</p>
+</li>
+<li>神経学的症状の早期発見のための歩行分析</li>
+<li>リハビリテーション進行の定量化</li>
+<li>高齢者ケアのためのリモートモニタリングソリューション</li>
+<li>
+<p>電子健康記録との統合</p>
+</li>
+<li>
+<p><strong>デモコンポーネント</strong>：</p>
+</li>
+<li>参加者の動作パターンのライブキャプチャと分析</li>
+<li>生体力学的指標の視覚化</li>
+<li>参照動作プロファイルとの比較</li>
+<li>エラー検出と修正推奨</li>
+</ul>
+<h3 id="_1">リサーチ能力</h3>
+<p>仕事や研究において大半の時間を使うと言っても過言ではないのは、先行事例調査と呼ばれる作業です。これは、何かを行うときに自分たちの方法が、どういう立ち位置なのかを明らかにする作業なのですが、これには非常に時間を取られます。また、大学・会社どんな組織でも、何か新しい取り組みをするというときには、他の会社はどういうふうにしているかを調査する必要があります。このような調査を実行する際には、わたしたちは google の窓や youtube の窓を叩きまくって調査してきました。</p>
+<p>これは過去にも生成AIで取り組まれてきたことではあったのですが、そもそも情報がないものをあるかのようにうそぶいたりするために、文献調査をするのには適していないというのが一般認識だったのです。しかし、o3-mini-high に搭載された「Deep Research」は、この問題を解消しており、調査した結果の根拠をURLで提示したり、書籍を提示させたりできます。およそ人間が2時間〜3時間かかる作業を10分程度で行うことができるので、大幅な時間短縮を可能にしています。この機能は 2025年の2月にリリースされて、無料ユーザーは現在使用できませんが、今後は解放される可能性があるということです。</p>
+<p>実際のレポートを確認してみましょう。今回は、順天堂大学健康データサイエンス学部について、Deep Research で評判を調査してみます。（<a href="https://chatgpt.com/share/67c6d4fc-b284-800e-9b74-6867736f3167">リンク</a>）。</p>
+<p>次に、この情報を加工します。ここでは、この結果を Claude 3.7 Sonnet に与えることで、綺麗に加工してみます（使うプロンプトは<a href="https://x.com/hAru_mAki_ch/status/1896533569968984546">こちら</a>）。完成したものが<a href="https://claude.site/artifacts/920e2af7-b99d-45bc-957e-b28863f9cde7">こちら</a>になります。情報からインフォグラフィックの作成まで、一気通貫に作成できてしまうのです。</p>
+<h3 id="rag-model-context-protocol">RAG から Model Context Protocolへ</h3>
+<p>次に、2024年にできて注目したいのは、検索拡張生成（RAG）と呼ばれる技術と、Model context protocol (Anthropic) と呼ばれる技術です。特に、ここではMCPに注目します。一般的に大学や企業ではデータをオープンにしたくはないという問題があります。そこで、ローカルデータソースを用意して、それを参照してClaude に回答させるというシステムがMCPです（<a href="https://www.ai-souken.com/article/claude-mcp-overview">こちら</a> の記事がわかりやすいので参照してください）。</p>
+<p><img alt="alt text" src="image-6.png" /></p>
+<h2 id="3">3. 根本的なパラダイムシフト</h2>
+<p>さて、ここまでの講義を聞いた中で、わたしたちは何を勉強すればいいんですか？そもそも勉強はする必要があるのか？という話が出てくるはずです。ここからは、なぜ勉強をこれからしないといけないのかという話にシフトしていきましょう。まず、最も重要かつ根本的な主張は<strong>AIがどれだけ進歩しようとも、AI出力に対する人間の責任はなくならない</strong>ということです。もし、この点が変化してしまったのなら、新しく考え直す必要があります。しかし、今の現状では、この状況は無くなることはありません。つまり<strong>正しさの検証</strong>を常に必要としています。</p>
+<p>そして、もう1つ重要な視点があります。問題というのは人が作るということです。多くの問題は、人間の活動の中で生まれる疑問や、困難に起因します。つまり、<strong>何が問題なのか？</strong>はAIが決めるものではなく、人間にしか決めることはできません。つまり、まとめると、人間の役割は本質的には以下の方向へとシフトします：</p>
+<ul>
+<li><strong>問題定義</strong>：範囲と制約の確立</li>
+<li><strong>出力検証</strong>：解決策に対する責任の負担</li>
+</ul>
+<p>次の疑問は、世界にある問題はすべてAIが解ける形になっているのか？ということです。<strong>なっていない</strong>のです。人間が感じた問題を解消するためには、そのまま人間が解くか、AIが解ける形に人間が整形するかの2つの方法があります。従来はAIに解く力がなかったからほとんど使われていなかっただけで、これからはAIを使って問題を解消するということができるようになります。つまり、私たちに求められる力は、次の力です。</p>
+<ul>
+<li><strong>問題翻訳</strong> : 問題の本質を見抜き、AIが解ける形に持っていくこと</li>
+</ul>
+<p>さて、このようにすると何が変わるのかというと、「<strong>問題を定義すれば、自分で解く必要がない</strong>」ということがわかります。よって、英語や数学の問題を自分で解く必要がありません。じゃあ勉強しなくていいか？というとそんなことはなく、<strong>出力検証</strong>が残っているのです。つまり、得られた結果が正しいことを自分でその過程を追って、証明できなくてはなりません。一見簡単に見えますが、これは<strong>批判的思考</strong>と呼ばれる力です。</p>
+<p>私たちが、課題を出すときの問題が次のように変わります。2つの例を出します。</p>
+<hr />
+<h3 id="31">3.1 数学の問題の変化</h3>
+<p><strong>昔の問題</strong>
+次の不定積分を求めなさい。<br />
+$$
+\int \frac{x}{(1+x^2)^2} \, dx.
+$$</p>
+<p><strong>これからの問題</strong>
+以下の問題とその解答例には、一見正しい置換法の手順がとられているものの、実は誤りが潜んでいます。解答例のどこに誤りがあるのか、またその誤りが最終的な答えにどのような影響を及ぼすのかを具体的に説明してください。</p>
+<p><strong>【問題】</strong></p>
+<p>次の不定積分を求めなさい。<br />
+$$
+\int \frac{x}{(1+x^2)^2} \, dx.
+$$</p>
+<p><strong>【解答例（ある学生による回答）】</strong></p>
+<ol>
+<li>置換 <span class="arithmatex">\(u = 1+x^2\)</span> とおくと、微分して <span class="arithmatex">\(du = 2x\,dx\)</span> となる。そこで <span class="arithmatex">\(x\,dx = du\)</span> と置き換える。</li>
+<li>これにより、積分は<br />
+   $$
+   \int \frac{x}{(1+x^2)^2} \, dx = \int \frac{1}{u^2}\,du.
+   $$</li>
+<li><span class="arithmatex">\(\int u^{-2}\,du\)</span> の積分は <span class="arithmatex">\(-\frac{1}{u}+C\)</span> であるから、<br />
+   $$
+   \int \frac{x}{(1+x^2)^2} \, dx = -\frac{1}{u}+C = -\frac{1}{1+x^2}+C.
+   $$</li>
+</ol>
+<hr />
+<h3 id="32">3.2 レポート課題の変化</h3>
+<p><strong>昔の問題</strong></p>
+<p>年収103万円の壁とは何か説明し、この年収103万円の壁による問題点を述べなさい。</p>
+<p><strong>これからの問題</strong></p>
+<p>年収103万円の壁とは、基礎控除48万円と、給与所得控除55万円を合わせた103万円を年収が超えると所得税が発生するというルールである。
+これについて調査した<a href="https://chatgpt.com/share/67c6e388-b8ac-800e-b1f7-4bd13259054a">レポート</a>を読んで、この内容が適切かを検証した上で、あなたの立場を明確にして、意見を述べなさい。</p>
+<h3 id="33-ai">3.3 生成AIによって偏差値のみに依存しない社会が来る</h3>
+<p>このことからもわかるように、目の前に与えられた問題をただ解く能力ではなく、目の前に与えられた状況から、そもそも状況説明が正しいのか？解答へ至る道筋に矛盾がないか？そもそも問題の定義は正しいか？という疑問を常に持ち続ける必要がある。</p>
+<p>つまり、そもそもどれだけ問題を知っているのか？どれだけ問題を発掘できるのか？それは本当に問題か？解決法や解決策が正しいのか？という与えられた問題を解く以外の能力が重要になるという時代に突入する。</p>
+<h2 id="4-ai">4. 生成AI時代に不可欠なスキル</h2>
+<h3 id="41">4.1 ドメイン専門知識と問題理解の解像度向上</h3>
+<ul>
+<li><strong>問題特定方法論</strong>：</li>
+<li>研究文献におけるギャップ分析のための体系的アプローチ</li>
+<li>ニーズ評価のためのステークホルダーエンゲージメント</li>
+<li>高影響対扱いやすい問題の識別</li>
+<li>
+<p>曖昧な課題の明確に定義された質問への変換</p>
+</li>
+<li>
+<p><strong>問題理解の解像度向上</strong>：</p>
+</li>
+<li>「イシューより始めよ」の原則に基づくアプローチ</li>
+<li>表面的問題から根本的課題への掘り下げ</li>
+<li>複雑な問題の構成要素への分解能力</li>
+<li>解像度を段階的に上げていく問題定義の反復プロセス</li>
+<li>
+<p>高解像度の問題理解がAIプロンプト品質向上に直結する原理</p>
+</li>
+<li>
+<p><strong>自己検証技術</strong>：</p>
+</li>
+<li>適切なテストケースの構築</li>
+<li>ドメイン固有出力のための批判的評価フレームワーク</li>
+<li>幻覚と新しい洞察の区別</li>
+<li>
+<p>専門分野におけるAI知識の限界の理解</p>
+</li>
+<li>
+<p><strong>知識の深さと幅のトレードオフ</strong>：</p>
+</li>
+<li>AIツールを指揮する上での専門知識の価値</li>
+<li>境界横断的イノベーションのための学際的知識</li>
+<li>アルゴリズム支援による理解の深さのバランス</li>
+<li>ケーススタディ：精密医療における専門家対一般家アプローチ</li>
+</ul>
+<h3 id="42">4.2 数学的形式化</h3>
+<ul>
+<li><strong>問題変換技術</strong>：</li>
+<li>自然言語記述から数学的表記への変換</li>
+<li>異なる問題タイプに適した数学的フレームワークの特定</li>
+<li>最適化問題における制約の形式化</li>
+<li>
+<p>変数の特定と関係モデリング</p>
+</li>
+<li>
+<p><strong>数学的モデリングアプローチ</strong>：</p>
+</li>
+<li>統計的モデリングの基礎（回帰、分類、クラスタリング）</li>
+<li>因果関係のための確率的グラフィカルモデル</li>
+<li>動的システムのための微分方程式</li>
+<li>
+<p>複雑な関係のためのネットワーク表現</p>
+</li>
+<li>
+<p><strong>抽象化と一般化スキル</strong>：</p>
+</li>
+<li>一見異なる問題間のパターン認識</li>
+<li>次元削減技術</li>
+<li>不変性と対称性の特定</li>
+<li>ドメイン間での問題構造の転送</li>
+</ul>
+<h3 id="43">4.3 検証と妥当性確認</h3>
+<ul>
+<li><strong>証明検証方法論</strong>：</li>
+<li>論理的一貫性チェック</li>
+<li>エッジケースの識別とテスト</li>
+<li>帰納的対演繹的推論評価</li>
+<li>
+<p>AI生成証明における一般的な論理的誤謬の認識</p>
+</li>
+<li>
+<p><strong>経験的妥当性確認アプローチ</strong>：</p>
+</li>
+<li>仮説検証のための実験設計</li>
+<li>統計的有意性評価</li>
+<li>交差検証技術</li>
+<li>
+<p>AI生成結果の複製戦略</p>
+</li>
+<li>
+<p><strong>ソリューション品質評価</strong>：</p>
+</li>
+<li>パフォーマンス指標の選択と解釈</li>
+<li>計算効率分析</li>
+<li>様々な条件下での堅牢性テスト</li>
+<li>確立されたベンチマークと人間のパフォーマンスとの比較</li>
+</ul>
+<h3 id="44">4.4 コミュニケーションとプロンプトエンジニアリング</h3>
+<ul>
+<li><strong>英語能力の重点</strong>：</li>
+<li>正確なコミュニケーションのための技術語彙の開発</li>
+<li>AI研究文献のための読解戦略</li>
+<li>AI応答品質を向上させる構文パターン</li>
+<li>
+<p>科学的英語向上のためのリソース推奨</p>
+</li>
+<li>
+<p><strong>プロンプトエンジニアリング原則</strong>：</p>
+</li>
+<li>思考連鎖プロンプティング技術</li>
+<li>役割ベースのプロンプティング戦略</li>
+<li>反復的改良方法論</li>
+<li>
+<p>コンテキストウィンドウ管理技術</p>
+</li>
+<li>
+<p><strong>制約と要件の表現</strong>：</p>
+</li>
+<li>明示的対暗黙的制約指定</li>
+<li>競合要件の優先順位付け</li>
+<li>成功基準の定義</li>
+<li>許容範囲対点解の定義</li>
+</ul>
+<h3 id="45">4.5 構造化情報管理とテキストベースのドキュメンテーション</h3>
+<ul>
+<li><strong>Markdown構文とアプリケーション</strong>：</li>
+<li>見出しを使用した階層的文書構成</li>
+<li>リストと表を使用した情報チャンキング</li>
+<li>コードブロックの使用</li>
+<li>
+<p>リンクと参照管理</p>
+</li>
+<li>
+<p><strong>テキストベースドキュメンテーションの優位性</strong>：</p>
+</li>
+<li>PowerPointからMarpへの移行推奨</li>
+<li>テキストベースプレゼンテーションの機械可読性と検索性</li>
+<li>バージョン管理システム（Git）との統合効果</li>
+<li>知識の累積的構築のためのテキスト中心アプローチ</li>
+<li>
+<p>プレゼンテーションと文書の統一による一貫性確保</p>
+</li>
+<li>
+<p><strong>知識組織パターン</strong>：</p>
+</li>
+<li>順次対階層対ネットワーク情報構造</li>
+<li>複雑性の段階的開示</li>
+<li>比較分析のための並列構造</li>
+<li>
+<p>繰り返し情報タイプのためのテンプレート開発</p>
+</li>
+<li>
+<p><strong>従来の文書形式の限界</strong>：</p>
+</li>
+<li>独自形式の解析課題</li>
+<li>PDFにおける意味構造の喪失</li>
+<li>プログラム的アクセスと修正の困難さ</li>
+<li>非構造化形式からの情報抽出課題</li>
+</ul>
+<h3 id="46">4.6 コードリテラシー</h3>
+<ul>
+<li><strong>生成コードの評価戦略</strong>：</li>
+<li>構文的正確性評価</li>
+<li>論理的健全性検証</li>
+<li>効率性とパフォーマンス分析</li>
+<li>
+<p>セキュリティ脆弱性の特定</p>
+</li>
+<li>
+<p><strong>作成せずに理解する</strong>：</p>
+</li>
+<li>コードのための読解技術</li>
+<li>アーキテクチャパターン認識</li>
+<li>データフロートレース</li>
+<li>
+<p>機能目的の識別</p>
+</li>
+<li>
+<p><strong>テストと検証アプローチ</strong>：</p>
+</li>
+<li>検証のための単体テスト開発</li>
+<li>エッジケースの特定</li>
+<li>統合テスト戦略</li>
+<li>パフォーマンスプロファイリング方法論</li>
+</ul>
+<h3 id="47">4.7 協働マインドセット</h3>
+<ul>
+<li><strong>協働パートナーとしてのAI</strong>：</li>
+<li>効果的な人間とAIの協働のための精神モデル</li>
+<li>人間対AI認知の強みと弱みの分析</li>
+<li>補完的能力フレームワーク</li>
+<li>
+<p>生産的フィードバックループの開発</p>
+</li>
+<li>
+<p><strong>インタラクションパターン開発</strong>：</p>
+</li>
+<li>問題探索のための会話戦略</li>
+<li>反復的改良技術</li>
+<li>知識抽出方法論</li>
+<li>
+<p>エラー修正プロトコル</p>
+</li>
+<li>
+<p><strong>人間とAIチームの心理的側面</strong>：</p>
+</li>
+<li>自動化バイアスの克服</li>
+<li>適切な信頼調整</li>
+<li>創造的エージェンシーの維持</li>
+<li>倫理的責任の分配</li>
+</ul>
+<h2 id="5">5. 大学教育における実践的実装</h2>
+<ul>
+<li><strong>日常的なAIインタラクション実践</strong>： </li>
+<li>概念理解のための朝の質問セッション</li>
+<li>複雑な読み物や研究論文を説明するためのAIの使用</li>
+<li>AI支援による協働問題解決</li>
+<li>
+<p>AI応答を評価するための反省実践</p>
+</li>
+<li>
+<p><strong>構造化学習アプローチ</strong>：</p>
+</li>
+<li>段階的スキル開発タイムライン</li>
+<li>AI支援と独立作業のバランス</li>
+<li>AIインタラクションのための文書化実践</li>
+<li>
+<p>AI-人間協働アウトプットのピアレビュー</p>
+</li>
+<li>
+<p><strong>ツール選択と統合</strong>：</p>
+</li>
+<li>異なるAIプラットフォームの評価基準</li>
+<li>既存の学術ワークフローとの統合</li>
+<li>異なるAIサービスの費用対効果分析</li>
+<li>
+<p>学術環境におけるプライバシーとデータセキュリティの考慮</p>
+</li>
+<li>
+<p><strong>評価の進化</strong>：</p>
+</li>
+<li>AI時代におけるプロセス対アウトプットの評価</li>
+<li>スキルベースの評価フレームワーク</li>
+<li>AI支援のための文書化要件</li>
+<li>学術的整合性基準の適応</li>
+</ul>
+<h2 id="6">6. 結論</h2>
+<p>生成AI革命は、どのスキルが優先的に開発されるべきかの根本的な再考を必要とします。最も価値のある将来の能力は、解決策生成そのものではなく、<strong>問題定式化と解決策検証に集中する</strong>。</p>
+<h3 id="_2">拡張結論と将来展望</h3>
+<p>生成AIによってもたらされる変革は単に技術的なものではなく、知的作業がどのように行われるかについての根本的な変化を表しています。健康データサイエンスの新入生にとって、これは課題と前例のない機会の両方を生み出します。知識習得と問題解決アルゴリズムを重視する伝統的な教育モデルは、以下を優先するモデルへと進化する必要があります：</p>
+<ul>
+<li>批判的思考と問題定式化</li>
+<li>判断と検証能力</li>
+<li>効果的な人間とAIの協働戦略</li>
+<li>技術的流暢さと組み合わせたドメイン専門知識</li>
+</ul>
+<p>本講義では、生成AIシステムの現在の能力を概説し、健康科学におけるその応用を示し、この新しいパラダイムで繁栄するために必要なメタスキルを開発するためのフレームワークを提供しました。これらのツールを受け入れながら、創造性、倫理的判断、批判的評価という人間特有の能力を育む学生は、自動化によって置き換えられるのではなく、自分の分野でリードする位置に置かれるでしょう。</p>
+<p>健康データサイエンスの未来は、AIが人間の科学者に取って代わるのではなく、人間の専門家の創造性と知恵と、人工システムの処理能力とパターン認識能力を組み合わせた新しい形の知能拡張によって特徴付けられるでしょう。この未来に備えるには、技術的理解と、人間と知的機械の関係をどのように概念化するかについての哲学的シフトの両方が必要です。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

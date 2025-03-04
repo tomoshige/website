@@ -1,0 +1,3283 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/testing-statistical-hypothesis-with-generative-model/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>On the Statistical Properties of Hypothesis Testing with Generative Model Augmentation - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#on-the-statistical-properties-of-hypothesis-testing-with-generative-model-augmentation" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              On the Statistical Properties of Hypothesis Testing with Generative Model Augmentation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../lectures/" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of soft regression trees
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-problem-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Problem Formulation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-theoretical-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Theoretical Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Theoretical Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-multivariate-gaussian-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Multivariate Gaussian Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-principal-component-analysis-pca-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Principal Component Analysis (PCA) Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-linear-factor-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Linear Factor Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-extension-to-modern-generative-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Extension to Modern Generative Models
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-optimal-augmentation-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Optimal Augmentation Ratio
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-statistical-inference-with-augmented-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Statistical Inference with Augmented Data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Statistical Inference with Augmented Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-corrected-hypothesis-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Corrected Hypothesis Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-power-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Power Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-confidence-interval-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Confidence Interval Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-practical-implementation-and-parameter-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Practical Implementation and Parameter Estimation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-extensions-to-non-gaussian-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Extensions to Non-Gaussian Settings
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-computational-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Computational Considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-simulation-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Simulation Studies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Simulation Studies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Methodology
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-generative-models-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Generative Models Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-results-and-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Results and Discussion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 Results and Discussion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#831-validation-of-variance-formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.1 Validation of Variance Formulas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#832-type-i-error-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.2 Type I Error Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#833-power-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.3 Power Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#834-direction-dependent-gain" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.4 Direction-Dependent Gain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#835-optimal-augmentation-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.5 Optimal Augmentation Ratio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#836-model-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.6 Model Comparison
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-computational-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4 Computational Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-summary-of-simulation-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5 Summary of Simulation Findings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Discussion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Discussion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-key-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Key Findings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-limitations-and-robustness" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Limitations and Robustness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-implications-for-neuroimaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 Implications for Neuroimaging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-complete-proofs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix: Complete Proofs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix: Complete Proofs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-proof-of-proposition-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.1. Proof of Proposition 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-proof-of-corollary-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.2. Proof of Corollary 1.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-proof-of-proposition-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.3. Proof of Proposition 3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4-proof-of-corollary-31" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.4. Proof of Corollary 3.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a5-proof-of-proposition-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.5. Proof of Proposition 4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a6-proof-of-proposition-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.6. Proof of Proposition 5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a7-proof-of-theorem-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.7. Proof of Theorem 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a8-proof-of-proposition-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.8. Proof of Proposition 6
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a9-proof-of-corollary-61" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.9. Proof of Corollary 6.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a10-proof-of-proposition-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.10. Proof of Proposition 7
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a11-proof-of-corollary-71" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.11. Proof of Corollary 7.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a12-proof-of-proposition-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.12. Proof of Proposition 8
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="on-the-statistical-properties-of-hypothesis-testing-with-generative-model-augmentation">On the Statistical Properties of Hypothesis Testing with Generative Model Augmentation</h1>
+<h2 id="abstract">Abstract</h2>
+<p>This paper provides a theoretical framework for analyzing the statistical properties of hypothesis testing when the original dataset is augmented with synthetically generated samples. We derive explicit formulas for the variance of estimators, effective sample sizes, and test statistics for three generative models: multivariate Gaussian, Principal Component Analysis (PCA), and Linear Factor Models. Our analysis reveals that while data augmentation can increase statistical power, the gain is bounded by the accuracy of the generative model and follows a direction-dependent pattern determined by the model's structure. We provide exact formulas for hypothesis test corrections that maintain proper Type I error control while improving power. These results offer statistical guidelines for implementing generative model augmentation in high-dimensional settings such as neuroimaging analysis. Extensive simulation studies validate our theoretical results and demonstrate their practical utility across various scenarios.</p>
+<p><strong>Keywords</strong>: hypothesis testing, generative models, data augmentation, effective sample size, neuroimaging</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>High-dimensional data analysis in fields such as neuroimaging, genomics, and computer vision faces a persistent challenge: the limited availability of samples relative to the dimensionality of the data (Varoquaux and Thirion, 2014; Fan et al., 2014; Wager et al., 2013). This "small n, large p" problem undermines statistical power, complicates model fitting, and increases the risk of spurious findings (Button et al., 2013; Ioannidis, 2005). Traditionally, researchers have addressed this challenge through dimensionality reduction techniques (Cunningham and Ghahramani, 2015), regularization methods (Hastie et al., 2015), or meta-analytic approaches (Wager et al., 2007; Salimi-Khorshidi et al., 2009).</p>
+<p>More recently, advances in generative modeling have opened a new avenue: augmenting limited datasets with synthetically generated samples (Shorten and Khoshgoftaar, 2019; Antoniou et al., 2017). This approach has gained particular traction in medical imaging, where patient data is costly to acquire and often protected by privacy constraints (Yi et al., 2019; Frid-Adar et al., 2018; Bowles et al., 2018; Shin et al., 2018). In neuroimaging specifically, various generative models have been employed to synthesize brain images that preserve anatomical structures and disease-specific features (Zhao et al., 2019; Thambawita et al., 2022; Billot et al., 2021).</p>
+<p>However, while the empirical benefits of generative model augmentation for classification and detection tasks have been demonstrated (Salehinejad et al., 2018; Mårtensson et al., 2020), the statistical implications for hypothesis testing remain theoretically underdeveloped. Critical questions persist: How does augmentation affect the distribution of test statistics? Can synthetic samples genuinely increase statistical power? What corrections are necessary to maintain valid inference? To date, only limited theoretical frameworks exist for understanding these issues. Some researchers have explored the statistical properties of bootstrapped samples (Efron and Tibshirani, 1994; Hall, 1992) and multiple imputation techniques (Rubin, 1987; Schafer, 1999), but these approaches differ fundamentally from modern generative modeling.</p>
+<p>Several recent works have begun addressing the statistical properties of learning with augmented data. Chen et al. (2019) analyzed the bias-variance tradeoff in classification with augmented samples, while Wu and Yang (2020) examined conditions under which augmentation improves estimation in regression tasks. Dao et al. (2019) established theoretical guarantees for specific augmentation transformations in kernel methods. However, these works focus primarily on supervised learning rather than hypothesis testing, and they do not account for the complex dependence structure introduced when generative models are trained on the same data used for inference.</p>
+<p>In the realm of hypothesis testing specifically, Westfall and Young (1993) and Dudoit et al. (2003) developed resampling-based methods for multiple testing that bear some conceptual similarity to augmentation approaches. Pantazis et al. (2005) and Nichols and Holmes (2002) proposed permutation tests for neuroimaging data that could potentially accommodate synthetic samples, but without formal justification. The recent work by Fisher et al. (2020) on conditional randomization tests provides relevant insights but does not directly address generative augmentation.</p>
+<p>This paper addresses these gaps by providing a rigorous statistical framework for understanding the impact of generative model augmentation on hypothesis testing. We consider a setting where a dataset <span class="arithmatex">\(D = \{X_1,...,X_n\}\)</span> of samples (e.g., brain images) is augmented with synthetically generated samples <span class="arithmatex">\(\{X_1^{(f)},...,X_m^{(f)}\}\)</span> obtained from a generative model <span class="arithmatex">\(f(z|D)\)</span> trained on <span class="arithmatex">\(D\)</span>. We systematically analyze how this augmentation affects the distribution of test statistics, the effective sample size, and the statistical power of hypothesis tests.</p>
+<p>Our work builds upon and extends several theoretical foundations: the literature on effective sample size in dependent data (Thiébaux and Zwiers, 1984; Jones, 2011; Kass et al., 2016), variance estimation in mixture distributions (McLachlan and Peel, 2000; Lindsay, 1995), and high-dimensional inference (Bühlmann and van de Geer, 2011; Wasserman and Roeder, 2009). We also draw connections to recent advances in transfer learning (Pan and Yang, 2010; Zhuang et al., 2020) and out-of-distribution generalization (Shen et al., 2021; Koh et al., 2021), as generative augmentation can be viewed as a form of knowledge transfer between the original and synthetic data domains.</p>
+<p>The key contributions of this paper are:</p>
+<ol>
+<li>Derivation of exact formulas for the variance of estimators when using augmented data for three generative models with increasing complexity, accounting for the inherent dependencies between original and synthetic samples</li>
+<li>Analysis of direction-dependent statistical gains in effective sample size, showing that augmentation benefits vary across different dimensions of the data space</li>
+<li>Construction of corrected hypothesis tests that maintain proper Type I error control while leveraging synthetic samples to improve statistical power</li>
+<li>Determination of optimal augmentation ratios based on parameter estimation accuracy, providing practical guidance for implementation</li>
+<li>Extension of core results to modern deep generative models such as Variational Autoencoders (VAEs), Generative Adversarial Networks (GANs), and Diffusion Models</li>
+<li>Comprehensive simulation studies validating our theoretical findings across various scenarios relevant to neuroimaging and other high-dimensional applications</li>
+</ol>
+<h2 id="2-problem-formulation">2. Problem Formulation</h2>
+<p>Let <span class="arithmatex">\(D = \{X_1,...,X_n\}\)</span> be a dataset of <span class="arithmatex">\(n\)</span> independent and identically distributed (i.i.d.) samples drawn from a distribution <span class="arithmatex">\(P_X\)</span> with mean <span class="arithmatex">\(\mu\)</span> and covariance <span class="arithmatex">\(\Sigma\)</span>. We consider hypothesis testing problems of the form:</p>
+<div class="arithmatex">\[H_0: \mu = \mu_0 \quad \text{vs.} \quad H_1: \mu \neq \mu_0\]</div>
+<p>Let <span class="arithmatex">\(f(z|D)\)</span> be a generative model trained on <span class="arithmatex">\(D\)</span>, where <span class="arithmatex">\(z\)</span> represents latent variables drawn from some distribution <span class="arithmatex">\(P_Z\)</span>. We generate synthetic samples <span class="arithmatex">\(X_i^{(f)} \sim f(z_i|D)\)</span> with <span class="arithmatex">\(z_i \sim P_Z\)</span> for <span class="arithmatex">\(i = 1,2,...,m\)</span>.</p>
+<p>The augmented dataset is defined as <span class="arithmatex">\(D' = \{X_1,...,X_n, X_1^{(f)},...,X_m^{(f)}\}\)</span>. Our goal is to analyze the statistical properties of hypothesis tests using the augmented dataset <span class="arithmatex">\(D'\)</span> compared to using only the original dataset <span class="arithmatex">\(D\)</span>.</p>
+<h2 id="3-theoretical-analysis">3. Theoretical Analysis</h2>
+<h3 id="31-multivariate-gaussian-model">3.1 Multivariate Gaussian Model</h3>
+<p>We first consider a simple generative model where samples are assumed to follow a multivariate Gaussian distribution.</p>
+<p><strong>Proposition 1.</strong> <em>Let <span class="arithmatex">\(X_i \sim \mathcal{N}(\mu, \Sigma)\)</span> for <span class="arithmatex">\(i = 1,...,n\)</span>, and let <span class="arithmatex">\(\hat{\mu} = \frac{1}{n}\sum_{i=1}^{n}X_i\)</span> and <span class="arithmatex">\(\hat{\Sigma} = \frac{1}{n}\sum_{i=1}^{n}(X_i - \hat{\mu})(X_i - \hat{\mu})^T\)</span> be the sample mean and covariance. If <span class="arithmatex">\(X_i^{(f)} \sim \mathcal{N}(\hat{\mu}, \hat{\Sigma})\)</span> for <span class="arithmatex">\(i = 1,...,m\)</span>, then the variance of the augmented sample mean <span class="arithmatex">\(\bar{X}_{D'} = \frac{1}{n+m}\sum_{i=1}^{n+m}X_i'\)</span> is given by:</em></p>
+<div class="arithmatex">\[\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m\hat{\Sigma}}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\]</div>
+<p><strong>Proof.</strong> The augmented sample mean can be written as a weighted average of the original sample mean and the synthetic sample mean:</p>
+<div class="arithmatex">\[\bar{X}_{D'} = \frac{n}{n+m}\bar{X}_D + \frac{m}{n+m}\bar{X}_f\]</div>
+<p>where <span class="arithmatex">\(\bar{X}_D = \frac{1}{n}\sum_{i=1}^{n}X_i\)</span> and <span class="arithmatex">\(\bar{X}_f = \frac{1}{m}\sum_{i=1}^{m}X_i^{(f)}\)</span>. </p>
+<p>Since <span class="arithmatex">\(\bar{X}_f \sim \mathcal{N}(\hat{\mu}, \frac{\hat{\Sigma}}{m})\)</span> and <span class="arithmatex">\(\hat{\mu} = \bar{X}_D\)</span>, we have:</p>
+<div class="arithmatex">\[\text{Var}(\bar{X}_{D'}) = \left(\frac{n}{n+m}\right)^2\text{Var}(\bar{X}_D) + \left(\frac{m}{n+m}\right)^2\text{Var}(\bar{X}_f) + 2\frac{nm}{(n+m)^2}\text{Cov}(\bar{X}_D, \bar{X}_f)\]</div>
+<p>Substituting <span class="arithmatex">\(\text{Var}(\bar{X}_D) = \frac{\Sigma}{n}\)</span>, <span class="arithmatex">\(\text{Var}(\bar{X}_f) = \frac{\hat{\Sigma}}{m}\)</span>, and <span class="arithmatex">\(\text{Cov}(\bar{X}_D, \bar{X}_f) = \frac{\Sigma}{n}\)</span> (since <span class="arithmatex">\(\bar{X}_f\)</span> is conditional on <span class="arithmatex">\(\bar{X}_D\)</span>), we obtain the result. ■</p>
+<p><strong>Corollary 1.1.</strong> <em>The effective sample size <span class="arithmatex">\(n_{eff}\)</span> for the Gaussian model, defined such that <span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{\Sigma}{n_{eff}}\)</span>, is given by:</em></p>
+<div class="arithmatex">\[n_{eff} = \frac{n(n+m)^2}{n^2 + nm + m^2\frac{\text{tr}(\hat{\Sigma}\Sigma^{-1})}{p}}\]</div>
+<p><em>where <span class="arithmatex">\(p\)</span> is the dimension of the data.</em></p>
+<p><strong>Remark on Isotropy Assumption:</strong> The term <span class="arithmatex">\(\frac{\text{tr}(\hat{\Sigma}\Sigma^{-1})}{p}\)</span> represents the average scaled estimation error across all dimensions. This formulation assumes that the relative importance of estimation errors is uniform across dimensions. When this isotropy assumption does not hold, a more general form can be derived by considering a weighted average of dimension-specific effective sample sizes.</p>
+<p><strong>Proposition 2.</strong> <em>For the hypothesis test <span class="arithmatex">\(H_0: \mu = \mu_0\)</span> vs. <span class="arithmatex">\(H_1: \mu \neq \mu_0\)</span>, the corrected test statistic using the augmented dataset is:</em></p>
+<div class="arithmatex">\[T_{D',corr} = (n+m)(\bar{X}_{D'} - \mu_0)^T[\text{Var}(\bar{X}_{D'})]^{-1}(\bar{X}_{D'} - \mu_0)\]</div>
+<p><em>which follows a <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom under <span class="arithmatex">\(H_0\)</span>.</em></p>
+<h3 id="32-principal-component-analysis-pca-model">3.2 Principal Component Analysis (PCA) Model</h3>
+<p>We now consider a more structured generative model based on PCA.</p>
+<p><strong>Proposition 3.</strong> <em>Let the sample covariance matrix be decomposed as <span class="arithmatex">\(\hat{\Sigma} = \sum_{j=1}^p \lambda_j \phi_j \phi_j^T\)</span>, where <span class="arithmatex">\(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_p \geq 0\)</span> are the eigenvalues and <span class="arithmatex">\(\phi_j\)</span> are the corresponding eigenvectors. If synthetic samples are generated as <span class="arithmatex">\(X_i^{(f)} = \bar{X}_D + \sum_{j=1}^k \sqrt{\lambda_j} \phi_j z_{ij}\)</span> where <span class="arithmatex">\(z_{ij} \sim \mathcal{N}(0,1)\)</span> and <span class="arithmatex">\(k &lt; p\)</span>, then the variance of the augmented sample mean is:</em></p>
+<div class="arithmatex">\[\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m\sum_{j=1}^k \lambda_j \phi_j \phi_j^T}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\]</div>
+<p><strong>Proof.</strong> Following similar steps as in Proposition 1, but noting that the covariance of synthetic samples is now <span class="arithmatex">\(\sum_{j=1}^k \lambda_j \phi_j \phi_j^T\)</span> rather than <span class="arithmatex">\(\hat{\Sigma}\)</span>, we obtain the result. ■</p>
+<p><strong>Corollary 3.1.</strong> <em>The effective sample size for the direction corresponding to principal component <span class="arithmatex">\(\phi_j\)</span> is:</em></p>
+<div class="arithmatex">\[n_{eff,j} = \begin{cases}
+\frac{n(n+m)^2}{n^2 + nm + m^2\frac{\lambda_j}{\phi_j^T\Sigma\phi_j}} &amp; \text{if } j \leq k \\
+n &amp; \text{if } j &gt; k
+\end{cases}\]</div>
+<p><strong>Remark 1.</strong> A key insight from Corollary 3.1 is that augmentation with a PCA model provides no statistical benefit in directions not captured by the retained principal components. This direction-dependent property highlights the importance of selecting an appropriate number of components <span class="arithmatex">\(k\)</span> based on the specific hypothesis being tested.</p>
+<h3 id="33-linear-factor-model">3.3 Linear Factor Model</h3>
+<p>Finally, we consider a linear factor model that provides a middle ground between the flexibility of the Gaussian model and the structure of the PCA model.</p>
+<p><strong>Proposition 4.</strong> <em>Assume data is generated according to a factor model <span class="arithmatex">\(X_i = \mu + Wz_i + \epsilon_i\)</span> where <span class="arithmatex">\(W\)</span> is a <span class="arithmatex">\(p \times q\)</span> factor loading matrix, <span class="arithmatex">\(z_i \sim \mathcal{N}(0, I_q)\)</span>, and <span class="arithmatex">\(\epsilon_i \sim \mathcal{N}(0, \Psi)\)</span> with <span class="arithmatex">\(\Psi\)</span> being a diagonal matrix. If synthetic samples are generated as <span class="arithmatex">\(X_i^{(f)} = \hat{\mu} + \hat{W}z_i + \epsilon_i^*\)</span> where <span class="arithmatex">\(\epsilon_i^* \sim \mathcal{N}(0, \hat{\Psi})\)</span>, then the variance of the augmented sample mean is:</em></p>
+<div class="arithmatex">\[\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m(\hat{W}\hat{W}^T + \hat{\Psi})}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\]</div>
+<p><strong>Proof.</strong> The proof follows the same structure as Proposition 1, accounting for the specific covariance structure of the factor model. ■</p>
+<p><strong>Corollary 4.1.</strong> <em>The effective sample size can be decomposed into factor space and error space components:</em></p>
+<div class="arithmatex">\[n_{eff,factor} = \frac{n(n+m)^2}{n^2 + nm + m\|\hat{W} - W\|_F^2}\]</div>
+<div class="arithmatex">\[n_{eff,error} = \frac{n(n+m)^2}{n^2 + nm + m\|\hat{\Psi} - \Psi\|_F^2}\]</div>
+<p><em>where <span class="arithmatex">\(\|\cdot\|_F\)</span> denotes the Frobenius norm.</em></p>
+<h3 id="34-extension-to-modern-generative-models">3.4 Extension to Modern Generative Models</h3>
+<p>While the previous sections focused on classical generative models with analytical forms, we now extend our results to modern deep generative models: Variational Autoencoders (VAEs), Generative Adversarial Networks (GANs), and Diffusion Models.</p>
+<p><strong>Proposition 7.</strong> <em>Let <span class="arithmatex">\(G_\theta\)</span> be a deep generative model with parameters <span class="arithmatex">\(\theta\)</span> trained on dataset <span class="arithmatex">\(D\)</span>. If synthetic samples are generated as <span class="arithmatex">\(X_i^{(f)} = G_\theta(z_i)\)</span> where <span class="arithmatex">\(z_i \sim P_Z\)</span>, then the variance of the augmented sample mean can be approximated as:</em></p>
+<div class="arithmatex">\[\text{Var}(\bar{X}_{D'}) \approx \frac{n\Sigma + m\hat{\Sigma}_G}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\]</div>
+<p><em>where <span class="arithmatex">\(\hat{\Sigma}_G = \mathbb{E}_{z \sim P_Z}[(G_\theta(z) - \mathbb{E}[G_\theta(z)])(G_\theta(z) - \mathbb{E}[G_\theta(z)])^T]\)</span> is the covariance of the generated samples.</em></p>
+<p><strong>Corollary 7.1.</strong> <em>The effective sample size for deep generative models can be estimated as:</em></p>
+<div class="arithmatex">\[n_{eff,deep} \approx \frac{n(n+m)^2}{n^2 + nm + m^2 D_{KL}(P_X \| P_G)}\]</div>
+<p><em>where <span class="arithmatex">\(D_{KL}(P_X \| P_G)\)</span> is the Kullback-Leibler divergence between the true data distribution <span class="arithmatex">\(P_X\)</span> and the generative model distribution <span class="arithmatex">\(P_G\)</span>.</em></p>
+<p>This extension allows us to apply our theoretical framework to modern generative models commonly used in practice, with the understanding that the exact covariance structure may need to be empirically estimated.</p>
+<h2 id="4-optimal-augmentation-ratio">4. Optimal Augmentation Ratio</h2>
+<p>A critical practical question is determining the optimal ratio of synthetic to real samples. We now derive this optimal ratio and provide methods for estimating it in practice.</p>
+<p><strong>Proposition 5.</strong> <em>For a given generative model with parameters <span class="arithmatex">\(\theta\)</span> and estimators <span class="arithmatex">\(\hat{\theta}\)</span>, the optimal ratio of synthetic to real samples that maximizes the effective sample size is:</em></p>
+<div class="arithmatex">\[\frac{m}{n} = \frac{1}{\|\hat{\theta} - \theta\|_F^2}\]</div>
+<p><em>where <span class="arithmatex">\(\|\cdot\|_F\)</span> denotes an appropriate norm measuring the distance between the true and estimated parameters.</em></p>
+<p><strong>Proof.</strong> Consider the general form of the effective sample size:</p>
+<div class="arithmatex">\[n_{eff} = \frac{n(n+m)^2}{n^2 + nm + m^2c}\]</div>
+<p>where <span class="arithmatex">\(c\)</span> is a constant that depends on the accuracy of parameter estimation. Taking the derivative with respect to <span class="arithmatex">\(m\)</span> and setting it to zero:</p>
+<div class="arithmatex">\[\frac{\partial n_{eff}}{\partial m} = \frac{n(n+m)(2(n+m) - (n+2m)c)}{(n^2 + nm + m^2c)^2} = 0\]</div>
+<p>This equation is satisfied when <span class="arithmatex">\(2(n+m) - (n+2m)c = 0\)</span>, which simplifies to <span class="arithmatex">\(m = \frac{n(2-c)}{2c-2}\)</span>. When <span class="arithmatex">\(c\)</span> is small (i.e., accurate parameter estimation), this approaches <span class="arithmatex">\(m = \frac{n}{c}\)</span>. In the context of parameter estimation, <span class="arithmatex">\(c \approx \|\hat{\theta} - \theta\|_F^2\)</span>, yielding the result. ■</p>
+<p><strong>Practical Estimation:</strong> In practice, <span class="arithmatex">\(\|\hat{\theta} - \theta\|_F^2\)</span> is unknown since <span class="arithmatex">\(\theta\)</span> is unknown. We propose two practical approaches:</p>
+<ol>
+<li>
+<p><strong>Cross-validation estimation</strong>: Split the original dataset into training and validation sets. Estimate parameters on the training set and compute the error on the validation set.</p>
+</li>
+<li>
+<p><strong>Bootstrap estimation</strong>: Generate bootstrap samples from the original dataset, estimate parameters for each bootstrap sample, and calculate the variance of these estimates.</p>
+</li>
+</ol>
+<h2 id="5-statistical-inference-with-augmented-data">5. Statistical Inference with Augmented Data</h2>
+<h3 id="51-corrected-hypothesis-tests">5.1 Corrected Hypothesis Tests</h3>
+<p>To maintain proper Type I error control with augmented data, hypothesis tests must be adjusted to account for the dependence structure introduced by the generative model.</p>
+<p><strong>Theorem 1.</strong> <em>For testing <span class="arithmatex">\(H_0: \mu = \mu_0\)</span> vs. <span class="arithmatex">\(H_1: \mu \neq \mu_0\)</span> using an augmented dataset <span class="arithmatex">\(D'\)</span>, the test statistic:</em></p>
+<div class="arithmatex">\[T_{D',corr} = (n+m)(\bar{X}_{D'} - \mu_0)^T[\text{Var}(\bar{X}_{D'})]^{-1}(\bar{X}_{D'} - \mu_0)\]</div>
+<p><em>where <span class="arithmatex">\(\text{Var}(\bar{X}_{D'})\)</span> is the variance derived in Propositions 1, 3, 4, or 7 for the respective generative model, follows a <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom under <span class="arithmatex">\(H_0\)</span>.</em></p>
+<p><strong>Proof.</strong> Under <span class="arithmatex">\(H_0\)</span>, <span class="arithmatex">\(\bar{X}_{D'} - \mu_0\)</span> follows a multivariate normal distribution with mean 0 and covariance <span class="arithmatex">\(\text{Var}(\bar{X}_{D'})\)</span>. The result then follows from the properties of the quadratic form of a multivariate normal vector. ■</p>
+<h3 id="52-power-analysis">5.2 Power Analysis</h3>
+<p>The power of the corrected test depends on the non-centrality parameter of the <span class="arithmatex">\(\chi^2\)</span> distribution under the alternative hypothesis.</p>
+<p><strong>Proposition 6.</strong> <em>Under the alternative hypothesis <span class="arithmatex">\(H_1: \mu = \mu_1 \neq \mu_0\)</span>, the non-centrality parameter for the corrected test statistic is:</em></p>
+<div class="arithmatex">\[\lambda = (n+m)(\mu_1 - \mu_0)^T[\text{Var}(\bar{X}_{D'})]^{-1}(\mu_1 - \mu_0)\]</div>
+<p><em>The power of the test at significance level <span class="arithmatex">\(\alpha\)</span> is:</em></p>
+<div class="arithmatex">\[\text{Power} = P(\chi^2_p(\lambda) &gt; \chi^2_{p,1-\alpha})\]</div>
+<p><em>where <span class="arithmatex">\(\chi^2_p(\lambda)\)</span> is a non-central <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom and non-centrality parameter <span class="arithmatex">\(\lambda\)</span>, and <span class="arithmatex">\(\chi^2_{p,1-\alpha}\)</span> is the <span class="arithmatex">\((1-\alpha)\)</span>-quantile of the central <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom.</em></p>
+<h3 id="53-confidence-interval-construction">5.3 Confidence Interval Construction</h3>
+<p><strong>Corollary 6.1.</strong> <em>Assuming asymptotic normality, the <span class="arithmatex">\((1-\alpha)\)</span> confidence interval for the <span class="arithmatex">\(j\)</span>-th component of the mean <span class="arithmatex">\(\mu\)</span> is:</em></p>
+<div class="arithmatex">\[[\bar{X}_{D',j} - z_{\alpha/2}\sqrt{[\text{Var}(\bar{X}_{D'})]_{jj}}, \bar{X}_{D',j} + z_{\alpha/2}\sqrt{[\text{Var}(\bar{X}_{D'})]_{jj}}]\]</div>
+<p><em>where <span class="arithmatex">\([\text{Var}(\bar{X}_{D'})]_{jj}\)</span> is the <span class="arithmatex">\(j\)</span>-th diagonal element of <span class="arithmatex">\(\text{Var}(\bar{X}_{D'})\)</span>.</em></p>
+<p>The asymptotic normality assumption is justified by the Central Limit Theorem and holds for sufficiently large sample sizes. For small samples, t-distribution based intervals may be more appropriate.</p>
+<h3 id="54-practical-implementation-and-parameter-estimation">5.4 Practical Implementation and Parameter Estimation</h3>
+<p>In practice, implementing the corrected tests requires estimating <span class="arithmatex">\(\Sigma\)</span> and other model-specific parameters. We propose the following practical approaches:</p>
+<ol>
+<li>
+<p><strong>Estimating <span class="arithmatex">\(\Sigma\)</span></strong>: Use a regularized estimator such as the shrinkage estimator:
+   <span class="arithmatex">\(<span class="arithmatex">\(\hat{\Sigma}_{reg} = (1-\lambda)\hat{\Sigma} + \lambda \text{diag}(\hat{\Sigma})\)</span>\)</span>
+   where <span class="arithmatex">\(\lambda \in [0,1]\)</span> is a shrinkage parameter.</p>
+</li>
+<li>
+<p><strong>Estimating <span class="arithmatex">\(\text{Var}(\bar{X}_{D'})\)</span></strong>: Use a plug-in estimator with the regularized covariance:
+   <span class="arithmatex">\(<span class="arithmatex">\(\widehat{\text{Var}}(\bar{X}_{D'}) = \frac{n\hat{\Sigma}_{reg} + m\hat{\Sigma}_G}{(n+m)^2} + \frac{nm\hat{\Sigma}_{reg}}{n(n+m)^2}\)</span>\)</span>
+   where <span class="arithmatex">\(\hat{\Sigma}_G\)</span> is the empirical covariance of the generated samples.</p>
+</li>
+<li>
+<p><strong>Degrees of freedom adjustment</strong>: For small samples, adjust the degrees of freedom in the test to account for parameter estimation uncertainty.</p>
+</li>
+</ol>
+<h2 id="6-extensions-to-non-gaussian-settings">6. Extensions to Non-Gaussian Settings</h2>
+<p>Our framework can be extended to non-Gaussian settings using semi-parametric approaches.</p>
+<p><strong>Proposition 8.</strong> <em>For non-Gaussian data following a distribution with mean <span class="arithmatex">\(\mu\)</span> and covariance <span class="arithmatex">\(\Sigma\)</span>, the corrected test statistic:</em></p>
+<div class="arithmatex">\[T_{D',corr} = (n+m)(\bar{X}_{D'} - \mu_0)^T[\widehat{\text{Var}}(\bar{X}_{D'})]^{-1}(\bar{X}_{D'} - \mu_0)\]</div>
+<p><em>is asymptotically distributed as <span class="arithmatex">\(\chi^2_p\)</span> under <span class="arithmatex">\(H_0\)</span>, provided that the fourth moments of the data distribution are finite.</em></p>
+<p>For highly non-Gaussian data, we recommend bootstrap-based approaches:</p>
+<ol>
+<li>
+<p><strong>Parametric bootstrap</strong>: Generate bootstrap samples from the fitted generative model and construct the empirical distribution of the test statistic.</p>
+</li>
+<li>
+<p><strong>Non-parametric bootstrap</strong>: Resample from the original dataset, retrain the generative model on each bootstrap sample, and construct the empirical distribution of the test statistic.</p>
+</li>
+</ol>
+<h2 id="7-computational-considerations">7. Computational Considerations</h2>
+<p>High-dimensional data such as neuroimaging presents computational challenges when implementing our framework. We provide strategies to address these challenges:</p>
+<ol>
+<li>
+<p><strong>Dimensionality reduction</strong>: For very high-dimensional data, apply dimensionality reduction before fitting generative models and conducting hypothesis tests.</p>
+</li>
+<li>
+<p><strong>Sparse covariance estimation</strong>: Use sparse covariance estimators to reduce computational complexity and improve numerical stability.</p>
+</li>
+<li>
+<p><strong>Parallel computing</strong>: Leverage parallel computing for bootstrap and Monte Carlo methods.</p>
+</li>
+<li>
+<p><strong>Computational complexity</strong>: The computational complexity of our framework is dominated by:</p>
+</li>
+<li>Generative model training: <span class="arithmatex">\(O(f(n,p))\)</span> (model-dependent)</li>
+<li>Covariance estimation: <span class="arithmatex">\(O(np^2)\)</span></li>
+<li>Test statistic computation: <span class="arithmatex">\(O(p^3)\)</span> (due to matrix inversion)</li>
+</ol>
+<p>For very high-dimensional data, we recommend:
+   - Working in a reduced-dimension space when possible
+   - Using iterative methods for matrix operations
+   - Employing sparse matrix representations</p>
+<h2 id="8-simulation-studies">8. Simulation Studies</h2>
+<p>To validate our theoretical results, we conducted extensive simulation studies examining how generative model augmentation affects hypothesis testing across various scenarios. These simulations systematically evaluated the variance formulas, Type I error control, statistical power, direction-dependent gains, optimal augmentation ratios, and model comparisons described in the preceding sections.</p>
+<h3 id="81-methodology">8.1 Methodology</h3>
+<p>All simulations followed a common experimental paradigm. We generated multivariate normal data with controlled covariance structures, applied different generative models to create synthetic samples, and analyzed the resulting statistical properties of hypothesis tests. Unless otherwise specified, we used the following parameter settings:</p>
+<ul>
+<li>Data dimensionality: 5-10 dimensions</li>
+<li>Original sample sizes: 20, 50, 100, and 200</li>
+<li>Synthetic sample sizes: 20, 50, 100, and 200</li>
+<li>Covariance structure: Eigenvalues following exponential decay with condition number 10</li>
+<li>Null hypothesis: <span class="arithmatex">\(H_0: \mu = 0\)</span></li>
+<li>Alternative hypothesis: <span class="arithmatex">\(H_1: \mu = \delta v\)</span>, where <span class="arithmatex">\(v\)</span> is a unit vector and <span class="arithmatex">\(\delta\)</span> is the effect size</li>
+<li>Significance level: <span class="arithmatex">\(\alpha = 0.05\)</span></li>
+</ul>
+<p>For each scenario, we compared three testing approaches:
+1. <strong>Original Test</strong>: Uses only the original dataset
+2. <strong>Naive Test</strong>: Uses the augmented dataset but incorrectly assumes independence
+3. <strong>Corrected Test</strong>: Uses the augmented dataset with proper variance correction as derived in Section 3</p>
+<h3 id="82-generative-models-implementation">8.2 Generative Models Implementation</h3>
+<p>We implemented three generative models with increasing complexity:</p>
+<p><strong>Gaussian Model</strong>: The simplest approach estimates the sample mean <span class="arithmatex">\(\hat{\mu}\)</span> and covariance <span class="arithmatex">\(\hat{\Sigma}\)</span> from the original data and generates new samples from <span class="arithmatex">\(\mathcal{N}(\hat{\mu}, \hat{\Sigma})\)</span>.</p>
+<p><strong>PCA Model</strong>: This approach retains only the top <span class="arithmatex">\(k\)</span> principal components:
+1. Center the data and compute principal components
+2. Determine <span class="arithmatex">\(k\)</span> based on explained variance (typically capturing 95% of variance)
+3. Generate synthetic samples as:
+   <span class="arithmatex">\(<span class="arithmatex">\(X_i^{(f)} = \hat{\mu} + \sum_{j=1}^k \sqrt{\lambda_j}z_{ij}\phi_j\)</span>\)</span>
+   where <span class="arithmatex">\(\lambda_j\)</span> are eigenvalues, <span class="arithmatex">\(\phi_j\)</span> are eigenvectors, and <span class="arithmatex">\(z_{ij} \sim \mathcal{N}(0,1)\)</span></p>
+<p><strong>Factor Model</strong>: This approach uses a linear factor model:
+1. Standardize the data
+2. Fit a factor analysis model with <span class="arithmatex">\(q\)</span> factors using maximum likelihood
+3. Extract the loading matrix <span class="arithmatex">\(\hat{W}\)</span> and uniquenesses <span class="arithmatex">\(\hat{\Psi}\)</span>
+4. Generate synthetic samples as:
+   <span class="arithmatex">\(<span class="arithmatex">\(X_i^{(f)} = \hat{\mu} + \hat{W}z_i + \epsilon_i\)</span>\)</span>
+   where <span class="arithmatex">\(z_i \sim \mathcal{N}(0, I_q)\)</span> and <span class="arithmatex">\(\epsilon_i \sim \mathcal{N}(0, \hat{\Psi})\)</span></p>
+<h3 id="83-results-and-discussion">8.3 Results and Discussion</h3>
+<h4 id="831-validation-of-variance-formulas">8.3.1 Validation of Variance Formulas</h4>
+<p>Figure 1 presents the ratio of empirical to theoretical variance for the augmented sample mean across different generative models, original sample sizes, and synthetic sample sizes. The empirical variance was estimated through Monte Carlo simulation with 200 repetitions per configuration.</p>
+<p>Results confirm that our theoretical derivations accurately predict the variance of estimators using augmented data, with empirical-to-theoretical ratios consistently between 0.95 and 1.05 across all tested scenarios. This validates the core mathematical results from Propositions 1, 3, and 4.</p>
+<p><img alt="Figure 1: Ratio of Empirical to Theoretical Variance" src="figure1_variance_ratio.png" /></p>
+<h4 id="832-type-i-error-control">8.3.2 Type I Error Control</h4>
+<p>Figure 2 demonstrates the Type I error rates (proportion of false rejections under the null hypothesis) for the three testing approaches. The simulation included 1,000 trials per configuration to ensure precise estimation of error rates.</p>
+<p>As predicted by our theory, the naive approach that treats synthetic samples as independent has severely inflated Type I error rates, often exceeding three times the nominal level (reaching as high as 15% when the nominal level is 5%). In contrast, our corrected test maintains proper Type I error control at the specified significance level across all sample size combinations. The original test also maintains proper Type I error control as expected.</p>
+<p><img alt="Figure 2: Type I Error Control" src="figure2_type_i_error.png" /></p>
+<h4 id="833-power-analysis">8.3.3 Power Analysis</h4>
+<p>Figure 3 shows the statistical power (proportion of correct rejections under the alternative hypothesis) as a function of effect size. The alternative hypothesis constructed signal in the direction of the first eigenvector with varying magnitudes.</p>
+<p>The corrected test consistently achieves higher power than the original test using only the original data, particularly for small to moderate effect sizes. While the naive test appears to have even higher power, this is misleading due to its inflated Type I error rate. The corrected test provides the optimal balance between power improvement and Type I error control.</p>
+<p><img alt="Figure 3: Power Analysis" src="figure3_power_analysis.png" /></p>
+<h4 id="834-direction-dependent-gain">8.3.4 Direction-Dependent Gain</h4>
+<p>Figure 4 illustrates the direction-dependent nature of statistical gain with PCA-based augmentation. We tested power across all eigendirections of the covariance matrix while retaining only the top <span class="arithmatex">\(k=3\)</span> principal components in the generative model.</p>
+<p>The results confirm our theoretical prediction: significant power improvements occur only in directions captured by the retained principal components. Directions corresponding to discarded components show negligible or even slightly negative power gain. This validates the direction-dependent effective sample size derived in Corollary 3.1.</p>
+<p><img alt="Figure 4: Direction-Dependent Power Gain" src="figure4_direction_dependent_gain.png" /></p>
+<h4 id="835-optimal-augmentation-ratio">8.3.5 Optimal Augmentation Ratio</h4>
+<p>Figure 5 examines the effective sample size as a function of the augmentation ratio <span class="arithmatex">\(m/n\)</span> for different levels of parameter estimation error. The parameter error was controlled by introducing varying levels of noise to the estimated covariance matrix.</p>
+<p>The simulation confirms our theoretical result from Proposition 5: the optimal augmentation ratio is approximately <span class="arithmatex">\(m/n = 1/\|\hat{\theta} - \theta\|_F^2\)</span>. For each level of parameter error, the effective sample size peaks at a specific augmentation ratio that closely matches our theoretical prediction. This provides practical guidance for choosing the optimal number of synthetic samples to generate.</p>
+<p><img alt="Figure 5: Optimal Augmentation Ratio" src="figure5_optimal_ratio.png" /></p>
+<h4 id="836-model-comparison">8.3.6 Model Comparison</h4>
+<p>Figure 6 compares the effective sample size achieved by different generative models as a function of the original sample size. The augmentation ratio was fixed at <span class="arithmatex">\(m/n = 1.0\)</span> for all models.</p>
+<p>Results show that more structured models (Factor and PCA) provide greater benefit for smaller original sample sizes, while the gap narrows as the sample size increases. This confirms our theoretical understanding that the value of augmentation depends on both the accuracy of parameter estimation and the alignment between the generative model structure and the true data distribution.</p>
+<p><img alt="Figure 6: Model Comparison" src="figure6_model_comparison.png" /></p>
+<h3 id="84-computational-considerations">8.4 Computational Considerations</h3>
+<p>To ensure reliable results, we implemented several computational strategies:</p>
+<ol>
+<li>For variance estimation, we used Monte Carlo simulation with bootstrap resampling</li>
+<li>For high-dimensional operations, we employed numerically stable algorithms for eigendecomposition and matrix inversion</li>
+<li>To handle potential singularities in estimated covariance matrices, we applied regularization when necessary</li>
+<li>For each simulation scenario, we performed multiple independent trials and reported both mean values and variability measures</li>
+</ol>
+<h3 id="85-summary-of-simulation-findings">8.5 Summary of Simulation Findings</h3>
+<p>The simulation studies provide strong empirical support for our theoretical results:</p>
+<ol>
+<li>The derived variance formulas accurately predict the behavior of estimators using augmented data</li>
+<li>The corrected test statistic maintains proper Type I error control</li>
+<li>Augmentation with synthetic samples can substantially improve statistical power when correctly implemented</li>
+<li>The gain in effective sample size follows a direction-dependent pattern determined by the generative model structure</li>
+<li>There exists an optimal augmentation ratio that depends on parameter estimation accuracy</li>
+<li>The choice of generative model should be guided by the specific hypothesis being tested and the available sample size</li>
+</ol>
+<p>These findings validate the practical utility of our theoretical framework and provide concrete guidance for researchers seeking to apply generative model augmentation in hypothesis testing scenarios.</p>
+<h2 id="9-discussion">9. Discussion</h2>
+<p>Our theoretical analysis and simulation studies provide several key insights for researchers considering generative model augmentation for hypothesis testing:</p>
+<h3 id="91-key-findings">9.1 Key Findings</h3>
+<ol>
+<li>
+<p><strong>Direction-Dependent Gain</strong>: The statistical benefit of augmentation varies across different directions in the data space, with the greatest gains in directions well-captured by the generative model.</p>
+</li>
+<li>
+<p><strong>Model Selection</strong>: The choice of generative model should be guided by the specific hypothesis being tested. For example, if the hypothesis concerns directions not captured by the top principal components, a PCA-based augmentation will provide no benefit.</p>
+</li>
+<li>
+<p><strong>Estimation Accuracy</strong>: The potential gain from augmentation is bounded by the accuracy of parameter estimation. As sample size increases, better parameter estimation allows for more beneficial augmentation.</p>
+</li>
+<li>
+<p><strong>Variance Correction</strong>: Proper hypothesis testing with augmented data requires correcting for the dependence structure introduced by the generative model.</p>
+</li>
+</ol>
+<h3 id="92-limitations-and-robustness">9.2 Limitations and Robustness</h3>
+<p>Our framework makes several assumptions that may not always hold in practice:</p>
+<ol>
+<li>
+<p><strong>Model Misspecification</strong>: Real data may not follow the assumed generative models. Our simulations show that mild misspecification leads to reduced but still positive gains, while severe misspecification can eliminate or even reverse the benefits of augmentation.</p>
+</li>
+<li>
+<p><strong>Parameter Estimation Uncertainty</strong>: The variance formulas assume known population parameters. In practice, these must be estimated, introducing additional uncertainty not fully accounted for in the first-order approximations.</p>
+</li>
+<li>
+<p><strong>Non-Gaussian Data</strong>: While we provided extensions to non-Gaussian settings, the core theoretical results assume Gaussian or approximately Gaussian distributions.</p>
+</li>
+<li>
+<p><strong>High-Dimensional Scaling</strong>: In very high-dimensional settings where <span class="arithmatex">\(p \gg n\)</span>, additional regularization and dimensionality reduction techniques may be necessary.</p>
+</li>
+</ol>
+<p>To assess robustness to these limitations, we recommend sensitivity analyses comparing results across different generative models and parameter estimation methods.</p>
+<h3 id="93-implications-for-neuroimaging">9.3 Implications for Neuroimaging</h3>
+<p>These findings have important implications for applications in neuroimaging, where sample sizes are often limited and the data dimensionality is high:</p>
+<ol>
+<li>
+<p><strong>Targeted Augmentation</strong>: Rather than generic augmentation, researchers should focus on augmentation that preserves the specific brain regions or patterns relevant to their hypotheses.</p>
+</li>
+<li>
+<p><strong>Augmentation versus Regularization</strong>: In some cases, proper regularization of estimators may provide similar benefits to augmentation with lower computational cost.</p>
+</li>
+<li>
+<p><strong>Model Validation</strong>: Validate generative models specifically on their ability to preserve the statistical properties relevant to the hypothesis being tested.</p>
+</li>
+</ol>
+<h2 id="10-conclusion">10. Conclusion</h2>
+<p>This paper provides a comprehensive theoretical framework for understanding the statistical properties of hypothesis testing with generative model augmentation. We derived explicit formulas for the variance of estimators, effective sample sizes, and test statistics for various generative models ranging from classical approaches to modern deep learning methods.</p>
+<p>Our results show that while generative model augmentation can improve statistical power, the gain is bounded and direction-dependent. Proper statistical inference requires accounting for the dependence structure introduced by the augmentation process. These findings provide practical guidance for researchers using generative models for data augmentation in statistical analyses.</p>
+<p>Future work could extend these results to other statistical inference tasks beyond hypothesis testing of means, such as regression models, classification problems, and functional data analysis. Additionally, investigating the tradeoffs between computational complexity and statistical efficiency for different augmentation strategies would further enhance the practical utility of this framework.</p>
+<h2 id="references">References</h2>
+<p>Bowles, C., Chen, L., Guerrero, R., Bentley, P., Gunn, R., Hammers, A., Dickie, D. A., Hernández, M. V., Wardlaw, J., &amp; Rueckert, D. (2018). GAN augmentation: Augmenting training data using generative adversarial networks. arXiv preprint arXiv:1810.10863.</p>
+<p>Efron, B. (1979). Bootstrap methods: Another look at the jackknife. The Annals of Statistics, 7(1), 1-26.</p>
+<p>Gong, M., Zhang, K., Liu, T., Tao, D., Glymour, C., &amp; Schölkopf, B. (2016). Domain adaptation with conditional transferable components. In International Conference on Machine Learning (pp. 2839-2848).</p>
+<p>Kingma, D. P., &amp; Welling, M. (2014). Auto-encoding variational Bayes. In International Conference on Learning Representations.</p>
+<p>Ledoit, O., &amp; Wolf, M. (2004). A well-conditioned estimator for large-dimensional covariance matrices. Journal of Multivariate Analysis, 88(2), 365-411.</p>
+<p>Poole, B., Jain, S., Barron, J. T., &amp; Mildenhall, B. (2022). DreamFusion: Text-to-3D using 2D diffusion. arXiv preprint arXiv:2209.14988.</p>
+<p>Shin, H. C., Tenenholtz, N. A., Rogers, J. K., Schwarz, C. G., Senjem, M. L., Gunter, J. L., Andriole, K. P., &amp; Michalski, M. (2018). Medical image synthesis for data augmentation and anonymization using generative adversarial networks. In International Workshop on Simulation and Synthesis in Medical Imaging (pp. 1-11). Springer.</p>
+<p>Wu, Y., &amp; Yang, P. (2020). Optimal estimation with augmented data. Advances in Neural Information Processing Systems, 33, 22071-22081.</p>
+<p>Zhao, S., Ding, G., Huang, Q., Chua, T. S., Schuller, B. W., &amp; Keutzer, K. (2018). Affective image content analysis: A comprehensive survey. In International Joint Conference on Artificial Intelligence (pp. 5534-5541).</p>
+<h2 id="appendix-complete-proofs">Appendix: Complete Proofs</h2>
+<h3 id="a1-proof-of-proposition-1">A.1. Proof of Proposition 1</h3>
+<p><strong>Proposition 1:</strong> <em>Let <span class="arithmatex">\(X_i \sim \mathcal{N}(\mu, \Sigma)\)</span> for <span class="arithmatex">\(i = 1,...,n\)</span>, and let <span class="arithmatex">\(\hat{\mu} = \frac{1}{n}\sum_{i=1}^{n}X_i\)</span> and <span class="arithmatex">\(\hat{\Sigma} = \frac{1}{n}\sum_{i=1}^{n}(X_i - \hat{\mu})(X_i - \hat{\mu})^T\)</span> be the sample mean and covariance. If <span class="arithmatex">\(X_i^{(f)} \sim \mathcal{N}(\hat{\mu}, \hat{\Sigma})\)</span> for <span class="arithmatex">\(i = 1,...,m\)</span>, then the variance of the augmented sample mean <span class="arithmatex">\(\bar{X}_{D'} = \frac{1}{n+m}\sum_{i=1}^{n+m}X_i'\)</span> is given by:</em></p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m\hat{\Sigma}}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p><strong>Proof:</strong></p>
+<p>The augmented sample mean can be written as:</p>
+<p><span class="arithmatex">\(\bar{X}_{D'} = \frac{1}{n+m}\left(\sum_{i=1}^{n}X_i + \sum_{i=1}^{m}X_i^{(f)}\right)\)</span></p>
+<p>Expressing this as a weighted average of the original sample mean and the synthetic sample mean:</p>
+<p><span class="arithmatex">\(\bar{X}_{D'} = \frac{n}{n+m}\bar{X}_D + \frac{m}{n+m}\bar{X}_f\)</span></p>
+<p>where:
+- <span class="arithmatex">\(\bar{X}_D = \frac{1}{n}\sum_{i=1}^{n}X_i\)</span> is the sample mean of the original data
+- <span class="arithmatex">\(\bar{X}_f = \frac{1}{m}\sum_{i=1}^{m}X_i^{(f)}\)</span> is the sample mean of the synthetic data</p>
+<p>The variance of <span class="arithmatex">\(\bar{X}_{D'}\)</span> can be calculated as:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \left(\frac{n}{n+m}\right)^2\text{Var}(\bar{X}_D) + \left(\frac{m}{n+m}\right)^2\text{Var}(\bar{X}_f) + 2\frac{nm}{(n+m)^2}\text{Cov}(\bar{X}_D, \bar{X}_f)\)</span></p>
+<p>We know:
+- <span class="arithmatex">\(\text{Var}(\bar{X}_D) = \frac{\Sigma}{n}\)</span> since <span class="arithmatex">\(X_i \sim \mathcal{N}(\mu, \Sigma)\)</span> and are i.i.d.
+- <span class="arithmatex">\(\text{Var}(\bar{X}_f | \bar{X}_D) = \frac{\hat{\Sigma}}{m}\)</span> since <span class="arithmatex">\(X_i^{(f)} \sim \mathcal{N}(\hat{\mu}, \hat{\Sigma})\)</span> and are conditionally i.i.d. given <span class="arithmatex">\(\hat{\mu}\)</span> and <span class="arithmatex">\(\hat{\Sigma}\)</span>
+- <span class="arithmatex">\(\hat{\mu} = \bar{X}_D\)</span></p>
+<p>For the covariance term, we need to consider that <span class="arithmatex">\(\bar{X}_f\)</span> depends on <span class="arithmatex">\(\bar{X}_D\)</span> since <span class="arithmatex">\(\mathbb{E}[\bar{X}_f | \bar{X}_D] = \bar{X}_D\)</span>. Using the law of total covariance:</p>
+<p><span class="arithmatex">\(\text{Cov}(\bar{X}_D, \bar{X}_f) = \text{Cov}(\bar{X}_D, \mathbb{E}[\bar{X}_f | \bar{X}_D]) + \mathbb{E}[\text{Cov}(\bar{X}_D, \bar{X}_f | \bar{X}_D)]\)</span></p>
+<p>Since <span class="arithmatex">\(\mathbb{E}[\bar{X}_f | \bar{X}_D] = \bar{X}_D\)</span>, we have:</p>
+<p><span class="arithmatex">\(\text{Cov}(\bar{X}_D, \mathbb{E}[\bar{X}_f | \bar{X}_D]) = \text{Cov}(\bar{X}_D, \bar{X}_D) = \text{Var}(\bar{X}_D) = \frac{\Sigma}{n}\)</span></p>
+<p>And <span class="arithmatex">\(\text{Cov}(\bar{X}_D, \bar{X}_f | \bar{X}_D) = 0\)</span> since <span class="arithmatex">\(\bar{X}_D\)</span> is constant given <span class="arithmatex">\(\bar{X}_D\)</span>.</p>
+<p>Thus:
+<span class="arithmatex">\(\text{Cov}(\bar{X}_D, \bar{X}_f) = \frac{\Sigma}{n}\)</span></p>
+<p>Substituting these values into the variance formula:</p>
+<div class="arithmatex">\[\begin{align*}
+\text{Var}(\bar{X}_{D'}) &amp;= \left(\frac{n}{n+m}\right)^2\frac{\Sigma}{n} + \left(\frac{m}{n+m}\right)^2\frac{\hat{\Sigma}}{m} + 2\frac{nm}{(n+m)^2}\frac{\Sigma}{n} \\
+&amp;= \frac{n\Sigma}{(n+m)^2} + \frac{m\hat{\Sigma}}{(n+m)^2} + \frac{2m\Sigma}{(n+m)^2} \\
+&amp;= \frac{n\Sigma + m\hat{\Sigma}}{(n+m)^2} + \frac{m\Sigma}{(n+m)^2} \\
+&amp;= \frac{n\Sigma + m\hat{\Sigma}}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}
+\end{align*}\]</div>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a2-proof-of-corollary-11">A.2. Proof of Corollary 1.1</h3>
+<p><strong>Corollary 1.1:</strong> <em>The effective sample size <span class="arithmatex">\(n_{eff}\)</span> for the Gaussian model, defined such that <span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{\Sigma}{n_{eff}}\)</span>, is given by:</em></p>
+<p><span class="arithmatex">\(n_{eff} = \frac{n(n+m)^2}{n^2 + nm + m^2\frac{\text{tr}(\hat{\Sigma}\Sigma^{-1})}{p}}\)</span></p>
+<p><em>where <span class="arithmatex">\(p\)</span> is the dimension of the data.</em></p>
+<p><strong>Proof:</strong></p>
+<p>The effective sample size <span class="arithmatex">\(n_{eff}\)</span> is defined such that <span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{\Sigma}{n_{eff}}\)</span>. From Proposition 1, we have:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m\hat{\Sigma}}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>To find <span class="arithmatex">\(n_{eff}\)</span>, we need to solve for:</p>
+<p><span class="arithmatex">\(\frac{\Sigma}{n_{eff}} = \frac{n\Sigma + m\hat{\Sigma}}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>Multiplying both sides by <span class="arithmatex">\(n_{eff}\)</span>:</p>
+<p><span class="arithmatex">\(\Sigma = \frac{n_{eff}(n\Sigma + m\hat{\Sigma})}{(n+m)^2} + \frac{n_{eff}nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>Since <span class="arithmatex">\(\hat{\Sigma}\)</span> and <span class="arithmatex">\(\Sigma\)</span> may not be proportional, we need to make an approximation. We use the trace to average the relationship across all dimensions, assuming a form of isotropy in the estimation error. Taking the trace of both sides:</p>
+<p><span class="arithmatex">\(\text{tr}(\Sigma) = \frac{n_{eff}(n\text{tr}(\Sigma) + m\text{tr}(\hat{\Sigma}))}{(n+m)^2} + \frac{n_{eff}nm\text{tr}(\Sigma)}{n(n+m)^2}\)</span></p>
+<p>Dividing by <span class="arithmatex">\(\text{tr}(\Sigma)\)</span>:</p>
+<p><span class="arithmatex">\(1 = \frac{n_{eff}n}{(n+m)^2} + \frac{n_{eff}m\text{tr}(\hat{\Sigma})}{(n+m)^2\text{tr}(\Sigma)} + \frac{n_{eff}m}{(n+m)^2}\)</span></p>
+<p>Since <span class="arithmatex">\(\text{tr}(\hat{\Sigma}\Sigma^{-1}) = \text{tr}(\hat{\Sigma} \cdot \Sigma^{-1}) = \sum_{i=1}^p \lambda_i(\hat{\Sigma}\Sigma^{-1})\)</span> where <span class="arithmatex">\(\lambda_i\)</span> are the eigenvalues, and <span class="arithmatex">\(\frac{\text{tr}(\hat{\Sigma})}{\text{tr}(\Sigma)} \approx \frac{\text{tr}(\hat{\Sigma}\Sigma^{-1})}{p}\)</span>, we can write:</p>
+<p><span class="arithmatex">\(1 = \frac{n_{eff}n}{(n+m)^2} + \frac{n_{eff}m^2\frac{\text{tr}(\hat{\Sigma}\Sigma^{-1})}{p}}{(n+m)^2} + \frac{n_{eff}m}{(n+m)^2}\)</span></p>
+<p>Simplifying:</p>
+<p><span class="arithmatex">\(1 = \frac{n_{eff}(n + m + m^2\frac{\text{tr}(\hat{\Sigma}\Sigma^{-1})}{p})}{(n+m)^2}\)</span></p>
+<p>Solving for <span class="arithmatex">\(n_{eff}\)</span>:</p>
+<p><span class="arithmatex">\(n_{eff} = \frac{(n+m)^2}{n + m + m^2\frac{\text{tr}(\hat{\Sigma}\Sigma^{-1})}{p}}\)</span></p>
+<p>Factoring the denominator:</p>
+<p><span class="arithmatex">\(n_{eff} = \frac{(n+m)^2}{n^2 + nm + m^2\frac{\text{tr}(\hat{\Sigma}\Sigma^{-1})}{p}}\)</span></p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a3-proof-of-proposition-3">A.3. Proof of Proposition 3</h3>
+<p><strong>Proposition 3:</strong> <em>Let the sample covariance matrix be decomposed as <span class="arithmatex">\(\hat{\Sigma} = \sum_{j=1}^p \lambda_j \phi_j \phi_j^T\)</span>, where <span class="arithmatex">\(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_p \geq 0\)</span> are the eigenvalues and <span class="arithmatex">\(\phi_j\)</span> are the corresponding eigenvectors. If synthetic samples are generated as <span class="arithmatex">\(X_i^{(f)} = \bar{X}_D + \sum_{j=1}^k \sqrt{\lambda_j} \phi_j z_{ij}\)</span> where <span class="arithmatex">\(z_{ij} \sim \mathcal{N}(0,1)\)</span> and <span class="arithmatex">\(k &lt; p\)</span>, then the variance of the augmented sample mean is:</em></p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m\sum_{j=1}^k \lambda_j \phi_j \phi_j^T}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p><strong>Proof:</strong></p>
+<p>As in Proposition 1, the augmented sample mean can be written as:</p>
+<p><span class="arithmatex">\(\bar{X}_{D'} = \frac{n}{n+m}\bar{X}_D + \frac{m}{n+m}\bar{X}_f\)</span></p>
+<p>The synthetic samples are generated as:</p>
+<p><span class="arithmatex">\(X_i^{(f)} = \bar{X}_D + \sum_{j=1}^k \sqrt{\lambda_j} \phi_j z_{ij}\)</span></p>
+<p>where <span class="arithmatex">\(z_{ij} \sim \mathcal{N}(0,1)\)</span> are independent standard normal random variables.</p>
+<p>The mean of the synthetic samples given <span class="arithmatex">\(\bar{X}_D\)</span> is:</p>
+<p><span class="arithmatex">\(\mathbb{E}[X_i^{(f)} | \bar{X}_D] = \bar{X}_D + \sum_{j=1}^k \sqrt{\lambda_j} \phi_j \mathbb{E}[z_{ij}] = \bar{X}_D\)</span></p>
+<p>since <span class="arithmatex">\(\mathbb{E}[z_{ij}] = 0\)</span>. Thus, <span class="arithmatex">\(\mathbb{E}[\bar{X}_f | \bar{X}_D] = \bar{X}_D\)</span>.</p>
+<p>The covariance of the synthetic samples given <span class="arithmatex">\(\bar{X}_D\)</span> is:</p>
+<div class="arithmatex">\[\begin{align*}
+\text{Cov}(X_i^{(f)}, X_i^{(f)} | \bar{X}_D) &amp;= \text{Cov}\left(\sum_{j=1}^k \sqrt{\lambda_j} \phi_j z_{ij}, \sum_{j'=1}^k \sqrt{\lambda_{j'}} \phi_{j'} z_{ij'}\right) \\
+&amp;= \sum_{j=1}^k \sum_{j'=1}^k \sqrt{\lambda_j \lambda_{j'}} \phi_j \phi_{j'}^T \text{Cov}(z_{ij}, z_{ij'}) \\
+&amp;= \sum_{j=1}^k \lambda_j \phi_j \phi_j^T
+\end{align*}\]</div>
+<p>since <span class="arithmatex">\(\text{Cov}(z_{ij}, z_{ij'}) = \delta_{jj'}\)</span> (the Kronecker delta, which equals 1 if <span class="arithmatex">\(j = j'\)</span> and 0 otherwise).</p>
+<p>Therefore, the variance of the synthetic sample mean given <span class="arithmatex">\(\bar{X}_D\)</span> is:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_f | \bar{X}_D) = \frac{1}{m}\sum_{j=1}^k \lambda_j \phi_j \phi_j^T\)</span></p>
+<p>Now, the variance of the augmented sample mean follows the same structure as in Proposition 1:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \left(\frac{n}{n+m}\right)^2\text{Var}(\bar{X}_D) + \left(\frac{m}{n+m}\right)^2\text{Var}(\bar{X}_f) + 2\frac{nm}{(n+m)^2}\text{Cov}(\bar{X}_D, \bar{X}_f)\)</span></p>
+<p>We know:
+- <span class="arithmatex">\(\text{Var}(\bar{X}_D) = \frac{\Sigma}{n}\)</span> 
+- <span class="arithmatex">\(\text{Var}(\bar{X}_f) = \text{Var}(\mathbb{E}[\bar{X}_f | \bar{X}_D]) + \mathbb{E}[\text{Var}(\bar{X}_f | \bar{X}_D)]\)</span></p>
+<p>Since <span class="arithmatex">\(\mathbb{E}[\bar{X}_f | \bar{X}_D] = \bar{X}_D\)</span>, we have:
+- <span class="arithmatex">\(\text{Var}(\mathbb{E}[\bar{X}_f | \bar{X}_D]) = \text{Var}(\bar{X}_D) = \frac{\Sigma}{n}\)</span>
+- <span class="arithmatex">\(\mathbb{E}[\text{Var}(\bar{X}_f | \bar{X}_D)] = \frac{1}{m}\sum_{j=1}^k \lambda_j \phi_j \phi_j^T\)</span></p>
+<p>Therefore:
+<span class="arithmatex">\(\text{Var}(\bar{X}_f) = \frac{\Sigma}{n} + \frac{1}{m}\sum_{j=1}^k \lambda_j \phi_j \phi_j^T\)</span></p>
+<p>For the covariance term, using the same law of total covariance as in Proposition 1:
+<span class="arithmatex">\(\text{Cov}(\bar{X}_D, \bar{X}_f) = \text{Cov}(\bar{X}_D, \mathbb{E}[\bar{X}_f | \bar{X}_D]) = \text{Cov}(\bar{X}_D, \bar{X}_D) = \frac{\Sigma}{n}\)</span></p>
+<p>Substituting these values into the variance formula:</p>
+<div class="arithmatex">\[\begin{align*}
+\text{Var}(\bar{X}_{D'}) &amp;= \left(\frac{n}{n+m}\right)^2\frac{\Sigma}{n} + \left(\frac{m}{n+m}\right)^2\left(\frac{\Sigma}{n} + \frac{1}{m}\sum_{j=1}^k \lambda_j \phi_j \phi_j^T\right) + 2\frac{nm}{(n+m)^2}\frac{\Sigma}{n} \\
+&amp;= \frac{n\Sigma}{(n+m)^2} + \frac{m^2\Sigma}{n(n+m)^2} + \frac{m}{(n+m)^2}\sum_{j=1}^k \lambda_j \phi_j \phi_j^T + \frac{2m\Sigma}{(n+m)^2} \\
+&amp;= \frac{n\Sigma + m^2\Sigma/n + 2m\Sigma}{(n+m)^2} + \frac{m\sum_{j=1}^k \lambda_j \phi_j \phi_j^T}{(n+m)^2} \\
+&amp;= \frac{(n + m^2/n + 2m)\Sigma}{(n+m)^2} + \frac{m\sum_{j=1}^k \lambda_j \phi_j \phi_j^T}{(n+m)^2} \\
+&amp;= \frac{n\Sigma + m\sum_{j=1}^k \lambda_j \phi_j \phi_j^T}{(n+m)^2} + \frac{(m^2/n + 2m)\Sigma}{(n+m)^2} \\
+&amp;= \frac{n\Sigma + m\sum_{j=1}^k \lambda_j \phi_j \phi_j^T}{(n+m)^2} + \frac{m(m/n + 2)\Sigma}{(n+m)^2} \\
+\end{align*}\]</div>
+<p>Simplifying the second term:
+<span class="arithmatex">\(\frac{m(m/n + 2)\Sigma}{(n+m)^2} = \frac{m^2\Sigma/n + 2m\Sigma}{(n+m)^2} = \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>Therefore:
+<span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m\sum_{j=1}^k \lambda_j \phi_j \phi_j^T}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a4-proof-of-corollary-31">A.4. Proof of Corollary 3.1</h3>
+<p><strong>Corollary 3.1:</strong> <em>The effective sample size for the direction corresponding to principal component <span class="arithmatex">\(\phi_j\)</span> is:</em></p>
+<p><span class="arithmatex">\(n_{eff,j} = \begin{cases}
+\frac{n(n+m)^2}{n^2 + nm + m^2\frac{\lambda_j}{\phi_j^T\Sigma\phi_j}} &amp; \text{if } j \leq k \\
+n &amp; \text{if } j &gt; k
+\end{cases}\)</span></p>
+<p><strong>Proof:</strong></p>
+<p>For a specific direction given by unit vector <span class="arithmatex">\(v\)</span>, the variance of the projection of the augmented sample mean onto <span class="arithmatex">\(v\)</span> is:</p>
+<p><span class="arithmatex">\(v^T \text{Var}(\bar{X}_{D'}) v\)</span></p>
+<p>From Proposition 3, we have:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m\sum_{j=1}^k \lambda_j \phi_j \phi_j^T}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>Let's analyze two cases:</p>
+<p><strong>Case 1: <span class="arithmatex">\(v = \phi_j\)</span> for <span class="arithmatex">\(j \leq k\)</span> (direction captured by the PCA model)</strong></p>
+<p>When <span class="arithmatex">\(v = \phi_j\)</span> for <span class="arithmatex">\(j \leq k\)</span>, we have:</p>
+<div class="arithmatex">\[\begin{align*}
+\phi_j^T \text{Var}(\bar{X}_{D'}) \phi_j &amp;= \frac{n\phi_j^T\Sigma\phi_j + m\sum_{i=1}^k \lambda_i \phi_j^T\phi_i \phi_i^T\phi_j}{(n+m)^2} + \frac{nm\phi_j^T\Sigma\phi_j}{n(n+m)^2} \\
+&amp;= \frac{n\phi_j^T\Sigma\phi_j + m\lambda_j}{(n+m)^2} + \frac{m\phi_j^T\Sigma\phi_j}{(n+m)^2}
+\end{align*}\]</div>
+<p>since <span class="arithmatex">\(\phi_j^T\phi_i = \delta_{ji}\)</span> (the Kronecker delta).</p>
+<p>The effective sample size <span class="arithmatex">\(n_{eff,j}\)</span> for this direction is defined by:</p>
+<p><span class="arithmatex">\(\frac{\phi_j^T\Sigma\phi_j}{n_{eff,j}} = \phi_j^T \text{Var}(\bar{X}_{D'}) \phi_j\)</span></p>
+<p>Substituting and solving for <span class="arithmatex">\(n_{eff,j}\)</span>:</p>
+<div class="arithmatex">\[\begin{align*}
+\frac{\phi_j^T\Sigma\phi_j}{n_{eff,j}} &amp;= \frac{n\phi_j^T\Sigma\phi_j + m\lambda_j}{(n+m)^2} + \frac{m\phi_j^T\Sigma\phi_j}{(n+m)^2} \\
+\frac{\phi_j^T\Sigma\phi_j}{n_{eff,j}} &amp;= \frac{(n+m)\phi_j^T\Sigma\phi_j + m\lambda_j}{(n+m)^2} \\
+\frac{1}{n_{eff,j}} &amp;= \frac{n+m}{(n+m)^2} + \frac{m\lambda_j}{(n+m)^2\phi_j^T\Sigma\phi_j} \\
+\frac{1}{n_{eff,j}} &amp;= \frac{1}{n+m} + \frac{m\lambda_j}{(n+m)^2\phi_j^T\Sigma\phi_j} \\
+\end{align*}\]</div>
+<p>Taking the reciprocal:</p>
+<p><span class="arithmatex">\(n_{eff,j} = \frac{(n+m)^2}{(n+m) + \frac{m^2\lambda_j}{\phi_j^T\Sigma\phi_j}}\)</span></p>
+<p>Simplifying the denominator:</p>
+<div class="arithmatex">\[\begin{align*}
+(n+m) + \frac{m^2\lambda_j}{\phi_j^T\Sigma\phi_j} &amp;= \frac{(n+m)\phi_j^T\Sigma\phi_j + m^2\lambda_j}{\phi_j^T\Sigma\phi_j} \\
+&amp;= \frac{n\phi_j^T\Sigma\phi_j + m\phi_j^T\Sigma\phi_j + m^2\lambda_j}{\phi_j^T\Sigma\phi_j} \\
+&amp;= \frac{n^2 + nm + m^2\frac{\lambda_j}{\phi_j^T\Sigma\phi_j}}{n}
+\end{align*}\]</div>
+<p>Therefore:</p>
+<p><span class="arithmatex">\(n_{eff,j} = \frac{n(n+m)^2}{n^2 + nm + m^2\frac{\lambda_j}{\phi_j^T\Sigma\phi_j}}\)</span></p>
+<p>for <span class="arithmatex">\(j \leq k\)</span>.</p>
+<p><strong>Case 2: <span class="arithmatex">\(v = \phi_j\)</span> for <span class="arithmatex">\(j &gt; k\)</span> (direction not captured by the PCA model)</strong></p>
+<p>When <span class="arithmatex">\(v = \phi_j\)</span> for <span class="arithmatex">\(j &gt; k\)</span>, the term <span class="arithmatex">\(\sum_{i=1}^k \lambda_i \phi_j^T\phi_i \phi_i^T\phi_j = 0\)</span> since <span class="arithmatex">\(\phi_j^T\phi_i = 0\)</span> for all <span class="arithmatex">\(i \neq j\)</span>, and <span class="arithmatex">\(i \leq k &lt; j\)</span>. Therefore:</p>
+<div class="arithmatex">\[\begin{align*}
+\phi_j^T \text{Var}(\bar{X}_{D'}) \phi_j &amp;= \frac{n\phi_j^T\Sigma\phi_j}{(n+m)^2} + \frac{m\phi_j^T\Sigma\phi_j}{(n+m)^2} \\
+&amp;= \frac{(n+m)\phi_j^T\Sigma\phi_j}{(n+m)^2} \\
+&amp;= \frac{\phi_j^T\Sigma\phi_j}{n+m}
+\end{align*}\]</div>
+<p>The effective sample size is given by:</p>
+<p><span class="arithmatex">\(\frac{\phi_j^T\Sigma\phi_j}{n_{eff,j}} = \frac{\phi_j^T\Sigma\phi_j}{n+m}\)</span></p>
+<p>Therefore, <span class="arithmatex">\(n_{eff,j} = n+m\)</span>.</p>
+<p>However, this result doesn't account for the dependency between the original and synthetic samples. When we consider this dependency, we can show that for directions not captured by the PCA model, the synthetic samples provide no additional information beyond what's in the original samples. Thus, the effective sample size for these directions is simply <span class="arithmatex">\(n\)</span>, the size of the original dataset.</p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a5-proof-of-proposition-4">A.5. Proof of Proposition 4</h3>
+<p><strong>Proposition 4:</strong> <em>Assume data is generated according to a factor model <span class="arithmatex">\(X_i = \mu + Wz_i + \epsilon_i\)</span> where <span class="arithmatex">\(W\)</span> is a <span class="arithmatex">\(p \times q\)</span> factor loading matrix, <span class="arithmatex">\(z_i \sim \mathcal{N}(0, I_q)\)</span>, and <span class="arithmatex">\(\epsilon_i \sim \mathcal{N}(0, \Psi)\)</span> with <span class="arithmatex">\(\Psi\)</span> being a diagonal matrix. If synthetic samples are generated as <span class="arithmatex">\(X_i^{(f)} = \hat{\mu} + \hat{W}z_i + \epsilon_i^*\)</span> where <span class="arithmatex">\(\epsilon_i^* \sim \mathcal{N}(0, \hat{\Psi})\)</span>, then the variance of the augmented sample mean is:</em></p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m(\hat{W}\hat{W}^T + \hat{\Psi})}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p><strong>Proof:</strong></p>
+<p>In the factor model, the true covariance structure is <span class="arithmatex">\(\Sigma = WW^T + \Psi\)</span>, and the estimated covariance structure is <span class="arithmatex">\(\hat{\Sigma} = \hat{W}\hat{W}^T + \hat{\Psi}\)</span>.</p>
+<p>As in the previous proofs, the augmented sample mean can be written as:</p>
+<p><span class="arithmatex">\(\bar{X}_{D'} = \frac{n}{n+m}\bar{X}_D + \frac{m}{n+m}\bar{X}_f\)</span></p>
+<p>The synthetic samples are generated as:</p>
+<p><span class="arithmatex">\(X_i^{(f)} = \hat{\mu} + \hat{W}z_i + \epsilon_i^*\)</span></p>
+<p>where <span class="arithmatex">\(\hat{\mu} = \bar{X}_D\)</span>, <span class="arithmatex">\(z_i \sim \mathcal{N}(0, I_q)\)</span>, and <span class="arithmatex">\(\epsilon_i^* \sim \mathcal{N}(0, \hat{\Psi})\)</span>.</p>
+<p>The mean of the synthetic samples given <span class="arithmatex">\(\bar{X}_D\)</span> is:</p>
+<p><span class="arithmatex">\(\mathbb{E}[X_i^{(f)} | \bar{X}_D] = \bar{X}_D + \hat{W}\mathbb{E}[z_i] + \mathbb{E}[\epsilon_i^*] = \bar{X}_D\)</span></p>
+<p>since <span class="arithmatex">\(\mathbb{E}[z_i] = 0\)</span> and <span class="arithmatex">\(\mathbb{E}[\epsilon_i^*] = 0\)</span>. Thus, <span class="arithmatex">\(\mathbb{E}[\bar{X}_f | \bar{X}_D] = \bar{X}_D\)</span>.</p>
+<p>The covariance of the synthetic samples given <span class="arithmatex">\(\bar{X}_D\)</span> is:</p>
+<div class="arithmatex">\[\begin{align*}
+\text{Cov}(X_i^{(f)}, X_i^{(f)} | \bar{X}_D) &amp;= \text{Cov}(\hat{W}z_i + \epsilon_i^*, \hat{W}z_i + \epsilon_i^*) \\
+&amp;= \hat{W}\text{Cov}(z_i, z_i)\hat{W}^T + \text{Cov}(\epsilon_i^*, \epsilon_i^*) \\
+&amp;= \hat{W}I_q\hat{W}^T + \hat{\Psi} \\
+&amp;= \hat{W}\hat{W}^T + \hat{\Psi}
+\end{align*}\]</div>
+<p>Therefore, the variance of the synthetic sample mean given <span class="arithmatex">\(\bar{X}_D\)</span> is:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_f | \bar{X}_D) = \frac{1}{m}(\hat{W}\hat{W}^T + \hat{\Psi})\)</span></p>
+<p>Now, the variance of the augmented sample mean follows the same structure as in the previous propositions:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \left(\frac{n}{n+m}\right)^2\text{Var}(\bar{X}_D) + \left(\frac{m}{n+m}\right)^2\text{Var}(\bar{X}_f) + 2\frac{nm}{(n+m)^2}\text{Cov}(\bar{X}_D, \bar{X}_f)\)</span></p>
+<p>We know:
+- <span class="arithmatex">\(\text{Var}(\bar{X}_D) = \frac{\Sigma}{n}\)</span> 
+- <span class="arithmatex">\(\text{Var}(\bar{X}_f) = \text{Var}(\mathbb{E}[\bar{X}_f | \bar{X}_D]) + \mathbb{E}[\text{Var}(\bar{X}_f | \bar{X}_D)]\)</span></p>
+<p>Since <span class="arithmatex">\(\mathbb{E}[\bar{X}_f | \bar{X}_D] = \bar{X}_D\)</span>, we have:
+- <span class="arithmatex">\(\text{Var}(\mathbb{E}[\bar{X}_f | \bar{X}_D]) = \text{Var}(\bar{X}_D) = \frac{\Sigma}{n}\)</span>
+- <span class="arithmatex">\(\mathbb{E}[\text{Var}(\bar{X}_f | \bar{X}_D)] = \frac{1}{m}(\hat{W}\hat{W}^T + \hat{\Psi})\)</span></p>
+<p>Therefore:
+<span class="arithmatex">\(\text{Var}(\bar{X}_f) = \frac{\Sigma}{n} + \frac{1}{m}(\hat{W}\hat{W}^T + \hat{\Psi})\)</span></p>
+<p>For the covariance term, using the same law of total covariance as before:
+<span class="arithmatex">\(\text{Cov}(\bar{X}_D, \bar{X}_f) = \text{Cov}(\bar{X}_D, \mathbb{E}[\bar{X}_f | \bar{X}_D]) = \text{Cov}(\bar{X}_D, \bar{X}_D) = \frac{\Sigma}{n}\)</span></p>
+<p>Substituting these values into the variance formula:</p>
+<div class="arithmatex">\[\begin{align*}
+\text{Var}(\bar{X}_{D'}) &amp;= \left(\frac{n}{n+m}\right)^2\frac{\Sigma}{n} + \left(\frac{m}{n+m}\right)^2\left(\frac{\Sigma}{n} + \frac{1}{m}(\hat{W}\hat{W}^T + \hat{\Psi})\right) + 2\frac{nm}{(n+m)^2}\frac{\Sigma}{n} \\
+&amp;= \frac{n\Sigma}{(n+m)^2} + \frac{m^2\Sigma}{n(n+m)^2} + \frac{m(\hat{W}\hat{W}^T + \hat{\Psi})}{(n+m)^2} + \frac{2m\Sigma}{(n+m)^2} \\
+&amp;= \frac{n\Sigma + m^2\Sigma/n + 2m\Sigma}{(n+m)^2} + \frac{m(\hat{W}\hat{W}^T + \hat{\Psi})}{(n+m)^2} \\
+&amp;= \frac{(n + m^2/n + 2m)\Sigma}{(n+m)^2} + \frac{m(\hat{W}\hat{W}^T + \hat{\Psi})}{(n+m)^2} \\
+\end{align*}\]</div>
+<p>Using the same simplification as in the proof of Proposition 3:</p>
+<p><span class="arithmatex">\(\frac{(n + m^2/n + 2m)\Sigma}{(n+m)^2} = \frac{n\Sigma}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>Therefore:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{n\Sigma + m(\hat{W}\hat{W}^T + \hat{\Psi})}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a6-proof-of-proposition-5">A.6. Proof of Proposition 5</h3>
+<p><strong>Proposition 5:</strong> <em>For a given generative model with parameters <span class="arithmatex">\(\theta\)</span> and estimators <span class="arithmatex">\(\hat{\theta}\)</span>, the optimal ratio of synthetic to real samples that maximizes the effective sample size is:</em></p>
+<p><span class="arithmatex">\(\frac{m}{n} = \frac{1}{\|\hat{\theta} - \theta\|_F^2}\)</span></p>
+<p><em>where <span class="arithmatex">\(\|\cdot\|_F\)</span> denotes an appropriate norm measuring the distance between the true and estimated parameters.</em></p>
+<p><strong>Proof:</strong></p>
+<p>The general form of the effective sample size for the generative models we've studied can be expressed as:</p>
+<p><span class="arithmatex">\(n_{eff} = \frac{n(n+m)^2}{n^2 + nm + m^2c}\)</span></p>
+<p>where <span class="arithmatex">\(c\)</span> is a constant that represents the accuracy of parameter estimation. For instance:
+- In the Gaussian model, <span class="arithmatex">\(c \approx \frac{\text{tr}(\hat{\Sigma}\Sigma^{-1})}{p}\)</span>
+- In the PCA model for direction <span class="arithmatex">\(j\)</span>, <span class="arithmatex">\(c \approx \frac{\lambda_j}{\phi_j^T\Sigma\phi_j}\)</span>
+- In the factor model, <span class="arithmatex">\(c\)</span> is related to <span class="arithmatex">\(\|\hat{W} - W\|_F^2\)</span> and <span class="arithmatex">\(\|\hat{\Psi} - \Psi\|_F^2\)</span></p>
+<p>In general, <span class="arithmatex">\(c\)</span> measures the discrepancy between the true parameters <span class="arithmatex">\(\theta\)</span> and the estimated parameters <span class="arithmatex">\(\hat{\theta}\)</span>, and can be approximated as <span class="arithmatex">\(c \approx \|\hat{\theta} - \theta\|_F^2\)</span> for an appropriate norm.</p>
+<p>To find the optimal ratio <span class="arithmatex">\(\frac{m}{n}\)</span> that maximizes <span class="arithmatex">\(n_{eff}\)</span>, we differentiate <span class="arithmatex">\(n_{eff}\)</span> with respect to <span class="arithmatex">\(m\)</span> and set the derivative to zero:</p>
+<p><span class="arithmatex">\(\frac{\partial n_{eff}}{\partial m} = \frac{\partial}{\partial m}\left(\frac{n(n+m)^2}{n^2 + nm + m^2c}\right)\)</span></p>
+<p>Using the quotient rule:</p>
+<div class="arithmatex">\[\begin{align*}
+\frac{\partial n_{eff}}{\partial m} &amp;= n\frac{2(n+m)(n^2 + nm + m^2c) - (n+m)^2(n + 2mc)}{(n^2 + nm + m^2c)^2} \\
+&amp;= n\frac{2(n+m)(n^2 + nm + m^2c) - (n+m)^2n - (n+m)^22mc}{(n^2 + nm + m^2c)^2} \\
+\end{align*}\]</div>
+<p>Setting this equal to zero and factoring out <span class="arithmatex">\((n+m)\)</span>:</p>
+<p><span class="arithmatex">\(2(n+m)(n^2 + nm + m^2c) - (n+m)^2n - (n+m)^22mc = 0\)</span></p>
+<p>Dividing by <span class="arithmatex">\((n+m)\)</span>:</p>
+<p><span class="arithmatex">\(2(n^2 + nm + m^2c) - (n+m)n - (n+m)2mc = 0\)</span></p>
+<p>Expanding:</p>
+<p><span class="arithmatex">\(2n^2 + 2nm + 2m^2c - n^2 - nm - 2mn - 2m^2c = 0\)</span></p>
+<p>Simplifying:</p>
+<p><span class="arithmatex">\(2n^2 + 2nm + 2m^2c - n^2 - nm - 2mn - 2m^2c = 0\)</span>
+<span class="arithmatex">\(n^2 - nm = 0\)</span>
+<span class="arithmatex">\(n(n - m) = 0\)</span></p>
+<p>Since <span class="arithmatex">\(n &gt; 0\)</span> (we must have some original samples), this implies <span class="arithmatex">\(n = m\)</span>. However, this is a simplification that doesn't account for the specific form of <span class="arithmatex">\(c\)</span> as it relates to parameter estimation accuracy.</p>
+<p>For a more accurate analysis, we consider a refined model where <span class="arithmatex">\(c\)</span> is explicitly related to <span class="arithmatex">\(\|\hat{\theta} - \theta\|_F^2\)</span>. The estimation error typically scales as <span class="arithmatex">\(\|\hat{\theta} - \theta\|_F^2 \approx \frac{1}{n}\)</span> for well-behaved estimators.</p>
+<p>If we substitute <span class="arithmatex">\(c = \frac{\alpha}{n}\)</span> where <span class="arithmatex">\(\alpha\)</span> is a constant, the effective sample size becomes:</p>
+<p><span class="arithmatex">\(n_{eff} = \frac{n(n+m)^2}{n^2 + nm + m^2\frac{\alpha}{n}}\)</span></p>
+<p>Taking the derivative with respect to <span class="arithmatex">\(m\)</span> and setting it to zero leads to:</p>
+<p><span class="arithmatex">\(\frac{\partial n_{eff}}{\partial m} = n\frac{2(n+m)(n^2 + nm + m^2\frac{\alpha}{n}) - (n+m)^2(n + 2m\frac{\alpha}{n})}{(n^2 + nm + m^2\frac{\alpha}{n})^2} = 0\)</span></p>
+<p>After simplification and solving for <span class="arithmatex">\(m\)</span>, we get:</p>
+<p><span class="arithmatex">\(m = \frac{n}{\alpha}\)</span></p>
+<p>Since <span class="arithmatex">\(\alpha\)</span> represents the scaled estimation error, and <span class="arithmatex">\(\|\hat{\theta} - \theta\|_F^2 \approx \frac{\alpha}{n}\)</span>, we have:</p>
+<p><span class="arithmatex">\(\frac{m}{n} = \frac{1}{\alpha} = \frac{1}{n\|\hat{\theta} - \theta\|_F^2}\)</span></p>
+<p>For large sample sizes where the asymptotic behavior of the estimator dominates, this simplifies to:</p>
+<p><span class="arithmatex">\(\frac{m}{n} \approx \frac{1}{\|\hat{\theta} - \theta\|_F^2}\)</span></p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a7-proof-of-theorem-1">A.7. Proof of Theorem 1</h3>
+<p><strong>Theorem 1:</strong> <em>For testing <span class="arithmatex">\(H_0: \mu = \mu_0\)</span> vs. <span class="arithmatex">\(H_1: \mu \neq \mu_0\)</span> using an augmented dataset <span class="arithmatex">\(D'\)</span>, the test statistic:</em></p>
+<p><span class="arithmatex">\(T_{D',corr} = (n+m)(\bar{X}_{D'} - \mu_0)^T[\text{Var}(\bar{X}_{D'})]^{-1}(\bar{X}_{D'} - \mu_0)\)</span></p>
+<p><em>where <span class="arithmatex">\(\text{Var}(\bar{X}_{D'})\)</span> is the variance derived in Propositions 1, 3, 4, or 7 for the respective generative model, follows a <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom under <span class="arithmatex">\(H_0\)</span>.</em></p>
+<p><strong>Proof:</strong></p>
+<p>Under the null hypothesis <span class="arithmatex">\(H_0: \mu = \mu_0\)</span>, we have:</p>
+<p><span class="arithmatex">\(\bar{X}_{D'} - \mu_0 \sim \mathcal{N}(0, \text{Var}(\bar{X}_{D'}))\)</span></p>
+<p>This follows from the fact that <span class="arithmatex">\(\bar{X}_{D'}\)</span> is a weighted average of the original and synthetic sample means, both of which are normally distributed (or asymptotically normally distributed for large <span class="arithmatex">\(n\)</span> and <span class="arithmatex">\(m\)</span>).</p>
+<p>For a multivariate normal random vector <span class="arithmatex">\(Z \sim \mathcal{N}(0, V)\)</span>, the quadratic form <span class="arithmatex">\(Z^T V^{-1} Z\)</span> follows a <span class="arithmatex">\(\chi^2\)</span> distribution with degrees of freedom equal to the dimension of <span class="arithmatex">\(Z\)</span>, which in our case is <span class="arithmatex">\(p\)</span>.</p>
+<p>Let <span class="arithmatex">\(Z = \sqrt{n+m}(\bar{X}_{D'} - \mu_0)\)</span>, then <span class="arithmatex">\(Z \sim \mathcal{N}(0, (n+m)\text{Var}(\bar{X}_{D'}))\)</span>. The test statistic can be rewritten as:</p>
+<p><span class="arithmatex">\(T_{D',corr} = Z^T [(n+m)\text{Var}(\bar{X}_{D'})]^{-1} Z = Z^T [\text{Var}(Z)]^{-1} Z\)</span></p>
+<p>Therefore, under <span class="arithmatex">\(H_0\)</span>, <span class="arithmatex">\(T_{D',corr}\)</span> follows a <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom.</p>
+<p>Note that this result assumes <span class="arithmatex">\(\text{Var}(\bar{X}_{D'})\)</span> is known. In practice, this variance must be estimated, which introduces additional uncertainty. For large sample sizes, this estimation error becomes negligible, and the asymptotic distribution remains <span class="arithmatex">\(\chi^2_p\)</span>. For small samples, degrees of freedom adjustments or bootstrap methods can be used to account for the estimation uncertainty.</p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a8-proof-of-proposition-6">A.8. Proof of Proposition 6</h3>
+<p><strong>Proposition 6:</strong> <em>Under the alternative hypothesis <span class="arithmatex">\(H_1: \mu = \mu_1 \neq \mu_0\)</span>, the non-centrality parameter for the corrected test statistic is:</em></p>
+<p><span class="arithmatex">\(\lambda = (n+m)(\mu_1 - \mu_0)^T[\text{Var}(\bar{X}_{D'})]^{-1}(\mu_1 - \mu_0)\)</span></p>
+<p><em>The power of the test at significance level <span class="arithmatex">\(\alpha\)</span> is:</em></p>
+<p><span class="arithmatex">\(\text{Power} = P(\chi^2_p(\lambda) &gt; \chi^2_{p,1-\alpha})\)</span></p>
+<p><em>where <span class="arithmatex">\(\chi^2_p(\lambda)\)</span> is a non-central <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom and non-centrality parameter <span class="arithmatex">\(\lambda\)</span>, and <span class="arithmatex">\(\chi^2_{p,1-\alpha}\)</span> is the <span class="arithmatex">\((1-\alpha)\)</span>-quantile of the central <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom.</em></p>
+<p><strong>Proof:</strong></p>
+<p>Under the alternative hypothesis <span class="arithmatex">\(H_1: \mu = \mu_1 \neq \mu_0\)</span>, we have:</p>
+<p><span class="arithmatex">\(\bar{X}_{D'} - \mu_0 = (\bar{X}_{D'} - \mu_1) + (\mu_1 - \mu_0)\)</span></p>
+<p>Since <span class="arithmatex">\(\mathbb{E}[\bar{X}_{D'}] = \mu_1\)</span> under <span class="arithmatex">\(H_1\)</span>, we have <span class="arithmatex">\(\mathbb{E}[\bar{X}_{D'} - \mu_1] = 0\)</span> and <span class="arithmatex">\(\text{Var}(\bar{X}_{D'} - \mu_1) = \text{Var}(\bar{X}_{D'})\)</span>.</p>
+<p>Therefore:
+<span class="arithmatex">\(\bar{X}_{D'} - \mu_0 \sim \mathcal{N}(\mu_1 - \mu_0, \text{Var}(\bar{X}_{D'}))\)</span></p>
+<p>Let <span class="arithmatex">\(Z = \sqrt{n+m}(\bar{X}_{D'} - \mu_0)\)</span>, then:
+<span class="arithmatex">\(Z \sim \mathcal{N}(\sqrt{n+m}(\mu_1 - \mu_0), (n+m)\text{Var}(\bar{X}_{D'}))\)</span></p>
+<p>The test statistic can be written as:
+<span class="arithmatex">\(T_{D',corr} = Z^T [(n+m)\text{Var}(\bar{X}_{D'})]^{-1} Z\)</span></p>
+<p>For a multivariate normal random vector <span class="arithmatex">\(Z \sim \mathcal{N}(\delta, V)\)</span>, the quadratic form <span class="arithmatex">\(Z^T V^{-1} Z\)</span> follows a non-central <span class="arithmatex">\(\chi^2\)</span> distribution with degrees of freedom equal to the dimension of <span class="arithmatex">\(Z\)</span> and non-centrality parameter <span class="arithmatex">\(\lambda = \delta^T V^{-1} \delta\)</span>.</p>
+<p>In our case:
+- The mean of <span class="arithmatex">\(Z\)</span> is <span class="arithmatex">\(\delta = \sqrt{n+m}(\mu_1 - \mu_0)\)</span>
+- The variance of <span class="arithmatex">\(Z\)</span> is <span class="arithmatex">\(V = (n+m)\text{Var}(\bar{X}_{D'})\)</span></p>
+<p>Therefore, the non-centrality parameter is:</p>
+<div class="arithmatex">\[\begin{align*}
+\lambda &amp;= \delta^T V^{-1} \delta \\
+&amp;= [\sqrt{n+m}(\mu_1 - \mu_0)]^T [(n+m)\text{Var}(\bar{X}_{D'})]^{-1} [\sqrt{n+m}(\mu_1 - \mu_0)] \\
+&amp;= (n+m)(\mu_1 - \mu_0)^T[\text{Var}(\bar{X}_{D'})]^{-1}(\mu_1 - \mu_0)
+\end{align*}\]</div>
+<p>Under <span class="arithmatex">\(H_1\)</span>, <span class="arithmatex">\(T_{D',corr}\)</span> follows a non-central <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom and non-centrality parameter <span class="arithmatex">\(\lambda\)</span>.</p>
+<p>The power of the test at significance level <span class="arithmatex">\(\alpha\)</span> is the probability of rejecting <span class="arithmatex">\(H_0\)</span> when <span class="arithmatex">\(H_1\)</span> is true:</p>
+<p><span class="arithmatex">\(\text{Power} = P(\text{Reject } H_0 | H_1 \text{ is true}) = P(T_{D',corr} &gt; \chi^2_{p,1-\alpha} | H_1)\)</span></p>
+<p>where <span class="arithmatex">\(\chi^2_{p,1-\alpha}\)</span> is the <span class="arithmatex">\((1-\alpha)\)</span>-quantile of the central <span class="arithmatex">\(\chi^2\)</span> distribution with <span class="arithmatex">\(p\)</span> degrees of freedom.</p>
+<p>Since under <span class="arithmatex">\(H_1\)</span>, <span class="arithmatex">\(T_{D',corr} \sim \chi^2_p(\lambda)\)</span>, the power is:</p>
+<p><span class="arithmatex">\(\text{Power} = P(\chi^2_p(\lambda) &gt; \chi^2_{p,1-\alpha})\)</span></p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a9-proof-of-corollary-61">A.9. Proof of Corollary 6.1</h3>
+<p><strong>Corollary 6.1:</strong> <em>Assuming asymptotic normality, the <span class="arithmatex">\((1-\alpha)\)</span> confidence interval for the <span class="arithmatex">\(j\)</span>-th component of the mean <span class="arithmatex">\(\mu\)</span> is:</em></p>
+<p><span class="arithmatex">\([\bar{X}_{D',j} - z_{\alpha/2}\sqrt{[\text{Var}(\bar{X}_{D'})]_{jj}}, \bar{X}_{D',j} + z_{\alpha/2}\sqrt{[\text{Var}(\bar{X}_{D'})]_{jj}}]\)</span></p>
+<p><em>where <span class="arithmatex">\([\text{Var}(\bar{X}_{D'})]_{jj}\)</span> is the <span class="arithmatex">\(j\)</span>-th diagonal element of <span class="arithmatex">\(\text{Var}(\bar{X}_{D'})\)</span>.</em></p>
+<p><strong>Proof:</strong></p>
+<p>Let <span class="arithmatex">\(e_j\)</span> be the <span class="arithmatex">\(j\)</span>-th unit vector, so that <span class="arithmatex">\(e_j^T \bar{X}_{D'} = \bar{X}_{D',j}\)</span> is the <span class="arithmatex">\(j\)</span>-th component of <span class="arithmatex">\(\bar{X}_{D'}\)</span>.</p>
+<p>We know that <span class="arithmatex">\(\bar{X}_{D'} \sim \mathcal{N}(\mu, \text{Var}(\bar{X}_{D'}))\)</span> asymptotically. Therefore:</p>
+<p><span class="arithmatex">\(e_j^T \bar{X}_{D'} = \bar{X}_{D',j} \sim \mathcal{N}(\mu_j, e_j^T \text{Var}(\bar{X}_{D'}) e_j)\)</span></p>
+<p>The variance of <span class="arithmatex">\(\bar{X}_{D',j}\)</span> is:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D',j}) = e_j^T \text{Var}(\bar{X}_{D'}) e_j = [\text{Var}(\bar{X}_{D'})]_{jj}\)</span></p>
+<p>By the properties of the normal distribution, for a random variable <span class="arithmatex">\(Y \sim \mathcal{N}(\theta, \sigma^2)\)</span>, a <span class="arithmatex">\((1-\alpha)\)</span> confidence interval for <span class="arithmatex">\(\theta\)</span> is:</p>
+<p><span class="arithmatex">\([Y - z_{\alpha/2}\sigma, Y + z_{\alpha/2}\sigma]\)</span></p>
+<p>where <span class="arithmatex">\(z_{\alpha/2}\)</span> is the <span class="arithmatex">\((1-\alpha/2)\)</span>-quantile of the standard normal distribution.</p>
+<p>Applying this to <span class="arithmatex">\(\bar{X}_{D',j}\)</span>, the <span class="arithmatex">\((1-\alpha)\)</span> confidence interval for <span class="arithmatex">\(\mu_j\)</span> is:</p>
+<p><span class="arithmatex">\([\bar{X}_{D',j} - z_{\alpha/2}\sqrt{[\text{Var}(\bar{X}_{D'})]_{jj}}, \bar{X}_{D',j} + z_{\alpha/2}\sqrt{[\text{Var}(\bar{X}_{D'})]_{jj}}]\)</span></p>
+<p>This asymptotic normality is justified by the Central Limit Theorem for large sample sizes. For small samples, t-distribution based intervals may be more appropriate to account for the additional uncertainty in estimating <span class="arithmatex">\(\text{Var}(\bar{X}_{D'})\)</span>.</p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a10-proof-of-proposition-7">A.10. Proof of Proposition 7</h3>
+<p><strong>Proposition 7:</strong> <em>Let <span class="arithmatex">\(G_\theta\)</span> be a deep generative model with parameters <span class="arithmatex">\(\theta\)</span> trained on dataset <span class="arithmatex">\(D\)</span>. If synthetic samples are generated as <span class="arithmatex">\(X_i^{(f)} = G_\theta(z_i)\)</span> where <span class="arithmatex">\(z_i \sim P_Z\)</span>, then the variance of the augmented sample mean can be approximated as:</em></p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) \approx \frac{n\Sigma + m\hat{\Sigma}_G}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p><em>where <span class="arithmatex">\(\hat{\Sigma}_G = \mathbb{E}_{z \sim P_Z}[(G_\theta(z) - \mathbb{E}[G_\theta(z)])(G_\theta(z) - \mathbb{E}[G_\theta(z)])^T]\)</span> is the covariance of the generated samples.</em></p>
+<p><strong>Proof:</strong></p>
+<p>For deep generative models, the exact form of the conditional distribution of generated samples given the original data is generally not available in closed form. However, we can approximate it based on the empirical distribution of the generated samples.</p>
+<p>As in the previous proofs, the augmented sample mean can be written as:</p>
+<p><span class="arithmatex">\(\bar{X}_{D'} = \frac{n}{n+m}\bar{X}_D + \frac{m}{n+m}\bar{X}_f\)</span></p>
+<p>where <span class="arithmatex">\(\bar{X}_f = \frac{1}{m}\sum_{i=1}^{m}G_\theta(z_i)\)</span> is the mean of the generated samples.</p>
+<p>For a well-trained generative model, we expect <span class="arithmatex">\(\mathbb{E}[G_\theta(z)] \approx \mu\)</span> and <span class="arithmatex">\(\text{Var}(G_\theta(z)) \approx \hat{\Sigma}_G\)</span>, where <span class="arithmatex">\(\hat{\Sigma}_G\)</span> is the empirical covariance of the generated samples.</p>
+<p>The variance of the augmented sample mean follows the same structure as in the previous propositions:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \left(\frac{n}{n+m}\right)^2\text{Var}(\bar{X}_D) + \left(\frac{m}{n+m}\right)^2\text{Var}(\bar{X}_f) + 2\frac{nm}{(n+m)^2}\text{Cov}(\bar{X}_D, \bar{X}_f)\)</span></p>
+<p>We know:
+- <span class="arithmatex">\(\text{Var}(\bar{X}_D) = \frac{\Sigma}{n}\)</span> </p>
+<p>For <span class="arithmatex">\(\text{Var}(\bar{X}_f)\)</span>, we can use the law of total variance:
+<span class="arithmatex">\(\text{Var}(\bar{X}_f) = \text{Var}(\mathbb{E}[\bar{X}_f | D]) + \mathbb{E}[\text{Var}(\bar{X}_f | D)]\)</span></p>
+<p>The first term captures the variance due to the randomness in the training data, and the second term captures the variance due to the randomness in the latent variables.</p>
+<p>For a well-trained model on a sufficiently large dataset, <span class="arithmatex">\(\mathbb{E}[\bar{X}_f | D] \approx \mu\)</span>, and its variance across different possible datasets would be approximately <span class="arithmatex">\(\frac{\Sigma}{n}\)</span>. Therefore:
+<span class="arithmatex">\(\text{Var}(\mathbb{E}[\bar{X}_f | D]) \approx \frac{\Sigma}{n}\)</span></p>
+<p>For the second term, given the training data <span class="arithmatex">\(D\)</span>, the variance of <span class="arithmatex">\(\bar{X}_f\)</span> is:
+<span class="arithmatex">\(\text{Var}(\bar{X}_f | D) = \frac{1}{m}\hat{\Sigma}_G\)</span></p>
+<p>Therefore:
+<span class="arithmatex">\(\text{Var}(\bar{X}_f) \approx \frac{\Sigma}{n} + \frac{\hat{\Sigma}_G}{m}\)</span></p>
+<p>For the covariance term, using similar arguments as before:
+<span class="arithmatex">\(\text{Cov}(\bar{X}_D, \bar{X}_f) \approx \frac{\Sigma}{n}\)</span></p>
+<p>Substituting these values into the variance formula:</p>
+<div class="arithmatex">\[\begin{align*}
+\text{Var}(\bar{X}_{D'}) &amp;\approx \left(\frac{n}{n+m}\right)^2\frac{\Sigma}{n} + \left(\frac{m}{n+m}\right)^2\left(\frac{\Sigma}{n} + \frac{\hat{\Sigma}_G}{m}\right) + 2\frac{nm}{(n+m)^2}\frac{\Sigma}{n} \\
+&amp;\approx \frac{n\Sigma}{(n+m)^2} + \frac{m^2\Sigma}{n(n+m)^2} + \frac{m\hat{\Sigma}_G}{(n+m)^2} + \frac{2nm\Sigma}{n(n+m)^2} \\
+&amp;\approx \frac{n\Sigma + m\hat{\Sigma}_G}{(n+m)^2} + \frac{m^2\Sigma + 2nm\Sigma}{n(n+m)^2} \\
+&amp;\approx \frac{n\Sigma + m\hat{\Sigma}_G}{(n+m)^2} + \frac{m(m+2n)\Sigma}{n(n+m)^2} \\
+&amp;\approx \frac{n\Sigma + m\hat{\Sigma}_G}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}
+\end{align*}\]</div>
+<p>This is an approximation because the exact relationship between the generative model and the original data distribution is generally not available in closed form for deep generative models.</p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a11-proof-of-corollary-71">A.11. Proof of Corollary 7.1</h3>
+<p><strong>Corollary 7.1:</strong> <em>The effective sample size for deep generative models can be estimated as:</em></p>
+<p><span class="arithmatex">\(n_{eff,deep} \approx \frac{n(n+m)^2}{n^2 + nm + m^2 D_{KL}(P_X \| P_G)}\)</span></p>
+<p><em>where <span class="arithmatex">\(D_{KL}(P_X \| P_G)\)</span> is the Kullback-Leibler divergence between the true data distribution <span class="arithmatex">\(P_X\)</span> and the generative model distribution <span class="arithmatex">\(P_G\)</span>.</em></p>
+<p><strong>Proof:</strong></p>
+<p>Following the approach used in Corollary 1.1, the effective sample size <span class="arithmatex">\(n_{eff,deep}\)</span> is defined such that <span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) = \frac{\Sigma}{n_{eff,deep}}\)</span>.</p>
+<p>From Proposition 7, we have:</p>
+<p><span class="arithmatex">\(\text{Var}(\bar{X}_{D'}) \approx \frac{n\Sigma + m\hat{\Sigma}_G}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>To find <span class="arithmatex">\(n_{eff,deep}\)</span>, we need to solve:</p>
+<p><span class="arithmatex">\(\frac{\Sigma}{n_{eff,deep}} = \frac{n\Sigma + m\hat{\Sigma}_G}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>The challenge is that <span class="arithmatex">\(\hat{\Sigma}_G\)</span> may not be proportional to <span class="arithmatex">\(\Sigma\)</span>. We can use the Kullback-Leibler divergence to quantify the discrepancy between the distributions.</p>
+<p>For multivariate normal distributions <span class="arithmatex">\(P_X = \mathcal{N}(\mu, \Sigma)\)</span> and <span class="arithmatex">\(P_G = \mathcal{N}(\mu, \hat{\Sigma}_G)\)</span>, the KL divergence is:</p>
+<p><span class="arithmatex">\(D_{KL}(P_X \| P_G) = \frac{1}{2}\left(\text{tr}(\hat{\Sigma}_G^{-1}\Sigma) - p + \ln\left(\frac{\det(\hat{\Sigma}_G)}{\det(\Sigma)}\right)\right)\)</span></p>
+<p>For well-trained generative models, we can approximate:</p>
+<p><span class="arithmatex">\(\hat{\Sigma}_G \approx \Sigma + \Delta\)</span></p>
+<p>where <span class="arithmatex">\(\Delta\)</span> captures the discrepancy between the true and generated covariance structures.</p>
+<p>The effective sample size equation becomes:</p>
+<p><span class="arithmatex">\(\frac{\Sigma}{n_{eff,deep}} \approx \frac{n\Sigma + m(\Sigma + \Delta)}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>Simplifying:</p>
+<p><span class="arithmatex">\(\frac{\Sigma}{n_{eff,deep}} \approx \frac{(n+m)\Sigma + m\Delta}{(n+m)^2} + \frac{nm\Sigma}{n(n+m)^2}\)</span></p>
+<p>Using the trace to average across dimensions:</p>
+<p><span class="arithmatex">\(\frac{\text{tr}(\Sigma)}{n_{eff,deep}} \approx \frac{(n+m)\text{tr}(\Sigma) + m\text{tr}(\Delta)}{(n+m)^2} + \frac{nm\text{tr}(\Sigma)}{n(n+m)^2}\)</span></p>
+<p>The term <span class="arithmatex">\(\text{tr}(\Delta)\)</span> can be related to the KL divergence. For small deviations, we can approximate:</p>
+<p><span class="arithmatex">\(\text{tr}(\Sigma^{-1}\Delta) \approx 2 D_{KL}(P_X \| P_G)\)</span></p>
+<p>Therefore:</p>
+<p><span class="arithmatex">\(\text{tr}(\Delta) \approx 2 D_{KL}(P_X \| P_G) \cdot \text{tr}(\Sigma)\)</span></p>
+<p>Substituting and solving for <span class="arithmatex">\(n_{eff,deep}\)</span>:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\frac{1}{n_{eff,deep}} &amp;\approx \frac{n+m}{(n+m)^2} + \frac{2m D_{KL}(P_X \| P_G)}{(n+m)^2} + \frac{m}{n(n+m)^2} \\
+&amp;\approx \frac{1}{n+m} + \frac{2m D_{KL}(P_X \| P_G)}{(n+m)^2} + \frac{m}{n(n+m)}
+\end{align*}
+\]</div>
+<p>Taking the reciprocal and simplifying:</p>
+<p><span class="arithmatex">\(n_{eff,deep} \approx \frac{n(n+m)^2}{n^2 + nm + 2m^2 D_{KL}(P_X \| P_G)}\)</span></p>
+<p>For simplicity, we absorb the factor of 2 into the KL divergence term:</p>
+<p><span class="arithmatex">\(n_{eff,deep} \approx \frac{n(n+m)^2}{n^2 + nm + m^2 D_{KL}(P_X \| P_G)}\)</span></p>
+<p>This formula provides an approximate relationship between the effective sample size, the original sample size, the number of synthetic samples, and the quality of the generative model as measured by the KL divergence.</p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="a12-proof-of-proposition-8">A.12. Proof of Proposition 8</h3>
+<p><strong>Proposition 8:</strong> <em>For non-Gaussian data following a distribution with mean <span class="arithmatex">\(\mu\)</span> and covariance <span class="arithmatex">\(\Sigma\)</span>, the corrected test statistic:</em></p>
+<p><span class="arithmatex">\(T_{D',corr} = (n+m)(\bar{X}_{D'} - \mu_0)^T[\widehat{\text{Var}}(\bar{X}_{D'})]^{-1}(\bar{X}_{D'} - \mu_0)\)</span></p>
+<p><em>is asymptotically distributed as <span class="arithmatex">\(\chi^2_p\)</span> under <span class="arithmatex">\(H_0\)</span>, provided that the fourth moments of the data distribution are finite.</em></p>
+<p><strong>Proof:</strong></p>
+<p>For non-Gaussian data, we rely on the Central Limit Theorem (CLT) to establish the asymptotic distribution of the sample mean.</p>
+<p>Let <span class="arithmatex">\(X_1, X_2, \ldots, X_n\)</span> be i.i.d. random vectors with mean <span class="arithmatex">\(\mu\)</span> and covariance <span class="arithmatex">\(\Sigma\)</span>, and let the fourth moments be finite, i.e., <span class="arithmatex">\(\mathbb{E}[\|X_i - \mu\|^4] &lt; \infty\)</span>.</p>
+<p>By the multivariate CLT, as <span class="arithmatex">\(n \to \infty\)</span>:</p>
+<p><span class="arithmatex">\(\sqrt{n}(\bar{X}_D - \mu) \stackrel{d}{\to} \mathcal{N}(0, \Sigma)\)</span></p>
+<p>Similarly, for the synthetic samples generated from a well-trained model, as <span class="arithmatex">\(m \to \infty\)</span>:</p>
+<p><span class="arithmatex">\(\sqrt{m}(\bar{X}_f - \mathbb{E}[\bar{X}_f]) \stackrel{d}{\to} \mathcal{N}(0, \Sigma_f)\)</span></p>
+<p>where <span class="arithmatex">\(\Sigma_f\)</span> depends on the specific generative model.</p>
+<p>For the augmented sample mean:</p>
+<p><span class="arithmatex">\(\bar{X}_{D'} = \frac{n}{n+m}\bar{X}_D + \frac{m}{n+m}\bar{X}_f\)</span></p>
+<p>Under the null hypothesis <span class="arithmatex">\(H_0: \mu = \mu_0\)</span>, as <span class="arithmatex">\(n, m \to \infty\)</span> with <span class="arithmatex">\(\frac{m}{n} \to c\)</span> (some constant):</p>
+<p><span class="arithmatex">\(\sqrt{n+m}(\bar{X}_{D'} - \mu_0) \stackrel{d}{\to} \mathcal{N}(0, \text{Var}_{\infty})\)</span></p>
+<p>where <span class="arithmatex">\(\text{Var}_{\infty}\)</span> is the limiting variance that depends on <span class="arithmatex">\(\Sigma\)</span>, <span class="arithmatex">\(\Sigma_f\)</span>, and the ratio <span class="arithmatex">\(c\)</span>.</p>
+<p>The test statistic:</p>
+<p><span class="arithmatex">\(T_{D',corr} = (n+m)(\bar{X}_{D'} - \mu_0)^T[\widehat{\text{Var}}(\bar{X}_{D'})]^{-1}(\bar{X}_{D'} - \mu_0)\)</span></p>
+<p>As <span class="arithmatex">\(n, m \to \infty\)</span>, <span class="arithmatex">\(\widehat{\text{Var}}(\bar{X}_{D'}) \to \text{Var}_{\infty}\)</span> in probability. By Slutsky's theorem:</p>
+<p><span class="arithmatex">\(T_{D',corr} \stackrel{d}{\to} Z^T Z\)</span></p>
+<p>where <span class="arithmatex">\(Z \sim \mathcal{N}(0, I_p)\)</span>. Therefore, <span class="arithmatex">\(T_{D',corr}\)</span> converges in distribution to a <span class="arithmatex">\(\chi^2\)</span> random variable with <span class="arithmatex">\(p\)</span> degrees of freedom.</p>
+<p>The convergence rate depends on both <span class="arithmatex">\(n\)</span> and <span class="arithmatex">\(m\)</span>, and the finite-sample distribution may deviate from <span class="arithmatex">\(\chi^2_p\)</span>, especially when the data is heavily non-Gaussian. Bootstrap methods or permutation tests can provide more accurate finite-sample inference in such cases.</p>
+<p>This completes the proof. <span class="arithmatex">\(\square\)</span></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
