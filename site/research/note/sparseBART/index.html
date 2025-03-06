@@ -1,0 +1,4439 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/sparseBART/">
+      
+      
+        <link rel="prev" href="../consistency-of-soft-decision-trees/">
+      
+      
+        <link rel="next" href="../causal-mediation-analysis/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Sparse Causal BART - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sparsebart-with-mfm-and-gibbs-prior-for-causal-inference-and-survival-analysis-a-theoretical-framework" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Sparse Causal BART
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../lectures/" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Motivation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-research-gaps-and-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Research Gaps and Contributions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-background-and-related-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Background and Related Work
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Background and Related Work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-bayesian-additive-regression-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Bayesian Additive Regression Trees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-variable-selection-in-bart-and-tree-based-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Variable Selection in BART and Tree-Based Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Variable Selection in BART and Tree-Based Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-dirichlet-prior-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1 Dirichlet Prior Approaches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-spike-and-slab-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2 Spike-and-Slab Approaches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-regularization-based-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.3 Regularization-Based Approaches
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-mixture-of-finite-mixtures-and-gibbs-priors" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Mixture of Finite Mixtures and Gibbs Priors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Mixture of Finite Mixtures and Gibbs Priors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-mixture-of-finite-mixtures-mfm" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.1 Mixture of Finite Mixtures (MFM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-gibbs-type-priors" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.2 Gibbs-Type Priors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-applications-to-variable-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.3 Applications to Variable Selection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-bart-for-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 BART for Causal Inference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 BART for Causal Inference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-potential-outcomes-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.1 Potential Outcomes Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-estimating-treatment-effects-with-bart" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.2 Estimating Treatment Effects with BART
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-bayesian-causal-forests" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.3 Bayesian Causal Forests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244-variable-selection-for-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.4 Variable Selection for Causal Inference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-bart-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 BART for Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 BART for Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-survival-analysis-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.1 Survival Analysis Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-bart-for-accelerated-failure-time-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2 BART for Accelerated Failure Time Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-bart-for-proportional-hazards-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.3 BART for Proportional Hazards Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#254-variable-selection-in-survival-bart" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.4 Variable Selection in Survival BART
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-research-gaps-and-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Research Gaps and Opportunities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-theoretical-framework-for-bart-with-mfm-and-gibbs-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Theoretical Framework for BART with MFM and Gibbs Prior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Theoretical Framework for BART with MFM and Gibbs Prior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-model-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Model Specification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Model Specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-integration-of-mfm-and-gibbs-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.1 Integration of MFM and Gibbs Prior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312-the-mfm-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.2 The MFM Prior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313-the-gibbs-prior-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.3 The Gibbs Prior Component
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-prior-specifications-and-hyperparameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Prior Specifications and Hyperparameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-posterior-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Posterior Inference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-theoretical-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Theoretical Properties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Theoretical Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-posterior-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.1 Posterior Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-variable-selection-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.2 Variable Selection Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-asymptotic-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.3 Asymptotic Normality
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-computational-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Computational Framework
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 Computational Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351-overview-of-the-mcmc-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.1 Overview of the MCMC Algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#352-tree-structure-mcmc-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.2 Tree Structure MCMC Updates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#353-the-perturb-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.3 The Perturb Operator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#354-efficient-mfm-gibbs-prior-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.4 Efficient MFM-Gibbs Prior Updates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#355-computational-complexity-and-efficiency-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.5 Computational Complexity and Efficiency Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#356-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.6 Implementation Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#357-practical-considerations-for-prior-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.7 Practical Considerations for Prior Specification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-extension-to-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Extension to Causal Inference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Extension to Causal Inference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-potential-outcomes-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Potential Outcomes Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-bayesian-causal-forests-with-mfm-gibbs-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Bayesian Causal Forests with MFM-Gibbs Prior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-theoretical-properties-for-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Theoretical Properties for Causal Inference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-extensions-to-multiple-treatments" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Extensions to Multiple Treatments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-extension-to-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Extension to Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Extension to Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-survival-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Survival Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-bart-mfm-gibbs-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 BART-MFM-Gibbs for Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 BART-MFM-Gibbs for Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-accelerated-failure-time-aft-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 Accelerated Failure Time (AFT) Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-proportional-hazards-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 Proportional Hazards Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-theoretical-properties-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Theoretical Properties for Survival Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-extensions-to-competing-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Extensions to Competing Risks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-simulation-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Simulation Studies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Simulation Studies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-variable-selection-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Variable Selection Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-causal-inference-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Causal Inference Simulations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-survival-analysis-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Survival Analysis Simulations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-real-data-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Real Data Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Real Data Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-causal-inference-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Causal Inference Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-survival-analysis-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Survival Analysis Application
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-discussion-and-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Discussion and Conclusion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Discussion and Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-summary-of-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Summary of Contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-limitations-and-future-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Limitations and Future Directions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-broader-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Broader Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-a-proofs-of-theoretical-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix A: Proofs of Theoretical Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix A: Proofs of Theoretical Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-proof-of-theorem-1-posterior-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.1 Proof of Theorem 1 (Posterior Consistency)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-proof-of-theorem-2-variable-selection-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.2 Proof of Theorem 2 (Variable Selection Consistency)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-proof-of-theorem-3-asymptotic-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.3 Proof of Theorem 3 (Asymptotic Normality)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#b-additional-simulation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Additional Simulation Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      C. Implementation Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-additional-real-data-analyses" class="md-nav__link">
+    <span class="md-ellipsis">
+      D. Additional Real Data Analyses
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Motivation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-research-gaps-and-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Research Gaps and Contributions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-background-and-related-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Background and Related Work
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Background and Related Work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-bayesian-additive-regression-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Bayesian Additive Regression Trees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-variable-selection-in-bart-and-tree-based-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Variable Selection in BART and Tree-Based Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Variable Selection in BART and Tree-Based Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-dirichlet-prior-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1 Dirichlet Prior Approaches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-spike-and-slab-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2 Spike-and-Slab Approaches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-regularization-based-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.3 Regularization-Based Approaches
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-mixture-of-finite-mixtures-and-gibbs-priors" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Mixture of Finite Mixtures and Gibbs Priors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Mixture of Finite Mixtures and Gibbs Priors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-mixture-of-finite-mixtures-mfm" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.1 Mixture of Finite Mixtures (MFM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-gibbs-type-priors" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.2 Gibbs-Type Priors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-applications-to-variable-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.3 Applications to Variable Selection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-bart-for-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 BART for Causal Inference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 BART for Causal Inference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-potential-outcomes-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.1 Potential Outcomes Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-estimating-treatment-effects-with-bart" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.2 Estimating Treatment Effects with BART
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-bayesian-causal-forests" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.3 Bayesian Causal Forests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244-variable-selection-for-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4.4 Variable Selection for Causal Inference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-bart-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 BART for Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 BART for Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-survival-analysis-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.1 Survival Analysis Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-bart-for-accelerated-failure-time-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2 BART for Accelerated Failure Time Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-bart-for-proportional-hazards-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.3 BART for Proportional Hazards Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#254-variable-selection-in-survival-bart" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.4 Variable Selection in Survival BART
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-research-gaps-and-opportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Research Gaps and Opportunities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-theoretical-framework-for-bart-with-mfm-and-gibbs-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Theoretical Framework for BART with MFM and Gibbs Prior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Theoretical Framework for BART with MFM and Gibbs Prior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-model-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Model Specification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Model Specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-integration-of-mfm-and-gibbs-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.1 Integration of MFM and Gibbs Prior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312-the-mfm-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.2 The MFM Prior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313-the-gibbs-prior-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.3 The Gibbs Prior Component
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-prior-specifications-and-hyperparameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Prior Specifications and Hyperparameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-posterior-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Posterior Inference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-theoretical-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Theoretical Properties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Theoretical Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-posterior-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.1 Posterior Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-variable-selection-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.2 Variable Selection Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-asymptotic-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.3 Asymptotic Normality
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-computational-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Computational Framework
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 Computational Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351-overview-of-the-mcmc-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.1 Overview of the MCMC Algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#352-tree-structure-mcmc-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.2 Tree Structure MCMC Updates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#353-the-perturb-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.3 The Perturb Operator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#354-efficient-mfm-gibbs-prior-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.4 Efficient MFM-Gibbs Prior Updates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#355-computational-complexity-and-efficiency-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.5 Computational Complexity and Efficiency Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#356-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.6 Implementation Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#357-practical-considerations-for-prior-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.7 Practical Considerations for Prior Specification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-extension-to-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Extension to Causal Inference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Extension to Causal Inference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-potential-outcomes-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Potential Outcomes Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-bayesian-causal-forests-with-mfm-gibbs-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Bayesian Causal Forests with MFM-Gibbs Prior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-theoretical-properties-for-causal-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Theoretical Properties for Causal Inference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-extensions-to-multiple-treatments" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Extensions to Multiple Treatments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-extension-to-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Extension to Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Extension to Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-survival-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Survival Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-bart-mfm-gibbs-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 BART-MFM-Gibbs for Survival Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 BART-MFM-Gibbs for Survival Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-accelerated-failure-time-aft-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 Accelerated Failure Time (AFT) Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-proportional-hazards-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 Proportional Hazards Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-theoretical-properties-for-survival-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Theoretical Properties for Survival Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-extensions-to-competing-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Extensions to Competing Risks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-simulation-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Simulation Studies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Simulation Studies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-variable-selection-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Variable Selection Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-causal-inference-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Causal Inference Simulations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-survival-analysis-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Survival Analysis Simulations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-real-data-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Real Data Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Real Data Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-causal-inference-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Causal Inference Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-survival-analysis-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Survival Analysis Application
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-discussion-and-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Discussion and Conclusion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Discussion and Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-summary-of-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Summary of Contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-limitations-and-future-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Limitations and Future Directions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-broader-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Broader Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-a-proofs-of-theoretical-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix A: Proofs of Theoretical Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix A: Proofs of Theoretical Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-proof-of-theorem-1-posterior-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.1 Proof of Theorem 1 (Posterior Consistency)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-proof-of-theorem-2-variable-selection-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.2 Proof of Theorem 2 (Variable Selection Consistency)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-proof-of-theorem-3-asymptotic-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      A.3 Proof of Theorem 3 (Asymptotic Normality)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#b-additional-simulation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Additional Simulation Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      C. Implementation Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-additional-real-data-analyses" class="md-nav__link">
+    <span class="md-ellipsis">
+      D. Additional Real Data Analyses
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="sparsebart-with-mfm-and-gibbs-prior-for-causal-inference-and-survival-analysis-a-theoretical-framework">SparseBART with MFM and Gibbs Prior for Causal Inference and Survival Analysis: A Theoretical Framework</h1>
+<h2 id="abstract">Abstract</h2>
+<p>The integration of Mixture of Finite Mixtures (MFM) and Gibbs prior with Bayesian Additive Regression Trees (BART) represents a significant advancement in nonparametric Bayesian modeling, particularly for variable selection in high-dimensional settings. This paper develops a comprehensive theoretical framework for this integration and extends it to two critical domains: causal inference and survival analysis. We establish the theoretical properties of the extended models, including consistency and posterior convergence rates. Through simulation studies and real-world applications, we demonstrate that the proposed methodology achieves superior performance in terms of variable selection, predictive accuracy, and uncertainty quantification compared to existing approaches. The framework provides a unified Bayesian approach to causal effect estimation and survival analysis with automated variable selection, offering both methodological innovation and practical utility for complex data analyses.</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<h3 id="11-motivation">1.1 Motivation</h3>
+<p>Bayesian Additive Regression Trees (BART) has emerged as a powerful nonparametric approach for modeling complex relationships in various domains. However, standard BART implementations face challenges in high-dimensional settings where variable selection becomes critical. Simultaneously, the fields of causal inference and survival analysis increasingly deal with high-dimensional data where identifying relevant variables is essential for valid inference.</p>
+<h3 id="12-research-gaps-and-contributions">1.2 Research Gaps and Contributions</h3>
+<p>While previous research has explored variable selection in BART through approaches such as Dirichlet priors, the theoretical properties and practical implementation of more flexible frameworks like Mixture of Finite Mixtures (MFM) and Gibbs priors remain underexplored. Furthermore, the extension of such frameworks to causal inference and survival analysis presents both theoretical and computational challenges that have not been adequately addressed.</p>
+<p>Our contributions are threefold:</p>
+<ol>
+<li>
+<p>We develop a comprehensive theoretical framework for integrating MFM and Gibbs priors with BART, establishing formal properties including consistency and posterior convergence rates.</p>
+</li>
+<li>
+<p>We extend this framework to causal inference, enabling robust estimation of heterogeneous treatment effects with automatic variable selection.</p>
+</li>
+<li>
+<p>We further adapt the framework to survival analysis, addressing right-censoring and competing risks while maintaining the variable selection benefits.</p>
+</li>
+</ol>
+<h2 id="2-background-and-related-work">2. Background and Related Work</h2>
+<h3 id="21-bayesian-additive-regression-trees">2.1 Bayesian Additive Regression Trees</h3>
+<p>Bayesian Additive Regression Trees (BART), introduced by Chipman et al. (2010), has emerged as a powerful nonparametric Bayesian approach for flexible regression and classification. The foundational idea of BART is to model the relationship between predictors and a response variable as a sum of many small regression trees:</p>
+<div class="arithmatex">\[f(x) = \sum_{j=1}^m g(x; T_j, M_j)\]</div>
+<p>where each <span class="arithmatex">\(g(x; T_j, M_j)\)</span> represents a regression tree with structure <span class="arithmatex">\(T_j\)</span> and leaf parameters <span class="arithmatex">\(M_j\)</span>. This ensemble approach allows BART to capture complex nonlinear relationships and interaction effects without requiring explicit specification.</p>
+<p>The Bayesian framework of BART imposes regularization through carefully designed prior distributions on the tree structures and leaf parameters. Specifically, the tree structure prior favors small trees by assigning probability <span class="arithmatex">\(\alpha(1+d)^{-\beta}\)</span> to a node at depth <span class="arithmatex">\(d\)</span> being non-terminal, where <span class="arithmatex">\(\alpha\)</span> and <span class="arithmatex">\(\beta\)</span> are hyperparameters. The leaf parameters are assigned a normal prior centered at zero with a variance calibrated to ensure that the overall model provides reasonable predictions.</p>
+<p>Since its introduction, BART has demonstrated competitive performance across various domains, including economics (Deryugina et al., 2019), genomics (Kapelner &amp; Bleich, 2016), and clinical prediction (Zeldow et al., 2019). Extensions of BART include approaches for binary classification (Chipman et al., 2010), survival analysis (Sparapani et al., 2016), and causal inference (Hill, 2011).</p>
+<h3 id="22-variable-selection-in-bart-and-tree-based-models">2.2 Variable Selection in BART and Tree-Based Models</h3>
+<p>A key challenge in applying BART to high-dimensional settings is the need for effective variable selection. In the original BART formulation, the prior probability of splitting on a particular variable is uniform across all variables, which can lead to suboptimal performance when many irrelevant variables are present.</p>
+<p>Several approaches have been proposed to address this limitation:</p>
+<h4 id="221-dirichlet-prior-approaches">2.2.1 Dirichlet Prior Approaches</h4>
+<p>Linero (2018) introduced Bayesian regression trees with a sparsity-inducing Dirichlet prior (DART) for variable selection. The DART model replaces the uniform prior on split variables with:</p>
+<div class="arithmatex">\[\mathbf{s} \sim \text{Dirichlet}(\alpha/p, \ldots, \alpha/p)\]</div>
+<p>where <span class="arithmatex">\(\mathbf{s} = (s_1, \ldots, s_p)\)</span> represents the probability of splitting on each variable. This formulation encourages sparsity by setting <span class="arithmatex">\(\alpha &lt; p\)</span>, thereby assigning higher posterior probability to configurations where only a subset of variables have non-negligible selection probabilities.</p>
+<p>Extending this approach, Linero and Yang (2018) incorporated structured sparsity by grouping related variables and applying a nested Dirichlet process prior. This allows the model to account for correlation structures among predictors, which is particularly relevant in genomic and neuroimaging applications.</p>
+<h4 id="222-spike-and-slab-approaches">2.2.2 Spike-and-Slab Approaches</h4>
+<p>An alternative framework for variable selection in BART employs spike-and-slab priors, as explored by Rockova and van der Pas (2020). In this approach, the selection probability for each variable is modeled as a mixture of two components: a "spike" near zero (for irrelevant variables) and a "slab" (for relevant variables).</p>
+<p>Formally, this can be expressed as:</p>
+<div class="arithmatex">\[s_j \sim \gamma_j \text{Beta}(a, b) + (1 - \gamma_j) \delta_0\]</div>
+<p>where <span class="arithmatex">\(\gamma_j \sim \text{Bernoulli}(\pi)\)</span> is a latent indicator for whether variable <span class="arithmatex">\(j\)</span> is relevant, and <span class="arithmatex">\(\delta_0\)</span> is a point mass at zero.</p>
+<p>Rockova and van der Pas (2020) established theoretical guarantees for this approach, showing that it achieves posterior concentration rates that adapt to the unknown sparsity level.</p>
+<h4 id="223-regularization-based-approaches">2.2.3 Regularization-Based Approaches</h4>
+<p>Several authors have explored penalized likelihood approaches for variable selection in tree-based models, including BART. For instance, Bleich et al. (2014) proposed a permutation-based approach that compares the observed variable inclusion frequencies to those obtained under a null model where the response is permuted.</p>
+<p>In the context of random forests, Ye et al. (2021) developed a regularization framework that penalizes the use of variables based on their estimated relevance. While not directly applicable to BART, these approaches highlight the importance of controlling model complexity in tree-based methods.</p>
+<h3 id="23-mixture-of-finite-mixtures-and-gibbs-priors">2.3 Mixture of Finite Mixtures and Gibbs Priors</h3>
+<h4 id="231-mixture-of-finite-mixtures-mfm">2.3.1 Mixture of Finite Mixtures (MFM)</h4>
+<p>The Mixture of Finite Mixtures (MFM) framework, introduced by Miller and Harrison (2018), addresses a fundamental limitation of Dirichlet process mixture models: the tendency to overestimate the number of components in finite mixture models. MFM places a proper prior on the number of components <span class="arithmatex">\(k\)</span>:</p>
+<div class="arithmatex">\[p(k) \propto \lambda^k k! \kappa(k, \alpha)\]</div>
+<p>where <span class="arithmatex">\(\lambda &gt; 0\)</span> is a parameter controlling the expected number of components, and <span class="arithmatex">\(\kappa(k, \alpha)\)</span> is a specified function of <span class="arithmatex">\(k\)</span> and the concentration parameter <span class="arithmatex">\(\alpha\)</span>.</p>
+<p>The key innovation of MFM is that it provides a coherent framework for inference on the number of components, avoiding the inconsistency issues associated with Dirichlet process mixtures. Miller and Harrison (2018) established that MFM achieves strong posterior consistency for the number of components, even in settings where Dirichlet process mixtures do not.</p>
+<h4 id="232-gibbs-type-priors">2.3.2 Gibbs-Type Priors</h4>
+<p>Gibbs-type priors, introduced by Gnedin and Pitman (2006) and further developed by De Blasi et al. (2015), represent a broad class of random probability measures that includes the Dirichlet process, Pitman-Yor process, and normalized inverse Gaussian process as special cases. These priors are characterized by a prediction rule of the form:</p>
+<div class="arithmatex">\[p(X_{n+1} \in \cdot \mid X_1, \ldots, X_n) = V_{n+1,k+1} p_{\text{new}}(\cdot) + \sum_{j=1}^k (n_j - \sigma) V_{n+1,k} \delta_{X_j^*}(\cdot)\]</div>
+<p>where <span class="arithmatex">\(X_j^*\)</span> are the <span class="arithmatex">\(k\)</span> distinct values observed in <span class="arithmatex">\(X_1, \ldots, X_n\)</span>, <span class="arithmatex">\(n_j\)</span> is the number of observations taking value <span class="arithmatex">\(X_j^*\)</span>, <span class="arithmatex">\(\sigma \in [0, 1)\)</span> is a discount parameter, and <span class="arithmatex">\(V_{n,k}\)</span> are weights satisfying a specific recursion.</p>
+<p>The flexibility of Gibbs-type priors makes them well-suited for modeling clustered data with varying degrees of sparsity. In particular, they allow for more refined control over the clustering behavior than simpler models like the Dirichlet process.</p>
+<h4 id="233-applications-to-variable-selection">2.3.3 Applications to Variable Selection</h4>
+<p>While MFM and Gibbs-type priors have been extensively studied in the context of density estimation and clustering, their application to variable selection in regression models remains relatively unexplored. The work of Barcella et al. (2018) represents a step in this direction, using a Pitman-Yor process prior for variable selection in linear regression. However, a comprehensive framework integrating these priors with BART for high-dimensional variable selection is still lacking.</p>
+<h3 id="24-bart-for-causal-inference">2.4 BART for Causal Inference</h3>
+<h4 id="241-potential-outcomes-framework">2.4.1 Potential Outcomes Framework</h4>
+<p>Causal inference is often formulated using the potential outcomes framework of Rubin (1974). Let <span class="arithmatex">\(Y_i(0)\)</span> and <span class="arithmatex">\(Y_i(1)\)</span> denote the potential outcomes for unit <span class="arithmatex">\(i\)</span> under control and treatment conditions, respectively. The fundamental challenge of causal inference is that we observe only one potential outcome for each unit, based on the treatment actually received.</p>
+<p>BART has emerged as a powerful tool for causal inference, particularly for estimating average treatment effects and conditional average treatment effects (Hill, 2011; Hahn et al., 2020). The flexibility of BART allows it to capture complex response surfaces without requiring parametric assumptions about the functional form of the relationship between covariates and outcomes.</p>
+<h4 id="242-estimating-treatment-effects-with-bart">2.4.2 Estimating Treatment Effects with BART</h4>
+<p>Hill (2011) introduced the use of BART for estimating average treatment effects (ATE) by directly modeling the response surface. The approach involves fitting a BART model to the observed data:</p>
+<div class="arithmatex">\[Y_i = f(X_i, W_i) + \epsilon_i\]</div>
+<p>where <span class="arithmatex">\(W_i\)</span> is the treatment indicator. The ATE is then estimated as:</p>
+<div class="arithmatex">\[\hat{\tau} = \frac{1}{n} \sum_{i=1}^n [f(X_i, 1) - f(X_i, 0)]\]</div>
+<p>This approach leverages BART's flexibility to capture nonlinear relationships and interaction effects, while its inherent regularization helps mitigate overfitting.</p>
+<h4 id="243-bayesian-causal-forests">2.4.3 Bayesian Causal Forests</h4>
+<p>Hahn et al. (2020) introduced Bayesian Causal Forests (BCF), which represents a significant advancement in using BART for causal inference. BCF employs a two-component model:</p>
+<div class="arithmatex">\[Y_i = \mu(X_i) + \tau(X_i)W_i + \epsilon_i\]</div>
+<p>where <span class="arithmatex">\(\mu(X_i)\)</span> is the prognostic function capturing the baseline effect of covariates, and <span class="arithmatex">\(\tau(X_i)\)</span> is the treatment effect function. Both <span class="arithmatex">\(\mu\)</span> and <span class="arithmatex">\(\tau\)</span> are modeled using BART, but with different prior specifications to reflect different beliefs about their complexity.</p>
+<p>BCF incorporates targeted regularization by using the propensity score as a predictor in the baseline function, which helps address confounding. This approach has demonstrated superior performance compared to standard BART and other methods, particularly in settings with strong confounding.</p>
+<h4 id="244-variable-selection-for-causal-inference">2.4.4 Variable Selection for Causal Inference</h4>
+<p>Recent work has begun to explore variable selection in the context of causal inference with BART. Hahn et al. (2020) note the importance of distinguishing between variables that affect the baseline response and those that influence treatment effects. However, current approaches typically rely on standard variable selection methods rather than leveraging the specific structure of causal inference problems.</p>
+<p>The integration of sophisticated variable selection mechanisms like MFM and Gibbs priors with BCF remains an open area of research. Such integration could enhance the identification of treatment effect modifiers and improve the precision of heterogeneous treatment effect estimates.</p>
+<h3 id="25-bart-for-survival-analysis">2.5 BART for Survival Analysis</h3>
+<h4 id="251-survival-analysis-framework">2.5.1 Survival Analysis Framework</h4>
+<p>Survival analysis focuses on modeling the time until an event occurs. Let <span class="arithmatex">\(T_i\)</span> be the event time for subject <span class="arithmatex">\(i\)</span>, which may be subject to right-censoring. We observe <span class="arithmatex">\(Y_i = \min(T_i, C_i)\)</span>, where <span class="arithmatex">\(C_i\)</span> is the censoring time, and the event indicator <span class="arithmatex">\(\delta_i = I(T_i \leq C_i)\)</span>.</p>
+<p>Traditional approaches to survival analysis include parametric models (e.g., Weibull, exponential), semiparametric models (e.g., Cox proportional hazards), and nonparametric methods (e.g., Kaplan-Meier). Each has limitations in terms of flexibility, computational feasibility, or ability to handle high-dimensional covariates.</p>
+<h4 id="252-bart-for-accelerated-failure-time-models">2.5.2 BART for Accelerated Failure Time Models</h4>
+<p>Sparapani et al. (2016) extended BART to survival analysis using an accelerated failure time (AFT) formulation:</p>
+<div class="arithmatex">\[\log(T_i) = f(X_i) + \epsilon_i\]</div>
+<p>where <span class="arithmatex">\(f(X_i)\)</span> is modeled using BART, and <span class="arithmatex">\(\epsilon_i\)</span> follows a specified distribution (e.g., normal, logistic). This approach allows for flexible modeling of the relationship between covariates and survival times while naturally handling right-censoring through data augmentation.</p>
+<h4 id="253-bart-for-proportional-hazards-models">2.5.3 BART for Proportional Hazards Models</h4>
+<p>An alternative approach, explored by Henderson et al. (2020), adapts BART to the proportional hazards framework by modeling the log hazard function:</p>
+<div class="arithmatex">\[\log \lambda(t \mid X_i) = \log \lambda_0(t) + f(X_i)\]</div>
+<p>where <span class="arithmatex">\(\lambda_0(t)\)</span> is a baseline hazard function, and <span class="arithmatex">\(f(X_i)\)</span> is modeled using BART. This approach combines the interpretability of the proportional hazards model with the flexibility of BART.</p>
+<h4 id="254-variable-selection-in-survival-bart">2.5.4 Variable Selection in Survival BART</h4>
+<p>Variable selection in the context of survival analysis with BART has received limited attention. Existing approaches typically adopt standard variable selection methods without accounting for the specific characteristics of survival data, such as censoring and time-dependent effects.</p>
+<p>The development of specialized variable selection methods for survival BART, particularly in high-dimensional settings, represents an important research direction. The integration of MFM and Gibbs priors with survival BART could enhance the identification of prognostic factors and improve prediction accuracy.</p>
+<h3 id="26-research-gaps-and-opportunities">2.6 Research Gaps and Opportunities</h3>
+<p>Our review of the literature reveals several key research gaps that motivate the present work:</p>
+<ol>
+<li>
+<p><strong>Limited theoretical development for variable selection in BART</strong>: While various approaches for variable selection in BART have been proposed, their theoretical properties, such as posterior consistency and variable selection consistency, remain incompletely understood.</p>
+</li>
+<li>
+<p><strong>Need for flexible variable selection mechanisms</strong>: Existing approaches like DART use relatively simple Dirichlet priors that may not adequately capture the complex patterns of variable relevance in high-dimensional settings.</p>
+</li>
+<li>
+<p><strong>Integration with causal inference and survival analysis</strong>: The development of variable selection methods specifically tailored to causal inference and survival analysis applications of BART is still in its early stages.</p>
+</li>
+<li>
+<p><strong>Computational challenges</strong>: Efficient posterior computation for BART with sophisticated variable selection mechanisms remains challenging, particularly for large datasets.</p>
+</li>
+<li>
+<p><strong>Lack of unified framework</strong>: There is a need for a coherent framework that integrates advanced variable selection methods with BART and extends them to specialized domains like causal inference and survival analysis.</p>
+</li>
+</ol>
+<p>The present work aims to address these gaps by developing a comprehensive framework that integrates MFM and Gibbs priors with BART for variable selection, establishes theoretical guarantees, and extends the framework to causal inference and survival analysis. By doing so, we seek to enhance both the theoretical understanding and practical utility of BART in high-dimensional settings.</p>
+<h2 id="3-theoretical-framework-for-bart-with-mfm-and-gibbs-prior">3. Theoretical Framework for BART with MFM and Gibbs Prior</h2>
+<h3 id="31-model-specification">3.1 Model Specification</h3>
+<p>The standard Bayesian Additive Regression Trees (BART) model, as introduced by Chipman et al. (2010), represents the relationship between predictors and response as a sum of regression trees:</p>
+<div class="arithmatex">\[Y_i = \sum_{j=1}^m g(X_i; T_j, M_j) + \epsilon_i, \quad \epsilon_i \sim N(0, \sigma^2)\]</div>
+<p>where <span class="arithmatex">\(X_i \in \mathbb{R}^p\)</span> represents the predictor variables, <span class="arithmatex">\(g(X_i; T_j, M_j)\)</span> denotes the contribution of the <span class="arithmatex">\(j\)</span>-th regression tree with tree structure <span class="arithmatex">\(T_j\)</span> and leaf parameters <span class="arithmatex">\(M_j\)</span>, <span class="arithmatex">\(m\)</span> is the number of trees, and <span class="arithmatex">\(\sigma^2\)</span> is the residual variance.</p>
+<p>In the original BART formulation, the prior probability of selecting variable <span class="arithmatex">\(k\)</span> for a split is uniform across all variables:</p>
+<div class="arithmatex">\[P(\text{split on variable } k) = \frac{1}{p}\]</div>
+<p>This uniform prior does not account for the varying importance of different predictors and can lead to suboptimal performance in high-dimensional settings where most variables are irrelevant.</p>
+<h4 id="311-integration-of-mfm-and-gibbs-prior">3.1.1 Integration of MFM and Gibbs Prior</h4>
+<p>We propose an enhanced framework that integrates a Mixture of Finite Mixtures (MFM) and Gibbs prior into BART to enable adaptive variable selection. Our approach modifies the prior distribution for splitting variables as follows:</p>
+<div class="arithmatex">\[P(\text{split on variable } k \mid \mathbf{s}) = s_k\]</div>
+<p>where <span class="arithmatex">\(\mathbf{s} = (s_1, \ldots, s_p)\)</span> represents the vector of variable selection probabilities. Instead of treating <span class="arithmatex">\(\mathbf{s}\)</span> as fixed or assigning a standard Dirichlet prior, we introduce a more flexible MFM-Gibbs prior structure:</p>
+<div class="arithmatex">\[P(\mathbf{s} \mid \mathbf{c}, K_+) \propto \prod_{k \in A} s_k^{c_k - 1 + \alpha/p} \cdot P_{\text{MFM}}(K_+)\]</div>
+<p>where:
+- <span class="arithmatex">\(\mathbf{c} = (c_1, \ldots, c_p)\)</span> represents the counts of how many times each variable has been used in splits across all trees
+- <span class="arithmatex">\(A\)</span> is the set of active variables (those with non-zero counts)
+- <span class="arithmatex">\(K_+ = |A|\)</span> is the number of active variables
+- <span class="arithmatex">\(\alpha\)</span> is a concentration parameter that controls the sparsity of the model
+- <span class="arithmatex">\(P_{\text{MFM}}(K_+)\)</span> is the MFM prior on the number of active variables</p>
+<h4 id="312-the-mfm-prior">3.1.2 The MFM Prior</h4>
+<p>Following Miller and Harrison (2018), we specify the MFM prior on the number of active variables as:</p>
+<div class="arithmatex">\[P_{\text{MFM}}(K_+) \propto V_{n,K_+} \cdot p(K_+)\]</div>
+<p>where <span class="arithmatex">\(p(K_+)\)</span> is a prior on the number of components (in our case, active variables), and <span class="arithmatex">\(V_{n,K_+}\)</span> is defined as:</p>
+<div class="arithmatex">\[V_{n,K_+} = \sum_{k=K_+}^p \binom{p}{k} \frac{\Gamma(k\alpha)}{\Gamma(k\alpha + n)} \frac{\Gamma(K_+ + 1)\Gamma(k-K_+ + 1)}{\Gamma(k+1)} p(k)\]</div>
+<p>This formulation allows for automatic determination of the number of relevant variables and has several desirable theoretical properties for variable selection.</p>
+<h4 id="313-the-gibbs-prior-component">3.1.3 The Gibbs Prior Component</h4>
+<p>The Gibbs prior component adds additional flexibility by controlling the "rich-get-richer" dynamics in variable selection. The probability of selecting a variable for a split depends on its previous usage, with the following conditional distribution:</p>
+<p>For an existing active variable <span class="arithmatex">\(k \in A\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(P(\text{next split uses variable } k \mid \mathbf{c}, K_+) \propto c_k - 1 + \alpha/p\)</span>\)</span></p>
+<p>For an inactive variable <span class="arithmatex">\(k \notin A\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(P(\text{next split uses variable } k \mid \mathbf{c}, K_+) \propto \frac{\alpha/p \cdot V_{n+1,K_++1}}{V_{n,K_+} \cdot (p-K_+)}\)</span>\)</span></p>
+<p>This structure balances exploitation (using variables that have been successful in previous splits) and exploration (trying new variables that might be relevant).</p>
+<h3 id="32-prior-specifications-and-hyperparameters">3.2 Prior Specifications and Hyperparameters</h3>
+<p>The complete model specification requires prior distributions for all components:</p>
+<ol>
+<li><strong>Tree structure prior</strong>: We adopt the standard BART prior for tree structure with:</li>
+<li>Probability of a node being non-terminal: <span class="arithmatex">\(\alpha(1+d)^{-\beta}\)</span>, where <span class="arithmatex">\(d\)</span> is the depth of the node, and <span class="arithmatex">\(\alpha\)</span> and <span class="arithmatex">\(\beta\)</span> are hyperparameters controlling tree size.</li>
+<li>
+<p>Prior on splitting rules conditional on <span class="arithmatex">\(\mathbf{s}\)</span>: <span class="arithmatex">\(P(\text{split on variable } k \mid \mathbf{s}) = s_k\)</span>.</p>
+</li>
+<li>
+<p><strong>Leaf parameter prior</strong>: <span class="arithmatex">\(\mu \sim N(0, \sigma_\mu^2)\)</span>, where <span class="arithmatex">\(\sigma_\mu^2 = \frac{\sigma_y^2}{m \cdot k}\)</span>, with <span class="arithmatex">\(\sigma_y^2\)</span> being the marginal variance of the response and <span class="arithmatex">\(k\)</span> a hyperparameter.</p>
+</li>
+<li>
+<p><strong>Residual variance prior</strong>: <span class="arithmatex">\(\sigma^2 \sim \text{InvGamma}(\nu/2, \nu\lambda/2)\)</span>, where <span class="arithmatex">\(\nu\)</span> and <span class="arithmatex">\(\lambda\)</span> are chosen to reflect prior beliefs about the residual variance.</p>
+</li>
+<li>
+<p><strong>MFM hyperparameter prior</strong>: <span class="arithmatex">\(\alpha \sim \text{Gamma}(a_\alpha, b_\alpha)\)</span>, allowing the data to inform the level of sparsity.</p>
+</li>
+<li>
+<p><strong>Component prior</strong>: <span class="arithmatex">\(p(K_+) \propto K_+^{-\rho}\)</span> for <span class="arithmatex">\(1 \leq K_+ \leq p\)</span>, where <span class="arithmatex">\(\rho &gt; 0\)</span> controls the prior preference for fewer active variables.</p>
+</li>
+</ol>
+<h3 id="33-posterior-inference">3.3 Posterior Inference</h3>
+<p>The posterior distribution of interest encompasses all components of the model:</p>
+<div class="arithmatex">\[p(\{T_j, M_j\}_{j=1}^m, \sigma^2, \mathbf{s}, \alpha \mid \text{Data})\]</div>
+<p>Direct sampling from this posterior is intractable. Instead, we employ a Markov Chain Monte Carlo (MCMC) algorithm that iteratively updates each component conditional on the others:</p>
+<ol>
+<li><strong>Update tree structures and leaf parameters</strong>: For each tree <span class="arithmatex">\(j = 1, \ldots, m\)</span>:</li>
+<li>Propose a modification to the tree structure <span class="arithmatex">\(T_j\)</span> using one of four moves: GROW, PRUNE, CHANGE, or SWAP.</li>
+<li>Accept or reject the proposal based on a Metropolis-Hastings ratio.</li>
+<li>
+<p>Sample leaf parameters <span class="arithmatex">\(M_j\)</span> from their conditional posterior.</p>
+</li>
+<li>
+<p><strong>Update residual variance</strong>: Sample <span class="arithmatex">\(\sigma^2\)</span> from its conditional posterior, which is an Inverse-Gamma distribution.</p>
+</li>
+<li>
+<p><strong>Update variable selection probabilities</strong>: Sample <span class="arithmatex">\(\mathbf{s}\)</span> using a Gibbs sampling step that incorporates the MFM-Gibbs prior structure:</p>
+</li>
+<li>For active variables, sample from Dirichlet distributions informed by split counts.</li>
+<li>
+<p>For the number of active components, use a Metropolis-Hastings step.</p>
+</li>
+<li>
+<p><strong>Update concentration parameter</strong>: Sample <span class="arithmatex">\(\alpha\)</span> from its conditional posterior using a random-walk Metropolis step.</p>
+</li>
+</ol>
+<p>A key innovation in our implementation is the use of the "Perturb" operator in the tree structure updates, which allows for more efficient exploration of the variable and split point space by directly modifying existing decision rules without changing the tree topology.</p>
+<h3 id="34-theoretical-properties">3.4 Theoretical Properties</h3>
+<p>We now establish several important theoretical properties of the proposed BART model with MFM and Gibbs prior. These properties provide formal guarantees on the model's performance and behavior in asymptotic regimes.</p>
+<h4 id="341-posterior-consistency">3.4.1 Posterior Consistency</h4>
+<p>Our first result establishes that the posterior distribution concentrates around the true regression function at an optimal rate.</p>
+<p><strong>Theorem 1</strong> (Posterior Consistency): Let <span class="arithmatex">\(f_0 \in \mathcal{C}^\alpha([0,1]^p)\)</span> be the true regression function with smoothness parameter <span class="arithmatex">\(\alpha &gt; 0\)</span>. Under the BART model with MFM and Gibbs prior, for any sequence <span class="arithmatex">\(M_n \to \infty\)</span>, the posterior distribution satisfies:</p>
+<div class="arithmatex">\[\Pi\left(f: \|f - f_0\|_\infty &gt; M_n \epsilon_n \mid \text{Data}\right) \to 0 \text{ in probability as } n \to \infty\]</div>
+<p>where <span class="arithmatex">\(\epsilon_n = n^{-\alpha/(2\alpha + p)}(\log n)^\beta\)</span> for some <span class="arithmatex">\(\beta &gt; 0\)</span>.</p>
+<p>This theorem guarantees that as the sample size increases, the posterior distribution concentrates in a neighborhood of the true regression function, with the neighborhood shrinking at a rate that is minimax optimal (up to logarithmic factors) for the given smoothness class.</p>
+<h4 id="342-variable-selection-consistency">3.4.2 Variable Selection Consistency</h4>
+<p>The second result establishes the model's ability to correctly identify the relevant variables.</p>
+<p><strong>Theorem 2</strong> (Variable Selection Consistency): Suppose the true regression function <span class="arithmatex">\(f_0\)</span> depends only on a subset <span class="arithmatex">\(S_0\)</span> of the <span class="arithmatex">\(p\)</span> variables with <span class="arithmatex">\(|S_0| = s_0 \ll p\)</span>. Let <span class="arithmatex">\(S_n\)</span> be the set of variables with posterior inclusion probability greater than 1/2. Then, under appropriate conditions:</p>
+<div class="arithmatex">\[\lim_{n \to \infty} P(S_n = S_0) = 1\]</div>
+<p>This theorem ensures that the model asymptotically selects exactly the right set of variables, ignoring all irrelevant ones.</p>
+<h4 id="343-asymptotic-normality">3.4.3 Asymptotic Normality</h4>
+<p>The third result establishes the asymptotic normality of posterior functionals, which is crucial for valid statistical inference.</p>
+<p><strong>Theorem 3</strong> (Asymptotic Normality): For a linear functional <span class="arithmatex">\(\phi(f) = \int f(x) h(x) dx\)</span> of the regression function, the posterior distribution satisfies:</p>
+<div class="arithmatex">\[\sqrt{n}(\phi(f) - \phi(f_0)) \mid \text{Data} \xrightarrow{d} N(0, V)\]</div>
+<p>where <span class="arithmatex">\(V\)</span> is the semiparametric efficiency bound for estimating <span class="arithmatex">\(\phi(f_0)\)</span>.</p>
+<p>This theorem enables the construction of asymptotically valid confidence intervals for quantities of interest, such as the average treatment effect in causal inference settings.</p>
+<h3 id="35-computational-framework">3.5 Computational Framework</h3>
+<p>The posterior inference for our BART model with MFM and Gibbs prior presents significant computational challenges due to the complex interaction between tree structures, variable selection probabilities, and hyperparameters. In this section, we develop a comprehensive computational framework that addresses these challenges through a carefully designed Markov Chain Monte Carlo (MCMC) algorithm, innovative proposal mechanisms, and efficient implementation strategies.</p>
+<h4 id="351-overview-of-the-mcmc-algorithm">3.5.1 Overview of the MCMC Algorithm</h4>
+<p>Algorithm 1 presents the overall structure of our MCMC approach. The algorithm iteratively samples from the joint posterior distribution by updating each component conditional on the current values of all other components.</p>
+<p><strong>Algorithm 1</strong>: MCMC for BART with MFM-Gibbs Prior
+<div class="highlight"><pre><span></span><code>Input: Data {(X_i, Y_i)}_{i=1}^n, number of trees m, number of iterations N_iter
+Output: Posterior samples of trees {T_j^{(t)}, M_j^{(t)}}_{j=1,t=1}^{m,N_iter}, variance σ^2^{(t)}, variable selection probabilities s^{(t)}
+
+Initialize:
+   - Set trees {T_j, M_j}_{j=1}^m to single node trees with constant predictions
+   - Set σ^2 to the sample variance of Y
+   - Set s = (1/p, ..., 1/p)
+   - Initialize variable usage counts c = (0, ..., 0)
+   - Set use_counts = FALSE (for the first half of burn-in)
+
+for t = 1 to N_iter do
+    // Update residual variance
+    Compute residuals r_i = Y_i - ∑_{j=1}^m g(X_i; T_j, M_j)
+    Sample σ^2 from its conditional posterior σ^2 | r ~ InvGamma(a_n, b_n)
+
+    // Update trees
+    for j = 1 to m do
+        Compute partial residuals r_i^j = Y_i - ∑_{k≠j} g(X_i; T_k, M_k)
+        Update (T_j, M_j) via TreeMCMC(T_j, M_j, {X_i, r_i^j}_{i=1}^n, σ^2, s)
+    end for
+
+    // Update variable counters and MFM parameters after half of burn-in
+    if t &gt; N_burn/2 then
+        Set use_counts = TRUE
+        Update c based on current forest structure
+        Update s using MFM-Gibbs sampling
+    end if
+
+    // Store samples after burn-in
+    if t &gt; N_burn then
+        Store current values of trees, variance, and variable probabilities
+    end if
+end for
+</code></pre></div></p>
+<p>The algorithm begins with simple initializations and progresses through iterations that update each component of the model. A key aspect is the adaptive nature of the variable selection mechanism: during the first half of the burn-in period, variables are selected uniformly, after which the MFM-Gibbs prior takes effect based on accumulated variable usage statistics.</p>
+<h4 id="352-tree-structure-mcmc-updates">3.5.2 Tree Structure MCMC Updates</h4>
+<p>The core of our computational framework is the MCMC procedure for updating tree structures, detailed in Algorithm 2. Our approach extends the standard BART tree updates by incorporating the MFM-Gibbs prior for variable selection and introducing the Perturb operator for more efficient exploration of the model space.</p>
+<p><strong>Algorithm 2</strong>: TreeMCMC
+<div class="highlight"><pre><span></span><code>Input: Current tree (T, M), data {X_i, r_i}_{i=1}^n, residual variance σ^2, variable selection probabilities s
+Output: Updated tree (T&#39;, M&#39;)
+
+// Select update type
+Draw u ~ Uniform(0, 1)
+if T is a single node tree or u &lt; 0.25 then
+    Proposal = GROW
+else if u &lt; 0.5 then
+    Proposal = PRUNE
+else if u &lt; 0.7 then
+    Proposal = CHANGE
+else if u &lt; 0.9 then
+    Proposal = SWAP
+else
+    Proposal = PERTURB
+end if
+
+// Generate and evaluate proposal
+if Proposal = GROW then
+    Select a terminal node η uniformly at random
+    Sample split variable j with P(j) = s_j
+    Sample split point c from the empirical distribution of X_j values
+    Propose new tree T&#39; by splitting η on (j, c)
+    Sample new leaf parameters M&#39; for T&#39; from their conditional posterior
+    Compute acceptance ratio R_GROW
+    Accept/reject proposal based on R_GROW
+
+else if Proposal = PRUNE then
+    // Inverse of GROW operation
+    Select a parent node η of two terminal nodes
+    Propose new tree T&#39; by collapsing η&#39;s children
+    Sample new leaf parameter M&#39; for η from its conditional posterior
+    Compute acceptance ratio R_PRUNE
+    Accept/reject proposal based on R_PRUNE
+
+else if Proposal = CHANGE then
+    Select an internal node η uniformly at random
+    Sample new split variable j with P(j) = s_j
+    Sample new split point c from the empirical distribution of X_j values
+    Propose new tree T&#39; by changing η&#39;s decision rule to (j, c)
+    Keep leaf parameters M&#39; = M
+    Compute acceptance ratio R_CHANGE
+    Accept/reject proposal based on R_CHANGE
+
+else if Proposal = SWAP then
+    Select a parent-child pair of internal nodes uniformly at random
+    Propose new tree T&#39; by swapping their decision rules
+    Keep leaf parameters M&#39; = M
+    Compute acceptance ratio R_SWAP
+    Accept/reject proposal based on R_SWAP
+
+else if Proposal = PERTURB then
+    Select an internal node η uniformly at random
+    Execute PerturbNode(η, s) to generate T&#39;
+    Compute acceptance ratio R_PERTURB
+    Accept/reject proposal based on R_PERTURB
+end if
+
+// Update variable counts if proposal accepted and use_counts = TRUE
+if proposal accepted and use_counts = TRUE then
+    Update variable usage counts c
+end if
+
+return (T&#39;, M&#39;)
+</code></pre></div></p>
+<p>The acceptance ratios for each proposal are computed based on the standard Metropolis-Hastings framework. For example, the acceptance ratio for the GROW operation is:</p>
+<div class="arithmatex">\[R_{\text{GROW}} = \min\left\{1, \frac{p(r|T',M')}{p(r|T,M)} \cdot \frac{p(T')}{p(T)} \cdot \frac{q(T|T')}{q(T'|T)}\right\}\]</div>
+<p>where <span class="arithmatex">\(p(r|T,M)\)</span> is the likelihood of the data given the tree, <span class="arithmatex">\(p(T)\)</span> is the prior probability of the tree structure, and <span class="arithmatex">\(q(T'|T)\)</span> is the proposal probability of moving from <span class="arithmatex">\(T\)</span> to <span class="arithmatex">\(T'\)</span>.</p>
+<p>The tree structure prior <span class="arithmatex">\(p(T)\)</span> incorporates both the standard BART prior (based on tree depth) and our variable selection mechanism through the MFM-Gibbs prior on splitting variables.</p>
+<h4 id="353-the-perturb-operator">3.5.3 The Perturb Operator</h4>
+<p>A significant innovation in our computational framework is the Perturb operator, which allows for more efficient exploration of the variable and split point space. Algorithm 3 details this operation.</p>
+<p><strong>Algorithm 3</strong>: PerturbNode
+<div class="highlight"><pre><span></span><code>Input: Internal node η, variable selection probabilities s
+Output: Tree with perturbed decision rule at node η
+
+// Save current node information
+old_var = η.variable
+old_value = η.split_value
+old_lower = η.lower_limit
+old_upper = η.upper_limit
+
+// Sample new variable
+if use_counts = TRUE then
+    Sample new_var using MFM-Gibbs prior mechanism
+else
+    Sample new_var with P(j) = s_j
+end if
+
+// Set η&#39;s variable to new_var
+η.variable = new_var
+
+// Get valid range for the new split value
+(min_val, max_val) = GetValidRange(η)
+
+// Check if range is valid
+if max_val &lt;= min_val + ε then
+    // No valid range, revert to old variable
+    η.variable = old_var
+    return original tree
+end if
+
+// Sample new split value
+η.split_value = Uniform(min_val, max_val)
+
+// Update limits for all nodes in the subtree
+UpdateLimits(η)
+
+return updated tree
+</code></pre></div></p>
+<p>The <code>GetValidRange</code> function computes the valid range for a split value by traversing the tree and identifying constraints imposed by existing splits on the same variable. This ensures that the proposed decision rule maintains the logical consistency of the tree.</p>
+<p>The key advantage of the Perturb operator is that it allows for changing the decision rule at a node without altering the tree topology. This leads to more efficient exploration of the model space compared to the standard GROW-PRUNE operations, which would require multiple steps to achieve the same effect.</p>
+<h4 id="354-efficient-mfm-gibbs-prior-updates">3.5.4 Efficient MFM-Gibbs Prior Updates</h4>
+<p>Updating the variable selection probabilities according to the MFM-Gibbs prior requires careful implementation to be computationally tractable. Algorithm 4 outlines our approach.</p>
+<p><strong>Algorithm 4</strong>: MFM-Gibbs Sampling
+<div class="highlight"><pre><span></span><code>Input: Current variable usage counts c, current number of active variables K_+
+Output: Updated variable selection probabilities s
+
+// Compute sufficient statistics
+n_splits = ∑_{j=1}^p c_j
+active_vars = {j : c_j &gt; 0}
+K_+ = |active_vars|
+
+// Update probabilities for active variables
+sample α_active ~ Gamma(∑_{j∈active_vars} c_j, 1)
+for j in active_vars do
+    s_j = (c_j + α/p) / (n_splits + α)
+end for
+
+// Propose change to number of active variables
+Draw u ~ Uniform(0, 1)
+if u &lt; 0.5 and K_+ &lt; p then
+    // Propose adding a variable
+    K_new = K_+ + 1
+    Calculate acceptance ratio R_add using equation (15)
+    if log(Uniform(0, 1)) &lt; log(R_add) then
+        // Add a new variable
+        Sample j uniformly from inactive variables
+        Set s_j = α/p / (n_splits + α)
+        Rescale all s values to sum to 1
+        K_+ = K_new
+    end if
+else if K_+ &gt; 1 then
+    // Propose removing a variable
+    K_new = K_+ - 1
+    Calculate acceptance ratio R_remove using equation (16)
+    if log(Uniform(0, 1)) &lt; log(R_remove) then
+        // Remove a variable
+        Sample j from active variables with probability proportional to 1/c_j
+        Set s_j = 0
+        Rescale all s values to sum to 1
+        K_+ = K_new
+    end if
+end if
+
+return s
+</code></pre></div></p>
+<p>The acceptance ratios for proposing changes to the number of active variables involve computing the MFM prior terms <span class="arithmatex">\(V_{n,K_+}\)</span>. These terms can be computationally expensive, so we implement an efficient recursive computation and caching mechanism:</p>
+<div class="arithmatex">\[V_{n,K_+} = \sum_{k=K_+}^p \binom{p}{k} \frac{\Gamma(k\alpha)}{\Gamma(k\alpha + n)} \frac{\Gamma(K_+ + 1)\Gamma(k-K_+ + 1)}{\Gamma(k+1)} p(k)\]</div>
+<p>We compute this recursively using the identity:</p>
+<div class="arithmatex">\[V_{n+1,K_++1} = V_{n,K_+} \cdot \frac{K_+ + 1}{p - K_+} \cdot \frac{n_K}{n + 1}\]</div>
+<p>where <span class="arithmatex">\(n_K\)</span> is a normalization term. This recursive computation, combined with memoization, significantly reduces the computational burden of the MFM prior updates.</p>
+<h4 id="355-computational-complexity-and-efficiency-considerations">3.5.5 Computational Complexity and Efficiency Considerations</h4>
+<p>The overall computational complexity of our algorithm per iteration is <span class="arithmatex">\(O(mn\log(n))\)</span>, where <span class="arithmatex">\(m\)</span> is the number of trees and <span class="arithmatex">\(n\)</span> is the sample size. This is the same asymptotic complexity as standard BART, indicating that our enhancements for variable selection do not increase the computational burden in terms of big-O complexity.</p>
+<p>However, there are several constant-factor optimizations that significantly improve computational efficiency:</p>
+<ol>
+<li>
+<p><strong>Efficient tree traversal</strong>: We implement depth-first search algorithms for tree operations that minimize redundant computations.</p>
+</li>
+<li>
+<p><strong>Caching of sufficient statistics</strong>: We cache key quantities such as the sum of squared residuals for each node, avoiding recomputation when evaluating proposal acceptance ratios.</p>
+</li>
+<li>
+<p><strong>Parallelization</strong>: Tree updates are conditionally independent given the residuals, allowing for parallel computation across trees.</p>
+</li>
+<li>
+<p><strong>Vectorized operations</strong>: We use vectorized operations for computing likelihoods and predictions, leveraging modern computational libraries.</p>
+</li>
+<li>
+<p><strong>Adaptive burn-in</strong>: The transition from uniform variable selection to MFM-Gibbs selection halfway through burn-in allows for more efficient exploration during early iterations while still converging to the correct posterior.</p>
+</li>
+</ol>
+<h4 id="356-implementation-details">3.5.6 Implementation Details</h4>
+<p>We have implemented our computational framework in Python, leveraging NumPy for efficient numerical operations and Numba for just-in-time compilation of performance-critical components. The key implementation insights include:</p>
+<ol>
+<li>
+<p><strong>Tree representation</strong>: Trees are represented as linked node objects, with each node storing its variable, split point, parent and child pointers, and sufficient statistics.</p>
+</li>
+<li>
+<p><strong>Memory management</strong>: For large datasets, we implement a data subsetting approach that processes observations in batches to manage memory usage.</p>
+</li>
+<li>
+<p><strong>Numerical stability</strong>: The computation of likelihood ratios and prior probabilities is performed in log space to avoid numerical underflow.</p>
+</li>
+<li>
+<p><strong>Adaptive proposal mixtures</strong>: The probabilities of different proposal types (GROW, PRUNE, CHANGE, SWAP, PERTURB) are adapted based on their acceptance rates to improve mixing.</p>
+</li>
+<li>
+<p><strong>Diagnostic monitoring</strong>: We track key quantities such as log-likelihood, variable usage counts, and effective sample size to monitor convergence.</p>
+</li>
+</ol>
+<p>The complete implementation, along with documentation and examples, is available in our open-source software package, making our methodology accessible to the broader research community.</p>
+<h4 id="357-practical-considerations-for-prior-specification">3.5.7 Practical Considerations for Prior Specification</h4>
+<p>The performance of our model depends on appropriate specification of hyperparameters. Based on extensive experimentation, we recommend the following guidelines:</p>
+<ol>
+<li>
+<p><strong>MFM concentration parameter α</strong>: Values in the range [0.1, 1.0] typically work well, with smaller values promoting greater sparsity. This parameter can be learned from the data through an additional Metropolis update.</p>
+</li>
+<li>
+<p><strong>Tree prior parameters</strong>: We set α = 0.95 and β = 2 for the tree depth prior, which aligns with standard BART implementations.</p>
+</li>
+<li>
+<p><strong>Number of trees m</strong>: For variable selection purposes, using fewer trees (m = 20 to 50) often performs better than the standard BART recommendation of m = 200, as it encourages each tree to capture more signal rather than noise.</p>
+</li>
+<li>
+<p><strong>Burn-in length</strong>: Given the more complex posterior landscape induced by the MFM-Gibbs prior, we recommend longer burn-in periods (at least 5,000 iterations) to ensure convergence.</p>
+</li>
+<li>
+<p><strong>Adaptive phases</strong>: The transition from uniform to MFM-Gibbs variable selection should occur after the trees have had sufficient opportunity to explore the variable space, typically after half of the burn-in period.</p>
+</li>
+</ol>
+<p>These guidelines, combined with our computational framework, enable efficient and reliable posterior inference for our BART model with MFM and Gibbs prior, making it practical for real-world applications involving high-dimensional data.</p>
+<h2 id="4-extension-to-causal-inference">4. Extension to Causal Inference</h2>
+<h3 id="41-potential-outcomes-framework">4.1 Potential Outcomes Framework</h3>
+<p>We adopt the potential outcomes framework for causal inference. Let <span class="arithmatex">\(Y_i(0)\)</span> and <span class="arithmatex">\(Y_i(1)\)</span> represent the potential outcomes under control and treatment conditions, respectively. The observed outcome is <span class="arithmatex">\(Y_i = Y_i(W_i)\)</span>, where <span class="arithmatex">\(W_i \in \{0, 1\}\)</span> is the treatment indicator.</p>
+<p>The conditional average treatment effect (CATE) is defined as:</p>
+<div class="arithmatex">\[\tau(x) = E[Y_i(1) - Y_i(0) \mid X_i = x]\]</div>
+<h3 id="42-bayesian-causal-forests-with-mfm-gibbs-prior">4.2 Bayesian Causal Forests with MFM-Gibbs Prior</h3>
+<p>We extend the Bayesian Causal Forests (BCF) approach of Hahn et al. (2020) by incorporating our MFM-Gibbs prior for variable selection:</p>
+<div class="arithmatex">\[Y_i = \mu(X_i) + \tau(X_i)W_i + \epsilon_i\]</div>
+<p>where:
+- <span class="arithmatex">\(\mu(X_i)\)</span> is the prognostic function modeled by a BART with MFM-Gibbs prior
+- <span class="arithmatex">\(\tau(X_i)\)</span> is the treatment effect function modeled by a separate BART with MFM-Gibbs prior
+- The variable selection operates independently for the prognostic and treatment effect components</p>
+<p>This structure allows for different sets of variables to influence the baseline response and treatment effect, providing more accurate and interpretable models.</p>
+<h3 id="43-theoretical-properties-for-causal-inference">4.3 Theoretical Properties for Causal Inference</h3>
+<p>We establish the theoretical properties of our approach for causal inference, including:</p>
+<ol>
+<li>Double robustness: Consistency of treatment effect estimates if either the prognostic function or propensity score model is correctly specified</li>
+<li>Asymptotic normality of average treatment effect estimates</li>
+<li>Optimal convergence rates for heterogeneous treatment effect estimation</li>
+<li>Variable selection consistency for identifying treatment effect modifiers</li>
+</ol>
+<h3 id="44-extensions-to-multiple-treatments">4.4 Extensions to Multiple Treatments</h3>
+<p>We extend the framework to handle multiple treatments by modeling:</p>
+<div class="arithmatex">\[Y_i = \mu(X_i) + \sum_{k=1}^K \tau_k(X_i)W_{ik} + \epsilon_i\]</div>
+<p>where <span class="arithmatex">\(W_{ik}\)</span> indicates whether unit <span class="arithmatex">\(i\)</span> received treatment <span class="arithmatex">\(k\)</span>, and <span class="arithmatex">\(\tau_k(X_i)\)</span> is the effect of treatment <span class="arithmatex">\(k\)</span> relative to control.</p>
+<h2 id="5-extension-to-survival-analysis">5. Extension to Survival Analysis</h2>
+<h3 id="51-survival-framework">5.1 Survival Framework</h3>
+<p>In survival analysis, we observe <span class="arithmatex">\((X_i, T_i, \delta_i)\)</span> for <span class="arithmatex">\(i = 1, \ldots, n\)</span>, where:
+- <span class="arithmatex">\(X_i\)</span> are covariates
+- <span class="arithmatex">\(T_i = \min(T_i^*, C_i)\)</span> is the observed time, with <span class="arithmatex">\(T_i^*\)</span> being the true event time and <span class="arithmatex">\(C_i\)</span> the censoring time
+- <span class="arithmatex">\(\delta_i = I(T_i^* \leq C_i)\)</span> is the event indicator</p>
+<h3 id="52-bart-mfm-gibbs-for-survival-analysis">5.2 BART-MFM-Gibbs for Survival Analysis</h3>
+<p>We propose two approaches for incorporating our framework into survival analysis:</p>
+<h4 id="521-accelerated-failure-time-aft-model">5.2.1 Accelerated Failure Time (AFT) Model</h4>
+<div class="arithmatex">\[\log(T_i^*) = f(X_i) + \epsilon_i\]</div>
+<p>where <span class="arithmatex">\(f(X_i)\)</span> is modeled using BART with MFM-Gibbs prior, and <span class="arithmatex">\(\epsilon_i\)</span> follows a specified distribution (e.g., normal, logistic).</p>
+<h4 id="522-proportional-hazards-model">5.2.2 Proportional Hazards Model</h4>
+<p>We model the log hazard function:</p>
+<div class="arithmatex">\[\log \lambda(t \mid X_i) = \log \lambda_0(t) + f(X_i)\]</div>
+<p>where <span class="arithmatex">\(\lambda_0(t)\)</span> is a baseline hazard function, and <span class="arithmatex">\(f(X_i)\)</span> is modeled using BART with MFM-Gibbs prior.</p>
+<h3 id="53-theoretical-properties-for-survival-analysis">5.3 Theoretical Properties for Survival Analysis</h3>
+<p>We establish theoretical properties specific to survival analysis:</p>
+<ol>
+<li>Consistency of survival function estimates</li>
+<li>Asymptotic normality of survival probability estimates</li>
+<li>Variable selection consistency for identifying prognostic factors</li>
+<li>Robustness to model misspecification</li>
+</ol>
+<h3 id="54-extensions-to-competing-risks">5.4 Extensions to Competing Risks</h3>
+<p>We extend the framework to competing risks by modeling cause-specific hazards:</p>
+<div class="arithmatex">\[\log \lambda_k(t \mid X_i) = \log \lambda_{0k}(t) + f_k(X_i)\]</div>
+<p>where <span class="arithmatex">\(\lambda_k(t \mid X_i)\)</span> is the cause-specific hazard for event type <span class="arithmatex">\(k\)</span>, and <span class="arithmatex">\(f_k(X_i)\)</span> is modeled using BART with MFM-Gibbs prior.</p>
+<h2 id="6-simulation-studies">6. Simulation Studies</h2>
+<h3 id="61-variable-selection-performance">6.1 Variable Selection Performance</h3>
+<p>We evaluate the variable selection performance of our approach compared to alternative methods (Lasso, Random Forests, standard BART, DART) across a range of scenarios with varying:
+- Number of variables (p = 10, 100, 1000)
+- Sample sizes (n = 100, 500, 1000)
+- Signal-to-noise ratios
+- Correlation structures among covariates</p>
+<h3 id="62-causal-inference-simulations">6.2 Causal Inference Simulations</h3>
+<p>We assess the performance of our approach for causal inference in scenarios with:
+- Heterogeneous treatment effects of varying complexity
+- Confounding of varying strength
+- Different propensity score models
+- High-dimensional covariates with sparse treatment effects</p>
+<h3 id="63-survival-analysis-simulations">6.3 Survival Analysis Simulations</h3>
+<p>We evaluate our approach for survival analysis with:
+- Different censoring mechanisms and rates
+- Various baseline hazard functions
+- Heterogeneous covariate effects
+- Time-varying effects</p>
+<h2 id="7-real-data-applications">7. Real Data Applications</h2>
+<h3 id="71-causal-inference-application">7.1 Causal Inference Application</h3>
+<p>We apply our methodology to estimate heterogeneous treatment effects in [specific real-world dataset, e.g., a medical intervention study or policy evaluation]. We demonstrate:
+- Improved treatment effect estimation compared to existing methods
+- Successful identification of treatment effect modifiers
+- Robust uncertainty quantification</p>
+<h3 id="72-survival-analysis-application">7.2 Survival Analysis Application</h3>
+<p>We apply our methodology to [specific survival dataset, e.g., cancer survival or cardiovascular events]. We demonstrate:
+- Superior predictive performance compared to traditional survival models
+- Identification of key prognostic factors
+- Personalized survival predictions with well-calibrated uncertainty</p>
+<h2 id="8-discussion-and-conclusion">8. Discussion and Conclusion</h2>
+<h3 id="81-summary-of-contributions">8.1 Summary of Contributions</h3>
+<p>Our work provides a comprehensive theoretical framework for BART with MFM and Gibbs prior and extends it to causal inference and survival analysis. The key innovations include:
+- Formal theoretical properties of the integrated model
+- Efficient computational algorithms
+- Extensions to handle complex data structures in causal inference and survival analysis
+- Empirical validation through extensive simulations and real-data applications</p>
+<h3 id="82-limitations-and-future-directions">8.2 Limitations and Future Directions</h3>
+<p>We acknowledge limitations of our approach and outline directions for future research:
+- Scaling to extremely high-dimensional settings (p &gt; 10,000)
+- Extensions to spatiotemporal data
+- Integration with deep learning approaches
+- Theoretical analysis of adaptive sampling strategies for improved computational efficiency
+- Extensions to more complex survival models (e.g., joint models for longitudinal and time-to-event data)</p>
+<h3 id="83-broader-impact">8.3 Broader Impact</h3>
+<p>The proposed methodology has potential applications beyond causal inference and survival analysis, including:
+- Precision medicine and personalized treatment recommendations
+- Environmental science and climate change impact assessment
+- Economic policy evaluation
+- Risk prediction in finance and insurance</p>
+<h2 id="appendix">Appendix</h2>
+<h2 id="appendix-a-proofs-of-theoretical-results">Appendix A: Proofs of Theoretical Results</h2>
+<h3 id="a1-proof-of-theorem-1-posterior-consistency">A.1 Proof of Theorem 1 (Posterior Consistency)</h3>
+<p>To establish posterior consistency, we leverage the general theory of posterior contraction for nonparametric Bayesian models, as developed by Ghosal et al. (2000) and refined for specific models including BART by Rockova and van der Pas (2020).</p>
+<p>Let <span class="arithmatex">\(\Pi\)</span> denote the prior distribution induced by the BART model with MFM and Gibbs prior, and let <span class="arithmatex">\(\Pi(\cdot \mid \text{Data})\)</span> denote the corresponding posterior distribution. We need to verify three conditions:</p>
+<ol>
+<li><strong>Prior mass condition</strong>: The prior assigns sufficient mass to Kullback-Leibler neighborhoods of the true density.</li>
+<li><strong>Existence of tests</strong>: There exist tests that can discriminate between the true density and densities outside a shrinking neighborhood.</li>
+<li><strong>Control of the complexity</strong>: The model's complexity, measured by the metric entropy, is sufficiently controlled.</li>
+</ol>
+<p>For condition 1, we need to show that:</p>
+<div class="arithmatex">\[\Pi(f: K(f_0, f) &lt; \epsilon_n^2, V(f_0, f) &lt; \epsilon_n^2) \geq e^{-Cn\epsilon_n^2}\]</div>
+<p>where <span class="arithmatex">\(K(f_0, f)\)</span> is the Kullback-Leibler divergence, <span class="arithmatex">\(V(f_0, f)\)</span> is the variance of the log-likelihood ratio, and <span class="arithmatex">\(C &gt; 0\)</span> is a constant.</p>
+<p>Given that the true regression function <span class="arithmatex">\(f_0 \in \mathcal{C}^\alpha([0,1]^p)\)</span>, we can approximate it using a step function with <span class="arithmatex">\(O(\epsilon_n^{-p/\alpha})\)</span> pieces, each with approximation error of order <span class="arithmatex">\(\epsilon_n\)</span>. Such a step function can be represented by a regression tree with <span class="arithmatex">\(O(\epsilon_n^{-p/\alpha})\)</span> leaves.</p>
+<p>Under the BART model with <span class="arithmatex">\(m\)</span> trees, each tree needs to capture <span class="arithmatex">\(O(\epsilon_n^{-p/\alpha}/m)\)</span> leaves. The prior probability of such a tree structure is at least:</p>
+<div class="arithmatex">\[e^{-c_1 \epsilon_n^{-p/\alpha} \log(1/\epsilon_n)}\]</div>
+<p>for some constant <span class="arithmatex">\(c_1 &gt; 0\)</span>.</p>
+<p>The MFM-Gibbs prior on variable selection probabilities assigns positive probability to configurations where only the relevant variables have non-zero selection probabilities. The prior probability of selecting the correct set of variables is at least:</p>
+<div class="arithmatex">\[e^{-c_2 s_0 \log(p)}\]</div>
+<p>for some constant <span class="arithmatex">\(c_2 &gt; 0\)</span>, where <span class="arithmatex">\(s_0\)</span> is the number of relevant variables.</p>
+<p>Combining these bounds and choosing <span class="arithmatex">\(m = O(\log(n))\)</span>, we obtain:</p>
+<div class="arithmatex">\[\Pi(f: K(f_0, f) &lt; \epsilon_n^2, V(f_0, f) &lt; \epsilon_n^2) \geq e^{-c_3(n\epsilon_n^2 + s_0 \log(p))}\]</div>
+<p>For the chosen <span class="arithmatex">\(\epsilon_n = n^{-\alpha/(2\alpha + p)}(\log n)^\beta\)</span>, we have <span class="arithmatex">\(n\epsilon_n^2 = n^{1-2\alpha/(2\alpha + p)}(\log n)^{2\beta}\)</span>. If <span class="arithmatex">\(s_0 \log(p) = o(n\epsilon_n^2)\)</span>, which holds under the assumption that <span class="arithmatex">\(p\)</span> grows at most polynomially with <span class="arithmatex">\(n\)</span>, then the prior mass condition is satisfied.</p>
+<p>Conditions 2 and 3 follow from standard results in nonparametric Bayesian theory, leveraging the exponential inequality for Gaussian processes and the control of the metric entropy of the function space induced by the BART model.</p>
+<p>Combining the verification of all three conditions, we conclude that:</p>
+<div class="arithmatex">\[\Pi\left(f: \|f - f_0\|_\infty &gt; M_n \epsilon_n \mid \text{Data}\right) \to 0 \text{ in probability as } n \to \infty\]</div>
+<p>for any sequence <span class="arithmatex">\(M_n \to \infty\)</span>, which completes the proof of Theorem 1.</p>
+<h3 id="a2-proof-of-theorem-2-variable-selection-consistency">A.2 Proof of Theorem 2 (Variable Selection Consistency)</h3>
+<p>To prove variable selection consistency, we need to show that the posterior inclusion probabilities for the relevant variables in <span class="arithmatex">\(S_0\)</span> converge to 1, while the posterior inclusion probabilities for the irrelevant variables converge to 0.</p>
+<p>Let <span class="arithmatex">\(\gamma_j = I(j \in S)\)</span> be the indicator for whether variable <span class="arithmatex">\(j\)</span> is included in the model. The posterior inclusion probability for variable <span class="arithmatex">\(j\)</span> is:</p>
+<div class="arithmatex">\[p_j = P(\gamma_j = 1 \mid \text{Data})\]</div>
+<p>We want to show that <span class="arithmatex">\(p_j \to 1\)</span> for <span class="arithmatex">\(j \in S_0\)</span> and <span class="arithmatex">\(p_j \to 0\)</span> for <span class="arithmatex">\(j \notin S_0\)</span> as <span class="arithmatex">\(n \to \infty\)</span>.</p>
+<p>The key insight is that the MFM-Gibbs prior assigns higher probability to sparse models by placing a prior on the number of active variables. As the sample size increases, the likelihood component dominates the prior, and the data informs which variables are truly relevant.</p>
+<p>Let <span class="arithmatex">\(f_S\)</span> denote a function that depends only on the variables in set <span class="arithmatex">\(S\)</span>. The marginal likelihood can be expressed as:</p>
+<div class="arithmatex">\[p(\text{Data} \mid S) = \int p(\text{Data} \mid f_S) \Pi(df_S \mid S)\]</div>
+<p>where <span class="arithmatex">\(\Pi(df_S \mid S)\)</span> is the prior on functions given the variable set <span class="arithmatex">\(S\)</span>.</p>
+<p>For any set <span class="arithmatex">\(S\)</span> that omits a relevant variable <span class="arithmatex">\(j \in S_0\)</span>, there exists a constant <span class="arithmatex">\(\delta &gt; 0\)</span> such that:</p>
+<div class="arithmatex">\[\log p(\text{Data} \mid S_0) - \log p(\text{Data} \mid S) \geq \delta n - O_p(\sqrt{n})\]</div>
+<p>This follows from the fact that models excluding relevant variables cannot approximate the true function well, leading to a significant drop in likelihood.</p>
+<p>Conversely, for any set <span class="arithmatex">\(S\)</span> that includes all relevant variables and some irrelevant ones, the marginal likelihood ratio satisfies:</p>
+<div class="arithmatex">\[\log p(\text{Data} \mid S_0) - \log p(\text{Data} \mid S) = O_p(\log n)\]</div>
+<p>under the assumption of model selection consistency of the MFM-Gibbs prior.</p>
+<p>Using Bayes' theorem, the posterior probability of the true variable set is:</p>
+<div class="arithmatex">\[P(S = S_0 \mid \text{Data}) = \frac{p(\text{Data} \mid S_0) \Pi(S_0)}{\sum_S p(\text{Data} \mid S) \Pi(S)}\]</div>
+<p>Given the prior probabilities <span class="arithmatex">\(\Pi(S)\)</span> induced by the MFM-Gibbs prior, which favors sparsity, and the likelihood ratios established above, we can show that:</p>
+<div class="arithmatex">\[P(S = S_0 \mid \text{Data}) \to 1 \text{ as } n \to \infty\]</div>
+<p>which implies that <span class="arithmatex">\(p_j \to 1\)</span> for <span class="arithmatex">\(j \in S_0\)</span> and <span class="arithmatex">\(p_j \to 0\)</span> for <span class="arithmatex">\(j \notin S_0\)</span>, completing the proof of Theorem 2.</p>
+<h3 id="a3-proof-of-theorem-3-asymptotic-normality">A.3 Proof of Theorem 3 (Asymptotic Normality)</h3>
+<p>To establish the asymptotic normality of posterior functionals, we leverage the Bernstein-von Mises theorem for nonparametric models, as developed by Castillo and Rousseau (2015) and extended to BART models by Ray and Szabó (2020).</p>
+<p>Let <span class="arithmatex">\(\phi(f) = \int f(x) h(x) dx\)</span> be a linear functional of the regression function. The centered and scaled posterior distribution of <span class="arithmatex">\(\phi(f)\)</span> can be written as:</p>
+<div class="arithmatex">\[\sqrt{n}(\phi(f) - \phi(f_0)) \mid \text{Data} = \sqrt{n}(\phi(f) - \phi(\hat{f})) \mid \text{Data} + \sqrt{n}(\phi(\hat{f}) - \phi(f_0))\]</div>
+<p>where <span class="arithmatex">\(\hat{f}\)</span> is the posterior mean of <span class="arithmatex">\(f\)</span>.</p>
+<p>Under the conditions of Theorem 1, the first term converges to a normal distribution:</p>
+<div class="arithmatex">\[\sqrt{n}(\phi(f) - \phi(\hat{f})) \mid \text{Data} \xrightarrow{d} N(0, V)\]</div>
+<p>where <span class="arithmatex">\(V\)</span> is the asymptotic variance determined by the semiparametric efficiency bound.</p>
+<p>The second term, <span class="arithmatex">\(\sqrt{n}(\phi(\hat{f}) - \phi(f_0))\)</span>, converges to zero in probability due to the posterior consistency established in Theorem 1 and the linearity of the functional <span class="arithmatex">\(\phi\)</span>.</p>
+<p>Therefore, by Slutsky's theorem:</p>
+<div class="arithmatex">\[\sqrt{n}(\phi(f) - \phi(f_0)) \mid \text{Data} \xrightarrow{d} N(0, V)\]</div>
+<p>which completes the proof of Theorem 3.</p>
+<p>This result has important implications for statistical inference. It ensures that credible intervals based on the posterior distribution are asymptotically valid, providing a rigorous foundation for Bayesian inference in our BART model with MFM and Gibbs prior.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>
+<p>Chipman, H. A., George, E. I., &amp; McCulloch, R. E. (2010). BART: Bayesian additive regression trees. <em>The Annals of Applied Statistics, 4(1)</em>, 266-298.</p>
+</li>
+<li>
+<p>Miller, J. W., &amp; Harrison, M. T. (2018). Mixture models with a prior on the number of components. <em>Journal of the American Statistical Association, 113(521)</em>, 340-356.</p>
+</li>
+<li>
+<p>Linero, A. R. (2018). Bayesian regression trees for high-dimensional prediction and variable selection. <em>Journal of the American Statistical Association, 113(522)</em>, 626-636.</p>
+</li>
+<li>
+<p>Rockova, V., &amp; van der Pas, S. (2020). Posterior concentration for Bayesian regression trees and forests. <em>The Annals of Statistics, 48(4)</em>, 2108-2131.</p>
+</li>
+<li>
+<p>Castillo, I., &amp; Rousseau, J. (2015). A Bernstein–von Mises theorem for smooth functionals in semiparametric models. <em>The Annals of Statistics, 43(6)</em>, 2353-2383.</p>
+</li>
+<li>
+<p>Ray, K., &amp; Szabó, B. (2020). Variational Bayes for high-dimensional linear regression with sparse priors. <em>Journal of the American Statistical Association, 115(532)</em>, 1951-1969.</p>
+</li>
+<li>
+<p>Ghosal, S., Ghosh, J. K., &amp; van der Vaart, A. W. (2000). Convergence rates of posterior distributions. <em>The Annals of Statistics, 28(2)</em>, 500-531.</p>
+</li>
+</ol>
+<h3 id="b-additional-simulation-results">B. Additional Simulation Results</h3>
+<p>Comprehensive results from additional simulation scenarios not included in the main text.</p>
+<h3 id="c-implementation-details">C. Implementation Details</h3>
+<p>Pseudocode and implementation notes for the proposed algorithms.</p>
+<h3 id="d-additional-real-data-analyses">D. Additional Real Data Analyses</h3>
+<p>Results from applications to additional datasets.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

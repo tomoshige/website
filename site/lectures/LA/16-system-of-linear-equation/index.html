@@ -1,0 +1,2873 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/16-system-of-linear-equation/">
+      
+      
+        <link rel="prev" href="../15-system-of-linear-equation/">
+      
+      
+        <link rel="next" href="../17-system-of-linear-equation/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>16. System of Linear Equation - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              16. System of Linear Equation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義概要
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 理論的背景と内容の説明
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 理論的背景と内容の説明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 定義・基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 定理・命題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 数式・証明の詳細
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpt-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 扱う内容の実例（GPT, Colab等は使用せず）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 扱う内容の実例（GPT, Colab等は使用せず）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      実例1: 行列の乗算を用いた予測値の生成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      実例2: 正規方程式を用いた最小二乗解の数値計算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      実例3: 実世界のデータ例—広告費と売上
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptcolab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Colabでの実行例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 学んだ内容の応用例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義概要
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 理論的背景と内容の説明
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 理論的背景と内容の説明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 定義・基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 定理・命題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 数式・証明の詳細
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpt-colab" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 扱う内容の実例（GPT, Colab等は使用せず）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 扱う内容の実例（GPT, Colab等は使用せず）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      実例1: 行列の乗算を用いた予測値の生成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      実例2: 正規方程式を用いた最小二乗解の数値計算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      実例3: 実世界のデータ例—広告費と売上
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chatgptcolab" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ChatGPTによる解説＋Colabでの実行例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 学んだ内容の応用例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="1">講義タイトル: 連立1次方程式と単回帰モデル</h1>
+<h2 id="1_1">1. 講義概要</h2>
+<ul>
+<li><strong>講義時間:</strong> 60分　/　<strong>演習時間:</strong> 30分</li>
+<li><strong>目的:</strong><br />
+  統計モデルの基礎概念から、単回帰モデルの数学的表現（ベクトル・行列による表現）および最小二乗法によるパラメータ推定までを理解し、実データに適用できるスキルを習得する。</li>
+<li><strong>今日の目標:</strong><br />
+  ・統計モデル、単回帰モデルの基本概念（説明変数、反応変数、切片、回帰係数）を明確にする。<br />
+  ・連立1次方程式の枠組みで最適な直線（最小二乗法）の導出過程を理解する。<br />
+  ・正規方程式の意味を把握し、Google Colabを用いた実装例から単回帰モデルの動作イメージを掴む。</li>
+</ul>
+<h2 id="2">2. 理論的背景と内容の説明</h2>
+<h3 id="21">2.1 定義・基本概念</h3>
+<ul>
+<li><strong>統計モデルとは？</strong><br />
+  データに含まれるパターンや関係性を数理的に表現する枠組み。  </li>
+<li><strong>単回帰モデルとは？</strong><br />
+  1つの説明変数 <span class="arithmatex">\( x \)</span> と1つの反応変数 <span class="arithmatex">\( y \)</span> の間に線形な関係があると仮定し、<br />
+  $$
+  y = \beta_0 + \beta_1 x + \varepsilon
+  $$
+  という形で表されるモデル。  </li>
+<li><strong>説明変数と反応変数:</strong><br />
+  説明変数（独立変数）は <span class="arithmatex">\( x \)</span>、反応変数（従属変数）は <span class="arithmatex">\( y \)</span> として区別される。</li>
+<li><strong>切片と回帰係数:</strong><br />
+  切片 <span class="arithmatex">\( \beta_0 \)</span> は <span class="arithmatex">\( x=0 \)</span> のときの <span class="arithmatex">\( y \)</span> の予測値、回帰係数 <span class="arithmatex">\( \beta_1 \)</span> は <span class="arithmatex">\( x \)</span> の変化に対する <span class="arithmatex">\( y \)</span> の平均的な変化量を表す。</li>
+<li><strong>データにモデルを当てはめるとは？</strong><br />
+  実際の観測データに対して、最も適合する直線（予測モデル）を求める作業であり、過剰な連立1次方程式を最小二乗法などで近似解を導く。</li>
+<li><strong>ベクトル・行列による表現:</strong><br />
+<span class="arithmatex">\( n \)</span> 個の観測データについて、  </li>
+<li><span class="arithmatex">\( y \)</span> のデータを <span class="arithmatex">\( \mathbf{y} \in \mathbb{R}^{n} \)</span>  </li>
+<li><span class="arithmatex">\( x \)</span> のデータを <span class="arithmatex">\( \mathbf{x} \in \mathbb{R}^{n} \)</span> とし、<br />
+  切片項を含む説明変数行列 <span class="arithmatex">\( X \)</span> を<br />
+  $$
+  X = \begin{pmatrix}
+  1 &amp; x_1 \
+  1 &amp; x_2 \
+  \vdots &amp; \vdots \
+  1 &amp; x_n
+  \end{pmatrix}
+  $$
+  と表し、パラメータベクトルを<br />
+  $$
+  \boldsymbol{\beta} = \begin{pmatrix} \beta_0 \ \beta_1 \end{pmatrix},
+  $$
+  とすると、単回帰モデルは<br />
+  $$
+  \mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+  $$
+  と表現できる。</li>
+</ul>
+<h3 id="22">2.2 定理・命題</h3>
+<ul>
+<li><strong>連立1次方程式と解の存在:</strong><br />
+  観測数 <span class="arithmatex">\( n \)</span> が2より大きい場合、方程式 <span class="arithmatex">\( X\boldsymbol{\beta} = \mathbf{y} \)</span> は過剰定義であるため、厳密な解は存在しない。そのため、最小二乗法によって残差の二乗和を最小化する近似解を求める。</li>
+<li><strong>正規方程式:</strong><br />
+  最小二乗法により、目的関数<br />
+  $$
+  S(\boldsymbol{\beta}) = |\mathbf{y} - X\boldsymbol{\beta}|^2
+  $$
+  を最小化する解は、正規方程式<br />
+  $$
+  X^T X \boldsymbol{\beta} = X^T \mathbf{y}
+  $$
+  を解くことで得られる。これにより、<br />
+  $$
+  \hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y}
+  $$
+  と表される。</li>
+</ul>
+<h3 id="23">2.3 数式・証明の詳細</h3>
+<ul>
+<li><strong>最小二乗解の導出:</strong><br />
+  微分により<br />
+  $$
+  \frac{\partial S}{\partial \boldsymbol{\beta}} = -2X^T(\mathbf{y} - X\boldsymbol{\beta}) = \mathbf{0}
+  $$
+  となり、正規方程式 <span class="arithmatex">\( X^T X \boldsymbol{\beta} = X^T \mathbf{y} \)</span> が得られる。</li>
+<li><strong>正規方程式の解法:</strong><br />
+<span class="arithmatex">\( X^T X \)</span> が正則であれば、逆行列を用いて<br />
+  $$
+  \hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y}
+  $$
+  と計算可能である。</li>
+</ul>
+<h2 id="3-gpt-colab">3. 扱う内容の実例（GPT, Colab等は使用せず）</h2>
+<h3 id="1_2">実例1: 行列の乗算を用いた予測値の生成</h3>
+<p>ここでは、単回帰モデルの説明変数行列 <span class="arithmatex">\( X \)</span> とパラメータベクトル <span class="arithmatex">\( \boldsymbol{\beta} \)</span> の乗算がどのようにして各観測の予測値を生成するかを示します。</p>
+<p>例えば、5人の学生について、あるテストの得点を予測する単回帰モデルを考えます。<br />
+説明変数として「勉強時間（時間）」、反応変数として「テスト得点（点）」が与えられており、モデルは<br />
+$$
+y = \beta_0 + \beta_1 x
+$$<br />
+と表されます。<br />
+各学生の勉強時間 <span class="arithmatex">\( x \)</span> のデータが<br />
+$$
+x = (1.5,\ 2.0,\ 3.0,\ 4.0,\ 2.5)
+$$<br />
+だとすると、説明変数行列 <span class="arithmatex">\( X \)</span> は切片項を含めて<br />
+$$
+X = \begin{pmatrix}
+1 &amp; 1.5 \
+1 &amp; 2.0 \
+1 &amp; 3.0 \
+1 &amp; 4.0 \
+1 &amp; 2.5
+\end{pmatrix}
+$$<br />
+と表されます。<br />
+例えば、既に推定されたパラメータが<br />
+$$
+\hat{\boldsymbol{\beta}} = \begin{pmatrix} 50 \ 10 \end{pmatrix}
+$$<br />
+であれば、各学生の予測得点は<br />
+$$
+\hat{\mathbf{y}} = X\hat{\boldsymbol{\beta}} =
+\begin{pmatrix}
+1 &amp; 1.5 \
+1 &amp; 2.0 \
+1 &amp; 3.0 \
+1 &amp; 4.0 \
+1 &amp; 2.5
+\end{pmatrix}
+\begin{pmatrix}
+50 \
+10
+\end{pmatrix}
+=
+\begin{pmatrix}
+50 + 15 \
+50 + 20 \
+50 + 30 \
+50 + 40 \
+50 + 25
+\end{pmatrix}
+=
+\begin{pmatrix}
+65 \
+70 \
+80 \
+90 \
+75
+\end{pmatrix}.
+$$<br />
+このように、行列の乗算によって、各観測に対応する予測値が一括して求められます。</p>
+<hr />
+<h3 id="2_1">実例2: 正規方程式を用いた最小二乗解の数値計算</h3>
+<p>ここでは、5人の学生のデータを用いて、最小二乗法によるパラメータ推定の計算過程を具体的な数値例で示します。</p>
+<p>【与えられたデータ】<br />
+各学生の勉強時間 <span class="arithmatex">\( x \)</span> と実際のテスト得点 <span class="arithmatex">\( y \)</span> が以下の通りとします。<br />
+| 学生 | 勉強時間 <span class="arithmatex">\( x \)</span> | 得点 <span class="arithmatex">\( y \)</span> |
+|------|------------------|--------------|
+| 1    | 1.5              | 65           |
+| 2    | 2.0              | 70           |
+| 3    | 3.0              | 80           |
+| 4    | 4.0              | 90           |
+| 5    | 2.5              | 75           |</p>
+<p>【ステップ1: 説明変数行列と観測値ベクトルの作成】<br />
+説明変数行列 <span class="arithmatex">\( X \)</span> は<br />
+$$
+X = \begin{pmatrix}
+1 &amp; 1.5 \
+1 &amp; 2.0 \
+1 &amp; 3.0 \
+1 &amp; 4.0 \
+1 &amp; 2.5
+\end{pmatrix},
+$$<br />
+観測値ベクトル <span class="arithmatex">\( \mathbf{y} \)</span> は<br />
+$$
+\mathbf{y} = \begin{pmatrix}
+65 \
+70 \
+80 \
+90 \
+75
+\end{pmatrix}.
+$$</p>
+<p>【ステップ2: 正規方程式の構築】<br />
+正規方程式は<br />
+$$
+X^T X \hat{\boldsymbol{\beta}} = X^T \mathbf{y}
+$$<br />
+となります。</p>
+<p>まず、<span class="arithmatex">\( X^T X \)</span> を計算すると、<br />
+$$
+X^T X =
+\begin{pmatrix}
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \
+1.5 &amp; 2.0 &amp; 3.0 &amp; 4.0 &amp; 2.5
+\end{pmatrix}
+\begin{pmatrix}
+1 &amp; 1.5 \
+1 &amp; 2.0 \
+1 &amp; 3.0 \
+1 &amp; 4.0 \
+1 &amp; 2.5
+\end{pmatrix}
+=
+\begin{pmatrix}
+5 &amp; 13 \
+13 &amp; 40.5
+\end{pmatrix}.
+$$</p>
+<p>次に、<span class="arithmatex">\( X^T \mathbf{y} \)</span> を計算すると、<br />
+$$
+X^T \mathbf{y} =
+\begin{pmatrix}
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \
+1.5 &amp; 2.0 &amp; 3.0 &amp; 4.0 &amp; 2.5
+\end{pmatrix}
+\begin{pmatrix}
+65 \
+70 \
+80 \
+90 \
+75
+\end{pmatrix}
+=
+\begin{pmatrix}
+65+70+80+90+75 \
+1.5\times65+2.0\times70+3.0\times80+4.0\times90+2.5\times75
+\end{pmatrix}.
+$$<br />
+計算すると、<br />
+- <span class="arithmatex">\( \sum y = 65+70+80+90+75 = 380 \)</span><br />
+- <span class="arithmatex">\( \sum x y = 97.5+140+240+360+187.5 = 1025 \)</span></p>
+<p>よって、
+$$
+X^T \mathbf{y} = \begin{pmatrix} 380 \ 1025 \end{pmatrix}.
+$$</p>
+<p>【ステップ3: 最小二乗解の計算】<br />
+正規方程式は<br />
+$$
+\begin{pmatrix}
+5 &amp; 13 \
+13 &amp; 40.5
+\end{pmatrix}
+\hat{\boldsymbol{\beta}} =
+\begin{pmatrix}
+380 \
+1025
+\end{pmatrix}.
+$$<br />
+この連立方程式を解くと、<br />
+$$
+\hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y}.
+$$<br />
+逆行列を求めると、
+- <span class="arithmatex">\( \det(X^T X) = 5 \times 40.5 - 13 \times 13 = 202.5 - 169 = 33.5 \)</span>
+- <span class="arithmatex">\( (X^T X)^{-1} = \frac{1}{33.5} \begin{pmatrix} 40.5 &amp; -13 \\ -13 &amp; 5 \end{pmatrix} \)</span></p>
+<p>よって、
+$$
+\hat{\boldsymbol{\beta}} = \frac{1}{33.5} \begin{pmatrix} 40.5 &amp; -13 \ -13 &amp; 5 \end{pmatrix} \begin{pmatrix} 380 \ 1025 \end{pmatrix}.
+$$</p>
+<p>計算すると、
+- 切片 <span class="arithmatex">\( \hat{\beta}_0 \approx \frac{40.5\times380 - 13\times1025}{33.5} \)</span>
+- 傾き <span class="arithmatex">\( \hat{\beta}_1 \approx \frac{-13\times380 + 5\times1025}{33.5} \)</span></p>
+<p>実際の数値計算を行うと、<br />
+$$
+\hat{\beta}_0 \approx 50,\quad \hat{\beta}_1 \approx 10,
+$$<br />
+となり、先ほどの実例1と同様のパラメータが得られることが確認できます。</p>
+<hr />
+<h3 id="3">実例3: 実世界のデータ例—広告費と売上</h3>
+<p>ここでは、実世界のデータ例として、ある企業の広告費と売上の関係を単回帰モデルで解析するプロセスを示します。</p>
+<p>【例の設定】<br />
+- 説明変数 <span class="arithmatex">\( x \)</span>: 広告費（単位: 千円）<br />
+- 反応変数 <span class="arithmatex">\( y \)</span>: 売上（単位: 百万円）</p>
+<p>【仮想データ】<br />
+例えば、以下のようなデータが得られたとします。<br />
+| 企業 | 広告費 <span class="arithmatex">\( x \)</span> | 売上 <span class="arithmatex">\( y \)</span> |
+|------|---------------|-------------|
+| A    | 5             | 12          |
+| B    | 8             | 18          |
+| C    | 10            | 21          |
+| D    | 6             | 14          |
+| E    | 9             | 19          |</p>
+<p>【データ行列の作成】<br />
+説明変数行列 <span class="arithmatex">\( X \)</span> は、切片項を含めて<br />
+$$
+X = \begin{pmatrix}
+1 &amp; 5 \
+1 &amp; 8 \
+1 &amp; 10 \
+1 &amp; 6 \
+1 &amp; 9
+\end{pmatrix},
+$$<br />
+反応変数ベクトル <span class="arithmatex">\( \mathbf{y} \)</span> は<br />
+$$
+\mathbf{y} = \begin{pmatrix}
+12 \
+18 \
+21 \
+14 \
+19
+\end{pmatrix}.
+$$</p>
+<p>【モデルの適用】<br />
+最小二乗法により、正規方程式<br />
+$$
+X^T X \hat{\boldsymbol{\beta}} = X^T \mathbf{y}
+$$<br />
+を解くことで、<br />
+$$
+\hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y}
+$$<br />
+が得られます。<br />
+この結果、例えば<br />
+$$
+\hat{\boldsymbol{\beta}} \approx \begin{pmatrix} 4.5 \ 1.8 \end{pmatrix}
+$$<br />
+と推定されたとします。<br />
+この場合、モデルは<br />
+$$
+\hat{y} = 4.5 + 1.8x
+$$<br />
+と表現され、広告費が1単位増加するごとに売上が約1.8百万円増加すると解釈できます。</p>
+<p>【ホワイトボードでの説明】<br />
+この実例では、実際の広告費と売上という具体的なビジネスの状況を通して、<br />
+- データがどのように行列で表されるか、<br />
+- 正規方程式により「一番良い直線」を求める過程、<br />
+- 得られた直線から実際の効果（回帰係数）の解釈<br />
+を直感的に説明することが可能です。これにより、連立1次方程式の枠組みで最適な回帰直線を見つける手法の有用性が理解されます。</p>
+<h2 id="4-chatgptcolab">4. ChatGPTによる解説＋Colabでの実行例</h2>
+<ul>
+<li>
+<p><strong>ChatGPT解説:</strong><br />
+  単回帰モデルでは、観測されたデータ点と予測直線との間の残差（誤差）の二乗和が最小になるようにパラメータが推定されます。以下の図は、データ点（青色の点）と、最小二乗法により当てはめられた回帰直線（赤色の線）との間に生じる残差（緑色の破線）が描かれており、各点の誤差が視覚的に確認できます。この図を見ると、回帰直線が全体として誤差の二乗和を最小化する位置にあることが直感的に理解できます。</p>
+</li>
+<li>
+<p><strong>Colab実行例:</strong> 以下に、単回帰モデルの当てはめと、残差を視覚的に確認するためのサンプルコードと図を示します。
+  <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># サンプルデータ: 説明変数 x と反応変数 y</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># 説明変数行列 X の作成（切片項を含む）</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># 正規方程式を用いて最小二乗解を求める</span>
+<span class="n">beta_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">beta_hat</span>
+
+<span class="c1"># 残差の計算</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_pred</span>
+
+<span class="c1"># 図の描画</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;観測値&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;回帰直線&#39;</span><span class="p">)</span>
+<span class="c1"># 各点に対する残差を垂直線で表示</span>
+<span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">ypi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="n">ypi</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">yi</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;残差&#39;</span> <span class="k">if</span> <span class="n">xi</span><span class="o">==</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;説明変数 x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;反応変数 y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;単回帰モデルの当てはめと残差の視覚化&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+</ul>
+<p>このコードを実行すると、データ点と回帰直線に加え、各データ点から回帰直線までの距離（残差）が垂直の破線として描かれ、最小二乗法による当てはめがどのようにして誤差を最小にしているのかを視覚的に確認できます。</p>
+<h2 id="5">5. 学んだ内容の応用例</h2>
+<ul>
+<li>
+<p><strong>経済・マーケティング分野:</strong><br />
+  単回帰モデルを用いて、広告費と売上高の関係を解析することで、どの程度の広告投資が最も効果的かを推定できます。これにより、企業はマーケティング戦略の最適化や投資判断に活用できます。</p>
+</li>
+<li>
+<p><strong>医療統計・健康科学:</strong><br />
+  患者の治療前後の各種指標（例：血圧、体重）の変化をモデル化することで、治療効果の評価や副作用のリスクを予測することが可能です。これにより、個別化医療や治療法の改善に貢献します。</p>
+</li>
+<li>
+<p><strong>教育評価:</strong><br />
+  学生の学習時間や授業出席率と試験成績との関係を単回帰分析により明らかにすることで、効果的な教育プログラムの設計や、学習支援策の検討に役立ちます。</p>
+</li>
+<li>
+<p><strong>品質管理と生産プロセス:</strong><br />
+  製造業において、原材料の特性や製造条件と製品の品質との関係を解析することで、工程の改善や不良品削減に寄与します。単回帰モデルは、製造ラインのパフォーマンス評価やプロセスの最適化のための基礎手法となります。</p>
+</li>
+<li>
+<p><strong>データサイエンス・機械学習への発展:</strong><br />
+  単回帰分析は、より複雑な多変量回帰モデルや機械学習アルゴリズム（リッジ回帰、ラッソ回帰、線形回帰など）の基礎となる考え方です。これらの手法は、ビッグデータの解析や予測モデルの構築に広く応用されています。</p>
+</li>
+</ul>
+<p>これらの応用例は、連立1次方程式と最小二乗法という基礎的な数学的手法が、実際の多様な問題に対してどのように活用できるかを示しており、学生が理論を実世界の問題に結び付けて理解するための有用な視点となります。</p>
+<h2 id="6">6. 演習問題</h2>
+<ul>
+<li>
+<p><strong>問題1: 単回帰モデルの基本概念の確認</strong><br />
+  単回帰モデルにおける「説明変数」「反応変数」「切片」「回帰係数」とは何か、自分の言葉で説明せよ。<br />
+<em>【ヒント】</em> 広告費と売上、または勉強時間とテスト得点など、実生活の例を考えてみる。</p>
+</li>
+<li>
+<p><strong>問題2: 行列表現の構築</strong><br />
+  観測値が <span class="arithmatex">\( n \)</span> 個あるとき、単回帰モデルを以下のように表現できる。  </p>
+</li>
+<li>切片項を含む説明変数行列 <span class="arithmatex">\( X \)</span> の形（各行は <span class="arithmatex">\([1, x_i]\)</span> の形になる）を示せ。  </li>
+<li>
+<p>パラメータベクトル <span class="arithmatex">\(\boldsymbol{\beta} = (\beta_0, \beta_1)^T\)</span> を用いて、モデル <span class="arithmatex">\(\mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\varepsilon}\)</span> を記述せよ。<br />
+<em>【ヒント】</em> <span class="arithmatex">\( X \)</span> は <span class="arithmatex">\(\mathbb{R}^{n \times 2}\)</span> の行列で、各観測 <span class="arithmatex">\( x_i \)</span> に対して1が前置される。</p>
+</li>
+<li>
+<p><strong>問題3: 正規方程式による最小二乗推定</strong><br />
+  以下のデータを用いて、正規方程式<br />
+  $$
+  X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y}
+  $$
+  を解き、最小二乗推定量 <span class="arithmatex">\(\hat{\boldsymbol{\beta}}\)</span> を手計算せよ。  </p>
+</li>
+<li>学生の勉強時間 <span class="arithmatex">\( x = [2, 3, 5, 7, 9] \)</span>（単位：時間）  </li>
+<li>
+<p>対応するテスト得点 <span class="arithmatex">\( y = [50, 55, 65, 75, 85] \)</span>（点）<br />
+<em>【ヒント】</em> まず、切片項を含む説明変数行列 <span class="arithmatex">\( X \)</span> を作成し、次に <span class="arithmatex">\( X^T X \)</span> と <span class="arithmatex">\( X^T \mathbf{y} \)</span> を計算する。</p>
+</li>
+<li>
+<p><strong>問題4: 正規方程式の解の解釈</strong><br />
+  正規方程式 $ X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y} $ から得られる最小二乗解が、なぜ観測データと予測直線との二乗誤差の総和を最小にする解となるのか、数学的な観点から説明せよ。<br />
+<em>【ヒント】</em> 目的関数 $ S(\boldsymbol{\beta}) = | \mathbf{y} - X\boldsymbol{\beta} |^2 $ の最小化問題として導出されるプロセスに注目する。</p>
+</li>
+<li>
+<p><strong>問題5: 実データへの単回帰モデルの適用と解釈</strong><br />
+  Google Colab を利用して、実際のデータ（例：広告費と売上、または身長と体重）に単回帰モデルを適用せよ。  </p>
+</li>
+<li>データのプロットと、回帰直線の当てはめを行い、最小二乗法によるパラメータ推定を実施する。  </li>
+<li>得られた回帰直線の切片および傾きが何を意味するのか、また決定係数 <span class="arithmatex">\( R^2 \)</span> の解釈も含めたレポートを作成せよ。<br />
+<em>【ヒント】</em> データの視覚化、正規方程式による解法、そしてその結果の解釈を統合的にまとめることを意識する。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

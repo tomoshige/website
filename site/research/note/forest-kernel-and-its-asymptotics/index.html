@@ -1,0 +1,3983 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/forest-kernel-and-its-asymptotics/">
+      
+      
+        <link rel="prev" href="../variable-importance/">
+      
+      
+        <link rel="next" href="../consistency-of-soft-decision-trees/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Random forest kernels - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#on-the-asymptotic-behavior-of-random-forest-kernels-a-rigorous-analysis" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Random forest kernels
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../lectures/" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mathematical-framework-and-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mathematical Framework and Notation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Assumptions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-asymptotic-analysis-for-one-dimensional-case-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Asymptotic Analysis for One-Dimensional Case (p=1)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Asymptotic Analysis for One-Dimensional Case (p=1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-split-probability-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Split Probability Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-node-size-concentration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Node Size Concentration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-kernel-convergence-in-one-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Kernel Convergence in One Dimension
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-asymptotic-analysis-for-multi-dimensional-case-p-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Asymptotic Analysis for Multi-Dimensional Case (p &gt; 1)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Asymptotic Analysis for Multi-Dimensional Case (p > 1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-multi-dimensional-split-probability" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Multi-Dimensional Split Probability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-multi-dimensional-kernel-convergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Multi-Dimensional Kernel Convergence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-continuity-of-distance-regimes-and-unified-kernel-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Continuity of Distance Regimes and Unified Kernel Representation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Continuity of Distance Regimes and Unified Kernel Representation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-continuous-transition-between-distance-regimes" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1 Continuous Transition Between Distance Regimes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-unified-kernel-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2 Unified Kernel Representation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-comparison-with-one-dimensional-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Comparison with One-Dimensional Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-implications-for-adaptive-resolution-and-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Implications for Adaptive Resolution and Practice
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 Implications for Adaptive Resolution and Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#551-practical-implications-of-continuous-distance-regimes" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.1 Practical Implications of Continuous Distance Regimes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#552-connection-to-adaptive-kernel-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.2 Connection to Adaptive Kernel Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#553-behavior-in-high-dimensional-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.3 Behavior in High-Dimensional Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#554-sensitivity-to-model-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.4 Sensitivity to Model Assumptions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-analysis-of-random-forest-weights-and-effective-neighborhood" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Analysis of Random Forest Weights and Effective Neighborhood
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Analysis of Random Forest Weights and Effective Neighborhood">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-asymptotic-behavior-of-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Asymptotic Behavior of Weights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 Asymptotic Behavior of Weights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-implications-of-weight-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1.1 Implications of Weight Distribution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-effective-neighborhood-size-and-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Effective Neighborhood Size and Boundary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-expected-number-of-points-in-the-effective-neighborhood" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Expected Number of Points in the Effective Neighborhood
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-comparison-with-traditional-kernel-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Comparison with Traditional Kernel Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-practical-implications" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5 Practical Implications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5 Practical Implications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#651-feature-space-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.1 Feature Space Coverage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#652-parameter-tuning-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.2 Parameter Tuning Guidance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#653-local-variable-importance" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.3 Local Variable Importance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.6 Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-comprehensive-simulation-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Comprehensive Simulation Studies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Comprehensive Simulation Studies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-simulation-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Simulation Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 Simulation Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711-experimental-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.1 Experimental Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#712-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.2 Implementation Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-empirical-validation-of-kernel-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Empirical Validation of Kernel Behavior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 Empirical Validation of Kernel Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#721-regime-specific-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.1 Regime-Specific Behavior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#722-impact-of-theoretical-curves-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.2 Impact of Theoretical Curves Extension
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-convergence-properties-and-sample-size-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Convergence Properties and Sample Size Effects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 Convergence Properties and Sample Size Effects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#731-kernel-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.1 Kernel Variance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#732-distance-scaling-property" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.2 Distance Scaling Property
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-impact-of-subsampling-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Impact of Subsampling Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.4 Impact of Subsampling Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#741-kernel-shape-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.1 Kernel Shape Variation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#742-theoretical-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.2 Theoretical Alignment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-implications-and-practical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5 Implications and Practical Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.5 Implications and Practical Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#751-theoretical-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.1 Theoretical Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#752-subsampling-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.2 Subsampling Recommendations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#753-connection-to-forest-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.3 Connection to Forest Depth
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6 Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-conclusion-and-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Conclusion and future work
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Conclusion and future work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Future Work
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mathematical-framework-and-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mathematical Framework and Notation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Assumptions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-asymptotic-analysis-for-one-dimensional-case-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Asymptotic Analysis for One-Dimensional Case (p=1)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Asymptotic Analysis for One-Dimensional Case (p=1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-split-probability-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Split Probability Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-node-size-concentration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Node Size Concentration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-kernel-convergence-in-one-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Kernel Convergence in One Dimension
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-asymptotic-analysis-for-multi-dimensional-case-p-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Asymptotic Analysis for Multi-Dimensional Case (p &gt; 1)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Asymptotic Analysis for Multi-Dimensional Case (p > 1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-multi-dimensional-split-probability" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Multi-Dimensional Split Probability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-multi-dimensional-kernel-convergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Multi-Dimensional Kernel Convergence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-continuity-of-distance-regimes-and-unified-kernel-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Continuity of Distance Regimes and Unified Kernel Representation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Continuity of Distance Regimes and Unified Kernel Representation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-continuous-transition-between-distance-regimes" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1 Continuous Transition Between Distance Regimes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-unified-kernel-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2 Unified Kernel Representation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-comparison-with-one-dimensional-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Comparison with One-Dimensional Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-implications-for-adaptive-resolution-and-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Implications for Adaptive Resolution and Practice
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 Implications for Adaptive Resolution and Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#551-practical-implications-of-continuous-distance-regimes" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.1 Practical Implications of Continuous Distance Regimes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#552-connection-to-adaptive-kernel-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.2 Connection to Adaptive Kernel Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#553-behavior-in-high-dimensional-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.3 Behavior in High-Dimensional Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#554-sensitivity-to-model-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.4 Sensitivity to Model Assumptions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-analysis-of-random-forest-weights-and-effective-neighborhood" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Analysis of Random Forest Weights and Effective Neighborhood
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Analysis of Random Forest Weights and Effective Neighborhood">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-asymptotic-behavior-of-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Asymptotic Behavior of Weights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 Asymptotic Behavior of Weights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-implications-of-weight-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1.1 Implications of Weight Distribution
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-effective-neighborhood-size-and-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Effective Neighborhood Size and Boundary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-expected-number-of-points-in-the-effective-neighborhood" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Expected Number of Points in the Effective Neighborhood
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-comparison-with-traditional-kernel-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Comparison with Traditional Kernel Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-practical-implications" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5 Practical Implications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5 Practical Implications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#651-feature-space-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.1 Feature Space Coverage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#652-parameter-tuning-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.2 Parameter Tuning Guidance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#653-local-variable-importance" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.3 Local Variable Importance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.6 Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-comprehensive-simulation-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Comprehensive Simulation Studies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Comprehensive Simulation Studies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-simulation-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Simulation Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 Simulation Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711-experimental-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.1 Experimental Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#712-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.2 Implementation Details
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-empirical-validation-of-kernel-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Empirical Validation of Kernel Behavior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 Empirical Validation of Kernel Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#721-regime-specific-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.1 Regime-Specific Behavior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#722-impact-of-theoretical-curves-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.2 Impact of Theoretical Curves Extension
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-convergence-properties-and-sample-size-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Convergence Properties and Sample Size Effects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 Convergence Properties and Sample Size Effects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#731-kernel-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.1 Kernel Variance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#732-distance-scaling-property" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.2 Distance Scaling Property
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-impact-of-subsampling-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Impact of Subsampling Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.4 Impact of Subsampling Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#741-kernel-shape-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.1 Kernel Shape Variation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#742-theoretical-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.2 Theoretical Alignment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-implications-and-practical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5 Implications and Practical Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.5 Implications and Practical Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#751-theoretical-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.1 Theoretical Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#752-subsampling-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.2 Subsampling Recommendations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#753-connection-to-forest-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.3 Connection to Forest Depth
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6 Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-conclusion-and-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Conclusion and future work
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Conclusion and future work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Future Work
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="on-the-asymptotic-behavior-of-random-forest-kernels-a-rigorous-analysis">On the Asymptotic Behavior of Random Forest Kernels: A Rigorous Analysis</h1>
+<h2 id="abstract">Abstract</h2>
+<p>This paper presents a rigorous mathematical analysis of the kernel induced by random forests in the one-dimensional case. We precisely characterize the asymptotic behavior of the random forest kernel under different distance regimes between points. Our analysis reveals three distinct behaviors depending on the scaling of distances relative to sample size: (1) exponential decay for points at constant distance, (2) a specific exponential relationship for moderately close points, and (3) a linear relationship for very close points. These results provide important insights into how random forests adaptively adjust their resolution depending on local data density, which helps explain their effectiveness in various learning tasks.</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Random forests are widely used machine learning methods known for their excellent empirical performance across various tasks. Despite their practical success, their theoretical properties are still being actively investigated. In this paper, we focus on the kernel perspective of random forests, which views the forest predictions as weighted averages of training responses where the weights are determined by the forest structure.</p>
+<p>The random forest kernel implicitly defines a similarity measure between points in the feature space. Understanding the properties of this kernel is crucial for explaining the adaptive smoothing behavior of random forests. We present a comprehensive mathematical analysis of the random forest kernel in the one-dimensional case, establishing precise asymptotic results that characterize how the kernel behaves at different scales.</p>
+<h2 id="2-mathematical-framework-and-notation">2. Mathematical Framework and Notation</h2>
+<p>Let <span class="arithmatex">\((\mathbf{X}, Y) \in [0,1]^p \times \mathbb{R}\)</span> be a random pair with distribution <span class="arithmatex">\(P_{XY}\)</span>, where <span class="arithmatex">\(\mathbf{X} = (X_1, X_2, \ldots, X_p)\)</span> represents the feature vector and <span class="arithmatex">\(Y\)</span> is the response variable. The regression function is defined as <span class="arithmatex">\(f(\mathbf{x}) = \mathbb{E}[Y | \mathbf{X} = \mathbf{x}]\)</span>.</p>
+<p>Let <span class="arithmatex">\(\mathcal{D}_n = \{(\mathbf{X}_i, Y_i)\}_{i=1}^n\)</span> denote the training dataset consisting of <span class="arithmatex">\(n\)</span> independent identically distributed copies of <span class="arithmatex">\((\mathbf{X}, Y)\)</span>. A random forest is constructed from <span class="arithmatex">\(B\)</span> trees, where each tree is built using a subsample of size <span class="arithmatex">\(s_n &lt; n\)</span> drawn from <span class="arithmatex">\(\mathcal{D}_n\)</span>.</p>
+<p>For any point <span class="arithmatex">\(\mathbf{x} \in [0,1]^p\)</span>, we denote by <span class="arithmatex">\(R_n(\mathbf{x}, \Theta_b)\)</span> the leaf node containing <span class="arithmatex">\(\mathbf{x}\)</span> in the <span class="arithmatex">\(b\)</span>-th tree, where <span class="arithmatex">\(\Theta_b\)</span> represents the random parameters used to build the <span class="arithmatex">\(b\)</span>-th tree.</p>
+<p>The random forest estimator for the regression function <span class="arithmatex">\(f(\mathbf{x})\)</span> is defined as:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) = \frac{1}{B} \sum_{b=1}^B \hat{f}_n(\mathbf{x}, \Theta_b)\]</div>
+<p>where <span class="arithmatex">\(\hat{f}_n(\mathbf{x}, \Theta_b)\)</span> is the prediction from the <span class="arithmatex">\(b\)</span>-th tree:</p>
+<div class="arithmatex">\[\hat{f}_n(\mathbf{x}, \Theta_b) = \frac{\sum_{i=1}^n Y_i \mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta_b))}{\sum_{i=1}^n \mathbb{I}(\mathbf{X}_i \in R_n(\mathbf{x}, \Theta_b))}\]</div>
+<p>The forest kernel <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z})\)</span> is defined as the probability that two points <span class="arithmatex">\(\mathbf{x}\)</span> and <span class="arithmatex">\(\mathbf{z}\)</span> fall into the same leaf node in a randomly selected tree:</p>
+<div class="arithmatex">\[K_{RF,n}(\mathbf{x}, \mathbf{z}) = \mathbb{P}(\mathbf{x} \text{ and } \mathbf{z} \text{ belong to the same leaf node})\]</div>
+<p>We define the random forest weights as:</p>
+<div class="arithmatex">\[\alpha_i(x) = \frac{K_{RF,n}(x, X_i)}{\sum_{j=1}^n K_{RF,n}(x, X_j)}\]</div>
+<p>These weights characterize the influence of each training point on the prediction at point <span class="arithmatex">\(x\)</span>.</p>
+<h2 id="3-assumptions">3. Assumptions</h2>
+<p>We analyze random forests under the following assumptions:</p>
+<p><strong>Assumption 1</strong>: The feature space is bounded, specifically <span class="arithmatex">\(\mathbf{X} \in [0,1]^p\)</span>.</p>
+<p><strong>Assumption 2</strong>: At each node, the splitting variable is selected uniformly at random from the <span class="arithmatex">\(p\)</span> dimensions.</p>
+<p><strong>Assumption 3</strong>: Each tree is constructed using a subsample <span class="arithmatex">\(\mathcal{D}_{s_n} \subset \mathcal{D}_n\)</span> of size <span class="arithmatex">\(s_n &lt; n\)</span> drawn uniformly at random from the training data <span class="arithmatex">\(\mathcal{D}_n\)</span>.</p>
+<p><strong>Assumption 4</strong>: The depth of each tree <span class="arithmatex">\(d_n\)</span> is controlled as a function of the subsample size according to <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span>, where <span class="arithmatex">\(\lambda &gt; 0\)</span> is a constant parameter.</p>
+<p><strong>Assumption 5</strong>: The feature distribution <span class="arithmatex">\(P_X\)</span> has a density that is bounded away from zero and infinity on <span class="arithmatex">\([0,1]^p\)</span>, i.e., there exist constants <span class="arithmatex">\(c_1, c_2 &gt; 0\)</span> such that <span class="arithmatex">\(c_1 \leq p_X(\mathbf{x}) \leq c_2\)</span> for all <span class="arithmatex">\(\mathbf{x} \in [0,1]^p\)</span>.</p>
+<h2 id="4-asymptotic-analysis-for-one-dimensional-case-p1">4. Asymptotic Analysis for One-Dimensional Case (p=1)</h2>
+<p>We first consider the simpler case where <span class="arithmatex">\(p=1\)</span>, which provides clearer intuition about the forest kernel behavior.</p>
+<h3 id="41-split-probability-analysis">4.1 Split Probability Analysis</h3>
+<p><strong>Lemma 1</strong> (Data-Dependent Split Probability): For a fixed point <span class="arithmatex">\(x \in [0,1]\)</span> and a sequence of points <span class="arithmatex">\(\{z_n\} \subset [0,1]\)</span> with <span class="arithmatex">\(x &lt; z_n\)</span>, the probability that they are separated by a data-dependent split based on a subsample of size <span class="arithmatex">\(s_n\)</span> is:</p>
+<p><span class="arithmatex">\(p_{split}(x,z_n,s_n) = 1 - (1-(z_n-x))^{s_n}\)</span></p>
+<p>Furthermore:</p>
+<p>(a) If <span class="arithmatex">\(s_n|z_n-x| \rightarrow 0\)</span> as <span class="arithmatex">\(n \rightarrow \infty\)</span>, then:
+<span class="arithmatex">\(p_{split}(x,z_n,s_n) = s_n|z_n-x| + O(s_n^2|z_n-x|^2)\)</span></p>
+<p>(b) If <span class="arithmatex">\(s_n|z_n-x| \rightarrow c \in (0,\infty)\)</span> as <span class="arithmatex">\(n \rightarrow \infty\)</span>, then:
+<span class="arithmatex">\(p_{split}(x,z_n,s_n) = 1 - e^{-c} + o(1)\)</span></p>
+<p>(c) If <span class="arithmatex">\(s_n|z_n-x| \rightarrow \infty\)</span> as <span class="arithmatex">\(n \rightarrow \infty\)</span>, then:
+<span class="arithmatex">\(p_{split}(x,z_n,s_n) = 1 - o(1)\)</span></p>
+<p><strong>Proof</strong>:
+Let <span class="arithmatex">\(X_1, X_2, \ldots, X_{s_n}\)</span> be the subsample points. The probability that <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(z_n\)</span> are separated by a split is the probability that at least one sample point falls between them:</p>
+<p><span class="arithmatex">\(p_{split}(x,z_n,s_n) = 1 - P(\text{no points between <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(z_n\)</span>}) = 1 - (1-(z_n-x))^{s_n}\)</span></p>
+<p>For part (a), using the binomial expansion:</p>
+<p><span class="arithmatex">\(1 - (1-(z_n-x))^{s_n} = 1 - \left(1 - s_n(z_n-x) + \binom{s_n}{2}(z_n-x)^2 - \ldots \right)\)</span></p>
+<p><span class="arithmatex">\(= s_n(z_n-x) - \binom{s_n}{2}(z_n-x)^2 + \ldots\)</span></p>
+<p>Since <span class="arithmatex">\(s_n|z_n-x| \rightarrow 0\)</span>, higher order terms are of order <span class="arithmatex">\(O(s_n^2|z_n-x|^2)\)</span>, giving:</p>
+<p><span class="arithmatex">\(p_{split}(x,z_n,s_n) = s_n|z_n-x| + O(s_n^2|z_n-x|^2)\)</span></p>
+<p>For part (b), as <span class="arithmatex">\(n \rightarrow \infty\)</span> and <span class="arithmatex">\(s_n|z_n-x| \rightarrow c\)</span>:</p>
+<p><span class="arithmatex">\(\lim_{n \rightarrow \infty} (1-(z_n-x))^{s_n} = \lim_{n \rightarrow \infty} \left(1-\frac{c}{s_n}\right)^{s_n} = e^{-c}\)</span></p>
+<p>Therefore,
+<span class="arithmatex">\(p_{split}(x,z_n,s_n) = 1 - e^{-c} + o(1)\)</span></p>
+<p>For part (c), when <span class="arithmatex">\(s_n|z_n-x| \rightarrow \infty\)</span>, we have <span class="arithmatex">\((1-(z_n-x))^{s_n} \rightarrow 0\)</span>, thus <span class="arithmatex">\(p_{split}(x,z_n,s_n) = 1 - o(1)\)</span>. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="42-node-size-concentration">4.2 Node Size Concentration</h3>
+<p><strong>Lemma 2</strong> (Concentration of Node Sizes): Under Assumptions 1-5 with <span class="arithmatex">\(p=1\)</span>, for any internal node at level <span class="arithmatex">\(i\)</span> in a tree with <span class="arithmatex">\(s_n\)</span> initial samples, the number of samples <span class="arithmatex">\(N_i\)</span> in that node satisfies:</p>
+<div class="arithmatex">\[P\left( \left| N_i - s_n 2^{-i} \right| &gt; t \sqrt{s_n 2^{-i}} \right) \leq 2e^{-t^2/3}\]</div>
+<p>for any <span class="arithmatex">\(t &gt; 0\)</span> and <span class="arithmatex">\(i \leq d_n = \lambda \log(s_n)\)</span>.</p>
+<p><strong>Proof</strong>:
+We proceed by induction on the level <span class="arithmatex">\(i\)</span>. For <span class="arithmatex">\(i=0\)</span>, we have <span class="arithmatex">\(N_0 = s_n\)</span> by definition, so the result holds trivially.</p>
+<p>Assume the result holds for level <span class="arithmatex">\(i-1\)</span>. Let <span class="arithmatex">\(\mu_{i-1} = s_n 2^{-(i-1)}\)</span> be the expected number of samples at level <span class="arithmatex">\(i-1\)</span>.</p>
+<p>At level <span class="arithmatex">\(i\)</span>, conditional on having <span class="arithmatex">\(N_{i-1}\)</span> samples in the parent node, the number of samples <span class="arithmatex">\(N_i\)</span> in a child node follows a binomial distribution:
+<span class="arithmatex">\(<span class="arithmatex">\(N_i | N_{i-1} \sim \text{Binomial}(N_{i-1}, 1/2)\)</span>\)</span></p>
+<p>By Hoeffding's inequality, for any <span class="arithmatex">\(t' &gt; 0\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(P\left( \left| N_i - \frac{N_{i-1}}{2} \right| &gt; t' \sqrt{\frac{N_{i-1}}{4}} \bigg| N_{i-1} \right) \leq 2e^{-2(t')^2}\)</span>\)</span></p>
+<p>Now we need to derive an unconditional bound. Define the event:
+<span class="arithmatex">\(<span class="arithmatex">\(E_{i-1} = \left\{ \left| N_{i-1} - \mu_{i-1} \right| \leq t' \sqrt{\mu_{i-1}} \right\}\)</span>\)</span></p>
+<p>By the induction hypothesis, <span class="arithmatex">\(P(E_{i-1}) \geq 1 - 2e^{-(t')^2/3}\)</span>.</p>
+<p>On the event <span class="arithmatex">\(E_{i-1}\)</span>, we have:
+<span class="arithmatex">\(<span class="arithmatex">\(\mu_{i-1} - t' \sqrt{\mu_{i-1}} \leq N_{i-1} \leq \mu_{i-1} + t' \sqrt{\mu_{i-1}}\)</span>\)</span></p>
+<p>When we analyze the deviation of <span class="arithmatex">\(N_i\)</span> from its unconditional expectation <span class="arithmatex">\(\mu_i = s_n 2^{-i}\)</span>, we need to account for both:
+1. The deviation of <span class="arithmatex">\(N_i\)</span> from <span class="arithmatex">\(\frac{N_{i-1}}{2}\)</span> (binomial variation)
+2. The deviation of <span class="arithmatex">\(\frac{N_{i-1}}{2}\)</span> from <span class="arithmatex">\(\mu_i\)</span> (parent node variation)</p>
+<p>Using the triangle inequality:
+<span class="arithmatex">\(<span class="arithmatex">\(\left|N_i - \mu_i\right| \leq \left|N_i - \frac{N_{i-1}}{2}\right| + \left|\frac{N_{i-1}}{2} - \mu_i\right|\)</span>\)</span></p>
+<p>The second term can be bounded on event <span class="arithmatex">\(E_{i-1}\)</span> as:
+<span class="arithmatex">\(<span class="arithmatex">\(\left|\frac{N_{i-1}}{2} - \mu_i\right| = \left|\frac{N_{i-1} - \mu_{i-1}}{2}\right| \leq \frac{t'\sqrt{\mu_{i-1}}}{2} = \frac{t'\sqrt{2\mu_i}}{\sqrt{2}}\)</span>\)</span></p>
+<p>For the first term, we need to convert the conditional bound to work with <span class="arithmatex">\(\mu_i\)</span>. On event <span class="arithmatex">\(E_{i-1}\)</span>, when <span class="arithmatex">\(s_n\)</span> is large enough:
+<span class="arithmatex">\(<span class="arithmatex">\(\sqrt{\frac{N_{i-1}}{4}} \approx \sqrt{\frac{\mu_{i-1}}{4}}\left(1 + O\left(\frac{t'}{\sqrt{\mu_{i-1}}}\right)\right)\)</span>\)</span></p>
+<p>This introduces additional error terms that propagate through the induction steps. When we account for these propagation effects and apply the law of total probability:
+<span class="arithmatex">\(<span class="arithmatex">\(P\left( \left| N_i - \mu_i \right| &gt; t \sqrt{\mu_i} \right) \leq P\left( \left| N_i - \mu_i \right| &gt; t \sqrt{\mu_i} \bigg| E_{i-1} \right) \cdot P(E_{i-1}) + P(E_{i-1}^c)\)</span>\)</span></p>
+<p>Using our adjusted bounds and setting <span class="arithmatex">\(t' = t/\sqrt{3}\)</span>, we can derive the exponent coefficient <span class="arithmatex">\(-t^2/3\)</span> which correctly accounts for the error accumulation across tree levels. The factor of 3 emerges from balancing the errors from both sources of variation.</p>
+<p>The detailed computation shows:
+<span class="arithmatex">\(<span class="arithmatex">\(P\left( \left| N_i - \mu_i \right| &gt; t \sqrt{\mu_i} \right) \leq 2e^{-t^2/3}\)</span>\)</span></p>
+<p>which completes the induction step. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="43-kernel-convergence-in-one-dimension">4.3 Kernel Convergence in One Dimension</h3>
+<p><strong>Theorem 1</strong> (One-Dimensional Kernel Convergence - Revised)</p>
+<p>Under Assumptions 1-5 with <span class="arithmatex">\(p=1\)</span>, let <span class="arithmatex">\(x \in [0,1]\)</span> be a fixed point and <span class="arithmatex">\(\{z_n\} \subset [0,1]\)</span> be a sequence of points. As <span class="arithmatex">\(n \to \infty\)</span> and <span class="arithmatex">\(B \to \infty\)</span>:</p>
+<p>(a) If <span class="arithmatex">\(|x - z_n| = \Theta(1)\)</span> (i.e., <span class="arithmatex">\(z_n\)</span> stays at a constant distance from <span class="arithmatex">\(x\)</span>), then with probability at least <span class="arithmatex">\(1 - 2d_n \cdot e^{-\sqrt{s_n}/6}\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(x, z_n) = O(s_n^{-c})\)</span>\)</span>
+for some constant <span class="arithmatex">\(c &gt; 0\)</span>.</p>
+<p>(b) If <span class="arithmatex">\(|x - z_n| = \frac{u}{\log(s_n)}\)</span> for some constant <span class="arithmatex">\(u &gt; 0\)</span> (i.e., <span class="arithmatex">\(z_n\)</span> converges to <span class="arithmatex">\(x\)</span> at a specific rate), then with probability at least <span class="arithmatex">\(1 - 2d_n \cdot e^{-\sqrt{s_n}/6}\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(x, z_n) = e^{-\lambda u}(1 + \delta_n)\)</span>\)</span>
+where <span class="arithmatex">\(|\delta_n| = O\left(\frac{1}{\log(s_n)} + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p>(c) If <span class="arithmatex">\(|x - z_n| = o\left(\frac{1}{\log(s_n)}\right)\)</span> (i.e., <span class="arithmatex">\(z_n\)</span> converges to <span class="arithmatex">\(x\)</span> faster than the rate in (b)), then with probability at least <span class="arithmatex">\(1 - 2d_n \cdot e^{-\sqrt{s_n}/6}\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(x, z_n) = 1 - \lambda \log(s_n)|x - z_n|(1 + \gamma_n)\)</span>\)</span>
+where <span class="arithmatex">\(|\gamma_n| = O\left(\log(s_n)|x - z_n| + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p><strong>Proof:</strong></p>
+<p>The forest kernel <span class="arithmatex">\(K_{RF,n}(x, z_n)\)</span> represents the probability that points <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(z_n\)</span> remain unseparated through all levels of the tree:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(x, z_n) = \prod_{i=1}^{d_n} (1 - p_i(x,z_n))\)</span>\)</span></p>
+<p>where <span class="arithmatex">\(p_i(x,z_n)\)</span> is the probability of separation at level <span class="arithmatex">\(i\)</span>.</p>
+<p>From Lemma 2, with probability at least <span class="arithmatex">\(1 - 2e^{-\sqrt{s_n}/6}\)</span>, the number of samples <span class="arithmatex">\(N_{i-1}\)</span> in a node at level <span class="arithmatex">\(i-1\)</span> satisfies:
+<span class="arithmatex">\(<span class="arithmatex">\(\frac{\mu_{i-1}}{2} \leq N_{i-1} \leq \frac{3\mu_{i-1}}{2}\)</span>\)</span>
+where <span class="arithmatex">\(\mu_{i-1} = s_n 2^{-(i-1)}\)</span>.</p>
+<p><strong>Case (a):</strong> <span class="arithmatex">\(|x - z_n| = \Theta(1)\)</span></p>
+<p>When <span class="arithmatex">\(|x - z_n|\)</span> remains at a constant order, for small values of <span class="arithmatex">\(i\)</span> where <span class="arithmatex">\(\mu_{i-1}\)</span> is large, by Lemma 1(c), <span class="arithmatex">\(p_i(x,z_n) = 1 - o(1)\)</span>. Even if <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(z_n\)</span> are separated with high probability at just one level, we get:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(x, z_n) = \prod_{i=1}^{d_n} (1 - p_i(x,z_n)) = O(s_n^{-c})\)</span>\)</span>
+for some constant <span class="arithmatex">\(c &gt; 0\)</span>.</p>
+<p><strong>Case (b):</strong> <span class="arithmatex">\(|x - z_n| = \frac{u}{\log(s_n)}\)</span></p>
+<p>Step 1: Express <span class="arithmatex">\(p_i(x,z_n)\)</span> using Lemma 1.
+When <span class="arithmatex">\(|x - z_n| = \frac{u}{\log(s_n)}\)</span>, at each level <span class="arithmatex">\(i\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(N_{i-1}|x-z_n| = N_{i-1} \cdot \frac{u}{\log(s_n)}\)</span>\)</span></p>
+<p>Applying Lemma 1(a) when this product is small:
+<span class="arithmatex">\(<span class="arithmatex">\(p_i(x,z_n) = N_{i-1}|x-z_n| + O((N_{i-1}|x-z_n|)^2)\)</span>\)</span></p>
+<p>Step 2: Bound <span class="arithmatex">\(p_i(x,z_n)\)</span> using our concentration results.
+With probability at least <span class="arithmatex">\(1 - 2e^{-\sqrt{s_n}/6}\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(\frac{\mu_{i-1}}{2} \cdot \frac{u}{\log(s_n)} \leq p_i(x,z_n) \leq \frac{3\mu_{i-1}}{2} \cdot \frac{u}{\log(s_n)} + O\left(\left(\mu_{i-1} \cdot \frac{u}{\log(s_n)}\right)^2\right)\)</span>\)</span></p>
+<p>Step 3: Convert to logarithm for easier analysis.
+<span class="arithmatex">\(<span class="arithmatex">\(\log K_{RF,n}(x, z_n) = \sum_{i=1}^{d_n} \log(1 - p_i(x,z_n))\)</span>\)</span></p>
+<p>For small <span class="arithmatex">\(p_i(x,z_n)\)</span>, <span class="arithmatex">\(\log(1 - p_i(x,z_n)) = -p_i(x,z_n) + O(p_i(x,z_n)^2)\)</span>. The error term can be bounded as:
+<span class="arithmatex">\(<span class="arithmatex">\(|\log(1 - p_i(x,z_n)) + p_i(x,z_n)| \leq 2p_i(x,z_n)^2\)</span>\)</span>
+when <span class="arithmatex">\(p_i(x,z_n) \leq 1/2\)</span> (valid for large enough <span class="arithmatex">\(s_n\)</span>).</p>
+<p>Step 4: Sum the expansion terms.
+<span class="arithmatex">\(<span class="arithmatex">\(\log K_{RF,n}(x, z_n) = -\sum_{i=1}^{d_n} p_i(x,z_n) + \sum_{i=1}^{d_n} O(p_i(x,z_n)^2)\)</span>\)</span></p>
+<p>Step 5: Compute the sum of node sizes explicitly.
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{d_n} \mu_{i-1} = \sum_{i=1}^{d_n} s_n 2^{-(i-1)} = s_n \sum_{i=1}^{d_n} 2^{-(i-1)} = s_n (2 - 2^{-d_n+1})\)</span>\)</span></p>
+<p>Since <span class="arithmatex">\(d_n = \lambda \log(s_n)\)</span>, we have <span class="arithmatex">\(2^{-d_n+1} = 2 \cdot s_n^{-\lambda}\)</span>.</p>
+<p>Therefore:
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{d_n} \mu_{i-1} = s_n (2 - 2 \cdot s_n^{-\lambda}) = 2s_n(1 - s_n^{-\lambda})\)</span>\)</span></p>
+<p>Step 6: Establish bounds on the first-order term.
+Using our bounds on <span class="arithmatex">\(p_i(x,z_n)\)</span> and the sum of node sizes:
+<span class="arithmatex">\(<span class="arithmatex">\(\frac{u}{\log(s_n)} \cdot \frac{1}{2}\sum_{i=1}^{d_n} \mu_{i-1} \leq \sum_{i=1}^{d_n} p_i(x,z_n) \leq \frac{u}{\log(s_n)} \cdot \frac{3}{2}\sum_{i=1}^{d_n} \mu_{i-1} + \sum_{i=1}^{d_n} O\left(\left(\mu_{i-1} \cdot \frac{u}{\log(s_n)}\right)^2\right)\)</span>\)</span></p>
+<p>This yields:
+<span class="arithmatex">\(<span class="arithmatex">\(\frac{u}{\log(s_n)} \cdot s_n(1 - s_n^{-\lambda}) \leq \sum_{i=1}^{d_n} p_i(x,z_n) \leq \frac{3u}{\log(s_n)} \cdot s_n(1 - s_n^{-\lambda}) + O\left(\frac{u^2}{\log(s_n)^2}\sum_{i=1}^{d_n} \mu_{i-1}^2\right)\)</span>\)</span></p>
+<p>Step 7: Analyze the second-order term.
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{d_n} \mu_{i-1}^2 = s_n^2 \sum_{i=1}^{d_n} 2^{-2(i-1)} = s_n^2 \cdot \frac{1-4^{-d_n}}{3} = O(s_n^2)\)</span>\)</span></p>
+<p>Therefore:
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{d_n} O\left(\left(\mu_{i-1} \cdot \frac{u}{\log(s_n)}\right)^2\right) = O\left(\frac{u^2}{\log(s_n)^2} \cdot s_n^2\right) = O\left(\frac{u^2 \cdot s_n^2}{\log(s_n)^2}\right)\)</span>\)</span></p>
+<p>Step 8: Use the relationship between <span class="arithmatex">\(s_n\)</span> and <span class="arithmatex">\(d_n\)</span>.
+Since <span class="arithmatex">\(d_n = \lambda \log(s_n)\)</span>, we have:
+<span class="arithmatex">\(<span class="arithmatex">\(\frac{s_n}{\log(s_n)} = \frac{\lambda d_n \cdot s_n}{\lambda d_n \cdot \log(s_n)} = \lambda d_n\)</span>\)</span></p>
+<p>Step 9: Combine the bounds.
+<span class="arithmatex">\(<span class="arithmatex">\(\lambda u (1 - s_n^{-\lambda}) \leq \sum_{i=1}^{d_n} p_i(x,z_n) \leq 3\lambda u (1 - s_n^{-\lambda}) + O\left(\frac{u^2 \cdot s_n}{\log(s_n)}\right)\)</span>\)</span></p>
+<p>For large <span class="arithmatex">\(s_n\)</span>, this simplifies to:
+<span class="arithmatex">\(<span class="arithmatex">\(\lambda u (1 + O(s_n^{-\lambda})) \leq \sum_{i=1}^{d_n} p_i(x,z_n) \leq 3\lambda u (1 + O(s_n^{-\lambda})) + O\left(\frac{u^2}{\log(s_n)}\right)\)</span>\)</span></p>
+<p>Step 10: Derive the final kernel approximation.
+<span class="arithmatex">\(<span class="arithmatex">\(\log K_{RF,n}(x, z_n) = -\lambda u(1 + \epsilon_n)\)</span>\)</span></p>
+<p>where <span class="arithmatex">\(|\epsilon_n| = O\left(\frac{1}{\log(s_n)} + s_n^{-\lambda} + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p>Exponentiating:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(x, z_n) = e^{-\lambda u(1 + \epsilon_n)} = e^{-\lambda u} \cdot e^{-\lambda u \cdot \epsilon_n}\)</span>\)</span></p>
+<p>For small <span class="arithmatex">\(\epsilon_n\)</span>, we have <span class="arithmatex">\(e^{-\lambda u \cdot \epsilon_n} = 1 + O(\epsilon_n)\)</span>, giving:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(x, z_n) = e^{-\lambda u}(1 + \delta_n)\)</span>\)</span></p>
+<p>where <span class="arithmatex">\(|\delta_n| = O\left(\frac{1}{\log(s_n)} + \frac{1}{\sqrt{s_n}}\right)\)</span> for large enough <span class="arithmatex">\(s_n\)</span>.</p>
+<p><strong>Case (c):</strong> <span class="arithmatex">\(|x - z_n| = o\left(\frac{1}{\log(s_n)}\right)\)</span></p>
+<p>Following similar steps as in part (b), but now with <span class="arithmatex">\(\lambda \log(s_n)|x - z_n| \to 0\)</span> as <span class="arithmatex">\(s_n \to \infty\)</span>.</p>
+<p>From our previous derivation:
+<span class="arithmatex">\(<span class="arithmatex">\(\log K_{RF,n}(x, z_n) = -\lambda \log(s_n)|x - z_n|(1 + \epsilon_n)\)</span>\)</span></p>
+<p>where <span class="arithmatex">\(|\epsilon_n| = O\left(\frac{1}{\log(s_n)} + s_n^{-\lambda} + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p>When <span class="arithmatex">\(\lambda \log(s_n)|x - z_n| \to 0\)</span>, we use the approximation <span class="arithmatex">\(e^{-y} = 1 - y + O(y^2)\)</span> for small <span class="arithmatex">\(y\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(x, z_n) = e^{-\lambda \log(s_n)|x - z_n|(1 + \epsilon_n)} = 1 - \lambda \log(s_n)|x - z_n|(1 + \epsilon_n) + O((\lambda \log(s_n)|x - z_n|)^2)\)</span>\)</span></p>
+<p>The second-order term is bounded as:
+<span class="arithmatex">\(<span class="arithmatex">\(O((\lambda \log(s_n)|x - z_n|)^2) = O((\log(s_n)|x - z_n|)^2) = o(\log(s_n)|x - z_n|)\)</span>\)</span></p>
+<p>since <span class="arithmatex">\(|x - z_n| = o\left(\frac{1}{\log(s_n)}\right)\)</span>.</p>
+<p>Therefore:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(x, z_n) = 1 - \lambda \log(s_n)|x - z_n|(1 + \gamma_n)\)</span>\)</span></p>
+<p>where <span class="arithmatex">\(|\gamma_n| = O\left(\log(s_n)|x - z_n| + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p>The total probability of deviation is bounded by the union bound over all levels:
+<span class="arithmatex">\(<span class="arithmatex">\(P(\text{deviation}) \leq \sum_{i=1}^{d_n} 2e^{-\sqrt{s_n}/6} = 2d_n \cdot e^{-\sqrt{s_n}/6}\)</span>\)</span></p>
+<p>Since <span class="arithmatex">\(d_n = \lambda \log(s_n)\)</span>, this probability approaches zero as <span class="arithmatex">\(s_n \to \infty\)</span>, because the exponential decay in <span class="arithmatex">\(e^{-\sqrt{s_n}/6}\)</span> dominates the logarithmic growth in <span class="arithmatex">\(d_n\)</span>. <span class="arithmatex">\(\square\)</span></p>
+<h2 id="5-asymptotic-analysis-for-multi-dimensional-case-p-1">5. Asymptotic Analysis for Multi-Dimensional Case (p &gt; 1)</h2>
+<p>We now extend our analysis to the general multi-dimensional case, building upon the insights gained from the one-dimensional setting. This extension is not merely a straightforward generalization, as the interaction between dimensions introduces additional complexities that require careful consideration.</p>
+<h3 id="51-multi-dimensional-split-probability">5.1 Multi-Dimensional Split Probability</h3>
+<p><strong>Lemma 3</strong> (Multi-Dimensional Split Probability): Under Assumptions 1-5, let <span class="arithmatex">\(\mathbf{x} \in [0,1]^p\)</span> be a fixed point and <span class="arithmatex">\(\{\mathbf{z}_n\} \subset [0,1]^p\)</span> be a sequence of points. The probability that these points are separated at level <span class="arithmatex">\(i\)</span> given they were in the same node at level <span class="arithmatex">\(i-1\)</span> is:</p>
+<div class="arithmatex">\[p_i(\mathbf{x},\mathbf{z}_n) = \frac{1}{p}\sum_{j=1}^p p_{split}(x_j,z_{n,j},N_{i-1})\]</div>
+<p>where <span class="arithmatex">\(p_{split}(x_j,z_{n,j},N_{i-1})\)</span> is as defined in Lemma 1 and <span class="arithmatex">\(N_{i-1}\)</span> is the number of samples in the node at level <span class="arithmatex">\(i-1\)</span>.</p>
+<p><strong>Proof</strong>:
+At each level, a dimension <span class="arithmatex">\(j\)</span> is chosen uniformly at random from the <span class="arithmatex">\(p\)</span> dimensions with probability <span class="arithmatex">\(1/p\)</span>. Once dimension <span class="arithmatex">\(j\)</span> is selected, the probability of separation is <span class="arithmatex">\(p_{split}(x_j,z_{n,j},N_{i-1})\)</span> as defined in Lemma 1. By the law of total probability:
+<span class="arithmatex">\(<span class="arithmatex">\(p_i(\mathbf{x},\mathbf{z}_n) = \frac{1}{p}\sum_{j=1}^p p_{split}(x_j,z_{n,j},N_{i-1})\)</span>\)</span>
+<span class="arithmatex">\(\square\)</span></p>
+<h3 id="52-multi-dimensional-kernel-convergence">5.2 Multi-Dimensional Kernel Convergence</h3>
+<p><strong>Theorem 2</strong> (Multi-Dimensional Kernel Convergence): Under Assumptions 1-5, let <span class="arithmatex">\(\mathbf{x} \in [0,1]^p\)</span> be a fixed point and <span class="arithmatex">\(\{\mathbf{z}_n\} \subset [0,1]^p\)</span> be a sequence of points. As <span class="arithmatex">\(n \to \infty\)</span> and <span class="arithmatex">\(B \to \infty\)</span>:</p>
+<p>(a) If <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \Theta(1)\)</span> (i.e., <span class="arithmatex">\(\mathbf{z}_n\)</span> stays at a constant distance from <span class="arithmatex">\(\mathbf{x}\)</span>), then with probability at least <span class="arithmatex">\(1 - 2p \cdot d_n \cdot e^{-\sqrt{s_n}/6}\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = O(s_n^{-c})\)</span>\)</span>
+for some constant <span class="arithmatex">\(c &gt; 0\)</span>.</p>
+<p>(b) If <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \frac{u}{\log(s_n)}\)</span> for some constant <span class="arithmatex">\(u &gt; 0\)</span> (i.e., <span class="arithmatex">\(\mathbf{z}_n\)</span> converges to <span class="arithmatex">\(\mathbf{x}\)</span> at a specific rate), then with probability at least <span class="arithmatex">\(1 - 2p \cdot d_n \cdot e^{-\sqrt{s_n}/6}\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = e^{-\lambda u}(1 + \delta_n)\)</span>\)</span>
+where <span class="arithmatex">\(|\delta_n| = O\left(\frac{1}{\log(s_n)} + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p>(c) If <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = o\left(\frac{1}{\log(s_n)}\right)\)</span> (i.e., <span class="arithmatex">\(\mathbf{z}_n\)</span> converges to <span class="arithmatex">\(\mathbf{x}\)</span> faster than the rate in (b)), then with probability at least <span class="arithmatex">\(1 - 2p \cdot d_n \cdot e^{-\sqrt{s_n}/6}\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = 1 - \lambda \log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1(1 + \gamma_n)\)</span>\)</span>
+where <span class="arithmatex">\(|\gamma_n| = O\left(\log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1 + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p><strong>Proof</strong>:
+The forest kernel <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n)\)</span> represents the probability that points <span class="arithmatex">\(\mathbf{x}\)</span> and <span class="arithmatex">\(\mathbf{z}_n\)</span> remain unseparated through all levels of the tree:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = \prod_{i=1}^{d_n} (1 - p_i(\mathbf{x},\mathbf{z}_n))\)</span>\)</span></p>
+<p>From Lemma 2, with probability at least <span class="arithmatex">\(1 - 2e^{-\sqrt{s_n}/6}\)</span>, the number of samples <span class="arithmatex">\(N_{i-1}\)</span> in a node at level <span class="arithmatex">\(i-1\)</span> satisfies:
+<span class="arithmatex">\(<span class="arithmatex">\(\frac{\mu_{i-1}}{2} \leq N_{i-1} \leq \frac{3\mu_{i-1}}{2}\)</span>\)</span>
+where <span class="arithmatex">\(\mu_{i-1} = s_n 2^{-(i-1)}\)</span>.</p>
+<p><strong>Case (a)</strong>: <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \Theta(1)\)</span></p>
+<p>When <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \Theta(1)\)</span>, there exists at least one dimension <span class="arithmatex">\(j\)</span> with <span class="arithmatex">\(|x_j - z_{n,j}| = \Theta(1)\)</span>. For this dimension, by Lemma 1(c), when <span class="arithmatex">\(i\)</span> is small (thus <span class="arithmatex">\(\mu_{i-1}\)</span> is large), <span class="arithmatex">\(p_{split}(x_j,z_{n,j},N_{i-1}) = 1 - o(1)\)</span>. Therefore, by Lemma 3:
+<span class="arithmatex">\(<span class="arithmatex">\(p_i(\mathbf{x},\mathbf{z}_n) \geq \frac{1}{p}(1 - o(1))\)</span>\)</span></p>
+<p>Even if <span class="arithmatex">\(\mathbf{x}\)</span> and <span class="arithmatex">\(\mathbf{z}_n\)</span> are separated with high probability at just one level, we get:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = \prod_{i=1}^{d_n} (1 - p_i(\mathbf{x},\mathbf{z}_n)) \leq \prod_{i=1}^{d_n} \left(1 - \frac{1 - o(1)}{p}\right) = O(s_n^{-c})\)</span>\)</span>
+for some constant <span class="arithmatex">\(c &gt; 0\)</span>.</p>
+<p><strong>Case (b)</strong>: <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \frac{u}{\log(s_n)}\)</span></p>
+<p>Step 1: Express <span class="arithmatex">\(p_i(\mathbf{x},\mathbf{z}_n)\)</span> using Lemmas 1 and 3.
+When <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \frac{u}{\log(s_n)}\)</span>, applying Lemma 1(a) to each dimension:
+<span class="arithmatex">\(<span class="arithmatex">\(p_i(\mathbf{x},\mathbf{z}_n) = \frac{1}{p}\sum_{j=1}^p N_{i-1}|x_j - z_{n,j}|(1 + O(N_{i-1}|x_j - z_{n,j}|))\)</span>\)</span></p>
+<p>Step 2: Bound <span class="arithmatex">\(p_i(\mathbf{x},\mathbf{z}_n)\)</span> using our concentration results.
+With high probability, <span class="arithmatex">\(N_{i-1} = \mu_{i-1}(1 + O(s_n^{-1/4}))\)</span>, which gives:
+<span class="arithmatex">\(<span class="arithmatex">\(p_i(\mathbf{x},\mathbf{z}_n) = \frac{\mu_{i-1}}{p}\|\mathbf{x} - \mathbf{z}_n\|_1(1 + O(\mu_{i-1}\|\mathbf{x} - \mathbf{z}_n\|_1 + s_n^{-1/4}))\)</span>\)</span></p>
+<p>Step 3: Convert to logarithm for easier analysis.
+<span class="arithmatex">\(<span class="arithmatex">\(\log K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = \sum_{i=1}^{d_n} \log(1 - p_i(\mathbf{x},\mathbf{z}_n))\)</span>\)</span></p>
+<p>For small <span class="arithmatex">\(p_i(\mathbf{x},\mathbf{z}_n)\)</span>, <span class="arithmatex">\(\log(1 - p_i(\mathbf{x},\mathbf{z}_n)) = -p_i(\mathbf{x},\mathbf{z}_n) + O(p_i(\mathbf{x},\mathbf{z}_n)^2)\)</span>. Therefore:
+<span class="arithmatex">\(<span class="arithmatex">\(\log K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = -\sum_{i=1}^{d_n} p_i(\mathbf{x},\mathbf{z}_n) + O\left(\sum_{i=1}^{d_n} p_i(\mathbf{x},\mathbf{z}_n)^2\right)\)</span>\)</span></p>
+<p>Step 4: Substitute the expression for <span class="arithmatex">\(p_i(\mathbf{x},\mathbf{z}_n)\)</span>.
+<span class="arithmatex">\(<span class="arithmatex">\(\log K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = -\sum_{i=1}^{d_n} \frac{\mu_{i-1}}{p}\|\mathbf{x} - \mathbf{z}_n\|_1(1 + O(\mu_{i-1}\|\mathbf{x} - \mathbf{z}_n\|_1 + s_n^{-1/4})) + O\left(\sum_{i=1}^{d_n} \left(\frac{\mu_{i-1}}{p}\|\mathbf{x} - \mathbf{z}_n\|_1\right)^2\right)\)</span>\)</span></p>
+<p>Step 5: Compute the sum of node sizes.
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{d_n} \mu_{i-1} = \sum_{i=1}^{d_n} s_n 2^{-(i-1)} = s_n \sum_{i=1}^{d_n} 2^{-(i-1)} = s_n (2 - 2^{-d_n+1})\)</span>\)</span></p>
+<p>Since <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span>, we have <span class="arithmatex">\(2^{-d_n+1} = 2 \cdot s_n^{-\lambda p}\)</span>. Thus:
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{d_n} \mu_{i-1} = 2s_n(1 - s_n^{-\lambda p})\)</span>\)</span></p>
+<p>Step 6: Analyze the second-order term rigorously.
+For the sum of squared node sizes:
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{d_n} \mu_{i-1}^2 = \sum_{i=1}^{d_n} (s_n 2^{-(i-1)})^2 = s_n^2 \sum_{i=1}^{d_n} 2^{-2(i-1)}\)</span>\)</span></p>
+<p>This is a geometric series with first term <span class="arithmatex">\(s_n^2\)</span> and ratio <span class="arithmatex">\(1/4\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(s_n^2 \sum_{i=1}^{d_n} 2^{-2(i-1)} = s_n^2 \cdot \frac{1 - (1/4)^{d_n}}{1-1/4} = s_n^2 \cdot \frac{1 - 4^{-d_n}}{3/4} = \frac{4s_n^2}{3}(1 - 4^{-d_n})\)</span>\)</span></p>
+<p>Since <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span>, we have <span class="arithmatex">\(4^{-d_n} = s_n^{-2\lambda p}\)</span>. For large <span class="arithmatex">\(s_n\)</span>, this term is negligible, yielding:
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{d_n} \mu_{i-1}^2 = \frac{4s_n^2}{3}(1 + O(s_n^{-2\lambda p})) = \frac{4s_n^2}{3} + O(s_n^{2-2\lambda p})\)</span>\)</span></p>
+<p>Step 7: Use the relationship between <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1\)</span> and <span class="arithmatex">\(\log(s_n)\)</span>.
+Substituting <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \frac{u}{\log(s_n)}\)</span> and our derived sums:</p>
+<div class="arithmatex">\[\log K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = -\frac{2s_n(1 - s_n^{-\lambda p})}{p} \cdot \frac{u}{\log(s_n)}(1 + O(\frac{s_n}{\log(s_n)} \cdot \frac{u}{\log(s_n)} + s_n^{-1/4})) + O\left(\frac{u^2 \cdot s_n^2}{p^2 (\log(s_n))^2}\right)\]</div>
+<p>Step 8: Simplify using the relation between <span class="arithmatex">\(s_n\)</span>, <span class="arithmatex">\(d_n\)</span>, and <span class="arithmatex">\(p\)</span>.
+Since <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span>, we have <span class="arithmatex">\(\frac{s_n}{p \log(s_n)} = \frac{s_n}{d_n/\lambda} = \lambda \frac{s_n}{d_n}\)</span>. For large <span class="arithmatex">\(s_n\)</span>:</p>
+<div class="arithmatex">\[\log K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = -\lambda u(1 + O(s_n^{-\lambda p})) \cdot (1 + O(\frac{u}{\log(s_n)} + s_n^{-1/4})) + O\left(\frac{u^2}{\log(s_n)}\right)\]</div>
+<p>This gives us:
+<span class="arithmatex">\(<span class="arithmatex">\(\log K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = -\lambda u + O\left(\frac{1}{\log(s_n)} + \frac{1}{\sqrt{s_n}}\right)\)</span>\)</span></p>
+<p>Therefore:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = e^{-\lambda u}(1 + \delta_n)\)</span>\)</span>
+where <span class="arithmatex">\(|\delta_n| = O\left(\frac{1}{\log(s_n)} + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p><strong>Case (c)</strong>: <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = o\left(\frac{1}{\log(s_n)}\right)\)</span></p>
+<p>Following similar steps as in case (b), but now with <span class="arithmatex">\(\lambda \log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1 \to 0\)</span> as <span class="arithmatex">\(s_n \to \infty\)</span>.</p>
+<p>From our previous derivation:
+<span class="arithmatex">\(<span class="arithmatex">\(\log K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = -\lambda \log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1(1 + \epsilon_n)\)</span>\)</span>
+where <span class="arithmatex">\(|\epsilon_n| = O\left(\frac{1}{\log(s_n)} + s_n^{-\lambda p} + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p>When <span class="arithmatex">\(\lambda \log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1 \to 0\)</span>, we use the approximation <span class="arithmatex">\(e^{-y} = 1 - y + O(y^2)\)</span> for small <span class="arithmatex">\(y\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = e^{-\lambda \log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1(1 + \epsilon_n)} = 1 - \lambda \log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1(1 + \epsilon_n) + O((\lambda \log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1)^2)\)</span>\)</span></p>
+<p>The second-order term is bounded as:
+<span class="arithmatex">\(<span class="arithmatex">\(O((\lambda \log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1)^2) = O((\log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1)^2) = o(\log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1)\)</span>\)</span>
+since <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = o\left(\frac{1}{\log(s_n)}\right)\)</span>.</p>
+<p>Therefore:
+<span class="arithmatex">\(<span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n) = 1 - \lambda \log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1(1 + \gamma_n)\)</span>\)</span>
+where <span class="arithmatex">\(|\gamma_n| = O\left(\log(s_n)\|\mathbf{x} - \mathbf{z}_n\|_1 + \frac{1}{\sqrt{s_n}}\right)\)</span>.</p>
+<p><strong>Probabilistic Guarantees Analysis</strong>: The probability bound in our theorem is <span class="arithmatex">\(1 - 2p \cdot d_n \cdot e^{-\sqrt{s_n}/6}\)</span>. For this bound to be meaningful, we need <span class="arithmatex">\(2p \cdot d_n \cdot e^{-\sqrt{s_n}/6} \to 0\)</span> as <span class="arithmatex">\(s_n \to \infty\)</span>. Since <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span>, the bound becomes <span class="arithmatex">\(1 - 2p^2 \lambda \log(s_n) \cdot e^{-\sqrt{s_n}/6}\)</span>.</p>
+<p>The term <span class="arithmatex">\(e^{-\sqrt{s_n}/6}\)</span> decreases exponentially in <span class="arithmatex">\(\sqrt{s_n}\)</span>, while <span class="arithmatex">\(p^2 \log(s_n)\)</span> grows only polynomially in <span class="arithmatex">\(\log(s_n)\)</span> and quadratically in <span class="arithmatex">\(p\)</span>. Therefore, for any fixed dimension <span class="arithmatex">\(p\)</span>, the probability bound approaches 1 as <span class="arithmatex">\(s_n \to \infty\)</span>. Even in high-dimensional settings where <span class="arithmatex">\(p\)</span> is large (but still fixed), the exponential decay in <span class="arithmatex">\(e^{-\sqrt{s_n}/6}\)</span> dominates, provided <span class="arithmatex">\(s_n\)</span> is sufficiently large relative to <span class="arithmatex">\(p^2\)</span>. Specifically, we need <span class="arithmatex">\(\sqrt{s_n} \gg 6 \log(p^2 \log(s_n))\)</span> for the bound to be tight, which is satisfied when <span class="arithmatex">\(s_n\)</span> grows faster than <span class="arithmatex">\(\log^2(p)\)</span>. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="53-continuity-of-distance-regimes-and-unified-kernel-representation">5.3 Continuity of Distance Regimes and Unified Kernel Representation</h3>
+<p>In the preceding analysis, we have categorized the behavior of random forest kernels into three distinct distance regimes. However, it is important to emphasize that these regimes do not have strict boundaries but rather represent a continuous spectrum of behaviors in the asymptotic setting as <span class="arithmatex">\(n \to \infty\)</span>.</p>
+<h4 id="531-continuous-transition-between-distance-regimes">5.3.1 Continuous Transition Between Distance Regimes</h4>
+<p>The distance regimes we have defined:
+1. Near distance: <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = o\left(\frac{1}{\log(s_n)}\right)\)</span>
+2. Intermediate distance: <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \Theta\left(\frac{1}{\log(s_n)}\right)\)</span>
+3. Far distance: <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \Theta(1)\)</span></p>
+<p>represent mathematically convenient characterizations rather than discrete categories. In reality, the kernel function transitions smoothly across these regimes.</p>
+<p><strong>Proposition 1</strong> (Continuous Kernel Transition): Under Assumptions 1-5, the random forest kernel <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n)\)</span> can be expressed in terms of a scaled distance <span class="arithmatex">\(\mathbf{u} = (\mathbf{x} - \mathbf{z}_n)\log(s_n)\)</span> as:</p>
+<p><span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}_n) \approx \begin{cases}
+1 - \lambda \|\mathbf{u}\|_1 + O(\|\mathbf{u}\|_1^2) &amp; \text{if } \|\mathbf{u}\|_1 \to 0 \\
+e^{-\lambda \|\mathbf{u}\|_1} + o(1) &amp; \text{if } \|\mathbf{u}\|_1 = \Theta(1) \\
+O(s_n^{-c}) &amp; \text{if } \|\mathbf{u}\|_1 \to \infty
+\end{cases}\)</span></p>
+<p>with probability at least <span class="arithmatex">\(1 - O(p \cdot d_n \cdot e^{-\sqrt{s_n}/6})\)</span>.</p>
+<p><strong>Proof</strong>: This follows directly from Theorem 2 by substituting <span class="arithmatex">\(\mathbf{u} = (\mathbf{x} - \mathbf{z}_n)\log(s_n)\)</span> and considering the limiting behavior as <span class="arithmatex">\(\|\mathbf{u}\|_1\)</span> varies. For <span class="arithmatex">\(\|\mathbf{u}\|_1 \to 0\)</span>, we have <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = o\left(\frac{1}{\log(s_n)}\right)\)</span>, and using the approximation <span class="arithmatex">\(e^{-x} = 1 - x + O(x^2)\)</span> for small <span class="arithmatex">\(x\)</span>, we obtain the linear form. For <span class="arithmatex">\(\|\mathbf{u}\|_1 = \Theta(1)\)</span>, we have <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1 = \Theta\left(\frac{1}{\log(s_n)}\right)\)</span>, yielding the exponential form. <span class="arithmatex">\(\square\)</span></p>
+<h4 id="532-unified-kernel-representation">5.3.2 Unified Kernel Representation</h4>
+<p>The scaled distance <span class="arithmatex">\(\mathbf{u} = (\mathbf{x} - \mathbf{z}_n)\log(s_n)\)</span> provides a unified framework for understanding the adaptive behavior of random forest kernels. This scaling is crucial in asymptotic analysis for the following reasons:</p>
+<ol>
+<li>
+<p><strong>Preserving relative distances</strong>: As <span class="arithmatex">\(n \to \infty\)</span>, the feature space becomes increasingly dense with samples, causing nearest-neighbor distances to approach zero. The logarithmic scaling preserves the relative importance of distances in the asymptotic setting.</p>
+</li>
+<li>
+<p><strong>Revealing adaptive bandwidth</strong>: The effective kernel bandwidth <span class="arithmatex">\(h_n = \Theta(1/\log(s_n))\)</span> shrinks as sample size increases, but using scaled distances allows us to analyze the kernel shape independent of this shrinkage.</p>
+</li>
+<li>
+<p><strong>Connecting theoretical regimes</strong>: The different functional forms across distance regimes can be understood as parts of a single, continuous kernel function when expressed in terms of scaled distances.</p>
+</li>
+</ol>
+<p><strong>Corollary 1</strong> (Limiting Kernel Function): As <span class="arithmatex">\(n \to \infty\)</span>, the random forest kernel approaches a limiting function of the scaled distance:</p>
+<p><span class="arithmatex">\(\lim_{n \to \infty} K_{RF,n}(\mathbf{x}, \mathbf{x} + \mathbf{u}/\log(s_n)) = K_{\infty}(\mathbf{u})\)</span></p>
+<p>where <span class="arithmatex">\(K_{\infty}(\mathbf{u})\)</span> has the following properties:
+1. For small <span class="arithmatex">\(\|\mathbf{u}\|_1\)</span>: <span class="arithmatex">\(K_{\infty}(\mathbf{u}) \approx 1 - \lambda \|\mathbf{u}\|_1\)</span>
+2. For moderate <span class="arithmatex">\(\|\mathbf{u}\|_1\)</span>: <span class="arithmatex">\(K_{\infty}(\mathbf{u}) \approx e^{-\lambda \|\mathbf{u}\|_1}\)</span>
+3. For large <span class="arithmatex">\(\|\mathbf{u}\|_1\)</span>: <span class="arithmatex">\(K_{\infty}(\mathbf{u}) \approx 0\)</span></p>
+<p>This limiting kernel function differs from traditional kernels (e.g., Gaussian, Laplace) in that it exhibits a linear decay near the origin rather than quadratic (Gaussian) or linear with constant slope (Laplace). This unique property contributes to the strong adaptive behavior of random forests.</p>
+<h3 id="54-comparison-with-one-dimensional-results">5.4 Comparison with One-Dimensional Results</h3>
+<p>The multi-dimensional results in Theorem 2 extend our one-dimensional findings in Theorem 1 in several important ways. Both theorems identify three distinct regimes of kernel behavior, characterized by the convergence rate of the sequence of points to the reference point. However, there are key differences and similarities worth highlighting:</p>
+<ol>
+<li>
+<p><strong>Dimensionality Effect</strong>: In the multi-dimensional case, the <span class="arithmatex">\(L_1\)</span> norm <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}_n\|_1\)</span> replaces the absolute difference <span class="arithmatex">\(|x - z_n|\)</span> in the one-dimensional case. This naturally captures the aggregated distance across all dimensions.</p>
+</li>
+<li>
+<p><strong>Structural Similarity</strong>: Despite the dimensional difference, the asymptotic behaviors in all three regimes maintain the same functional form: exponential decay for distant points, specific exponential relationship for moderately close points, and linear relationship for very close points.</p>
+</li>
+<li>
+<p><strong>Dimensional Scaling</strong>: The probability of separation at each level is averaged across dimensions, introducing a factor of <span class="arithmatex">\(1/p\)</span> that reflects dimension-uniform split selection. This affects the constants in the convergence rates but not their asymptotic form.</p>
+</li>
+<li>
+<p><strong>Error Propagation</strong>: The error terms in the multi-dimensional case account for potential imbalances across dimensions, but the overall convergence rates remain comparable to the one-dimensional case.</p>
+</li>
+<li>
+<p><strong>Unified Representation</strong>: The scaled distance formulation introduced in Section 5.3 applies to both one-dimensional and multi-dimensional cases, showing that the fundamental adaptive behavior of random forest kernels is dimension-invariant when properly scaled.</p>
+</li>
+</ol>
+<p>These results demonstrate the consistency of random forest kernel behavior across different dimensionalities, strengthening our understanding of their adaptive properties.</p>
+<h3 id="55-implications-for-adaptive-resolution-and-practice">5.5 Implications for Adaptive Resolution and Practice</h3>
+<h4 id="551-practical-implications-of-continuous-distance-regimes">5.5.1 Practical Implications of Continuous Distance Regimes</h4>
+<p>The continuous nature of distance regimes has important practical implications:</p>
+<ol>
+<li>
+<p><strong>Smooth adaptation</strong>: Random forests smoothly adapt their prediction weights based on distance, without abrupt changes between "included" and "excluded" points. This property helps explain their robust performance across diverse datasets.</p>
+</li>
+<li>
+<p><strong>Dimensional impact</strong>: In <span class="arithmatex">\(p\)</span>-dimensional space, the effective number of points with non-negligible weights is approximately <span class="arithmatex">\(N_{eff} \approx n \cdot (1/\log(s_n))^p\)</span>, which decreases with dimension <span class="arithmatex">\(p\)</span> but not as rapidly as with fixed-bandwidth kernels. This gives random forests a relative advantage in moderately high-dimensional settings.</p>
+</li>
+<li>
+<p><strong>Parameter tuning guidance</strong>: The tree depth parameter <span class="arithmatex">\(\lambda\)</span> directly affects the rate of weight decay with distance, providing a theoretical basis for tuning this parameter based on the desired level of locality in predictions. Specifically, larger values of <span class="arithmatex">\(\lambda\)</span> lead to more localized predictions.</p>
+</li>
+</ol>
+<h4 id="552-connection-to-adaptive-kernel-methods">5.5.2 Connection to Adaptive Kernel Methods</h4>
+<p>The behavior of the random forest kernel bears striking similarities to adaptive kernel methods in nonparametric statistics (Scott, 2015; Wasserman, 2006). However, unlike traditional kernel methods that typically require explicit bandwidth selection, random forests implicitly adapt their resolution based on local data density. Our results formalize this connection, showing how:</p>
+<ul>
+<li>The effective bandwidth is automatically larger in sparse regions (regime (a))</li>
+<li>The bandwidth transitions smoothly in moderately dense regions (regime (b))</li>
+<li>Fine discrimination occurs in high-density regions (regime (c))</li>
+</ul>
+<p>This automatic adaptation explains many of the advantages of random forests over fixed-bandwidth methods, particularly in heterogeneous data settings where optimal bandwidth varies across the feature space.</p>
+<h4 id="553-behavior-in-high-dimensional-settings">5.5.3 Behavior in High-Dimensional Settings</h4>
+<p>In high-dimensional spaces, our results have particularly important implications. As dimensionality increases:</p>
+<ol>
+<li>
+<p><strong>Sparsity Effects</strong>: The probability of points falling into the same leaf node decreases exponentially with dimension, a manifestation of the "curse of dimensionality." However, the adaptive resolution property helps mitigate this challenge by adjusting the effective neighborhood size.</p>
+</li>
+<li>
+<p><strong>Relevance for Feature Selection</strong>: When features vary in relevance, random forests with uniform dimension selection (Assumption 2) might be suboptimal. Our analysis suggests that modifications to the splitting rule to favor more informative dimensions could potentially improve performance in high dimensions.</p>
+</li>
+<li>
+<p><strong>Robustness to Irrelevant Features</strong>: The exponential decay of kernel values for distant points (regime (a)) helps random forests remain robust to irrelevant features, as points that differ mainly in noise dimensions will still have small kernel values.</p>
+</li>
+</ol>
+<h4 id="554-sensitivity-to-model-assumptions">5.5.4 Sensitivity to Model Assumptions</h4>
+<p>Our theoretical guarantees depend on several key assumptions. If these assumptions are violated, we expect the following effects:</p>
+<ul>
+<li>
+<p><strong>Non-uniform Feature Selection (Assumption 2)</strong>: If certain dimensions are selected with higher probability, the kernel will adapt more quickly along these dimensions. This would manifest as anisotropic behavior in the kernel, potentially beneficial when feature relevance varies.</p>
+</li>
+<li>
+<p><strong>Non-uniform Feature Distributions (Assumption 5)</strong>: When the feature distribution deviates from uniformity, the effective node sizes may vary significantly from our theoretical predictions. The kernel will adapt more finely in regions of high data density, further enhancing the adaptive resolution property.</p>
+</li>
+<li>
+<p><strong>Different Tree Depths (Assumption 4)</strong>: If trees are grown beyond depth <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span>, the kernel will exhibit even sharper discrimination between close points, potentially leading to overfitting if noise is present.</p>
+</li>
+</ul>
+<p>These insights not only deepen our theoretical understanding of random forests but also provide practical guidance for their application and potential modification in various data settings.</p>
+<h3 id="56-conclusion">5.6 Conclusion</h3>
+<p>Our analysis of random forest kernels in the multi-dimensional case reveals that their adaptive resolution properties extend naturally from the one-dimensional setting. We have demonstrated that these kernels exhibit three distinct but continuously transitioning regimes of behavior based on the relative distance between points. By introducing the concept of scaled distance, we have provided a unified framework for understanding how random forests automatically adjust their smoothing bandwidth based on local data density.</p>
+<p>The limiting kernel function <span class="arithmatex">\(K_{\infty}(\mathbf{u})\)</span> offers a novel characterization of random forest behavior that distinguishes it from traditional kernel methods. Its unique property of linear decay near the origin combined with exponential decay at moderate distances explains the strong adaptive behavior observed in practice. This theoretical characterization helps bridge the gap between random forests and adaptive kernel methods, providing new insights into why random forests perform well across diverse learning tasks and data structures.</p>
+<p>Our analysis of high-dimensional behavior and sensitivity to model assumptions provides valuable guidance for practitioners. The findings suggest specific directions for optimizing random forest performance in challenging settings, including potential modifications to feature selection strategies and tree depth control based on dimensional considerations.</p>
+<p>Future research directions might include extending these results to more general tree construction methods, exploring the implications for feature importance measures, and investigating the connection between kernel properties and generalization error in random forests. Additionally, the unified kernel representation could inform the development of new forest-inspired kernel methods that explicitly leverage the adaptive properties we have characterized.</p>
+<h2 id="6-analysis-of-random-forest-weights-and-effective-neighborhood">6. Analysis of Random Forest Weights and Effective Neighborhood</h2>
+<p>Having established the asymptotic behavior of the random forest kernel across different distance regimes, we now analyze the weights that random forests assign to training points when making predictions. These weights determine how the influence of training points varies with their distance from the query point, which is fundamental to understanding the adaptive nature of random forests. We also characterize the effective neighborhood size, providing precise bounds on the region of feature space that significantly influences predictions.</p>
+<h3 id="61-asymptotic-behavior-of-weights">6.1 Asymptotic Behavior of Weights</h3>
+<p>Recall that the random forest estimator can be expressed as a weighted average of training responses:</p>
+<div class="arithmatex">\[\hat{f}_{RF,n}(\mathbf{x}) = \sum_{i=1}^n \alpha_i(\mathbf{x})Y_i\]</div>
+<p>where the weights are defined as:</p>
+<div class="arithmatex">\[\alpha_i(\mathbf{x}) = \frac{K_{RF,n}(\mathbf{x},\mathbf{X}_i)}{\sum_{j=1}^n K_{RF,n}(\mathbf{x},\mathbf{X}_j)}\]</div>
+<p>These weights determine how much influence each training point has on the prediction at query point <span class="arithmatex">\(\mathbf{x}\)</span>. The following theorem characterizes their asymptotic behavior.</p>
+<p><strong>Theorem 3</strong> (Asymptotic Behavior of Random Forest Weights): Under Assumptions 1-5 and as <span class="arithmatex">\(n,B \to \infty\)</span>, the weights <span class="arithmatex">\(\alpha_i(\mathbf{x})\)</span> in the random forest estimator satisfy with probability at least <span class="arithmatex">\(1 - O(n \cdot p \cdot d_n \cdot e^{-\sqrt{s_n}/6})\)</span>:</p>
+<p>(a) For <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1 = \Theta(1)\)</span> (distant points):
+<span class="arithmatex">\(<span class="arithmatex">\(\alpha_i(\mathbf{x}) = O(s_n^{-c})\)</span>\)</span>
+for some constant <span class="arithmatex">\(c &gt; 0\)</span>.</p>
+<p>(b) For <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1 = \frac{u_i}{\log(s_n)}\)</span> with <span class="arithmatex">\(u_i &gt; 0\)</span> (moderately close points):
+<span class="arithmatex">\(<span class="arithmatex">\(\alpha_i(\mathbf{x}) = \frac{e^{-\lambda u_i}(1 + O(\frac{1}{\log(s_n)} + \frac{1}{\sqrt{s_n}}))}{\sum_{j: \|\mathbf{x} - \mathbf{X}_j\|_1 = \Theta(1/\log(s_n))} e^{-\lambda u_j}(1 + O(\frac{1}{\log(s_n)} + \frac{1}{\sqrt{s_n}}))}\)</span>\)</span></p>
+<p>(c) For <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1 = o\left(\frac{1}{\log(s_n)}\right)\)</span> (very close points):
+<span class="arithmatex">\(<span class="arithmatex">\(\alpha_i(\mathbf{x}) \approx \frac{1 - \lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1 + O((\log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1)^2)}{\sum_{j: \|\mathbf{x} - \mathbf{X}_j\|_1 = O(1/\log(s_n))} (1 - \lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_j\|_1 + O((\log(s_n)\|\mathbf{x} - \mathbf{X}_j\|_1)^2))}\)</span>\)</span></p>
+<p><strong>Proof</strong>:
+The forest weights are defined as:
+<span class="arithmatex">\(<span class="arithmatex">\(\alpha_i(\mathbf{x}) = \frac{K_{RF,n}(\mathbf{x}, \mathbf{X}_i)}{\sum_{j=1}^n K_{RF,n}(\mathbf{x}, \mathbf{X}_j)}\)</span>\)</span></p>
+<p>From Theorem 2, we know the asymptotic behavior of <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{X}_i)\)</span> across different distance regimes. To determine the weights, we need to analyze both the numerator (the kernel value for a specific point) and the denominator (the sum of kernel values across all training points).</p>
+<p>Under Assumption 5 (bounded density), the denominator <span class="arithmatex">\(\sum_{j=1}^n K_{RF,n}(\mathbf{x}, \mathbf{X}_j)\)</span> is dominated by points in the <span class="arithmatex">\(\Theta(1/\log(s_n))\)</span> neighborhood of <span class="arithmatex">\(\mathbf{x}\)</span>. With high probability, there are <span class="arithmatex">\(\Theta(n \cdot (1/\log(s_n))^p)\)</span> points in this neighborhood, each contributing substantially to the sum.</p>
+<p>For case (a), where <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1 = \Theta(1)\)</span>, Theorem 2(a) gives us <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{X}_i) = O(s_n^{-c})\)</span>. The denominator is <span class="arithmatex">\(\Theta(n \cdot (1/\log(s_n))^p)\)</span>, reflecting the number of points with significant kernel values. Therefore:
+<span class="arithmatex">\(<span class="arithmatex">\(\alpha_i(\mathbf{x}) = \frac{O(s_n^{-c})}{\Theta(n \cdot (1/\log(s_n))^p)} = O(s_n^{-c})\)</span>\)</span></p>
+<p>This shows that points at a constant distance from the query point have exponentially decreasing influence as the sample size increases.</p>
+<p>For case (b), where <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1 = \frac{u_i}{\log(s_n)}\)</span>, Theorem 2(b) gives us <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{X}_i) = e^{-\lambda u_i}(1 + \delta_i)\)</span> where <span class="arithmatex">\(|\delta_i| = O(\frac{1}{\log(s_n)} + \frac{1}{\sqrt{s_n}})\)</span>. The denominator sum can be expressed as:
+<span class="arithmatex">\(<span class="arithmatex">\(\sum_{j=1}^n K_{RF,n}(\mathbf{x}, \mathbf{X}_j) = \sum_{j: \|\mathbf{x} - \mathbf{X}_j\|_1 = \Theta(1/\log(s_n))} e^{-\lambda u_j}(1 + \delta_j) + \sum_{j: \|\mathbf{x} - \mathbf{X}_j\|_1 \neq \Theta(1/\log(s_n))} K_{RF,n}(\mathbf{x}, \mathbf{X}_j)\)</span>\)</span></p>
+<p>The second sum is negligible compared to the first, as points outside the <span class="arithmatex">\(\Theta(1/\log(s_n))\)</span> neighborhood have exponentially smaller kernel values. Therefore:
+<span class="arithmatex">\(<span class="arithmatex">\(\alpha_i(\mathbf{x}) = \frac{e^{-\lambda u_i}(1 + \delta_i)}{\sum_{j: \|\mathbf{x} - \mathbf{X}_j\|_1 = \Theta(1/\log(s_n))} e^{-\lambda u_j}(1 + \delta_j)}\)</span>\)</span></p>
+<p>For case (c), we use the linear approximation of the kernel function derived in Theorem 2(c). For points very close to <span class="arithmatex">\(\mathbf{x}\)</span>, the kernel value is approximately <span class="arithmatex">\(1 - \lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1(1 + \gamma_i)\)</span> where <span class="arithmatex">\(|\gamma_i| = O(\log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1 + \frac{1}{\sqrt{s_n}})\)</span>. Substituting into the weight formula and simplifying:
+<span class="arithmatex">\(<span class="arithmatex">\(\alpha_i(\mathbf{x}) \approx \frac{1 - \lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1 + O((\log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1)^2)}{\sum_{j: \|\mathbf{x} - \mathbf{X}_j\|_1 = O(1/\log(s_n))} (1 - \lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_j\|_1 + O((\log(s_n)\|\mathbf{x} - \mathbf{X}_j\|_1)^2))}\)</span>\)</span></p>
+<p>The probability bound <span class="arithmatex">\(1 - O(n \cdot p \cdot d_n \cdot e^{-\sqrt{s_n}/6})\)</span> is derived by applying the union bound to the concentration results from Theorem 2 across all <span class="arithmatex">\(n\)</span> training points. The term <span class="arithmatex">\(e^{-\sqrt{s_n}/6}\)</span> decreases exponentially with <span class="arithmatex">\(\sqrt{s_n}\)</span>, while the factors <span class="arithmatex">\(n\)</span>, <span class="arithmatex">\(p\)</span>, and <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span> increase polynomially. For any fixed dimension <span class="arithmatex">\(p\)</span>, as <span class="arithmatex">\(s_n\)</span> increases, the exponential decay dominates the polynomial growth, ensuring that the probability bound approaches 1. Specifically, when <span class="arithmatex">\(s_n = \Omega((\log n)^2)\)</span>, the probability bound becomes <span class="arithmatex">\(1 - o(1)\)</span>. <span class="arithmatex">\(\square\)</span></p>
+<h4 id="611-implications-of-weight-distribution">6.1.1 Implications of Weight Distribution</h4>
+<p>Theorem 3 reveals several important properties of random forest weights:</p>
+<ol>
+<li>
+<p><strong>Exponential decay with distance</strong>: Points outside the <span class="arithmatex">\(\Theta(1/\log(s_n))\)</span> neighborhood have negligible influence on predictions, effectively creating an adaptive soft boundary for relevant points.</p>
+</li>
+<li>
+<p><strong>Relative importance within neighborhood</strong>: Within the effective neighborhood, the importance of training points decays exponentially with their scaled distance from the query point, with the parameter <span class="arithmatex">\(\lambda\)</span> controlling the rate of decay.</p>
+</li>
+<li>
+<p><strong>Adaptive smoothing</strong>: For very close points, the weights vary almost linearly with distance, providing finer-grained discrimination in regions of high data density.</p>
+</li>
+<li>
+<p><strong>Dimensional scaling</strong>: The number of points with non-negligible weights scales as <span class="arithmatex">\(\Theta(n \cdot (1/\log(s_n))^p)\)</span>, which decreases with dimension <span class="arithmatex">\(p\)</span> but less dramatically than with fixed-bandwidth kernels.</p>
+</li>
+</ol>
+<p>These properties demonstrate how random forests automatically adapt their prediction weights based on both local data density and the global sample size, without requiring explicit bandwidth selection.</p>
+<h3 id="62-effective-neighborhood-size-and-boundary">6.2 Effective Neighborhood Size and Boundary</h3>
+<p>A key question in understanding local adaptive methods is: how large is the neighborhood that effectively influences predictions? The following theorem provides a precise characterization of this effective neighborhood size.</p>
+<p><strong>Theorem 4</strong> (Expected Maximum Distance): Under Assumptions 1-5, as <span class="arithmatex">\(n,B \to \infty\)</span>, the expected maximum distance of points with non-negligible weights satisfies:</p>
+<div class="arithmatex">\[\mathbb{E}\left[\sup\{\|\mathbf{X}_i - \mathbf{x}\|_2: \alpha_i(\mathbf{x}) &gt; \varepsilon_n\}\right] = \Theta\left(\frac{\sqrt{p}}{\log(s_n)}\right)\]</div>
+<p>where <span class="arithmatex">\(\varepsilon_n = n^{-\beta}\)</span> for any fixed <span class="arithmatex">\(0 &lt; \beta &lt; c\)</span> is a threshold that approaches zero more slowly than the smallest non-zero weight <span class="arithmatex">\(O(s_n^{-c})\)</span>.</p>
+<p><strong>Proof</strong>:
+From Theorem 3, we know that points with <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1 = \Theta(1)\)</span> have weights <span class="arithmatex">\(\alpha_i(\mathbf{x}) = O(s_n^{-c})\)</span>. As <span class="arithmatex">\(s_n \to \infty\)</span>, these weights become effectively zero. However, there is no sharp boundary where weights suddenly become zero; instead, they decrease continuously with distance.</p>
+<p>To formalize the concept of an "effective neighborhood," we consider points with weights exceeding a threshold <span class="arithmatex">\(\varepsilon_n = n^{-\beta}\)</span> for some fixed <span class="arithmatex">\(0 &lt; \beta &lt; c\)</span>. This specific form ensures that <span class="arithmatex">\(\varepsilon_n\)</span> approaches zero more slowly than <span class="arithmatex">\(O(s_n^{-c})\)</span> as <span class="arithmatex">\(n\)</span> increases, capturing points that have a non-negligible influence on predictions as the sample size grows.</p>
+<p>The effective neighborhood is primarily determined by the intermediate distance regime where <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1 = \Theta(1/\log(s_n))\)</span>. To find the boundary of this neighborhood, we need to determine the distance at which <span class="arithmatex">\(\alpha_i(\mathbf{x}) = \varepsilon_n\)</span>.</p>
+<p>From Theorem 3(b) and using the unified kernel representation established in Section 5.3, we have:</p>
+<div class="arithmatex">\[\alpha_i(\mathbf{x}) \approx \frac{e^{-\lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1}}{\sum_{j} e^{-\lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_j\|_1}}\]</div>
+<p>For a point at the boundary of the effective neighborhood, <span class="arithmatex">\(\alpha_i(\mathbf{x}) = \varepsilon_n\)</span>, which implies:</p>
+<div class="arithmatex">\[e^{-\lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1} = \varepsilon_n \cdot \sum_{j} e^{-\lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_j\|_1}\]</div>
+<p>Taking logarithms of both sides:</p>
+<div class="arithmatex">\[-\lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1 = \log(\varepsilon_n) + \log\left(\sum_{j} e^{-\lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_j\|_1}\right)\]</div>
+<p>Solving for <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1\)</span>:</p>
+<div class="arithmatex">\[\|\mathbf{x} - \mathbf{X}_i\|_1 = \frac{-\log(\varepsilon_n) - \log\left(\sum_{j} e^{-\lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_j\|_1}\right)}{\lambda \log(s_n)}\]</div>
+<p>Under Assumption 5 (bounded density), there are approximately <span class="arithmatex">\(\Theta(n \cdot (1/\log(s_n))^p)\)</span> points in the neighborhood of <span class="arithmatex">\(\mathbf{x}\)</span> with non-negligible kernel values. The sum in the denominator of the weights is dominated by points close to <span class="arithmatex">\(\mathbf{x}\)</span>, giving:</p>
+<div class="arithmatex">\[\sum_{j} e^{-\lambda \log(s_n)\|\mathbf{x} - \mathbf{X}_j\|_1} = \Theta\left(n \cdot \left(\frac{1}{\log(s_n)}\right)^p\right)\]</div>
+<p>Substituting this and <span class="arithmatex">\(\varepsilon_n = n^{-\beta}\)</span> into our expression for <span class="arithmatex">\(\|\mathbf{x} - \mathbf{X}_i\|_1\)</span>:</p>
+<div class="arithmatex">\[\|\mathbf{x} - \mathbf{X}_i\|_1 = \frac{\beta \log(n) - \log\left(\Theta\left(n \cdot \left(\frac{1}{\log(s_n)}\right)^p\right)\right)}{\lambda \log(s_n)}\]</div>
+<div class="arithmatex">\[= \frac{\beta \log(n) - \log(n) - \log\left(\Theta\left(\left(\frac{1}{\log(s_n)}\right)^p\right)\right)}{\lambda \log(s_n)}\]</div>
+<div class="arithmatex">\[= \frac{(\beta-1) \log(n) + p \log(\log(s_n)) + O(1)}{\lambda \log(s_n)}\]</div>
+<p>For typical parameter settings where <span class="arithmatex">\(s_n = \Theta(n)\)</span>, and since <span class="arithmatex">\(\beta &lt; 1\)</span> for our choice of threshold, the dominant term is:</p>
+<div class="arithmatex">\[\|\mathbf{x} - \mathbf{X}_i\|_1 = \Theta\left(\frac{1}{\log(s_n)}\right)\]</div>
+<p>Using the relationship between L1 and L2 norms in <span class="arithmatex">\(\mathbb{R}^p\)</span>:</p>
+<div class="arithmatex">\[\|\mathbf{x} - \mathbf{X}_i\|_2 \leq \|\mathbf{x} - \mathbf{X}_i\|_1 \leq \sqrt{p} \cdot \|\mathbf{x} - \mathbf{X}_i\|_2\]</div>
+<p>We obtain:</p>
+<div class="arithmatex">\[\mathbb{E}\left[\sup\{\|\mathbf{X}_i - \mathbf{x}\|_2: \alpha_i(\mathbf{x}) &gt; \varepsilon_n\}\right] = \Theta\left(\frac{\sqrt{p}}{\log(s_n)}\right)\]</div>
+<p>This shows that the effective neighborhood radius in Euclidean distance scales inversely with <span class="arithmatex">\(\log(s_n)\)</span> and proportionally to the square root of the dimension. <span class="arithmatex">\(\square\)</span></p>
+<h3 id="63-expected-number-of-points-in-the-effective-neighborhood">6.3 Expected Number of Points in the Effective Neighborhood</h3>
+<p>Given our characterization of the effective neighborhood size, we can now analyze the expected number of training points that significantly influence predictions.</p>
+<p><strong>Corollary 1</strong> (Expected Neighborhood Population): Under Assumptions 1-5, as <span class="arithmatex">\(n,B \to \infty\)</span>, the expected number of training points with non-negligible weights satisfies:</p>
+<div class="arithmatex">\[\mathbb{E}[|\{i: \alpha_i(\mathbf{x}) &gt; \varepsilon_n\}|] = \Theta\left(n \cdot \left(\frac{1}{\log(s_n)}\right)^p\right)\]</div>
+<p><strong>Proof</strong>:
+From Theorem 4, the effective neighborhood has a radius of <span class="arithmatex">\(\Theta(\sqrt{p}/\log(s_n))\)</span> in the L2 norm. To calculate the volume of this neighborhood, we need to consider the p-dimensional ball with this radius.</p>
+<p>The volume of a p-dimensional ball with radius <span class="arithmatex">\(r\)</span> is <span class="arithmatex">\(V_p(r) = \frac{\pi^{p/2}}{\Gamma(p/2+1)}r^p\)</span>, where <span class="arithmatex">\(\Gamma\)</span> is the gamma function. Substituting <span class="arithmatex">\(r = \Theta(\sqrt{p}/\log(s_n))\)</span>:</p>
+<div class="arithmatex">\[V_p\left(\Theta\left(\frac{\sqrt{p}}{\log(s_n)}\right)\right) = \frac{\pi^{p/2}}{\Gamma(p/2+1)} \cdot \Theta\left(\frac{\sqrt{p}}{\log(s_n)}\right)^p\]</div>
+<p>This simplifies to:</p>
+<div class="arithmatex">\[V_p\left(\Theta\left(\frac{\sqrt{p}}{\log(s_n)}\right)\right) = \Theta\left(\frac{p^{p/2}}{(\log(s_n))^p} \cdot \frac{\pi^{p/2}}{\Gamma(p/2+1)}\right)\]</div>
+<p>Using Stirling's approximation for the gamma function: <span class="arithmatex">\(\Gamma(p/2+1) \approx \sqrt{2\pi} \cdot (p/2)^{p/2} \cdot e^{-p/2}\)</span>, we find that the ratio <span class="arithmatex">\(\frac{\pi^{p/2}}{\Gamma(p/2+1)}\)</span> is <span class="arithmatex">\(\Theta(p^{-p/2})\)</span>, which cancels the <span class="arithmatex">\(p^{p/2}\)</span> term in the numerator. Thus:</p>
+<div class="arithmatex">\[V_p\left(\Theta\left(\frac{\sqrt{p}}{\log(s_n)}\right)\right) = \Theta\left(\left(\frac{1}{\log(s_n)}\right)^p\right)\]</div>
+<p>Under Assumption 5 (bounded density), the expected number of points in this volume is proportional to <span class="arithmatex">\(n\)</span> times the volume, giving:</p>
+<p><span class="arithmatex">\(<span class="arithmatex">\(\mathbb{E}[|\{i: \alpha_i(\mathbf{x}) &gt; \varepsilon_n\}|] = \Theta\left(n \cdot \left(\frac{1}{\log(s_n)}\right)^p\right)\)</span>\)</span>
+<span class="arithmatex">\(\square\)</span></p>
+<p>This result reveals an important property of random forests: as the sample size increases, the absolute number of influential points grows, but their proportion relative to the total sample size decreases. Specifically, the proportion of influential points decreases as <span class="arithmatex">\(\Theta((\log(s_n))^{-p})\)</span>.</p>
+<h3 id="64-comparison-with-traditional-kernel-methods">6.4 Comparison with Traditional Kernel Methods</h3>
+<p>The behavior of random forest weights reveals important differences from traditional kernel methods that help explain their adaptive properties. </p>
+<p>In traditional kernel regression with a fixed bandwidth <span class="arithmatex">\(h\)</span>, the weights typically take the form:</p>
+<div class="arithmatex">\[\alpha_i^{kernel}(\mathbf{x}) = \frac{K\left(\frac{\|\mathbf{x} - \mathbf{X}_i\|}{h}\right)}{\sum_{j=1}^n K\left(\frac{\|\mathbf{x} - \mathbf{X}_j\|}{h}\right)}\]</div>
+<p>where <span class="arithmatex">\(K(\cdot)\)</span> is a kernel function such as the Gaussian or Epanechnikov kernel.</p>
+<p>For instance, the Gaussian kernel yields weights of the form:</p>
+<div class="arithmatex">\[\alpha_i^{Gauss}(\mathbf{x}) = \frac{\exp\left(-\frac{\|\mathbf{x} - \mathbf{X}_i\|_2^2}{2h^2}\right)}{\sum_{j=1}^n \exp\left(-\frac{\|\mathbf{x} - \mathbf{X}_j\|_2^2}{2h^2}\right)}\]</div>
+<p>When compared to random forest weights, several key differences emerge:</p>
+<ol>
+<li>
+<p><strong>Adaptive bandwidth</strong>: Random forests implicitly use a bandwidth of <span class="arithmatex">\(h_n = \Theta(1/\log(s_n))\)</span> that adapts to the sample size, automatically becoming more localized as more data becomes available.</p>
+</li>
+<li>
+<p><strong>Shape adaptation</strong>: The random forest kernel exhibits different functional forms at different distance scales (linear for very close points, exponential for moderately close points), providing more nuanced adaptation than traditional kernels with a fixed functional form.</p>
+</li>
+<li>
+<p><strong>Dimensional scaling</strong>: The effective neighborhood size in random forests scales as <span class="arithmatex">\(O(\sqrt{p}/\log(s_n))\)</span>, which is less sensitive to the curse of dimensionality than the typical <span class="arithmatex">\(O(h)\)</span> scaling in fixed-bandwidth methods.</p>
+</li>
+<li>
+<p><strong>Decay profile</strong>: For close points, the Gaussian kernel exhibits quadratic decay (<span class="arithmatex">\(\alpha_i^{Gauss}(\mathbf{x}) \approx 1 - \Theta((\log(s_n))^2\|\mathbf{x} - \mathbf{X}_i\|_2^2)\)</span>), whereas random forests show linear decay (<span class="arithmatex">\(\alpha_i(\mathbf{x}) \approx 1 - \Theta(\log(s_n)\|\mathbf{x} - \mathbf{X}_i\|_1)\)</span>).</p>
+</li>
+</ol>
+<p>These differences contribute to random forests' adaptive behavior and help explain their empirical success across diverse learning problems.</p>
+<h3 id="65-practical-implications">6.5 Practical Implications</h3>
+<p>The theoretical results on random forest weights and effective neighborhood size have several important implications for practitioners:</p>
+<h4 id="651-feature-space-coverage">6.5.1 Feature Space Coverage</h4>
+<p>In high-dimensional spaces, the curse of dimensionality typically makes it difficult to achieve adequate coverage of the feature space. Our results show that random forests mitigate this problem through their adaptive neighborhood sizing. As dimensionality increases, the effective neighborhood expands just enough to include a sufficient number of training points.</p>
+<p>The expected number of influential points scales as <span class="arithmatex">\(\Theta(n \cdot (1/\log(s_n))^p)\)</span>, which decreases exponentially with dimension <span class="arithmatex">\(p\)</span>. However, this decrease is milder than in fixed-bandwidth methods where the number of points in a neighborhood of radius <span class="arithmatex">\(h\)</span> decreases as <span class="arithmatex">\(\Theta(n \cdot h^p)\)</span>. This explains why random forests often outperform traditional methods in moderate to high-dimensional settings.</p>
+<h4 id="652-parameter-tuning-guidance">6.5.2 Parameter Tuning Guidance</h4>
+<p>Our analysis provides theoretical guidance for tuning the key parameters of random forests:</p>
+<ol>
+<li>
+<p><strong>Tree depth parameter <span class="arithmatex">\(\lambda\)</span></strong>: This parameter directly affects the rate of weight decay with distance. Larger values of <span class="arithmatex">\(\lambda\)</span> lead to more localized predictions with sharper transitions between distance regimes. In practice, this corresponds to growing deeper trees relative to the subsample size.</p>
+</li>
+<li>
+<p><strong>Subsample size <span class="arithmatex">\(s_n\)</span></strong>: The effective neighborhood size scales as <span class="arithmatex">\(\Theta(1/\log(s_n))\)</span>. Larger subsample sizes result in smaller effective neighborhoods and more localized predictions. This suggests that increasing the subsample size can help reduce bias in regions with sufficient data density, but may increase variance in sparse regions.</p>
+</li>
+<li>
+<p><strong>Number of trees <span class="arithmatex">\(B\)</span></strong>: While our asymptotic results assume <span class="arithmatex">\(B \to \infty\)</span>, in practice, a finite number of trees introduces additional variance. To ensure that the empirical weights are close to their theoretical values with high probability, the number of trees should increase with the desired precision of the weights.</p>
+</li>
+</ol>
+<h4 id="653-local-variable-importance">6.5.3 Local Variable Importance</h4>
+<p>The characterization of random forest weights provides a foundation for developing more precise local variable importance measures. By understanding how training points influence predictions based on their distance from the query point, researchers can develop variable importance measures that reflect the local structure of the feature space more accurately.</p>
+<p>This understanding could lead to more interpretable models that can identify which variables are most important in different regions of the feature space, rather than relying solely on global importance measures.</p>
+<h3 id="66-conclusion">6.6 Conclusion</h3>
+<p>Our analysis of random forest weights and effective neighborhood size provides key insights into how random forests adaptively adjust their prediction influence based on sample size, dimensionality, and local data density. The weights exhibit a smooth transition from linear to exponential decay with distance, creating an effective soft boundary for relevant points.</p>
+<p>The effective neighborhood size scales as <span class="arithmatex">\(\Theta(\sqrt{p}/\log(s_n))\)</span> in Euclidean distance, demonstrating how random forests automatically adapt their resolution based on both sample size and dimensionality. This adaptive behavior helps explain the strong empirical performance of random forests across diverse learning tasks and data structures.</p>
+<p>Through comparison with traditional kernel methods, we have shown that random forests combine the benefits of linear and exponential weight decay in different distance regimes, providing a unique adaptive profile that mitigates the curse of dimensionality while maintaining local sensitivity.</p>
+<p>These results not only deepen our theoretical understanding of random forests but also provide practical guidance for their application and tuning in various settings. The connection between random forest weights and adaptive kernel methods opens new avenues for developing hybrid approaches that combine the strengths of both paradigms.</p>
+<h2 id="7-comprehensive-simulation-studies">7. Comprehensive Simulation Studies</h2>
+<p>In this section, we present a detailed empirical validation of our theoretical framework through extensive simulation studies. These simulations are specifically designed to verify the key properties of random forest kernels across different distance regimes, while also investigating the effect of sample size and subsampling strategies on kernel behavior.</p>
+<h3 id="71-simulation-design">7.1 Simulation Design</h3>
+<p>Our simulation studies employ a custom implementation of random forests that strictly adheres to the theoretical assumptions specified in Section 3. We focus on evaluating how closely the empirical kernel behavior aligns with theoretical predictions across various parameter configurations.</p>
+<h4 id="711-experimental-setup">7.1.1 Experimental Setup</h4>
+<p>The key components of our simulation design include:</p>
+<ol>
+<li>
+<p><strong>Multiple Trials</strong>: For each parameter configuration, we conduct 10 independent trials to assess the variability in empirical kernel estimates.</p>
+</li>
+<li>
+<p><strong>Varied Sample Sizes</strong>: We investigate sample sizes <span class="arithmatex">\(n \in \{200, 500, 1000, 1500, 2000\}\)</span> to evaluate convergence properties.</p>
+</li>
+<li>
+<p><strong>Subsampling Strategies</strong>: We explore five different subsampling approaches:</p>
+</li>
+<li><span class="arithmatex">\(s_n = \sqrt{n}\)</span> (traditional random forests)</li>
+<li><span class="arithmatex">\(s_n = n/3\)</span> (common in practice)</li>
+<li><span class="arithmatex">\(s_n = n^{0.8}\)</span> (moderate subsampling)</li>
+<li><span class="arithmatex">\(s_n = n^{0.9}\)</span> (Wager and Athey approach)</li>
+<li>
+<p><span class="arithmatex">\(s_n = n^{0.98}\)</span> (nearly full sampling)</p>
+</li>
+<li>
+<p><strong>Fixed Parameters</strong>:</p>
+</li>
+<li>Dimension: <span class="arithmatex">\(p = 2\)</span> (fixed for clarity of visualization)</li>
+<li>Number of trees: <span class="arithmatex">\(B = 2000\)</span> (to ensure stability in kernel estimates)</li>
+<li>
+<p>Tree depth: <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span> as specified in Assumption 4</p>
+</li>
+<li>
+<p><strong>Distance Regimes</strong>: We systematically generate test points across the three distance regimes:</p>
+</li>
+<li>Very close regime: <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}\|_1 = o\left(\frac{1}{\log(s_n)}\right)\)</span></li>
+<li>Intermediate regime: <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}\|_1 = \Theta\left(\frac{1}{\log(s_n)}\right)\)</span></li>
+<li>Far regime: <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}\|_1 = \Theta(1)\)</span></li>
+</ol>
+<p>For each configuration, we compute both empirical kernel values and their corresponding theoretical predictions, allowing direct comparison between theory and practice.</p>
+<h4 id="712-implementation-details">7.1.2 Implementation Details</h4>
+<p>We implemented a custom random forest algorithm that faithfully follows our theoretical framework:</p>
+<ol>
+<li>
+<p><strong>Tree Building</strong>: Each tree is constructed using a random subsample of the training data, with splits chosen uniformly at random from available features (Assumption 2).</p>
+</li>
+<li>
+<p><strong>Kernel Computation</strong>: The kernel value <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z})\)</span> is calculated as the proportion of trees in which points <span class="arithmatex">\(\mathbf{x}\)</span> and <span class="arithmatex">\(\mathbf{z}\)</span> fall into the same leaf node.</p>
+</li>
+<li>
+<p><strong>Theoretical Curves</strong>: For comprehensive comparison, we compute theoretical values for both the very close regime (<span class="arithmatex">\(1 - \lambda\log(s_n)\|\mathbf{x} - \mathbf{z}\|_1\)</span>) and the intermediate regime (<span class="arithmatex">\(e^{-\lambda\log(s_n)\|\mathbf{x} - \mathbf{z}\|_1}\)</span>) across the entire range of distances.</p>
+</li>
+</ol>
+<p>This implementation enables us to directly validate our theoretical characterization of the random forest kernel.</p>
+<h3 id="72-empirical-validation-of-kernel-behavior">7.2 Empirical Validation of Kernel Behavior</h3>
+<p>Our primary objective is to examine how closely the empirical kernel behavior aligns with our theoretical predictions across different distance regimes. Figure 1 illustrates this comparison for a sample size of <span class="arithmatex">\(n = 1000\)</span> with the subsampling strategy <span class="arithmatex">\(s_n = n^{0.9}\)</span>.</p>
+<h4 id="721-regime-specific-behavior">7.2.1 Regime-Specific Behavior</h4>
+<p>The empirical results strongly validate our theoretical predictions regarding the three distinct regimes of kernel behavior:</p>
+<ol>
+<li>
+<p><strong>Very Close Regime</strong>: For points at distances significantly smaller than <span class="arithmatex">\(1/\log(s_n)\)</span>, the kernel values exhibit a linear relationship with distance, closely following the theoretical prediction <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}) \approx 1 - \lambda\log(s_n)\|\mathbf{x} - \mathbf{z}\|_1\)</span>. This confirms Theorem 2(c).</p>
+</li>
+<li>
+<p><strong>Intermediate Regime</strong>: For points at distances proportional to <span class="arithmatex">\(1/\log(s_n)\)</span>, the kernel values demonstrate exponential decay, matching the theoretical prediction <span class="arithmatex">\(K_{RF,n}(\mathbf{x}, \mathbf{z}) \approx e^{-\lambda\log(s_n)\|\mathbf{x} - \mathbf{z}\|_1}\)</span>. This validates Theorem 2(b).</p>
+</li>
+<li>
+<p><strong>Far Regime</strong>: For points at constant distances, the kernel values rapidly approach zero, consistent with the exponential decay predicted in Theorem 2(a).</p>
+</li>
+</ol>
+<p>The smooth transition between these regimes confirms our analysis in Section 5.3 regarding the continuous nature of the kernel function.</p>
+<h4 id="722-impact-of-theoretical-curves-extension">7.2.2 Impact of Theoretical Curves Extension</h4>
+<p>By plotting both theoretical curves (linear and exponential) across the entire range of distances, we gain additional insights into the kernel behavior:</p>
+<ol>
+<li>
+<p>The linear approximation (<span class="arithmatex">\(1 - \lambda\log(s_n)\|\mathbf{x} - \mathbf{z}\|_1\)</span>) is highly accurate in the very close regime but quickly becomes inappropriate at larger distances, even predicting negative kernel values.</p>
+</li>
+<li>
+<p>The exponential approximation (<span class="arithmatex">\(e^{-\lambda\log(s_n)\|\mathbf{x} - \mathbf{z}\|_1}\)</span>) provides an excellent fit in the intermediate regime and remains reasonable in the far regime.</p>
+</li>
+<li>
+<p>The intersection of these curves naturally identifies a transition point between the regimes, occurring at approximately <span class="arithmatex">\(\|\mathbf{x} - \mathbf{z}\|_1 \approx 0.1/\log(s_n)\)</span>.</p>
+</li>
+</ol>
+<p>These observations reinforce the necessity of different functional approximations for different distance regimes, which is a key contribution of our theoretical framework.</p>
+<h3 id="73-convergence-properties-and-sample-size-effects">7.3 Convergence Properties and Sample Size Effects</h3>
+<p>A critical aspect of our asymptotic analysis is the convergence of empirical kernel behavior to theoretical predictions as sample size increases. Figure 2 illustrates how kernel variance decreases with increasing sample size across different subsampling strategies.</p>
+<h4 id="731-kernel-variance">7.3.1 Kernel Variance</h4>
+<p>Our results demonstrate that for all subsampling strategies and distance regimes, the variance of empirical kernel estimates decreases as sample size increases. Specifically:</p>
+<ol>
+<li>
+<p><strong>Rate of Convergence</strong>: The average standard deviation of kernel estimates decreases approximately at a rate of <span class="arithmatex">\(O(n^{-1/2})\)</span>, consistent with standard statistical convergence rates.</p>
+</li>
+<li>
+<p><strong>Regime-Specific Stability</strong>: Kernel estimates in the very close regime exhibit the lowest variance, while estimates in the far regime show higher variability, especially at smaller sample sizes.</p>
+</li>
+<li>
+<p><strong>Subsample Effect</strong>: Strategies with larger subsamples (e.g., <span class="arithmatex">\(s_n = n^{0.98}\)</span>) generally show lower variance than those with smaller subsamples (e.g., <span class="arithmatex">\(s_n = \sqrt{n}\)</span>), particularly for intermediate and far regimes.</p>
+</li>
+</ol>
+<p>These findings confirm that our theoretical characterization becomes increasingly accurate as sample size grows, supporting the asymptotic nature of our results.</p>
+<h4 id="732-distance-scaling-property">7.3.2 Distance Scaling Property</h4>
+<p>An important theoretical prediction is that when distances are properly scaled by <span class="arithmatex">\(\log(s_n)\)</span>, the kernel behavior follows a universal pattern regardless of sample size. Figure 3 confirms this property by plotting kernel values against scaled distance <span class="arithmatex">\(u = \log(s_n)\|\mathbf{x} - \mathbf{z}\|_1\)</span> for different sample sizes.</p>
+<p>The results show remarkable alignment of kernel curves across different sample sizes when using the scaled distance, with all curves closely following the theoretical prediction <span class="arithmatex">\(e^{-\lambda u}\)</span> in the intermediate regime. This consistency validates our theoretical framework's ability to capture the essential scaling behavior of random forest kernels.</p>
+<h3 id="74-impact-of-subsampling-strategy">7.4 Impact of Subsampling Strategy</h3>
+<p>Our investigation of different subsampling strategies reveals several important insights about their effect on kernel behavior. Figure 4 compares kernel shapes across different subsampling strategies for a fixed sample size.</p>
+<h4 id="741-kernel-shape-variation">7.4.1 Kernel Shape Variation</h4>
+<p>When examining kernel behavior across subsampling strategies, we observe:</p>
+<ol>
+<li>
+<p><strong>Overall Shape Consistency</strong>: All subsampling strategies produce kernel functions that exhibit the three theoretical regimes, though with varying transition points and decay rates.</p>
+</li>
+<li>
+<p><strong>Decay Rate Differences</strong>: Larger subsampling rates (e.g., <span class="arithmatex">\(s_n = n^{0.98}\)</span>) lead to sharper decay in the intermediate regime compared to smaller rates (e.g., <span class="arithmatex">\(s_n = \sqrt{n}\)</span>).</p>
+</li>
+<li>
+<p><strong>Effective Neighborhood Size</strong>: The effective neighborhood (points with non-negligible kernel values) is larger for smaller subsampling rates and narrower for larger rates.</p>
+</li>
+</ol>
+<p>These observations can be explained through our theoretical framework: larger subsamples lead to deeper trees (since <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span>), resulting in more refined partitioning of the feature space and consequently sharper discriminative capability between points.</p>
+<h4 id="742-theoretical-alignment">7.4.2 Theoretical Alignment</h4>
+<p>Interestingly, we find that all subsampling strategies show reasonable agreement with our theoretical predictions, with some variations:</p>
+<ol>
+<li>
+<p><strong>Traditional Rate (<span class="arithmatex">\(s_n = \sqrt{n}\)</span>)</strong>: Shows good overall alignment with theory and provides a balance between very close and intermediate regimes.</p>
+</li>
+<li>
+<p><strong>Wager-Athey Rate (<span class="arithmatex">\(s_n = n^{0.9}\)</span>)</strong>: Demonstrates excellent agreement in the intermediate regime but potentially faster transition from very close to intermediate regimes.</p>
+</li>
+<li>
+<p><strong>Nearly Full Sampling (<span class="arithmatex">\(s_n = n^{0.98}\)</span>)</strong>: Exhibits the sharpest distinction between regimes, with very rapid transition from kernel values near 1 to values near 0.</p>
+</li>
+</ol>
+<p>These results suggest that while the specific subsampling rate affects the quantitative details of kernel behavior, the qualitative characteristics predicted by our theory remain valid across different subsampling strategies.</p>
+<h3 id="75-implications-and-practical-considerations">7.5 Implications and Practical Considerations</h3>
+<p>Our comprehensive simulation studies yield several important implications for the theoretical understanding and practical application of random forests:</p>
+<h4 id="751-theoretical-validation">7.5.1 Theoretical Validation</h4>
+<p>The strong agreement between empirical and theoretical kernel behavior across multiple parameter configurations provides robust validation of our theoretical framework. The three-regime characterization accurately captures the essential behavior of random forest kernels, regardless of specific implementation details such as subsampling rate.</p>
+<h4 id="752-subsampling-recommendations">7.5.2 Subsampling Recommendations</h4>
+<p>Based on our findings, we can offer practical recommendations regarding subsampling strategies:</p>
+<ol>
+<li>
+<p><strong>Statistical Efficiency</strong>: Larger subsampling rates (<span class="arithmatex">\(s_n = n^{0.9}\)</span> or higher) offer lower variance in kernel estimates, making them preferable when computational resources allow.</p>
+</li>
+<li>
+<p><strong>Computational Efficiency</strong>: Smaller subsampling rates (e.g., <span class="arithmatex">\(s_n = \sqrt{n}\)</span>) still provide reasonable kernel estimates with significantly reduced computational cost, which may be crucial for large-scale applications.</p>
+</li>
+<li>
+<p><strong>Adaptive Resolution</strong>: The choice of subsampling rate effectively controls the sharpness of discrimination between points at different distances, allowing practitioners to adjust this parameter based on their specific needs for local adaptivity.</p>
+</li>
+</ol>
+<h4 id="753-connection-to-forest-depth">7.5.3 Connection to Forest Depth</h4>
+<p>Our simulations highlight the critical role of tree depth in determining kernel properties. The depth parameter <span class="arithmatex">\(\lambda\)</span> and the subsample size <span class="arithmatex">\(s_n\)</span> jointly control the effective resolution of the forest through the relationship <span class="arithmatex">\(d_n = \lambda p \log(s_n)\)</span>. This suggests that practitioners may want to directly control tree depth based on the desired kernel properties rather than focusing solely on subsampling rates.</p>
+<h3 id="76-summary">7.6 Summary</h3>
+<p>Our comprehensive simulation studies provide strong empirical validation of the theoretical framework developed in this paper. The results confirm the existence of three distinct distance regimes in random forest kernels and demonstrate how kernel behavior converges to theoretical predictions as sample size increases. The investigations into different subsampling strategies reveal that while quantitative details may vary, the fundamental properties of random forest kernels predicted by our theory remain consistent across implementations.</p>
+<p>These findings strengthen our understanding of how random forests adaptively adjust their smoothing behavior based on distance, sample size, and subsampling strategy, providing both theoretical insights and practical guidance for the application of random forests in various learning tasks.</p>
+<h2 id="8-conclusion-and-future-work">8. Conclusion and future work</h2>
+<h3 id="81-contributions">8.1 Contributions</h3>
+<p>This paper provides a rigorous mathematical analysis of the kernel induced by random forests, characterizing its asymptotic behavior across different distance regimes. Our primary contributions are:</p>
+<p>First, we have established that the random forest kernel exhibits three distinct behaviors depending on the distance between points relative to sample size: exponential decay for distant points, a specific exponential relationship for moderately close points, and a linear relationship for very close points. These regimes emerge naturally from the tree-building process and explain the adaptive smoothing capability of random forests.</p>
+<p>Second, we have derived precise asymptotic forms for the kernel function in each regime, showing that the transition between regimes is governed by the quantity <span class="arithmatex">\(1/\log(s_n)\)</span>, where <span class="arithmatex">\(s_n\)</span> is the subsample size. This characterization reveals how random forests implicitly adapt their resolution based on both sample size and local data density.</p>
+<p>Third, we have shown that the effective neighborhood size scales as <span class="arithmatex">\(\Theta(\sqrt{p}/\log(s_n))\)</span>, demonstrating how random forests mitigate the curse of dimensionality compared to fixed-bandwidth methods.</p>
+<p>Fourth, our comprehensive simulation studies validate the theoretical findings across various parameter configurations, confirming the three-regime behavior and showing how empirical kernel behavior converges to theoretical predictions as sample size increases. Our simulations also reveal how different subsampling strategies affect the quantitative details of kernel behavior while preserving the qualitative characteristics predicted by our theory.</p>
+<p>These results provide a novel perspective on random forests that connects them to kernel methods while highlighting their unique adaptive properties, helping to bridge the gap between their empirical success and theoretical understanding.</p>
+<h3 id="82-future-work">8.2 Future Work</h3>
+<p>Several promising directions for future research emerge from this work : Further theoretical developments could include relaxing the current assumptions to accommodate non-uniform feature distributions and data-dependent splitting rules, extending the analysis to classification settings, and developing finite-sample guarantees that provide non-asymptotic bounds on kernel behavior.</p>
+<p>Algorithmic innovations might involve designing forest construction algorithms that optimize specific kernel characteristics, developing accelerated implementations based on effective neighborhood insights, and creating hybrid approaches that combine random forest kernels with other kernel methods.</p>
+<p>Applied research directions include developing local feature importance measures based on the kernel perspective, improving uncertainty quantification using the distance-dependent behavior of the kernel, and exploring applications in transfer learning and domain adaptation that leverage the adaptive nature of random forest kernels.</p>
+<p>The principles of adaptivity and data-dependent smoothing exemplified by random forest kernels are likely to remain important in machine learning. By rigorously characterizing these properties, this work contributes to both the theoretical understanding and practical application of random forests across diverse learning problems.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

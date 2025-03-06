@@ -52,10 +52,32 @@ nav:
         - 3. Vector and Matrix2 : lectures/LA/03-vector-and-matrix.md
         - 4. Vector and Matrix3 : lectures/LA/04-vector-and-matrix.md
         - 5. Vector and Matrix4 : lectures/LA/05-vector-and-matrix.md
-        - 6. System of Linear Equation : lectures/LA/06-system-of-linear-equation.md
-        - 7. System of Linear Equation : lectures/LA/07-system-of-linear-equation.md
-        - 8. System of Linear Equation : lectures/LA/08-system-of-linear-equation.md
-        - 9. System of Linear Equation : lectures/LA/09-system-of-linear-equation.md
+        - 6. Vector and Matrix5 : lectures/LA/06-vector-and-matrix.md
+        - 7. Vector and Matrix6 : lectures/LA/07-vector-and-matrix.md
+        - 8. Vector and Matrix7 : lectures/LA/08-vector-and-matrix.md
+        - 9. Exersice : lectures/LA/09-exercise.md
+        - 10. System of Linear Equation : lectures/LA/10-system-of-linear-equation.md
+        - 11. System of Linear Equation : lectures/LA/11-system-of-linear-equation.md
+        - 12. System of Linear Equation : lectures/LA/12-system-of-linear-equation.md
+        - 13. System of Linear Equation : lectures/LA/13-system-of-linear-equation.md
+        - 14. System of Linear Equation : lectures/LA/14-system-of-linear-equation.md
+        - 15. System of Linear Equation : lectures/LA/15-system-of-linear-equation.md
+        - 16. System of Linear Equation : lectures/LA/16-system-of-linear-equation.md
+        - 17. System of Linear Equation : lectures/LA/17-system-of-linear-equation.md
+        - 18. System of Linear Equation : lectures/LA/18-system-of-linear-equation.md
+        - 19. Exercise : lectures/LA/19-exercise.md
+        - 20. Midterm Exam : lectures/LA/20-midterm-exam.md
+        - 21. Determinant : lectures/LA/21-determinant.md
+        - 22. Determinant : lectures/LA/22-determinant.md
+        - 23. Determinant : lectures/LA/23-determinant.md
+        - 24. Determinant : lectures/LA/24-determinant.md
+        - 25. Exercise : lectures/LA/25-exercise.md
+        - 26. Vector space : lectures/LA/26-vector-space-and-inner-product.md
+        - 27. Vector space : lectures/LA/27-vector-space-and-inner-product.md
+        - 28. Vector space : lectures/LA/28-vector-space-and-inner-product.md
+        - 29. Exercise : lectures/LA/29-exercise.md
+        - 30. Report Exam : lectures/LA/30-report.md
+        - 31. Semester Exam : lectures/LA/31-exam.md
       - Data Science without syntax : 
         - lectures/SIWS/index.md
         - 1. Getting-Started : lectures/SIWS/01-getting-started.md
@@ -64,16 +86,43 @@ nav:
         - 3. Data Wrangling : lectures/SIWS/04-data-import-and-tidy-data.md
       - Statistics and Probability : 
         - lectures/SP/index.md
+      - Open Campus :
+        - lectures/OC/index.md
   - Research : 
       - research/index.md
       - Generalized random forests : research/note/generalized-random-forests.md
+      - Variable Importance Measures : research/note/variable-importance.md
+      - Random forest kernels : research/note/forest-kernel-and-its-asymptotics.md
+      - Consistency of SRT : research/note/consistency-of-soft-decision-trees.md
+      - Sparse Causal BART : research/note/sparseBART.md
       - Causal mediation analysis : research/note/causal-mediation-analysis.md
       - Causal data repository : research/note/causal-data-repository.md
+      - Causal Brain Analysis : research/note/causal-brain-analysis.md
+      - Factor analysis :
+        - research/note/factor-analysis/index.md
+        - 1. はじめに : research/note/factor-analysis/01-introduction.md 
+        - 2. 因子とは : research/note/factor-analysis/02-factor.md 
+        - 3. 因子負荷行列 : research/note/factor-analysis/03-factor-loading-matrix.md 
+        - 4. 潜在因子推定法 : research/note/factor-analysis/04-latent-factor-estimation.md
+        - 5. 回転基準と結果の解釈 : research/note/factor-analysis/05-rotation-and-interpretation.md 
+        - 6. 感度分析 : research/note/factor-analysis/06-sensitivity-analysis.md  
+        - 7. 因子分析の手順 : research/note/factor-analysis/07-analysis-step.md 
+        - 8. シミュレーション : research/note/factor-analysis/08-simulation.md 
+        - 9. 糖尿病潜在原因分析 : research/note/factor-analysis/09-pima-indians-diabetes-analysis.md  
+        - 10. 順序ありカテゴリカル変数の扱い : research/note/factor-analysis/10-ordered-categorical-factor-analysis.md 
+        - 11. 飛行機乗客満足度分析 : research/note/factor-analysis/11-airline-passenger-satisfaction-analysis.md 
+        - 12. 行列分解と因子分析(Technical) : research/note/factor-analysis/12-technical-note-matrix-factorization.md
+      
 
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
   - admonition
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 extra_javascript:
   - javascripts/katex.js

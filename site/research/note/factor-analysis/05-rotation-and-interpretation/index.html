@@ -1,0 +1,3129 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/factor-analysis/05-rotation-and-interpretation/">
+      
+      
+        <link rel="prev" href="../04-latent-factor-estimation/">
+      
+      
+        <link rel="next" href="../06-sensitivity-analysis/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>5. 回転基準と結果の解釈 - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. 回転基準と結果の解釈
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../lectures/" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../lectures/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../lectures/LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../lectures/SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../lectures/SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../lectures/OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../causal-brain-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      第5章 回転と分析結果の解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第5章 回転と分析結果の解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 はじめに
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 回転の目的と重要性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 回転の目的と重要性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 回転の目的
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 なぜ初期の解だけでは不十分なのか
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 直交回転と斜交回転の詳細
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 直交回転と斜交回転の詳細">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-orthogonal-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1 直交回転 (Orthogonal Rotation)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-oblique-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2 斜交回転 (Oblique Rotation)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 数学的展開と回転行列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 数学的展開と回転行列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.1 基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#542-varimax" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.2 直交回転における数学的最適化（Varimaxの例）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#543-promax" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.3 斜交回転におけるPromax回転の具体的手法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.3 斜交回転におけるPromax回転の具体的手法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ステップ1: 初期直交回転
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ステップ2: ターゲット行列の作成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      ステップ3: 変換行列 $ T $ の推定
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ステップ4: 回転後の因子負荷行列の算出
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#544" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.4 まとめと重要ポイント
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 分析結果の解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 分析結果の解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#551" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.1 因子負荷量の解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#552" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.2 因子の命名と理論的検証
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#553" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.3 現実的な懸念とその対策
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#554" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.4 具体例による解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5.4 具体例による解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例1: 心理学的検査の因子解釈
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例2: マーケティング調査における因子解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#555" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.5 解釈プロセスのポイント
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 まとめ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      第5章 回転と分析結果の解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第5章 回転と分析結果の解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 はじめに
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 回転の目的と重要性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 回転の目的と重要性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 回転の目的
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 なぜ初期の解だけでは不十分なのか
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 直交回転と斜交回転の詳細
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 直交回転と斜交回転の詳細">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-orthogonal-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1 直交回転 (Orthogonal Rotation)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-oblique-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2 斜交回転 (Oblique Rotation)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 数学的展開と回転行列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 数学的展開と回転行列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.1 基本概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#542-varimax" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.2 直交回転における数学的最適化（Varimaxの例）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#543-promax" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.3 斜交回転におけるPromax回転の具体的手法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.3 斜交回転におけるPromax回転の具体的手法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ステップ1: 初期直交回転
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ステップ2: ターゲット行列の作成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      ステップ3: 変換行列 $ T $ の推定
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ステップ4: 回転後の因子負荷行列の算出
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#544" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.4 まとめと重要ポイント
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 分析結果の解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 分析結果の解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#551" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.1 因子負荷量の解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#552" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.2 因子の命名と理論的検証
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#553" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.3 現実的な懸念とその対策
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#554" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.4 具体例による解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5.4 具体例による解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例1: 心理学的検査の因子解釈
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例2: マーケティング調査における因子解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#555" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.5 解釈プロセスのポイント
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 まとめ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>5. 回転基準と結果の解釈</h1>
+
+<h2 id="5">第5章 回転と分析結果の解釈</h2>
+<p>本章では、因子分析の結果をより明確かつ解釈しやすくするために行われる「回転」の概念と、その後の分析結果の解釈方法について詳しく説明します。ここでは、回転の目的、直交回転と斜交回転の違い、数学的な展開、そして具体例を通して、得られた因子負荷行列の読み取り方や実務上の解釈のポイントを解説します。</p>
+<h3 id="51">5.1 はじめに</h3>
+<p>因子分析の初期段階では、統計的最適性を重視した推定により因子負荷行列が得られます。しかし、得られた負荷行列は必ずしも「単純構造（simple structure）」を示しておらず、各観測変数が複数の因子に対して中程度の負荷量を持つような場合もあります。<br />
+この状態では、どの因子がどの変数に主に影響を及ぼしているのかの解釈が困難になるため、<strong>回転</strong>という手法を用いて、因子負荷行列の構造を解釈しやすい形に再配置します。</p>
+<h3 id="52">5.2 回転の目的と重要性</h3>
+<h4 id="521">5.2.1 回転の目的</h4>
+<ul>
+<li>
+<p><strong>解釈性の向上:</strong><br />
+  回転を行うことで、各因子に対して高い負荷量を持つ変数と低い負荷量を持つ変数が明確になり、各因子の意味を把握しやすくなります。</p>
+</li>
+<li>
+<p><strong>単純構造の実現:</strong><br />
+  「単純構造」とは、各変数ができるだけ一つの因子に強く寄与し、他の因子にはほとんど寄与しない状態を指します。回転はこの単純構造を実現するために用いられます。</p>
+</li>
+<li>
+<p><strong>解釈の一致:</strong><br />
+  分析者が異なる場合でも、回転後の因子負荷行列により、同じデータから似た解釈が得られる可能性が高まります。</p>
+</li>
+</ul>
+<h4 id="522">5.2.2 なぜ初期の解だけでは不十分なのか</h4>
+<ul>
+<li><strong>初期解の問題点:</strong><br />
+  初期の因子負荷行列は、最尤法や主因子法などで得られるため、統計的最適性はあるものの、解釈の容易さという点では必ずしも最良ではありません。  </li>
+<li><strong>構造の曖昧さ:</strong><br />
+  例えば、ある変数が複数の因子に対して中程度の負荷を示している場合、その変数がどの因子に主に関連しているのかが不明瞭となります。</li>
+</ul>
+<hr />
+<h3 id="53">5.3 直交回転と斜交回転の詳細</h3>
+<p>因子分析での回転には大きく分けて「直交回転」と「斜交回転」の2種類があり、それぞれにメリット・デメリットおよび実際の応用での利点があります。ここでは、各手法の代表的な基準について、Varimax（直交回転）とPromax（斜交回転）に加え、直交回転のQuartimax基準および斜交回転のQuartimin基準やGeomin基準についても説明します。</p>
+<hr />
+<h4 id="531-orthogonal-rotation">5.3.1 直交回転 (Orthogonal Rotation)</h4>
+<p><strong>概要:</strong><br />
+直交回転は、回転後の因子が互いに直交（すなわち相関がゼロ）となるように回転を行う方法です。代表的な手法には、Varimax、Quartimax、Equamax などがあります。</p>
+<p><strong>Varimax:</strong><br />
+- 各因子における負荷量の分散を最大化することで、極端な高値と低値を強調し、単純構造を実現します。<br />
+- <strong>メリット:</strong> 解釈がシンプルで、各変数がどの因子に強く関連しているかが明確になります。<br />
+- <strong>デメリット:</strong> もしデータの背後で因子間に相関がある場合、その関係を無視してしまう可能性があります。</p>
+<p><strong>Quartimax:</strong><br />
+- Quartimax は、行ごとの単純性、すなわち各観測変数（行）の負荷量の単純性を最大化することに焦点を当てた回転方法です。<br />
+- <strong>メリット:</strong> 各変数が一つの因子に極端に寄与するように変換されるため、全体として単純な構造が得られやすく、一般因子の抽出傾向が強く出ることが多いです。<br />
+- <strong>デメリット:</strong> 結果として、一つの大きな一般因子が支配的になる傾向があり、複数の明確な因子構造が見えにくくなる場合があります。</p>
+<p><strong>Equamax:</strong><br />
+- Varimax と Quartimax の中間的な性質を持ち、各因子と各変数の単純性を同時に追求します。</p>
+<p><strong>実際の応用例:</strong><br />
+心理学的検査など、変数ごとに明確な特徴が存在し、各変数が特定の因子に集中することが期待される場合、直交回転は適用しやすいです。Quartimax は、全体として単純な構造を得るために利用されることがありますが、場合によっては一般因子が強調されすぎるため注意が必要です。</p>
+<hr />
+<h4 id="532-oblique-rotation">5.3.2 斜交回転 (Oblique Rotation)</h4>
+<p><strong>概要:</strong><br />
+斜交回転は、回転後の因子間の相関を許容する方法です。代表的な手法には、Promax、Direct Oblimin、Quartimin、Geomin などがあります。</p>
+<p><strong>Promax:</strong><br />
+- 初めに直交回転（通常は Varimax）を行い、その結果に対してパワー変換を適用して、斜交性を導入します。<br />
+- <strong>メリット:</strong> 実際のデータで因子間の相関が存在する場合、より現実的な因子構造を反映できます。<br />
+- <strong>デメリット:</strong> 因子間の相関が生じるため、各因子の独立した解釈が難しくなる場合があります。</p>
+<p><strong>Direct Oblimin:</strong><br />
+- 回転パラメータ（delta値）を調整することで、因子間の相関の度合いを制御できる柔軟な方法です。<br />
+- <strong>メリット:</strong> 回転の自由度が高く、データの特性に応じた調整が可能です。<br />
+- <strong>デメリット:</strong> パラメータ設定により結果が大きく変化することがあり、解釈には注意が必要です。</p>
+<p><strong>Quartimin:</strong><br />
+- Quartiminは、斜交回転の一手法で、負荷量行列の「複雑さ」を最小化することを目的とします。<br />
+- <strong>メリット:</strong> 変数が複数の因子にわたって中程度の負荷を示す場合、比較的シンプルな構造に再配置され、解釈しやすくなります。<br />
+- <strong>デメリット:</strong> 直交回転ほど単純な独立性は得られず、因子間の相関が残るため、解釈がやや複雑になる場合があります。</p>
+<p><strong>Geomin:</strong><br />
+- Geomin回転は、負荷量の小さい要素の幾何平均（またはその類似指標）を最小化する方法です。<br />
+- <strong>メリット:</strong> 細かな負荷量を抑え、大きな負荷量を際立たせることで、変数が明確にどの因子に寄与しているかを示す単純構造を導出します。<br />
+- <strong>デメリット:</strong> 回転基準が複雑なため、解釈の一貫性を保つために、ユーザーが回転パラメータを慎重に選ぶ必要があります。</p>
+<p><strong>実際の応用例:</strong><br />
+健康診断データや消費者調査など、因子間に自然な相関が存在すると予想される場合、斜交回転は有用です。Quartimin や Geomin は、変数が複数の因子にわたる中程度の寄与を示す場合に、よりシンプルな解釈を促すために選択されることがあります。</p>
+<hr />
+<p><strong>まとめ:</strong><br />
+- <strong>直交回転:</strong><br />
+  Varimax、Quartimax、Equamax などがあり、因子間の独立性を保持するため、解釈が直感的でシンプルな構造が得られますが、現実の相関関係を反映しにくい場合があります。</p>
+<ul>
+<li><strong>斜交回転:</strong><br />
+  Promax、Direct Oblimin、Quartimin、Geomin などがあり、因子間の相関を許容することで、実際のデータ構造をより忠実に反映できますが、解釈が複雑になる可能性があります。</li>
+</ul>
+<p>実際の解析では、理論的な前提やデータの特性に応じ、どちらの回転手法が適切かを判断することが重要です。各手法のメリットとデメリットを十分に理解した上で、目的に合わせた回転方法を選択することで、因子分析の結果がより意味のあるものとなります。</p>
+<h2 id="54">5.4 数学的展開と回転行列</h2>
+<p>本節では、回転行列の数学的基礎と、どのようにして初期の因子負荷行列 $ \Lambda $ をより解釈しやすい形に変換するか、その具体的な手順を詳しく説明します。</p>
+<hr />
+<h3 id="541">5.4.1 基本概念</h3>
+<p>因子分析では、初期の因子負荷行列 $ \Lambda $ が得られた後、その解釈を容易にするために「回転」を施します。回転後の因子負荷行列は、回転行列 $ T $ を用いて次のように定義されます。</p>
+<div class="arithmatex">\[
+\Lambda^* = \Lambda T.
+\]</div>
+<ul>
+<li>
+<p><strong>直交回転の場合:</strong><br />
+  $ T $ は直交行列となり、つまり $ T^\top T = I $（単位行列）を満たします。この場合、回転後の因子間は互いに独立です。</p>
+</li>
+<li>
+<p><strong>斜交回転の場合:</strong><br />
+  $ T $ は必ずしも直交ではなく、因子間の相関を許容します。回転後の因子間の相関行列は、<br />
+  $$
+  \Phi = T^\top T
+  $$
+  として求められます。</p>
+</li>
+</ul>
+<hr />
+<h3 id="542-varimax">5.4.2 直交回転における数学的最適化（Varimaxの例）</h3>
+<p>直交回転は、因子負荷量の「単純構造」を実現するために、各因子に対して高い負荷量と低い負荷量の差を最大化します。たとえば、Varimax回転では以下の目的関数を最大化します。</p>
+<div class="arithmatex">\[
+V = \sum_{j=1}^m \left\{ \frac{1}{p} \sum_{i=1}^p (\lambda^*_{ij})^4 - \left(\frac{1}{p} \sum_{i=1}^p (\lambda^*_{ij})^2\right)^2 \right\},
+\]</div>
+<p>ここで、
+- $ \lambda^*_{ij} $ は回転後の因子負荷量、
+- $ p $ は観測変数の数、
+- $ m $ は抽出された因子の数です。</p>
+<p>この目的関数は、各因子の負荷量の分散を最大化することで、極端な値（高いまたは低い）を強調し、単純構造に近づける役割を果たします。直交回転では、回転行列 $ T $ が直交性 $ T^\top T = I $ を保つため、変換後の負荷行列 $ \Lambda^* $ の全体的な分散は保持され、因子間の独立性が維持されます。</p>
+<hr />
+<h3 id="543-promax">5.4.3 斜交回転におけるPromax回転の具体的手法</h3>
+<p>斜交回転は、実際のデータで因子間に存在する相関を反映するために用いられます。Promax回転は、その一例であり、以下のステップで行われます。</p>
+<h4 id="1">ステップ1: 初期直交回転</h4>
+<p>まず、Varimaxなどの直交回転を用いて初期の因子負荷行列 $ \Lambda $ を得ます。</p>
+<h4 id="2">ステップ2: ターゲット行列の作成</h4>
+<p>各要素にパワー変換を適用して、ターゲット行列 $ \Lambda_t $ を作成します。具体的には、各要素について</p>
+<div class="arithmatex">\[
+\lambda_{ij}^{(t)} = \operatorname{sgn}(\lambda_{ij})\,|\lambda_{ij}|^k,
+\]</div>
+<p>を計算します。ここで、
+- $ \operatorname{sgn}(\lambda_{ij}) $ は $ \lambda_{ij} $ の符号を保持し、
+- $ k $ は通常 3 や 4 といった正の整数です。</p>
+<p>この変換により、大きな負荷量はさらに強調され、小さな負荷量はより小さくなります。</p>
+<h4 id="3-t">ステップ3: 変換行列 $ T $ の推定</h4>
+<p>次に、ターゲット行列 $ \Lambda_t $ にできるだけ近づけるため、変換行列 $ T $ を以下の最小二乗問題として求めます。</p>
+<div class="arithmatex">\[
+\min_{T} \| \Lambda T - \Lambda_t \|_F^2,
+\]</div>
+<p>ここで、$ | \cdot |_F $ はフロベニウスノルムを示します。最小二乗解は、解析的に次の形で求められます。</p>
+<div class="arithmatex">\[
+T = (\Lambda^\top \Lambda)^{-1}\Lambda^\top \Lambda_t.
+\]</div>
+<p>この $ T $ は直交性を満たさない非直交行列となり、これにより因子間の相関が導入されます。</p>
+<h4 id="4">ステップ4: 回転後の因子負荷行列の算出</h4>
+<p>最終的に、回転後の因子負荷行列は</p>
+<div class="arithmatex">\[
+\Lambda^* = \Lambda T,
+\]</div>
+<p>として得られ、さらに因子間の相関は</p>
+<div class="arithmatex">\[
+\Phi = T^\top T,
+\]</div>
+<p>として求められます。</p>
+<hr />
+<h3 id="544">5.4.4 まとめと重要ポイント</h3>
+<ul>
+<li>
+<p><strong>基本式:</strong><br />
+  回転操作は $ \Lambda^* = \Lambda T $ という単純な線形変換で表現されます。</p>
+</li>
+<li>
+<p><strong>直交回転 vs 斜交回転:</strong>  </p>
+</li>
+<li><strong>直交回転:</strong><br />
+    $ T $ は直交行列（$ T^\top T = I $）であり、因子間の独立性を保持します。Varimaxなどが代表的です。</li>
+<li>
+<p><strong>斜交回転:</strong><br />
+    $ T $ は非直交行列となり、因子間の相関 $ \Phi = T^\top T $ を反映します。Promax回転はその典型例です。</p>
+</li>
+<li>
+<p><strong>パワー変換の役割:</strong><br />
+  ターゲット行列 $ \Lambda_t $ の作成により、大きな負荷量はさらに強調され、小さな負荷量は縮小されるため、各変数がどの因子に主に寄与しているかが明確になります。</p>
+</li>
+<li>
+<p><strong>最適化問題としての回転行列:</strong><br />
+  回転行列 $ T $ の推定は、フロベニウスノルムによる最小二乗問題として定式化され、その解が回転後の因子負荷行列 $ \Lambda^* $ を決定します。</p>
+</li>
+</ul>
+<p>このように、数学的展開と回転行列の詳細な理解は、因子分析の結果をより明瞭に解釈するための基盤となります。各ステップの意味とその背景を把握することで、得られた因子負荷行列の変換過程とその解釈に自信を持って臨むことができるでしょう。</p>
+<hr />
+<h3 id="55">5.5 分析結果の解釈</h3>
+<p>因子分析の結果を正しく解釈することは、データから意味のある知見を抽出する上で極めて重要です。しかし、単に因子負荷量の数値を見るだけではなく、現実的な懸念やデータの特性、理論的背景を考慮に入れる必要があります。ここでは、解釈の具体的なポイント、潜在的な問題点、および実例を交えながら詳しく説明します。</p>
+<hr />
+<h4 id="551">5.5.1 因子負荷量の解釈</h4>
+<ul>
+<li><strong>高い負荷量と低い負荷量の判断:</strong><br />
+  一般に、0.70以上の負荷量は「高い」と見なされ、0.30未満の値は弱いと判断されます。ただし、これらの閾値はデータの種類や研究分野によって異なることもあります。  </li>
+<li>
+<p><strong>例:</strong><br />
+    心理学的検査で、ある項目が「記憶力因子」に対して0.80の負荷量を示している場合、その項目は記憶力に大きく寄与していると判断されます。一方、同じ項目が「注意力因子」に対して0.25の負荷量しか示さないなら、記憶力が主要な要因と解釈されます。</p>
+</li>
+<li>
+<p><strong>複数因子に中程度の負荷:</strong><br />
+  ある変数が複数の因子に中程度の負荷を持つ場合、その変数は一つの明確な概念に絞りにくいことを意味します。こうした場合、項目自体の内容や理論背景を再評価する必要があります。  </p>
+</li>
+<li><strong>懸念:</strong><br />
+    例えば、アンケート項目が「サービスの質」と「価格」に同程度（例えばそれぞれ0.45）の負荷を示す場合、その項目がどちらの側面をより反映しているかが不明瞭です。結果として、因子の命名や解釈に混乱が生じる可能性があります。</li>
+</ul>
+<hr />
+<h4 id="552">5.5.2 因子の命名と理論的検証</h4>
+<ul>
+<li><strong>因子の命名:</strong><br />
+  回転後の因子負荷行列から、各因子に最も関連する変数を確認し、理論や先行研究に基づいて名称を付けます。  </li>
+<li>
+<p><strong>例:</strong><br />
+    心理学的検査の場合、項目1～3が「記憶」に強く寄与していれば、その因子は「記憶力因子」と命名されます。</p>
+</li>
+<li>
+<p><strong>理論との整合性:</strong><br />
+  得られた因子構造が既存の理論や仮説と整合しているかを確認します。理論と大きく乖離する場合は、因子数の選定や回転手法の再検討、あるいはデータ自体の質や測定の問題が考えられます。</p>
+</li>
+<li>
+<p><strong>外部変数との関連:</strong><br />
+  因子得点を用いて、外部の変数（例：業績、健康指標、購買行動など）との相関や回帰分析を行い、因子の妥当性を確認することも有用です。</p>
+</li>
+</ul>
+<hr />
+<h4 id="553">5.5.3 現実的な懸念とその対策</h4>
+<ul>
+<li><strong>測定誤差と特有因子:</strong><br />
+  各観測変数には固有の誤差（特有因子）が存在します。誤差が大きいと、因子負荷量が実際の構造を反映していない可能性があります。  </li>
+<li>
+<p><strong>対策:</strong><br />
+    測定の信頼性や妥当性を確認するために、信頼性係数（例：Cronbach's α）や検証的因子分析（CFA）を併用する。</p>
+</li>
+<li>
+<p><strong>因子の重複と解釈の不明瞭さ:</strong><br />
+  複数の因子が似たような変数群を含む場合、因子の意味が重複してしまい、どちらが主要な構造を反映しているか判断しにくくなります。  </p>
+</li>
+<li>
+<p><strong>対策:</strong><br />
+    回転前後の因子負荷行列を比較し、因子数の見直しや、場合によっては項目の削除・修正を検討する。</p>
+</li>
+<li>
+<p><strong>サンプルサイズの問題:</strong><br />
+  サンプルサイズが小さい場合、因子分析の結果が不安定になる可能性があります。  </p>
+</li>
+<li><strong>対策:</strong><br />
+    十分なサンプルサイズを確保する、またはブートストラップ法などの再標本抽出法で結果の安定性を評価する。</li>
+</ul>
+<hr />
+<h4 id="554">5.5.4 具体例による解釈</h4>
+<h5 id="1_1">例1: 心理学的検査の因子解釈</h5>
+<p>ある知能検査で、以下のような回転後の因子負荷行列が得られたとします。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>記憶力因子</th>
+<th>注意力因子</th>
+<th>処理速度因子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>項目1</td>
+<td>0.82</td>
+<td>0.25</td>
+<td>0.10</td>
+</tr>
+<tr>
+<td>項目2</td>
+<td>0.78</td>
+<td>0.20</td>
+<td>0.15</td>
+</tr>
+<tr>
+<td>項目3</td>
+<td>0.80</td>
+<td>0.30</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>項目4</td>
+<td>0.15</td>
+<td>0.85</td>
+<td>0.20</td>
+</tr>
+<tr>
+<td>項目5</td>
+<td>0.10</td>
+<td>0.80</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>項目6</td>
+<td>0.20</td>
+<td>0.82</td>
+<td>0.30</td>
+</tr>
+<tr>
+<td>項目7</td>
+<td>0.05</td>
+<td>0.10</td>
+<td>0.88</td>
+</tr>
+<tr>
+<td>項目8</td>
+<td>0.10</td>
+<td>0.15</td>
+<td>0.90</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>解釈:</strong>  </li>
+<li>項目1～3は「記憶力因子」に高い負荷を示しており、記憶力の測定に寄与していると解釈される。  </li>
+<li>項目4～6は「注意力因子」に強く関連している。  </li>
+<li>項目7～8は「処理速度因子」を主に反映している。  </li>
+<li><strong>懸念:</strong><br />
+  仮に項目3が注意力因子にも中程度の負荷を示していた場合、項目3は「記憶力」と「注意力」の両方に影響されている可能性があり、項目の内容や測定の方法を再検討する必要がある。</li>
+</ul>
+<h4 id="2_1">例2: マーケティング調査における因子解釈</h4>
+<p>消費者調査の結果、以下の回転後の因子負荷行列が得られたとします。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>品質重視因子</th>
+<th>価格重視因子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>製品の耐久性</td>
+<td>0.90</td>
+<td>0.20</td>
+</tr>
+<tr>
+<td>製品のデザイン</td>
+<td>0.85</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>製品の性能</td>
+<td>0.88</td>
+<td>0.15</td>
+</tr>
+<tr>
+<td>価格の妥当性</td>
+<td>0.30</td>
+<td>0.82</td>
+</tr>
+<tr>
+<td>割引・プロモーション</td>
+<td>0.20</td>
+<td>0.85</td>
+</tr>
+<tr>
+<td>購入後のサービス</td>
+<td>0.70</td>
+<td>0.40</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>解釈:</strong>  </li>
+<li>「品質重視因子」は、製品の耐久性、デザイン、性能などの項目で高い負荷を示し、消費者が品質に強い関心を持っていることを示唆する。  </li>
+<li>「価格重視因子」は、価格の妥当性や割引の有無に対して高い負荷を示し、消費者の価格に対する敏感さを反映している。  </li>
+<li><strong>懸念:</strong><br />
+  購入後のサービスが両因子に中程度の負荷を示す場合、消費者が品質と価格の両方を考慮している可能性があり、この項目の解釈には慎重な検討が必要となる。</li>
+</ul>
+<hr />
+<h4 id="555">5.5.5 解釈プロセスのポイント</h4>
+<ol>
+<li>
+<p><strong>数値だけでなく内容を確認する:</strong><br />
+   単に負荷量の大きさだけでなく、各項目の内容や背景知識も考慮に入れて、因子の意味付けを行います。</p>
+</li>
+<li>
+<p><strong>複数の指標を用いる:</strong><br />
+   因子負荷量、因子得点、因子相関行列など、複数の統計指標を組み合わせることで、より堅固な解釈を試みます。</p>
+</li>
+<li>
+<p><strong>理論との整合性を検証する:</strong><br />
+   得られた因子が先行研究や理論とどの程度一致しているかを評価し、必要に応じてモデルの見直しを行います。</p>
+</li>
+</ol>
+<h3 id="56">5.6 まとめ</h3>
+<ul>
+<li>
+<p><strong>回転の意義:</strong><br />
+  回転は因子負荷行列を解釈しやすい形に再配置し、単純構造を実現するための重要なステップです。</p>
+</li>
+<li>
+<p><strong>直交回転 vs 斜交回転:</strong><br />
+  直交回転には Varimax、Quartimax、Equamax などがあり、因子間の独立性を保ちつつシンプルな解釈を提供します。<br />
+  斜交回転には Promax、Direct Oblimin、Quartimin、Geomin などがあり、因子間の相関を反映し、より現実的な構造を抽出する一方、解釈が複雑になる可能性があります。</p>
+</li>
+<li>
+<p><strong>数学的背景:</strong><br />
+  回転操作は <span class="arithmatex">\( \Lambda^* = \Lambda T \)</span> として定式化され、直交回転の場合は <span class="arithmatex">\( T^\top T = I \)</span> を、斜交回転の場合は <span class="arithmatex">\( \Phi = T^\top T \)</span> を満たすことで、各基準に基づいた回転が実現されます。</p>
+</li>
+<li>
+<p><strong>結果の解釈:</strong><br />
+  回転後の因子負荷行列を基に、因子の命名、変数の寄与度の確認、視覚的表示などを通じて、実務や理論に即した解釈を行います。</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
