@@ -3914,8 +3914,8 @@
 </ol>
 <p>この手法により、相関のある変数間の条件付き関係を考慮した重要度評価が可能になる。</p>
 <p>もう一つのアプローチであるグループ変数重要度（Grouped Variable Importance）は、相関の強い変数をまとめて一つのグループとして扱い、グループ単位で重要度を評価する方法である（Gregorutti et al., 2015）。グループ <span class="arithmatex">\(G\)</span> の重要度は以下のように定義される：</p>
-<div class="arithmatex">\[MDI(G) = \sum_{j \in G} MDI(X_j)$$
-$$MDA(G) = err(X_{\{1,\ldots,p\} \setminus G}) - err(X)\]</div>
+<div class="arithmatex">\[MDI(G) = \sum_{j \in G} MDI(X_j)\]</div>
+<div class="arithmatex">\[MDA(G) = err(X_{\{1,\ldots,p\} \setminus G}) - err(X)\]</div>
 <p>ここで <span class="arithmatex">\(err(X_{\{1,\ldots,p\} \setminus G})\)</span> はグループ <span class="arithmatex">\(G\)</span> の全変数を除外した場合の予測誤差である。</p>
 <p>グループ変数重要度は、特に高次元データや生物学的な経路（パスウェイ）のような自然なグループ構造を持つデータで有効である。Williamson et al. (2021) はこの概念をさらに発展させ、グループに対するLOCO推論の枠組みを提案している。</p>
 <h2 id="5">5. 変数重要度手法の比較評価と選択指針</h2>
