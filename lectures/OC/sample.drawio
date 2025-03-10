@@ -1,0 +1,287 @@
+<mxfile host="65bd71144e">
+    <diagram id="5zGhO8QUqXMcEc6djQDB" name="AI時代における大学教育の意義">
+        <mxGraphModel dx="1053" dy="2141" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;b&gt;AI時代における&lt;br&gt;大学教育の意義&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="320" width="150" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&lt;b&gt;批判的思考と&lt;br&gt;倫理的判断力&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="310" y="150" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;b&gt;人間関係と&lt;br&gt;コミュニティ形成&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="330" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;b&gt;自己発見と&lt;br&gt;人間的成長&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="590" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;b&gt;知識の創造と拡張&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="810" y="170" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;b&gt;実践的スキルと&lt;br&gt;身体知の獲得&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="810" y="310" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&lt;b&gt;大学教育の&lt;br&gt;新たな方向性&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="810" y="440" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="&lt;b&gt;テクノロジーと人間の&lt;br&gt;統合スキル&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="470" y="180" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="&lt;b&gt;グローバルと&lt;br&gt;異文化間視点&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c3abd0;strokeColor=#56517e;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="515" y="570" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;b&gt;感情知能と&lt;br&gt;社会的スキル&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="220" y="470" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="&lt;b&gt;知識と知恵の区別&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d0cee2;strokeColor=#56517e;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="720" y="70" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1" source="2" target="3">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="510" y="350" as="sourcePoint"/>
+                        <mxPoint x="560" y="300" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#82b366;" edge="1" parent="1" source="2" target="4">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="520" y="360" as="sourcePoint"/>
+                        <mxPoint x="570" y="310" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="15" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#9673a6;" edge="1" parent="1" source="2" target="5">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="530" y="370" as="sourcePoint"/>
+                        <mxPoint x="580" y="320" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="16" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d79b00;" edge="1" parent="1" source="2" target="6">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="540" y="380" as="sourcePoint"/>
+                        <mxPoint x="590" y="330" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#b85450;" edge="1" parent="1" source="2" target="7">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="550" y="390" as="sourcePoint"/>
+                        <mxPoint x="600" y="340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="18" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#10739e;" edge="1" parent="1" source="2" target="8">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="560" y="400" as="sourcePoint"/>
+                        <mxPoint x="610" y="350" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#ae4132;" edge="1" parent="1" source="2" target="9">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="570" y="410" as="sourcePoint"/>
+                        <mxPoint x="620" y="360" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="20" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#56517e;" edge="1" parent="1" source="2" target="10">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="580" y="420" as="sourcePoint"/>
+                        <mxPoint x="630" y="370" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#0e8088;" edge="1" parent="1" source="2" target="11">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="590" y="430" as="sourcePoint"/>
+                        <mxPoint x="640" y="380" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="22" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#56517e;" edge="1" parent="1" source="2" target="12">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="600" y="440" as="sourcePoint"/>
+                        <mxPoint x="650" y="390" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="多様な視点の獲得" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="110" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="本質的な問いを立てる力" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="180" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="倫理的ジレンマへの対応" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" style="endArrow=classic;html=1;dashed=1;strokeColor=#d6b656;" edge="1" parent="1" source="3" target="23">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="610" y="450" as="sourcePoint"/>
+                        <mxPoint x="660" y="400" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="27" style="endArrow=classic;html=1;dashed=1;strokeColor=#d6b656;" edge="1" parent="1" source="3" target="24">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="620" y="460" as="sourcePoint"/>
+                        <mxPoint x="670" y="410" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" style="endArrow=classic;html=1;dashed=1;strokeColor=#d6b656;" edge="1" parent="1" source="3" target="25">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="630" y="470" as="sourcePoint"/>
+                        <mxPoint x="680" y="420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="多様性との対話" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="協働プロジェクト経験" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="390" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="メンターシップ" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" style="endArrow=classic;html=1;dashed=1;strokeColor=#82b366;" edge="1" parent="1" source="4" target="29">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="640" y="480" as="sourcePoint"/>
+                        <mxPoint x="690" y="430" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="33" style="endArrow=classic;html=1;dashed=1;strokeColor=#82b366;" edge="1" parent="1" source="4" target="30">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="650" y="490" as="sourcePoint"/>
+                        <mxPoint x="700" y="440" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="34" style="endArrow=classic;html=1;dashed=1;strokeColor=#82b366;" edge="1" parent="1" source="4" target="31">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="660" y="500" as="sourcePoint"/>
+                        <mxPoint x="710" y="450" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="AIと人間の最適な役割分担" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="420" y="80" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="AIを補完する人間独自スキル" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="90" width="130" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" style="endArrow=classic;html=1;dashed=1;strokeColor=#ae4132;" edge="1" parent="1" source="9" target="35">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="670" y="510" as="sourcePoint"/>
+                        <mxPoint x="720" y="460" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="38" style="endArrow=classic;html=1;dashed=1;strokeColor=#ae4132;" edge="1" parent="1" source="9" target="36">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="680" y="520" as="sourcePoint"/>
+                        <mxPoint x="730" y="470" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="39" value="学際的アプローチ" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="110" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="研究プロセスの体験" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="180" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="AIとの共創" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" style="endArrow=classic;html=1;dashed=1;strokeColor=#d79b00;" edge="1" parent="1" source="6" target="39">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="690" y="530" as="sourcePoint"/>
+                        <mxPoint x="740" y="480" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="43" style="endArrow=classic;html=1;dashed=1;strokeColor=#d79b00;" edge="1" parent="1" source="6" target="40">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="700" y="540" as="sourcePoint"/>
+                        <mxPoint x="750" y="490" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="44" style="endArrow=classic;html=1;dashed=1;strokeColor=#d79b00;" edge="1" parent="1" source="6" target="41">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="710" y="550" as="sourcePoint"/>
+                        <mxPoint x="760" y="500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="45" value="共感力と他者理解" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="550" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="リーダーシップ" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="650" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" style="endArrow=classic;html=1;dashed=1;strokeColor=#0e8088;" edge="1" parent="1" source="11" target="45">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="720" y="560" as="sourcePoint"/>
+                        <mxPoint x="770" y="510" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="48" style="endArrow=classic;html=1;dashed=1;strokeColor=#0e8088;" edge="1" parent="1" source="11" target="46">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="730" y="570" as="sourcePoint"/>
+                        <mxPoint x="780" y="520" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="49" value="カリキュラムの変革" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="380" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="AIリテラシー教育" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="500" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="生涯学習の拠点" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="980" y="595" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" style="endArrow=classic;html=1;dashed=1;strokeColor=#10739e;" edge="1" parent="1" source="8" target="49">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="740" y="580" as="sourcePoint"/>
+                        <mxPoint x="790" y="530" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="53" style="endArrow=classic;html=1;dashed=1;strokeColor=#10739e;" edge="1" parent="1" source="8" target="50">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="750" y="590" as="sourcePoint"/>
+                        <mxPoint x="800" y="540" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="54" style="endArrow=classic;html=1;dashed=1;strokeColor=#10739e;" edge="1" parent="1" source="8" target="51">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="760" y="600" as="sourcePoint"/>
+                        <mxPoint x="810" y="550" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="55" value="経験に基づく判断力" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d0cee2;strokeColor=#56517e;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="900" y="50" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="文脈理解と応用力" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d0cee2;strokeColor=#56517e;fontSize=12;opacity=70;" vertex="1" parent="1">
+                    <mxGeometry x="850" y="-30" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" style="endArrow=classic;html=1;dashed=1;strokeColor=#56517e;" edge="1" parent="1" source="12" target="55">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="770" y="610" as="sourcePoint"/>
+                        <mxPoint x="820" y="560" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="58" style="endArrow=classic;html=1;dashed=1;strokeColor=#56517e;" edge="1" parent="1" source="12" target="56">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="780" y="620" as="sourcePoint"/>
+                        <mxPoint x="830" y="570" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="59" style="endArrow=classic;startArrow=classic;html=1;dashed=1;strokeColor=#808080;" edge="1" parent="1" source="6" target="9">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="790" y="630" as="sourcePoint"/>
+                        <mxPoint x="840" y="580" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="60" style="endArrow=classic;startArrow=classic;html=1;dashed=1;strokeColor=#808080;" edge="1" parent="1" source="3" target="12">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="800" y="640" as="sourcePoint"/>
+                        <mxPoint x="850" y="590" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="380" y="40"/>
+                            <mxPoint x="710" y="40"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="61" style="endArrow=classic;startArrow=classic;html=1;dashed=1;strokeColor=#808080;" edge="1" parent="1" source="5" target="11">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="810" y="650" as="sourcePoint"/>
+                        <mxPoint x="860" y="600" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
