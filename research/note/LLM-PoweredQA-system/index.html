@@ -12,13 +12,9 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/causal-brain-analysis/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/LLM-PoweredQA-system/">
       
       
-        <link rel="prev" href="../causal-data-repository/">
-      
-      
-        <link rel="next" href="../factor-analysis/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>Causal Brain Analysis - Statistical Learning Laboratory</title>
+        <title>授業特化型 AI 質問応答システム：プロジェクト概要 - Statistical Learning Laboratory</title>
       
     
     
@@ -77,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ai" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -107,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Causal Brain Analysis
+              授業特化型 AI 質問応答システム：プロジェクト概要
             
           </span>
         </div>
@@ -223,12 +224,10 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../" class="md-tabs__link">
           
   
@@ -1443,8 +1442,6 @@
       
   
   
-    
-  
   
   
     
@@ -1475,19 +1472,18 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
           
@@ -1503,13 +1499,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Research
@@ -1669,17 +1665,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../causal-brain-analysis.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1688,7 +1677,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1736,13 +1724,10 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
@@ -1764,7 +1749,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -2063,6 +2048,163 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      プロジェクトの目的
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      システム概要
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      システムアーキテクチャ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="システムアーキテクチャ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-streamlit" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. フロントエンドサービス（Streamlit）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. API ゲートウェイ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 知識処理エンジン
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. LLM サービスレイヤー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 外部サービス連携
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      システムフロー
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      期待される効果
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="期待される効果">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      学生にとってのメリット
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      教員にとってのメリット
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      実装計画
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      技術スタック
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -2077,32 +2219,99 @@
                   
 
 
-  <h1>Causal Brain Analysis</h1>
-
-<pre class="mermaid"><code>flowchart TD
-    A[Input MRI Image] --&gt; B[Preprocessing&lt;br/&gt;(Crop Brain, Resize, Normalize)]
-    B --&gt; C[CVAE UNet Encoder]
-    C --&gt; D[Feature Maps&lt;br/&gt;(x1, x2, x3, x4, x5)]
-    D --&gt; E[Global Avg Pooling&lt;br/&gt;(on x5)]
-    E --&gt; F[Concatenate One-hot Label]
-    F --&gt; G[FC Layers&lt;br/&gt;(Produce $\mu$, $\log\sigma^2$)]
-    G --&gt; H[Reparameterization&lt;br/&gt;(Sample $z$)]
-    H --&gt; I[CVAE UNet Decoder&lt;br/&gt;(Uses Skip Connections from x4, x3, x2, x1)]
-    I --&gt; J[Reconstructed Image]
-
-    H --- K[Latent Space $z$]
-    K --- L[Deep SVDD Loss&lt;br/&gt;(Minimize $\|z - c\|^2$)]
-    K --- M[Local Smoothness Loss&lt;br/&gt;(Minimize distance among same-class $z$)]
-
-    J --&gt; N[Output: Reconstructed Image]
-
-    subgraph Losses
-      O[Reconstruction Loss (MSE)]
-      P[KL Divergence Loss]
-    end
-
-    J --- O
-    G --- P</code></pre>
+<h1 id="ai">授業特化型 AI 質問応答システム：プロジェクト概要</h1>
+<h2 id="_1">プロジェクトの目的</h2>
+<p>本プロジェクトは、各授業科目の講義資料を読み込ませた大規模言語モデル（LLM）を活用し、学生の質問に対して正確かつ迅速に回答するシステムを構築することを目的としています。GitHub で公開されている授業資料をコンテキストとして利用し、Claude や GPT などの高性能 LLM を通じて、学生が授業内容に関する疑問を解決できる環境を提供します。</p>
+<h2 id="_2">システム概要</h2>
+<p>本システムは以下の特徴を持ちます：</p>
+<ol>
+<li><strong>授業別の知識ベース</strong>: 各授業の講義資料を GitHub リポジトリから取得し、科目ごとの専門知識を LLM に提供します</li>
+<li><strong>Web ベースのインターフェース</strong>: Streamlit を用いた直感的な操作環境を提供し、学生が質問を簡単に入力・閲覧できます</li>
+<li><strong>クラウドネイティブな設計</strong>: Google Cloud Run 上に展開し、スケーラブルかつ安定したサービスを実現します</li>
+<li><strong>ソース引用機能</strong>: 回答の根拠となる講義資料の参照元を明示し、学習の信頼性を高めます</li>
+</ol>
+<h2 id="_3">システムアーキテクチャ</h2>
+<p>システムは以下の主要コンポーネントで構成されています：</p>
+<h3 id="1-streamlit">1. フロントエンドサービス（Streamlit）</h3>
+<ul>
+<li><strong>ユーザー認証</strong>: 学生アカウントの管理と認証を行います</li>
+<li><strong>コース選択</strong>: 学生が質問したい授業を選択できるインターフェースを提供します</li>
+<li><strong>質問入力</strong>: 自然言語での質問入力と送信機能を提供します</li>
+<li><strong>回答表示</strong>: LLM からの回答と関連する講義資料の引用を表示します</li>
+<li><strong>質問履歴</strong>: 過去の質問と回答を閲覧できる機能を提供します</li>
+</ul>
+<h3 id="2-api">2. API ゲートウェイ</h3>
+<ul>
+<li><strong>リクエストルーティング</strong>: 適切なサービスへのリクエスト転送を行います</li>
+<li><strong>認証検証</strong>: セキュリティを確保するためのアクセス制御を実施します</li>
+<li><strong>レート制限</strong>: システムの安定性を保つためのアクセス制限を管理します</li>
+<li><strong>ログ記録</strong>: システム利用状況の分析のためのデータを収集します</li>
+</ul>
+<h3 id="3">3. 知識処理エンジン</h3>
+<ul>
+<li><strong>リポジトリマネージャー</strong>: GitHub から授業資料を同期・管理します</li>
+<li><strong>ドキュメントインデクサー</strong>: 取得した資料を検索可能な形式に変換します</li>
+<li><strong>コンテキスト検索</strong>: 質問に関連する講義資料の部分を特定します</li>
+<li><strong>コンテキスト準備</strong>: LLM への入力に適した形式でコンテキストを整形します</li>
+</ul>
+<h3 id="4-llm">4. LLM サービスレイヤー</h3>
+<ul>
+<li><strong>モデル管理</strong>: 適切な LLM（Claude/GPT）の選択と管理を行います</li>
+<li><strong>プロンプト構築</strong>: 質問とコンテキストを組み合わせた効果的なプロンプトを作成します</li>
+<li><strong>API 連携</strong>: 外部 LLM サービス（Claude/GPT）との通信を管理します</li>
+<li><strong>レスポンス処理</strong>: LLM からの回答を整形し、引用情報を付加します</li>
+</ul>
+<h3 id="5">5. 外部サービス連携</h3>
+<ul>
+<li><strong>Claude API</strong>: Anthropic 社の Claude との連携</li>
+<li><strong>GPT API</strong>: OpenAI 社の GPT モデルとの連携</li>
+<li><strong>GitHub</strong>: 授業資料リポジトリとの連携</li>
+<li><strong>データベース</strong>: 質問履歴や利用統計の保存</li>
+</ul>
+<h2 id="_4">システムフロー</h2>
+<ol>
+<li>学生が Streamlit インターフェースにログインし、質問したい授業を選択します</li>
+<li>質問を入力し、送信します</li>
+<li>API ゲートウェイがリクエストを検証し、知識処理エンジンに転送します</li>
+<li>知識処理エンジンが GitHub から取得した授業資料から関連コンテキストを検索します</li>
+<li>LLM サービスレイヤーが質問とコンテキストを組み合わせたプロンプトを構築します</li>
+<li>構築されたプロンプトが Claude/GPT API に送信されます</li>
+<li>LLM からの回答がソース引用情報と共に処理され、学生に表示されます</li>
+</ol>
+<h2 id="_5">期待される効果</h2>
+<h3 id="_6">学生にとってのメリット</h3>
+<ul>
+<li><strong>24時間アクセス可能</strong>: いつでも質問できる環境を提供します</li>
+<li><strong>即時フィードバック</strong>: 質問に対する迅速な回答を得られます</li>
+<li><strong>個別学習支援</strong>: 自分のペースで理解を深められます</li>
+<li><strong>講義資料との関連性</strong>: 回答と講義資料の明確な関連付けにより、復習が効率化されます</li>
+</ul>
+<h3 id="_7">教員にとってのメリット</h3>
+<ul>
+<li><strong>負担軽減</strong>: 基本的な質問への対応が自動化されます</li>
+<li><strong>質問傾向の把握</strong>: 学生がどのような点で躓いているかを分析できます</li>
+<li><strong>講義改善のフィードバック</strong>: 多く質問される部分を特定し、授業改善に活用できます</li>
+<li><strong>授業時間の効率化</strong>: 応用的な議論や実践に授業時間を集中できます</li>
+</ul>
+<h2 id="_8">実装計画</h2>
+<ol>
+<li><strong>フェーズ 1</strong>: 基本システムの構築と単一授業でのプロトタイプ実装</li>
+<li><strong>フェーズ 2</strong>: 複数授業への対応とユーザーインターフェースの改良</li>
+<li><strong>フェーズ 3</strong>: 回答品質の向上と分析機能の強化</li>
+<li><strong>フェーズ 4</strong>: システム評価と本格運用への移行</li>
+</ol>
+<h2 id="_9">技術スタック</h2>
+<ul>
+<li><strong>フロントエンド</strong>: Streamlit</li>
+<li><strong>バックエンド</strong>: Python, FastAPI</li>
+<li><strong>LLM 連携</strong>: Claude API, GPT API</li>
+<li><strong>デプロイメント</strong>: Docker, Google Cloud Run</li>
+<li><strong>データベース</strong>: Cloud SQL</li>
+<li><strong>ソース管理</strong>: GitHub, Terraform</li>
+</ul>
+<h2 id="_10">まとめ</h2>
+<p>本プロジェクトは、最新の AI 技術を教育現場に導入することで、学生の学習体験を向上させるとともに、教員の負担を軽減する革新的なシステムです。GitHub に公開されている授業資料を活用し、学生が授業内容についての質問を AI に投げかけ、正確かつ資料に基づいた回答を得られる環境を構築します。</p>
+<p>このシステムの実現により、学生は自分のペースで学習を進め、教員はより高度な指導に集中できるようになることが期待されます。また、質問データの分析を通じて、授業改善にも貢献できるシステムとなることを目指しています。</p>
 
 
 
