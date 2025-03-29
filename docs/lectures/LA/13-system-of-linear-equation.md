@@ -1,352 +1,886 @@
-# 講義9: 連立方程式の解の種類
+# 線形代数学 第13回：連立方程式の解の種類
 
-## 1. 本日扱う内容について（概要）
-- **目的:**  
-    - 連立一次方程式の解の種類（解が一意、解が無数、解が存在しない）の概念を理解する  
-    - 3つの未知数を含む連立一次方程式を中心に、各解のパターンの例を学ぶ  
-    - Google Colab を用いて、2変数および3変数の場合のシミュレーションと図示により、幾何学的な解のパターン（直線の交点、平面の交点など）を視覚的に理解する
+## 1. 講義情報と予習ガイド
 
-- **講義の流れ:**  
-    1. 連立一次方程式の解の種類の理論的背景（定義・定理・数式）  
-    2. 具体例の紹介（3変数の例：一意解、無数解、解なし；2変数の例も併せて）  
-    3. ChatGPTによる解説＋Google Colabでの実行例（シミュレーションと図示）  
-    4. 学んだ内容の応用例  
-    5. 演習問題
+**講義回**: 第13回  
+**関連項目**: 連立一次方程式の解の分類、行列のランク  
+**予習内容**: 
+- 第11回「ガウスの消去法と解の探索」の内容を復習しておくこと
+- 第12回「ランクの概念とその計算」の内容を確認すること
 
----
+## 2. 学習目標
 
-## 2. 扱う内容の理論の説明（定義・定理・数式を含む）
+本講義の終了時点で、以下のことができるようになることを目指します：
 
-- これまでの連立1次方程式
-    - ここまでの議論では一般的な連立方程式を紹介しつつも、未知数の数と方程式の数が同じ連立方程式を扱ってきました。
-    - 連立1次方程式は必ず解けて、解はただ1つに定まった。
+1. 連立一次方程式の解の種類（唯一解、無数の解、解なし）を理解し、区別できる
+2. 具体的な連立一次方程式の解の存在条件を判定できる
+3. 連立一次方程式の解の幾何学的解釈ができる
+4. 行列のランクと連立一次方程式の解の関係を説明できる
+5. Google Colabを用いて連立一次方程式の解を視覚化できる
 
-- これからの連立1次方程式
-    - 未知数の数と方程式の数は同じではない。
-    - 連立1次方程式の解がただ1つに定まる場合、解が存在しない場合や、解が無数に存在する場合もある
+## 3. 基本概念
 
-実際、現実に扱われる連立1次方程式では、未知数の数と方程式の数も異なるし、解が1つに定まるとは限りません。
-どのように、そのような連立1次方程式を解いていけば良いのか、解が存在するかを判断するかが1つの大きな問題です。
+### 3.1 連立一次方程式の復習
 
-### 連立1次方程式の一般形
+$n$個の未知数 $x_1, x_2, \ldots, x_n$ に関する $m$個の一次方程式の集まりを考えます：
 
-- **定義:**  
-  未知数 $x_1, x_2, \dots, x_n$ に対して、$m$ 本の一次方程式が同時に成立する連立一次方程式は、以下のように書くことができる。
-  $$
-  \begin{cases}
-  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1, \\\
-  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2, \\\
-  \quad\vdots \\\
-  a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m.
-  \end{cases}
-  $$
+$$
+\begin{align}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= b_1\\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &= b_2\\
+\vdots\\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &= b_m
+\end{align}
+$$
 
-### 連立一次方程式の解の種類
+これを行列とベクトルを用いて表現すると：
 
-連立一次方程式の解のパターンは大きく3つに分類されます：
+$$A\mathbf{x} = \mathbf{b}$$
 
-1. **一意解 (Unique Solution):**  
-    すべての方程式が独立で、解がただ1つ定まる場合。  
-    （例：各方程式が異なる平面を表し、それらが一点で交わる場合）
-2. **無数の解 (Infinitely Many Solutions):**  
-    方程式同士に依存関係があり、自由変数が存在する場合。  
-    （例：3本の方程式のうち2本が独立で、残りがその組み合わせになっている場合）
-3. **解なし (No Solution):**  
-    複数の方程式が矛盾しており、どの解も満たせない場合。  
-    （例：同じ左辺に対して異なる右辺が設定されている場合）
+ここで、$A$は$m \times n$の係数行列、$\mathbf{x}$は$n$次元の未知数ベクトル、$\mathbf{b}$は$m$次元の右辺ベクトルです。
 
-### 数式による条件（概念レベルの説明）
-- **一意解の場合:**  
-    方程式が独立で、自由変数がない場合。
-- **無数の解の場合:**  
-    少なくとも1つの自由変数が存在し、解の集合がパラメータ表示できる場合。
-- **解なしの場合:**  
-    複数の方程式が互いに矛盾しているため、共通の解が存在しない場合。
+### 3.2 解の定義と種類
 
-> ※ 注意：本講義では拡大係数行列の操作は次回の講義で詳しく扱うため、今回は解の種類そのものと、その性質・条件に着目して説明します。
+> **定義**: 連立一次方程式 $A\mathbf{x} = \mathbf{b}$ の「解」とは、方程式を満たす未知数ベクトル $\mathbf{x}$ の値のことです。
 
----
+連立一次方程式の解は、以下の3つのカテゴリーに分類されます：
 
-## 3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
+1. **唯一解 (Unique solution)**: 解がただ1つだけ存在する場合
+2. **無数の解 (Infinitely many solutions)**: 解が無限に存在する場合
+3. **解なし (No solution)**: 方程式を満たす解が存在しない場合
 
-### 【2変数の連立一次方程式の場合】
+## 4. 理論と手法
 
-1. **一意解の例:**  
-    $$
-    \begin{cases}
-    x + 2y = 5, \\
-    3x - y = 4.
-    \end{cases}
-    $$
-    - 直線同士が交わり、一点で交差するので、解は一意です。
+### 4.1 方程式と未知数の数による解の関係
 
-2. **無数の解の例:**  
-    $$
-    \begin{cases}
-    x + 2y = 5, \\
-    2x + 4y = 10.
-    \end{cases}
-    $$
-    - 2行目は 1行目の倍数なので、2つの直線は同一であり、無数の解が存在します（直線全体が解集合）。
+$m$個の方程式と$n$個の未知数がある場合：
 
-3. **解が存在しない例:**  
-    $$
-    \begin{cases}
-    x + 2y = 5, \\
-    2x + 4y = 11.
-    \end{cases}
-    $$
-    - 2行目は 1行目の倍数ではないため、2つの直線は平行で交わらず、解は存在しません。
+1. $m < n$: 方程式の数より未知数の数が多い場合（**不足決定系**）
+   - 通常、解は無数に存在する（ただし解がない場合もある）
 
-### 【3変数の連立一次方程式の場合】
+2. $m = n$: 方程式の数と未知数の数が等しい場合（**完全決定系**）
+   - 係数行列$A$が正則（行列式$\det(A) \neq 0$）なら唯一解が存在
+   - 係数行列$A$が特異（行列式$\det(A) = 0$）なら解なしまたは無数の解
 
-1. **一意解の例**
-    $$
-    \begin{cases}
-    3x + y + z = -5, \\
-    4x + 3y - z = -2, \\
-    5x + 4y + z = 6.
-    \end{cases}
-    $$
-    この系は独立な方程式で、一意解が存在し、（例として以前の講義で示したように）解は  
-    $$
-    x = -5,\quad y = 7,\quad z = 3.
-    $$
+3. $m > n$: 方程式の数が未知数の数より多い場合（**過剰決定系**）
+   - 通常、解は存在しない（ただし特殊な場合は解があることもある）
 
-2. **無数の解の例**
-    $$
-    \begin{cases}
-    x + 2y - z = 1, \\
-    2x -3y - 2z = 2, \\
-    3x - y - 3z = 3.
-    \end{cases}
-    $$
-    ここでは、3番目と式は、1番目の式と2番目の式の和であるため、実質的に独立な式は 2 本となり、自由変数が1つ存在して無数の解（パラメータ表示）が得られます。
+### 4.2 行列のランクと解の関係
 
-3. **解が存在しない例**
-    $$
-    \begin{cases}
-    x + y + z = 2, \\
-    2x + 2y + 2z = 4, \\
-    x + y + z = 3.
-    \end{cases}
-    $$
-    1番目と3番目の式は同じ左辺ですが右辺が異なるため、矛盾が生じ、解は存在しません。
+連立一次方程式 $A\mathbf{x} = \mathbf{b}$ の解の存在と種類は、係数行列 $A$ のランク $\text{rank}(A)$ と拡大係数行列 $[A|\mathbf{b}]$ のランク $\text{rank}([A|\mathbf{b}])$ によって決定されます。
 
+> **定理**: 連立一次方程式 $A\mathbf{x} = \mathbf{b}$ （$A$は$m \times n$行列）について：
+>
+> 1. $\text{rank}(A) = \text{rank}([A|\mathbf{b}]) < n$ の場合：**無数の解**が存在する
+> 2. $\text{rank}(A) = \text{rank}([A|\mathbf{b}]) = n$ の場合：**唯一解**が存在する
+> 3. $\text{rank}(A) < \text{rank}([A|\mathbf{b}])$ の場合：**解なし**
 
----
+### 4.3 簡約階段行列を用いた解の判定
 
-## 4. ChatGPTによる解説＋Google Colab での実行例
+ガウスの消去法によって得られた簡約階段行列の形から、解の種類を判定することができます：
 
-### ChatGPTによる解説
-- **解説ポイント:**  
-  - 連立一次方程式の解の種類は、係数行列の線形独立性に依存します。  
-  - 一意解が得られる場合は、各方程式が独立しており、未知数の数と方程式のランクが一致します。  
-  - 無数の解がある場合、方程式間に線形依存性があり、自由変数が存在するため、解集合はパラメータで表される線形空間（直線や平面）となります。  
-  - 解が存在しない場合、方程式間で矛盾があり、条件を同時に満たす解が存在しません。  
-  - これらの概念を、2変数の場合の直線の交点、また 3変数の場合の平面の交点の図示によって視覚的に理解します。
+1. **唯一解**：各変数に対応する主成分（leading entry）があり、矛盾する方程式がない
+2. **無数の解**：フリー変数（自由変数）が存在し、矛盾する方程式がない
+3. **解なし**：`0 = 非ゼロ定数`という矛盾する行が存在する
 
-### Google Colabでの実行例
+## 5. 具体例と解説
 
-#### 【2変数の場合】
+### 5.1 唯一解を持つ連立一次方程式の例
+
+$$
+\begin{align}
+x + 2y &= 5\\
+2x - y &= 0
+\end{align}
+$$
+
+この連立方程式を行列形式で表すと：
+
+$$
+\begin{bmatrix}
+1 & 2 \\
+2 & -1
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix}
+=
+\begin{bmatrix}
+5 \\
+0
+\end{bmatrix}
+$$
+
+ガウスの消去法で解くと：
+
+$$
+\begin{bmatrix}
+1 & 2 & 5 \\
+2 & -1 & 0
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+1 & 2 & 5 \\
+0 & -5 & -10
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+1 & 2 & 5 \\
+0 & 1 & 2
+\end{bmatrix}
+$$
+
+後退代入により、$y = 2$, $x + 2(2) = 5$ より $x = 1$ が得られます。
+
+したがって、解は$x = 1$, $y = 2$の唯一解です。
+
+係数行列$A$と拡大係数行列$[A|b]$のランクを考えると：
+- $\text{rank}(A) = 2$
+- $\text{rank}([A|b]) = 2$
+- 未知数の数$n = 2$
+
+$\text{rank}(A) = \text{rank}([A|b]) = n$なので、唯一解が存在します。
+
+### 5.2 無数の解を持つ連立一次方程式の例
+
+$$
+\begin{align}
+x + 2y - z &= 5\\
+2x - y + z &= 0\\
+3x + y &= 5
+\end{align}
+$$
+
+行列形式で：
+
+$$
+\begin{bmatrix}
+1 & 2 & -1 \\
+2 & -1 & 1 \\
+3 & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y \\
+z
+\end{bmatrix}
+=
+\begin{bmatrix}
+5 \\
+0 \\
+5
+\end{bmatrix}
+$$
+
+ガウス消去法を適用すると：
+
+$$
+\begin{bmatrix}
+1 & 2 & -1 & 5 \\
+2 & -1 & 1 & 0 \\
+3 & 1 & 0 & 5
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+1 & 2 & -1 & 5 \\
+0 & -5 & 3 & -10 \\
+0 & -5 & 3 & -10
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+1 & 2 & -1 & 5 \\
+0 & 1 & -\frac{3}{5} & 2 \\
+0 & 0 & 0 & 0
+\end{bmatrix}
+$$
+
+3行目はすべて0となり、方程式の数が実質的に減少しました。$z$を自由変数（パラメータ）とすると：
+
+$y - \frac{3}{5}z = 2$ より $y = 2 + \frac{3}{5}z$
+
+$x + 2y - z = 5$ より $x = 5 - 2y + z = 5 - 2(2 + \frac{3}{5}z) + z = 5 - 4 - \frac{6}{5}z + z = 1 - \frac{1}{5}z$
+
+したがって、解は $z$をパラメータとして：
+$x = 1 - \frac{1}{5}z$, $y = 2 + \frac{3}{5}z$, $z = z$（任意の値）
+
+係数行列$A$と拡大係数行列$[A|b]$のランクを考えると：
+- $\text{rank}(A) = 2$
+- $\text{rank}([A|b]) = 2$
+- 未知数の数$n = 3$
+
+$\text{rank}(A) = \text{rank}([A|b]) < n$なので、無数の解が存在します。
+
+### 5.3 解がない連立一次方程式の例
+
+$$
+\begin{align}
+x + 2y &= 5\\
+2x + 4y &= 6
+\end{align}
+$$
+
+行列形式で：
+
+$$
+\begin{bmatrix}
+1 & 2 \\
+2 & 4
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix}
+=
+\begin{bmatrix}
+5 \\
+6
+\end{bmatrix}
+$$
+
+ガウス消去法を適用すると：
+
+$$
+\begin{bmatrix}
+1 & 2 & 5 \\
+2 & 4 & 6
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+1 & 2 & 5 \\
+0 & 0 & -4
+\end{bmatrix}
+$$
+
+2行目が $0 = -4$ となり、これは矛盾します。したがって、この連立方程式は解を持ちません。
+
+係数行列$A$と拡大係数行列$[A|b]$のランクを考えると：
+- $\text{rank}(A) = 1$
+- $\text{rank}([A|b]) = 2$
+
+$\text{rank}(A) < \text{rank}([A|b])$なので、解は存在しません。
+
+## 6. 幾何学的解釈
+
+### 6.1 2次元での解の幾何学的意味
+
+2元連立1次方程式の場合、各方程式は平面上の直線を表します。
+
+1. **唯一解**: 2つの直線が1点で交わる場合
+2. **無数の解**: 2つの直線が重なる場合（同一直線）
+3. **解なし**: 2つの直線が平行で交わらない場合
+
+### 6.2 3次元での解の幾何学的意味
+
+3元連立1次方程式の場合、各方程式は3次元空間内の平面を表します。
+
+1. **唯一解**: 3つの平面が1点で交わる場合
+2. **無数の解**: 
+   - 3つの平面が1本の直線で交わる場合（無限に多くの点）
+   - 2つ以上の平面が重なり、残りの平面とその重なった平面が交わる場合
+3. **解なし**: 
+   - 2つ以上の平面が平行で交わらない場合
+   - 3つの平面が共通点を持たずに交わる場合（3つの平面が三角柱のような形で交わる）
+
+## 7. Pythonによる実装と可視化
+
+### 7.1 行列のランクと解の判定
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
-# 一意解の例: 直線の交点
-x = np.linspace(-5, 5, 400)
-# 直線1: x + 2y = 5  → y = (5 - x)/2
-y1 = (5 - x) / 2
-# 直線2: 3x - y = 4  → y = 3x - 4
-y2 = 3 * x - 4
+# 連立方程式の解の種類を判定する関数
+def check_solution_type(A, b):
+    A_matrix = np.array(A, dtype=float)
+    b_vector = np.array(b, dtype=float)
+    
+    # 係数行列のランク
+    rank_A = np.linalg.matrix_rank(A_matrix)
+    
+    # 拡大係数行列のランク
+    augmented = np.column_stack((A_matrix, b_vector))
+    rank_augmented = np.linalg.matrix_rank(augmented)
+    
+    # 未知数の数
+    n = A_matrix.shape[1]
+    
+    # 解の種類を判定
+    if rank_A < rank_augmented:
+        return "解なし"
+    elif rank_A == rank_augmented and rank_A < n:
+        return "無数の解"
+    else:  # rank_A == rank_augmented == n
+        return "唯一解"
 
-plt.figure(figsize=(8,6))
-plt.plot(x, y1, label="x + 2y = 5")
-plt.plot(x, y2, label="3x - y = 4")
-# 解を代数的に求める（交点）
-# 交点: 解 x, y を求める
-# 例として、交点が (1, 2) とする（実際の計算は省略）
-plt.plot(1, 2, 'ro', label="交点 (1,2)")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.title("一意解: 直線の交点")
-plt.legend()
+# 例1: 唯一解の場合
+A1 = [[1, 2], [2, -1]]
+b1 = [5, 0]
+print("例1の解の種類:", check_solution_type(A1, b1))
+
+# 例2: 無数の解の場合
+A2 = [[1, 2, -1], [2, -1, 1], [3, 1, 0]]
+b2 = [5, 0, 5]
+print("例2の解の種類:", check_solution_type(A2, b2))
+
+# 例3: 解なしの場合
+A3 = [[1, 2], [2, 4]]
+b3 = [5, 6]
+print("例3の解の種類:", check_solution_type(A3, b3))
+```
+
+### 7.2 2次元での連立方程式の可視化
+
+```python
+def plot_2d_system(A, b, x_range=(-10, 10)):
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    x = np.linspace(x_range[0], x_range[1], 1000)
+    colors = ['b', 'g', 'r', 'c', 'm']
+    
+    for i in range(len(b)):
+        if A[i][1] != 0:  # y係数が0でない場合
+            y = (b[i] - A[i][0] * x) / A[i][1]
+            ax.plot(x, y, colors[i % len(colors)], label=f'式{i+1}: {A[i][0]}x + {A[i][1]}y = {b[i]}')
+        else:  # y係数が0の場合（垂直線）
+            if A[i][0] != 0:
+                x_val = b[i] / A[i][0]
+                ax.axvline(x=x_val, color=colors[i % len(colors)], label=f'式{i+1}: {A[i][0]}x = {b[i]}')
+    
+    # グラフの設定
+    ax.grid(True)
+    ax.axhline(y=0, color='k', linestyle='-', alpha=0.3)
+    ax.axvline(x=0, color='k', linestyle='-', alpha=0.3)
+    ax.set_xlim(x_range)
+    ax.set_ylim(x_range)
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_aspect('equal')
+    ax.legend()
+    ax.set_title('連立方程式の幾何学的解釈')
+    
+    plt.show()
+
+# 例1: 唯一解 (x=1, y=2)
+plot_2d_system(A1, b1)
+
+# 例3: 解なし (平行線)
+plot_2d_system(A3, b3)
+```
+
+### 7.3 3次元での連立方程式の可視化
+
+```python
+def plot_3d_system(A, b, ranges=(-5, 5)):
+    fig = plt.figure(figsize=(12, 8))
+    ax = fig.add_subplot(111, projection='3d')
+    
+    # 平面上の点をグリッドで生成
+    xx, yy = np.meshgrid(np.linspace(ranges[0], ranges[1], 10),
+                         np.linspace(ranges[0], ranges[1], 10))
+    
+    # 各方程式の平面をプロット
+    colors = ['b', 'g', 'r']
+    for i in range(min(len(b), 3)):  # 最大3つの平面まで表示
+        if A[i][2] != 0:  # z係数が0でない場合
+            z = (b[i] - A[i][0] * xx - A[i][1] * yy) / A[i][2]
+            surf = ax.plot_surface(xx, yy, z, alpha=0.6, color=colors[i], 
+                                  label=f'平面{i+1}')
+            surf._facecolors2d = surf._facecolor3d
+            surf._edgecolors2d = surf._edgecolor3d
+    
+    # グラフの設定
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.set_xlim(ranges)
+    ax.set_ylim(ranges)
+    ax.set_zlim(ranges)
+    ax.set_title('連立方程式の3D表現')
+    ax.legend()
+    
+    plt.show()
+
+# 例2: 無数の解の3D可視化
+plot_3d_system(A2, b2)
+```
+
+## 8. データサイエンスでの応用例
+
+### 8.1 線形回帰における解の存在
+
+線形回帰では、データ点$(x_i, y_i)$を最もよく表す直線$y = \beta_0 + \beta_1 x$を求める問題を考えます。一般に、データ点の数$n$が2より大きい場合、通常は完全な解は存在せず（過剰決定系）、最小二乗法によって近似解を求めます。
+
+```python
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+import numpy as np
+
+# サンプルデータ生成
+np.random.seed(42)
+x = np.random.rand(20) * 10
+y = 2 * x + 1 + np.random.randn(20) * 2
+
+# データフレーム作成
+data = pd.DataFrame({'x': x, 'y': y})
+
+# 線形回帰モデル
+model = LinearRegression()
+model.fit(data[['x']], data['y'])
+
+# 回帰直線のパラメータ
+beta_0 = model.intercept_
+beta_1 = model.coef_[0]
+
+print(f'推定された直線: y = {beta_0:.4f} + {beta_1:.4f}x')
+
+# プロット
+plt.figure(figsize=(10, 6))
+plt.scatter(data['x'], data['y'], color='blue', label='データ点')
+plt.plot(data['x'], model.predict(data[['x']]), color='red', label='回帰直線')
 plt.grid(True)
-plt.show()
-
-# 無数解の例: 同一の直線
-plt.figure(figsize=(8,6))
-plt.plot(x, (5 - x) / 2, label="x + 2y = 5")
-plt.plot(x, (5 - x) / 2, 'r--', label="2x + 4y = 10 (同じ直線)")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.title("無数解: 同一の直線")
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('線形回帰 - 過剰決定系の近似解')
 plt.legend()
-plt.grid(True)
-plt.show()
-
-# 解が存在しない例: 平行な直線
-plt.figure(figsize=(8,6))
-plt.plot(x, (5 - x) / 2, label="x + 2y = 5")
-# 2行目: 2x + 4y = 11 → y = (11 - 2x)/4
-plt.plot(x, (11 - 2*x) / 4, label="2x + 4y = 11")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.title("解が存在しない: 平行な直線")
-plt.legend()
-plt.grid(True)
 plt.show()
 ```
 
-#### 【3変数の場合】
-3変数の場合は、各方程式は平面を表し、以下の例でシミュレーションします。
+### 8.2 健康データにおける体組成の推定
 
-1. **一意解の例 (Unique Solution):**  
-   例題：  
-   $$
-   \begin{cases}
-   x + y + z = 6, \\
-   2x + 3y + 4z = 14, \\
-   3x + 4y + 5z = 20.
-   \end{cases}
-   $$
-   この場合、3平面は一点で交わり、一意解が得られます。
-
-2. **無数の解の例 (Infinitely Many Solutions):**  
-   例題：  
-   $$
-   \begin{cases}
-   x + y + z = 6, \\
-   2x + 3y + 4z = 14, \\
-   3x + 4y + 5z = 20.
-   \end{cases}
-   $$
-   ※ 実は、3行目が1行目と2行目の線形結合になっている場合、ランクは 2 となり、解は無限に存在します。
-
-3. **解が存在しない例 (No Solution):**  
-   例題：  
-   $$
-   \begin{cases}
-   x + y + z = 6, \\
-   2x + 3y + 4z = 14, \\
-   3x + 4y + 5z = 21.
-   \end{cases}
-   $$
-   この場合、3行目が矛盾するため、平面は交わらず解は存在しません。
-
-以下は、3変数の場合のシンプルな 3D プロット例（ただし、ここでは解の計算の詳細は省略し、概念図示に重点を置いています）。
-
-
-#### Google Colab での Plotly を用いた 3次元可視化の実装例
-以下のコードは、例A（一意解の例）の3変数連立一次方程式に対する3平面の交点（解）の 3D 可視化を、Plotly を用いてインタラクティブに表示します。Plotly の図は回転や拡大縮小が可能です。
+健康データサイエンスの例として、体組成（体脂肪率、筋肉量など）を身長、体重、年齢から推定するモデルを考えます。このようなモデルは通常、過剰決定系の連立方程式となり、完全な解ではなく最適な近似解を求めることになります。
 
 ```python
 import numpy as np
-import plotly.graph_objects as go
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
 
-# グリッドの定義
-x = np.linspace(-15, 15, 50)
-y = np.linspace(-15, 15, 50)
-X, Y = np.meshgrid(x, y)
+# 仮想的な健康データを生成
+np.random.seed(42)
+n_samples = 100
 
-# 平面の定義（例Aの各式を z = f(x, y) の形に変形）
-# (1) 3x + y + z = -5  →  z = -5 - 3x - y
-Z1 = -5 - 3 * X - Y
-# (2) 4x + 3y - z = -2  →  z = 4x + 3y + 2
-Z2 = 4 * X + 3 * Y + 2
-# (3) 5x + 4y + z = 6   →  z = 6 - 5x - 4y
-Z3 = 6 - 5 * X - 4 * Y
+# 説明変数: 身長(cm)、体重(kg)、年齢(years)
+height = np.random.normal(170, 10, n_samples)
+weight = np.random.normal(70, 15, n_samples)
+age = np.random.randint(20, 70, n_samples)
 
-# 一意解の例の解（例として前回示した解）
-solution = np.array([-5, 7, 3])
+# 応答変数: 体脂肪率(%) - 身長、体重、年齢の関数として生成（ノイズ付き）
+body_fat = 10 + 0.3 * (weight - 70) - 0.1 * (height - 170) + 0.2 * (age - 40) + np.random.normal(0, 3, n_samples)
 
-# Plotly の Figure を作成して各平面を追加
-fig = go.Figure()
+# データフレーム作成
+health_data = pd.DataFrame({
+    'height': height,
+    'weight': weight,
+    'age': age,
+    'body_fat': body_fat
+})
 
-fig.add_trace(go.Surface(x=X, y=Y, z=Z1, opacity=0.6,
-                         colorscale='Viridis', name='平面 1: 3x + y + z = -5'))
-fig.add_trace(go.Surface(x=X, y=Y, z=Z2, opacity=0.6,
-                         colorscale='Cividis', name='平面 2: 4x + 3y - z = -2'))
-fig.add_trace(go.Surface(x=X, y=Y, z=Z3, opacity=0.6,
-                         colorscale='Plasma', name='平面 3: 5x + 4y + z = 6'))
+# 説明変数と応答変数
+X = health_data[['height', 'weight', 'age']]
+y = health_data['body_fat']
 
-# 解の点をプロット（Scatter3d）
-fig.add_trace(go.Scatter3d(
-    x=[solution[0]],
-    y=[solution[1]],
-    z=[solution[2]],
-    mode='markers',
-    marker=dict(size=8, color='red'),
-    name='解 (-5, 7, 3)'
-))
+# 訓練データとテストデータに分割
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# レイアウトの更新（軸タイトルなど）
-fig.update_layout(
-    title='3次元連立一次方程式（例A）の解の可視化',
-    scene=dict(
-        xaxis_title='x',
-        yaxis_title='y',
-        zaxis_title='z'
-    ),
-    autosize=True
-)
+# 線形回帰モデルの構築
+model = LinearRegression()
+model.fit(X_train, y_train)
 
-fig.show()
+# モデルの係数
+print(f'切片: {model.intercept_:.4f}')
+print(f'身長の係数: {model.coef_[0]:.4f}')
+print(f'体重の係数: {model.coef_[1]:.4f}')
+print(f'年齢の係数: {model.coef_[2]:.4f}')
+
+# テストデータでの予測
+y_pred = model.predict(X_test)
+
+# 予測精度の評価
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f'平均二乗誤差 (MSE): {mse:.4f}')
+print(f'決定係数 (R²): {r2:.4f}')
+
+# 実測値と予測値の散布図
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, y_pred, c='blue', alpha=0.6)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
+plt.xlabel('実測体脂肪率 (%)')
+plt.ylabel('予測体脂肪率 (%)')
+plt.title('体脂肪率の実測値と予測値の比較')
+plt.grid(True)
+plt.show()
 ```
 
-※ 同様に、無数解や解が存在しない場合のシミュレーションも、各平面（または直線）の関係を変えることで図示可能です。  
-たとえば、無数解の場合は平面が共通部分として直線または平面で交わり、解が存在しない場合は少なくとも一部の平面が平行で交わらないなどの状況を図示します。
+## 9. 演習問題
 
----
+### 基本問題
 
-## 5. 学んだ内容がどのように応用されるか
-- **工学・物理学:**  
-  連立一次方程式の解の種類の理解は、システムの自由度や制約条件を把握する上で重要です。たとえば、構造物の変形や回路解析などにおいて、システムが一意解を持つかどうかが設計の安全性や動作に直結します。
-- **経済学・最適化:**  
-  市場均衡や資源配分問題では、連立一次方程式の解の存在性や一意性が経済モデルの安定性に影響します。
-- **コンピュータグラフィックス:**  
-  画像や3Dモデルの変換、レンダリングでは、平面や直線の交点の計算が重要な役割を果たします。
-- **機械学習:**  
-  線形モデル（例：線形回帰）の解の一意性や多様な解の存在は、モデルの学習や解釈に影響し、次元削減などの技法とも密接に関連しています。
+1. 次の連立方程式の解を求め、解の種類（唯一解、無数の解、解なし）を判定しなさい。
+    
+    (a) $\begin{cases}
+    2x + 3y = 8 \\
+    -4x - 6y = -16
+    \end{cases}$
+    
+    (b) $\begin{cases}
+    2x + y - z = 3 \\
+    x - y + z = 2 \\
+    3x + 2y = 4
+    \end{cases}$
+    
+    (c) $\begin{cases}
+    x + 2y - z = 5 \\
+    2x + 4y - 2z = 6 \\
+    3x + 6y - 3z = 15
+    \end{cases}$
 
----
+2. 次の行列$A$と右辺ベクトル$\mathbf{b}$について、連立方程式$A\mathbf{x} = \mathbf{b}$の解の種類を判定しなさい。
+    
+    (a) $A = \begin{bmatrix}
+    1 & 3 & 2 \\
+    2 & 6 & 4 \\
+    3 & 9 & 6
+    \end{bmatrix}$, $\mathbf{b} = \begin{bmatrix}
+    4 \\
+    8 \\
+    12
+    \end{bmatrix}$
+    
+    (b) $A = \begin{bmatrix}
+    1 & 3 & 2 \\
+    2 & 6 & 4 \\
+    3 & 9 & 6
+    \end{bmatrix}$, $\mathbf{b} = \begin{bmatrix}
+    4 \\
+    8 \\
+    10
+    \end{bmatrix}$
 
-## 6. 演習問題
-1. **演習問題1:**  
-   次の3変数の連立一次方程式について、解の種類（一意解、無数解、または解が存在しない）を判定せよ。  
-   例題 (一意解の例):  
-   $$
-   \begin{cases}
-   x + y + z = 6, \\
-   2x + 3y + 4z = 14, \\
-   3x + 4y + 5z = 20.
-   \end{cases}
-   $$
-   ※ 解が一意であれば、解を求めなさい。
+3. 行列$A$のランクが2、拡大係数行列$[A|\mathbf{b}]$のランクが3、未知数の数が4の場合、連立方程式$A\mathbf{x} = \mathbf{b}$の解の種類はどうなるか。理由も説明しなさい。
 
-2. **演習問題2:**  
-   次の3変数の連立一次方程式について、解の種類を判定せよ。  
-   例題 (無数解の例):  
-   $$
-   \begin{cases}
-   x + y + z = 6, \\
-   2x + 3y + 4z = 14, \\
-   3x + 4y + 5z = 20.
-   \end{cases}
-   $$
-   ※ ただし、3行目が1行目と2行目の線形結合になっている場合の状況を示すこと。
+### 応用問題
 
-3. **演習問題3:**  
-   次の3変数の連立一次方程式について、解の種類を判定せよ。  
-   例題 (解が存在しない例):  
-   $$
-   \begin{cases}
-   x + y + z = 6, \\
-   2x + 3y + 4z = 14, \\
-   3x + 4y + 5z = 21.
-   \end{cases}
-   $$
-   ※ なぜ解が存在しないか、その理由を説明せよ。
+4. $\lambda$をパラメータとする連立方程式
+    $\begin{cases}
+    x + y + z = 6 \\
+    x + 2y + \lambda z = 10 \\
+    x + 3y + \lambda^2 z = \lambda + 12
+    \end{cases}$
+    
+    において、$\lambda$の値によって解の種類がどのように変化するか調べなさい。
 
-4. **演習問題4:**  
-   2変数の連立一次方程式（例: $x + 2y = 5$ と $3x - y = 4$）および3変数の連立一次方程式の各解のパターン（一意解、無数解、解なし）のシミュレーションを Google Colab 上で実装し、図示して、幾何学的な違いを説明せよ。
+5. 3次元平面上の3点 $P_1(1, 2, 3)$, $P_2(2, 3, 1)$, $P_3(3, 1, 2)$ を通る平面の方程式を求めなさい。この問題をどのように連立一次方程式として定式化できるか説明し、解き方を示しなさい。
+
+6. 健康データサイエンスにおける応用として、ある研究では5名の被験者の年齢（年）、体重（kg）、運動時間（時間/週）、および血圧値（mmHg）が以下のように記録されています：
+   
+   | 被験者 | 年齢 | 体重 | 運動時間 | 血圧 |
+   |-----:|-----:|-----:|--------:|-----:|
+   | 1 | 25 | 70 | 3 | 120 |
+   | 2 | 45 | 85 | 1 | 140 |
+   | 3 | 35 | 65 | 5 | 115 |
+   | 4 | 55 | 75 | 2 | 145 |
+   | 5 | 30 | 80 | 4 | 125 |
+   
+   血圧（$y$）を年齢（$x_1$）、体重（$x_2$）、運動時間（$x_3$）の線形関数 $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3$ として表そうとしています。
+   
+   a. この問題を連立一次方程式として定式化しなさい。
+   b. この連立方程式の解の種類を判定しなさい。
+   c. 最小二乗法を用いてパラメータ（$\beta_0, \beta_1, \beta_2, \beta_3$）を推定しなさい。
+   d. 40歳、75kg、週に3時間運動する人の予想血圧を計算しなさい。
+
+## 10. よくある質問と解答
+
+### Q1: 連立方程式の解がないというのは、数学的にどういう意味ですか？
+A1: 連立方程式の解がないということは、すべての方程式を同時に満たす変数の値が存在しないということです。幾何学的には、例えば2次元の場合、2つの直線が平行で交わらない状況に対応します。これは方程式間に矛盾があることを意味します。
+
+## 10. よくある質問と解答（続き）
+
+### Q2: 解が無数にあるとき、一般解はどのように表現すればよいですか？
+A2: 解が無数にある場合、一般解はパラメータ（自由変数）を用いて表現します。例えば、3元連立方程式で解が無数にある場合、1つまたは複数の変数をパラメータとして選び、残りの変数をそのパラメータの関数として表します。例：$z$をパラメータとして、$x = 1 - \frac{1}{5}z$, $y = 2 + \frac{3}{5}z$のように表現します。
+
+### Q3: 行列のランクと解の関係をどのように覚えておけばよいですか？
+A3: 次の関係を覚えておくと便利です：
+1. $\text{rank}(A) < \text{rank}([A|\mathbf{b}])$ → 解なし
+2. $\text{rank}(A) = \text{rank}([A|\mathbf{b}]) = n$ → 唯一解
+3. $\text{rank}(A) = \text{rank}([A|\mathbf{b}]) < n$ → 無数の解
+ここで、$n$は未知数の数、$A$は係数行列、$[A|\mathbf{b}]$は拡大係数行列です。
+
+### Q4: 過剰決定系（方程式の数 > 未知数の数）の場合、なぜ通常は解がないのですか？
+A4: 過剰決定系では、方程式の数が未知数の数より多いため、各方程式が課す条件をすべて同時に満たすことは一般的に困難です。幾何学的には、例えば3つの平面が1点で交わる確率は低く、通常は共通点を持ちません。ただし、方程式間に線形従属関係がある場合（例：1つの方程式が他の方程式の線形結合で表せる場合）は解が存在する可能性があります。
+
+### Q5: データサイエンスでは、解がない連立方程式はどのように扱われますか？
+A5: データサイエンスでは、特に回帰分析などにおいて、完全な解が存在しない過剰決定系の連立方程式がよく現れます。そのような場合、最小二乗法を用いて「最良の近似解」を求めます。これは、すべての方程式を完全に満たすのではなく、誤差の二乗和を最小化する解を求める方法です。実際のデータには誤差やノイズが含まれるため、このアプローチが現実的かつ有用です。
+
+## 11. 演習問題の解答例
+
+### 基本問題の解答
+
+**問題1(a)** 
+$\begin{cases}
+2x + 3y = 8 \\
+-4x - 6y = -16
+\end{cases}$
+
+第2式を$-1/2$倍すると：
+$\begin{cases}
+2x + 3y = 8 \\
+2x + 3y = 8
+\end{cases}$
+
+両方の式が同じになるため、2つの方程式は線形従属であり、第2式は第1式から導出できます。したがって、解は無数に存在します。
+
+$2x + 3y = 8$を解くと：$x = (8 - 3y)/2 = 4 - 3y/2$
+
+よって一般解は、$y$をパラメータとして：$x = 4 - \frac{3}{2}y$, $y$は任意の実数
+
+**問題1(b)**
+$\begin{cases}
+2x + y - z = 3 \\
+x - y + z = 2 \\
+3x + 2y = 4
+\end{cases}$
+
+ガウスの消去法を適用すると：
+$\begin{bmatrix}
+2 & 1 & -1 & 3 \\
+1 & -1 & 1 & 2 \\
+3 & 2 & 0 & 4
+\end{bmatrix}$
+
+第1行と第2行を入れ替え：
+$\begin{bmatrix}
+1 & -1 & 1 & 2 \\
+2 & 1 & -1 & 3 \\
+3 & 2 & 0 & 4
+\end{bmatrix}$
+
+第2行から第1行の2倍を引く：
+$\begin{bmatrix}
+1 & -1 & 1 & 2 \\
+0 & 3 & -3 & -1 \\
+3 & 2 & 0 & 4
+\end{bmatrix}$
+
+第3行から第1行の3倍を引く：
+$\begin{bmatrix}
+1 & -1 & 1 & 2 \\
+0 & 3 & -3 & -1 \\
+0 & 5 & -3 & -2
+\end{bmatrix}$
+
+第2行を3で割る：
+$\begin{bmatrix}
+1 & -1 & 1 & 2 \\
+0 & 1 & -1 & -\frac{1}{3} \\
+0 & 5 & -3 & -2
+\end{bmatrix}$
+
+第3行から第2行の5倍を引く：
+$\begin{bmatrix}
+1 & -1 & 1 & 2 \\
+0 & 1 & -1 & -\frac{1}{3} \\
+0 & 0 & 2 & -\frac{1}{3}
+\end{bmatrix}$
+
+第3行を2で割る：
+$\begin{bmatrix}
+1 & -1 & 1 & 2 \\
+0 & 1 & -1 & -\frac{1}{3} \\
+0 & 0 & 1 & -\frac{1}{6}
+\end{bmatrix}$
+
+後退代入すると：
+$z = -\frac{1}{6}$
+$y - z = -\frac{1}{3}$ より $y = -\frac{1}{3} + z = -\frac{1}{3} - \frac{1}{6} = -\frac{1}{2}$
+$x - y + z = 2$ より $x = 2 + y - z = 2 - \frac{1}{2} + \frac{1}{6} = \frac{10}{6} = \frac{5}{3}$
+
+よって、唯一解 $x = \frac{5}{3}$, $y = -\frac{1}{2}$, $z = -\frac{1}{6}$ が存在します。
+
+**問題1(c)**
+$\begin{cases}
+x + 2y - z = 5 \\
+2x + 4y - 2z = 6 \\
+3x + 6y - 3z = 15
+\end{cases}$
+
+第2式は第1式の2倍、第3式は第1式の3倍なので：
+$\begin{cases}
+x + 2y - z = 5 \\
+2(x + 2y - z) = 6 \\
+3(x + 2y - z) = 15
+\end{cases}$
+
+第2式：$2 \cdot 5 = 10 \neq 6$ となり矛盾
+第3式：$3 \cdot 5 = 15$ は整合
+
+この連立方程式は矛盾を含むため解を持ちません。
+
+**問題2(a)**
+$A = \begin{bmatrix}
+1 & 3 & 2 \\
+2 & 6 & 4 \\
+3 & 9 & 6
+\end{bmatrix}$, $\mathbf{b} = \begin{bmatrix}
+4 \\
+8 \\
+12
+\end{bmatrix}$
+
+まず、係数行列$A$のランクを調べます。行基本変形を適用すると：
+$\begin{bmatrix}
+1 & 3 & 2 \\
+2 & 6 & 4 \\
+3 & 9 & 6
+\end{bmatrix}$
+→
+$\begin{bmatrix}
+1 & 3 & 2 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix}$
+
+よって $\text{rank}(A) = 1$
+
+次に、拡大係数行列 $[A|\mathbf{b}]$ のランクを調べます：
+$\begin{bmatrix}
+1 & 3 & 2 & 4 \\
+2 & 6 & 4 & 8 \\
+3 & 9 & 6 & 12
+\end{bmatrix}$
+→
+$\begin{bmatrix}
+1 & 3 & 2 & 4 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{bmatrix}$
+
+よって $\text{rank}([A|\mathbf{b}]) = 1$
+
+未知数の数 $n = 3$ で、$\text{rank}(A) = \text{rank}([A|\mathbf{b}]) < n$ なので、この連立方程式は無数の解を持ちます。
+
+**問題2(b)**
+$A = \begin{bmatrix}
+1 & 3 & 2 \\
+2 & 6 & 4 \\
+3 & 9 & 6
+\end{bmatrix}$, $\mathbf{b} = \begin{bmatrix}
+4 \\
+8 \\
+10
+\end{bmatrix}$
+
+$\text{rank}(A) = 1$ であることは前問で確認しました。
+
+拡大係数行列 $[A|\mathbf{b}]$ のランクを調べます：
+$\begin{bmatrix}
+1 & 3 & 2 & 4 \\
+2 & 6 & 4 & 8 \\
+3 & 9 & 6 & 10
+\end{bmatrix}$
+
+第1行を用いて他の行を消去すると：
+$\begin{bmatrix}
+1 & 3 & 2 & 4 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & -2
+\end{bmatrix}$
+
+第3行は $0 = -2$ という矛盾を含むため、$\text{rank}([A|\mathbf{b}]) = 2$
+
+$\text{rank}(A) < \text{rank}([A|\mathbf{b}])$ なので、この連立方程式は解を持ちません。
+
+**問題3**
+行列$A$のランクが2、拡大係数行列$[A|\mathbf{b}]$のランクが3、未知数の数が4の場合：
+
+$\text{rank}(A) = 2 < \text{rank}([A|\mathbf{b}]) = 3$ なので、連立方程式$A\mathbf{x} = \mathbf{b}$は解を持ちません。これは、拡大係数行列のランクが係数行列のランクより大きいということは、右辺ベクトル$\mathbf{b}$が係数行列$A$の列空間に含まれていないことを意味するためです。つまり、どのような未知数の値を選んでも、右辺ベクトル$\mathbf{b}$を係数行列$A$の列ベクトルの線形結合として表すことができません。
+
+### 応用問題の一部解答例
+
+**問題4**
+$\begin{cases}
+x + y + z = 6 \\
+x + 2y + \lambda z = 10 \\
+x + 3y + \lambda^2 z = \lambda + 12
+\end{cases}$
+
+係数行列$A$と拡大係数行列$[A|\mathbf{b}]$を書き出します：
+
+$A = \begin{bmatrix}
+1 & 1 & 1 \\
+1 & 2 & \lambda \\
+1 & 3 & \lambda^2
+\end{bmatrix}$, $[A|\mathbf{b}] = \begin{bmatrix}
+1 & 1 & 1 & 6 \\
+1 & 2 & \lambda & 10 \\
+1 & 3 & \lambda^2 & \lambda + 12
+\end{bmatrix}$
+
+ガウスの消去法を適用します：
+
+$\begin{bmatrix}
+1 & 1 & 1 & 6 \\
+0 & 1 & \lambda-1 & 4 \\
+0 & 2 & \lambda^2-1 & \lambda + 6
+\end{bmatrix}$
+
+第3行から第2行の2倍を引くと：
+
+$\begin{bmatrix}
+1 & 1 & 1 & 6 \\
+0 & 1 & \lambda-1 & 4 \\
+0 & 0 & \lambda^2-1-2(\lambda-1) & \lambda + 6 - 2 \cdot 4
+\end{bmatrix}$
+
+$\begin{bmatrix}
+1 & 1 & 1 & 6 \\
+0 & 1 & \lambda-1 & 4 \\
+0 & 0 & \lambda^2-2\lambda+1 & \lambda - 2
+\end{bmatrix}$
+
+$\lambda^2-2\lambda+1 = (\lambda-1)^2$
+
+$\lambda$の値によって解の種類が変わります：
+
+1. $\lambda \neq 1$ の場合：
+   $(\lambda-1)^2 \neq 0$ なので、第3行は $(\lambda-1)^2 z = \lambda - 2$ となり、$z = \frac{\lambda-2}{(\lambda-1)^2}$ と決まります。後退代入により唯一解が求まります。
+
+2. $\lambda = 1$ の場合：
+   $(\lambda-1)^2 = 0$ となり、第3行は $0 \cdot z = \lambda - 2 = 1 - 2 = -1$ となります。これは $0 = -1$ という矛盾を含むため、$\lambda = 1$ のときは解が存在しません。
+
+したがって、$\lambda = 1$ のときは解なし、$\lambda \neq 1$ のときは唯一解が存在します。
+
+**問題6(a)**
+血圧（$y$）を年齢（$x_1$）、体重（$x_2$）、運動時間（$x_3$）の線形関数 $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3$ として表す連立方程式は：
+
+$\begin{cases}
+\beta_0 + 25\beta_1 + 70\beta_2 + 3\beta_3 = 120 \\
+\beta_0 + 45\beta_1 + 85\beta_2 + 1\beta_3 = 140 \\
+\beta_0 + 35\beta_1 + 65\beta_2 + 5\beta_3 = 115 \\
+\beta_0 + 55\beta_1 + 75\beta_2 + 2\beta_3 = 145 \\
+\beta_0 + 30\beta_1 + 80\beta_2 + 4\beta_3 = 125
+\end{cases}$
+
+これは、4つの未知数（$\beta_0, \beta_1, \beta_2, \beta_3$）と5つの方程式からなる過剰決定系です。
+
+**問題6(b)**
+この連立方程式は過剰決定系（方程式の数 > 未知数の数）なので、一般的には解を持ちません。実際のデータに完全に適合するパラメータ値を見つけることは通常できないため、最小二乗法などの近似手法を用いて最適なパラメータ値を推定します。
+
+（残りの問題の解答省略）
+
+## 12. まとめ
+
+本講義では、連立一次方程式の解の種類とその判定方法について学びました。主なポイントは以下の通りです：
+
+1. 連立一次方程式の解は「唯一解」「無数の解」「解なし」の3種類に分類される
+2. 解の種類は係数行列と拡大係数行列のランクによって判定できる
+3. 幾何学的には、解の種類は直線や平面の交わり方に対応する
+4. データサイエンスでは過剰決定系の方程式がよく現れ、最小二乗法などで近似解を求める
+
+次回の講義では、連立一次方程式の解の存在条件についてさらに詳しく学び、行列のランクと解の関係性についての理解を深めていきます。

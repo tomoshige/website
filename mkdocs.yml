@@ -78,6 +78,23 @@ nav:
         - 29. Exercise : lectures/LA/29-exercise.md
         - 30. Report Exam : lectures/LA/30-report.md
         - 31. Semester Exam : lectures/LA/31-exam.md
+        - 32. Eigen value and vector : lectures/LA/32-eigen-value-vector.md
+        - 33. Eigen value and vector : lectures/LA/33-eigen-value-vector.md
+        - 34. Eigen value and vector : lectures/LA/34-eigen-value-vector.md
+        - 35. Eigen value and vector : lectures/LA/35-eigen-value-vector.md
+        - 36. Eigen value and vector : lectures/LA/36-eigen-value-vector.md
+        - 37. Exercise : lectures/LA/37-exercise.md
+        - 38. Midterm Exam : lectures/LA/38-midterm-exam.md
+        - 39. Singular value decomposition : lectures/LA/39-singular-value-decomposition.md
+        - 40. Singular value decomposition : lectures/LA/40-singular-value-decomposition.md
+        - 41. Principal component analysis : lectures/LA/41-principal-component-analysis.md
+        - 42. Principal component analysis : lectures/LA/42-principal-component-analysis.md
+        - 43. Principal component analysis : lectures/LA/43-principal-component-analysis.md
+        - 44. Factor analysis : lectures/LA/44-factor-analysis.md
+        - 45. Factor analysis : lectures/LA/45-factor-analysis.md
+        - 46. Nonlinear dimension reduction : lectures/LA/46-nonlinear-dimension-reduction.md
+        - 47. Wrap up : lectures/LA/47-wrapup.md
+        - 48. Final Report : lectures/LA/48-final-report.md
       - Data Science without syntax : 
         - lectures/SIWS/index.md
         - 1. Getting-Started : lectures/SIWS/01-getting-started.md

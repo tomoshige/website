@@ -1,0 +1,3550 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/38-midterm-exam/">
+      
+      
+        <link rel="prev" href="../37-exercise/">
+      
+      
+        <link rel="next" href="../39-singular-value-decomposition/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>38. Midterm Exam - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#38" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              38. Midterm Exam
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義情報と予習ガイド
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 学習目標
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 試験の概要
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 試験対策ポイント
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 試験対策ポイント">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 固有値・固有ベクトルの計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 固有値・固有ベクトルの計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-22" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題1: 2×2行列の固有値・固有ベクトル
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-33" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題2: 3×3行列の固有値・固有ベクトル
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 行列の対角化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 行列の対角化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題3: 行列の対角化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 行列のべき乗計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 行列のべき乗計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題4: 行列のべき乗
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 数列の一般項の計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 数列の一般項の計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題5: 数列の一般項
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 試験問題サンプル
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 試験問題サンプル">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題1: 固有値と固有ベクトルの計算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題2: 対称行列の対角化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題3: 行列のべき乗
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題4: 数列の一般項
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Pythonによる実装と可視化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 演習問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 演習問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      応用問題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. よくある質問と解答
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. よくある質問と解答">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q1: 固有値が重根の場合の固有ベクトルはどのように求めればよいですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q2: 対角化可能の条件は何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q3: 対称行列の対角化について特別な性質はありますか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q4: 行列のべき乗計算において対角化を利用する利点は何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q5: 数列の漸化式から一般項を求める方法はほかにもありますか？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. 試験に向けたアドバイス
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-nonlinear-dimension-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46. Nonlinear dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47. Wrap up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-final-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48. Final Report
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-brain-analysis.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義情報と予習ガイド
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 学習目標
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 試験の概要
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 試験対策ポイント
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 試験対策ポイント">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 固有値・固有ベクトルの計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 固有値・固有ベクトルの計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-22" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題1: 2×2行列の固有値・固有ベクトル
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-33" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題2: 3×3行列の固有値・固有ベクトル
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 行列の対角化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 行列の対角化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題3: 行列の対角化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 行列のべき乗計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 行列のべき乗計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題4: 行列のべき乗
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 数列の一般項の計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 数列の一般項の計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題5: 数列の一般項
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 試験問題サンプル
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 試験問題サンプル">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題1: 固有値と固有ベクトルの計算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題2: 対称行列の対角化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題3: 行列のべき乗
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      問題4: 数列の一般項
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Pythonによる実装と可視化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 演習問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 演習問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      応用問題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. よくある質問と解答
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. よくある質問と解答">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q1: 固有値が重根の場合の固有ベクトルはどのように求めればよいですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q2: 対角化可能の条件は何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q3: 対称行列の対角化について特別な性質はありますか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q4: 行列のべき乗計算において対角化を利用する利点は何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q5: 数列の漸化式から一般項を求める方法はほかにもありますか？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. 試験に向けたアドバイス
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="38">線形代数学 第38回講義ノート</h1>
+<h2 id="1">1. 講義情報と予習ガイド</h2>
+<p><strong>講義回</strong>: 第38回
+<strong>テーマ</strong>: 固有値と固有ベクトルに関する中間試験
+<strong>関連項目</strong>: 固有値、固有ベクトル、対角化、2次形式
+<strong>予習すべき内容</strong>: 
+- 第32回〜第37回の講義内容（特に固有値・固有ベクトルの計算方法と対角化の手順）
+- 行列のべき乗計算と数列の一般項の導出方法</p>
+<h2 id="2">2. 学習目標</h2>
+<p>本講義の中間試験を通じて、以下の能力を確認します：</p>
+<ol>
+<li>行列の固有値と固有ベクトルを正確に計算できる</li>
+<li>対角化可能な行列に対して、対角化の手順を適切に実行できる</li>
+<li>対角化を利用して行列のべき乗（A^n）を効率的に計算できる</li>
+<li>行列に関連する数列の一般項を導出できる</li>
+</ol>
+<h2 id="3">3. 試験の概要</h2>
+<p>中間試験は以下の構成で実施されます：</p>
+<ul>
+<li>試験時間: 60分</li>
+<li>問題数: 4問</li>
+<li>問題1-2: 固有値と固有ベクトルの計算を中心とした問題</li>
+<li>問題3-4: 対角化を利用した A^n や数列の一般項の計算問題</li>
+<li>配点: 各問25点（合計100点）</li>
+<li>持ち込み: 自筆の講義ノートのみ許可（電子機器、教科書、プリント類は不可）</li>
+</ul>
+<h2 id="4">4. 試験対策ポイント</h2>
+<h3 id="41">4.1 固有値・固有ベクトルの計算</h3>
+<blockquote>
+<p><strong>定義</strong>: 行列 <span class="arithmatex">\(A\)</span> に対して、ゼロでないベクトル <span class="arithmatex">\(v\)</span> と、スカラー <span class="arithmatex">\(\lambda\)</span> が</p>
+<p><span class="arithmatex">\(Av = \lambda v\)</span></p>
+<p>を満たすとき、<span class="arithmatex">\(\lambda\)</span> を行列 <span class="arithmatex">\(A\)</span> の<strong>固有値</strong>、<span class="arithmatex">\(v\)</span> を対応する<strong>固有ベクトル</strong>と呼ぶ。</p>
+</blockquote>
+<p>固有値・固有ベクトルを求める手順：</p>
+<ol>
+<li>特性方程式 <span class="arithmatex">\(det(A - \lambda I) = 0\)</span> を立てる</li>
+<li>特性方程式を解いて固有値 <span class="arithmatex">\(\lambda\)</span> を求める</li>
+<li>各固有値 <span class="arithmatex">\(\lambda\)</span> について、<span class="arithmatex">\((A - \lambda I)v = 0\)</span> を解いて対応する固有ベクトル <span class="arithmatex">\(v\)</span> を求める</li>
+</ol>
+<h4 id="1-22">例題1: 2×2行列の固有値・固有ベクトル</h4>
+<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 1 \\ 1 &amp; 3 \end{pmatrix}\)</span> の固有値と固有ベクトルを求めよ。</p>
+<p><strong>解答</strong>:</p>
+<ol>
+<li>
+<p>特性方程式を立てる：
+   <span class="arithmatex">\(<span class="arithmatex">\(det(A - \lambda I) = det\begin{pmatrix} 3-\lambda &amp; 1 \\ 1 &amp; 3-\lambda \end{pmatrix} = (3-\lambda)^2 - 1 = 0\)</span>\)</span></p>
+</li>
+<li>
+<p>特性方程式を解く：
+   <span class="arithmatex">\((3-\lambda)^2 = 1\)</span>より、<span class="arithmatex">\(\lambda = 2\)</span> または <span class="arithmatex">\(\lambda = 4\)</span></p>
+</li>
+<li>
+<p>固有ベクトルを求める：</p>
+</li>
+</ol>
+<p><span class="arithmatex">\(\lambda = 2\)</span> のとき：
+   <span class="arithmatex">\((A - 2I)v = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 1 \end{pmatrix}v = 0\)</span>
+   この同次方程式を解くと、<span class="arithmatex">\(v = \begin{pmatrix} -1 \\ 1 \end{pmatrix}\)</span> （または定数倍）が得られる。</p>
+<p><span class="arithmatex">\(\lambda = 4\)</span> のとき：
+   <span class="arithmatex">\((A - 4I)v = \begin{pmatrix} -1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix}v = 0\)</span>
+   この同次方程式を解くと、<span class="arithmatex">\(v = \begin{pmatrix} 1 \\ 1 \end{pmatrix}\)</span> （または定数倍）が得られる。</p>
+<h4 id="2-33">例題2: 3×3行列の固有値・固有ベクトル</h4>
+<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} 2 &amp; 0 &amp; 0 \\ 0 &amp; 3 &amp; 4 \\ 0 &amp; 1 &amp; 2 \end{pmatrix}\)</span> の固有値と固有ベクトルを求めよ。</p>
+<p><strong>解答</strong>:</p>
+<ol>
+<li>
+<p>特性方程式を立てる：
+   <span class="arithmatex">\(<span class="arithmatex">\(det(A - \lambda I) = det\begin{pmatrix} 2-\lambda &amp; 0 &amp; 0 \\ 0 &amp; 3-\lambda &amp; 4 \\ 0 &amp; 1 &amp; 2-\lambda \end{pmatrix}
+   = (2-\lambda)·det\begin{pmatrix} 3-\lambda &amp; 4 \\ 1 &amp; 2-\lambda \end{pmatrix}
+   = (2-\lambda)·((3-\lambda)(2-\lambda) - 4)
+   = (2-\lambda)·((3-\lambda)(2-\lambda) - 4·1)
+   = (2-\lambda)·(6-3\lambda-2\lambda+\lambda^2 - 4)
+   = (2-\lambda)·(\lambda^2 - 5\lambda + 2)
+   = 0\)</span>\)</span></p>
+</li>
+<li>
+<p>特性方程式を解く：
+   <span class="arithmatex">\((2-\lambda) = 0 または \lambda^2 - 5\lambda + 2 = 0
+   \lambda = 2\)</span> または <span class="arithmatex">\((\lambda - 2)(\lambda - 1) = 0\)</span>
+   よって、<span class="arithmatex">\(\lambda = 2\)</span>（重根）または <span class="arithmatex">\(\lambda = 1\)</span></p>
+</li>
+<li>
+<p>固有ベクトルを求める：</p>
+</li>
+</ol>
+<p><span class="arithmatex">\(<span class="arithmatex">\(\lambda = 2 のとき：
+   (A - 2I)v = \begin{pmatrix} 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 4 \\ 0 &amp; 1 &amp; 0 \end{pmatrix}v = 0\)</span>\)</span></p>
+<p>この同次方程式を解くと、<span class="arithmatex">\(<span class="arithmatex">\(v_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} と v_2 = \begin{pmatrix} 0 \\ -4 \\ 1 \end{pmatrix}\)</span>\)</span> （またはそれらの線形結合）が得られる。</p>
+<p><span class="arithmatex">\(\lambda = 1\)</span> のとき：
+   <span class="arithmatex">\(<span class="arithmatex">\((A - I)v = \begin{pmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 2 &amp; 4 \\ 0 &amp; 1 &amp; 1 \end{pmatrix}v = 0\)</span>\)</span></p>
+<p>この同次方程式を解くと、<span class="arithmatex">\(<span class="arithmatex">\(v_3 = \begin{pmatrix} 0 \\ -2 \\ 1 \end{pmatrix}\)</span>\)</span> （または定数倍）が得られる。</p>
+<h3 id="42">4.2 行列の対角化</h3>
+<blockquote>
+<p><strong>定義</strong>: <span class="arithmatex">\(n×n\)</span> 行列 <span class="arithmatex">\(A\)</span> が対角化可能であるとは、正則行列 <span class="arithmatex">\(P\)</span> と対角行列 <span class="arithmatex">\(D\)</span> が存在して、</p>
+<p><span class="arithmatex">\(P^{-1}AP = D\)</span></p>
+<p>と表せることをいう。このとき、<span class="arithmatex">\(D\)</span> の対角成分は <span class="arithmatex">\(A\)</span> の固有値であり、<span class="arithmatex">\(P\)</span> の列ベクトルは <span class="arithmatex">\(A\)</span> の対応する固有ベクトルである。</p>
+</blockquote>
+<p>対角化の手順：</p>
+<ol>
+<li>行列 A の固有値と固有ベクトルを求める</li>
+<li>固有ベクトルを列とする行列 P を作る</li>
+<li>P^{-1}AP = D となる対角行列 D を求める（D の対角成分は A の固有値）</li>
+</ol>
+<h4 id="3_1">例題3: 行列の対角化</h4>
+<p>行列 A = \begin{pmatrix} 4 &amp; -3 \ 2 &amp; -1 \end{pmatrix} を対角化せよ。</p>
+<p><strong>解答</strong>:</p>
+<ol>
+<li>固有値と固有ベクトルを求める：</li>
+</ol>
+<p>特性方程式：<span class="arithmatex">\(det(A - \lambda I) = det\begin{pmatrix} 4-\lambda &amp; -3 \\ 2 &amp; -1-\lambda \end{pmatrix}
+   = (4-\lambda)(-1-\lambda) - (-3)(2)
+   = -4-4\lambda+\lambda+\lambda^2 - (-6)
+   = \lambda^2 - 3\lambda - 2 = 0\)</span></p>
+<p>解くと、<span class="arithmatex">\(\lambda = -1, 2\)</span></p>
+<p><span class="arithmatex">\(\lambda = -1\)</span> のとき：
+   $$(A - (-1)I)v = \begin{pmatrix} 5 &amp; -3 \ 2 &amp; 0 \end{pmatrix}v = 0
+   $$
+   この同次方程式を解くと、<span class="arithmatex">\(v_1 = \begin{pmatrix} 3 \\ 5 \end{pmatrix}\)</span> （または定数倍）が得られる。</p>
+<p><span class="arithmatex">\(\lambda = 2\)</span> のとき：
+   <span class="arithmatex">\((A - 2I)v = \begin{pmatrix} 2 &amp; -3 \\ 2 &amp; -3 \end{pmatrix}v = 0\)</span></p>
+<p>この同次方程式を解くと、<span class="arithmatex">\(v_2 = \begin{pmatrix} 3 \\ 2 \end{pmatrix}\)</span> （または定数倍）が得られる。</p>
+<ol>
+<li>
+<p>固有ベクトルを列とする行列 P を作る：
+   <span class="arithmatex">\(P = \begin{pmatrix} 3 &amp; 3 \\ 5 &amp; 2 \end{pmatrix}\)</span></p>
+</li>
+<li>
+<p>対角行列 D を求める：
+   <span class="arithmatex">\(D = P^{-1}AP = \begin{pmatrix} -1 &amp; 0 \\ 0 &amp; 2 \end{pmatrix}\)</span></p>
+</li>
+</ol>
+<h3 id="43">4.3 行列のべき乗計算</h3>
+<p>対角化可能な行列 A = PDP^{-1} に対して、A の n 乗は以下のように計算できる：</p>
+<p>A^n = (PDP^{-1})^n = PD^nP^{-1}</p>
+<p>ここで、D^n は対角行列であるため、各対角成分の n 乗を計算するだけで得られる。</p>
+<h4 id="4_1">例題4: 行列のべき乗</h4>
+<p>前問で対角化した行列 <span class="arithmatex">\(A = \begin{pmatrix} 4 &amp; -3 \\ 2 &amp; -1 \end{pmatrix}\)</span> に対して、<span class="arithmatex">\(A^{10}\)</span> を求めよ。</p>
+<p><strong>解答</strong>:</p>
+<p><span class="arithmatex">\(A = PDP^{-1}\)</span> と対角化されているので、
+<span class="arithmatex">\(A^{10} = PD^{10}P^{-1}\)</span></p>
+<div class="arithmatex">\[D^{10} = \begin{pmatrix} (-1)^{10} &amp; 0 \\ 0 &amp; 2^{10} \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1024 \end{pmatrix}\]</div>
+<p><span class="arithmatex">\(P = \begin{pmatrix} 3 &amp; 3 \\ 5 &amp; 2 \end{pmatrix}、P^{-1}\)</span> を計算すると、
+<span class="arithmatex">\(P^{-1} = \frac{1}{det(P)} \begin{pmatrix} 2 &amp; -3 \\ -5 &amp; 3 \end{pmatrix} = \frac{1}{-9} \begin{pmatrix} 2 &amp; -3 \\ -5 &amp; 3 \end{pmatrix}\)</span></p>
+<p>従って、
+<span class="arithmatex">\(A^{10} = P \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1024 \end{pmatrix} P^{-1}
+      = \begin{pmatrix} 3 &amp; 3 \\ 5 &amp; 2 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1024 \end{pmatrix} \frac{1}{-9} \begin{pmatrix} 2 &amp; -3 \\ -5 &amp; 3 \end{pmatrix}\)</span></p>
+<p>行列の積を計算すると、最終的に <span class="arithmatex">\(A^{10}\)</span> が得られる。</p>
+<h3 id="44">4.4 数列の一般項の計算</h3>
+<p>行列を用いて表される漸化式から数列の一般項を求める問題もよく出題されます。</p>
+<h4 id="5">例題5: 数列の一般項</h4>
+<p>漸化式 <span class="arithmatex">\(a_{n+2} = 5a_{n+1} - 6a_n\)</span> が与えられ、初期値 <span class="arithmatex">\(a_0 = 2, a_1 = 5\)</span> のとき、一般項$ a_n $を求めよ。</p>
+<p><strong>解答</strong>:</p>
+<ol>
+<li>行列形式で表現する：
+   <span class="arithmatex">\(\begin{pmatrix} a_{n+1} \\ a_{n+2} \end{pmatrix} = \begin{pmatrix} 0 &amp; 1 \\ 6 &amp; 5 \end{pmatrix} \begin{pmatrix} a_n \\ a_{n+1} \end{pmatrix}\)</span></li>
+</ol>
+<p>すなわち、<span class="arithmatex">\(\begin{pmatrix} a_{n+1} \\ a_{n+2} \end{pmatrix} = A \begin{pmatrix} a_n \\ a_{n+1} \end{pmatrix} （A = \begin{pmatrix} 0 &amp; 1 \\ 6 &amp; 5 \end{pmatrix}）\)</span></p>
+<ol>
+<li>
+<p>初期値から、<span class="arithmatex">\(\begin{pmatrix} a_n \\ a_{n+1} \end{pmatrix} = A^n \begin{pmatrix} a_0 \\ a_1 \end{pmatrix} = A^n \begin{pmatrix} 2 \\ 5 \end{pmatrix}\)</span></p>
+</li>
+<li>
+<p>行列 <span class="arithmatex">\(A\)</span> を対角化する：
+   特性方程式：
+   $$ det(A - \lambda I) = det \begin{pmatrix} -\lambda &amp; 1 \ 6 &amp; 5 - \lambda \end{pmatrix}
+   = (-\lambda)(5-\lambda) - 1·6
+   = -5\lambda + \lambda^2 - 6
+   = \lambda^2 - 5\lambda - 6 = 0$$</p>
+</li>
+</ol>
+<p>解くと、<span class="arithmatex">\(\lambda = 6, -1\)</span></p>
+<p>固有ベクトルを求め、対角化行列を構成：
+   <span class="arithmatex">\(P = \begin{pmatrix} 1 &amp; 1 \\ 6 &amp; -1 \end{pmatrix}、D = \begin{pmatrix} 6 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}\)</span></p>
+<ol>
+<li>
+<p><span class="arithmatex">\(A^n\)</span> を計算：
+   <span class="arithmatex">\(A^n = PD^nP^{-1} = P \begin{pmatrix} 6^n &amp; 0 \\ 0 &amp; (-1)^n \end{pmatrix} P^{-1}\)</span></p>
+</li>
+<li>
+<p>一般項 <span class="arithmatex">\(a_n\)</span> の導出：
+   <span class="arithmatex">\(\begin{pmatrix} a_n \\ a_{n+1} \end{pmatrix} = A^n \begin{pmatrix} a_0 \\ a_1 \end{pmatrix}\)</span></p>
+</li>
+</ol>
+<p>計算を進めると、<span class="arithmatex">\(a_n = \frac{1}{7}(2·6^n + 5·(-1)^n)\)</span> が得られる。</p>
+<h2 id="5_1">5. 試験問題サンプル</h2>
+<p>以下に、中間試験で出題されるような問題のサンプルを示します。</p>
+<h3 id="1_1">問題1: 固有値と固有ベクトルの計算</h3>
+<p>行列 A = \begin{pmatrix} 1 &amp; 2 &amp; 0 \ 2 &amp; 1 &amp; 0 \ 0 &amp; 0 &amp; 3 \end{pmatrix} の固有値と対応する固有ベクトルをすべて求めよ。</p>
+<h3 id="2_1">問題2: 対称行列の対角化</h3>
+<p>対称行列 B = \begin{pmatrix} 2 &amp; 1 &amp; 1 \ 1 &amp; 2 &amp; 1 \ 1 &amp; 1 &amp; 2 \end{pmatrix} を直交行列による対角化を行い、B = PDP^T を求めよ。</p>
+<h3 id="3_2">問題3: 行列のべき乗</h3>
+<p>行列 C = \begin{pmatrix} 2 &amp; 1 \ 1 &amp; 2 \end{pmatrix} に対して、C^{20} を求めよ。</p>
+<h3 id="4_2">問題4: 数列の一般項</h3>
+<p>漸化式 x_{n+2} = 6x_{n+1} - 9x_n が与えられ、初期値 x_0 = 1, x_1 = 3 のとき、一般項 x_n を求めよ。また、x_{100} の値を計算せよ。</p>
+<h2 id="6-python">6. Pythonによる実装と可視化</h2>
+<p><strong>注意</strong>: 試験ではPythonのコードを書く問題は出題されませんが、理解を深めるために、以下に固有値・固有ベクトルの計算と行列のべき乗計算の実装例を示します。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
+
+<span class="c1"># 行列の定義</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="c1"># 固有値と固有ベクトルの計算</span>
+<span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;固有値:&quot;</span><span class="p">,</span> <span class="n">eigenvalues</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;固有ベクトル:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">eigenvectors</span><span class="p">)</span>
+
+<span class="c1"># 対角化の確認</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">eigenvectors</span>
+<span class="n">P_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+
+<span class="c1"># P^{-1}AP = D を確認</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">P_inv</span><span class="p">,</span> <span class="n">A</span><span class="p">),</span> <span class="n">P</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P^{-1}AP =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># 丸め誤差を考慮</span>
+
+<span class="c1"># 行列のべき乗計算</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">matrix_power</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;行列 A の n 乗を計算する&quot;&quot;&quot;</span>
+    <span class="n">eigenvalues</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">P_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+    <span class="n">D_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">eigenvalues</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">D_n</span><span class="p">),</span> <span class="n">P_inv</span><span class="p">)</span>
+
+<span class="c1"># A^10 の計算</span>
+<span class="n">A_10</span> <span class="o">=</span> <span class="n">matrix_power</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A^10 =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">A_10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># 直接計算との比較</span>
+<span class="n">A_10_direct</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A^10 (直接計算) =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">A_10_direct</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># 固有ベクトルの可視化（2次元の場合）</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 元の基底ベクトルを描画</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;e1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;e2&#39;</span><span class="p">)</span>
+
+<span class="c1"># 固有ベクトルを描画</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">eigenvectors</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">v_normalized</span> <span class="o">=</span> <span class="n">v</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>  <span class="c1"># スケーリング</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">v_normalized</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v_normalized</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+              <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> 
+              <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> 
+              <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;eigenvector </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1"> (\lambda=</span><span class="si">{</span><span class="n">eigenvalues</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+<span class="c1"># 変換後の基底ベクトルを描画</span>
+<span class="n">e1_transformed</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">e2_transformed</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">e1_transformed</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e1_transformed</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+          <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> 
+          <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> 
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;A·e1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">e2_transformed</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e2_transformed</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+          <span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> 
+          <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> 
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;A·e2&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Eigenvectors and Transformed Basis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="7">7. 演習問題</h2>
+<h3 id="_1">基本問題</h3>
+<ol>
+<li>
+<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 2 \\ 4 &amp; -1 \end{pmatrix}\)</span> の固有値とそれに対応する固有ベクトルを求めよ。</p>
+</li>
+<li>
+<p>行列 <span class="arithmatex">\(B = \begin{pmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 2 &amp; 1 \\ 0 &amp; 1 &amp; 2 \end{pmatrix}\)</span> を対角化せよ。</p>
+</li>
+<li>
+<p>問題2で対角化した行列 <span class="arithmatex">\(B\)</span> について、<span class="arithmatex">\(B^5\)</span> を求めよ。</p>
+</li>
+<li>
+<p>漸化式 <span class="arithmatex">\(a_{n+2} = 4a_{n+1} - 4a_n\)</span> が与えられ、初期値 <span class="arithmatex">\(a_0 = 1, a_1 = 2\)</span> のとき、一般項 <span class="arithmatex">\(a_n\)</span> を求めよ。</p>
+</li>
+</ol>
+<h3 id="_2">応用問題</h3>
+<ol>
+<li>
+<p>行列 <span class="arithmatex">\(<span class="arithmatex">\(C = \begin{pmatrix} 4 &amp; -1 &amp; 0 \\ -1 &amp; 4 &amp; -1 \\ 0 &amp; -1 &amp; 4 \end{pmatrix}\)</span>\)</span> の固有値と固有ベクトルを求め、対角化せよ。</p>
+</li>
+<li>
+<p>漸化式 <span class="arithmatex">\(f_{n+2} = f_{n+1} + f_n\)</span> が与えられ、初期値 <span class="arithmatex">\(f_0 = 0, f_1 = 1\)</span> のとき（フィボナッチ数列）、行列の対角化を用いて一般項 <span class="arithmatex">\(f_n\)</span> を求めよ。また、<span class="arithmatex">\(f_{20}\)</span> の値を計算せよ。</p>
+</li>
+<li>
+<p>行列 <span class="arithmatex">\(D = \begin{pmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 1 &amp; -3 &amp; 3 \end{pmatrix}\)</span> について、<span class="arithmatex">\(D^n\)</span> の一般形を求めよ。</p>
+</li>
+<li>
+<p>健康データ分析に関する応用問題：ある保健所の週ごとの感染症患者数の推移が漸化式 <span class="arithmatex">\(p_{n+2} = 1.5 p_{n+1} - 0.5 p_n\)</span> で表されると仮定する。第1週と第2週の患者数がそれぞれ 10人、15人であったとき、第n週の患者数 <span class="arithmatex">\(p_n\)</span> の一般式を求め、第10週の患者数を予測せよ。また、この感染症の拡大傾向について考察せよ。</p>
+</li>
+</ol>
+<h2 id="8">8. よくある質問と解答</h2>
+<h3 id="q1">Q1: 固有値が重根の場合の固有ベクトルはどのように求めればよいですか？</h3>
+<p>A1: 固有値が代数的重複度 k の重根の場合、対応する固有ベクトルの幾何的重複度（線形独立な固有ベクトルの数）は k 以下となります。(A - \lambdaI)v = 0 を解いて、線形独立な解ベクトルをすべて求めます。もし幾何的重複度が代数的重複度より小さい場合、行列は対角化できない可能性があります。このような場合はジョルダン標準形を考える必要があります。</p>
+<h3 id="q2">Q2: 対角化可能の条件は何ですか？</h3>
+<p>A2: n×n行列 A が対角化可能であるための必要十分条件は、A の固有ベクトルが n 個の線形独立なベクトルを形成することです。これは、各固有値 \lambda について、その幾何的重複度（対応する線形独立な固有ベクトルの数）が代数的重複度（特性方程式の根としての重複度）と等しいことを意味します。</p>
+<h3 id="q3">Q3: 対称行列の対角化について特別な性質はありますか？</h3>
+<p>A3: 実対称行列 A は常に対角化可能であり、その固有値はすべて実数です。また、異なる固有値に対応する固有ベクトルは互いに直交しています。したがって、A = PDP^T となる直交行列 P（P^T = P^{-1}）が存在します。これをスペクトル分解と呼びます。</p>
+<h3 id="q4">Q4: 行列のべき乗計算において対角化を利用する利点は何ですか？</h3>
+<p>A4: 対角化を利用すると、A^n = PD^nP^{-1} と表現できるため、D が対角行列であることを利用して D^n を簡単に計算できます。これにより、n が大きくなっても効率的に A^n を求めることができます。直接 A を n 回掛け合わせる方法では計算量が O(n) になりますが、対角化を利用すると O(log n) に削減できます。</p>
+<h3 id="q5">Q5: 数列の漸化式から一般項を求める方法はほかにもありますか？</h3>
+<p>A5: はい、特性方程式を立てて解く方法もあります。k 階の線形漸化式 a_{n+k} + c_{k-1}a_{n+k-1} + ... + c_0 a_n = 0 に対して、特性方程式 r^k + c_{k-1}r^{k-1} + ... + c_0 = 0 を解き、その解を用いて一般項を表現します。ただし、特性方程式に重根がある場合は注意が必要です。</p>
+<h2 id="9">9. 試験に向けたアドバイス</h2>
+<ol>
+<li>
+<p><strong>基本概念の理解</strong>: 固有値・固有ベクトルの定義と性質を正確に理解しましょう。</p>
+</li>
+<li>
+<p><strong>計算練習</strong>: 2×2行列、3×3行列の固有値・固有ベクトルの計算を何度も練習しましょう。</p>
+</li>
+<li>
+<p><strong>特性方程式の立て方</strong>: det(A - \lambdaI) = 0 の計算を効率的に行う方法を習得しましょう。</p>
+</li>
+<li>
+<p><strong>対角化の手順</strong>: 対角化の各ステップを確実に実行できるようにしましょう。</p>
+</li>
+<li>
+<p><strong>チェックポイント</strong>: 対角化の結果が正しいかを P^{-1}AP = D の計算で確認する習慣をつけましょう。</p>
+</li>
+<li>
+<p><strong>応用問題の対策</strong>: 行列のべき乗計算と数列の一般項導出の問題を解く練習をしましょう。</p>
+</li>
+<li>
+<p><strong>計算ミスを防ぐ</strong>: 行列式や逆行列の計算では符号のミスに注意しましょう。</p>
+</li>
+<li>
+<p><strong>時間配分</strong>: 試験中は問題ごとに適切な時間配分を心がけましょう。すべての問題に取り組めるようにしましょう。</p>
+</li>
+</ol>
+<p>最後に、授業で扱った例題や演習問題を再度解いてみることで、理解度を確認し、苦手な部分を特定して重点的に復習することをお勧めします。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

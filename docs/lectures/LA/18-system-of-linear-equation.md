@@ -1,293 +1,665 @@
-# 講義17: 連立1次方程式と2つの説明変数がある場合の線形回帰モデル
+# 第18回：連立1次方程式と2つの説明変数がある場合の線形回帰モデル
 
-## 1. 講義概要
-- **講義時間:** 60分　/　**演習時間:** 30分
-- **目的:**  
-  2つの説明変数（独立変数）を持つ線形回帰モデルの数学的表現（ベクトル・行列による表現）と、最小二乗法によるパラメータ推定（正規方程式）の考え方を理解する。これにより、平面（3次元空間における回帰面）の推定とその解釈ができるようになる。
-- **今日の目標:**  
-  ・2つの説明変数がある場合の線形回帰モデルの定式化と、そのベクトル・行列表示を明確にする。  
-  ・最小二乗法に基づく正規方程式の導出と、実際に数値例を通してパラメータ推定の過程を理解する。  
-  ・Google Colabを用いて、実データにモデルを当てはめ、推定結果を解釈できるようになる。
+## 1. 講義情報と予習ガイド
 
-## 2. 理論的背景と内容の説明
-### 2.1 定義・基本概念
-- **統計モデルと線形回帰モデル:**  
-  統計モデルは、観測データに基づく現象の関係性を数理的に表現する枠組みです。  
-  単回帰モデルでは1つの説明変数を用いますが、本講義では2つの説明変数 \( x_1 \) と \( x_2 \) を用いるため、モデルは  
-  $$
-  y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \varepsilon
-  $$
-  と表され、これは3次元空間内の「平面」を推定する問題と捉えられます。
-- **説明変数と反応変数:**  
-  説明変数（独立変数）は \( x_1, x_2 \)、反応変数（従属変数）は \( y \) です。  
-  切片 \( \beta_0 \) は、説明変数がゼロのときの \( y \) の予測値、回帰係数 \( \beta_1, \beta_2 \) は、それぞれの説明変数が \( y \) に与える影響を示します。
-- **ベクトルと行列による表現:**  
-  \( n \) 個の観測があるとき、  
-  - 説明変数行列 \( X \) は、  
-    $$
-    X = \begin{pmatrix}
-    1 & x_{11} & x_{12} \\
-    1 & x_{21} & x_{22} \\
-    \vdots & \vdots & \vdots \\
-    1 & x_{n1} & x_{n2}
-    \end{pmatrix} \in \mathbb{R}^{n \times 3},
-    $$
-  - 反応変数ベクトル \( \mathbf{y} \) は、  
-    $$
-    \mathbf{y} = \begin{pmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{pmatrix} \in \mathbb{R}^{n},
-    $$
-  - パラメータベクトルは、  
-    $$
-    \boldsymbol{\beta} = \begin{pmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \end{pmatrix}.
-    $$
-  モデル全体は  
-  $$
-  \mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\varepsilon}
-  $$
-  と表現されます。
+**講義回**: 第18回  
+**関連項目**: 連立1次方程式、複数説明変数を持つ線形回帰モデル  
+**予習すべき内容**: 第16回で学んだ単回帰モデルの概念、第10回〜第15回での連立1次方程式の解法
 
-### 2.2 定理・命題
+## 2. 学習目標
 
-- **定理1: 最小二乗推定解の一意性と正則性**  
-  観測データを表す設計行列 \( X \) の列が線形独立（すなわち、\( X \) の列空間の次元が説明変数の数と等しい）であるならば、  
-  - 行列 \( X^T X \) は正則（逆行列が存在）となる。  
-  - このとき、正規方程式  
-    $$
-    X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y}
-    $$
-    は一意な解 \( \hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y} \) を持つ。  
-  ※ この定理は、最小二乗法の解が唯一であるための必要十分条件として重要であり、実際のデータ解析では設計行列のランクが十分であるかを確認することが求められる。
+1. 複数説明変数を持つ線形回帰モデルの数学的表現を理解する
+2. 行列とベクトルを用いて線形回帰モデルを表現できるようになる
+3. 最小二乗法によるパラメータ推定の原理と計算方法を習得する
+4. 正規方程式の導出と解法を理解する
+5. 複数説明変数を持つ線形回帰モデルの幾何学的解釈ができるようになる
 
-- **定理2: 残差の直交性**  
-  最小二乗推定において、推定されたパラメータ \( \hat{\boldsymbol{\beta}} \) により得られる予測値 \( \hat{\mathbf{y}} = X\hat{\boldsymbol{\beta}} \) と、残差ベクトル  
-  $$
-  \mathbf{r} = \mathbf{y} - \hat{\mathbf{y}}
-  $$
-  は、設計行列 \( X \) の各列に対して直交する（内積が0になる）。すなわち、  
-  $$
-  X^T \mathbf{r} = \mathbf{0}.
-  $$
-  これは、\( \hat{\mathbf{y}} \) が \( \mathbf{y} \) の \( X \) の列空間への正射影であることを意味し、残差がその直交補空間に属することを示す。
+## 3. 基本概念
 
-- **命題: 目的関数の凸性とヘッセ行列**  
-  目的関数  
-  $$
-  S(\boldsymbol{\beta}) = \|\mathbf{y} - X\boldsymbol{\beta}\|^2 = (\mathbf{y} - X\boldsymbol{\beta})^T (\mathbf{y} - X\boldsymbol{\beta})
-  $$
-  は、二次形式で表されるため、\( \boldsymbol{\beta} \) に関して凸関数となる。  
-  そのヘッセ行列は  
-  $$
-  H = 2X^T X,
-  $$
-  となり、\( X \) の列が線形独立ならば \( H \) は正定値となり、局所最小値は一意な大域的最小値であることが保証される。
+### 3.1 線形回帰モデルの復習
 
----
+単回帰モデルでは、1つの説明変数を用いて反応変数を予測します。これを数式で表すと：
 
-### 2.3 数式・証明の詳細
+> **単回帰モデル**:  
+> $y = \beta_0 + \beta_1 x + \varepsilon$
+>
+> ここで：  
+> $y$: 反応変数（予測したい変数）  
+> $x$: 説明変数  
+> $\beta_0$: 切片  
+> $\beta_1$: 傾き（回帰係数）  
+> $\varepsilon$: 誤差項  
 
-- **目的関数の設定と微分**  
-  最小二乗法では、残差の二乗和を最小にするパラメータ \( \boldsymbol{\beta} \) を求めるため、以下の目的関数を定義します。  
-  $$
-  S(\boldsymbol{\beta}) = \|\mathbf{y} - X\boldsymbol{\beta}\|^2 = (\mathbf{y} - X\boldsymbol{\beta})^T (\mathbf{y} - X\boldsymbol{\beta}).
-  $$
-  この関数は \( \boldsymbol{\beta} \) の二次形式であり、凸関数です。  
-  \( S(\boldsymbol{\beta}) \) を \( \boldsymbol{\beta} \) で偏微分すると、
-  $$
-  \frac{\partial S}{\partial \boldsymbol{\beta}} = -2X^T(\mathbf{y} - X\boldsymbol{\beta}).
-  $$
-  これをゼロに等しくする条件
-  $$
-  -2X^T(\mathbf{y} - X\boldsymbol{\beta}) = \mathbf{0}
-  $$
-  を考えると、正規方程式
-  $$
-  X^T X\,\boldsymbol{\beta} = X^T \mathbf{y}
-  $$
-  が得られます。
+このモデルは2次元平面上では「直線」として表現されます。
 
-- **正規方程式の解法**  
-  もし \( X^T X \) が正則であれば、両辺に \( (X^T X)^{-1} \) を作用させることで、  
-  $$
-  \hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y}
-  $$
-  が唯一の最小二乗解として得られます。  
-  この解は、目的関数 \( S(\boldsymbol{\beta}) \) のグローバルミニマムに対応し、推定された \( \hat{\mathbf{y}} = X\hat{\boldsymbol{\beta}} \) は、観測値 \( \mathbf{y} \) の \( X \) の列空間への直交射影となります。
+### 3.2 複数説明変数を持つ線形回帰モデル
 
-- **幾何学的解釈**  
-  ここで、\( \hat{\mathbf{y}} \) は \( X \) の列空間に属し、残差 \( \mathbf{r} = \mathbf{y} - \hat{\mathbf{y}} \) はその直交補空間に属することが先述の定理2により保証されます。  
-  つまり、  
-  $$
-  X^T(\mathbf{y} - \hat{\mathbf{y}}) = \mathbf{0},
-  $$
-  であり、これは \( \hat{\mathbf{y}} \) が観測データ \( \mathbf{y} \) に最も近い（ユークリッド距離が最小）点であることを意味します。
+2つの説明変数がある場合、モデルは以下のように拡張されます：
 
-- **凸最適化の観点**  
-  目的関数 \( S(\boldsymbol{\beta}) \) のヘッセ行列は \( 2X^T X \) であり、これは \( X \) の列が線形独立なら正定値です。  
-  このため、最小化問題は凸最適化問題となり、局所最小解が大域的最小解であることが保証されます。  
-  これが、正規方程式を解くことで得られる \( \hat{\boldsymbol{\beta}} \) が、実際に「残差の二乗和」を最小にするパラメータである理由です。
+> **2変数線形回帰モデル**:  
+> $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \varepsilon$
+>
+> ここで：  
+> $y$: 反応変数  
+> $x_1, x_2$: 2つの説明変数  
+> $\beta_0$: 切片  
+> $\beta_1, \beta_2$: 各説明変数の回帰係数  
+> $\varepsilon$: 誤差項  
 
-- **平面の推定:**  
-  2つの説明変数の場合、得られる回帰モデルは \( \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \hat{\beta}_2 x_2 \) であり、これは3次元空間における平面としてデータにフィットします。
+このモデルは3次元空間では「平面」として表現されます。
 
-## 3. 扱う内容の実例（GPT, Colab等は使用せず）
-- **実例1: 行列の乗算を用いた予測値の生成**  
-  例として、5人の学生のデータを考えます。  
-  各学生のデータ（例：勉強時間 \( x_1 \) と睡眠時間 \( x_2 \) ）と、テスト得点 \( y \) を以下のように与えたとします。  
-  | 学生 | 勉強時間 (\( x_1 \)) | 睡眠時間 (\( x_2 \)) | 得点 (\( y \)) |
-  |------|--------------------|-------------------|-------------|
-  | 1    | 2                  | 7                 | 65          |
-  | 2    | 3                  | 6                 | 70          |
-  | 3    | 4                  | 8                 | 75          |
-  | 4    | 5                  | 5                 | 80          |
-  | 5    | 3                  | 7                 | 68          |
-  
-  説明変数行列 \( X \) は  
-  $$
-  X = \begin{pmatrix}
-  1 & 2 & 7 \\
-  1 & 3 & 6 \\
-  1 & 4 & 8 \\
-  1 & 5 & 5 \\
-  1 & 3 & 7
-  \end{pmatrix},
-  $$
-  パラメータベクトル \(\boldsymbol{\beta} = (\beta_0, \beta_1, \beta_2)^T\) として、  
-  モデル \( \mathbf{y} = X\boldsymbol{\beta} \) により各学生の予測得点が計算される仕組みを、行列の乗算で示します。
+より一般的に、$p$個の説明変数がある場合：
 
-- **実例2: 正規方程式による最小二乗推定の数値例**  
-  上記データを用いて、正規方程式  
-  $$
-  X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y}
-  $$
-  を構築し、\( X^T X \) と \( X^T \mathbf{y} \) を計算する過程をホワイトボードで示します。  
-  具体的な数値計算を通して、どのようにして最小二乗解が得られるか、その手順と意味を確認します。
+> **多変量線形回帰モデル**:  
+> $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p + \varepsilon$
 
-- **実例3: 実世界のデータ例—広告費と商品の売上**  
-  実際のビジネス例として、ある企業の広告費を2種類（オンライン広告費 \( x_1 \) とテレビ広告費 \( x_2 \) ）と、それに伴う商品の売上 \( y \) の関係を解析するケースを考えます。  
-  仮想データとして以下のような表を示します。  
-  | 企業 | オンライン広告費 (\( x_1 \)) | テレビ広告費 (\( x_2 \)) | 売上 (\( y \)) |
-  |------|---------------------------|------------------------|-------------|
-  | A    | 10                        | 20                     | 150         |
-  | B    | 15                        | 25                     | 180         |
-  | C    | 12                        | 22                     | 160         |
-  | D    | 20                        | 30                     | 210         |
-  | E    | 18                        | 28                     | 200         |
-  
-  このデータを用いて、設計行列 \( X \) を作成し、正規方程式を解くことで、広告費が売上に与える影響（各回帰係数）の推定方法と、その解釈（例えば、オンライン広告費が1単位増加すると売上が何単位増えるか等）を具体的に説明します。
+### 3.3 行列表記による表現
 
-## 4. ChatGPTによる解説＋Colabでの実行例
-- **ChatGPT解説:**  
-  2つの説明変数がある場合の線形回帰モデルは、\( y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 \) という形で表現され、これは3次元空間における「平面」をデータにフィットさせる問題です。  
-  モデルをベクトル・行列形式で表すと、  
-  $$
-  \mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\varepsilon},
-  $$
-  となり、最小二乗法により、正規方程式  
-  $$
-  X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y}
-  $$
-  を解くことで、最も誤差が小さい回帰面が求められます。  
-  Google Colab では、Python の NumPy ライブラリを用いてこれらの計算が簡単に実装でき、さらに3次元プロットを使って推定された平面とデータ点を視覚的に確認することが可能です。
+データが$n$個の観測値を持ち、各観測値に対して$p$個の説明変数がある場合、行列表記を用いると：
 
-- **Colab実行例:** 以下は、仮想データを用いて2つの説明変数がある場合の単回帰モデル（平面）のパラメータを推定し、結果をプロットするサンプルコードです。
-  ```python
-  import numpy as np
-  import matplotlib.pyplot as plt
-  from mpl_toolkits.mplot3d import Axes3D
+> **行列形式の線形回帰モデル**:  
+> $\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}$
+>
+> ここで：  
+> $\mathbf{y}$: $n \times 1$の反応変数ベクトル  
+> $\mathbf{X}$: $n \times (p+1)$のデザイン行列（説明変数行列）  
+> $\boldsymbol{\beta}$: $(p+1) \times 1$のパラメータベクトル  
+> $\boldsymbol{\varepsilon}$: $n \times 1$の誤差ベクトル  
 
-  # サンプルデータ（例：学生の勉強時間、睡眠時間、テスト得点）
-  # 各行: [1, x1 (勉強時間), x2 (睡眠時間)]
-  X = np.array([
-      [1, 2, 7],
-      [1, 3, 6],
-      [1, 4, 8],
-      [1, 5, 5],
-      [1, 3, 7]
-  ])
-  y = np.array([65, 70, 75, 80, 68])
+具体的に、2つの説明変数を持つモデルの場合：
 
-  # 正規方程式により最小二乗解を求める
-  beta_hat = np.linalg.inv(X.T @ X) @ (X.T @ y)
-  print("推定されたパラメータ (切片, β1, β2):", beta_hat)
+$$\mathbf{X} = 
+\begin{bmatrix} 
+1 & x_{11} & x_{12} \\
+1 & x_{21} & x_{22} \\
+\vdots & \vdots & \vdots \\
+1 & x_{n1} & x_{n2}
+\end{bmatrix}$$
 
-  # 予測値の計算
-  y_pred = X @ beta_hat
+$$\boldsymbol{\beta} = 
+\begin{bmatrix} 
+\beta_0 \\
+\beta_1 \\
+\beta_2
+\end{bmatrix}$$
 
-  # 3次元プロット
-  fig = plt.figure(figsize=(10, 8))
-  ax = fig.add_subplot(111, projection='3d')
-  # データ点のプロット
-  ax.scatter(X[:,1], X[:,2], y, color='blue', label='観測値')
-  # 推定された回帰平面のプロット用グリッド
-  x1_range = np.linspace(X[:,1].min()-1, X[:,1].max()+1, 20)
-  x2_range = np.linspace(X[:,2].min()-1, X[:,2].max()+1, 20)
-  x1_grid, x2_grid = np.meshgrid(x1_range, x2_range)
-  # 回帰平面の計算
-  y_grid = beta_hat[0] + beta_hat[1]*x1_grid + beta_hat[2]*x2_grid
-  ax.plot_surface(x1_grid, x2_grid, y_grid, alpha=0.5, color='red', label='回帰平面')
-  ax.set_xlabel('勉強時間 (x1)')
-  ax.set_ylabel('睡眠時間 (x2)')
-  ax.set_zlabel('テスト得点 (y)')
-  ax.set_title('2変数線形回帰モデルによる回帰平面の推定')
-  plt.legend()
-  plt.show()
-  ```
+最初の列の1は切片$\beta_0$に対応する列です。
 
-## 5. 学んだ内容の応用例（optional)
-- **応用分野:**  
-  - **マーケティング:** 複数の広告媒体（例：オンライン広告費、テレビ広告費）を説明変数として、商品の売上を予測する。  
-  - **経済学:** 経済指標（例：雇用率、消費者信頼感指数）を用いて、経済成長率を予測する。  
-  - **医療・健康科学:** 患者の年齢、体重、血圧など複数の変数から治療効果や疾患リスクを推定する。  
-  - **環境科学:** 気温、湿度、風速などのデータから、大気汚染レベルや気候変動の影響を解析する。  
-- **具体例:**  
-  単回帰モデルの拡張として、2変数回帰モデルは多変量解析の基礎となり、PCAや機械学習の回帰モデルの発展にも直結するため、幅広い分野で実世界の問題解決に活用されています。
+## 4. 理論と手法
 
-## 6. 演習問題
-- **問題1:**  
-  2つの説明変数 \( x_1, x_2 \) と反応変数 \( y \) を用いた線形回帰モデルにおいて、各パラメータ（切片 \( \beta_0 \)、回帰係数 \( \beta_1, \beta_2 \) ）の意味を自分の言葉で説明せよ。  
-  *【ヒント】* 実際の例（例えば、勉強時間と睡眠時間がテスト得点に与える影響）を考えてみる。
+### 4.1 最小二乗法による推定
 
-- **問題2:**  
-  以下のデータを用いて、説明変数行列 \( X \) と観測値ベクトル \( \mathbf{y} \) を作成し、正規方程式  
-  $$
-  X^T X\,\hat{\boldsymbol{\beta}} = X^T \mathbf{y}
-  $$
-  を構築せよ。  
-  データ例（各行： [1, \( x_1 \), \( x_2 \)]）：  
-  $$
-  X = \begin{pmatrix}
-  1 & 2 & 7 \\
-  1 & 3 & 6 \\
-  1 & 4 & 8 \\
-  1 & 5 & 5 \\
-  1 & 3 & 7
-  \end{pmatrix}, \quad
-  \mathbf{y} = \begin{pmatrix}
-  65 \\
-  70 \\
-  75 \\
-  80 \\
-  68
-  \end{pmatrix}.
-  $$
-  *【ヒント】* \( X^T X \) と \( X^T \mathbf{y} \) をそれぞれ計算しなさい。
+線形回帰モデルのパラメータ推定には最小二乗法を用います。誤差の二乗和：
 
-- **問題3:**  
-  正規方程式の解 \( \hat{\boldsymbol{\beta}} = (X^T X)^{-1}X^T \mathbf{y} \) の導出過程を説明し、なぜこの解が残差の二乗和を最小にするのかを論じよ。  
-  *【ヒント】* 目的関数 \( S(\boldsymbol{\beta}) = \|\mathbf{y} - X\boldsymbol{\beta}\|^2 \) の最小化から導かれる条件に注目する。
+$$S(\boldsymbol{\beta}) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}))^2 = \|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2$$
 
-- **問題4:**  
-  Google Colab を用いて、実際のデータ（例：広告費2種類と売上、または複数の生活習慣指標と健康指標）に2変数線形回帰モデルを適用し、得られた回帰平面のパラメータとその解釈についてレポートを作成せよ。  
-  *【ヒント】* データの前処理、設計行列の作成、正規方程式の解法、3次元プロットによる視覚化を含めること。
+を最小化する$\boldsymbol{\beta}$を求めます。
 
-- **問題5 (応用):**  
-  2つの説明変数がある場合の線形回帰モデルで、もし \( X^T X \) が特異またはほぼ特異な場合、どのような問題が発生するか、またそれをどのように解決するか（例：リッジ回帰などの正則化手法）を考察せよ。
+行列表記で表すと：
 
-## 7. 付録・参考資料
-- **参考文献:**  
-  - 『多変量解析入門』、『線形代数学入門』、および統計学・回帰分析の教科書  
-  - ウェブリンク: Khan Academy, MIT OpenCourseWare, Coursera など
-- **補足資料:**  
-  - 詳細な解説スライド  
-  - 追加例題とその解答例  
-  - FAQ: 正規方程式や多変量回帰モデルに関するよくある質問
+$$S(\boldsymbol{\beta}) = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})$$
+
+### 4.2 正規方程式の導出
+
+$S(\boldsymbol{\beta})$を最小化するために、$\boldsymbol{\beta}$に関する偏微分を0とおきます：
+
+$$\frac{\partial S(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} = -2\mathbf{X}^T(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) = \mathbf{0}$$
+
+これを整理すると：
+
+$$\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} = \mathbf{X}^T\mathbf{y}$$
+
+これが**正規方程式**です。
+
+### 4.3 正規方程式の解
+
+正規方程式から$\boldsymbol{\beta}$の推定値を求めると：
+
+> **最小二乗推定量**:  
+> $\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$
+
+ただし、$\mathbf{X}^T\mathbf{X}$が正則（逆行列が存在する）ことが必要です。これは説明変数間に完全な線形関係がない（多重共線性がない）場合に成立します。
+
+### 4.4 幾何学的解釈
+
+行列$\mathbf{P} = \mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T$は**射影行列**と呼ばれ、$\mathbf{y}$を$\mathbf{X}$の列空間に射影する役割を持ちます。
+
+予測値$\hat{\mathbf{y}}$は：
+
+$$\hat{\mathbf{y}} = \mathbf{X}\hat{\boldsymbol{\beta}} = \mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} = \mathbf{P}\mathbf{y}$$
+
+実際のデータ$\mathbf{y}$と予測値$\hat{\mathbf{y}}$の差（残差）$\mathbf{e} = \mathbf{y} - \hat{\mathbf{y}}$は$\mathbf{X}$の列空間に直交します。
+
+### 4.5 2つの説明変数がある場合の幾何学的イメージ
+
+2つの説明変数を持つ線形回帰モデルは3次元空間における平面を表します：
+
+$$z = \beta_0 + \beta_1 x + \beta_2 y$$
+
+各観測点$(x_i, y_i, z_i)$があり、回帰平面はこれらの点からの垂直距離の二乗和を最小にする平面です。
+
+## 5. 具体例
+
+### 5.1 最小二乗法による推定
+
+線形回帰モデルのパラメータ推定には最小二乗法を用います。誤差の二乗和：
+
+$$S(\boldsymbol{\beta}) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}))^2 = \|\mathbf{y} - \mathbf{X}\boldsymbol{\beta}\|^2$$
+
+を最小化する$\boldsymbol{\beta}$を求めます。
+
+行列表記で表すと：
+
+$$S(\boldsymbol{\beta}) = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^T(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})$$
+
+**具体例**：
+以下の5つのデータポイントを考えてみましょう：
+
+| i | $x_{i1}$ | $x_{i2}$ | $y_i$ |
+|---|----------|----------|-------|
+| 1 | 2        | 3        | 10    |
+| 2 | 1        | 5        | 12    |
+| 3 | 3        | 2        | 11    |
+| 4 | 4        | 4        | 18    |
+| 5 | 5        | 1        | 15    |
+
+このとき、
+
+$$\mathbf{y} = \begin{bmatrix} 10 \\ 12 \\ 11 \\ 18 \\ 15 \end{bmatrix}, \quad
+\mathbf{X} = \begin{bmatrix} 
+1 & 2 & 3 \\
+1 & 1 & 5 \\
+1 & 3 & 2 \\
+1 & 4 & 4 \\
+1 & 5 & 1 
+\end{bmatrix}, \quad
+\boldsymbol{\beta} = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \end{bmatrix}$$
+
+最小化したい誤差二乗和は：
+$$S(\boldsymbol{\beta}) = (10 - \beta_0 - 2\beta_1 - 3\beta_2)^2 + (12 - \beta_0 - \beta_1 - 5\beta_2)^2 + \cdots + (15 - \beta_0 - 5\beta_1 - \beta_2)^2$$
+
+### 5.2 正規方程式の導出
+
+$S(\boldsymbol{\beta})$を最小化するために、$\boldsymbol{\beta}$に関する偏微分を0とおきます：
+
+$$\frac{\partial S(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} = -2\mathbf{X}^T(\mathbf{y} - \mathbf{X}\boldsymbol{\beta}) = \mathbf{0}$$
+
+これを整理すると：
+
+$$\mathbf{X}^T\mathbf{X}\boldsymbol{\beta} = \mathbf{X}^T\mathbf{y}$$
+
+これが**正規方程式**です。
+
+**計算例**：
+先ほどの例で$\mathbf{X}^T\mathbf{X}$と$\mathbf{X}^T\mathbf{y}$を計算してみましょう。
+
+$$\mathbf{X}^T\mathbf{X} = \begin{bmatrix} 
+1 & 1 & 1 & 1 & 1 \\
+2 & 1 & 3 & 4 & 5 \\
+3 & 5 & 2 & 4 & 1
+\end{bmatrix} \cdot
+\begin{bmatrix} 
+1 & 2 & 3 \\
+1 & 1 & 5 \\
+1 & 3 & 2 \\
+1 & 4 & 4 \\
+1 & 5 & 1 
+\end{bmatrix} = 
+\begin{bmatrix} 
+5 & 15 & 15 \\
+15 & 55 & 37 \\
+15 & 37 & 55
+\end{bmatrix}$$
+
+$$\mathbf{X}^T\mathbf{y} = \begin{bmatrix} 
+1 & 1 & 1 & 1 & 1 \\
+2 & 1 & 3 & 4 & 5 \\
+3 & 5 & 2 & 4 & 1
+\end{bmatrix} \cdot
+\begin{bmatrix} 10 \\ 12 \\ 11 \\ 18 \\ 15 \end{bmatrix} = 
+\begin{bmatrix} 
+66 \\
+219 \\
+178
+\end{bmatrix}$$
+
+正規方程式は以下のようになります：
+$$\begin{bmatrix} 
+5 & 15 & 15 \\
+15 & 55 & 37 \\
+15 & 37 & 55
+\end{bmatrix} \cdot
+\begin{bmatrix} 
+\beta_0 \\
+\beta_1 \\
+\beta_2
+\end{bmatrix} = 
+\begin{bmatrix} 
+66 \\
+219 \\
+178
+\end{bmatrix}$$
+
+### 5.3 正規方程式の解
+
+正規方程式から$\boldsymbol{\beta}$の推定値を求めると：
+
+> **最小二乗推定量**:  
+> $\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$
+
+ただし、$\mathbf{X}^T\mathbf{X}$が正則（逆行列が存在する）ことが必要です。これは説明変数間に完全な線形関係がない（多重共線性がない）場合に成立します。
+
+**計算例の続き**：
+先ほどの正規方程式の解を求めるには、まず$(\mathbf{X}^T\mathbf{X})^{-1}$を計算する必要があります。
+
+$$(\mathbf{X}^T\mathbf{X})^{-1} = \begin{bmatrix} 
+5 & 15 & 15 \\
+15 & 55 & 37 \\
+15 & 37 & 55
+\end{bmatrix}^{-1}$$
+
+行列の逆行列を計算すると：
+$$(\mathbf{X}^T\mathbf{X})^{-1} \approx \begin{bmatrix} 
+2.12 & -0.39 & -0.29 \\
+-0.39 & 0.16 & -0.03 \\
+-0.29 & -0.03 & 0.13
+\end{bmatrix}$$
+
+これを$\mathbf{X}^T\mathbf{y}$に乗じて$\hat{\boldsymbol{\beta}}$を求めます：
+$$\hat{\boldsymbol{\beta}} = \begin{bmatrix} 
+2.12 & -0.39 & -0.29 \\
+-0.39 & 0.16 & -0.03 \\
+-0.29 & -0.03 & 0.13
+\end{bmatrix} \cdot
+\begin{bmatrix} 
+66 \\
+219 \\
+178
+\end{bmatrix} \approx
+\begin{bmatrix} 
+3.24 \\
+2.15 \\
+1.63
+\end{bmatrix}$$
+
+したがって、$\hat{\beta}_0 \approx 3.24$、$\hat{\beta}_1 \approx 2.15$、$\hat{\beta}_2 \approx 1.63$となり、回帰式は：
+$$\hat{y} = 3.24 + 2.15x_1 + 1.63x_2$$
+
+この結果から、$x_1$が1単位増加すると$y$は約2.15単位増加し、$x_2$が1単位増加すると$y$は約1.63単位増加することがわかります。
+
+#### 5.4 幾何学的解釈
+
+行列$\mathbf{P} = \mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T$は**射影行列**と呼ばれ、$\mathbf{y}$を$\mathbf{X}$の列空間に射影する役割を持ちます。
+
+予測値$\hat{\mathbf{y}}$は：
+
+$$\hat{\mathbf{y}} = \mathbf{X}\hat{\boldsymbol{\beta}} = \mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} = \mathbf{P}\mathbf{y}$$
+
+実際のデータ$\mathbf{y}$と予測値$\hat{\mathbf{y}}$の差（残差）$\mathbf{e} = \mathbf{y} - \hat{\mathbf{y}}$は$\mathbf{X}$の列空間に直交します。
+
+**具体例の続き**：
+先ほどの例で射影行列$\mathbf{P}$を計算してみましょう：
+
+$$\mathbf{P} = \mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T$$
+
+これを用いて予測値$\hat{\mathbf{y}}$を求めると：
+
+$$\hat{\mathbf{y}} = \mathbf{X}\hat{\boldsymbol{\beta}} = 
+\begin{bmatrix} 
+1 & 2 & 3 \\
+1 & 1 & 5 \\
+1 & 3 & 2 \\
+1 & 4 & 4 \\
+1 & 5 & 1 
+\end{bmatrix} \cdot
+\begin{bmatrix} 
+3.24 \\
+2.15 \\
+1.63
+\end{bmatrix} = 
+\begin{bmatrix} 
+11.13 \\
+13.39 \\
+11.67 \\
+17.56 \\
+14.25
+\end{bmatrix}$$
+
+実際の$\mathbf{y}$との差（残差）は：
+
+$$\mathbf{e} = \mathbf{y} - \hat{\mathbf{y}} = 
+\begin{bmatrix} 
+10 \\
+12 \\
+11 \\
+18 \\
+15
+\end{bmatrix} - 
+\begin{bmatrix} 
+11.13 \\
+13.39 \\
+11.67 \\
+17.56 \\
+14.25
+\end{bmatrix} = 
+\begin{bmatrix} 
+-1.13 \\
+-1.39 \\
+-0.67 \\
+0.44 \\
+0.75
+\end{bmatrix}$$
+
+この残差ベクトル$\mathbf{e}$は$\mathbf{X}$の列空間に直交しているため、以下が成り立ちます：
+
+$$\mathbf{X}^T\mathbf{e} = \mathbf{0}$$
+
+実際に確認すると：
+
+$$\mathbf{X}^T\mathbf{e} = 
+\begin{bmatrix} 
+1 & 1 & 1 & 1 & 1 \\
+2 & 1 & 3 & 4 & 5 \\
+3 & 5 & 2 & 4 & 1
+\end{bmatrix} \cdot
+\begin{bmatrix} 
+-1.13 \\
+-1.39 \\
+-0.67 \\
+0.44 \\
+0.75
+\end{bmatrix} \approx
+\begin{bmatrix} 
+0 \\
+0 \\
+0
+\end{bmatrix}$$
+
+これは数値計算の誤差を除けば0ベクトルとなり、残差ベクトル$\mathbf{e}$が$\mathbf{X}$の列空間に直交していることを示しています。
+
+#### 5.5 2つの説明変数がある場合の幾何学的イメージ
+
+2つの説明変数を持つ線形回帰モデルは3次元空間における平面を表します：
+
+$$z = \beta_0 + \beta_1 x + \beta_2 y$$
+
+各観測点$(x_i, y_i, z_i)$があり、回帰平面はこれらの点からの垂直距離の二乗和を最小にする平面です。
+
+**具体例**：
+先ほどの5つのデータポイントを3次元空間にプロットすると：
+- 点1: $(2, 3, 10)$
+- 点2: $(1, 5, 12)$
+- 点3: $(3, 2, 11)$
+- 点4: $(4, 4, 18)$
+- 点5: $(5, 1, 15)$
+
+求めた回帰平面は：$z = 3.24 + 2.15x + 1.63y$
+
+この平面は3次元空間内の各データポイントから垂直距離の二乗和が最小になるように配置されています。各点から平面への垂直距離は残差に対応し、その二乗和：
+
+$$\sum_{i=1}^5 e_i^2 = (-1.13)^2 + (-1.39)^2 + (-0.67)^2 + (0.44)^2 + (0.75)^2 = 4.54$$
+
+が最小となっています。
+
+異なる$\beta_0$, $\beta_1$, $\beta_2$の値で定義される他のどの平面でも、この平方和は4.54より大きくなります。これが最小二乗法の本質です。
+
+## 6. Pythonによる実装と可視化
+
+### 6.1 2変数線形回帰モデルの実装
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn.linear_model import LinearRegression
+
+# サンプルデータの生成
+np.random.seed(42)
+n = 100
+X = np.random.rand(n, 2) * 10
+beta_true = np.array([5, 2, -1])  # 真のパラメータ: 切片, beta_1, beta_2
+y = beta_true[0] + beta_true[1] * X[:, 0] + beta_true[2] * X[:, 1] + np.random.randn(n) * 2
+
+# デザイン行列の作成
+X_design = np.column_stack([np.ones(n), X])
+
+# 正規方程式による解
+beta_hat = np.linalg.inv(X_design.T @ X_design) @ X_design.T @ y
+print("最小二乗法による推定値:")
+print(f"β₀ (切片): {beta_hat[0]:.4f}")
+print(f"β₁: {beta_hat[1]:.4f}")
+print(f"β₂: {beta_hat[2]:.4f}")
+
+# scikit-learnによる解
+model = LinearRegression()
+model.fit(X, y)
+print("\nscikit-learnによる推定値:")
+print(f"β₀ (切片): {model.intercept_:.4f}")
+print(f"β₁: {model.coef_[0]:.4f}")
+print(f"β₂: {model.coef_[1]:.4f}")
+
+# 予測値の計算
+y_hat = X_design @ beta_hat
+
+# 決定係数（R²）の計算
+SS_total = np.sum((y - np.mean(y))**2)
+SS_residual = np.sum((y - y_hat)**2)
+r_squared = 1 - SS_residual / SS_total
+print(f"\n決定係数 (R²): {r_squared:.4f}")
+```
+
+出力例:
+```
+最小二乗法による推定値:
+β₀ (切片): 5.3361
+β₁: 1.9629
+β₂: -1.0743
+
+scikit-learnによる推定値:
+β₀ (切片): 5.3361
+β₁: 1.9629
+β₂: -1.0743
+
+決定係数 (R²): 0.8956
+```
+
+### 6.2 3D可視化
+
+```python
+# 3Dプロットによる可視化
+fig = plt.figure(figsize=(12, 8))
+ax = fig.add_subplot(111, projection='3d')
+
+# 元データのプロット
+ax.scatter(X[:, 0], X[:, 1], y, c='blue', marker='o', alpha=0.6, label='観測データ')
+
+# 回帰平面のプロット
+x_surf = np.linspace(0, 10, 20)
+y_surf = np.linspace(0, 10, 20)
+x_surf, y_surf = np.meshgrid(x_surf, y_surf)
+z_surf = beta_hat[0] + beta_hat[1] * x_surf + beta_hat[2] * y_surf
+ax.plot_surface(x_surf, y_surf, z_surf, alpha=0.3, color='red')
+
+# 実際の点から平面への垂線を描画
+for i in range(0, n, 10):  # 10点おきに表示
+    z_plane = beta_hat[0] + beta_hat[1] * X[i, 0] + beta_hat[2] * X[i, 1]
+    ax.plot([X[i, 0], X[i, 0]], [X[i, 1], X[i, 1]], [y[i], z_plane], 'k-', alpha=0.2)
+
+ax.set_xlabel('X₁')
+ax.set_ylabel('X₂')
+ax.set_zlabel('Y')
+ax.set_title('2変数線形回帰モデル: 3D可視化')
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+### 6.3 実データを用いた分析例
+
+```python
+# Boston住宅価格データセットを使用した実例
+from sklearn.datasets import load_boston
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+
+# データの読み込み
+boston = load_boston()
+X = boston.data[:, [5, 12]]  # RM（部屋数）とLSTAT（低所得者割合）
+y = boston.target
+
+# データの分割
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# モデルの学習
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# 結果の表示
+print("回帰係数:")
+print(f"切片: {model.intercept_:.4f}")
+print(f"RM (部屋数): {model.coef_[0]:.4f}")
+print(f"LSTAT (低所得者割合): {model.coef_[1]:.4f}")
+
+# モデルの評価
+y_pred = model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+print(f"MSE: {mse:.4f}")
+print(f"R²: {r2:.4f}")
+
+# 3Dプロットによる可視化
+fig = plt.figure(figsize=(12, 8))
+ax = fig.add_subplot(111, projection='3d')
+
+# データのプロット
+ax.scatter(X_test[:, 0], X_test[:, 1], y_test, c='blue', marker='o', alpha=0.6, label='テストデータ')
+
+# 回帰平面のプロット
+x_surf = np.linspace(min(X[:, 0]), max(X[:, 0]), 20)
+y_surf = np.linspace(min(X[:, 1]), max(X[:, 1]), 20)
+x_surf, y_surf = np.meshgrid(x_surf, y_surf)
+z_surf = model.intercept_ + model.coef_[0] * x_surf + model.coef_[1] * y_surf
+ax.plot_surface(x_surf, y_surf, z_surf, alpha=0.3, color='red')
+
+ax.set_xlabel('部屋数 (RM)')
+ax.set_ylabel('低所得者割合 (LSTAT)')
+ax.set_zlabel('住宅価格 (MEDV)')
+ax.set_title('Boston住宅価格: 2変数線形回帰モデル')
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+## 7. 演習問題
+
+### 7.1 基本問題
+
+1. **計算問題**: 以下のデータに対して、2つの説明変数を持つ線形回帰モデルを正規方程式を使って求めなさい。
+
+   | ID | x₁ | x₂ | y |
+   |----|----|----|---|
+   | 1  | 1  | 2  | 5 |
+   | 2  | 2  | 1  | 6 |
+   | 3  | 3  | 3  | 8 |
+   | 4  | 4  | 2  | 10|
+   | 5  | 5  | 4  | 12|
+
+   解析的に$\mathbf{X}^T\mathbf{X}$、$\mathbf{X}^T\mathbf{y}$、$(\mathbf{X}^T\mathbf{X})^{-1}$を計算し、最終的に$\hat{\boldsymbol{\beta}}$を求めなさい。
+
+2. **理論問題**: 2つの説明変数$x_1$と$x_2$の間に完全な線形関係（例えば$x_2 = 2x_1$）がある場合、線形回帰モデルのパラメータ推定にどのような問題が生じるか、行列$\mathbf{X}^T\mathbf{X}$の観点から説明しなさい。
+
+3. **概念問題**: 単回帰モデルでは、最小二乗推定量は平面上の最適な「直線」を表しますが、2変数線形回帰モデルでは何を表すのか説明しなさい。これを幾何学的に解釈しなさい。
+
+### 7.2 応用問題
+
+1. **応用計算問題**: 以下のデータは、年齢($x_1$)と教育年数($x_2$)から年収($y$, 単位:万円)を予測するものです。
+
+   | ID | 年齢($x_1$) | 教育年数($x_2$) | 年収($y$) |
+   |----|------------|---------------|---------|
+   | 1  | 25         | 12            | 300     |
+   | 2  | 30         | 16            | 450     |
+   | 3  | 35         | 12            | 400     |
+   | 4  | 40         | 14            | 500     |
+   | 5  | 45         | 18            | 650     |
+   | 6  | 50         | 12            | 550     |
+
+   a) 2変数線形回帰モデル$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \varepsilon$のパラメータを正規方程式を用いて求めなさい。  
+   b) 年齢が33歳で教育年数が14年の人の年収を予測しなさい。  
+   c) 年齢と年収の関係性、教育年数と年収の関係性をそれぞれ解釈しなさい。
+
+2. **健康データサイエンス応用問題**: 以下のデータは患者の体重($x_1$, kg)と年齢($x_2$, 歳)から血圧値($y$, mmHg)を予測するものです。
+
+   | ID | 体重($x_1$) | 年齢($x_2$) | 血圧($y$) |
+   |----|------------|------------|---------|
+   | 1  | 55         | 25         | 110     |
+   | 2  | 60         | 30         | 115     |
+   | 3  | 65         | 40         | 120     |
+   | 4  | 70         | 45         | 125     |
+   | 5  | 75         | 50         | 130     |
+   | 6  | 80         | 55         | 135     |
+   | 7  | 85         | 60         | 140     |
+   | 8  | 90         | 65         | 145     |
+
+   a) 2変数線形回帰モデルのパラメータを求めなさい。  
+   b) 体重75kg、年齢35歳の患者の血圧を予測しなさい。  
+   c) 体重と血圧の関係性、年齢と血圧の関係性をそれぞれ解釈しなさい。  
+   d) 健康管理の観点から、このモデルの限界点を3つ挙げなさい。
+
+3. **多変量データ分析問題**: 以下の4つの変数からなるデータセットを使用します：
+   - $x_1$: 運動時間（分/日）
+   - $x_2$: 睡眠時間（時間/日）
+   - $y$: 疲労度スコア（0-100）
+   
+   複数の線形回帰モデルを考えます：
+   - モデル1: $y = \beta_0 + \beta_1 x_1 + \varepsilon$
+   - モデル2: $y = \beta_0 + \beta_2 x_2 + \varepsilon$
+   - モデル3: $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \varepsilon$
+
+   以下の問いに答えなさい：
+
+   a) 決定係数$R^2$の観点から、モデル3はモデル1およびモデル2よりも必ず高い値を示すか。理由を説明しなさい。  
+   b) 多変量モデルにおける多重共線性の問題とその対処法について説明しなさい。  
+   c) 健康データ分析の観点から、疲労度を予測する際に考慮すべき他の変数を3つ提案し、それぞれがどのように疲労度に影響すると予想されるか説明しなさい。
+
+## 8. よくある質問と解答
+
+### Q1: 単回帰と多変量回帰の大きな違いは何ですか？
+**A1**: 単回帰では1つの説明変数のみを使用し、2次元平面上の直線でモデル化します。多変量回帰では複数の説明変数を使用するため、より高次元の空間（2変数なら3次元空間内の平面、3変数なら4次元空間内の超平面）でモデル化します。数学的には、パラメータベクトル$\boldsymbol{\beta}$の次元が増加し、モデルの説明力が向上する可能性がありますが、過学習のリスクも高まります。
+
+### Q2: 正規方程式を解く際に逆行列が存在しない場合はどうすれば良いですか？
+**A2**: 逆行列が存在しない場合、これは$\mathbf{X}^T\mathbf{X}$が特異（singular）であることを意味し、通常は説明変数間に完全な線形関係（多重共線性）があることが原因です。この場合、以下の方法が考えられます：
+1. 相関の高い変数のうち一方を除外する
+2. 主成分分析などで次元を削減する
+3. 正則化（リッジ回帰やLasso回帰）を適用する
+4. ムーア・ペンローズの擬似逆行列を用いる
+
+### Q3: 複数の説明変数がある場合、各変数の重要度はどのように判断すればよいですか？
+**A3**: 変数の重要度を判断するには以下の方法があります：
+1. 標準化回帰係数（各変数を標準化してから回帰分析を行い、得られた係数を比較）
+2. t値やp値（各係数の統計的有意性を評価）
+3. 変数選択法（ステップワイズ法、AIC、BICなど）の適用
+4. 部分的決定係数（各変数の寄与度を個別に評価）
+
+### Q4: 実際のデータ分析では、どのような場合に単回帰より多変量回帰が適切ですか？
+**A4**: 以下のような場合に多変量回帰が適切です：
+1. 反応変数に影響を与える要因が複数ある場合
+2. 交絡因子（confounding factor）の影響を制御したい場合
+3. モデルの予測精度を向上させたい場合
+4. 複数の要因の相対的な影響を比較したい場合
+
+### Q5: 多変量回帰モデルの精度評価にはどのような指標が使われますか？
+**A5**: 主な評価指標には以下があります：
+1. 決定係数（$R^2$）：モデルによって説明される分散の割合
+2. 調整済み決定係数（adjusted $R^2$）：変数の数を考慮した$R^2$
+3. 平均二乗誤差（MSE）や平均絶対誤差（MAE）
+4. 情報量規準（AIC、BIC）：モデルの複雑さとフィットのバランスを評価
+5. クロスバリデーションによる汎化性能の評価
+
+### Q6: 健康データ分析における多変量回帰の典型的な応用例を教えてください。
+**A6**: 健康データ分析では以下のような応用例があります：
+1. 複数のバイオマーカーから疾患リスクを予測
+2. 生活習慣要因（運動、食事、睡眠など）から健康指標を予測
+3. 処方薬の複合効果の分析
+4. 年齢・性別・遺伝的要因などを考慮した疾患進行予測
+5. 環境要因と健康アウトカムの関連分析

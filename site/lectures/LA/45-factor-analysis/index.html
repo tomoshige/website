@@ -1,0 +1,3929 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/45-factor-analysis/">
+      
+      
+        <link rel="prev" href="../44-factor-analysis/">
+      
+      
+        <link rel="next" href="../46-nonlinear-dimension-reduction/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>45. Factor analysis - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#i-ii" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              45. Factor analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    45. Factor analysis
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    45. Factor analysis
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      第45回講義：因子分析の推定法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第45回講義：因子分析の推定法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義情報と予習ガイド
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 学習目標
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 因子分析モデルの復習
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 因子分析における不定性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 理論と手法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 理論と手法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 最尤推定による因子の推定
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 因子数の決定
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 因子数の決定">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-scree-plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.1 スクリープロット（Scree Plot）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-kaiser-criterion" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.2 カイザー基準（Kaiser Criterion）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423-cumulative-percentage-of-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.3 累積寄与率（Cumulative Percentage of Variance）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#424-parallel-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.4 平行分析（Parallel Analysis）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#425-likelihood-ratio-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.5 尤度比検定（Likelihood Ratio Test）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 因子回転
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 因子回転">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3.1 バリマックス回転（直交回転）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3.2 プロマックス回転（斜交回転）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 回転結果の解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 回転結果の解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.1 因子負荷量パターンの解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.2 因子間相関の解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.3 共通性の解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.4 因子スコアの解釈
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Pythonによる実装と可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Pythonによる実装と可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 健康データへの応用例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 演習問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 基本問題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-nonlinear-dimension-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46. Nonlinear dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47. Wrap up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-final-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48. Final Report
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-brain-analysis.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      第45回講義：因子分析の推定法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第45回講義：因子分析の推定法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義情報と予習ガイド
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 学習目標
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 因子分析モデルの復習
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 因子分析における不定性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 理論と手法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 理論と手法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 最尤推定による因子の推定
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 因子数の決定
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 因子数の決定">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-scree-plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.1 スクリープロット（Scree Plot）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-kaiser-criterion" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.2 カイザー基準（Kaiser Criterion）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423-cumulative-percentage-of-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.3 累積寄与率（Cumulative Percentage of Variance）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#424-parallel-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.4 平行分析（Parallel Analysis）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#425-likelihood-ratio-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.5 尤度比検定（Likelihood Ratio Test）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 因子回転
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 因子回転">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3.1 バリマックス回転（直交回転）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3.2 プロマックス回転（斜交回転）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 回転結果の解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 回転結果の解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.1 因子負荷量パターンの解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.2 因子間相関の解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.3 共通性の解釈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.4 因子スコアの解釈
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Pythonによる実装と可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Pythonによる実装と可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 健康データへの応用例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 演習問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 基本問題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="i-ii">線形代数学 I / 基礎 / II</h1>
+<h2 id="45">第45回講義：因子分析の推定法</h2>
+<h3 id="1">1. 講義情報と予習ガイド</h3>
+<p><strong>講義回</strong>: 第45回<br />
+<strong>関連項目</strong>: 因子分析、最尤推定、因子回転<br />
+<strong>予習すべき内容</strong>: 第44回「因子分析の基礎」、共分散行列の性質、固有値分解</p>
+<p>本講義を十分に理解するためには、前回学習した因子分析の基本モデル、潜在変数と観測変数の関係、および共分散行列の性質について復習しておくことが重要です。また、行列の固有値分解と対角化についての知識も必要となります。</p>
+<h3 id="2">2. 学習目標</h3>
+<p>本日の講義を通じて、以下のことが理解できるようになります：</p>
+<ol>
+<li>因子分析における因子の推定方法を理解し、数学的背景を説明できるようになる</li>
+<li>最尤推定法の原理と因子分析への適用方法を習得し、その数式表現を理解する</li>
+<li>因子回転の目的と主要な回転法（バリマックス法、プロマックス法）の数学的原理と解釈方法を習得する</li>
+<li>因子構造の解釈と評価のための定量的・定性的方法を理解する</li>
+<li>Pythonによる因子分析の実装方法を習得し、実データへの応用ができるようになる</li>
+</ol>
+<h3 id="3">3. 基本概念</h3>
+<h4 id="31">3.1 因子分析モデルの復習</h4>
+<p>因子分析は、観測された変数（観測変数）の背後にある潜在的な要因（潜在変数または因子）を特定するための統計的手法です。第44回の講義で学んだ内容を振り返りながら、より詳細に理解を深めていきましょう。</p>
+<blockquote>
+<p><strong>因子分析モデル</strong>：<br />
+<span class="arithmatex">\(\mathbf{X} = \mathbf{\Lambda F} + \mathbf{\varepsilon}\)</span></p>
+<p>ここで：
+- <span class="arithmatex">\(\mathbf{X}\)</span> は <span class="arithmatex">\(p\)</span> 次元の観測変数ベクトル
+- <span class="arithmatex">\(\mathbf{\Lambda}\)</span> は <span class="arithmatex">\(p \times m\)</span> の因子負荷量行列
+- <span class="arithmatex">\(\mathbf{F}\)</span> は <span class="arithmatex">\(m\)</span> 次元の共通因子ベクトル
+- <span class="arithmatex">\(\mathbf{\varepsilon}\)</span> は <span class="arithmatex">\(p\)</span> 次元の特殊因子（独自因子）ベクトル</p>
+</blockquote>
+<p>このモデルにおいて、共通因子 <span class="arithmatex">\(\mathbf{F}\)</span> と特殊因子 <span class="arithmatex">\(\mathbf{\varepsilon}\)</span> に関して、以下の重要な仮定を置いています：</p>
+<ol>
+<li><span class="arithmatex">\(E[\mathbf{F}] = \mathbf{0}\)</span> （共通因子の期待値はゼロベクトル）</li>
+<li><span class="arithmatex">\(\mathrm{Cov}[\mathbf{F}] = \mathbf{I}\)</span> （共通因子間の相関はゼロ：直交因子の場合）</li>
+<li><span class="arithmatex">\(E[\mathbf{\varepsilon}] = \mathbf{0}\)</span> （特殊因子の期待値はゼロベクトル）</li>
+<li><span class="arithmatex">\(\mathrm{Cov}[\mathbf{\varepsilon}] = \mathbf{\Psi}\)</span> （特殊因子の共分散行列は対角行列）</li>
+<li><span class="arithmatex">\(\mathrm{Cov}[\mathbf{F}, \mathbf{\varepsilon}] = \mathbf{0}\)</span> （共通因子と特殊因子は無相関）</li>
+</ol>
+<p>この仮定の下で、観測変数 <span class="arithmatex">\(\mathbf{X}\)</span> の共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> は以下のように表されます：</p>
+<blockquote>
+<p><strong>共分散構造</strong>：<br />
+<span class="arithmatex">\(\mathbf{\Sigma} = \mathbf{\Lambda \Lambda^T} + \mathbf{\Psi}\)</span></p>
+<p>ここで：
+- <span class="arithmatex">\(\mathbf{\Sigma}\)</span> は観測変数の共分散行列
+- <span class="arithmatex">\(\mathbf{\Lambda \Lambda^T}\)</span> は共通因子による共分散
+- <span class="arithmatex">\(\mathbf{\Psi}\)</span> は特殊因子による共分散（対角行列）</p>
+</blockquote>
+<p>この分解は、観測変数の共分散が共通因子による部分と特殊因子による部分に分けられることを示しています。因子分析の目的は、観測データの共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> に最もフィットする因子負荷量行列 <span class="arithmatex">\(\mathbf{\Lambda}\)</span> と特殊因子の共分散行列 <span class="arithmatex">\(\mathbf{\Psi}\)</span> を推定することです。</p>
+<p>各観測変数 <span class="arithmatex">\(X_i\)</span> の分散は以下のように分解されます：</p>
+<blockquote>
+<p><strong>分散の分解</strong>：<br />
+<span class="arithmatex">\(\mathrm{Var}(X_i) = \sum_{j=1}^{m} \lambda_{ij}^2 + \psi_i\)</span></p>
+<p>ここで：
+- <span class="arithmatex">\(\sum_{j=1}^{m} \lambda_{ij}^2\)</span> は変数 <span class="arithmatex">\(X_i\)</span> の共通性（communality）
+- <span class="arithmatex">\(\psi_i\)</span> は変数 <span class="arithmatex">\(X_i\)</span> の独自性（uniqueness）</p>
+</blockquote>
+<p>共通性は共通因子によって説明される分散の割合を表し、独自性は特殊因子に帰属する分散の割合を表します。</p>
+<h4 id="32">3.2 因子分析における不定性</h4>
+<p>因子分析モデルには<strong>回転の不定性</strong>（rotational indeterminacy）が存在します。これは、因子負荷量行列 <span class="arithmatex">\(\mathbf{\Lambda}\)</span> に直交行列 <span class="arithmatex">\(\mathbf{T}\)</span> を掛けた <span class="arithmatex">\(\mathbf{\Lambda T}\)</span> も同様に妥当な解となる性質を指します。</p>
+<blockquote>
+<p><strong>回転の不定性の数学的表現</strong>：<br />
+<span class="arithmatex">\(\mathbf{\Lambda \Lambda^T} = (\mathbf{\Lambda T})(\mathbf{\Lambda T})^T = \mathbf{\Lambda T T^T \Lambda^T} = \mathbf{\Lambda \Lambda^T}\)</span></p>
+<p>ここで <span class="arithmatex">\(\mathbf{T}\)</span> は直交行列（<span class="arithmatex">\(\mathbf{T T^T} = \mathbf{I}\)</span>）です。</p>
+</blockquote>
+<p>この性質は、同じデータに対して異なる因子負荷量パターンが得られる可能性を意味します。つまり、数学的には等価でも、解釈が異なる複数の解が存在します。</p>
+<p>この不定性があるため、因子分析の結果を解釈する際には注意が必要です。しかし、この性質を利用して、より解釈しやすい因子構造を求めるための<strong>因子回転</strong>という手法が開発されました。回転によって共通因子空間における座標軸を変更することで、より明確な構造を得ることが可能になります。</p>
+<h3 id="4">4. 理論と手法</h3>
+<h4 id="41">4.1 最尤推定による因子の推定</h4>
+<p>因子分析モデルのパラメータ（因子負荷量行列 <span class="arithmatex">\(\mathbf{\Lambda}\)</span> と特殊因子の共分散行列 <span class="arithmatex">\(\mathbf{\Psi}\)</span>）を推定する代表的な方法として、最尤推定法（Maximum Likelihood Estimation, MLE）があります。</p>
+<blockquote>
+<p><strong>最尤推定法の基本原理</strong>：<br />
+観測データが得られる確率（尤度）を最大にするようなパラメータの値を求める</p>
+</blockquote>
+<p>因子分析モデルでは、観測変数 <span class="arithmatex">\(\mathbf{X}\)</span> が多変量正規分布に従うと仮定します：</p>
+<p><span class="arithmatex">\(\mathbf{X} \sim \mathcal{N}(\boldsymbol{\mu}, \mathbf{\Sigma})\)</span></p>
+<p>ここで、平均ベクトル <span class="arithmatex">\(\boldsymbol{\mu}\)</span> と共分散行列 <span class="arithmatex">\(\mathbf{\Sigma} = \mathbf{\Lambda \Lambda^T} + \mathbf{\Psi}\)</span> です。多くの場合、データはあらかじめ標準化されるため、<span class="arithmatex">\(\boldsymbol{\mu} = \mathbf{0}\)</span> と仮定できます。</p>
+<p>多変量正規分布の確率密度関数は以下のように表されます：</p>
+<blockquote>
+<p><strong>多変量正規分布の確率密度関数</strong>：<br />
+<span class="arithmatex">\(f(\mathbf{x}) = \frac{1}{(2\pi)^{p/2}|\mathbf{\Sigma}|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x} - \boldsymbol{\mu})^T \mathbf{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu})\right)\)</span></p>
+</blockquote>
+<p><span class="arithmatex">\(n\)</span> 個の独立な観測値 <span class="arithmatex">\(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_n\)</span> に対する対数尤度関数は次のようになります：</p>
+<blockquote>
+<p><strong>対数尤度関数</strong>：<br />
+<span class="arithmatex">\(\ln L = -\frac{n}{2} \ln(2\pi) - \frac{n}{2} \ln |\mathbf{\Sigma}| - \frac{1}{2} \sum_{i=1}^{n} (\mathbf{x}_i - \boldsymbol{\mu})^T \mathbf{\Sigma}^{-1} (\mathbf{x}_i - \boldsymbol{\mu})\)</span></p>
+</blockquote>
+<p>パラメータ <span class="arithmatex">\(\mathbf{\Lambda}\)</span> と <span class="arithmatex">\(\mathbf{\Psi}\)</span> は、この対数尤度関数を最大化するように推定されます。実際の計算では、観測データの標本共分散行列 <span class="arithmatex">\(\mathbf{S}\)</span> を用いて、以下の関数を最小化します：</p>
+<blockquote>
+<p><strong>最小化する関数（Fitting Function）</strong>：<br />
+<span class="arithmatex">\(F_{ML} = \ln |\mathbf{\Sigma}| + \mathrm{tr}(\mathbf{S} \mathbf{\Sigma}^{-1}) - \ln |\mathbf{S}| - p\)</span></p>
+<p>ここで <span class="arithmatex">\(p\)</span> は変数の数、<span class="arithmatex">\(\mathrm{tr}\)</span> はトレース（対角成分の和）を表します。</p>
+</blockquote>
+<p>この最小化問題は解析的に解くことが困難なため、通常は以下のような反復アルゴリズムを用いて数値的に解きます：</p>
+<ol>
+<li>初期値の設定：因子負荷量行列 <span class="arithmatex">\(\mathbf{\Lambda}^{(0)}\)</span> と特殊因子の共分散行列 <span class="arithmatex">\(\mathbf{\Psi}^{(0)}\)</span> の初期値を設定</li>
+<li>反復計算：
+   a. 現在の推定値から共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}^{(t)} = \mathbf{\Lambda}^{(t)} (\mathbf{\Lambda}^{(t)})^T + \mathbf{\Psi}^{(t)}\)</span> を計算
+   b. フィッティング関数 <span class="arithmatex">\(F_{ML}\)</span> の値を計算
+   c. フィッティング関数が減少するように <span class="arithmatex">\(\mathbf{\Lambda}^{(t)}\)</span> と <span class="arithmatex">\(\mathbf{\Psi}^{(t)}\)</span> を更新</li>
+<li>収束判定：パラメータの変化が十分小さくなるか、フィッティング関数の値の変化が閾値以下になるまで反復</li>
+</ol>
+<p>この反復過程は、Newton-Raphson法やEM（期待値最大化）アルゴリズムなどの最適化手法を用いて実装されることが一般的です。</p>
+<p>最尤推定法の利点は、以下の点にあります：</p>
+<ol>
+<li>漸近的に不偏で効率的な推定量が得られる</li>
+<li>統計的検定（モデルの適合度や因子数の検定など）が可能</li>
+<li>様々なモデル間の比較が可能（例：異なる因子数のモデル比較）</li>
+</ol>
+<p>一方、最尤推定法の課題としては、以下の点が挙げられます：</p>
+<ol>
+<li>多変量正規性の仮定が必要</li>
+<li>サンプルサイズが小さい場合、推定が不安定になることがある</li>
+<li>反復計算が収束しない場合がある（特にHeywood caseと呼ばれる、特殊因子の分散が負になるなどの問題）</li>
+</ol>
+<h4 id="42">4.2 因子数の決定</h4>
+<p>適切な因子数を決定することは、因子分析において非常に重要です。因子数が少なすぎると重要な構造を見逃し、多すぎると解釈が困難になります。以下に、因子数を決定するための主な方法を詳しく説明します。</p>
+<h5 id="421-scree-plot">4.2.1 スクリープロット（Scree Plot）</h5>
+<p>スクリープロットは、固有値を大きい順に並べてプロットしたグラフです。固有値の減少パターンを視覚的に確認し、急激な減少（「肘」または「屈曲点」）が見られるポイントで因子数を決定します。</p>
+<blockquote>
+<p><strong>スクリープロットの手順</strong>：
+1. 相関行列または共分散行列の固有値を計算
+2. 固有値を大きい順に並べる
+3. 固有値と因子番号（順序）をプロット
+4. グラフの「肘」の位置を特定し、その位置までの因子数を採用</p>
+</blockquote>
+<p>この方法の利点は視覚的に理解しやすく、データの構造を直感的に把握できることです。一方、「肘」の位置が明確でない場合もあり、主観的な判断が入る可能性があります。</p>
+<h5 id="422-kaiser-criterion">4.2.2 カイザー基準（Kaiser Criterion）</h5>
+<p>カイザー基準は、固有値が1.0以上の因子のみを採用する方法です。標準化されたデータ（各変数の分散が1）の場合、固有値が1未満の因子は単一の変数よりも情報量が少ないと解釈されます。</p>
+<blockquote>
+<p><strong>カイザー基準の適用方法</strong>：
+1. 相関行列の固有値を計算
+2. 固有値が1.0以上の因子のみを採用</p>
+</blockquote>
+<p>この方法は客観的で適用が簡単ですが、場合によっては因子数を過大評価または過小評価する傾向があります。特に変数の数が多い場合や変数間の相関が低い場合、過大評価する傾向があります。</p>
+<h5 id="423-cumulative-percentage-of-variance">4.2.3 累積寄与率（Cumulative Percentage of Variance）</h5>
+<p>累積寄与率は、因子が説明する分散の割合の累積値が一定の閾値（通常70%〜80%）を超えるまで因子を追加する方法です。</p>
+<blockquote>
+<p><strong>累積寄与率の計算手順</strong>：
+1. 各固有値 <span class="arithmatex">\(\lambda_i\)</span> の寄与率を計算：<span class="arithmatex">\(\lambda_i / \sum_{j=1}^{p} \lambda_j\)</span>
+2. 寄与率を累積していき、閾値（例：80%）を超える最小の因子数を採用</p>
+</blockquote>
+<p>この方法は、データの説明力に直接関連した基準を提供しますが、適切な閾値の選択が分野や研究目的によって異なる場合があります。</p>
+<h5 id="424-parallel-analysis">4.2.4 平行分析（Parallel Analysis）</h5>
+<p>平行分析は、実データから得られる固有値と、同じサイズのランダムデータから得られる固有値を比較する方法です。実データの固有値がランダムデータの固有値を上回る場合のみ、その因子を採用します。</p>
+<blockquote>
+<p><strong>平行分析の手順</strong>：
+1. 実データの相関行列または共分散行列の固有値を計算
+2. 同じサイズ（変数数×サンプル数）のランダムデータを複数回生成し、各ランダムデータの固有値を計算
+3. ランダムデータから得られた固有値の平均または95パーセンタイルを計算
+4. 実データの固有値がランダムデータの固有値（平均または95パーセンタイル）を上回る因子のみを採用</p>
+</blockquote>
+<p>平行分析は、偶然の構造と実際の構造を区別する点で優れていますが、計算が複雑で特殊なソフトウェアが必要な場合があります。</p>
+<h5 id="425-likelihood-ratio-test">4.2.5 尤度比検定（Likelihood Ratio Test）</h5>
+<p>最尤推定法を用いる場合、異なる因子数のモデル間でカイ二乗検定に基づく尤度比検定を行うことができます。</p>
+<blockquote>
+<p><strong>尤度比検定の手順</strong>：
+1. 因子数 <span class="arithmatex">\(m\)</span> のモデルと因子数 <span class="arithmatex">\(m-1\)</span> のモデルをそれぞれ最尤推定法で推定
+2. 尤度比統計量を計算：<span class="arithmatex">\(\chi^2 = (n-1) \times (F_{ML}^{(m-1)} - F_{ML}^{(m)})\)</span>
+3. 自由度 <span class="arithmatex">\(df = p - m + 1 - (p - m)\)</span> でカイ二乗検定を実施
+4. 有意でない結果が得られるまで因子数を増やし、最初に有意でなくなった因子数を採用</p>
+</blockquote>
+<p>この方法は統計的に厳密ですが、多変量正規性の仮定が必要であり、サンプルサイズの影響を受けやすい（大規模サンプルでは小さな違いでも統計的に有意になる）という欠点があります。</p>
+<p>実際の因子分析では、これらの方法を組み合わせて用いることが推奨されます。また、理論的な解釈可能性や先行研究との整合性も考慮して因子数を決定することが重要です。</p>
+<h4 id="43">4.3 因子回転</h4>
+<p>因子回転は、推定された因子負荷量行列をより解釈しやすい形に変換するための手法です。回転の主な目的は<strong>単純構造</strong>（simple structure）の達成です。</p>
+<blockquote>
+<p><strong>単純構造の原則</strong>（Thurstoneによる）：<br />
+1. 各変数は少数の因子に高い負荷量を持ち、他の因子に対する負荷量はゼロまたは非常に小さい
+2. 各因子は変数の一部のみに高い負荷量を持ち、他の変数に対する負荷量は小さい
+3. 異なる因子は変数の異なる集合に高い負荷量を持つ
+4. 高い負荷量を持つ変数が多い因子と少ない因子が存在する
+5. 因子のペアごとに、両方の因子に高い負荷量を持つ変数の数が少ない</p>
+</blockquote>
+<p>単純構造を持つ因子負荷量行列は、各変数がどの因子に関連しているかが明確になり、各因子の解釈が容易になります。</p>
+<p>回転法は大きく分けて以下の2種類があります：</p>
+<ol>
+<li><strong>直交回転</strong>（Orthogonal Rotation）：因子間の相関がゼロという制約を保持</li>
+<li><strong>斜交回転</strong>（Oblique Rotation）：因子間の相関を許容</li>
+</ol>
+<h5 id="431">4.3.1 バリマックス回転（直交回転）</h5>
+<p>バリマックス（Varimax）回転は最も一般的な直交回転法です。各因子の負荷量の二乗値の分散を最大化することで、各因子に対して一部の変数が高い負荷量を、他の変数が低い負荷量を持つようにします。</p>
+<blockquote>
+<p><strong>バリマックスの目的関数</strong>：<br />
+<span class="arithmatex">\(V = \sum_{j=1}^{m} \left[ \frac{1}{p} \sum_{i=1}^{p} \left( \frac{\lambda_{ij}^2}{h_i^2} \right)^2 - \left( \frac{1}{p} \sum_{i=1}^{p} \frac{\lambda_{ij}^2}{h_i^2} \right)^2 \right]\)</span></p>
+<p>ここで：
+- <span class="arithmatex">\(\lambda_{ij}\)</span> は変数 <span class="arithmatex">\(i\)</span> の因子 <span class="arithmatex">\(j\)</span> に対する回転後の負荷量
+- <span class="arithmatex">\(h_i^2\)</span> は変数 <span class="arithmatex">\(i\)</span> の共通性（<span class="arithmatex">\(h_i^2 = \sum_{j=1}^{m} \lambda_{ij}^2\)</span>）
+- <span class="arithmatex">\(p\)</span> は変数の数
+- <span class="arithmatex">\(m\)</span> は因子の数</p>
+</blockquote>
+<p>この目的関数は、各因子の負荷量パターンの「単純さ」を測るものと解釈できます。バリマックス回転は、この目的関数を最大化する直交回転行列 <span class="arithmatex">\(\mathbf{T}\)</span> を求めることで実行されます。</p>
+<p>バリマックス回転の具体的なアルゴリズムは以下の通りです：</p>
+<ol>
+<li>2つの因子（<span class="arithmatex">\(j\)</span> と <span class="arithmatex">\(k\)</span>）を選択</li>
+<li>これらの因子に関して、回転角 <span class="arithmatex">\(\phi\)</span> を変化させながら目的関数 <span class="arithmatex">\(V\)</span> を最大化する角度を探索</li>
+<li>最適な角度 <span class="arithmatex">\(\phi\)</span> で回転行列を計算し、因子負荷量行列を更新</li>
+<li>すべての因子ペアに対してこのプロセスを繰り返す</li>
+<li>収束するまで（目的関数の変化が十分小さくなるまで）1-4を反復</li>
+</ol>
+<p>バリマックス回転の利点は、各因子が互いに独立（無相関）であるため解釈が簡単なことです。欠点は、実際の現象では因子間に相関がある場合が多く、その構造を正確に反映できない可能性があることです。</p>
+<h5 id="432">4.3.2 プロマックス回転（斜交回転）</h5>
+<p>プロマックス（Promax）回転は、バリマックス回転の結果をさらに「シャープ化」することで、より単純な構造を得る斜交回転法です。因子間の相関を許容するため、より現実的なモデルが得られることがあります。</p>
+<p>プロマックス回転の手順は以下の通りです：</p>
+<ol>
+<li>バリマックス回転を実行して初期の直交解を得る</li>
+<li>バリマックス回転後の負荷量をべき乗変換してターゲット行列を作成</li>
+<li>ターゲット行列に近づくように因子負荷量行列を回転（斜交回転）</li>
+</ol>
+<blockquote>
+<p><strong>プロマックスのターゲット行列</strong>：<br />
+<span class="arithmatex">\(T_{ij} = \lambda_{ij}^{\mathrm{varimax}} \cdot |\lambda_{ij}^{\mathrm{varimax}}|^{k-1}\)</span></p>
+<p>ここで：
+- <span class="arithmatex">\(\lambda_{ij}^{\mathrm{varimax}}\)</span> はバリマックス回転後の因子負荷量
+- <span class="arithmatex">\(k\)</span> はべき乗パラメータ（通常 <span class="arithmatex">\(k = 2,3,4\)</span>）
+- <span class="arithmatex">\(|\lambda_{ij}^{\mathrm{varimax}}|\)</span> は絶対値を表す</p>
+</blockquote>
+<p>このべき乗変換により、大きな負荷量はより大きく、小さな負荷量はより小さくなります。つまり、負荷量のパターンがより「シャープ」になります。</p>
+<p>次に、このターゲット行列に近づくような斜交回転を行います。この過程で、因子間の相関が許容されます。最終的に得られる因子構造は、以下の2つの行列で表されます：</p>
+<ol>
+<li><strong>パターン行列</strong>（Pattern Matrix）：各変数と各因子間の直接的な関係を表す</li>
+<li><strong>構造行列</strong>（Structure Matrix）：因子間の相関を考慮した、各変数と各因子間の相関を表す</li>
+</ol>
+<blockquote>
+<p><strong>パターン行列と構造行列の関係</strong>：<br />
+構造行列 = パターン行列 × 因子間相関行列</p>
+</blockquote>
+<p>プロマックス回転の利点は、因子間の相関を許容することで、より現実的なモデルが得られる可能性が高いことです。特に心理学、社会科学、健康科学などの分野では、完全に独立した因子よりも相関のある因子を仮定する方が自然な場合が多いです。欠点は、直交回転に比べて解釈がやや複雑になることです。</p>
+<h4 id="44">4.4 回転結果の解釈</h4>
+<p>因子回転後、以下の点に注目して結果を解釈します：</p>
+<h5 id="441">4.4.1 因子負荷量パターンの解釈</h5>
+<p>因子負荷量は、各観測変数と各因子の関連の強さを表します。絶対値が大きいほど関連が強いことを示します。</p>
+<blockquote>
+<p><strong>因子負荷量の解釈の基準</strong>（一般的な目安）：
+- |負荷量| ≥ 0.7：非常に強い関連
+- 0.5 ≤ |負荷量| &lt; 0.7：強い関連
+- 0.3 ≤ |負荷量| &lt; 0.5：中程度の関連
+- |負荷量| &lt; 0.3：弱い関連（通常は解釈に含めない）</p>
+</blockquote>
+<p>各因子は、高い負荷量を持つ変数群の共通の特性を表すと解釈します。例えば、「不安」「抑うつ」「緊張」といった変数が高い負荷量を持つ因子は、「心理的ストレス」などと解釈できるかもしれません。</p>
+<h5 id="442">4.4.2 因子間相関の解釈</h5>
+<p>斜交回転（プロマックスなど）の場合、因子間相関行列が得られます。この相関が高い場合（例：|相関| &gt; 0.3）、対応する因子間には関連があると解釈できます。</p>
+<p>因子間相関が非常に高い場合（例：|相関| &gt; 0.7）、これらの因子は分離せず、より高次の因子として統合することを検討する必要があるかもしれません。</p>
+<h5 id="443">4.4.3 共通性の解釈</h5>
+<p>各変数の共通性（communality）は、すべての因子によって説明される分散の割合を表します。</p>
+<blockquote>
+<p><strong>共通性の計算</strong>：<br />
+<span class="arithmatex">\(h_i^2 = \sum_{j=1}^{m} \lambda_{ij}^2\)</span></p>
+<p>ここで <span class="arithmatex">\(\lambda_{ij}\)</span> は変数 <span class="arithmatex">\(i\)</span> の因子 <span class="arithmatex">\(j\)</span> に対する負荷量です。</p>
+</blockquote>
+<p>共通性が低い変数（例：<span class="arithmatex">\(h_i^2 &lt; 0.3\)</span>）は、現在のモデルではうまく説明されていないことを示します。そのような変数は、モデルから除外するか、別の分析を検討する必要があるかもしれません。</p>
+<h5 id="444">4.4.4 因子スコアの解釈</h5>
+<p>因子スコアは、各観測対象（個人など）の各因子における「位置」を表します。因子スコアの分布や極端な値を持つケースを分析することで、データにおける特徴的なパターンを発見できる場合があります。</p>
+<p>因子スコアは標準化されていることが多く、平均0、標準偏差1の分布を持ちます。したがって、因子スコアが±2を超えるケースは、その因子において特に高い（または低い）特性を持つと解釈できます。</p>
+<h3 id="5-python">5. Pythonによる実装と可視化</h3>
+<p>以下に、Pythonのscikit-learnとfactoranalyzerライブラリを用いた因子分析の詳細な実装例を示します。各ステップについて丁寧に解説します。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">factor_analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">FactorAnalyzer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">factor_analyzer.factor_analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_bartlett_sphericity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">factor_analyzer.factor_analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_kmo</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="c1"># サンプルデータとしてIrisデータセットを使用</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;データの最初の5行:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">データの基本統計量:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># データの相関行列を可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">correlation_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;アヤメデータの相関行列&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Bartlettの球面性検定</span>
+<span class="c1"># この検定は、相関行列が単位行列（すべての変数が無相関）である帰無仮説を検定</span>
+<span class="n">chi_square_value</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">calculate_bartlett_sphericity</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bartlettの球面性検定: chi²=</span><span class="si">{</span><span class="n">chi_square_value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, p=</span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p値が非常に小さいため、変数間に有意な相関があり、因子分析が適切であることが示されました。&quot;</span><span class="p">)</span>
+
+<span class="c1"># KMO（Kaiser-Meyer-Olkin）測度</span>
+<span class="c1"># サンプリングの妥当性を評価する指標。0.6以上が望ましい</span>
+<span class="n">kmo_all</span><span class="p">,</span> <span class="n">kmo_model</span> <span class="o">=</span> <span class="n">calculate_kmo</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KMO: </span><span class="si">{</span><span class="n">kmo_model</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">kmo_model</span> <span class="o">&gt;</span> <span class="mf">0.8</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KMO値が0.8以上であり、因子分析に非常に適したデータであることを示しています。&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">kmo_model</span> <span class="o">&gt;</span> <span class="mf">0.6</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KMO値が0.6以上であり、因子分析に適したデータであることを示しています。&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KMO値が0.6未満であり、因子分析の適用には注意が必要です。&quot;</span><span class="p">)</span>
+
+<span class="c1"># スクリープロットを作成して因子数を決定</span>
+<span class="n">fa</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">fa</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># 固有値</span>
+<span class="n">ev</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">fa</span><span class="o">.</span><span class="n">get_eigenvalues</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ev</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ev</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;スクリープロット&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;因子数&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;固有値&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Kaiser基準 (固有値=1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">固有値:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">eigenvalue</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;因子 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">eigenvalue</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 累積寄与率を計算</span>
+<span class="n">total_variance</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span>
+<span class="n">cumulative_variance_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span> <span class="o">/</span> <span class="n">total_variance</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">累積寄与率:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ratio</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cumulative_variance_ratio</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;因子 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">まで: </span><span class="si">{</span><span class="n">ratio</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ratio</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+
+<span class="c1"># スクリープロットと累積寄与率の分析結果から因子数を決定</span>
+<span class="c1"># 今回は例として2因子を採用する</span>
+<span class="n">n_factors</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">スクリープロット、Kaiser基準、累積寄与率を総合的に判断し、</span><span class="si">{</span><span class="n">n_factors</span><span class="si">}</span><span class="s2">因子を採用します。&quot;</span><span class="p">)</span>
+
+<span class="c1"># 因子数を2と仮定して因子分析を実行（回転なし）</span>
+<span class="n">fa_no_rotation</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="n">n_factors</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ml&#39;</span><span class="p">)</span>
+<span class="n">fa_no_rotation</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">loadings_no_rotation</span> <span class="o">=</span> <span class="n">fa_no_rotation</span><span class="o">.</span><span class="n">loadings_</span>
+
+<span class="c1"># バリマックス回転による因子分析</span>
+<span class="n">fa_varimax</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="n">n_factors</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;varimax&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ml&#39;</span><span class="p">)</span>
+<span class="n">fa_varimax</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">loadings_varimax</span> <span class="o">=</span> <span class="n">fa_varimax</span><span class="o">.</span><span class="n">loadings_</span>
+
+<span class="c1"># プロマックス回転による因子分析</span>
+<span class="n">fa_promax</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="n">n_factors</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;promax&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ml&#39;</span><span class="p">)</span>
+<span class="n">fa_promax</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">loadings_promax</span> <span class="o">=</span> <span class="n">fa_promax</span><span class="o">.</span><span class="n">loadings_</span>
+<span class="n">factor_corr</span> <span class="o">=</span> <span class="n">fa_promax</span><span class="o">.</span><span class="n">phi_</span>  <span class="c1"># 因子間相関</span>
+
+<span class="c1"># 結果の表示</span>
+<span class="n">loadings_df_no_rotation</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">loadings_no_rotation</span><span class="p">,</span> 
+                                      <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> 
+                                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;因子 </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_factors</span><span class="p">)])</span>
+<span class="n">loadings_df_varimax</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">loadings_varimax</span><span class="p">,</span> 
+                                  <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> 
+                                  <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;因子 </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_factors</span><span class="p">)])</span>
+<span class="n">loadings_df_promax</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">loadings_promax</span><span class="p">,</span> 
+                                 <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> 
+                                 <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;因子 </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_factors</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">回転なしの因子負荷量:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loadings_df_no_rotation</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">バリマックス回転後の因子負荷量:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loadings_df_varimax</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">プロマックス回転後の因子負荷量:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loadings_df_promax</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">プロマックス回転後の因子間相関:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">factor_corr</span><span class="p">,</span> 
+                  <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;因子 </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_factors</span><span class="p">)],</span> 
+                  <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;因子 </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_factors</span><span class="p">)]))</span>
+
+<span class="c1"># 共通性</span>
+<span class="n">communalities</span> <span class="o">=</span> <span class="n">fa_varimax</span><span class="o">.</span><span class="n">get_communalities</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">共通性:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;共通性&#39;</span><span class="p">:</span> <span class="n">communalities</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+
+<span class="c1"># 因子負荷量のヒートマップ可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">loadings_df_no_rotation</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.3f&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;回転なし&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">loadings_df_varimax</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.3f&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;バリマックス回転&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">loadings_df_promax</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.3f&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;プロマックス回転&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 因子スコアの計算</span>
+<span class="n">factor_scores</span> <span class="o">=</span> <span class="n">fa_varimax</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">factor_scores_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">factor_scores</span><span class="p">,</span> 
+                               <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;因子 </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_factors</span><span class="p">)])</span>
+
+<span class="c1"># 因子スコアの散布図</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">factor_scores_df</span><span class="p">[</span><span class="s1">&#39;因子 1&#39;</span><span class="p">],</span> 
+                     <span class="n">factor_scores_df</span><span class="p">[</span><span class="s1">&#39;因子 2&#39;</span><span class="p">],</span> 
+                     <span class="n">c</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> 
+                     <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> 
+                     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;因子スコアの散布図&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;因子 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;因子 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">legend</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">scatter</span><span class="p">)</span>
+<span class="n">legend</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;アヤメの種類&#39;</span><span class="p">)</span>
+
+<span class="c1"># クラスごとの中心を追加</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">species</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;setosa&#39;</span><span class="p">,</span> <span class="s1">&#39;versicolor&#39;</span><span class="p">,</span> <span class="s1">&#39;virginica&#39;</span><span class="p">]):</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">centroid_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">factor_scores</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">centroid_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">factor_scores</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centroid_x</span><span class="p">,</span> <span class="n">centroid_y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> 
+                <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">species</span><span class="p">,</span> <span class="p">(</span><span class="n">centroid_x</span><span class="p">,</span> <span class="n">centroid_y</span><span class="p">),</span> 
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 各回転方法の解釈</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">因子負荷量の解釈（バリマックス回転後）:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">max_loading_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">loadings_df_varimax</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+    <span class="n">max_loading</span> <span class="o">=</span> <span class="n">loadings_df_varimax</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">max_loading_idx</span><span class="p">]</span>
+    <span class="n">factor_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;因子 </span><span class="si">{</span><span class="n">max_loading_idx</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">max_loading</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.7</span><span class="p">:</span>
+        <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;非常に強い&quot;</span>
+    <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">max_loading</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;強い&quot;</span>
+    <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">max_loading</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.3</span><span class="p">:</span>
+        <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;中程度の&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;弱い&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">は</span><span class="si">{</span><span class="n">factor_name</span><span class="si">}</span><span class="s2">に</span><span class="si">{</span><span class="n">loading_strength</span><span class="si">}</span><span class="s2">負荷（</span><span class="si">{</span><span class="n">max_loading</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">）を持っています。&quot;</span><span class="p">)</span>
+
+<span class="c1"># 因子の命名</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">因子の解釈:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;因子1: 花と関連する特徴を表す「花の形態因子」&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;因子2: 葉と関連する特徴を表す「葉の形態因子」&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>このコードの実行結果を解説します：</p>
+<ol>
+<li><strong>データの前処理と適合性の確認</strong>：</li>
+<li>Bartlettの球面性検定により、変数間に有意な相関があることを確認（因子分析の適用条件）</li>
+<li>
+<p>KMO測度により、サンプリングの妥当性を評価（値が0.6以上であれば良好）</p>
+</li>
+<li>
+<p><strong>因子数の決定</strong>：</p>
+</li>
+<li>スクリープロットにより固有値の減少パターンを可視化</li>
+<li>Kaiser基準（固有値＞1）を適用</li>
+<li>累積寄与率を計算（全分散のどれだけの割合を説明できるか）</li>
+<li>
+<p>これらの方法を総合的に判断して因子数を決定</p>
+</li>
+<li>
+<p><strong>様々な回転方法による因子分析</strong>：</p>
+</li>
+<li>回転なし、バリマックス回転（直交）、プロマックス回転（斜交）の3種類の方法で因子分析を実行</li>
+<li>
+<p>各方法の因子負荷量行列を比較</p>
+</li>
+<li>
+<p><strong>結果の解釈と可視化</strong>：</p>
+</li>
+<li>因子負荷量のヒートマップによる視覚化</li>
+<li>共通性の計算と解釈</li>
+<li>因子スコアの散布図による視覚化</li>
+<li>各変数の因子への負荷量の強さと方向に基づく解釈</li>
+<li>因子の命名と全体構造の解釈</li>
+</ol>
+<h4 id="51">5.1 健康データへの応用例</h4>
+<p>以下は、健康関連データに対する因子分析の応用例です。ここでは人工的に生成した健康データを用いて、因子分析の実際の応用方法を示します。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 健康関連データの因子分析（例示用の人工データ）</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">200</span>
+
+<span class="c1"># 2つの潜在因子を作成（身体的健康と精神的健康）</span>
+<span class="n">physical_health</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+<span class="n">mental_health</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+
+<span class="c1"># 測定変数を生成（ノイズを含む）</span>
+<span class="n">weight</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">physical_health</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">mental_health</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+<span class="n">bmi</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">physical_health</span> <span class="o">+</span> <span class="mf">0.0</span> <span class="o">*</span> <span class="n">mental_health</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+<span class="n">blood_pressure</span> <span class="o">=</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">physical_health</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">mental_health</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+<span class="n">cholesterol</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">physical_health</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">mental_health</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+
+<span class="n">stress</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">physical_health</span> <span class="o">+</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">mental_health</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+<span class="n">anxiety</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">physical_health</span> <span class="o">+</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">mental_health</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+<span class="n">depression</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">physical_health</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">mental_health</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+<span class="n">sleep_quality</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">physical_health</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">mental_health</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+
+<span class="c1"># データフレーム作成</span>
+<span class="n">health_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;体重&#39;</span><span class="p">:</span> <span class="n">weight</span><span class="p">,</span>
+    <span class="s1">&#39;BMI&#39;</span><span class="p">:</span> <span class="n">bmi</span><span class="p">,</span>
+    <span class="s1">&#39;血圧&#39;</span><span class="p">:</span> <span class="n">blood_pressure</span><span class="p">,</span>
+    <span class="s1">&#39;コレステロール&#39;</span><span class="p">:</span> <span class="n">cholesterol</span><span class="p">,</span>
+    <span class="s1">&#39;ストレス&#39;</span><span class="p">:</span> <span class="n">stress</span><span class="p">,</span>
+    <span class="s1">&#39;不安&#39;</span><span class="p">:</span> <span class="n">anxiety</span><span class="p">,</span>
+    <span class="s1">&#39;うつ症状&#39;</span><span class="p">:</span> <span class="n">depression</span><span class="p">,</span>
+    <span class="s1">&#39;睡眠の質&#39;</span><span class="p">:</span> <span class="n">sleep_quality</span>
+<span class="p">})</span>
+
+<span class="c1"># データの相関行列を可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">health_data</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">correlation_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;健康データの相関行列&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Bartlettの球面性検定</span>
+<span class="n">chi_square_value</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">calculate_bartlett_sphericity</span><span class="p">(</span><span class="n">health_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bartlettの球面性検定: chi²=</span><span class="si">{</span><span class="n">chi_square_value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, p=</span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># KMO測度</span>
+<span class="n">kmo_all</span><span class="p">,</span> <span class="n">kmo_model</span> <span class="o">=</span> <span class="n">calculate_kmo</span><span class="p">(</span><span class="n">health_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KMO: </span><span class="si">{</span><span class="n">kmo_model</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># スクリープロットを作成して因子数を決定</span>
+<span class="n">fa_health</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">fa_health</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">health_data</span><span class="p">)</span>
+<span class="n">ev</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">fa_health</span><span class="o">.</span><span class="n">get_eigenvalues</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">health_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ev</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">health_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ev</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;健康データのスクリープロット&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;因子数&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;固有値&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Kaiser基準 (固有値=1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 累積寄与率を計算</span>
+<span class="n">total_variance</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span>
+<span class="n">cumulative_variance_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span> <span class="o">/</span> <span class="n">total_variance</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">累積寄与率:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ratio</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cumulative_variance_ratio</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;因子 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">まで: </span><span class="si">{</span><span class="n">ratio</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ratio</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+
+<span class="c1"># 因子分析（プロマックス回転）</span>
+<span class="n">n_factors</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># スクリープロットから2因子が適切と判断</span>
+<span class="n">fa_health</span> <span class="o">=</span> <span class="n">FactorAnalyzer</span><span class="p">(</span><span class="n">n_factors</span><span class="o">=</span><span class="n">n_factors</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;promax&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ml&#39;</span><span class="p">)</span>
+<span class="n">fa_health</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">health_data</span><span class="p">)</span>
+<span class="n">loadings_health</span> <span class="o">=</span> <span class="n">fa_health</span><span class="o">.</span><span class="n">loadings_</span>
+<span class="n">factor_corr_health</span> <span class="o">=</span> <span class="n">fa_health</span><span class="o">.</span><span class="n">phi_</span>  <span class="c1"># 因子間相関</span>
+
+<span class="c1"># 結果表示</span>
+<span class="n">loadings_df_health</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">loadings_health</span><span class="p">,</span> 
+                                 <span class="n">index</span><span class="o">=</span><span class="n">health_data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> 
+                                 <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;身体的健康因子&#39;</span><span class="p">,</span> <span class="s1">&#39;精神的健康因子&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">健康データの因子負荷量（プロマックス回転後）:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loadings_df_health</span><span class="p">)</span>
+
+<span class="c1"># 共通性</span>
+<span class="n">communalities_health</span> <span class="o">=</span> <span class="n">fa_health</span><span class="o">.</span><span class="n">get_communalities</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">共通性:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;共通性&#39;</span><span class="p">:</span> <span class="n">communalities_health</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">health_data</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+
+<span class="c1"># 因子間相関</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">健康データの因子間相関:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">factor_corr_health</span><span class="p">,</span> 
+                  <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;身体的健康因子&#39;</span><span class="p">,</span> <span class="s1">&#39;精神的健康因子&#39;</span><span class="p">],</span> 
+                  <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;身体的健康因子&#39;</span><span class="p">,</span> <span class="s1">&#39;精神的健康因子&#39;</span><span class="p">]))</span>
+
+<span class="c1"># 因子負荷量のヒートマップ</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">loadings_df_health</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.3f&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;健康データの因子構造（プロマックス回転後）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 因子スコアの計算</span>
+<span class="n">factor_scores_health</span> <span class="o">=</span> <span class="n">fa_health</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">health_data</span><span class="p">)</span>
+<span class="n">factor_scores_df_health</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">factor_scores_health</span><span class="p">,</span> 
+                                     <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;身体的健康因子&#39;</span><span class="p">,</span> <span class="s1">&#39;精神的健康因子&#39;</span><span class="p">])</span>
+
+<span class="c1"># 因子スコアの散布図</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">factor_scores_df_health</span><span class="p">[</span><span class="s1">&#39;身体的健康因子&#39;</span><span class="p">],</span> 
+           <span class="n">factor_scores_df_health</span><span class="p">[</span><span class="s1">&#39;精神的健康因子&#39;</span><span class="p">],</span> 
+           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;健康データの因子スコア散布図&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;身体的健康因子&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;精神的健康因子&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="c1"># 象限に名前を付ける</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;身体的・精神的に健康&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;精神的に健康</span><span class="se">\n</span><span class="s1">身体的に不健康&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;身体的に健康</span><span class="se">\n</span><span class="s1">精神的に不健康&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;身体的・精神的に不健康&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 変数の解釈</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">因子負荷量の解釈:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">health_data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">max_loading_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">loadings_df_health</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+    <span class="n">max_loading</span> <span class="o">=</span> <span class="n">loadings_df_health</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">max_loading_idx</span><span class="p">]</span>
+    <span class="n">factor_name</span> <span class="o">=</span> <span class="n">loadings_df_health</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">max_loading_idx</span><span class="p">]</span>
+    <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">max_loading</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.7</span><span class="p">:</span>
+        <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;非常に強い&quot;</span>
+    <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">max_loading</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;強い&quot;</span>
+    <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">max_loading</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.3</span><span class="p">:</span>
+        <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;中程度の&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">loading_strength</span> <span class="o">=</span> <span class="s2">&quot;弱い&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">は</span><span class="si">{</span><span class="n">factor_name</span><span class="si">}</span><span class="s2">に</span><span class="si">{</span><span class="n">loading_strength</span><span class="si">}</span><span class="s2">負荷（</span><span class="si">{</span><span class="n">max_loading</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">）を持っています。&quot;</span><span class="p">)</span>
+
+<span class="c1"># 健康リスク評価（例）</span>
+<span class="c1"># 因子スコアに基づいてリスクグループを分類</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">classify_risk</span><span class="p">(</span><span class="n">phys_score</span><span class="p">,</span> <span class="n">mental_score</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">phys_score</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">mental_score</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;高リスク（身体的・精神的要因）&quot;</span>
+    <span class="k">elif</span> <span class="n">phys_score</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;中リスク（主に身体的要因）&quot;</span>
+    <span class="k">elif</span> <span class="n">mental_score</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;中リスク（主に精神的要因）&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;低リスク&quot;</span>
+
+<span class="c1"># リスク分類を追加</span>
+<span class="n">factor_scores_df_health</span><span class="p">[</span><span class="s1">&#39;リスク分類&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">factor_scores_df_health</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">classify_risk</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;身体的健康因子&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;精神的健康因子&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># リスクグループごとの人数をカウント</span>
+<span class="n">risk_counts</span> <span class="o">=</span> <span class="n">factor_scores_df_health</span><span class="p">[</span><span class="s1">&#39;リスク分類&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">健康リスク分類:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">risk_counts</span><span class="p">)</span>
+
+<span class="c1"># リスクグループの可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">risk_counts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;健康リスク分類の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;リスク分類&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;人数&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>この健康データの応用例では、以下のことを行っています：</p>
+<ol>
+<li><strong>人工的な健康データの作成</strong>：</li>
+<li>
+<p>身体的健康と精神的健康の2つの潜在因子を基に、8つの健康指標（体重、BMI、血圧、コレステロール、ストレス、不安、うつ症状、睡眠の質）を生成</p>
+</li>
+<li>
+<p><strong>因子分析の実施</strong>：</p>
+</li>
+<li>相関行列の可視化、適合性の確認（Bartlettの検定、KMO測度）</li>
+<li>スクリープロットと累積寄与率による因子数の決定</li>
+<li>
+<p>プロマックス回転による因子分析の実行</p>
+</li>
+<li>
+<p><strong>結果の解釈と応用</strong>：</p>
+</li>
+<li>因子負荷量のヒートマップ可視化</li>
+<li>因子スコアの散布図とその解釈</li>
+<li>健康リスク評価への応用（因子スコアに基づくリスク分類）</li>
+</ol>
+<p>この例では、因子分析が健康データから潜在的な健康状態（身体的健康と精神的健康）を抽出し、それに基づいて個人の健康リスクを評価する方法を示しています。実際の健康データサイエンスでは、このようなアプローチが健康状態の評価、リスク予測、介入計画の策定などに活用されています。</p>
+<h3 id="6">6. 演習問題</h3>
+<h4 id="61">6.1 基本問題</h4>
+<ol>
+<li>以下の相関行列に対して因子分析を適用します。スクリープロットから適切な因子数を判断し、その理由を説明してください。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>相関行列 R:
+[1.00, 0.70, 0.60, 0.30, 0.25]
+[0.70, 1.00, 0.65, 0.35, 0.20]
+[0.60, 0.65, 1.00, 0.40, 0.30]
+[0.30, 0.35, 0.40, 1.00, 0.75]
+[0.25, 0.20, 0.30, 0.75, 1.00]
+</code></pre></div>
+<p><strong>解答例</strong>：
+   この相関行列から固有値を計算すると、[2.68, 1.47, 0.42, 0.29, 0.14]のような値が得られます。スクリープロットでは、固有値が1.0を超える因子は2つ（第1因子と第2因子）であり、第2因子と第3因子の間で固有値の急激な減少（「肘」）が見られます。また、最初の2因子で全分散の約83%（(2.68+1.47)/5≈0.83）を説明しています。したがって、Kaiser基準、スクリープロットの「肘」、累積寄与率のいずれの観点からも、2因子モデルが適切だと判断できます。</p>
+<ol>
+<li>2因子モデルを仮定し、以下の因子負荷量行列が得られたとします。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Λ（回転前）：
+[0.80, 0.40]
+[0.75, 0.35]
+[0.70, 0.45]
+[0.50, 0.70]
+[0.45, 0.75]
+</code></pre></div>
+<p>この行列に対してバリマックス回転を適用すると、どのような結果が期待されますか？回転後の因子構造はどのように解釈できるでしょうか？</p>
+<p><strong>解答例</strong>：
+   バリマックス回転を適用すると、各変数が一方の因子に高い負荷量を、もう一方の因子に低い負荷量を持つように回転されます。回転後の因子負荷量行列は以下のようになる可能性があります：</p>
+<div class="highlight"><pre><span></span><code>Λ（バリマックス回転後）：
+[0.89, 0.10]
+[0.82, 0.07]
+[0.81, 0.18]
+[0.22, 0.83]
+[0.15, 0.87]
+</code></pre></div>
+<p>この回転後の構造では、最初の3つの変数は第1因子に高い負荷量を持ち、残りの2つの変数は第2因子に高い負荷量を持ちます。この結果から、2つの明確な潜在因子が存在することがわかります。例えば、もしこれが心理学的尺度の分析であれば、第1因子は「認知的側面」、第2因子は「情緒的側面」のような解釈が可能かもしれません。または健康データであれば、第1因子は「身体的健康」、第2因子は「精神的健康」のような解釈が考えられます。</p>
+<ol>
+<li>プロマックス回転とバリマックス回転の主な違いを説明し、どのような状況でプロマックス回転が望ましいかを説明してください。</li>
+</ol>
+<p><strong>解答例</strong>：
+   プロマックス回転とバリマックス回転の主な違いは以下の通りです：</p>
+<ol>
+<li>
+<p>バリマックス回転は直交回転であり、因子間の相関をゼロに保ちます。一方、プロマックス回転は斜交回転であり、因子間の相関を許容します。</p>
+</li>
+<li>
+<p>バリマックス回転は各因子の負荷量の二乗値の分散を最大化することで単純構造を求めます。プロマックス回転はまずバリマックス回転を行い、さらにその結果をべき乗変換（「シャープ化」）することでより単純な構造を求めます。</p>
+</li>
+<li>
+<p>バリマックス回転では、解釈が単純になりますが、潜在因子間の相関が実際に存在する場合、それを無視することになります。プロマックス回転では、より現実的なモデルが得られることがありますが、因子間の相関があるため解釈がやや複雑になります。</p>
+</li>
+</ol>
+<p>プロマックス回転が望ましい状況：</p>
+<ol>
+<li>
+<p>潜在因子間に相関があると理論的に予測される場合（例：心理学的特性、健康状態の様々な側面など）</p>
+</li>
+<li>
+<p>より単純な因子構造を求める場合（各変数がより明確に一つの因子に関連づけられる）</p>
+</li>
+<li>
+<p>現実のデータ生成過程をより忠実に反映したモデルを求める場合</p>
+</li>
+</ol>
+<p>特に、心理学、社会科学、健康科学などの多くの分野では、完全に独立した潜在因子を仮定するのは非現実的であることが多く、プロマックス回転などの斜交回転が適切な選択となることが多いです。</p>
+<ol>
+<li>共通性が低い変数が因子分析に含まれている場合、どのような問題が生じる可能性がありますか？そのような変数の取り扱いについて説明してください。</li>
+</ol>
+<p><strong>解答例</strong>：
+   共通性が低い変数（例：共通性 &lt; 0.3）が因子分析に含まれている場合、以下のような問題が生じる可能性があります：</p>
+<ol>
+<li>
+<p>その変数は現在の因子構造ではうまく説明されていないことを意味し、因子解釈の信頼性が低下する</p>
+</li>
+<li>
+<p>低い共通性の変数が多いと、モデル全体の説明力（累積寄与率）が低下する</p>
+</li>
+<li>
+<p>低い共通性は、その変数が現在の因子とは別の潜在因子に関連している可能性や、測定誤差が大きい可能性を示唆する</p>
+</li>
+</ol>
+<p>共通性が低い変数の取り扱いについては、以下のような方法があります：</p>
+<ol>
+<li>
+<p><strong>変数の除外</strong>：共通性が非常に低い変数（例：&lt; 0.2）は、分析から除外することを検討する</p>
+</li>
+<li>
+<p><strong>因子数の増加</strong>：低い共通性は因子数が不足している可能性を示唆するため、因子数を増やすことを検討する</p>
+</li>
+<li>
+<p><strong>変数の再検討</strong>：変数の測定方法や定義の見直しを行う</p>
+</li>
+<li>
+<p><strong>別の分析手法の検討</strong>：その変数が他の変数とは異なる構造を持つ場合、別の分析手法（例：クラスター分析、多次元尺度法など）の併用を検討する</p>
+</li>
+</ol>
+<p>なお、変数を除外する前に、その変数が理論的に重要であるかどうかを考慮することが重要です。理論的に重要な変数の場合、低い共通性を持つ場合でも、分析に含めることが正当化される場合があります。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,162 +1,314 @@
-# 講義3: ベクトルの基本操作②と内積の導入
+# 線形代数学 I 第3回講義ノート：ベクトルの基本操作②と内積の導入
 
-## 1. 本日扱う内容について（概要）
-- **目的:**  
-  - ベクトルの基本操作の続きとして、内積の概念を導入する。  
-  - 内積の定義、性質、幾何学的解釈（角度の計算、射影）を学ぶ。  
-  - Google Colabを用いたベクトル演算の可視化実習を通じて、理論と実践の両面から理解を深める。
+## 1. 講義情報と予習ガイド
 
-- **講義の流れ:**  
-  1. 内積の理論的背景の説明  
-  2. 内積の具体的な計算例の提示  
-  3. ChatGPTによる解説とGoogle Colabでの実行例の紹介  
-  4. 学んだ内容の応用事例の考察  
-  5. 演習問題を通じた理解の定着
+**講義回**: 第3回  
+**関連項目**: ベクトルの内積、ノルム、射影  
+**予習すべき内容**: 第2回講義で扱ったベクトルの定義、ベクトルの和、スカラー倍の概念
 
-## 2. 扱う内容の理論の説明（定義・定理・数式を含む）
-### 内積の定義
-- **内積（ドット積）:**  
-  $n$ 次元のベクトル $\mathbf{u} = (u_1, u_2, \dots, u_n)$ と $\mathbf{v} = (v_1, v_2, \dots, v_n)$ に対して、内積は  
-  $$
-  \langle \mathbf{u}, \mathbf{v} \rangle = \sum_{i=1}^{n} u_i v_i
-  $$
-  と定義される。
+## 2. 学習目標
 
-### 内積の基本性質
-1. **交換法則:**  
-   $$
-   \langle \mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{u} \rangle
-   $$
-2. **分配法則:**  
-   $$
-   \langle \mathbf{u} + \mathbf{v}, \mathbf{w} \rangle = \langle \mathbf{u}, \mathbf{w} \rangle + \langle \mathbf{v}, \mathbf{w} \rangle
-   $$
-3. **スカラー倍:**  
-   $$
-   \langle c\mathbf{u}, \mathbf{v} \rangle = c \langle \mathbf{u}, \mathbf{v} \rangle
-   $$
-4. **正定値性:**  
-   $$
-   \langle \mathbf{u}, \mathbf{u} \rangle \geq 0,\quad \langle \mathbf{u}, \mathbf{u} \rangle = 0 \iff \mathbf{u} = \mathbf{0}
-   $$
+1. ベクトルのノルム（大きさ）の定義を理解し、計算できる
+2. ベクトルの内積の定義と幾何学的意味を理解する
+3. 内積を用いてベクトル間の角度を計算できる
+4. ベクトルの射影の概念を理解し、計算方法を習得する
+5. これらの概念をデータ分析の文脈で応用する方法を学ぶ
 
-### 幾何学的解釈
-- **角度の計算:**  
-  内積は、ベクトルの大きさとその間の角度 $\theta$ との関係で表される。  
-  $$
-  \langle \mathbf{u}, \mathbf{v} \rangle = \|\mathbf{u}\|\,\|\mathbf{v}\|\,\cos \theta
-  $$
-  より、  
-  $$
-  \theta = \arccos\left(\frac{\langle \mathbf{u}, \mathbf{v} \rangle}{\|\mathbf{u}\|\,\|\mathbf{v}\|}\right)
-  $$
+## 3. 基本概念
 
-- **射影:**  
-  ベクトル $\mathbf{u}$ を $\mathbf{v}$ に射影した結果得られるベクトルは  
-  $$
-  \text{proj}_{\mathbf{v}} \mathbf{u} = \frac{\langle \mathbf{u}, \mathbf{v} \rangle}{\langle \mathbf{v}, \mathbf{v} \rangle}\,\mathbf{v}
-  $$
-  と定義される。
+### 3.1 ベクトルのノルム（大きさ）
 
-## 3. 扱う内容の例（実例を提示、GPT, Colabなどは利用しない）
-### 例1: 二次元ベクトルの内積
-- **与えられたベクトル:**  
-  $\mathbf{a} = (3, 4)$ と $\mathbf{b} = (2, -1)$
-- **内積の計算:**  
-  $$
-  \langle \mathbf{a}, \mathbf{b} \rangle = 3 \times 2 + 4 \times (-1) = 6 - 4 = 2
-  $$
-- **角度の計算のための準備:**  
-  $\|\mathbf{a}\| = \sqrt{3^2+4^2} = 5$,  
-  $\|\mathbf{b}\| = \sqrt{2^2+(-1)^2} = \sqrt{4+1} = \sqrt{5}$
+> **定義**: $n$次元ベクトル $\mathbf{x} = (x_1, x_2, \ldots, x_n)^T$ のノルム（長さ・大きさ）は以下のように定義される：
+> 
+> $$\|\mathbf{x}\| = \sqrt{x_1^2 + x_2^2 + \ldots + x_n^2}$$
 
-### 例2: 射影の計算
-- **与えられたベクトル:**  
-  $\mathbf{u} = (4, 3)$ と $\mathbf{v} = (1, 0)$
-- **内積の計算:**  
-  $$
-  \langle \mathbf{u}, \mathbf{v} \rangle = 4 \times 1 + 3 \times 0 = 4
-  $$
-- **射影の計算:**  
-  $\langle \mathbf{v}, \mathbf{v} \rangle = 1^2 + 0^2 = 1$  
-  よって、  
-  $$
-  \text{proj}_{\mathbf{v}} \mathbf{u} = \frac{4}{1}\,(1, 0) = (4, 0)
-  $$
+ノルムは、原点からベクトルの終点までの距離を表します。2次元・3次元の場合は、ピタゴラスの定理から導かれる距離になります。
 
-## 4. ChatGPTによる解説＋Colabでの実行例
-- **ChatGPTによる解説:**  
-  内積は、単なる数値計算としての操作を超えて、ベクトル間の相関や類似性、さらには空間内での方向性の理解に直結する重要な概念です。  
-  角度や射影といった幾何学的解釈を通して、データ解析、機械学習、物理計算など様々な応用分野で利用されています。
+**例**: ベクトル $\mathbf{v} = (3, 4)^T$ のノルムを計算
 
-- **Google Colabでの実行例:**
+$$\|\mathbf{v}\| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5$$
+
+**ノルムの性質**:
+
+1. 非負性: $\|\mathbf{x}\| \geq 0$ （ゼロベクトルの場合のみ等号成立）
+2. スカラー倍: $\|c\mathbf{x}\| = |c|\|\mathbf{x}\|$ （$c$はスカラー）
+3. 三角不等式: $\|\mathbf{x} + \mathbf{y}\| \leq \|\mathbf{x}\| + \|\mathbf{y}\|$
+
+### 3.2 ベクトルの内積
+
+> **定義**: $n$次元ベクトル $\mathbf{x} = (x_1, x_2, \ldots, x_n)^T$ と $\mathbf{y} = (y_1, y_2, \ldots, y_n)^T$ の内積は以下のように定義される：
+> 
+> $$\mathbf{x} \cdot \mathbf{y} = x_1y_1 + x_2y_2 + \ldots + x_ny_n = \sum_{i=1}^{n} x_iy_i$$
+
+内積は、二つのベクトルの対応する成分の積の総和として計算されます。
+
+**例**: ベクトル $\mathbf{a} = (2, 3, 1)^T$ と $\mathbf{b} = (1, 0, 4)^T$ の内積を計算
+
+$$\mathbf{a} \cdot \mathbf{b} = 2 \times 1 + 3 \times 0 + 1 \times 4 = 2 + 0 + 4 = 6$$
+
+**内積の性質**:
+
+1. 対称性: $\mathbf{x} \cdot \mathbf{y} = \mathbf{y} \cdot \mathbf{x}$
+2. 線形性: $(\alpha\mathbf{x} + \beta\mathbf{y}) \cdot \mathbf{z} = \alpha(\mathbf{x} \cdot \mathbf{z}) + \beta(\mathbf{y} \cdot \mathbf{z})$
+3. 正定値性: $\mathbf{x} \cdot \mathbf{x} \geq 0$ （ゼロベクトルの場合のみ等号成立）
+
+### 3.3 内積とベクトルのノルムの関係
+
+内積とノルムには以下の関係があります：
+
+$$\mathbf{x} \cdot \mathbf{x} = \|\mathbf{x}\|^2$$
+
+つまり、ベクトル自身との内積はそのベクトルのノルムの2乗に等しいです。
+
+### 3.4 内積と角度の関係
+
+> **定義**: 二つの非ゼロベクトル $\mathbf{x}$ と $\mathbf{y}$ がなす角 $\theta$ は、以下の式で計算できる：
+> 
+> $$\cos \theta = \frac{\mathbf{x} \cdot \mathbf{y}}{\|\mathbf{x}\| \|\mathbf{y}\|}$$
+
+この関係は、内積の幾何学的解釈として重要です。
+
+**例**: ベクトル $\mathbf{u} = (1, 1)^T$ と $\mathbf{v} = (0, 1)^T$ のなす角を計算
+
+$$\mathbf{u} \cdot \mathbf{v} = 1 \times 0 + 1 \times 1 = 1$$
+$$\|\mathbf{u}\| = \sqrt{1^2 + 1^2} = \sqrt{2}$$
+$$\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1$$
+
+$$\cos \theta = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} = \frac{1}{\sqrt{2} \times 1} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}$$
+
+したがって、$\theta = 45^\circ$（$\pi/4$ ラジアン）となります。
+
+### 3.5 直交ベクトル
+
+> **定義**: 二つのベクトル $\mathbf{x}$ と $\mathbf{y}$ が直交するとは、その内積がゼロになることを意味する：
+> 
+> $$\mathbf{x} \cdot \mathbf{y} = 0$$
+
+これは幾何学的には、二つのベクトルが90度（$\pi/2$ ラジアン）の角度をなすことを意味します。
+
+**例**: ベクトル $\mathbf{a} = (3, 4)^T$ と $\mathbf{b} = (4, -3)^T$ が直交することを確認
+
+$$\mathbf{a} \cdot \mathbf{b} = 3 \times 4 + 4 \times (-3) = 12 - 12 = 0$$
+
+よって、ベクトル $\mathbf{a}$ と $\mathbf{b}$ は直交しています。
+
+## 4. 理論と手法
+
+### 4.1 ベクトルの射影
+
+ベクトルの射影は、あるベクトルを別のベクトルに投影したときの成分を表します。
+
+> **定義**: ベクトル $\mathbf{b}$ 上へのベクトル $\mathbf{a}$ の射影ベクトル $\text{proj}_{\mathbf{b}}\mathbf{a}$ は以下のように定義される：
+> 
+> $$\text{proj}_{\mathbf{b}}\mathbf{a} = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{b}\|^2} \mathbf{b}$$
+
+射影ベクトルの大きさ（スカラー射影）は以下のように計算されます：
+
+$$\|\text{proj}_{\mathbf{b}}\mathbf{a}\| = \frac{|\mathbf{a} \cdot \mathbf{b}|}{\|\mathbf{b}\|}$$
+
+**例**: ベクトル $\mathbf{a} = (2, 3)^T$ のベクトル $\mathbf{b} = (1, 0)^T$ 上への射影を計算
+
+$$\mathbf{a} \cdot \mathbf{b} = 2 \times 1 + 3 \times 0 = 2$$
+$$\|\mathbf{b}\|^2 = 1^2 + 0^2 = 1$$
+
+$$\text{proj}_{\mathbf{b}}\mathbf{a} = \frac{2}{1} (1, 0)^T = (2, 0)^T$$
+
+この結果は、ベクトル $\mathbf{a} = (2, 3)^T$ の$x$軸方向の成分が2であることを示しています。
+
+### 4.2 射影の幾何学的解釈
+
+射影は、あるベクトルを別のベクトル方向に分解する操作と考えることができます。例えば、3次元空間内のベクトルを$x$軸、$y$軸、$z$軸方向への射影に分解することで、そのベクトルの各軸方向の成分を求めることができます。
+
+射影の幾何学的解釈として重要なのは：
+- 射影ベクトルは元のベクトルの「影」のようなもの
+- 射影ベクトルは常に射影先のベクトルと同じ方向（またはその反対方向）
+- 射影ベクトルと元のベクトルの差ベクトルは、射影先のベクトルと直交する
+
+### 4.3 直交分解
+
+任意のベクトル $\mathbf{a}$ は、あるベクトル $\mathbf{b}$ の方向に平行な成分と垂直な成分に分解できます：
+
+$$\mathbf{a} = \text{proj}_{\mathbf{b}}\mathbf{a} + \mathbf{a_{\perp}}$$
+
+ここで、$\mathbf{a_{\perp}}$ は $\mathbf{b}$ に垂直な成分で、以下のように計算できます：
+
+$$\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}$$
+
+**例**: ベクトル $\mathbf{a} = (2, 3)^T$ をベクトル $\mathbf{b} = (1, 0)^T$ に平行な成分と垂直な成分に分解
+
+平行成分: $\text{proj}_{\mathbf{b}}\mathbf{a} = (2, 0)^T$（上記の計算結果）
+垂直成分: $\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = (2, 3)^T - (2, 0)^T = (0, 3)^T$
+
+### 4.4 コーシー・シュワルツの不等式
+
+> **定理**: 任意の二つのベクトル $\mathbf{x}$ と $\mathbf{y}$ に対して、以下の不等式が成り立つ：
+> 
+> $$|\mathbf{x} \cdot \mathbf{y}| \leq \|\mathbf{x}\| \|\mathbf{y}\|$$
+> 
+> 等号は、$\mathbf{x}$ と $\mathbf{y}$ が平行（または一方がゼロベクトル）のときに成立する。
+
+この不等式は、内積の絶対値がノルムの積を超えないことを示しています。これは、$|\cos \theta| \leq 1$ という事実に対応しています。
+
+## 5. Pythonによる実装と可視化
+
+### 5.1 NumPyを使ったベクトル演算
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 二次元ベクトルの定義
-a = np.array([3, 4])
-b = np.array([2, -1])
+# ベクトルの定義
+a = np.array([2, 3])
+b = np.array([1, 0])
 
-# 内積の計算
-inner_product = np.dot(a, b)
-print("内積:", inner_product)
-
-# ベクトルの大きさの計算
+# ノルムの計算
 norm_a = np.linalg.norm(a)
 norm_b = np.linalg.norm(b)
-print("aの大きさ:", norm_a)
-print("bの大きさ:", norm_b)
+print(f"ベクトルaのノルム: {norm_a}")
+print(f"ベクトルbのノルム: {norm_b}")
+
+# 内積の計算
+dot_product = np.dot(a, b)
+print(f"ベクトルaとbの内積: {dot_product}")
 
 # 角度の計算（ラジアン）
-theta = np.arccos(inner_product / (norm_a * norm_b))
-print("aとbのなす角（ラジアン）:", theta)
+angle_rad = np.arccos(dot_product / (norm_a * norm_b))
+# 角度（度）
+angle_deg = np.degrees(angle_rad)
+print(f"ベクトルaとbのなす角: {angle_deg:.2f}度")
 
-# aをbに射影する計算
-proj_a_on_b = (np.dot(a, b) / np.dot(b, b)) * b
-print("aのbへの射影:", proj_a_on_b)
+# 射影の計算
+proj_a_on_b = (dot_product / (norm_b**2)) * b
+print(f"ベクトルaのbへの射影: {proj_a_on_b}")
 
-# ベクトルの可視化
-origin = [0, 0]
-plt.figure(figsize=(6,6))
-plt.quiver(*origin, *a, angles='xy', scale_units='xy', scale=1, color='r', label='a')
-plt.quiver(*origin, *b, angles='xy', scale_units='xy', scale=1, color='b', label='b')
-plt.quiver(*origin, *proj_a_on_b, angles='xy', scale_units='xy', scale=1, color='g', label='proj a on b')
+# 直交成分の計算
+perp_component = a - proj_a_on_b
+print(f"ベクトルaのbに垂直な成分: {perp_component}")
+```
 
-plt.xlim(-5, 5)
-plt.ylim(-5, 5)
-plt.axhline(0, color='black', linewidth=0.5)
-plt.axvline(0, color='black', linewidth=0.5)
-plt.title("内積と射影の可視化")
+### 5.2 ベクトルの可視化
+
+```python
+def plot_vectors_and_projection(a, b, proj_a_on_b, perp_component):
+    plt.figure(figsize=(10, 8))
+    
+    # ベクトルの原点
+    origin = np.array([0, 0])
+    
+    # ベクトルaとbを描画
+    plt.arrow(*origin, *a, head_width=0.2, head_length=0.3, fc='blue', ec='blue', label='ベクトルa')
+    plt.arrow(*origin, *b, head_width=0.2, head_length=0.3, fc='red', ec='red', label='ベクトルb')
+    
+    # 射影ベクトルを描画
+    plt.arrow(*origin, *proj_a_on_b, head_width=0.2, head_length=0.3, fc='green', ec='green', label='射影ベクトル')
+    
+    # 垂直成分を描画（射影ベクトルの終点から）
+    plt.arrow(*proj_a_on_b, *perp_component, head_width=0.2, head_length=0.3, fc='purple', ec='purple', label='垂直成分')
+    
+    # 射影線を点線で描画
+    plt.plot([a[0], proj_a_on_b[0]], [a[1], proj_a_on_b[1]], 'k--')
+    
+    # 軸の設定
+    plt.grid(True)
+    plt.axhline(y=0, color='k', linestyle='-', alpha=0.3)
+    plt.axvline(x=0, color='k', linestyle='-', alpha=0.3)
+    
+    # グラフの範囲設定
+    margin = 1
+    max_val = max(np.max(np.abs(a)), np.max(np.abs(b))) + margin
+    plt.xlim(-max_val, max_val)
+    plt.ylim(-max_val, max_val)
+    
+    plt.gca().set_aspect('equal')
+    plt.title('ベクトルの射影と直交分解')
+    plt.legend()
+    plt.show()
+
+# ベクトルを可視化
+plot_vectors_and_projection(a, b, proj_a_on_b, perp_component)
+```
+
+### 5.3 データ分析における内積の応用例
+
+```python
+# サンプルデータ（身長と体重）
+heights = np.array([170, 175, 165, 180, 160])  # cm
+weights = np.array([65, 70, 60, 75, 55])      # kg
+
+# 平均を引いて中心化
+heights_centered = heights - np.mean(heights)
+weights_centered = weights - np.mean(weights)
+
+# 相関係数の計算（内積を使用）
+correlation = np.dot(heights_centered, weights_centered) / (np.linalg.norm(heights_centered) * np.linalg.norm(weights_centered))
+
+print(f"身長と体重の相関係数: {correlation:.4f}")
+
+# 散布図の描画
+plt.figure(figsize=(8, 6))
+plt.scatter(heights, weights)
+plt.xlabel('身長 (cm)')
+plt.ylabel('体重 (kg)')
+plt.title(f'身長と体重の関係 (相関係数: {correlation:.4f})')
 plt.grid(True)
-plt.legend()
 plt.show()
 ```
 
-## 5. 学んだ内容がどのように応用されるか
-- **機械学習・データ解析:**  
-  - **類似度計算:**  
-    文章や画像の特徴ベクトル間のコサイン類似度は、内積を正規化することで求められる。  
-  - **主成分分析（PCA）:**  
-    共分散行列の計算に内積が利用され、データの次元削減に寄与する。
-
-- **物理学:**  
-  - **仕事の計算:**  
-    力と変位の内積から、実際に物体に対して行われた仕事を求める。
-
-- **コンピュータグラフィックス:**  
-  - **ライティングとシェーディング:**  
-    表面の法線ベクトルと光源方向の内積を用いて、陰影効果や明暗の計算に応用される。
-
 ## 6. 演習問題
-1. **演習問題1:**  
-   二次元ベクトル $\mathbf{u} = (1, 2)$ と $\mathbf{v} = (3, 4)$ の内積を計算し、  
-   その結果から $\mathbf{u}$ と $\mathbf{v}$ のなす角を求めよ。
 
-2. **演習問題2:**  
-   三次元ベクトル $\mathbf{p} = (2, -1, 3)$ と $\mathbf{q} = (0, 4, -2)$ の内積を計算し、  
-   $\mathbf{p}$ を $\mathbf{q}$ に射影したベクトルを求めよ。
+### 基本問題
 
-3. **演習問題3:**  
-   任意のベクトル $\mathbf{x}$ に対して、なぜ $\langle \mathbf{x}, \mathbf{x} \rangle \geq 0$ となるのか、内積の性質を用いて説明せよ。
+1. 以下のベクトルのノルムを計算せよ。
+   - $\mathbf{a} = (1, 2, 3)^T$
+   - $\mathbf{b} = (5, 0, -5)^T$
+   - $\mathbf{c} = (2, 2, 2, 2)^T$
+
+2. 以下のベクトルの組の内積を計算せよ。
+   - $\mathbf{u} = (3, -1, 2)^T$ と $\mathbf{v} = (2, 4, 1)^T$
+   - $\mathbf{p} = (1, 1, 1, 1)^T$ と $\mathbf{q} = (2, -2, 3, -3)^T$
+
+3. 以下のベクトルの組がなす角度（度）を計算せよ。
+   - $\mathbf{a} = (1, 1)^T$ と $\mathbf{b} = (1, -1)^T$
+   - $\mathbf{c} = (3, 0, 4)^T$ と $\mathbf{d} = (5, 0, 0)^T$
+
+4. ベクトル $\mathbf{a} = (3, 4, 0)^T$ のベクトル $\mathbf{b} = (1, 1, 1)^T$ 上への射影ベクトルを求めよ。
+
+5. 以下のベクトルの組が直交するかどうかを判定せよ。
+   - $\mathbf{u} = (2, -1, 3)^T$ と $\mathbf{v} = (1, 2, 0)^T$
+   - $\mathbf{p} = (4, 3)^T$ と $\mathbf{q} = (3, -4)^T$
+
+### 応用問題
+
+1. 3次元ベクトル $\mathbf{v} = (2, 3, 4)^T$ を、$\mathbf{u}_1 = (1, 0, 0)^T$, $\mathbf{u}_2 = (0, 1, 0)^T$, $\mathbf{u}_3 = (0, 0, 1)^T$ の3つの方向への射影の和として表せ。これは何を意味するか説明せよ。
+
+2. ベクトル $\mathbf{a} = (2, 1, 3)^T$ と $\mathbf{b} = (1, -1, 2)^T$ に対して、$\mathbf{c} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}$ を計算せよ。$\mathbf{c}$ と $\mathbf{b}$ が直交することを確認せよ。
+
+3. コーシー・シュワルツの不等式 $|\mathbf{x} \cdot \mathbf{y}| \leq \|\mathbf{x}\| \|\mathbf{y}\|$ を、ベクトル $\mathbf{x} = (1, 2)^T$ と $\mathbf{y} = (3, 4)^T$ を用いて確認せよ。
+
+4. 3次元空間内のある平面が、法線ベクトル $\mathbf{n} = (1, 2, 3)^T$ で表されるとする。点 $P(2, 3, 4)$ からこの平面への最短距離を求めよ。(ヒント: 原点から平面までの距離を考え、そこからベクトルの射影を利用する)
+
+5. **健康データ分析の応用**: 5人の患者の血圧（収縮期/拡張期）データが以下のように与えられている。
+   - 患者1: (120, 80)
+   - 患者2: (130, 85)
+   - 患者3: (140, 90)
+   - 患者4: (125, 75)
+   - 患者5: (135, 88)
+   
+   このデータを用いて、収縮期血圧と拡張期血圧の相関係数を内積を使って計算せよ。また、各患者のデータを、平均値のベクトルと、それに直交する方向の成分に分解せよ。これはどのような意味を持つか考察せよ。
+
+## 7. よくある質問と解答
+
+### Q1: ベクトルの内積とノルムの関係を簡単に説明してください。
+**A1**: ベクトル自身との内積は、そのベクトルのノルムの2乗になります。つまり、$\mathbf{v} \cdot \mathbf{v} = \|\mathbf{v}\|^2$ です。これは、各成分の2乗和を計算する点で共通しているためです。
+
+### Q2: 内積が0のとき、ベクトル同士はどのような関係にありますか？
+**A2**: 内積が0の二つのベクトルは互いに直交（垂直）しています。これは、$\cos \theta = 0$ となる角度 $\theta = 90°$ （または $\pi/2$ ラジアン）で交わることを意味します。
+
+### Q3: なぜデータ分析で内積が重要なのですか？
+**A3**: 内積は、二つのデータベクトル間の類似性や関連性を測る基本的な道具です。例えば、正規化された二つのデータベクトル間の内積は相関係数になり、データの線形関係を測ることができます。また、内積に基づく射影は、データの次元削減や特徴抽出の基礎となります。
+
+### Q4: ベクトルの射影とはどのようなものですか？
+**A4**: ベクトル $\mathbf{a}$ のベクトル $\mathbf{b}$ への射影とは、$\mathbf{a}$ を $\mathbf{b}$ の方向に落とした「影」のようなものです。これは $\mathbf{b}$ と同じ（または反対）方向を持つベクトルであり、$\mathbf{a}$ が $\mathbf{b}$ の方向にどれだけ寄与しているかを表します。
+
+### Q5: 内積とベクトルの長さだけから角度が計算できるのはなぜですか？
+**A5**: これは余弦定理の応用です。二つのベクトル $\mathbf{a}$ と $\mathbf{b}$ のなす角を $\theta$ とすると、余弦定理から $\|\mathbf{a} - \mathbf{b}\|^2 = \|\mathbf{a}\|^2 + \|\mathbf{b}\|^2 - 2\|\mathbf{a}\|\|\mathbf{b}\|\cos\theta$ が成り立ちます。また、$\|\mathbf{a} - \mathbf{b}\|^2 = (\mathbf{a} - \mathbf{b}) \cdot (\mathbf{a} - \mathbf{b}) = \|\mathbf{a}\|^2 + \|\mathbf{b}\|^2 - 2(\mathbf{a} \cdot \mathbf{b})$ です。これら二つの式を比較すると、$\mathbf{a} \cdot \mathbf{b} = \|\mathbf{a}\|\|\mathbf{b}\|\cos\theta$ が導かれます。
