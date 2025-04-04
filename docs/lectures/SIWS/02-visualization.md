@@ -47,10 +47,8 @@ rcParams['figure.figsize'] = 12, 8
 
 ```python
 # Gapminderデータをダウンロード
-url = "https://raw.githubusercontent.com/tidyverse/gapminder/master/data-raw/gapminder.tsv"
-response = requests.get(url)
-data = StringIO(response.text)
-gapminder = pd.read_csv(data, sep='\t')
+!pip install gapminder
+from gapminder import gapminder
 
 # 2007年のデータだけをフィルタリング
 gapminder_2007 = gapminder[gapminder['year'] == 2007].drop('year', axis=1)
@@ -139,7 +137,7 @@ plt.show()
 
 ```python
 # NYCフライトデータをダウンロード
-url = "https://raw.githubusercontent.com/ismayc/moderndiver-data/master/data/flights.csv"
+url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/flight.csv"
 response = requests.get(url)
 data = StringIO(response.text)
 flights = pd.read_csv(data)
@@ -211,7 +209,7 @@ plt.show()
 
 ```python
 # 気象データをダウンロード
-url = "https://raw.githubusercontent.com/ismayc/moderndiver-data/master/data/weather.csv"
+url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/weather.csv"
 response = requests.get(url)
 data = StringIO(response.text)
 weather = pd.read_csv(data)
@@ -224,8 +222,21 @@ early_january_2023_weather = weather[
 ]
 
 # 日時のデータフォーマットを修正
-early_january_2023_weather['time_hour'] = pd.to_datetime(early_january_2023_weather['time_hour'])
+early_january_2023_weather['time_hour'] = pd.to_datetime(early_january_2023_weather['time_hour'], format='%Y-%m-%d %H:%M:%S') 
+```
 
+実はこれではエラーが出る。この原因について考えてみよう。ちなみに、解消するためのコードは以下の通り。生成AIなどを用いて、このコードの意味を解き明かしてください。
+
+```python
+# prompt: early_january_2023_weather['time_hour'] は、"2023-01-03 20:00:00" のように時刻が記載されている場合と、"2023-01-03" のように時刻が記載されていない場合があります。"2023-01-03" のように時刻が記載されていない場合は、" 00:00:00"を追加し、"2023-01-03 00:00:00"と修正してください
+
+# 時刻データの修正
+early_january_2023_weather['time_hour'] = early_january_2023_weather['time_hour'].astype(str)
+early_january_2023_weather['time_hour'] = early_january_2023_weather['time_hour'].str.replace(r'(\d{4}-\d{2}-\d{2})$', r'\1 00:00:00', regex=True)
+early_january_2023_weather['time_hour'] = pd.to_datetime(early_january_2023_weather['time_hour'])
+```
+
+```python
 # 線グラフを作成
 plt.figure(figsize=(12, 6))
 plt.plot(early_january_2023_weather['time_hour'], early_january_2023_weather['wind_speed'])
@@ -235,6 +246,8 @@ plt.title('Hourly Wind Speed at Newark Airport (Jan 1-15, 2023)')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
+
+
 
 線グラフは、時間経過による変数値の変化を視覚的に追跡するのに最適です。この例では、ニューアーク空港の風速が時間とともにどのように変化するかを見ることができます。
 
