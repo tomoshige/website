@@ -100,11 +100,16 @@ nav:
         - 1. Getting-Started : lectures/SIWS/01-getting-started.md
         - 2. Data Visualizaion : lectures/SIWS/02-visualization.md
         - 3. Data Wrangling : lectures/SIWS/03-wrangling.md
-        - 3. Data Wrangling : lectures/SIWS/04-data-import-and-tidy-data.md
+        - 4. Data Import and Tidy Data : lectures/SIWS/04-data-import-and-tidy-data.md
+        - 5. Simple Linear Regression : lectures/SIWS/05-simple-linear-regression.md
+        - 6. Multiple Regression : lectures/SIWS/06-multiple-regression.md
+        - 7. Sampling Method : lectures/SIWS/07-sampling.md
+        - 8. Estimation, Confidence Interval and Bootstrapping : lectures/SIWS/08-Estimation-CI-Bootstrapping.md
+        - 9. Hypothesis Testing : lectures/SIWS/09-hypothesis-testing.md
+        - 10. Inference for Regression : lectures/SIWS/10-inference-for-regression.md
+        - 11. Tell Your Story with Data : lectures/SIWS/11-tell-your-story-with-data.md
       - Statistics and Probability : 
         - lectures/SP/index.md
-      - Open Campus :
-        - lectures/OC/index.md
   - Research : 
       - research/index.md
       - Generalized random forests : research/note/generalized-random-forests.md
