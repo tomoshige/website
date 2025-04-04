@@ -15,6 +15,10 @@
         <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/05-simple-linear-regression/">
       
       
+        <link rel="prev" href="../04-data-import-and-tidy-data/">
+      
+      
+        <link rel="next" href="../06-multiple-regression/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -22,7 +26,7 @@
     
     
       
-        <title>第5章 基本的回帰分析 - Statistical Learning Laboratory</title>
+        <title>5. Simple Linear Regression - Statistical Learning Laboratory</title>
       
     
     
@@ -108,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              第5章 基本的回帰分析
+              5. Simple Linear Regression
             
           </span>
         </div>
@@ -204,10 +208,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../" class="md-tabs__link">
           
   
@@ -310,6 +316,8 @@
       
   
   
+    
+  
   
   
     
@@ -325,23 +333,22 @@
       
         
       
+    
+    
+      
+        
+        
+      
+      
         
       
     
     
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           
@@ -357,13 +364,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Lectures
@@ -486,10 +493,13 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -511,7 +521,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -1546,6 +1556,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1563,21 +1575,36 @@
       
         
       
-    
-    
+        
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
-        
+      
         
           
+          
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
         
           
           
@@ -1593,13 +1620,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             Data Science without syntax
@@ -1682,7 +1709,353 @@
         
   
   <span class="md-ellipsis">
-    3. Data Wrangling
+    4. Data Import and Tidy Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    5. Simple Linear Regression
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    5. Simple Linear Regression
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="はじめに">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      必要なパッケージ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 1つの数値的説明変数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 1つの数値的説明変数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      探索的データ分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      単純線形回帰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      観測値/予測値と残差
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      最適な当てはめ直線
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 1つのカテゴリ的説明変数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 1つのカテゴリ的説明変数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      探索的データ分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      線形回帰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      観測値/予測値と残差
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 関連トピック
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 関連トピック">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      相関は必ずしも因果関係ではない
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      最適な当てはめ直線
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      結論
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-multiple-regression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Multiple Regression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-sampling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Sampling Method
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-Estimation-CI-Bootstrapping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Estimation, Confidence Interval and Bootstrapping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-hypothesis-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Hypothesis Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-inference-for-regression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. Inference for Regression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-tell-your-story-with-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. Tell Your Story with Data
   </span>
   
 
@@ -1718,10 +2091,13 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -1748,67 +2124,6 @@
           <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             Statistics and Probability
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
-        
-          
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../OC/" class="md-nav__link ">
-              
-  
-  <span class="md-ellipsis">
-    Open Campus
-  </span>
-  
-
-            </a>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5">
-            <span class="md-nav__icon md-icon"></span>
-            Open Campus
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
