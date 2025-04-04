@@ -1,0 +1,2830 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/research/note/bayesian-additive-regression-trees/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>BARTの拡張手法の網羅と分類 - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bart" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BARTの拡張手法の網羅と分類
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../lectures/" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/32-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/33-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/34-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/35-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/36-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/37-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/38-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/39-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/40-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/41-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/42-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/43-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/44-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/45-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/46-nonlinear-dimension-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46. Nonlinear dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/47-wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47. Wrap up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/LA/48-final-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48. Final Report
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../lectures/OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal-brain-analysis.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. モデル性能・柔軟性向上のための拡張
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 応用領域の拡大に対応する拡張
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 特定の制約・課題への対応を目的とした拡張
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 各手法の比較まとめ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 最新の研究動向（過去5年間）
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="bart">BARTの拡張手法の網羅と分類</h1>
+<p>ベイズ加法回帰樹（BART: Bayesian Additive Regression Trees）は、その柔軟性と高い予測精度から多くの応用分野で利用されています。BARTの基本モデル（Chipman ら (2010) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,Journal%20of%20Environmental%20Radioactivity%202015">Bayesian additive regression trees and the General BART model - PMC</a>)）は回帰や2値分類に適用できますが、近年ではモデル性能の向上、適用可能なデータ型の拡大、特定の課題への対応を目的として数多くの拡張手法が提案されています。本稿では、それら拡張手法を主要なカテゴリに分類し、それぞれの特徴と提案論文についてまとめます。</p>
+<h2 id="1">1. モデル性能・柔軟性向上のための拡張</h2>
+<p><strong>（a）高次元データ・変数選択への対応:</strong><br />
+- <strong>DART (Dirichlet prior for BART):</strong> BARTのスプリット変数選択にディリクレ事前分布を導入し、不要な変数への寄与を抑制することでスパース性を実現した手法です。Linero (2018) (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=Linero%20AR,113%3A626%E2%80%9336">Bayesian Additive Regression Trees: A Review and Look Forward | Annual Reviews</a>) (<a href="https://arxiv.org/pdf/2112.13998#:~:text=2,of%20which%20the%20event%20probabilities">Variable Selection Using Bayesian Additive Regression Trees</a>)が提案し、高次元データでも重要変数を自動選択しやすくしています（“Bayesian regression trees for high-dimensional prediction and variable selection” (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=Linero%20AR,113%3A626%E2%80%9336">Bayesian Additive Regression Trees: A Review and Look Forward | Annual Reviews</a>)）。<br />
+- <strong>スパイク・アンド・スラブ事前分布:</strong> 分割ノードごとに変数が選択される確率にスパイク・アンド・スラブ型の事前を置くことで、不要な変数の影響を排除する方法です。Ročková と van der Pas (2017) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9892284/#:~:text=Sparse%20prediction%20informed%20by%20genetic,useful%20in%20the%20case">Sparse prediction informed by genetic annotations using the logit ...</a>)はこのアプローチでBARTの理論的収束性を解析し、重要変数の漸近的一致推定を保証しました。Liu ら (2021) もABC Bayesian forestという手法で類似のスパース化を図っています (<a href="https://arxiv.org/pdf/2112.13998#:~:text=match%20at%20L1522%20For%20DART,binomial">Variable Selection Using Bayesian Additive Regression Trees</a>)。<br />
+- <strong>Horseshoe正則化:</strong> 木構造の分割ルールに対し階層的Horseshoe事前分布を適用し、ルールごとの寄与に強いスパース効果を与えた手法です。Nalenz と Villani (2018) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)が提案し、高次元かつルールが複雑な場合でも過適合を抑制します。  </p>
+<p><strong>（b）平滑性の向上・滑らかな関数近似:</strong><br />
+- <strong>Soft BART:</strong> 分割ルールをハードな閾値ではなく確率的に適用する「ソフト」決定木に置き換えることで、応答関数を滑らかに推定する拡張です (<a href="https://www.semanticscholar.org/paper/Bayesian-regression-tree-ensembles-that-adapt-to-Linero-Yang/dca189ceb2e791fa0e0f04ffa734e7c09a75a955#:~:text=,the%20unknown%20smoothness%20and">[PDF] Bayesian regression tree ensembles that adapt to smoothness ...</a>)。Linero と Yang (2018) (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=match%20at%20L515%20Linero%20AR%2C,B%2080%3A1087%E2%80%93110">Bayesian Additive Regression Trees: A Review and Look Forward | Annual Reviews</a>)が提案した <em>“Bayesian regression tree ensembles that adapt to smoothness and sparsity”</em> に基づき、従来の階段状の予測関数を平滑化しつつスパース性にも適応します。この手法は高次元で真の関数が平滑な場合に精度向上が報告されています (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=match%20at%20L515%20Linero%20AR%2C,B%2080%3A1087%E2%80%93110">Bayesian Additive Regression Trees: A Review and Look Forward | Annual Reviews</a>)。<br />
+- <strong>GP-BART:</strong> 各決定木のリーフごとの予測にガウス過程事前を組み込むことで、観測間の共分散構造を明示的にモデル化したBART拡張です。Maia ら (2022) (<a href="https://arxiv.org/abs/2204.02112#:~:text=whereby%20each%20tree%20explains%20a,modeling%20approaches%20in%20various%20scenarios">[2204.02112] GP-BART: a novel Bayesian additive regression trees approach using Gaussian processes</a>)は「Gaussian processes Bayesian additive regression trees (GP-BART)」を提案し、標準BARTでは平滑性や空間的相関を捉えにくいデータに対して、高い予測性能と不確実性推定の向上を示しました (<a href="https://arxiv.org/abs/2204.02112#:~:text=whereby%20each%20tree%20explains%20a,modeling%20approaches%20in%20various%20scenarios">[2204.02112] GP-BART: a novel Bayesian additive regression trees approach using Gaussian processes</a>)。特に空間データなど平滑な効果が期待される場合に有効です。  </p>
+<p><strong>（c）MCMCアルゴリズムおよび計算効率の改善:</strong><br />
+- <strong>効率的な木提案手法:</strong> 標準BARTの木構造更新は単純な局所移動に依存するため収束が遅くなる場合があります。Pratola (2016) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Posterior%20Simulation,of%20Binary%20and%20Polychotomous%20Response">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)はメトロポリス–ヘイスティングスにおける効率的な提案分布を開発し、大幅な探索の高速化を実現しました（“Efficient Metropolis-Hastings proposal mechanisms for Bayesian regression tree models”）。この手法により、特に共変量間に強い相関がある場合でもサンプラーのミキシングが改善されます (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Posterior%20Simulation,of%20Binary%20and%20Polychotomous%20Response">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)。<br />
+- <strong>Particle Gibbs BART:</strong> Lakshminarayanan ら (2015) (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=">Bayesian Additive Regression Trees: A Review and Look Forward | Annual Reviews</a>)は粒子フィルタとギブスサンプリングを組み合わせたサンプラーを導入し、木構造の同時更新による後方分布探索を可能にしました (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=">Bayesian Additive Regression Trees: A Review and Look Forward | Annual Reviews</a>)。この“Particle Gibbs for BART”は高次元でも安定した収束を示し、逐次モンテカルロ法の利点をBARTに取り入れています。<br />
+- <strong>XBART:</strong> BARTを逐次的勾配ブースティングに近い形式で近似し、高速に推定するアルゴリズムです。He ら (2019) (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=26">Bayesian Additive Regression Trees: A Review and Look Forward | Annual Reviews</a>)の <em>“XBART: Accelerated Bayesian additive regression trees”</em> は事前分布に基づく重み付けを維持しつつ、逐次的に木を追加することでMCMCを介さず高速に予測を行います。計算コストは大幅に削減され、大規模データに対しても適用可能になりました。  </p>
+<h2 id="2">2. 応用領域の拡大に対応する拡張</h2>
+<p><strong>（a）分類問題への拡張:</strong><br />
+- <strong>2値分類BART:</strong> 応答がバイナリの場合、BARTではプロビットリンクを用いたデータ拡張により対応します (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Trees,422%29%3A%20669%E2%80%93679">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)。Chipman ら (2010)はAlbert &amp; Chib (1993) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Trees,422%29%3A%20669%E2%80%93679">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)の手法を採用して2値データへのBayesian CART適用を実現しました。これによりロジスティック回帰に匹敵する柔軟な分類モデルとなっています。<br />
+- <strong>多クラス分類BART:</strong> Kindo ら (2016) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,new%20Bayesian%20ensemble%20of%20trees">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は<em>“Multinomial probit Bayesian additive regression trees”</em> を発表し、BARTを多クラス（順序なしカテゴリ）に拡張しました。各クラスに対し潜在ガウスモデルを導入することでプロビットBARTを一般化したもので、従来の一対他法よりも一貫した階層ベイズモデルとしてカテゴリカル応答を扱えます (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,new%20Bayesian%20ensemble%20of%20trees">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)。また、Agarwal ら (2013) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=%5BPubMed%5D%20%5BGoogle%20Scholar%5D%20,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は衛星画像の土地被覆分類への応用でBARTを用いたマルチクラス分類手法を提案しています。  </p>
+<p><strong>（b）カウントデータ・離散応答への拡張:</strong><br />
+- <strong>ロジ線形BART:</strong> ポアソン回帰やカテゴリカル応答に対応するため、対数リンク関数下でBARTを適用する手法が考案されています。Murray (2017) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=trees,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は <em>“Log-linear BART for categorical and count responses”</em> としてポアソン分布や二項分布に対応するモデルを提案しました。これはデータ拡張にポリアガンマ分布を用いることで条件共役性を確保し、計算効率よくカウントデータの予測にBARTを活用しています。実際に、この手法は従来の一般化線形モデルを上回る予測性能を示しています (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=trees,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)。<br />
+- <strong>量的応答の分位点推定:</strong> 応答分布の特定の分位点（パーセンタイル）を直接推定するBARTの拡張もあります。Kindo ら (2016) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=%5BGoogle%20Scholar%5D%20,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は <em>“Bayesian quantile additive regression trees”</em> を提案し、分位点損失に基づく木モデルを組み合わせることで分位点回帰をベイズ的に実現しました。これにより外れ値の影響を受けにくいロバストな予測が可能です。  </p>
+<p><strong>（c）生存時間・時間系列への拡張:</strong><br />
+- <strong>生存BART:</strong> 医療や信頼性工学の分野で重要な生存時間データ（イベント発生までの時間と打ち切り）に対応するため、BARTを用いた生存分析モデルが開発されています。Logan ら (2016) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は <em>“Nonparametric survival analysis using BART”</em> において離散時間生存モデルとしてBARTを拡張しました。生存関数を時系列データとして扱い、BARTでハザードを推定するこの手法は、従来のCoxモデルでは捉えにくい非線形効果や交互作用を柔軟に捉えられることを示しています (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)。またBonato ら (2011) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,121%20PMC%20free">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は遺伝子発現データに対する生存予測にBARTアンサンブルを適用し、高精度な予後予測を達成しました。さらに、Sparapani ら (2019)は競合リスクに対するBART (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=%5BPubMed%5D%20%5BGoogle%20Scholar%5D%20,175%20Google">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)、Sparapani ら (2018)は再発イベントデータへのBART適用 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,PMC%20free%20article">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)も報告しており、生存分析分野でBARTの応用が広がっています。<br />
+- <strong>時系列への拡張:</strong> マクロ経済や金融の時系列では、時点ごとの関係が非線形となりうるため、BARTをベクトル自己回帰（VAR）モデルに組み込んだ研究もあります。Huber と Rossini (2021) は<strong>BAVART</strong> (Bayesian Additive Vector Autoregressive Regression Trees)モデルを提案し、VARの構造内でBARTを用いることで予測精度を向上させました (<a href="https://air.unimi.it/retrieve/dfa8b9aa-267f-748b-e053-3a05fe0a3a96/Huber_Rossini_22-%20Inference%20in%20Bayesian%20additive%20Vector%20Autoregressive%20Tree%20Models.pdf#:~:text=,for%20stochastic%20volatility%20in%20the">Inference in Bayesian additive vector autoregressive tree models</a>) (<a href="https://air.unimi.it/retrieve/dfa8b9aa-267f-748b-e053-3a05fe0a3a96/Huber_Rossini_22-%20Inference%20in%20Bayesian%20additive%20Vector%20Autoregressive%20Tree%20Models.pdf#:~:text=Bayesian%20additive%20vector%20autoregressive%20tree,MCMC">Inference in Bayesian additive vector autoregressive tree models</a>)。このモデルではBARTにより時変係数や非線形関係を捉えつつ、各時系列間の動的な相互作用を推定できます。BAVARTは金利予測等で従来の線形VARに勝る性能を示しています (<a href="https://air.unimi.it/retrieve/dfa8b9aa-267f-748b-e053-3a05fe0a3a96/Huber_Rossini_22-%20Inference%20in%20Bayesian%20additive%20Vector%20Autoregressive%20Tree%20Models.pdf#:~:text=BAVART%20model%20yields%20highly%20competitive,of%20un%02certainty%20on%20the%20economy">Inference in Bayesian additive vector autoregressive tree models</a>)。  </p>
+<p><strong>（d）複数アウトカム・混合型アウトカムへの拡張:</strong><br />
+- <strong>セミ連続（混合分布）アウトカム:</strong> 零Inflationや実数連続の混合分布を持つ応答に対し、BARTを共有構造として用いる手法があります。Linero ら (2018) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=approach%20for%20land%20cover%20classification,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は <em>“Semiparametric Mixed-Scale Models Using Shared Bayesian Forests”</em> を発表し、例えば一部がゼロ値をとる連続データ（治療費データ等）に対して、ゼロ発生モデルと連続部分モデルで同じBARTを共有させる枠組みを提案しました。この<strong>共有BART</strong>モデルでは、離散と連続の両部分で共通の回帰木構造を持つため、両者の予測に一貫性が生まれ精度向上に寄与します (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=approach%20for%20land%20cover%20classification,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)。<br />
+- <strong>相関のある多変量アウトカム:</strong> 複数の関連するアウトカムを同時に予測・推定するために、階層的にBARTを組み込むことも可能です。たとえばZhang ら (2007) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Statistics%20and%20its%20Interface%202018%3B,Google%20Scholar">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は空間データを含む2つのデータセットをマージするための空間調整BARTモデルを提案し、異なるデータ源間での一貫した推定を実現しました。また、最近の研究では教育評価データに対して、複数科目の得点に対する介入効果を同時に推定するマルチアウトカム版BCF（後述）が開発されています (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=An%20important%20limitation%20of%20many,Specifically%2C%20we%20attempt">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)。このようにBARTは階層モデルとして拡張することで、アウトカム間の相関も考慮した分析が可能です。  </p>
+<h2 id="3">3. 特定の制約・課題への対応を目的とした拡張</h2>
+<p><strong>（a）単調性制約への対応:</strong><br />
+- <strong>mBART (Multidimensional Monotone BART):</strong> いくつかの予測変数については応答との関係が理論上単調増加/減少と考えられる場合があります。Chipman ら (2016) (<a href="https://arxiv.org/abs/1612.01619#:~:text=matter%20considerations%20sometimes%20warrant%20a,mBART%2C%20the%20introduction%20of%20monotonicity">[1612.01619] mBART: Multidimensional Monotone BART</a>)はそのような<strong>単調性制約</strong>を組み込んだBARTモデル <em>“mBART”</em> を提案しました。指定した変数に対して分割ルールが単調性を保つよう木構造を構築するもので、モンテカルロサンプル生成アルゴリズムも条件付き共役性が崩れるため新たに工夫されています (<a href="https://arxiv.org/abs/1612.01619#:~:text=while%20avoiding%20the%20further%20confines,simulated%20and%20real%20examples%20demonstrate">[1612.01619] mBART: Multidimensional Monotone BART</a>)。mBARTにより、予測関数がより滑らかかつ解釈しやすくなるとともに、外挿時の挙動も現実的になる利点があります (<a href="https://arxiv.org/abs/1612.01619#:~:text=matter%20considerations%20sometimes%20warrant%20a,mBART%2C%20the%20introduction%20of%20monotonicity">[1612.01619] mBART: Multidimensional Monotone BART</a>)。<br />
+- <strong>部分的なスムージング（Targeted smoothing）:</strong> ある特定の連続変数（例：時間や年齢）のみに対して滑らかな効果を持たせ、それ以外の効果は非線形に捉えるような拡張もあります。Starling ら (2018) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Scholar%20scholar.google.com%20%5D%20,parametric">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は<em>“BART with Targeted Smoothing”</em>として、BARTモデル内の一部の効果に平滑化事前を適用する手法を示しました。産科領域の症例（死産リスクの週数依存性解析）で、この手法が局所的な滑らかさとBARTの非線形適合性を両立し、有益な予測と解釈を提供することが示されています (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Scholar%20scholar.google.com%20%5D%20,parametric">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)。  </p>
+<p><strong>（b）誤差構造・分散の拡張:</strong><br />
+- <strong>Heteroscedastic BART (HBART):</strong> 応答の分散が一定でない場合（異質分散性）、BART基本モデルでは予測区間の信頼性が低下します。これを克服するため、平均モデルに加えて分散にも木モデルを乗じて推定する異質分散BARTが考案されました (<a href="https://ar5iv.labs.arxiv.org/html/1709.07542#:~:text=a%20constant%20variance%20error%20model,the%20mean%20and%20the%20variance">[1709.07542] Heteroscedastic BART Via Multiplicative Regression Trees</a>)。例えばPratolaらを含む研究者グループ (2019) は、平均を和の木で、分散を積の木で表現する完全非パラメトリックなHBARTモデルを示しています (<a href="https://ar5iv.labs.arxiv.org/html/1709.07542#:~:text=a%20constant%20variance%20error%20model,can%20provide%20insights%20into%20the">[1709.07542] Heteroscedastic BART Via Multiplicative Regression Trees</a>)。BARTの柔軟性をそのままに分散構造も学習できるため、予測区間の適合度向上やデータ中の「分散に影響を与える因子」の発見にも寄与します (<a href="https://ar5iv.labs.arxiv.org/html/1709.07542#:~:text=nonparametric%20heteroscedastic%20elaboration%20of%20BART,revealing%20new%20diagnostic%20plots%20are">[1709.07542] Heteroscedastic BART Via Multiplicative Regression Trees</a>)。一方、Bleich と Kapelner (2014) (<a href="https://ar5iv.labs.arxiv.org/html/1709.07542#:~:text=and%20is%20dramatically%20more%20hospitable,In%20another">[1709.07542] Heteroscedastic BART Via Multiplicative Regression Trees</a>)は分散に線形モデルを仮定する簡易版を提案しており、計算コストと柔軟性のトレードオフがあります。現在ではHBARTの実装も公開され、応用が進んでいます。  </p>
+<p><strong>（c）欠測値への対応:</strong><br />
+- <strong>BARTによる欠測データ補完:</strong> 共変量に欠測がある場合、Kapelner と Bleich (2015) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,2019%3B%204%3A%20ahead%20of%20print">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)はBARTを用いて欠測を扱う方法を提案しました。<em>“Prediction with missing data via BART”</em> と題した研究では、欠測指示変数を拡張した木の分割ルールに組み込み、欠測自体を情報として利用するアプローチを取っています。これにより、欠測時も一貫した予測が可能となり、医療統計などで有用と報告されています。<br />
+- <strong>Sequential BART imputation:</strong> Xu ら (2016) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=yourself%20methods%20for%20causal%20inference%3A,DOI">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)はBARTを多重代入法に応用し、変数ごとに順次BARTで欠測値を予測して補完する手順を提案しました。Biostatistics誌の論文ではシミュレーションを通じ、この手法が従来の多重代入と比べバイアスを低減することが示されています (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=yourself%20methods%20for%20causal%20inference%3A,DOI">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)。<br />
+- <strong>ロバスト代入モデル:</strong> 欠測補完時の外れ値やモデル誤特定に頑健な手法として、Tan ら (2019) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,2019%3B%204%3A%20ahead%20of%20print">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は <em>“Robust-squared imputation models using BART”</em> を報告しています。これはBARTにより回帰モデルを柔軟化するとともに、二乗項によるロバスト推定を組み合わせたもので、調査データ中の欠測補完において有効性が確認されています。  </p>
+<p><strong>（d）因果推論への特化:</strong><br />
+- <strong>バニラBARTの因果推論への適用:</strong> Hill (2011) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,DOI">
+Bayesian additive regression trees and the General BART model - PMC</a>)はBARTを観察データからの因果効果推定に初めて本格的に適用し、その高い予測能力により処理効果の推定精度が向上することを示しました。具体的には、傾向スコア調整の代替としてBARTを用いることで、介入の平均効果や異質な効果の推定に成功しています (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=contributions%20to%20this%20area%20was,of%20the%20model%20and%20enables">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)。この研究以来、BARTは因果推論における強力な手法として注目されるようになりました。</p>
+<ul>
+<li>
+<p><strong>Bayesian Causal Forest (BCF):</strong> Hahn ら (2020) (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=Regression%20Trees%20,estimated%20directly%20from%20the%20data">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)はHillの手法を発展させ、応答<span class="arithmatex">\(Y\)</span>の生成を<strong>ベースライン効果</strong><span class="arithmatex">\(\mu\)</span>と<strong>処置効果</strong><span class="arithmatex">\(\tau\)</span>に分離して別々にモデリングするBART拡張を提案しました。これを<strong>ベイズ的因果の森 (BCF)</strong>と呼び (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=Regression%20Trees%20,estimated%20directly%20from%20the%20data">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)、<span class="arithmatex">\(\mu\)</span>と<span class="arithmatex">\(\tau\)</span>にそれぞれ専用の弱情報な事前を与えることで、交絡の制御と処置効果のばらつき推定をより安定して行えるようにしています。BCFは個別効果の直接推定が可能で、従来のBARTよりも交絡調整に強く、因果推論分野で非常に人気の高い手法となっています (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=et%20al,estimated%20directly%20from%20the%20data">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)。近年ではBCFの変種として、重要変数に重みを置く事前を導入したもの (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=become%20one%20of%20the%20most,model%20include%20a%20hierarchical%20version">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)や、処置効果がある連続変数に沿って滑らかに変化するよう設計したモデル (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=capabilities%20for%20use%20in%20different,of%20a%20growth%20mindset%20in">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)、階層構造を組み込んだモデル（例：教育介入効果の学級間変動の分析） (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=predictor%20variables%20than%20less%20influential,primary%20focus%20of%20our%20study">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)も提案されており、因果効果推定におけるBARTの応用が拡大しています。</p>
+</li>
+<li>
+<p><strong>サブグループの検出:</strong> 治療効果の異質性の中でも、特定の患者サブグループで有意な効果が現れる場合を検出する試みとして、BARTを利用した手法がいくつかあります。Sivaganesan ら (2017) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=%5BPubMed%5D%20%5BGoogle%20Scholar%5D%20,PMC%20free%20article">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)は<em>“Subgroup finding via BART”</em>において、応答への寄与が類似した観測をBARTによって自動クラスタリングし、効果の大きいサブグループを発見する方法を示しました。またSchnell ら (2016) (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Scholar%20scholar.google.com%20%5D%20,PMC%20free%20article">
+            Bayesian additive regression trees and the General BART model - PMC
+        </a>)はベイズ的な信用区間に基づくサブグループ同定法を提案し、臨床試験データ中の有効対象群の探索にBARTを活用しています。これらの手法により、従来困難だったデータ駆動型のサブグループ解析が可能になっています。  </p>
+</li>
+</ul>
+<h2 id="4">4. 各手法の比較まとめ</h2>
+<p>以上の拡張手法について、主要な特徴や適用タスク、計算コストを表にまとめます。</p>
+<table>
+<thead>
+<tr>
+<th><strong>手法（拡張カテゴリ）</strong></th>
+<th><strong>主な特徴・目的</strong></th>
+<th><strong>適用可能なタスク</strong></th>
+<th><strong>計算コスト</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DART（変数選択）</strong></td>
+<td>ディリクレ事前でスプリット確率にスパース性付与。不要変数を抑制 (<a href="https://arxiv.org/pdf/2112.13998#:~:text=2,of%20which%20the%20event%20probabilities">Variable Selection Using Bayesian Additive Regression Trees</a>)。</td>
+<td>高次元回帰・分類全般</td>
+<td>若干増加（変数重要度の追加サンプリング）</td>
+</tr>
+<tr>
+<td><strong>スパイク&amp;スラブBART（変数選択）</strong></td>
+<td>スパイク・アンド・スラブ事前で不要変数の影響除去。理論的収束保証 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9892284/#:~:text=Sparse%20prediction%20informed%20by%20genetic,useful%20in%20the%20case">Sparse prediction informed by genetic annotations using the logit ...</a>)。</td>
+<td>高次元回帰・変数選択</td>
+<td>増加（階層事前の追加計算）</td>
+</tr>
+<tr>
+<td><strong>Soft BART（平滑化）</strong></td>
+<td>確率的分割により予測関数を平滑化。滑らかな真の関数に適合 (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=Linero%20AR%2C%20Yang%20Y,B%2080%3A1087%E2%80%93110">Bayesian Additive Regression Trees: A Review and Look Forward : Annual Reviews</a>)。</td>
+<td>回帰全般（特に滑らかな効果）</td>
+<td>増加（ソフト分割の計算）</td>
+</tr>
+<tr>
+<td><strong>GP-BART（平滑化・空間）</strong></td>
+<td>リーフ予測にGPを導入し空間的相関を表現。平滑かつ空間データに強い (<a href="https://arxiv.org/abs/2204.02112#:~:text=whereby%20each%20tree%20explains%20a,modeling%20approaches%20in%20various%20scenarios">[2204.02112] GP-BART: a novel Bayesian additive regression trees approach using Gaussian processes</a>)。</td>
+<td>回帰（空間データ、滑らかなトレンド）</td>
+<td>大幅増加（GP計算で<strong>O</strong>(<span class="arithmatex">\(n^3\)</span>)）</td>
+</tr>
+<tr>
+<td><strong>効率MH提案（MCMC改善）</strong></td>
+<td>木構造のMH提案を改良し高速化 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Posterior%20Simulation,of%20Binary%20and%20Polychotomous%20Response">Bayesian additive regression trees and the General BART model - PMC</a>)。混合促進。</td>
+<td>BART全般（大規模データのMCMC）</td>
+<td>減少（同精度で収束が速い）</td>
+</tr>
+<tr>
+<td><strong>Particle Gibbs</strong></td>
+<td>粒子フィルタ併用で木構造を同時サンプル (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=">Bayesian Additive Regression Trees: A Review and Look Forward : Annual Reviews</a>)。高次元でも安定。</td>
+<td>BART全般（高次元・複雑構造）</td>
+<td>増加（粒子数に比例）</td>
+</tr>
+<tr>
+<td><strong>XBART（高速化）</strong></td>
+<td>MCMC不要の逐次木アルゴリズム。高速だがベイズ保証も部分的に維持 (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=26">Bayesian Additive Regression Trees: A Review and Look Forward : Annual Reviews</a>)。</td>
+<td>BART全般（大規模データ、高速予測）</td>
+<td>大幅減少（並列化でほぼGBM並み）</td>
+</tr>
+<tr>
+<td><strong>分類BART（二項）</strong></td>
+<td>プロビットデータ拡張で二項応答に対処 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=Trees,422%29%3A%20669%E2%80%93679">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>2値分類（医学診断、信用リスクなど）</td>
+<td>やや増加（データ拡張ステップ）</td>
+</tr>
+<tr>
+<td><strong>多クラスBART</strong></td>
+<td>潜在ガウスモデルで多クラス分類 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,new%20Bayesian%20ensemble%20of%20trees">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>多クラス分類（画像認識、リスク区分）</td>
+<td>増加（クラス数に比例）</td>
+</tr>
+<tr>
+<td><strong>ロジ線形BART</strong></td>
+<td>対数リンクでポアソン・二項に対応 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=trees,Google%20Scholar">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>カウント予測（発生率予測、事故数など）</td>
+<td>増加（補助変数サンプリング）</td>
+</tr>
+<tr>
+<td><strong>分位点BART</strong></td>
+<td>分位点損失で学習し外れ値に頑健 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=%5BGoogle%20Scholar%5D%20,Google%20Scholar">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>分位点回帰（リスク値、分布予測）</td>
+<td>増加（損失関数変更による）</td>
+</tr>
+<tr>
+<td><strong>生存BART</strong></td>
+<td>離散時間生存モデルに拡張。非線形ハザード推定 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,Google%20Scholar">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>生存時間解析（医療、生物統計）</td>
+<td>増加（時点ごとの計算）</td>
+</tr>
+<tr>
+<td><strong>競合リスクBART</strong></td>
+<td>複数イベント（死因など）の発生を同時にモデル化 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=%5BPubMed%5D%20%5BGoogle%20Scholar%5D%20,175%20Google">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>競合リスク解析（疫学など）</td>
+<td>増加</td>
+</tr>
+<tr>
+<td><strong>BAVART（時系列）</strong></td>
+<td>VARにBARTを組込み非線形時系列に対応。予測精度向上。</td>
+<td>マクロ経済予測、金融時系列</td>
+<td>増加（MCMC長大化）</td>
+</tr>
+<tr>
+<td><strong>共有BART</strong></td>
+<td>離散・連続の混合応答で木構造を共有 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=approach%20for%20land%20cover%20classification,Google%20Scholar">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>セミ連続データ（費用データ等）</td>
+<td>増加（複数尤度の同時計算）</td>
+</tr>
+<tr>
+<td><strong>mBART（単調制約）</strong></td>
+<td>特定変数での単調性を保証 (<a href="https://arxiv.org/abs/1612.01619#:~:text=matter%20considerations%20sometimes%20warrant%20a,mBART%2C%20the%20introduction%20of%20monotonicity">[1612.01619] mBART: Multidimensional Monotone BART</a>)。予測関数が解釈しやすい。</td>
+<td>単調関係が既知の回帰（薬剤量と効果など）</td>
+<td>増加（非共役化で収束遅延）</td>
+</tr>
+<tr>
+<td><strong>HBART（異質分散）</strong></td>
+<td>分散を木モデルで推定 (<a href="https://ar5iv.labs.arxiv.org/html/1709.07542#:~:text=a%20constant%20variance%20error%20model,can%20provide%20insights%20into%20the">[1709.07542] Heteroscedastic BART Via Multiplicative Regression Trees</a>)。予測区間の精度向上。</td>
+<td>異質分散データ（金融ボラティリティ等）</td>
+<td>増加（平均・分散二重モデル）</td>
+</tr>
+<tr>
+<td><strong>欠測補完BART</strong></td>
+<td>欠測指示を組込み欠測時も予測 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,2019%3B%204%3A%20ahead%20of%20print">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>欠測のある回帰・分類データ</td>
+<td>増加（欠測処理の組込み）</td>
+</tr>
+<tr>
+<td><strong>順次BART代入</strong></td>
+<td>変数ごとに逐次BARTで多重代入 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=yourself%20methods%20for%20causal%20inference%3A,DOI">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>欠測データの多重代入全般</td>
+<td>増加（変数数に比例）</td>
+</tr>
+<tr>
+<td><strong>因果推論BART</strong></td>
+<td>BARTで交絡調整し処置効果推定 (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=contributions%20to%20this%20area%20was,of%20the%20model%20and%20enables">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment</a>)。</td>
+<td>観察研究の因果効果推定</td>
+<td>増加（推定対象が複雑）</td>
+</tr>
+<tr>
+<td><strong>BCF（因果の森）</strong></td>
+<td><span class="arithmatex">\(\mu\)</span>と<span class="arithmatex">\(\tau\)</span>を分離モデリング (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=Regression%20Trees%20,estimated%20directly%20from%20the%20data">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment</a>)。異質効果に強い。</td>
+<td>因果効果推定（個別効果の推定）</td>
+<td>増加（モデル複雑化）</td>
+</tr>
+<tr>
+<td><strong>サブグループBART</strong></td>
+<td>BARTで効果の大きい群を発見 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=%5BPubMed%5D%20%5BGoogle%20Scholar%5D%20,PMC%20free%20article">Bayesian additive regression trees and the General BART model - PMC</a>)。</td>
+<td>個別化医療、顧客セグメント分析</td>
+<td>増加（多数比較の補正必要）</td>
+</tr>
+</tbody>
+</table>
+<p>※表中の計算コストは概略的な比較であり、実際の所要時間は実装やデータサイズによります。</p>
+<h2 id="5-5">5. 最新の研究動向（過去5年間）</h2>
+<p>過去5年ほどの間に、BARTの研究はさらなる柔軟性と応用範囲の拡大に焦点が当てられています。まず<strong>一般化BART</strong>の分野では、Linero (2022)が<em>“Generalized BART models: Beyond conditional conjugacy”</em>を提唱し (<a href="https://cran.r-project.org/web/packages/SoftBart/vignettes/SoftBart-Vig.pdf#:~:text=Trees%20cran.r,09924">[PDF] CRAN - SoftBart: Soft Bayesian Additive Regression Trees</a>)、生存時間、異質分散、カウントデータなど条件付き共役性の枠に収まらない状況へBARTを適用する統一的フレームワークを示しました。この動向により、従来個別に開発されていた生存BARTやロジ線形BARTなどが理論的に整理され、任意の確率的応答変数にBARTを拡張する基盤が整いつつあります。</p>
+<p>また、<strong>平滑性と構造の組み込み</strong>もトレンドの一つです。2020年代に入りLinero氏らによるSoft BART (<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-031219-041110#:~:text=Linero%20AR%2C%20Yang%20Y,B%2080%3A1087%E2%80%93110">Bayesian Additive Regression Trees: A Review and Look Forward | Annual Reviews</a>)やGP-BART (<a href="https://arxiv.org/abs/2204.02112#:~:text=whereby%20each%20tree%20explains%20a,modeling%20approaches%20in%20various%20scenarios">[2204.02112] GP-BART: a novel Bayesian additive regression trees approach using Gaussian processes</a>)のように、「木」による区分的定数モデルを滑らかに改善するアプローチが登場しました。これらは深層学習に対抗する性能を視野に、勾配に基づく最適化やガウス過程とのハイブリッドでBARTを洗練させています。さらに2024年にはDeshpandeらによる<strong>斜め分割BART (Oblique BART)</strong>が報告され、線形結合によるハイパープレーンで特徴空間を分割することで、従来の軸平行分割よりも表現力を高めることに成功しています (<a href="https://arxiv.org/abs/2411.08849#:~:text=are%20based%20on%20axis,sometimes%20much%20better%20than">[2411.08849] Oblique Bayesian additive regression trees</a>)。これは勾配ブースティングの世界で知られるoblique treeをベイズ文脈に取り入れたもので、いくつかのデータセットで予測精度の向上が確認されています (<a href="https://arxiv.org/abs/2411.08849#:~:text=exhibit%20excellent%20theoretical%20properties,those%20methods">[2411.08849] Oblique Bayesian additive regression trees</a>)。</p>
+<p><strong>因果推論分野</strong>では、BART系モデルが標準的手法の一つとして定着しつつあり、特にBCFはその後様々な拡張が施されています (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=become%20one%20of%20the%20most,of%20a%20growth%20mindset%20in">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)。近年の研究例として、BCFにスパース事前を組み込んで交絡変数と効果修飾変数を区別しやすくしたモデル (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=capabilities%20for%20use%20in%20different,model%20include%20a%20hierarchical%20version">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)や、時間や距離といった連続軸に沿って処置効果が変化するような構造を持たせたモデルが提案されています。また、複数アウトカムに対する因果効果推定へのBART適用や、階層的データ（例: 学校内生徒データ）のための階層ベイズBARTも試みられています (<a href="https://academic.oup.com/jrsssa/advance-article/doi/10.1093/jrsssa/qnae049/7681717#:~:text=predictor%20variables%20than%20less%20influential,primary%20focus%20of%20our%20study">Bayesian causal forests for multivariate outcomes: application to Irish data from an international large scale education assessment | Journal of the Royal Statistical Society Series A: Statistics in Society | Oxford Academic</a>)。これらの発展は、政策効果の評価や医療介入の効能検証といった実社会の問題において、BARTを用いた柔軟な因果解析を可能にしています。</p>
+<p><strong>計算環境とソフトウェアの進展</strong>も重要です。R言語のパッケージ「<strong>dbarts</strong>」や「<strong>BART</strong>」に加え、近年はPythonの「<strong>PyMC-BART</strong>」やStanと連携した「<strong>stan4bart</strong>」 (<a href="https://www.mdpi.com/1099-4300/24/12/1782#:~:text=Stan%20and%20BART%20for%20Causal,for%20fitting%20nonlinear%20response">Stan and BART for Causal Inference: Estimating Heterogeneous ...</a>)など、BARTを手軽に利用できるツールが整備されています。特にstan4bartはHMC（ハミルトニアンモンテカルロ）によるサンプリングとBARTを組み合わせ、半パラメトリックBARTのパラメータ推定を安定化する試みであり、計算の重いBARTモデルにも高速かつ収束の良い推論をもたらす可能性があります (<a href="https://www.mdpi.com/1099-4300/24/12/1782#:~:text=Stan%20and%20BART%20for%20Causal,for%20fitting%20nonlinear%20response">Stan and BART for Causal Inference: Estimating Heterogeneous ...</a>)。また、GPU並列計算によるBARTの高速化や、大規模データに対する分割統治法的アプローチも研究が進んでいます。</p>
+<p>総じて、BARTの拡張研究は「<strong>より多様なデータタイプや問題設定に対応しつつ、計算効率と理論的保証を両立させる</strong>」方向に発展しています。最新の動向としては、柔軟性を維持したままモデル構造を洗練する（平滑化や斜め分割）、高次元への適応や計算効率化（スパース事前や高速アルゴリズム）、そして因果推論など特定タスクへの特化が挙げられます。それに伴い、理論面でもBARTのPosterior濃度や収束性に関する研究 (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6800811/#:~:text=,Google%20Scholar">Bayesian additive regression trees and the General BART model - PMC</a>)が進み、実用面でも各種パッケージの整備によって統計・機械学習コミュニティでBARTが一層使いやすくなっています。これらの動向は今後も続くと見込まれ、BARTは統計的予測モデルのプラットフォームとしてさらなる発展を遂げていくでしょう。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

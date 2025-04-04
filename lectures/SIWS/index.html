@@ -26,7 +26,7 @@
     
     
       
-        <title>Index - Statistical Learning Laboratory</title>
+        <title>数理情報リテラシー - Statistical Learning Laboratory</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#commands" class="md-skip">
+        <a href="#_1" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Index
+              数理情報リテラシー
             
           </span>
         </div>
@@ -2460,6 +2460,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2468,11 +2470,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
-      Commands
+      Introduction
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      この授業を通して学んで欲しいこと
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      データサイエンスパイプライン
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      授業の評価
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2491,24 +2526,61 @@
                   
 
 
-  <h1>Index</h1>
-
-<h2 id="commands">Commands</h2>
+<h1 id="_1">数理情報リテラシー</h1>
+<h2 id="introduction">Introduction</h2>
+<p>この授業は、<a href="https://moderndive.com/v2/">Statistical Inference via Data Science: A ModernDive into R and the Tidyverse</a> (Chester Ismay, Albert Y. Kim, and Arturo Valdivia, 2025) にインスピレーション受けて、Python と Google Colaboratory を用いた講義として再開発したものです。この授業は、線形代数、微積分、プログラミング/コーディングの経験を前提とせず、とにかく手を動かしながらデータサイエンスで行われる1つ1つの事柄について理解を深めていきます。以下の図が、この授業の大まかな流れです。</p>
+<p><img alt="ModernDive フローチャート" src="https://raw.githubusercontent.com/moderndive/ModernDive_book/master/images/flowcharts/flowchart/flowchart.002.png" /></p>
+<p>まず、第2回でデータの基礎から始め、PythonとGoogle Colabの違いを学び、コーディングを開始し、最初のPythonライブラリをインストールして読み込み、2023年のニューヨーク市空港からの国内出発便データを探索します。その後、本書の以下の3つの部分に進みます：</p>
+<ol>
+<li><strong>Pandasとデータサイエンス</strong>：Pandasなどのデータサイエンスライブラリを使ってツールボックスを構築します。特に：</li>
+<li>第3回：Matplotlib/Seabornを使ったデータの可視化</li>
+<li>第4回：Pandasを使ったデータの整形</li>
+<li>
+<p>第5回：「整形された」データの概念と標準化されたデータ入出力形式の学習</p>
+</li>
+<li>
+<p><strong>統計/データモデリング</strong>：データサイエンスツールとStatsmodelsを使って、最初のデータモデルを作成します。特に：</p>
+</li>
+<li>第6回：1つの説明変数だけを持つ基本的な回帰モデルの探索</li>
+<li>
+<p>第7回：複数の説明変数を持つ重回帰モデルの検討</p>
+</li>
+<li>
+<p><strong>統計的推論</strong>：データサイエンスツールを用いて、統計的推論を理解します。</p>
+</li>
+<li>第8回：サンプリングと推定量のばらつき</li>
+<li>第9-10回：ブートストラップ法を用いた信頼区間の構築</li>
+<li>第10-11回：ブートストラップ法による仮説検定</li>
+<li>第12-13回：回帰分析における信頼区間と仮説検定の解釈</li>
+</ol>
+<p>最後に、第14回では「<a href="https://www.thinkwithgoogle.com/marketing-resources/data-measurement/tell-meaningful-stories-with-data/">データで意味のあるストーリーを語る</a>」とはどういう意味かを事例研究を通して説明します。</p>
+<h3 id="_2">この授業を通して学んで欲しいこと</h3>
+<p>本書の終わりまでに、以下のことを学ぶことを目標にします</p>
+<ol>
+<li>データサイエンスのためのPandasなどの<em>ライブラリ</em>を使う</li>
+<li><em>線形回帰</em>として知られる方法を用いて、データに<em>モデル</em>を当てはめる</li>
+<li><em>サンプリング</em>、<em>信頼区間</em>、<em>仮説検定</em>を用いた<em>統計的推論</em>を行う</li>
+<li>これらのツールを使って<em>データでストーリーを語る</em></li>
+</ol>
+<p>特にこの授業は、データの可視化に重点をおきました。また、統計学的な理解を数学の公式の使用を最小限にして伝えるように努力をしていますが、どうしても一部は数式が用いられています。ただし、多くの概念については、データの可視化とコンピュータシミュレーションを用いて理解できるように工夫しています。</p>
+<p>また、この本ではPython + Google Colabを用いているため、コードの書き方が分からず困ることもあるでしょう。その場合は、ChatGPT や Claude、または Gemini (Google AI Studio)等を用いて問題を解決することができます。ぜひ、分からないところは「<strong>まずは生成AIに尋ねる</strong>」という姿勢を持って、AIと一緒に学習してください。</p>
+<h3 id="_3">データサイエンスパイプライン</h3>
+<p>統計とは数字の集まりではありませんし、データ分析は野球の打率などの事象を把握するための数字を提供するにとどまらず、すべての科学的な営みにおいて重要な役割を果たします。例えば、この学部でデータ分析に携われば、「統計的に有意」とか「p &lt; 0.05」のような数字、「データ分析から、チョコレートが体に良いことが示された」といった話題を目にすることになります。みなさんはデータサイエンス学部で学ぶ意味は、目の前にある主張が信頼できるものかどうか、あるいは信頼には値しないものかということについて、理由をもって説明できるようになることです。例えば、データ分析の中には、様々な要素技術があり、これらが一体となってデータ分析を支えています。</p>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li>データ収集</li>
+<li>データ整形</li>
+<li>データ可視化</li>
+<li>統計モデリング</li>
+<li>推論</li>
+<li>相関と回帰</li>
+<li>結果の解釈</li>
+<li>データコミュニケーション/ストーリーテリング</li>
 </ul>
-<div class="arithmatex">\[
-f(x) = \int_{-\infty}^\infty
-    \hat f(\xi)\,e^{2 \pi i \xi x}
-    \,d\xi
-\]</div>
-<p>inline tex codes <span class="arithmatex">\(E=mc^2\)</span>.</p>
-<div class="arithmatex">\[
-\cos x=\sum_{k=0}^{\infty}\frac{(-1)^k}{(2k)!}x^{2k}
-\]</div>
+<p>これらの要素技術は、Garrett GrolemundとHadley Wickhamが以前「データサイエンスパイプライン」と呼ぶフローにまとめらています。</p>
+<p><img alt="データ/サイエンスパイプライン" src="https://raw.githubusercontent.com/moderndive/ModernDive_book/master/images/r4ds/data_science_pipeline.png" /></p>
+<p>まずは、サイクルのグレーの<strong>理解</strong>部分をデータ可視化から深め、次に整形されたデータとデータ整形について議論し、最後にモデルの結果を解釈し議論する<strong>コミュニケーション</strong>について話します。これらのステップはあらゆる統計分析に不可欠です。</p>
+<h3 id="_4">授業の評価</h3>
+<p>この授業の評価は、授業終了後のレポート課題（100％）によって行います。授業の内容を十分に理解して、レポート課題に取り組むようにしてください。</p>
 
 
 
