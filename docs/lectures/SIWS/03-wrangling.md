@@ -1,592 +1,641 @@
-# Python による データ整形（Data Wrangling）
+# データラングリング
 
-## はじめに
+これまでの旅では、第1章で`glimpse()`や`View()`関数を使ってデータフレームを調べる方法と、第2章で`ggplot2`パッケージを使ったデータ可視化の方法について学びました。特に「5つの基本グラフ」を勉強しました：
 
-本章では、データサイエンスにおいて最も重要な前処理・変換作業である **データ整形（データ・ワリングリング）** の基本的な操作方法を学びます。  
-具体的には、以下の内容を取り扱います。
+1. 散布図（`geom_point()`）
+2. 折れ線グラフ（`geom_line()`）
+3. 箱ひげ図（`geom_boxplot()`）
+4. ヒストグラム（`geom_histogram()`）
+5. 棒グラフ（`geom_bar()`または`geom_col()`）
 
-- **データの読み込みと確認**  
-  実データ（Students Performance in Exams）を読み込み、データの内容や構造を把握する方法。
+これらの可視化はグラフィックス文法を使って作成しました。データフレーム内の変数を5つの幾何学的オブジェクトのいずれかの審美的属性にマッピングします。Gapminderデータの例（第2章の図）のように、サイズや色などの幾何学的オブジェクトの他の審美的属性も制御できます。
 
-- **行のフィルタリングと列の選択**  
-  必要なデータのみを抽出するための条件指定や、解析に必要な列だけを取り出す方法。
+本章では、pandasライブラリのデータラングリング関数を紹介します。これらの関数を使えば、データフレームを変換して目的に合わせることができます。主な関数は：
 
-- **新しい変数の作成**  
-  既存の変数から新たな指標（例：総得点、平均点）を計算し、データに追加する方法。
+1. 条件に合う行を選択する
+2. 列を要約統計量で集計する
+3. 行をグループ化する。グループ化と集計を組み合わせると、グループごとに別々の要約統計量を計算できる
+4. 既存の列から新しい列を作成する
+5. 行を並べ替える
+6. 「キー」変数に基づいて別のデータフレームと結合する
 
-- **データの並べ替え**  
-  特定の基準（例：平均点の降順）に基づいてデータをソートする方法。
+この章では、これらの操作をPythonのpandasライブラリで行う方法を学びます。
 
-- **グループ化と集約**  
-  カテゴリごとにデータをまとめ、平均値などの統計量を算出する方法。
+pandasを学ぶもう一つの利点は、データベース照会言語の[SQL](https://en.wikipedia.org/wiki/SQL)との類似性です。SQLは大規模なデータベースを迅速かつ効率的に管理するために使用され、多くのデータを持つ組織で広く使われています。pandasを学ぶとSQLも簡単に習得できるでしょう。
 
-- **データの結合と再構築（ピボット操作）**  
-  複数のデータセットを結合したり、データの形式を変換（ワイド形式⇄ロング形式）する方法。
+### 必要なライブラリ
 
-- **データの可視化**  
-  データの傾向や分布を視覚的に把握するためのグラフ作成手法。
-
-これらの操作は、データのクレンジング、特徴量エンジニアリング、分析の前処理など、実際のデータサイエンスプロジェクトにおいて不可欠なステップです。  
-正確なデータ整形は、後続のモデル構築や分析の精度向上に直結するため、本章で学ぶ内容は非常に重要です。
-
----
-
-## 1. 必要なライブラリのインポート
-
-まず、数値計算、データ操作、グラフ描画のために必要なライブラリをインポートします。
-
-### 説明
-- **numpy**: 数値計算ライブラリ（今回は補助的に利用）。
-- **pandas**: データ操作や解析のためのライブラリで、DataFrame を用いて表形式データを扱います。
-- **matplotlib** と **seaborn**: データの可視化ライブラリです。`seaborn` は `matplotlib` をベースにしており、見やすいグラフを簡単に作成できます。
+まずは、この章に必要なライブラリをインポートしましょう。
 
 ```python
+import pandas as pd
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
-# グラフのスタイル設定（見た目を整えるためのオプション）
-sns.set(style="whitegrid")
+# プロットの設定
+plt.style.use('seaborn-v0_8-whitegrid')
+sns.set_theme(style="whitegrid")
 ```
 
----
-
-## 2. 実データの読み込みと確認
-
-今回は、Kaggle などで公開されている「Students Performance in Exams」データセットを使用します。  
-データには、以下のような列が含まれています：  
-- `gender`  
-- `race/ethnicity`  
-- `parental level of education`  
-- `lunch`  
-- `test preparation course`  
-- `math score`  
-- `reading score`  
-- `writing score`
-
-データは、GitHub 上に公開されている CSV ファイルから読み込みます。
+また、この章で使用するnycflights13データセットをダウンロードします。
 
 ```python
-# データセットの URL（※実際の利用時はデータの出所・ライセンスに注意してください）
-data_url = "https://raw.githubusercontent.com/selva86/datasets/master/StudentsPerformance.csv"
+# NYCフライトデータの読み込み
+flights_url = "https://raw.githubusercontent.com/ismayc/pnwflights14/master/data/flights.csv"
+flights = pd.read_csv(flights_url)
 
-# CSV ファイルからデータを読み込む
-df = pd.read_csv(data_url)
+# airlinesデータの読み込み
+airlines_url = "https://raw.githubusercontent.com/ismayc/pnwflights14/master/data/airlines.csv"
+airlines = pd.read_csv(airlines_url)
 
-# データの先頭部分を確認
-print("=== オリジナルデータ ===")
-print(df.head())
+# airportsデータの読み込み
+airports_url = "https://raw.githubusercontent.com/ismayc/pnwflights14/master/data/airports.csv"
+airports = pd.read_csv(airports_url)
+
+# weatherデータの読み込み
+weather_url = "https://raw.githubusercontent.com/ismayc/pnwflights14/master/data/weather.csv"
+weather = pd.read_csv(weather_url)
+
+# planesデータの読み込み
+planes_url = "https://raw.githubusercontent.com/ismayc/pnwflights14/master/data/planes.csv"
+planes = pd.read_csv(planes_url)
+
+# データの確認
+flights.head()
 ```
 
----
+## メソッドチェーン
 
-## 3. データのフィルタリング
+Rの`dplyr`パッケージで使われるパイプ演算子（`%>%`）に相当するのが、Pythonのpandasにおけるメソッドチェーンです。メソッドチェーンを使うと、複数の操作を連続した1つのシーケンスとして組み合わせることができます。
 
-特定の条件に合致する行のみを抽出する操作です。  
-ここでは例として、「数学のスコアが 70 点以上」の生徒のみを抽出します。  
-pandas では、ブールインデックスを用いて条件を指定します。
+仮想的な例を考えてみましょう。データフレーム`x`に対して、関数`f()`、`g()`、そして`h()`という3つの操作を順番に実行したいとします：
+
+1. `x`を取り、次に
+2. `x`を入力として関数`f()`を適用し、次に
+3. `f(x)`の出力を入力として関数`g()`を適用し、次に
+4. `g(f(x))`の出力を入力として関数`h()`を適用する
+
+Rでこれを実現する1つの方法はネストされた括弧を使うことです：`h(g(f(x)))`
+
+pandasでは、メソッドチェーンを使って同じことができます：
 
 ```python
-# 数学のスコアが70以上の生徒のみ抽出
-df_filtered = df[df['math score'] >= 70]
-print("\n=== 数学のスコアが70以上のデータ ===")
-print(df_filtered.head())
+# 仮想的な例
+# x.f().g().h()
 ```
 
----
+これは以下のように読むことができます：
 
-## 4. 必要な列の選択
+1. `x`を取り、次に
+2. この出力を入力として次の関数`f()`に渡し、次に
+3. この出力を入力として次の関数`g()`に渡し、次に
+4. この出力を入力として次の関数`h()`に渡す
 
-解析に必要な列だけを抽出します。  
-ここでは、`gender`、`math score`、`reading score`、`writing score` の4列のみを選択します。
+この章のデータラングリングを通じて：
+
+1. 初期値`x`はデータフレームです。例えば、第1章で探索した`flights`データフレームです。
+2. 関数のシーケンス（ここでは`f()`、`g()`、`h()`）は、主に本章の冒頭で紹介した6つのデータラングリング操作のいずれかです。
+3. 結果は変換/修正されたデータフレームになります。
+
+例えば、Alaskaの航空会社のフライトだけを抽出するには：
 
 ```python
-# 必要な列だけを抽出
-df_selected = df[['gender', 'math score', 'reading score', 'writing score']]
-print("\n=== 選択した列 (gender, math score, reading score, writing score) ===")
-print(df_selected.head())
+alaska_flights = flights[flights['carrier'] == 'AS']
 ```
 
----
+メソッドチェーンを使うと、複数の操作を一連の操作として結合できます。これにより、コードの可読性が向上します。
 
-## 5. 新しい変数の作成（mutate に相当）
+## 行のフィルタリング
 
-R の `mutate()` と同様に、新たな列を追加して計算結果を保存します。  
-ここでは、各生徒の総得点 (`total_score`) と平均点 (`mean_score`) を計算して追加します。
+![フィルタリング操作の図](https://d33wubrfki0l68.cloudfront.net/8787a2a48275a9e5a8d21fbc8e77c0f391bdfdac/fef13/images/cheatsheets/filter.png)
+
+pandasのフィルタリング機能は、Microsoft Excelの「フィルター」オプションに似ています。データセット内の変数の値に関する条件を指定し、その条件に一致する行だけをフィルタリングできます。
+
+まず、ニューヨーク市からポートランド、オレゴン州（空港コード「PDX」）への便だけに焦点を当ててみましょう：
 
 ```python
-# 新しい列の作成：総得点と平均点を追加
-df = df.assign(
-    total_score = df['math score'] + df['reading score'] + df['writing score'],
-    mean_score = df[['math score', 'reading score', 'writing score']].mean(axis=1)
-)
-print("\n=== 新しい変数 (total_score, mean_score) を追加したデータ ===")
-print(df.head())
+portland_flights = flights[flights['dest'] == 'PDX']
+portland_flights.head()
 ```
 
-### 詳細説明
-- `df.assign(...)` は、元の DataFrame に対して新しい列を追加し、結果の DataFrame を返します。  
-- `mean(axis=1)` は、各行（axis=1）ごとに平均を計算する指定です。
+コードの順序に注目してください。`flights`データフレームを取り、その後`dest`が「PDX」と等しい行だけをフィルタリングしています。等値テストには`==`演算子を使います。
 
----
+他の演算子も使用できます：
 
-## 6. 行の並べ替え（arrange に相当）
+- `>` は「より大きい」
+- `<` は「より小さい」
+- `>=` は「以上」
+- `<=` は「以下」
+- `!=` は「等しくない」
 
-データを特定の列に基づいて並べ替えます。  
-ここでは、`mean_score`（平均点）の降順に並べ替えを行います。
+さらに、比較演算子を使用して複数の条件を組み合わせることができます：
+
+- `|` は「または」
+- `&` は「かつ」
+
+これらの多くを試してみましょう。JFKから出発し、バーリントン（「BTV」）またはシアトル（「SEA」）に向かう、10月、11月、12月に出発した便をフィルタリングします：
 
 ```python
-# 平均点の降順で並べ替え
-df_sorted = df.sort_values(by='mean_score', ascending=False)
-print("\n=== 平均点で降順ソートしたデータ ===")
-print(df_sorted.head())
+btv_sea_flights_fall = flights[
+    (flights['origin'] == 'JFK') & 
+    ((flights['dest'] == 'BTV') | (flights['dest'] == 'SEA')) & 
+    (flights['month'] >= 10)
+]
+btv_sea_flights_fall.head()
 ```
 
----
+括弧の慎重な使用に注目してください。
 
-## 7. グループ化と要約（group_by & summarise に相当）
-
-### (a) 性別ごとの数学の平均スコア
-
-性別ごとにグループ化し、各グループ内の「math score」の平均を算出します。
+バーリントン、VTまたはシアトル、WAに向かわない便を選択するために「not」演算子（`~`）を使用することもできます：
 
 ```python
-# 性別ごとの数学の平均スコア
-mean_math_by_gender = df.groupby('gender')['math score'].mean().reset_index()
-print("\n=== 性別ごとの数学の平均スコア ===")
-print(mean_math_by_gender)
+not_BTV_SEA = flights[~((flights['dest'] == 'BTV') | (flights['dest'] == 'SEA'))]
+not_BTV_SEA.head()
 ```
 
-### (b) テスト準備コース別に数学、読解、作文の平均スコアを集計
-
-生徒がテスト準備コースを受講したかどうかで、各科目の平均スコアを集計します。
+多数の空港をフィルタリングしたい場合（例：「SEA」、「SFO」、「PDX」、「BTV」、「BDL」）、`isin()`メソッドを使用すると便利です：
 
 ```python
-# テスト準備コースごとに数学、読解、作文の平均スコアを集計
-mean_scores_by_prep = df.groupby('test preparation course').agg({
-    'math score': 'mean',
-    'reading score': 'mean',
-    'writing score': 'mean'
-}).reset_index()
-print("\n=== テスト準備コースごとの各科目の平均スコア ===")
-print(mean_scores_by_prep)
+many_airports = flights[flights['dest'].isin(['SEA', 'SFO', 'PDX', 'BTV', 'BDL'])]
+many_airports.head()
 ```
 
-### 詳細説明
-- `groupby()` により、指定した列（ここでは `gender` や `test preparation course`）でデータをグループ化します。  
-- `agg()` を使用して、各グループに対して複数の集約関数（例：`mean`）を適用できます。  
-- `reset_index()` により、グループ化後のインデックスを通常の列に戻します。
+このコードは、`dest`が空港リスト「SEA」、「SFO」、「PDX」、「BTV」、「BDL」にある便をフィルタリングします。`isin()`メソッドは、ある変数の値がリスト内の値と一致するかどうかを確認するのに便利です。
 
----
+フィルタリングは、最初に適用すべきデータ操作の一つです。これにより、関心のある行だけを含むようにデータセットをクリーンアップできます。
 
-## 8. データの結合（Join）
+**学習チェック：**
 
-複数の DataFrame を共通のキーで結合する操作です。  
-ここでは、元のデータに「親の学歴」を数値化した情報を付加する例を示します。
+「not」演算子（`~`）を使用して、バーリントン、VTもシアトル、WAにも向かわない行だけをフィルタリングする別の方法は何ですか？前のコードを使用してこれをテストしてみましょう。
 
-### (a) 追加情報の DataFrame 作成
+## 変数の要約
 
-親の学歴は文字列ですが、ここでは便宜上、各レベルに数値の「ランク」を割り当てた DataFrame を作成します。  
-例として、以下のランク付けを行います：
-- `some high school`: 1  
-- `high school`: 2  
-- `some college`: 3  
-- `associate's degree`: 4  
-- `bachelor's degree`: 5  
-- `master's degree`: 6  
+次によく行われるデータフレームの操作は、要約統計量の計算です。要約統計量は、多くの値を要約する単一の数値です。よく知られている例としては、平均（算術平均とも呼ばれる）や中央値（中間値）などがあります。その他の要約統計量の例としては、合計、最小値、最大値、標準偏差などがあります。
 
-※実際のデータでは、値の種類や表記が異なる場合があるため、適宜調整してください。
+weatherデータフレーム内の温度変数の2つの要約統計量（平均と標準偏差）を計算してみましょう：
+
+![要約関数の図](https://d33wubrfki0l68.cloudfront.net/c5ffd65be2c76de9a9836feee8656712c2696384/c5c95/images/cheatsheets/summary.png)
+
+これらの要約統計量を計算するには、pandasの`mean()`と`std()`メソッドを使用します：
 
 ```python
-# 親の学歴とそのランクのマッピング情報
-parent_ed_levels = pd.DataFrame({
-    'parental level of education': [
-        'some high school', 'high school', 'some college', 
-        "associate's degree", "bachelor's degree", "master's degree"
-    ],
-    'edu_rank': [1, 2, 3, 4, 5, 6]
+summary_temp = pd.DataFrame({
+    'mean': [weather['temp'].mean()],
+    'std_dev': [weather['temp'].std()]
 })
-
-# 作成したマッピング情報を、元のデータと「親の学歴」をキーに左結合（left join）
-df_joined = pd.merge(df, parent_ed_levels, on='parental level of education', how='left')
-print("\n=== 親の学歴のランク情報を結合したデータ ===")
-print(df_joined[['parental level of education', 'edu_rank']].drop_duplicates())
+summary_temp
 ```
 
-### 詳細説明
-- `pd.merge()` は、2 つの DataFrame を共通のキー（ここでは `parental level of education`）で結合するための関数です。  
-- `how='left'` とすることで、左側（元のデータ）の全行を保持し、右側の DataFrame から対応する情報を追加します。
-
----
-
-## 9. データの再構築（ピボット操作：wide ⇄ long）
-
-### (a) ワイド形式からロング形式への変換
-
-3 科目（数学、読解、作文）のスコアが個別の列として存在するデータを、  
-`pd.melt()` を用いて「subject」と「score」の 2 列からなるロング形式に変換します。
+欠損値（NA）がある場合、デフォルトでは要約統計量を計算すると`NaN`が返されます。これを回避するには、`dropna=True`引数を設定します：
 
 ```python
-# 数学、読解、作文のスコアをロング形式に変換
-df_long = pd.melt(df,
-                  id_vars=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
-                  value_vars=['math score', 'reading score', 'writing score'],
-                  var_name='subject',
-                  value_name='score')
-print("\n=== ロング形式のデータ ===")
-print(df_long.head())
-```
-
-### (b) ロング形式からワイド形式への再変換
-
-先ほどのロング形式のデータを、`pivot_table()` を用いて元のワイド形式に戻します。
-
-```python
-# ロング形式からワイド形式に変換
-df_wide = df_long.pivot_table(index=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
-                              columns='subject',
-                              values='score').reset_index()
-print("\n=== ワイド形式に戻したデータ ===")
-print(df_wide.head())
-```
-
-### 詳細説明
-- `pd.melt()` は、複数の列を 1 つの「値」列にまとめ、対応する「変数名」を示す列を作成します。  
-- `pivot_table()` を用いると、指定したインデックスと列名を元にデータを再構築し、ワイド形式に戻すことができます。
-
----
-
-## 10. データの可視化
-
-ここでは、整形したデータを基に可視化を行い、データの傾向や分布を把握します。
-
-### (a) 散布図：数学スコアと読解スコアの関係
-
-性別ごとに色分けして、数学スコアと読解スコアの関係を散布図で表示します。
-
-```python
-plt.figure(figsize=(8, 6))
-sns.scatterplot(data=df, x='math score', y='reading score', hue='gender', s=100)
-plt.title('数学スコアと読解スコアの関係')
-plt.xlabel('数学スコア')
-plt.ylabel('読解スコア')
-plt.show()
-```
-
-### (b) ボックスプロット：性別ごとの数学スコアの分布
-
-各性別における数学スコアの分布（中央値、四分位範囲、外れ値など）をボックスプロットで可視化します。
-
-```python
-plt.figure(figsize=(8, 6))
-sns.boxplot(data=df, x='gender', y='math score')
-plt.title('性別ごとの数学スコアの分布')
-plt.xlabel('性別')
-plt.ylabel('数学スコア')
-plt.show()
-```
-
-### 詳細説明
-- `sns.scatterplot()` は、散布図を作成するための関数です。`hue` パラメータにより性別ごとに色分けを行っています。  
-- `sns.boxplot()` は、カテゴリ別のデータ分布（中央値、四分位範囲、外れ値など）を視覚的に把握するために使用します。
-
----
-
-## まとめ
-
-本ドキュメントでは、実際の「Students Performance in Exams」データセットを用い、Python によるデータ整形と操作の基本的な手法を以下の流れで解説しました。
-
-- **データの読み込み・確認**  
-  → CSV ファイルからデータを読み込み、`head()` で先頭部分を表示。
-
-- **行のフィルタリング**  
-  → 例として、数学スコアが 70 点以上の生徒を抽出。
-
-- **列の選択**  
-  → 解析に必要な列（例：`gender`, `math score`, `reading score`, `writing score`）を選択。
-
-- **新しい変数の作成**  
-  → `assign()` を用い、総得点 (`total_score`) や平均点 (`mean_score`) を計算して追加。
-
-- **並べ替え**  
-  → `sort_values()` により、平均点の降順で並べ替え。
-
-- **グループ化と要約**  
-  → `groupby()` と `agg()` を使い、性別やテスト準備コースごとに各科目の平均スコアを算出。
-
-- **データの結合**  
-  → 別途作成した「親の学歴ランク」情報の DataFrame と結合し、付加情報を追加。
-
-- **データの再構築（ピボット操作）**  
-  → `melt()` でワイド形式のスコア列をロング形式に変換し、`pivot_table()` でワイド形式に戻す操作を実施。
-
-- **データの可視化**  
-  → seaborn と matplotlib を用いて、散布図やボックスプロットでデータの傾向や分布を視覚化。
-
-これらの基本操作は、データクレンジング、特徴量エンジニアリング、そして正確な分析結果を得るための前処理として、データサイエンスの現場で必須のスキルです。  
-本章で学んだ手法を身につけることで、実際のプロジェクトにおけるデータ解析やモデリングの精度向上につながります。
-
-
----
-
-## 演習問題（データ整形）
-
-このドキュメントでは、これまで学んだ内容を復習するための演習問題です。ただし、これらのコードを覚える必要はありません。
-このコードは「こういう意味か」と理解できれば問題はないです。 まずは、実際にコードを動かして、出力結果やグラフを確認してください。
-その後で、それぞれのプログラムがどのような意味なのかを学び直しましょう。
-
----
-
-### 演習 1: データの読み込みと基本確認
-
-#### 問題
-1. データセットの URL  
-   `https://raw.githubusercontent.com/selva86/datasets/master/StudentsPerformance.csv`  
-   からデータを読み込み、DataFrame を作成してください。  
-2. 読み込んだデータの先頭 10 行を表示してください。
-
-#### 解答例
-```python
-import pandas as pd
-
-# データセットの URL
-data_url = "https://raw.githubusercontent.com/selva86/datasets/master/StudentsPerformance.csv"
-
-# CSV ファイルからデータを読み込む
-df = pd.read_csv(data_url)
-
-# データの先頭 10 行を表示
-print("データの先頭10行:")
-print(df.head(10))
-```
-
----
-
-### 演習 2: データのフィルタリングと列選択
-
-#### 問題
-1. 「math score」が 80 点以上の生徒のみを抽出してください。  
-2. 抽出したデータから、`gender`、`math score`、`reading score`、`writing score` の 4 列だけを選択してください。
-
-#### 解答例
-```python
-# math scoreが80点以上の生徒を抽出
-df_filtered = df[df['math score'] >= 80]
-print("math scoreが80以上のデータ:")
-print(df_filtered.head())
-
-# 必要な列のみを選択
-df_selected = df_filtered[['gender', 'math score', 'reading score', 'writing score']]
-print("選択した列:")
-print(df_selected.head())
-```
-
----
-
-### 演習 3: 新しい変数の作成
-
-#### 問題
-1. 「reading-writing average」という列を追加し、`reading score` と `writing score` の平均を計算してください。  
-2. 各生徒の総得点 (`total_score`: `math score` + `reading score` + `writing score`) を計算し、列として追加してください。
-
-#### 解答例
-```python
-# 新しい列の作成：reading-writing average と total_score
-df['reading-writing average'] = df[['reading score', 'writing score']].mean(axis=1)
-df['total_score'] = df['math score'] + df['reading score'] + df['writing score']
-
-print("新しい列を追加したデータ:")
-print(df[['reading-writing average', 'total_score']].head())
-```
-
----
-
-### 演習 4: 並べ替え
-
-#### 問題
-総得点 (`total_score`) に基づいてデータを降順に並べ替え、上位 5 件のデータを表示してください。
-
-#### 解答例
-```python
-# total_score に基づいて降順に並べ替え
-df_sorted = df.sort_values(by='total_score', ascending=False)
-print("総得点で降順に並べ替えた上位5件:")
-print(df_sorted.head(5))
-```
-
----
-
-### 演習 5: グループ化と要約
-
-#### 問題
-1. 性別ごとにグループ化し、`math score` の平均値を計算して表示してください。  
-2. `test preparation course` 別に、`math score`、`reading score`、`writing score` の各平均値を集計してください。
-
-#### 解答例
-```python
-# 性別ごとの math score の平均を計算
-mean_math_by_gender = df.groupby('gender')['math score'].mean().reset_index()
-print("性別ごとの math score の平均:")
-print(mean_math_by_gender)
-
-# test preparation course 別に各科目の平均値を集計
-mean_scores_by_prep = df.groupby('test preparation course').agg({
-    'math score': 'mean',
-    'reading score': 'mean',
-    'writing score': 'mean'
-}).reset_index()
-print("test preparation course 別の各科目の平均:")
-print(mean_scores_by_prep)
-```
-
----
-
-### 演習 6: データの結合（Join）
-
-#### 問題
-1. 「parental level of education」に対して、以下のルールで数値のランクを付与する DataFrame を作成してください。  
-   - `some high school`: 1  
-   - `high school`: 2  
-   - `some college`: 3  
-   - `associate's degree`: 4  
-   - `bachelor's degree`: 5  
-   - `master's degree`: 6  
-2. 作成した DataFrame を、元のデータと `parental level of education` をキーに左結合し、`parental level of education` と `edu_rank` のユニークな組み合わせを表示してください。
-
-#### 解答例
-```python
-# 親の学歴ランクの DataFrame を作成
-parent_ed_levels = pd.DataFrame({
-    'parental level of education': [
-        'some high school',
-        'high school',
-        'some college',
-        "associate's degree",
-        "bachelor's degree",
-        "master's degree"
-    ],
-    'edu_rank': [1, 2, 3, 4, 5, 6]
+summary_temp = pd.DataFrame({
+    'mean': [weather['temp'].mean(skipna=True)],
+    'std_dev': [weather['temp'].std(skipna=True)]
 })
-
-# 元のデータと左結合
-df_joined = pd.merge(df, parent_ed_levels, on='parental level of education', how='left')
-print("親の学歴とedu_rankのユニークな組み合わせ:")
-print(df_joined[['parental level of education', 'edu_rank']].drop_duplicates())
+summary_temp
 ```
 
----
+ただし、欠損値を無視する際には注意が必要です。これは、欠損値の存在とその潜在的な原因に注意を払う必要があるためです。
 
-### 演習 7: ピボット操作（ワイド⇄ロング変換）
+他にもいくつかの要約関数があります：
 
-#### 問題
-1. `pd.melt()` を用いて、`math score`、`reading score`、`writing score` の各列を「subject」と「score」の 2 列に変換してください。  
-   ※ `id_vars` として `gender`、`race/ethnicity`、`parental level of education`、`lunch`、`test preparation course` を指定してください。  
-2. 先ほどのロング形式データを `pivot_table()` を使って、元のワイド形式（各科目が別の列）に戻してください。
+* `mean()`: 平均
+* `std()`: 標準偏差（ばらつきの指標）
+* `min()`と`max()`: 最小値と最大値
+* `quantile([0.25, 0.75])`: 四分位範囲を求めるのに使用
+* `sum()`: 複数の数値を加算した合計
+* `count()`: 行数のカウント
 
-#### 解答例
-<details>
+**学習チェック：**
+
+医師が多数の患者を対象に喫煙と肺癌の関係を研究しています。患者の記録は5年ごとに測定されています。患者の死亡により多くの患者にデータポイントが欠けているため、分析ではこれらの患者を無視することにしました。この医師のアプローチの問題点は何ですか？
+
+次の`summarize()`関数を修正して、`n()`要約関数も使用するようにしてください：`summarize(... , count = n())`。返された値は何に対応していますか？
+
+## 行のグループ化
+
+![グループ化と要約の図](https://d33wubrfki0l68.cloudfront.net/9007dfd0d2ebcfa055d78e4a28cb1aadf7eb4cc0/3c354/images/cheatsheets/group_summary.png)
+
+1年間の単一平均気温ではなく、12ヶ月それぞれに対して12の平均気温が欲しいとします。つまり、月別に分けて平均気温を計算したいです。これは、「月」変数の12の値によって観測を「グループ化」することで実現できます：
+
 ```python
-# ワイド形式からロング形式に変換
-df_long = pd.melt(df,
-                  id_vars=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
-                  value_vars=['math score', 'reading score', 'writing score'],
-                  var_name='subject',
-                  value_name='score')
-print("ロング形式のデータ:")
-print(df_long.head())
+summary_monthly_temp = weather.groupby('month').agg({
+    'temp': ['mean', 'std']
+}).reset_index()
 
-# ロング形式からワイド形式に再変換
-df_wide = df_long.pivot_table(index=['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course'],
-                              columns='subject',
-                              values='score').reset_index()
-print("ワイド形式に戻したデータ:")
-print(df_wide.head())
-```
-</details>
-
----
-
-### 演習 8: データの可視化
-
-#### 問題
-1. 性別ごとに色分けした散布図を作成し、「math score」と「reading score」の関係を可視化してください。  
-2. `lunch` 別に「writing score」の分布を示すボックスプロットを作成してください。
-
-#### 解答例
-```python
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# 散布図の作成: math score vs reading score (性別で色分け)
-plt.figure(figsize=(8, 6))
-sns.scatterplot(data=df, x='math score', y='reading score', hue='gender', s=100)
-plt.title('Math Score vs Reading Score by Gender')
-plt.xlabel('Math Score')
-plt.ylabel('Reading Score')
-plt.show()
-
-# ボックスプロットの作成: lunch 別の writing score 分布
-plt.figure(figsize=(8, 6))
-sns.boxplot(data=df, x='lunch', y='writing score')
-plt.title('Writing Score Distribution by Lunch')
-plt.xlabel('Lunch')
-plt.ylabel('Writing Score')
-plt.show()
+# カラム名の整理
+summary_monthly_temp.columns = ['month', 'mean', 'std_dev']
+summary_monthly_temp
 ```
 
+`groupby()`関数はデータフレームを変更しないことに注意することが重要です。代わりに、メタデータ（データに関するデータ）、特にグループ化構造を変更します。`agg()`関数を適用した後にのみデータフレームが変更されます。
 
----
+例として、ggplot2パッケージに含まれる`diamonds`データフレームを考えてみましょう：
 
-### 演習 9: 応用問題
-
-#### 問題 9-1: 複合的なグループ化と可視化
-ロング形式に変換したデータを用いて、各科目ごとに「parental level of education」別の平均スコアを算出し、棒グラフで可視化してください。
-
-#### 解答例 9-1
 ```python
-# ロング形式 (df_long) を用いて、parental level of education と subject 別の平均スコアを計算
-grouped = df_long.groupby(['parental level of education', 'subject'])['score'].mean().reset_index()
-print("parental level of education と subject 別の平均スコア:")
-print(grouped)
+# diamondsデータセットの読み込み
+diamonds_url = "https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/diamonds.csv"
+diamonds = pd.read_csv(diamonds_url)
+diamonds.head()
+```
 
-# 棒グラフの作成
+`cut`でグループ化してみましょう：
+
+```python
+diamonds.groupby('cut').size()
+```
+
+メタデータは変更されましたが、データ自体は変更されていません。`groupby()`と別のデータラングリング操作（この場合は`agg()`）を組み合わせると、データが実際に変換されます：
+
+```python
+diamonds.groupby('cut').agg({'price': 'mean'}).reset_index()
+```
+
+次に、`n()`カウント要約関数を再訪してみましょう。3つのニューヨーク市空港からそれぞれ何機の便が出発したかをカウントするとします：
+
+```python
+by_origin = flights.groupby('origin').size().reset_index(name='count')
+by_origin
+```
+
+ニューワーク（「EWR」）が2013年に最も多くの便が出発し、その後に「JFK」と最後にラガーディア（「LGA」）が続いています。
+
+### 複数の変数でのグループ化
+
+一つの変数でのグループ化に限定されません。各月ごとに3つのニューヨーク市空港から出発する便の数を知りたいとします。第2の変数`month`でもグループ化できます：
+
+```python
+by_origin_monthly = flights.groupby(['origin', 'month']).size().reset_index(name='count')
+by_origin_monthly
+```
+
+`by_origin_monthly`には36行あります（3つの空港「EWR」、「JFK」、「LGA」に対して12ヶ月あるため）。
+
+**学習チェック：**
+
+第2章でニューヨーク市の月別気温を見たことを思い出してください。`summary_monthly_temp`データフレームの標準偏差の列は、一年を通じてのニューヨーク市の気温について何を教えてくれますか？
+
+2013年のニューヨーク市の各日の平均気温と標準偏差を得るために必要なコードは何ですか？
+
+`by_monthly_origin`を再作成しますが、`groupby(['origin', 'month'])`ではなく、`groupby(['month', 'origin'])`のように変数を異なる順序でグループ化してください。結果のデータセットで何が異なりますか？
+
+## 既存の変数の変更
+
+![変数の変更の図](https://d33wubrfki0l68.cloudfront.net/3de15079ade7016a277d777a7720d3a490d10dc7/4bc00/images/cheatsheets/mutate.png)
+
+データの一般的な変換は、既存の変数に基づいて新しい変数を作成/計算することです。例えば、温度を華氏（°F）ではなく摂氏（°C）で考える方が慣れているとします。華氏から摂氏への変換式は：
+
+$$
+\text{temp in C} = \frac{\text{temp in F} - 32}{1.8}
+$$
+
+pandasでは、新しい列を追加することでこの式を`temp`変数に適用できます：
+
+```python
+weather['temp_in_C'] = (weather['temp'] - 32) / 1.8
+
+# 華氏と摂氏の両方で月平均気温を計算する
+summary_monthly_temp = weather.groupby('month').agg({
+    'temp': 'mean',
+    'temp_in_C': 'mean'
+}).reset_index()
+
+# カラム名の整理
+summary_monthly_temp.columns = ['month', 'mean_temp_in_F', 'mean_temp_in_C']
+summary_monthly_temp
+```
+
+別の例を考えてみましょう。乗客はしばしば便が遅れて出発すると不満を感じますが、パイロットがフライト中に時間を取り戻せば、それほど苛立ちません。これは航空業界では「利得」と呼ばれ、この変数を作成します：
+
+```python
+flights['gain'] = flights['dep_delay'] - flights['arr_delay']
+
+# 最初の5行の出発/到着遅延と利得変数を見てみる
+flights[['dep_delay', 'arr_delay', 'gain']].head()
+```
+
+`gain`変数のいくつかの要約統計量を見てみましょう：
+
+```python
+gain_summary = pd.DataFrame({
+    'min': [flights['gain'].min()],
+    'q1': [flights['gain'].quantile(0.25)],
+    'median': [flights['gain'].quantile(0.5)],
+    'q3': [flights['gain'].quantile(0.75)],
+    'max': [flights['gain'].max()],
+    'mean': [flights['gain'].mean()],
+    'sd': [flights['gain'].std()],
+    'missing': [flights['gain'].isna().sum()]
+})
+gain_summary
+```
+
+平均利得は約5分ですが、最大は109分にもなります！
+
+`gain`は数値変数なので、ヒストグラムを使ってその分布を可視化できます：
+
+```python
 plt.figure(figsize=(10, 6))
-sns.barplot(data=grouped, x='parental level of education', y='score', hue='subject')
-plt.title('Average Score by Parental Level of Education and Subject')
-plt.xlabel('Parental Level of Education')
-plt.ylabel('Average Score')
-plt.xticks(rotation=45)
+plt.hist(flights['gain'].dropna(), bins=20, color='steelblue', edgecolor='white')
+plt.title('Gain変数のヒストグラム')
+plt.xlabel('Gain（分）')
+plt.ylabel('頻度')
+plt.grid(False)
 plt.show()
 ```
 
-#### 問題 9-2: 仮説検証のための前処理
-ここでは、**test preparation course** が **total_score** に与える影響を検証する例を示します。  
-- `test preparation course` 別に **total_score** の分布をボックスプロットで可視化し、  
-- 各グループの平均 **total_score** を算出してください。
+結果のヒストグラムは、先ほど計算した要約統計量とは異なる視点で`gain`変数を提供します。例えば、ほとんどの`gain`値はちょうど0付近にあることに注意してください。
 
-#### 解答例 9-2
+pandasでは、同時に複数の新しい変数を作成することもできます。さらに、新しく作成した変数を参照することもできます：
+
 ```python
-# ボックスプロットによる可視化: test preparation course 別の total_score 分布
-plt.figure(figsize=(8, 6))
-sns.boxplot(data=df, x='test preparation course', y='total_score')
-plt.title('Total Score by Test Preparation Course')
-plt.xlabel('Test Preparation Course')
-plt.ylabel('Total Score')
-plt.show()
-
-# test preparation course 別の平均 total_score を計算
-mean_total_by_prep = df.groupby('test preparation course')['total_score'].mean().reset_index()
-print("Test Preparation Course 別の平均 Total Score:")
-print(mean_total_by_prep)
+flights['gain'] = flights['dep_delay'] - flights['arr_delay']
+flights['hours'] = flights['air_time'] / 60
+flights['gain_per_hour'] = flights['gain'] / flights['hours']
 ```
 
+**学習チェック：**
 
+`flights`の`gain`変数の正の値は何に対応していますか？負の値はどうですか？ゼロ値は？
 
-## What's to come?
+`dep_time`から`sched_dep_time`を引き、到着についても同様にして`dep_delay`と`arr_delay`列を作成できますか？コードを試して、結果と実際に`flights`に表示されるものとの違いを説明してください。
 
-So far in this book, we've explored, visualized, and wrangled data saved in data frames. These data frames were saved in a spreadsheet-like format: in a rectangular shape with a certain number of rows corresponding to observations and a certain number of columns corresponding to variables describing these observations. 
+## 行の並べ替え
 
-We'll see in the upcoming Chapter \@ref(tidy) that there are actually two ways to represent data in spreadsheet-type rectangular format: (1) "wide" format and (2) "tall/narrow" format. The tall/narrow format is also known as *"tidy"* format in R user circles. While the distinction between "tidy" and non-"tidy" formatted data is subtle, it has immense implications for our data science work. This is because almost all the packages used in this book, including the `ggplot2` package for data visualization and the `dplyr` package for data wrangling, all assume that all data frames are in "tidy" format. 
+最も一般的に行われるデータラングリングタスクの1つは、データフレームの行を何らかの変数の値に基づいて並べ替えることです。pandasの`sort_values()`メソッドを使用すると、指定した変数の値に従ってデータフレームの行をソート/並べ替えることができます。
 
-Furthermore, up until now we've only explored, visualized, and wrangled data saved within R packages. But what if you want to analyze data that you have saved in a Microsoft Excel, a Google Sheets, or a "Comma-Separated Values" (CSV) file? In Section \@ref(csv), we'll show you how to import this data into R using the `readr` package. 
+2013年にニューヨーク市から出発するすべての国内線の最も頻繁な目的地空港を決定したいとします：
+
+```python
+freq_dest = flights.groupby('dest').size().reset_index(name='num_flights')
+freq_dest.head()
+```
+
+デフォルトでは、結果の`freq_dest`データフレームの行は`dest`アルファベット順に並べられています。代わりに、フライト数（`num_flights`）の最も多いものから最も少ないものへと並べ替えたいとします：
+
+```python
+freq_dest.sort_values('num_flights').head()
+```
+
+しかし、これは望ましい結果の逆です。行は最も頻度の低い目的地空港が最初に表示されるように並べられています。これは、`sort_values()`がデフォルトで常に行を昇順に並べるためです。順序を「降順」に切り替えるには、`ascending=False`パラメータを使用します：
+
+```python
+freq_dest.sort_values('num_flights', ascending=False).head()
+```
+
+## データフレームの結合
+
+別の一般的なデータ変換タスクは、2つの異なるデータセットを「結合」または「マージ」することです。例えば、`flights`データフレームでは、変数`carrier`が異なるフライトのキャリアコードを一覧表示しています。「UA」や「AA」に対応する航空会社名は推測しやすいかもしれませんが（ユナイテッド航空とアメリカン航空）、「VX」、「HA」、「B6」のコードはどの航空会社でしょうか？この情報は別のデータフレーム`airlines`に記載されています。
+
+```python
+airlines.head()
+```
+
+`airlines`では、`carrier`はキャリアコード、`name`は航空会社の正式名称です。この表を使用すると、「VX」、「HA」、「B6」がそれぞれバージンアメリカ、ハワイアン航空、ジェットブルーに対応していることがわかります。しかし、この情報をすべて2つの別々のデータフレームではなく、1つのデータフレームにまとめられたら便利ではないでしょうか？`flights`と`airlines`データフレームを「結合」することでこれを実現できます。
+
+`flights`データフレームの変数`carrier`の値は、`airlines`データフレームの変数`carrier`の値と一致することに注意してください。この場合、変数`carrier`を2つのデータフレームの行を一致させるための「キー変数」として使用できます。
+
+### 一致する「キー」変数名
+
+`flights`と`airlines`の両方のデータフレームで、行を結合/マージ/一致させたいキー変数は同じ名前です：`carrier`。`merge()`メソッドを使用して2つのデータフレームを結合し、変数`carrier`によって行が一致するようにしましょう：
+
+```python
+flights_joined = flights.merge(airlines, on='carrier')
+flights_joined[['carrier', 'name']].head()
+```
+
+`flights`と`flights_joined`データフレームは、`flights_joined`に`name`という追加の変数があることを除いて同一です。`name`の値は、`airlines`データフレームに示されている航空会社名に対応しています。
+
+### 異なる「キー」変数名
+
+2013年にニューヨーク市から出発するすべての国内線の目的地に興味があり、「これらの空港はどの都市にありますか？」、「『ORD』はオーランドですか？」、「『FLL』はどこですか？」などの質問をします。
+
+`airports`データフレームには各空港の空港コードが含まれています：
+
+```python
+airports.head()
+```
+
+しかし、`airports`と`flights`の両方のデータフレームを見ると、空港コードは異なる名前の変数にあることがわかります。`airports`では空港コードは`faa`にありますが、`flights`では空港コードは`origin`と`dest`にあります。
+
+空港コードでこれら2つのデータフレームを結合するために、`merge`操作では`left_on`と`right_on`パラメータを使用します：
+
+```python
+flights_with_airport_names = flights.merge(airports, left_on='dest', right_on='faa')
+flights_with_airport_names[['dest', 'faa', 'name']].head()
+```
+
+ニューヨーク市から各目的地への便数を計算するパイプラインを構築し、各目的地空港に関する情報も含めましょう：
+
+```python
+named_dests = (flights
+               .groupby('dest')
+               .size()
+               .reset_index(name='num_flights')
+               .sort_values('num_flights', ascending=False)
+               .merge(airports, left_on='dest', right_on='faa')
+               .rename(columns={'name': 'airport_name'})
+              )
+named_dests.head(10)
+```
+
+知らなかった場合、「ORD」はシカゴ・オヘア空港の空港コードで、「FLL」はフロリダ州フォートローダーデールの主要空港です。これは`airport_name`変数で確認できます。
+
+### 複数の「キー」変数
+
+*複数のキー変数*で2つのデータフレームを結合したい場合もあります。例えば、`flights`と`weather`データフレームを結合するには、1つ以上のキー変数が必要です：`year`、`month`、`day`、`hour`、`origin`。これは、これら5つの変数の組み合わせが`weather`データフレーム内の各観測単位を一意に識別するためです：3つのNYC空港それぞれの毎時間の天気記録。
+
+キー変数のリストを指定してこれを実現します：
+
+```python
+# flights_weather_joined = flights.merge(weather, 
+#                                       on=['year', 'month', 'day', 'hour', 'origin'])
+# flights_weather_joined.head()
+```
+
+**学習チェック：**
+
+`flights`と`weather`を結合する（または各フライトと時間ごとの天気値を一致させる）とき、なぜ`hour`だけではなく、`year`、`month`、`day`、`hour`、`origin`のすべてで結合する必要があるのですか？
+
+2013年のNYCからの上位10の目的地について何が驚きましたか？
+
+### 正規形
+
+`nycflights13`パッケージに含まれるデータフレームは、データの冗長性を最小限に抑える形式になっています。例えば、`flights`データフレームは航空会社の`carrier`コードのみを保存し、航空会社の実際の名前は含まれていません。例えば、`flights`の最初の行には`carrier`が`UA`と等しいですが、航空会社名「United Air Lines Inc.」は含まれていません。
+
+航空会社名は`airlines`データフレームの`name`変数に含まれています。`flights`に航空会社名を含めるには、これら2つのデータフレームを次のように結合できます：
+
+```python
+joined_flights = flights.merge(airlines, on='carrier')
+joined_flights[['carrier', 'name']].head()
+```
+
+これらのデータフレームの間で一方を他方に関連付けるための共通の*キー*があるため、この結合を行うことができます：`flights`と`airlines`の両方のデータフレームの`carrier`変数です。キー変数は多くの場合、前述の*識別変数*です。
+
+これはデータの*正規形*と呼ばれる重要な特性です。情報を失うことなくデータフレームをより冗長性の少ないテーブルに分解するプロセスは*正規化*と呼ばれます。詳細は[Wikipedia](https://en.wikipedia.org/wiki/Database_normalization)で確認できます。
+
+pandasと[SQL](https://en.wikipedia.org/wiki/SQL)はどちらもこのような*正規形*を使用します。これらが共通点を持っているため、どちらかのツールを学ぶと、もう一方も非常に簡単に学ぶことができます。
+
+**学習チェック：**
+
+正規形のデータの利点は何ですか？欠点は何ですか？
+
+## その他の操作
+
+他にも便利なデータラングリング操作があります：
+
+* 変数/列のサブセットのみを選択する
+* 変数/列の名前を変更する
+* 変数の上位n個の値のみを返す
+
+### 変数の選択
+
+![列の選択の図](https://d33wubrfki0l68.cloudfront.net/e829fb346c6d34d9a19c8a01b636ecb2c075c862/ae23a/images/cheatsheets/select.png)
+
+`nycflights13`パッケージの`flights`データフレームには異なる19の変数が含まれています。これらの19変数の名前は`flights.columns`で確認できます：
+
+```python
+flights.columns
+```
+
+ただし、これら19の変数のうち、`carrier`と`flight`の2つだけが必要だとします。これらの2つの変数を選択できます：
+
+```python
+flights[['carrier', 'flight']].head()
+```
+
+この関数を使うと、関心のある変数だけに焦点を絞ることができるため、大きなデータセットの探索が容易になります。
+
+代わりに、特定の変数を削除、つまり選択解除したい場合を考えてみましょう。例えば、`flights`データフレームの変数`year`について考えてみましょう。この変数は常に`2013`なので、実際には「変数」ではありません。この変数をデータフレームから削除したいとします。`drop()`メソッドを使用して`year`を選択解除できます：
+
+```python
+flights_no_year = flights.drop('year', axis=1)
+flights_no_year.columns
+```
+
+列/変数を選択する別の方法は、列の範囲を指定することです：
+
+```python
+flight_arr_times = flights.loc[:, 'month':'day'].join(flights.loc[:, 'arr_time':'sched_arr_time'])
+flight_arr_times.head()
+```
+
+これにより、`month`から`day`までの列と、`arr_time`から`sched_arr_time`までの列がすべて選択され、残りは削除されます。
+
+変数の選択は、列の順序を変更するためにも使用できます。例えば、`year`、`month`、`day`変数の直後に`hour`、`minute`、`time_hour`変数を表示したいとします（残りの変数は破棄しません）：
+
+```python
+flights_reorder = flights[['year', 'month', 'day', 'hour', 'minute', 'time_hour'] + 
+                          [col for col in flights.columns if col not in ['year', 'month', 'day', 'hour', 'minute', 'time_hour']]]
+flights_reorder.columns
+```
+
+最後に、`startswith()`、`endswith()`、`contains()`などのメソッドを使用して、それらの条件に一致する変数/列を選択できます：
+
+```python
+# "a"で始まる列を選択
+flights.loc[:, flights.columns.str.startswith('a')].head()
+
+# "delay"で終わる列を選択
+flights.loc[:, flights.columns.str.endswith('delay')].head()
+
+# "time"を含む列を選択
+flights.loc[:, flights.columns.str.contains('time')].head()
+```
+
+### 変数の名前変更
+
+もう一つの便利な関数は`rename()`で、これは変数の名前を変更します。`dep_time`と`arr_time`のみに焦点を当て、`dep_time`と`arr_time`をそれぞれ`departure_time`と`arrival_time`に変更したいとします：
+
+```python
+flights_time_new = flights[['dep_time', 'arr_time']].rename(
+    columns={'dep_time': 'departure_time', 'arr_time': 'arrival_time'}
+)
+flights_time_new.head()
+```
+
+### 変数の上位n個の値
+
+変数の上位n個の値も`nlargest()`メソッドを使用して返すことができます。例えば、前の節の例を使用して、上位10の目的地空港のデータフレームを返すことができます：
+
+```python
+top_10_dests = named_dests.nlargest(10, 'num_flights')
+top_10_dests
+```
+
+さらに、これらの結果を`num_flights`の降順に並べ替えることもできます：
+
+```python
+top_10_dests = named_dests.nlargest(10, 'num_flights').sort_values('num_flights', ascending=False)
+top_10_dests
+```
+
+**学習チェック：**
+
+`flights`から`dest`、`air_time`、`distance`の3つの変数すべてを選択する方法は何ですか？これを少なくとも3つの異なる方法で行うコードを示してください。
+
+`startswith()`、`endswith()`、`contains()`を使用して`flights`データフレームから列を選択するにはどうすればよいですか？3つの異なる例を示してください：1つは`startswith()`用、1つは`endswith()`用、1つは`contains()`用。
+
+データフレームに対して`select`関数を使用したい理由は何ですか？
+
+2013年にニューヨーク市から出発した到着遅延が最も大きい上位5つの空港を示す新しいデータフレームを作成してください。
+
+## 結論
+
+### 要約表
+
+データラングリング操作を表にまとめてみましょう：
+
+| 操作 | データラングリング操作 |
+|------|----------------------|
+| フィルタリング | データフレームの既存の行から条件に基づいてサブセットを選択する |
+| 要約 | 1つ以上の列/変数を要約統計量で要約する |
+| グループ化 | 行をグループ化する。異なるグループごとに個別の要約統計量を計算するためにグループ化と要約を組み合わせることができる |
+| 変数作成 | 既存の列/変数から新しい列/変数を作成する |
+| 並べ替え | 特定の変数の値に基づいてデータフレームの行を昇順または降順に並べ替える |
+| 結合 | 「キー」変数に沿って一致させることにより、別のデータフレームとデータフレームを結合する |
+
+**学習チェック：**
+
+新たに習得したデータラングリングスキルをテストしてみましょう！
+
+航空業界における旅客航空会社のキャパシティの指標は[提供座席マイル（available seat miles）](https://en.wikipedia.org/wiki/Available_seat_miles)です。これは、利用可能な座席数に飛行するマイル数またはキロメートル数を掛け、すべてのフライトにわたって合計したものです。
+
+例えば、航空機に4つの座席があり、200マイル移動する場合、提供座席マイルは4 × 200 = 800です。
+
+この考えを拡張すると、航空会社が10席の航空機を使用して500マイル飛行する便を2便と、20席の航空機を使用して1000マイル飛行する便を3便持っていた場合、提供座席マイルは2 × 10 × 500 + 3 × 20 × 1000 = 70,000座席マイルとなります。
+
+`nycflights13`パッケージに含まれるデータセットを使用して、各航空会社の提供座席マイルを降順に計算してください。必要なすべてのデータラングリングステップを完了した後、結果のデータフレームには16行（各航空会社に1行）と2列（航空会社名と提供座席マイル）が含まれるはずです。
+
+ヒント：
+1. **重要**: 何をしているのかに非常に自信がない限り、すぐにコーディングを始めないことが価値があります。むしろ、最初に必要なすべてのデータラングリングステップを紙に概略的に書き出し、正確なコードではなく、高レベルの*疑似コード*を使用して行うことを明確にします。これにより、何をしようとしているのか（アルゴリズム）と、それをどのように行うか（pandasコードの記述）を混同することがなくなります。
+2. `View()`関数を使用してすべてのデータセットをよく見てください：`flights`、`weather`、`planes`、`airports`、`airlines`から提供座席マイルの計算に必要な変数を特定します。
+3. 様々なデータセットがどのように結合できるかを示す図も役立ちます。
+4. 表のデータラングリング操作をツールボックスとして考えてください！
+
+### その他のリソース
+
+[付録C](https://moderndive.com/C-appendixC.html)では、学生プロジェクトでよく遭遇するデータラングリングの「ヒントとコツ」のページを提供しています。例えば：
+
+* 欠損値の扱い
+* 棒グラフの棒の並べ替え
+* 軸上のお金の表示
+* セル内の値の変更
+* 数値変数をカテゴリー変数に変換する
+* 比率の計算
+* %、カンマ、$の扱い
+
+しかし、可能なすべてのデータラングリングの質問をカバーするヒントとコツのページを提供するのは長すぎて役に立ちません。pandasパッケージのデータラングリング機能をさらに活用したい場合は、pandasの公式ドキュメントや「Python for Data Analysis」（Wes McKinney著）を確認することをお勧めします。
+
+### 次に何が来るか？
+
+これまで、データフレームに保存されたデータの探索、可視化、加工を行ってきました。これらのデータフレームは表計算型の長方形形式で保存されていました：観測に対応する一定数の行と、これらの観測を説明する一定数の列からなる形です。
+
+次の第4章では、表計算型の長方形形式でデータを表現する2つの方法があることがわかります：(1)「ワイド」形式と(2)「トール/ナロー」形式です。トール/ナロー形式は、Rユーザーの間では*「整然データ（tidy）」*形式とも呼ばれています。「整然」と非「整然」形式のデータの区別は微妙ですが、私たちのデータサイエンス作業に大きな影響を与えます。これは、データ可視化のための`seaborn`パッケージやデータラングリングのための`pandas`パッケージを含む、この本で使用されるほぼすべてのパッケージが、すべてのデータフレームが「整然」形式であることを前提としているためです。
+
+さらに、これまでは主にPythonライブラリに保存されているデータの探索、可視化、加工を行ってきました。しかし、Microsoft Excel、Google Sheets、「カンマ区切り値」（CSV）ファイルに保存されているデータを分析したい場合はどうでしょうか？第4章では、pandasを使用してこのデータをPythonにインポートする方法も紹介します。

@@ -1,0 +1,3532 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/07-sampling/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>第7章: サンプリング - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第7章: サンプリング
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/32-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/33-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/34-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/35-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/36-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/37-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/38-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/39-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/40-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/41-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/42-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/43-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/44-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/45-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/46-nonlinear-dimension-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46. Nonlinear dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/47-wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47. Wrap up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/48-final-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48. Final Report
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-brain-analysis.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      必要なパッケージ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      サンプリングボウルの活動
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="サンプリングボウルの活動">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      このボウルの球の何割が赤いですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      シャベルを一度使う
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      シャベルを33回使う
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      私たちは何をしたのか？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      仮想サンプリング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="仮想サンプリング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      仮想シャベルを一度使う
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      仮想シャベルを33回使う
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1000" class="md-nav__link">
+    <span class="md-ellipsis">
+      仮想シャベルを1000回使う
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      異なるシャベルの使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      サンプリングの枠組み
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="サンプリングの枠組み">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      用語と表記
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      統計的定義
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      ケーススタディ：世論調査
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      中心極限定理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      結論
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="結論">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      サンプリングシナリオ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      理論に基づく標準誤差
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="7">第7章: サンプリング</h1>
+<p>この章では、<em>サンプリング</em>について学ぶことで、統計的推論に関する本書の第三部を始めます。サンプリングの概念は、第8章と第9章で扱う信頼区間と仮説検定の基礎となります。データサイエンスの部分で学んだツール、特にデータの可視化とデータの整形も、理解を深める上で重要な役割を果たすことがわかるでしょう。前述のように、本書の概念はすべて、「データで物語を語る」ことができるように集約されています。</p>
+<h2 id="_1">必要なパッケージ</h2>
+<p>まずは、この章で必要なパッケージをインポートしましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Google Colabで実行するためのセットアップ</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span> <span class="n">numpy</span> <span class="n">matplotlib</span> <span class="n">seaborn</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="c1"># プロットの見た目を設定</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+</code></pre></div>
+<h2 id="_2">サンプリングボウルの活動</h2>
+<p>実践的な活動から始めましょう。</p>
+<h3 id="_3">このボウルの球の何割が赤いですか？</h3>
+<p>赤と白の球が入ったボウルを考えます。球はすべて同じサイズです。この本のオリジナル画像では、赤と白の球が入ったボウルが示されていて、事前に混ぜられているため、赤と白の球の分布にはパターンがありません。</p>
+<p>それでは、このボウルの球のうち、赤い球の割合はどれくらいでしょうか？</p>
+<p>この質問に答える一つの方法は、すべての球を個別に取り出して、赤い球と白い球の数を数え、赤い球の数を球の総数で割ることです。しかし、これは長く退屈な作業になるでしょう。</p>
+<h3 id="_4">シャベルを一度使う</h3>
+<p>すべて数える代わりに、シャベルをボウルに入れて50個の球を取り出してみましょう。</p>
+<p>50個の球のうち17個が赤であれば、取り出した球の34%が赤ということになります。これを、ボウル全体の赤い球の割合の推定値と考えることができます。すべての球を数えるよりもはるかに少ない時間と労力で推測できました。</p>
+<p>しかし、もしこの活動を最初からやり直したらどうでしょうか？つまり、50個の球をボウルに戻して、もう一度始めるとします。また正確に17個の赤い球が出てくるでしょうか？言い換えると、赤い球の割合の推測値は再び正確に34%になるでしょうか？もしかしたら？</p>
+<p>この活動を何度か繰り返すとどうなるでしょうか？毎回正確に17個の赤い球が出てくるでしょうか？つまり、ボウルの赤い球の割合の推測値は毎回正確に34%になるでしょうか？おそらくそうはならないでしょう。33組の友人グループに手伝ってもらって、値がどのように変わるかを理解してみましょう。</p>
+<h3 id="33">シャベルを33回使う</h3>
+<p>33組の友人グループには、それぞれ次のことをしてもらいます：</p>
+<ul>
+<li>シャベルを使って50個の球を取り出す</li>
+<li>赤い球の数を数え、赤い球の割合を計算する</li>
+<li>球をボウルに戻す</li>
+<li>前のグループの結果が次のグループに影響しないように、ボウルの中身を少し混ぜる</li>
+</ul>
+<p>各グループがサンプルから得た赤い球の割合を記録し、ヒストグラムを作成して視覚化します。</p>
+<p>Pythonでこのデータを再現しましょう。まず、ModernDiveパッケージの<code>tactile_prop_red</code>データセットを再現します：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># GitHubからデータをダウンロード</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/moderndive/moderndive_book/master/data/tactile_prop_red.csv&quot;</span>
+<span class="n">tactile_prop_red</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># データの確認</span>
+<span class="n">tactile_prop_red</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>このデータを視覚化して、33グループの赤い球の割合の分布を見てみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">tactile_prop_red</span><span class="p">[</span><span class="s1">&#39;prop_red&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> 
+         <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;50個の球のうち赤い球の割合&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;33の割合の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="_5">私たちは何をしたのか？</h3>
+<p>この活動で実証したのは、<strong>サンプリング</strong>という統計概念です。ボウルの球のうち赤い球の割合を知りたいと思っていました。ボウルには大量の球があるため、赤と白の球を全て数えるのは時間がかかります。そこで、シャベルを使って50個の球の<strong>サンプル</strong>を抽出し、<strong>推定</strong>を行いました。このサンプルの50個の球から、ボウル全体の赤い球の割合を34%と推定しました。</p>
+<p>さらに、球を取り出す前にボウルを混ぜたので、サンプルはランダムに抽出されました。サンプルがランダムに抽出されたため、サンプルはそれぞれ異なっていました。サンプルがそれぞれ異なっていたため、図に示されるような赤い球の割合のばらつきが生じました。これは<strong>サンプリングのばらつき</strong>の概念として知られています。</p>
+<p>このサンプリング活動の目的は、サンプリングに関連する2つの重要な概念について理解を深めることでした：</p>
+<ol>
+<li>サンプリングの変動の影響を理解すること</li>
+<li>サンプリングの変動にサンプルサイズが与える影響を理解すること</li>
+</ol>
+<h2 id="_6">仮想サンプリング</h2>
+<p>前のセクションでは、物理的なボウルと物理的なシャベルを使って、手作業でサンプリング活動を行いました。このセクションでは、コンピュータを使用して、この実際のサンプリング活動を仮想的に模倣します。</p>
+<h3 id="_7">仮想シャベルを一度使う</h3>
+<p>まず、実際のボウルの仮想版を作成する必要があります。ModernDiveパッケージの<code>bowl</code>データフレームを再現しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ボウルデータの作成</span>
+<span class="c1"># オリジナルのボウルには2400個の球が含まれていて、そのうち900個が赤(37.5%)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">bowl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;ball_ID&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2401</span><span class="p">),</span>
+    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">2400</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.375</span><span class="p">,</span> <span class="mf">0.625</span><span class="p">])</span>
+<span class="p">})</span>
+
+<span class="c1"># データの確認</span>
+<span class="n">bowl</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<p>次に、シャベルを使って50個の球をサンプリングする仮想バージョンを作成します：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 仮想シャベルの作成 - 50個の球をランダムに抽出</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">virtual_shovel</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># レプリケートを追加（後で便利）</span>
+<span class="n">virtual_shovel</span><span class="p">[</span><span class="s1">&#39;replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># 結果を確認</span>
+<span class="n">virtual_shovel</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<p>サンプル内の赤い球の割合を計算しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 赤い球かどうかを示す新しい列を作成</span>
+<span class="n">virtual_shovel</span><span class="p">[</span><span class="s1">&#39;is_red&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">virtual_shovel</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="c1"># 赤い球の数を集計</span>
+<span class="n">num_red</span> <span class="o">=</span> <span class="n">virtual_shovel</span><span class="p">[</span><span class="s1">&#39;is_red&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># 赤い球の割合を計算</span>
+<span class="n">prop_red</span> <span class="o">=</span> <span class="n">num_red</span> <span class="o">/</span> <span class="mi">50</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;50個の球のうち、</span><span class="si">{</span><span class="n">num_red</span><span class="si">}</span><span class="s2">個が赤です。&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;赤い球の割合: </span><span class="si">{</span><span class="n">prop_red</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">prop_red</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>より簡潔なコードで同じ計算を行うこともできます：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># より簡潔なコード</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;num_red&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">virtual_shovel</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()],</span>
+    <span class="s1">&#39;prop_red&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">virtual_shovel</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">50</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">summary</span>
+</code></pre></div>
+<h3 id="33_1">仮想シャベルを33回使う</h3>
+<p>実際のサンプリング活動では、33グループの生徒にそれぞれシャベルを使ってもらい、33のサンプル（各サンプルは50個の球）を得ました。仮想的にこの複数回のサンプリングを実行してみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 33回のレプリケートでサンプリングを実行</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">virtual_samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">34</span><span class="p">):</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">virtual_samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">virtual_samples</span><span class="p">,</span> <span class="n">sample</span><span class="p">])</span>
+
+<span class="c1"># 最初の行を確認</span>
+<span class="n">virtual_samples</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<p>次に、33のサンプルの各々について赤い球の割合を計算します：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 各レプリケートの赤い球の割合を計算</span>
+<span class="n">virtual_prop_red</span> <span class="o">=</span> <span class="n">virtual_samples</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;replicate&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+        <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+        <span class="s1">&#39;prop_red&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">50</span>
+    <span class="p">})</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># 結果の最初の10行を表示</span>
+<span class="n">virtual_prop_red</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>実際のサンプルと同様に、仮想サンプルにも結果のばらつきがあります。これを視覚化してみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">virtual_prop_red</span><span class="p">[</span><span class="s1">&#39;prop_red&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> 
+         <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;50個の球のうち赤い球の割合&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;33の仮想サンプルにおける赤い球の割合の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>実際のサンプルと仮想サンプルを比較してみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># 仮想サンプリング</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">virtual_prop_red</span><span class="p">[</span><span class="s1">&#39;prop_red&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> 
+             <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;仮想サンプリング&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;50個の球のうち赤い球の割合&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+
+<span class="c1"># 実際のサンプリング</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">tactile_prop_red</span><span class="p">[</span><span class="s1">&#39;prop_red&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> 
+             <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;実際のサンプリング&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;50個の球のうち赤い球の割合&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>両方のヒストグラムは、中心と変動が似ていますが、完全に同じではありません。これらのわずかな違いも、ランダムなサンプリングの変動によるものです。また、どちらの分布もある程度ベル型であることに注目してください。</p>
+<h3 id="1000">仮想シャベルを1000回使う</h3>
+<p>サンプリングの変動の効果をさらに研究するために、33回ではなく、もっと多くのサンプル、例えば1000回のサンプリングを考えてみましょう。手作業で1000個のサンプルを取るのは大変なので、コンピュータを使用して仮想サンプリングを行います：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1000回のレプリケートでサンプリングを実行</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">virtual_samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1001</span><span class="p">):</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">virtual_samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">virtual_samples</span><span class="p">,</span> <span class="n">sample</span><span class="p">])</span>
+
+<span class="c1"># 各レプリケートの赤い球の割合を計算</span>
+<span class="n">virtual_prop_red</span> <span class="o">=</span> <span class="n">virtual_samples</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;replicate&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+        <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+        <span class="s1">&#39;prop_red&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">50</span>
+    <span class="p">})</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># 1000の割合の分布を視覚化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">virtual_prop_red</span><span class="p">[</span><span class="s1">&#39;prop_red&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> 
+         <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;50個の球のうち赤い球の割合&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;1000の割合の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>再び、35%から40%の間の赤い球の割合が最も頻繁に発生していることがわかります。時折、20%から25%の間や55%から60%の間の割合も得られますが、それらはまれです。さらに、より対称的で滑らかなベル型の分布が得られました。この分布は実際、正規分布によく近似されます。</p>
+<h3 id="_8">異なるシャベルの使用</h3>
+<p>異なるサイズのシャベル（25、50、100個のスロットを持つシャベル）を使って、サンプルサイズがサンプリングの変動にどのような影響を与えるかを見てみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 3つの異なるサンプルサイズ（25、50、100）で1000回ずつサンプリング</span>
+<span class="n">sample_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">:</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+    <span class="n">virtual_props</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># 1000回のサンプリングを実行</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">prop</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">virtual_props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">virtual_props</span>
+
+<span class="c1"># 結果を視覚化</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_sizes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> 
+                 <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;シャベルの球のうち赤い球の割合&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;3つの異なるシャベルサイズにおける赤い球の割合の分布の比較&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>サンプルサイズが大きくなるにつれて、赤い球の割合の1000のレプリケートの変動が小さくなることがわかります。つまり、サンプルサイズが25から50、100に増えるにつれて、サンプリングの変動による違いが少なくなり、同じ値の周りにより密集します。目視では、3つのヒストグラムはいずれも約40%を中心に分布しているようです。</p>
+<p>3つの1000の値の集合のばらつきを、標準偏差を使って数値的に明示することができます：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 3つのサンプルサイズの標準偏差を計算</span>
+<span class="n">std_devs</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">}</span>
+
+<span class="c1"># 表形式で表示</span>
+<span class="n">std_dev_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;シャベルのスロット数&#39;</span><span class="p">:</span> <span class="n">sample_sizes</span><span class="p">,</span>
+    <span class="s1">&#39;赤い球の割合の標準偏差&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">std_devs</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">std_dev_df</span>
+</code></pre></div>
+<p>図に示されているように、サンプルサイズが大きくなるほど、変動が小さくなります。つまり、1000の赤い球の割合の値のばらつきが少なくなります。サンプルサイズが大きくなるほど、ボウルの赤い球の真の割合の推測がより正確になります。</p>
+<h2 id="_9">サンプリングの枠組み</h2>
+<p>触覚的および仮想的サンプリング活動の両方で、推定の目的でサンプリングを使用しました。ボウルの赤い球の割合を<em>推定</em>するためにサンプルを抽出しました。すべての球を数える時間のかかる方法の代わりに、サンプリングを使用しました。</p>
+<h3 id="_10">用語と表記</h3>
+<p>サンプリングに関連するさまざまな概念に言葉とラベルを付けるために、いくつかの用語と数学的な表記を紹介します。</p>
+<p><strong>母集団</strong>に関連する最初の用語と表記は次のとおりです：</p>
+<ol>
+<li><strong>母集団</strong>は、関心のある個体または観測値の集合です。これは一般的に<strong>研究母集団</strong>とも呼ばれます。母集団のサイズは大文字の<span class="arithmatex">\(N\)</span>で数学的に表します。</li>
+<li><strong>母集団パラメータ</strong>は、母集団に関する数値的な要約で、未知ですが知りたいと思うものです。例えば、カナダ人全体の平均身長のような平均値である場合、関心のある母集団パラメータは<em>母平均</em>です。</li>
+<li><strong>全数調査</strong>は、母集団内のすべての<span class="arithmatex">\(N\)</span>個体を徹底的に列挙または計数することです。これは、母集団パラメータの値を<em>正確に</em>計算するために行います。注目すべきは、母集団の個体数<span class="arithmatex">\(N\)</span>が増えるにつれて、全数調査がより高価になる（時間、労力、お金の面で）ことです。</li>
+</ol>
+<p>私たちのサンプリング活動では、<strong>母集団</strong>は<span class="arithmatex">\(N\)</span> = 2400個の同じサイズの赤と白の球のボウルのコレクションです。</p>
+<p><strong>母集団パラメータ</strong>は、ボウルの球のうち赤い球の割合です。母集団の値の割合に関心がある場合、母集団パラメータには特定の名前があります：<em>母集団比率</em>。母集団比率を文字<span class="arithmatex">\(p\)</span>で表します。</p>
+<p>この母集団比率<span class="arithmatex">\(p\)</span>を正確に計算するためには、まず<span class="arithmatex">\(N\)</span> = 2400個すべてに対して<strong>全数調査</strong>を行い、赤い数を数える必要があります。その後、この数を2400で割って赤い球の割合を求めます。</p>
+<p>実際に「仮想」全数調査を行ってみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 仮想全数調査 - ボウル全体の赤い球の数を数える</span>
+<span class="n">red_count</span> <span class="o">=</span> <span class="p">(</span><span class="n">bowl</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">total_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bowl</span><span class="p">)</span>
+<span class="n">population_proportion</span> <span class="o">=</span> <span class="n">red_count</span> <span class="o">/</span> <span class="n">total_count</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ボウル全体には</span><span class="si">{</span><span class="n">red_count</span><span class="si">}</span><span class="s2">個の赤い球があります。&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ボウル全体の球の数は</span><span class="si">{</span><span class="n">total_count</span><span class="si">}</span><span class="s2">個です。&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;母集団比率 p = </span><span class="si">{</span><span class="n">population_proportion</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">population_proportion</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>この全数調査から、母集団パラメータの値がわかりました：この場合、母集団比率<span class="arithmatex">\(p\)</span>は0.375です。</p>
+<p><strong>サンプル</strong>に関連する2番目の用語と表記セットは次のとおりです：</p>
+<ol>
+<li><strong>サンプリング</strong>は、母集団からサンプルを収集する行為であり、一般に全数調査を実行できない場合にのみ行います。サンプルサイズは小文字の<span class="arithmatex">\(n\)</span>で数学的に表し、母集団のサイズを表す大文字の<span class="arithmatex">\(N\)</span>とは対照的です。通常、サンプルサイズ<span class="arithmatex">\(n\)</span>は母集団サイズ<span class="arithmatex">\(N\)</span>よりもはるかに小さいです。したがって、サンプリングは全数調査を実行するよりもはるかに安価な代替手段です。</li>
+<li><strong>点推定値</strong>（<strong>標本統計量</strong>とも呼ばれる）は、サンプルから計算される要約統計量であり、未知の母集団パラメータを<em>推定</em>するものです。</li>
+</ol>
+<p>以前、50個のスロットを持つシャベルを使用して<span class="arithmatex">\(n\)</span> = 50のサンプルを抽出する<strong>サンプリング</strong>を行いました。</p>
+<p>サンプルの赤い球の割合（サンプル比率）<span class="arithmatex">\(\hat{p}\)</span>は、ボウルの赤い球の母集団比率<span class="arithmatex">\(p\)</span>の<strong>点推定値</strong>です。一般的に、推定値には「ハット」記号を使用することが統計学の慣例です。</p>
+<p><strong>サンプリング方法論</strong>に関連する3番目の用語セットは、サンプルを収集するために使用される方法です。ここと本書の残りの部分を通じて、サンプルを収集する<em>方法</em>がその品質に直接影響することがわかるでしょう。</p>
+<ol>
+<li>サンプルが母集団を「大まかに反映している」場合、そのサンプルは<strong>代表的</strong>であると言われます。つまり、サンプルの特性が母集団の特性を「よく」表現している場合です。</li>
+<li>サンプルに基づく結果を母集団に一般化できる場合、そのサンプルは<strong>一般化可能</strong>であると言います。言い換えると、サンプルを使用して母集団について「良い」推測ができる場合です。</li>
+<li>母集団内の特定の個体が他の個体よりもサンプルに含まれる確率が高い場合、サンプリング手順は<strong>偏っている</strong>と言います。母集団内のすべての個体がサンプルに含まれる確率が等しい場合、サンプリング手順は<strong>偏りがない</strong>と言います。</li>
+</ol>
+<p>シャベルを使用して抽出した<span class="arithmatex">\(n\)</span>個の球のサンプルが、その内容がボウルの内容を「大まかに類似している」場合、母集団を<strong>代表している</strong>と言います。その場合、シャベルの球のうち赤い球の割合は、ボウルの<span class="arithmatex">\(N\)</span> = 2400個の球のうち赤い球の割合に<strong>一般化</strong>できます。または、別の言い方をすれば、<span class="arithmatex">\(\hat{p}\)</span>は<span class="arithmatex">\(p\)</span>の「良い推測」です。 </p>
+<p>サンプリングの目標に関連する4番目と最後の用語および表記セットは次のとおりです：</p>
+<ol>
+<li>サンプルが偏りがなく母集団を代表していることを確実にする1つの方法は、<strong>ランダムサンプリング</strong>を使用することです。</li>
+<li><strong>推論</strong>は、何か未知のものについて「推測する」行為です。<strong>統計的推論</strong>は、サンプルを使用して母集団について推測する行為です。</li>
+</ol>
+<p>4つの用語および表記セットをすべてまとめてみましょう：</p>
+<ul>
+<li><span class="arithmatex">\(n\)</span> = 50個の球をランダムに抽出したので、シャベルを使用する前にすべての同じサイズの球を混ぜたので、</li>
+<li>シャベルの内容はボウルの内容を<em>偏りなく</em>代表しているので、</li>
+<li>シャベルに基づく結果はボウルに<em>一般化</em>できるので、</li>
+<li>シャベルの<span class="arithmatex">\(n\)</span> = 50個の球のうち赤い球の標本比率<span class="arithmatex">\(\hat{p}\)</span>はボウルの<span class="arithmatex">\(N\)</span> = 2400個の球のうち赤い球の母集団比率<span class="arithmatex">\(p\)</span>の「良い推測」であるので、</li>
+<li>ボウルの2400個の球の<em>全数調査</em>を行う代わりに、シャベルからのサンプルを使用してボウルについて<strong>推論</strong>できます。</li>
+</ul>
+<p>あなたが行ってきたのは<strong>統計的推論</strong>です。これは統計学の中で最も重要な概念の1つです。それほど重要なので、本書のタイトルにもこの用語を含めました：「データサイエンスを通じた統計的推論」。より一般的に言えば、</p>
+<ul>
+<li>サイズ<span class="arithmatex">\(n\)</span>のサンプルのサンプリングが<em>ランダム</em>に行われている場合、</li>
+<li>サンプルはサイズ<span class="arithmatex">\(N\)</span>の母集団に対して<em>偏りがなく</em>代表的であるので、</li>
+<li>このサンプルに基づく結果は母集団に<em>一般化</em>できるので、</li>
+<li>点推定値は未知の母集団パラメータの「良い推測」であるので、</li>
+<li>全数調査を行う代わりに、サンプリングを使用して母集団について<em>推論</em>できます。</li>
+</ul>
+<h3 id="_11">統計的定義</h3>
+<p>サンプルサイズ<span class="arithmatex">\(n\)</span> = 25、<span class="arithmatex">\(n\)</span> = 50、<span class="arithmatex">\(n\)</span> = 100のそれぞれで1000回反復した仮想サンプルの結果を考え直してみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># データをまとめてデータフレームに変換</span>
+<span class="n">all_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="s1">&#39;prop_red&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">results</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="mi">50</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="mi">100</span><span class="p">]])</span>
+<span class="p">})</span>
+
+<span class="c1"># 3つのサンプルサイズの分布を並べて表示</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">all_results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;prop_red&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="s1">&#39;dodge&#39;</span><span class="p">,</span> 
+             <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$ の3つのサンプリング分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>これらのタイプの分布には特別な名前があります：<strong>点推定値のサンプリング分布</strong>です。その視覚化は、任意の点推定値（この場合、標本比率<span class="arithmatex">\(\hat{p}\)</span>）の分布に対するサンプリング変動の影響を表示します。これらのサンプリング分布を使用すると、特定のサンプルサイズ<span class="arithmatex">\(n\)</span>に対して、どのような値が一般的に期待できるかについて記述することができます。</p>
+<p>すべての3つのサンプリング分布の中心を観察すると、すべてがおよそ0.4 = 40%を中心にしています。また、25個のスロットを持つシャベルを使用する場合、赤い球の標本比率が0.2 = 20%になる可能性がある程度ありますが、100個のスロットを持つシャベルを使用する場合、20%の割合はほとんど観察されないことがわかります。また、サンプリング変動に対するサンプルサイズの影響も観察できます。サンプルサイズ<span class="arithmatex">\(n\)</span>が25から50、100に増えるにつれて、サンプリング分布の変動が減少し、値が同じ中心（約40%）の周りにより密集します。</p>
+<p>標準偏差を使用して、サンプルサイズごとの分布の変動を比較しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 3つのサンプルサイズの標準偏差を計算</span>
+<span class="n">std_devs</span> <span class="o">=</span> <span class="n">all_results</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)[</span><span class="s1">&#39;prop_red&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">std_devs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;サンプルサイズ (n)&#39;</span><span class="p">,</span> <span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$ の標準誤差&#39;</span><span class="p">]</span>
+<span class="n">std_devs</span>
+</code></pre></div>
+<p>サンプルサイズが大きくなるにつれて、標本比率の標準偏差が小さくなります。この種の標準偏差には別の特別な名前があります：<strong>点推定値の標準誤差</strong>です。標準誤差は、推定値に対するサンプリング変動の影響を定量化します。つまり、赤い球のシャベルの割合が1つのサンプルから別のサンプル、さらに別のサンプルへとどの程度<em>変動する</em>かを定量化します。一般的な規則として、サンプルサイズが大きくなると、標準誤差は小さくなります。</p>
+<p>物語の教訓をまとめましょう。サンプルがランダムに生成された場合、結果として得られる点推定値は、真の未知の母集団パラメータの「良い推測」になります。私たちのサンプリング活動では、シャベルで球を取り出す前にボウルを確実に混ぜたので、赤だったシャベルの球の結果として得られる標本比率<span class="arithmatex">\(\hat{p}\)</span>は、赤いボウルの球の母集団比率<span class="arithmatex">\(p\)</span>の「良い推測」でした。</p>
+<p>しかし、点推定値が「良い推測」であるとはどういう意味でしょうか？時には、母集団パラメータの真の値よりも小さい推定値を得ることがあり、また他の場合には、より大きい推定値を得ることがあります。これはサンプリング変動によるものです。しかし、このサンプリング変動にもかかわらず、推定値は「平均して」正確であり、したがって真の値を中心に分布します。これは、サンプリングがランダムに行われ、したがって偏りのない方法で行われたためです。</p>
+<p>全数調査から、ボウルの<span class="arithmatex">\(N\)</span> = 2400個の球の母集団比率<span class="arithmatex">\(p\)</span>の値は赤/2400 = 0.375 = 37.5%であることがわかりました。3つのサンプリング分布を再表示し、真の母集団比率<span class="arithmatex">\(p\)</span> = 37.5%を垂直線で示してみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 3つのサンプリング分布と真の母集団比率</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">all_results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;prop_red&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="s1">&#39;dodge&#39;</span><span class="p">,</span> 
+             <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.375</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$ の3つのサンプリング分布（真の母集団比率$p$を垂直線で表示）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>3つのサンプリング分布すべてにおいて、標本比率<span class="arithmatex">\(\hat{p}\)</span>にある程度のエラーがありますが、平均して<span class="arithmatex">\(\hat{p}\)</span>は真の母集団比率<span class="arithmatex">\(p\)</span>を中心にしていることがわかります。</p>
+<p>このセクションでは、サンプルサイズ<span class="arithmatex">\(n\)</span>が大きくなるにつれて、点推定値の変動が少なくなり、真の母集団パラメータの周りにより集中することも見ました。この変動は減少する<em>標準誤差</em>によって定量化されます。つまり、点推定値の典型的なエラーは減少します。サンプリング活動では、サンプルサイズが大きくなるにつれて、標本比率<span class="arithmatex">\(\hat{p}\)</span>の変動が小さくなりました。</p>
+<p>ランダムサンプリングは点推定値の<em>正確さ</em>を確保し、一方、大きなサンプルサイズは点推定値の<em>精度</em>を確保します。「正確さ」と「精度」という用語は同じことを意味するように聞こえるかもしれませんが、微妙な違いがあります。正確さは推定値が「的を射ている」程度を表し、精度は推定値の「一貫性」を表します。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.offsetbox</span><span class="w"> </span><span class="kn">import</span> <span class="n">OffsetImage</span><span class="p">,</span> <span class="n">AnnotationBbox</span>
+
+<span class="c1"># 的の画像を作成（単純な円でシミュレート）</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_target_image</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">precision</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="c1"># 的を描画</span>
+    <span class="n">circle1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="n">circle2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">circle3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgray&#39;</span><span class="p">)</span>
+    <span class="n">circle4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle4</span><span class="p">)</span>
+
+    <span class="c1"># 弾痕をシミュレート</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">accuracy</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span> <span class="ow">and</span> <span class="n">precision</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span>
+        <span class="c1"># 中心近くで密集</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">accuracy</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span> <span class="ow">and</span> <span class="n">precision</span> <span class="o">==</span> <span class="s1">&#39;low&#39;</span><span class="p">:</span>
+        <span class="c1"># 中心近くでばらつき</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">accuracy</span> <span class="o">==</span> <span class="s1">&#39;low&#39;</span> <span class="ow">and</span> <span class="n">precision</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span>
+        <span class="c1"># 中心から外れて密集</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># low accuracy, low precision</span>
+        <span class="c1"># 中心から外れてばらつき</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">points_x</span><span class="p">,</span> <span class="n">points_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 画像として保存</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">tostring_rgb</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">get_width_height</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">image</span>
+
+<span class="c1"># 2x2グリッドでの正確さと精度の比較</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s1">&#39;高い正確さ, 高い精度&#39;</span><span class="p">,</span> <span class="s1">&#39;高い正確さ, 低い精度&#39;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">&#39;低い正確さ, 高い精度&#39;</span><span class="p">,</span> <span class="s1">&#39;低い正確さ, 低い精度&#39;</span><span class="p">]</span>
+<span class="p">]</span>
+
+<span class="n">accuracy_values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">]</span>
+<span class="n">precision_values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">j</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">create_target_image</span><span class="p">(</span><span class="n">accuracy_values</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">precision_values</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>実際の状況では、1000の異なるサンプルを取るのではなく、1つだけ取ります。では、1000の異なるサンプルを取る練習の目的は何だったのでしょうか？これらのシミュレーションを使用して、次のことを研究しました：</p>
+<ol>
+<li>推定値に対する<em>サンプリング変動</em>の影響</li>
+<li><em>サンプリング変動</em>に対するサンプルサイズの影響</li>
+</ol>
+<h2 id="_12">ケーススタディ：世論調査</h2>
+<p>ボウル活動よりも現実的なサンプリングシナリオに切り替えましょう：世論調査です。実際には、調査者は前のサンプリング活動のように1000回の繰り返しサンプルを取るのではなく、できるだけ大きな<em>単一のサンプル</em>を取ります。</p>
+<p>2013年12月4日、米国のNational Public Radio（NPR）は、「世論調査：若いアメリカ人の間でのオバマ支持が侵食されている」というタイトルの記事で、18〜29歳の若いアメリカ人の間でのオバマ大統領の支持率に関する世論調査について報じました。この調査はハーバード大学のケネディスクールの政治研究所によって実施されました。記事からの引用：</p>
+<blockquote>
+<p>2008年と2012年に大多数で彼に投票した後、若いアメリカ人はオバマ大統領に対して冷めています。</p>
+<p>ハーバード大学政治研究所の新しい世論調査によると、ミレニアル世代（18〜29歳の成人）のわずか41%がオバマの職務遂行を支持しており、これはこのグループの中で過去最低であり、4月から11ポイント下落しています。</p>
+</blockquote>
+<p>この記事の実際の世論調査の要素と、これまでに学んだ用語、表記、定義を使用して、セクション7.1と7.2の「触覚的」および「仮想的」ボウル活動と結びつけてみましょう。ボウルでのサンプリング活動は、調査者が実生活で行おうとしていることの理想化されたバージョンであることがわかります。</p>
+<p>まず、関心のある<span class="arithmatex">\(N\)</span>個体または観測値の <strong>（研究）母集団</strong> は何ですか？</p>
+<ul>
+<li>ボウル：<span class="arithmatex">\(N\)</span> = 2400個の同じサイズの赤と白の球</li>
+<li>オバマ調査：<span class="arithmatex">\(N\)</span> = ? 18〜29歳の若いアメリカ人</li>
+</ul>
+<p>第二に、<strong>母集団パラメータ</strong>は何ですか？</p>
+<ul>
+<li>ボウル：ボウルの<em>すべての</em>球のうち赤い球の母集団比率<span class="arithmatex">\(p\)</span></li>
+<li>オバマ調査：オバマの職務遂行を支持する<em>すべての</em>若いアメリカ人の母集団比率<span class="arithmatex">\(p\)</span></li>
+</ul>
+<p>第三に、<strong>全数調査</strong>はどのようなものですか？</p>
+<ul>
+<li>ボウル：<span class="arithmatex">\(N\)</span> = 2400個すべての球を手作業で調べ、赤い球の母集団比率<span class="arithmatex">\(p\)</span>を正確に計算します</li>
+<li>オバマ調査：すべての<span class="arithmatex">\(N\)</span>若いアメリカ人を見つけ、彼らすべてにオバマの職務遂行を支持するかどうかを尋ねます。この場合、母集団サイズ<span class="arithmatex">\(N\)</span>が何であるかさえわかりません！</li>
+</ul>
+<p>第四に、サイズ<span class="arithmatex">\(n\)</span>のサンプルを得るために<strong>サンプリング</strong>をどのように実行しますか？</p>
+<ul>
+<li>ボウル：<span class="arithmatex">\(n\)</span>個のスロットを持つシャベルを使用します</li>
+<li>オバマ調査：一つの方法は、すべての若いアメリカ人の電話番号のリストを取得し、<span class="arithmatex">\(n\)</span>個の電話番号を選択することです。この調査の場合、このサンプルサイズは<span class="arithmatex">\(n = 2089\)</span>人の若いアメリカ人でした。</li>
+</ul>
+<p>第五に、未知の母集団パラメータの<strong>点推定値</strong>または<strong>標本統計量</strong>は何ですか？</p>
+<ul>
+<li>ボウル：シャベルの中の球のうち赤い球の標本比率<span class="arithmatex">\(\hat{p}\)</span></li>
+<li>オバマ調査：サンプル内の若いアメリカ人のうちオバマの職務遂行を支持する標本比率<span class="arithmatex">\(\hat{p}\)</span>。この調査の場合、<span class="arithmatex">\(\hat{p} = 0.41 = 41\%\)</span>で、記事の2段落目に引用されているパーセンテージです。</li>
+</ul>
+<p>第六に、サンプリング手順は<strong>代表的</strong>ですか？</p>
+<ul>
+<li>ボウル：シャベルの内容はボウルの内容を代表していますか？サンプリング前にボウルを混ぜたので、代表的であると確信できます。</li>
+<li>オバマ調査：<span class="arithmatex">\(n = 2089\)</span>人の若いアメリカ人のサンプルは、18〜29歳の<em>すべての</em>若いアメリカ人を代表していますか？これはサンプリングがランダムかどうかによります。</li>
+</ul>
+<p>第七に、サンプルはより大きな母集団に<strong>一般化可能</strong>ですか？</p>
+<ul>
+<li>ボウル：シャベルの球のうち赤い球の標本比率<span class="arithmatex">\(\hat{p}\)</span>は、ボウルの球のうち赤い球の母集団比率<span class="arithmatex">\(p\)</span>の「良い推測」ですか？サンプルが代表的であることを考えると、答えはイエスです。</li>
+<li>オバマ調査：若いアメリカ人のサンプルのうちオバマを支持した標本比率<span class="arithmatex">\(\hat{p}\)</span> = 0.41は、2013年のこの時点ですべての若いアメリカ人のうちオバマを支持した母集団比率<span class="arithmatex">\(p\)</span>の「良い推測」ですか？つまり、2013年の調査時点で<em>すべての</em>若いアメリカ人の約41%がオバマを支持していたと自信を持って言えますか？繰り返しになりますが、これはサンプリングがランダムかどうかによります。</li>
+</ul>
+<p>第八に、サンプリング手順は<strong>偏りがない</strong>ですか？言い換えると、すべての観測値がサンプルに含まれる確率は等しいですか？</p>
+<ul>
+<li>ボウル：各球が同じサイズで、シャベルを使用する前にボウルを混ぜたので、各球がサンプルに含まれる確率は等しく、したがってサンプリングには偏りがありませんでした。</li>
+<li>オバマ調査：すべての若いアメリカ人がこの調査に代表される平等なチャンスを持っていましたか？繰り返しになりますが、これはサンプリングがランダムかどうかによります。</li>
+</ul>
+<p>第九に最後に、サンプリングは<strong>ランダム</strong>に行われましたか？</p>
+<ul>
+<li>ボウル：サンプリング前にボウルを十分に混ぜた限り、サンプルはランダムでした。</li>
+<li>オバマ調査：サンプルはランダムに実施されましたか？ハーバード大学のケネディスクールの政治研究所が使用した<em>サンプリング方法論</em>を知らなければ、この質問に答えることはできません。</li>
+</ul>
+<p>つまり、ハーバード大学のケネディスクールの政治研究所による調査は、シャベルを使用してボウルから球をサンプリングする<em>一例</em>と考えることができます。さらに、別の調査会社がほぼ同じ時期に若いアメリカ人を対象に同様の調査を実施した場合、41%とは異なる推定値を得る可能性があります。これは<em>サンプリング変動</em>によるものです。</p>
+<p>実際の世論調査のサンプリングが本当にランダムであることは、<em>すべての</em>若いアメリカ人のオバマに対する意見を推論するために不可欠でした。彼らのサンプルは本当にランダムでしたか？彼らが使用した<em>サンプリング方法論</em>を知らなければ、そのような質問に答えるのは難しいです。たとえば、この調査が携帯電話番号のみを使用して実施された場合、携帯電話を持たない人々は除外され、したがってサンプルに代表されません。ハーバード大学のケネディスクールの政治研究所がインターネットニュースサイトでこの調査を実施した場合はどうでしょうか？その場合、この特定のインターネットニュースサイトを読まない人々は除外されます。サンプルがランダムであることを確保するのは、ボウルのサンプリング練習では簡単でしたが、オバマ調査のような実生活の状況では、これはより難しいことです。</p>
+<h2 id="_13">中心極限定理</h2>
+<p>この章では、球のボウル（私たちの母集団）に（仮想的に）アクセスし、赤い球の割合を把握したいという願望から始まりました。この母集団にアクセスできるにもかかわらず、実際には、母集団が大きすぎたり、常に変化したり、全数調査を行うには高すぎたりするため、ほとんどの場合、<strong>母集団にアクセスすることはできません</strong>。この現実を受け入れるということは、_統計的推論_を使用する必要があることを受け入れることを意味します。</p>
+<p>前のセクションでは、「統計的推論は、サンプルを使用して母集団について推測する行為である」と述べました。しかし、どのようにこの推論を_行う_のでしょうか？前のセクションでは、_サンプリングの枠組み_を定義し、実際には多くのサンプルを取るのではなく、1つの大きなサンプルを取ると述べました。</p>
+<p>実際には、<em>1つだけ</em>のサンプルを取り、その<em>1つ</em>のサンプルを使用して母集団パラメータについての記述を行います。母集団について記述する能力は、有名な定理、つまり数学的に証明された真実である<em>中心極限定理</em>によって許されます。あなたが図で視覚化し、表にまとめたものはこの定理のデモンストレーションでした。簡単に言えば、サンプルサイズが大きくなるにつれて、これらのサンプル平均のサンプリング分布がより正規形状に近づき、より狭くなるということです。</p>
+<p>言い換えると、サンプルサイズが大きくなると、(1)（標本比率のような）点推定値のサンプリング分布は<em>正規分布</em>に従うようになり、(2)これらのサンプリング分布の変動は小さくなり、標準誤差によって定量化されます。</p>
+<p>中心極限定理の驚くべき点は、基礎となる母集団分布の形状に関係なく、平均（バニーの重さの標本平均やドラゴンの翼幅の標本平均など）や比率（シャベルの赤い球の標本比率など）のサンプリング分布は<strong>正規</strong>になるということです。正規分布はその中心と広さによって定義され、中心極限定理は両方を提供します：</p>
+<ol>
+<li>点推定値のサンプリング分布は真の母集団パラメータを中心にしています。</li>
+<li>点推定値のサンプリング分布の幅がどの程度かについての推定値があり、それは標準誤差によって与えられます。</li>
+</ol>
+<p>中心極限定理が私たちのために作り出すのは、<em>単一の</em>サンプルと母集団の間のはしごです。中心極限定理により、(1)サンプルの点推定値は真の母集団パラメータを中心とする正規分布から引き出され、(2)その正規分布の幅は点推定値の標準誤差によって決まると言えます。これをボウルに関連付けると、1つのサンプルを引き出して赤い球の標本比率<span class="arithmatex">\(\hat{p}\)</span>を得ると、この<span class="arithmatex">\(\hat{p}\)</span>の値は、真の母集団比率の赤い球<span class="arithmatex">\(p\)</span>を中心とし、計算された標準誤差を持つ正規曲線から引き出されるのです。</p>
+<h2 id="_14">結論</h2>
+<h3 id="_15">サンプリングシナリオ</h3>
+<p>この章では、未知の比率を推測するために触覚的および仮想的なサンプリング演習を行いました。また、実生活でのサンプリングのケーススタディとして世論調査を紹介しました。各場合において、母集団比率<span class="arithmatex">\(p\)</span>を推定するために標本比率<span class="arithmatex">\(\hat{p}\)</span>を使用しました。しかし、比率に関連するシナリオだけに限定されるわけではありません。つまり、他の点推定値を使用して他の母集団パラメータを推定するためにサンプリングを使用することもできます。</p>
+<ol>
+<li><strong>比率のシナリオ</strong>：母集団での特定の特性を持つ個体の割合について質問する場合（例：赤い球の割合）、母集団パラメータは<span class="arithmatex">\(p\)</span>、標本推定値は<span class="arithmatex">\(\hat{p}\)</span>。</li>
+<li><strong>平均のシナリオ</strong>：母集団内の数値的変数の平均について質問する場合（例：流通しているすべてのペニーの平均年齢）、母集団パラメータは<span class="arithmatex">\(\mu\)</span>、標本推定値は<span class="arithmatex">\(\bar{x}\)</span>。</li>
+<li><strong>二つの比率の差のシナリオ</strong>：二つの異なる母集団からの比率の差について質問する場合（例：あくびを見て最初にあくびをする人の割合と、他人のあくびを見ずにあくびをする人の割合の差）、母集団パラメータは<span class="arithmatex">\(p_1 - p_2\)</span>、標本推定値は<span class="arithmatex">\(\hat{p}_1 - \hat{p}_2\)</span>。</li>
+<li><strong>二つの平均の差のシナリオ</strong>：二つの異なる母集団からの平均の差について質問する場合（例：アクション映画とロマンス映画のIMDbの平均評価の差）、母集団パラメータは<span class="arithmatex">\(\mu_1 - \mu_2\)</span>、標本推定値は<span class="arithmatex">\(\bar{x}_1 - \bar{x}_2\)</span>。</li>
+<li><strong>回帰のシナリオ</strong>：説明変数（年齢や学歴など）と興味のある結果変数（教員評価スコアなど）の間の関係をモデル化したい場合、母集団パラメータは回帰線の傾き<span class="arithmatex">\(\beta_1\)</span>、標本推定値は<span class="arithmatex">\(b_1\)</span>。</li>
+</ol>
+<h3 id="_16">理論に基づく標準誤差</h3>
+<p>多くの場合、標準誤差を近似する数式が存在します！ボウルの赤い球の割合を推定するために標本比率赤<span class="arithmatex">\(\hat{p}\)</span>を使用した場合、標本比率<span class="arithmatex">\(\hat{p}\)</span>の標準誤差を近似する数式は次のとおりです：</p>
+<div class="arithmatex">\[\text{SE}_{\widehat{p}} \approx \sqrt{\frac{\widehat{p}(1-\widehat{p})}{n}}\]</div>
+<p>例えば、<span class="arithmatex">\(n = 50\)</span>個の球をサンプリングし、21個の赤い球を観察したとします。これは標本比率<span class="arithmatex">\(\hat{p}\)</span>が21/50 = 0.42であることを意味します。したがって、この数式を使用すると、<span class="arithmatex">\(\hat{p}\)</span>の標準誤差の近似値は次のようになります：</p>
+<div class="arithmatex">\[\text{SE}_{\widehat{p}} \approx \sqrt{\frac{0.42(1-0.42)}{50}} = \sqrt{0.004872} = 0.0698 \approx 0.070\]</div>
+<p>代わりに<span class="arithmatex">\(n = 100\)</span>個の球をサンプリングし、42個の赤い球を観察したとします。これは再び標本比率<span class="arithmatex">\(\hat{p}\)</span>が42/100 = 0.42であることを意味します。しかし、この数式を使用すると、<span class="arithmatex">\(\hat{p}\)</span>の標準誤差の近似値は次のようになります：</p>
+<div class="arithmatex">\[\text{SE}_{\widehat{p}} \approx \sqrt{\frac{0.42(1-0.42)}{100}} = \sqrt{0.002436} = 0.0494\]</div>
+<p>標準誤差が0.0698から0.0494に減少したことがわかります。つまり、<span class="arithmatex">\(n\)</span> = 100を使用した推定値の「典型的な」エラーは<span class="arithmatex">\(n\)</span> = 50に比べて減少し、したがってより<em>精密</em>になります。</p>
+<p>この数式で観察すべき重要なポイントは、分母に<span class="arithmatex">\(n\)</span>があることです。サンプルサイズ<span class="arithmatex">\(n\)</span>が大きくなると、標準誤差は小さくなります。これは中心極限定理の主要なメッセージの1つです：サンプルサイズ<span class="arithmatex">\(n\)</span>が大きくなると、平均の分布は狭くなり、これは標本平均のサンプリング分布の標準偏差によって定量化されます。これはさらに特別な名前を持ちます：標本平均の標準誤差です。</p>
+<p>この数式が正しい理由は何ですか？残念ながら、この時点でこれを証明するツールはありません。より高度な確率と統計のコースを受ける必要があります。（これはベルヌーイ分布および二項分布の概念に関連しています。興味があれば、その導出について<a href="http://onlinestatbook.com/2/sampling_distributions/samp_dist_p.html">こちら</a>で詳しく読むことができます。）</p>
+<p>サンプリングは統計的推論の基盤となる重要な概念です。この章では、サンプリングの基本原理を学び、サンプリング変動とサンプルサイズがどのように推定精度に影響するかを理解することができました。</p>
+<p>次の章では、信頼区間について学びます。信頼区間は、今回学んだサンプリングの概念を基にして、母集団パラメータの値がどの範囲に含まれるかを推定する方法です。例えば、ハーバード大学の調査では「誤差の範囲はプラスマイナス2.1%」と報告されていましたが、これは信頼区間の一例です。</p>
+<p>このPythonコードを使って、自分でもサンプリングのシミュレーションを行い、サンプリング分布がどのように形成されるか、またサンプルサイズが推定の精度にどう影響するかを確認してみてください。中心極限定理の面白い性質として、サンプルサイズが大きくなるにつれて、サンプリング分布が正規分布に近づくことも観察できるでしょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Google Colabで実行するためのセットアップ</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span> <span class="n">numpy</span> <span class="n">matplotlib</span> <span class="n">seaborn</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="c1"># プロットの見た目を設定</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+
+<span class="c1"># ----------------------------------------</span>
+<span class="c1"># 7.2 仮想サンプリング</span>
+<span class="c1"># ----------------------------------------</span>
+
+<span class="c1"># ボウルデータの作成</span>
+<span class="c1"># オリジナルのボウルには2400個の球が含まれていて、そのうち900個が赤(37.5%)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">bowl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;ball_ID&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2401</span><span class="p">),</span>
+    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">2400</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.375</span><span class="p">,</span> <span class="mf">0.625</span><span class="p">])</span>
+<span class="p">})</span>
+
+<span class="c1"># タクタイルサンプリングのデータをGitHubからダウンロード</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/moderndive/moderndive_book/master/data/tactile_prop_red.csv&quot;</span>
+<span class="n">tactile_prop_red</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># 仮想シャベルを一度使う</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">virtual_shovel</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">virtual_shovel</span><span class="p">[</span><span class="s1">&#39;replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># 赤い球の割合を計算</span>
+<span class="n">num_red</span> <span class="o">=</span> <span class="p">(</span><span class="n">virtual_shovel</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">prop_red</span> <span class="o">=</span> <span class="n">num_red</span> <span class="o">/</span> <span class="mi">50</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;50個の球のうち、</span><span class="si">{</span><span class="n">num_red</span><span class="si">}</span><span class="s2">個が赤です。&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;赤い球の割合: </span><span class="si">{</span><span class="n">prop_red</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">prop_red</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+
+<span class="c1"># 仮想シャベルを33回使う</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">virtual_samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">34</span><span class="p">):</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">virtual_samples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">virtual_samples</span><span class="p">,</span> <span class="n">sample</span><span class="p">])</span>
+
+<span class="c1"># 各レプリケートの赤い球の割合を計算</span>
+<span class="n">virtual_prop_red_33</span> <span class="o">=</span> <span class="n">virtual_samples</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;replicate&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+        <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+        <span class="s1">&#39;prop_red&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">50</span>
+    <span class="p">})</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># 33の割合の分布を視覚化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">virtual_prop_red_33</span><span class="p">[</span><span class="s1">&#39;prop_red&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> 
+         <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;50個の球のうち赤い球の割合&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;33の仮想サンプルにおける赤い球の割合の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 仮想シャベルを1000回使う</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">virtual_samples_1000</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1001</span><span class="p">):</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">virtual_samples_1000</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">virtual_samples_1000</span><span class="p">,</span> <span class="n">sample</span><span class="p">])</span>
+
+<span class="c1"># 各レプリケートの赤い球の割合を計算</span>
+<span class="n">virtual_prop_red_1000</span> <span class="o">=</span> <span class="n">virtual_samples_1000</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;replicate&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+        <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+        <span class="s1">&#39;prop_red&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">50</span>
+    <span class="p">})</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># 1000の割合の分布を視覚化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">virtual_prop_red_1000</span><span class="p">[</span><span class="s1">&#39;prop_red&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> 
+         <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;50個の球のうち赤い球の割合&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;1000の割合の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 異なるシャベルの使用</span>
+<span class="c1"># 3つの異なるサンプルサイズ（25、50、100）で1000回ずつサンプリング</span>
+<span class="n">sample_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">:</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+    <span class="n">virtual_props</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># 1000回のサンプリングを実行</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">prop</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">virtual_props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">virtual_props</span>
+
+<span class="c1"># 3つのサンプルサイズの分布を並べて表示</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_sizes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> 
+                 <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;シャベルの球のうち赤い球の割合&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;3つの異なるシャベルサイズにおける赤い球の割合の分布の比較&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 3つのサンプルサイズの標準偏差を計算</span>
+<span class="n">std_devs</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">}</span>
+
+<span class="c1"># 表形式で表示</span>
+<span class="n">std_dev_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;シャベルのスロット数&#39;</span><span class="p">:</span> <span class="n">sample_sizes</span><span class="p">,</span>
+    <span class="s1">&#39;赤い球の割合の標準偏差&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">std_devs</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">std_dev_df</span><span class="p">)</span>
+
+<span class="c1"># ----------------------------------------</span>
+<span class="c1"># 7.3 サンプリングの枠組み</span>
+<span class="c1"># ----------------------------------------</span>
+
+<span class="c1"># 仮想全数調査 - ボウル全体の赤い球の数を数える</span>
+<span class="n">red_count</span> <span class="o">=</span> <span class="p">(</span><span class="n">bowl</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">total_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bowl</span><span class="p">)</span>
+<span class="n">population_proportion</span> <span class="o">=</span> <span class="n">red_count</span> <span class="o">/</span> <span class="n">total_count</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ボウル全体には</span><span class="si">{</span><span class="n">red_count</span><span class="si">}</span><span class="s2">個の赤い球があります。&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ボウル全体の球の数は</span><span class="si">{</span><span class="n">total_count</span><span class="si">}</span><span class="s2">個です。&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;母集団比率 p = </span><span class="si">{</span><span class="n">population_proportion</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">population_proportion</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="c1"># データをまとめてデータフレームに変換して可視化</span>
+<span class="n">all_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="s1">&#39;prop_red&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">results</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="mi">50</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="mi">100</span><span class="p">]])</span>
+<span class="p">})</span>
+
+<span class="c1"># 3つのサンプルサイズの分布を並べて表示</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">all_results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;prop_red&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="s1">&#39;dodge&#39;</span><span class="p">,</span> 
+             <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$ の3つのサンプリング分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 3つのサンプルサイズの標準偏差を計算</span>
+<span class="n">std_devs</span> <span class="o">=</span> <span class="n">all_results</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)[</span><span class="s1">&#39;prop_red&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">std_devs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;サンプルサイズ (n)&#39;</span><span class="p">,</span> <span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$ の標準誤差&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">std_devs</span><span class="p">)</span>
+
+<span class="c1"># 3つのサンプリング分布と真の母集団比率</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">all_results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;prop_red&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="s1">&#39;dodge&#39;</span><span class="p">,</span> 
+             <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">population_proportion</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;標本比率 $</span><span class="se">\\</span><span class="s1">hat</span><span class="si">{p}</span><span class="s1">$ の3つのサンプリング分布（真の母集団比率$p$を垂直線で表示）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 正確さと精度の違いを示す図</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_target_plot</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">precision</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="c1"># 的を描画</span>
+    <span class="n">circle1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
+    <span class="n">circle2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">circle3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgray&#39;</span><span class="p">)</span>
+    <span class="n">circle4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle4</span><span class="p">)</span>
+
+    <span class="c1"># 弾痕をシミュレート</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">accuracy</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span> <span class="ow">and</span> <span class="n">precision</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span>
+        <span class="c1"># 中心近くで密集</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">accuracy</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span> <span class="ow">and</span> <span class="n">precision</span> <span class="o">==</span> <span class="s1">&#39;low&#39;</span><span class="p">:</span>
+        <span class="c1"># 中心近くでばらつき</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">accuracy</span> <span class="o">==</span> <span class="s1">&#39;low&#39;</span> <span class="ow">and</span> <span class="n">precision</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span>
+        <span class="c1"># 中心から外れて密集</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># low accuracy, low precision</span>
+        <span class="c1"># 中心から外れてばらつき</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">points_x</span><span class="p">,</span> <span class="n">points_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;高い&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">accuracy</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;低い&quot;</span><span class="si">}</span><span class="s1">正確さ, </span><span class="si">{</span><span class="s2">&quot;高い&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">precision</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;低い&quot;</span><span class="si">}</span><span class="s1">精度&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span>
+
+<span class="c1"># 2x2グリッドでの正確さと精度の比較</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">accuracy_values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">]</span>
+<span class="n">precision_values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">]</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+
+<span class="k">for</span> <span class="n">acc</span><span class="p">,</span> <span class="n">prec</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">accuracy_values</span><span class="p">,</span> <span class="n">precision_values</span><span class="p">,</span> <span class="n">positions</span><span class="p">):</span>
+    <span class="c1"># 的を描画</span>
+    <span class="n">circle1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+    <span class="n">circle2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+    <span class="n">circle3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgray&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+    <span class="n">circle4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle1</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle2</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle4</span><span class="p">)</span>
+
+    <span class="c1"># 弾痕をシミュレート</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">acc</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span> <span class="ow">and</span> <span class="n">prec</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span>
+        <span class="c1"># 中心近くで密集</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">acc</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span> <span class="ow">and</span> <span class="n">prec</span> <span class="o">==</span> <span class="s1">&#39;low&#39;</span><span class="p">:</span>
+        <span class="c1"># 中心近くでばらつき</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">acc</span> <span class="o">==</span> <span class="s1">&#39;low&#39;</span> <span class="ow">and</span> <span class="n">prec</span> <span class="o">==</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span>
+        <span class="c1"># 中心から外れて密集</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># low accuracy, low precision</span>
+        <span class="c1"># 中心から外れてばらつき</span>
+        <span class="n">points_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">points_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">points_x</span><span class="p">,</span> <span class="n">points_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;高い&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;低い&quot;</span><span class="si">}</span><span class="s1">正確さ, </span><span class="si">{</span><span class="s2">&quot;高い&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">prec</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;低い&quot;</span><span class="si">}</span><span class="s1">精度&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 標準誤差の理論に基づく近似値の計算例</span>
+<span class="n">p_hat</span> <span class="o">=</span> <span class="mf">0.42</span>
+<span class="n">n_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_values</span><span class="p">:</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">p_hat</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_hat</span><span class="p">))</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">の場合の標準誤差: </span><span class="si">{</span><span class="n">se</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

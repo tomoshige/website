@@ -1,0 +1,3382 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/08-Estimation-CI-Bootstrapping/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>第8章: ブートストラップと信頼区間 - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第8章: ブートストラップと信頼区間
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/32-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/33-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/34-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/35-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/36-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/37-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/38-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/39-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/40-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/41-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/42-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/43-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/44-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/45-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/46-nonlinear-dimension-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46. Nonlinear dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/47-wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47. Wrap up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/48-final-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48. Final Report
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-brain-analysis.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 はじめに
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 ペニー（硬貨）のサンプリング活動
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 ブートストラップリサンプリング
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 ブートストラップリサンプリング">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      手作業でのリサンプリング手順
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4 コンピュータによるリサンプリングシミュレーション
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5 信頼区間の理解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.5 信頼区間の理解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      パーセンタイル法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      標準誤差法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#86-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.6 Pythonによる信頼区間の構築
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#87" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.7 信頼区間の解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.7 信頼区間の解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      信頼区間の幅に影響する要因
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#88" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.8 ケーススタディ：あくびは伝染するか？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#89" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9 ブートストラップ分布とサンプリング分布の比較
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#810" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.10 理論に基づく信頼区間
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#811" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.11 結論
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="8">第8章: ブートストラップと信頼区間</h1>
+<h2 id="81">8.1 はじめに</h2>
+<p>この章では、統計的推論の第三部分のブートストラップと信頼区間について学びます。前の章ではサンプリングについて学び、母集団から標本を抽出することで母集団パラメータを推定する方法を見てきました。</p>
+<p>第7章では、赤と白のボールが入った大きなボウルからシャベルを使って標本を抽出し、ボウル全体の赤いボールの割合を推定しました。そのとき、複数回のサンプリングを行い、サンプリングによる変動の影響を研究しました。しかし現実では、通常は単一の標本しか取らず、複数回のサンプリングは行いません。</p>
+<p>実際には、単一の標本から母集団パラメータの信頼区間を構築する方法が必要になります。それがこの章のテーマです。</p>
+<p>オバマ大統領支持率に関する世論調査を例にとると、記事では「調査の誤差の範囲はプラスマイナス2.1パーセントポイントだった」と述べられていました。これは信頼区間の一例で、サンプリング変動による誤差の範囲を示しています。</p>
+<p>この章ではブートストラップリサンプリングと信頼区間について学び、これらを用いて単一の標本からどのようにサンプリング変動の影響を評価できるかを見ていきます。</p>
+<h2 id="82">8.2 ペニー（硬貨）のサンプリング活動</h2>
+<p>実践的な活動として、2019年にアメリカで流通しているペニー（1セント硬貨）の平均製造年は何年かを考えてみましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+
+<span class="c1"># GitHub上のModernDiveデータを読み込むためのURLを設定</span>
+<span class="n">github_url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/moderndive/moderndive_book/master/data/&quot;</span>
+
+<span class="c1"># ペニーのサンプルデータを読み込む</span>
+<span class="n">pennies_sample_url</span> <span class="o">=</span> <span class="n">github_url</span> <span class="o">+</span> <span class="s2">&quot;pennies_sample.csv&quot;</span>
+<span class="n">pennies_sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pennies_sample_url</span><span class="p">)</span>
+
+<span class="c1"># データの最初の数行を表示</span>
+<span class="n">pennies_sample</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<p><code>pennies_sample</code>データフレームには50枚のペニーに関する情報が含まれています。各行が1枚のペニーに対応し、<code>ID</code>と<code>year</code>（製造年）の2つの変数があります。</p>
+<p>このサンプルから、アメリカで流通しているすべてのペニーについて何が言えるでしょうか？探索的データ分析を行い、サンプルのプロパティを調査してみましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ペニーの製造年のヒストグラムを作成</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">pennies_sample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1960</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;50枚のペニーの製造年の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;製造年&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>このヒストグラムから、ほとんどのペニーが1980年から2010年の間に製造されており、1970年以前の古いペニーはごく少数であることがわかります。サンプル内のペニーの平均製造年を計算してみましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ペニーの平均製造年を計算</span>
+<span class="n">x_bar</span> <span class="o">=</span> <span class="n">pennies_sample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;サンプルのペニーの平均製造年: </span><span class="si">{</span><span class="n">x_bar</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>このサンプルから、アメリカで流通しているすべてのペニーの平均製造年の推定値は約1995年です。これは、私たちの調査対象である「母平均」μの点推定値です。</p>
+<p>サンプリングに関する統計的概念を整理すると：</p>
+<ul>
+<li><strong>母集団</strong>: 調査対象となる全体集団（この場合はアメリカで流通しているすべてのペニー）</li>
+<li><strong>母集団パラメータ</strong>: 知りたい未知の値（この場合は母集団の平均製造年μ）</li>
+<li><strong>標本統計量/点推定量</strong>: 標本から計算される推定値（この場合は標本平均x̄）</li>
+</ul>
+<p>しかし、サンプリングには変動があります。別の50枚のペニーを銀行から入手したら、同じ平均年が得られるでしょうか？おそらく違う値になるでしょう。このサンプリング変動の影響を、単一のサンプルから研究するにはどうすればよいでしょうか？</p>
+<h2 id="83">8.3 ブートストラップリサンプリング</h2>
+<p><strong>ブートストラップリサンプリング</strong>を行うことで、単一のサンプルからサンプリング変動の影響を研究できます。手順を見ていきましょう。</p>
+<h3 id="_1">手作業でのリサンプリング手順</h3>
+<ol>
+<li>50枚のペニーそれぞれを表す紙片を用意します</li>
+<li>紙片を帽子に入れます</li>
+<li>ランダムに1枚の紙片を引き、年を記録します</li>
+<li>引いた紙片を<strong>元に戻します</strong>（置換）</li>
+<li>ステップ3と4を合計50回繰り返し、50個の年の値を得ます</li>
+</ol>
+<p>このプロセスは、元のサンプルから<strong>置換を伴うリサンプリング</strong>を行っています。この「ブートストラップサンプル」の平均値を計算すると、元のサンプル平均とは異なる値が得られるでしょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 手作業でのリサンプリングを再現（実際のデータをシミュレーション）</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># 結果を再現できるように乱数シードを設定</span>
+<span class="n">pennies_resample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pennies_sample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1"># リサンプルの平均を計算</span>
+<span class="n">resample_mean</span> <span class="o">=</span> <span class="n">pennies_resample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;リサンプルのペニーの平均製造年: </span><span class="si">{</span><span class="n">resample_mean</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;元のサンプルの平均製造年: </span><span class="si">{</span><span class="n">x_bar</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;差: </span><span class="si">{</span><span class="n">resample_mean</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x_bar</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>元のサンプルを35回リサンプリングしたという仮想のシナリオを考えてみましょう。これは、35人の友人がそれぞれリサンプリングを行ったと想像できます。このデータをシミュレーションしましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 35回のリサンプリングをシミュレーション</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">456</span><span class="p">)</span>
+<span class="n">resampled_means</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;friend_</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">35</span><span class="p">)]</span>
+
+<span class="c1"># 各友人のリサンプルと平均値を保存</span>
+<span class="n">pennies_resamples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+    <span class="c1"># 置換を伴うリサンプリング</span>
+    <span class="n">resample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pennies_sample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># 各リサンプルのデータを記録</span>
+    <span class="n">temp_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">*</span> <span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">resample</span><span class="p">})</span>
+    <span class="n">pennies_resamples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pennies_resamples</span><span class="p">,</span> <span class="n">temp_df</span><span class="p">])</span>
+    <span class="c1"># 平均値を計算</span>
+    <span class="n">resampled_means</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;mean_year&#39;</span><span class="p">:</span> <span class="n">resample</span><span class="o">.</span><span class="n">mean</span><span class="p">()})</span>
+
+<span class="c1"># 35の平均値をデータフレームに変換</span>
+<span class="n">resampled_means_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resampled_means</span><span class="p">)</span>
+
+<span class="c1"># 平均値のヒストグラムを作成</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">resampled_means_df</span><span class="p">[</span><span class="s1">&#39;mean_year&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;35回のリサンプリングから得られた平均年のヒストグラム&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均製造年&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>このヒストグラムは、「ブートストラップ分布」と呼ばれます。1992年から2000年の間に平均値が集中しており、分布はおおよそ1995年を中心としています。これは元のサンプル平均に近い値です。この分布を使って、サンプリング変動が推定値に与える影響を研究できます。</p>
+<h2 id="84">8.4 コンピュータによるリサンプリングシミュレーション</h2>
+<p>Pythonを使用して、リサンプリングのプロセスをより効率的に行い、多数のブートストラップサンプルを生成できます。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1回のブートストラップサンプリング</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">virtual_resample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pennies_sample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">virtual_resample_mean</span> <span class="o">=</span> <span class="n">virtual_resample</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;バーチャルリサンプルの平均: </span><span class="si">{</span><span class="n">virtual_resample_mean</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>次に、35回のリサンプリングを行い、元の手作業の結果と比較します。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 35回のブートストラップリサンプリング</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">virtual_resamples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pennies_sample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># 結果のヒストグラムを作成</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">virtual_resamples</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;35回のバーチャルリサンプリングから得られた平均年のヒストグラム&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均製造年&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>より信頼性の高い結果を得るために、リサンプリングの回数を1000回に増やしましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1000回のブートストラップリサンプリング</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">789</span><span class="p">)</span>
+<span class="n">virtual_resamples_1000</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pennies_sample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># 結果のヒストグラムを作成</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">virtual_resamples_1000</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;1000回のブートストラップリサンプリングから得られた平均年の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均製造年&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># ブートストラップ分布の平均を計算</span>
+<span class="n">mean_of_means</span> <span class="o">=</span> <span class="n">virtual_resamples_1000</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;1000個のブートストラップ平均の平均: </span><span class="si">{</span><span class="n">mean_of_means</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;元のサンプル平均: </span><span class="si">{</span><span class="n">x_bar</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>1000回のリサンプリングから得られたブートストラップ分布は、より滑らかで正規分布に近い形状になっています。この分布を使って、母平均μの信頼区間を構築できます。</p>
+<h2 id="85">8.5 信頼区間の理解</h2>
+<p>「点推定値」は単一の値で母集団パラメータを推定しますが、「信頼区間」は妥当な値の範囲を提供します。これは漁師のたとえで言うと、「槍」ではなく「網」を使うようなものです。</p>
+<p>信頼区間を構築する方法には、<strong>パーセンタイル法</strong>と<strong>標準誤差法</strong>の2つの主要なアプローチがあります。</p>
+<h3 id="_2">パーセンタイル法</h3>
+<p>パーセンタイル法では、ブートストラップ分布の中央95%の値を取ります。これは2.5パーセンタイルと97.5パーセンタイルの間の値です。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># パーセンタイル法による95%信頼区間</span>
+<span class="n">percentile_ci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">virtual_resamples_1000</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;パーセンタイル法による95%信頼区間: (</span><span class="si">{</span><span class="n">percentile_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">percentile_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="c1"># 信頼区間をヒストグラム上に表示</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">virtual_resamples_1000</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">percentile_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">percentile_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;パーセンタイル法による95%信頼区間&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均製造年&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="_3">標準誤差法</h3>
+<p>標準誤差法は、ブートストラップ分布が正規分布に従う場合に適用できます。これは、元のサンプル平均を中心に、ブートストラップ標準誤差の約1.96倍（95%信頼区間の場合）の範囲を取ります。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ブートストラップ標準誤差を計算</span>
+<span class="n">bootstrap_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">virtual_resamples_1000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ブートストラップ標準誤差: </span><span class="si">{</span><span class="n">bootstrap_se</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 標準誤差法による95%信頼区間</span>
+<span class="n">se_ci</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_bar</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">bootstrap_se</span><span class="p">,</span> <span class="n">x_bar</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">bootstrap_se</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;標準誤差法による95%信頼区間: (</span><span class="si">{</span><span class="n">se_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">se_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="c1"># 両方の信頼区間をヒストグラム上に表示</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">virtual_resamples_1000</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">percentile_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;パーセンタイル法&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">percentile_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">se_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;標準誤差法&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">se_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ブートストラップ分布と95%信頼区間の比較&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均製造年&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>両方の方法による信頼区間が概ね似ていることがわかります。しかし、標準誤差法はブートストラップ分布が正規分布に近い場合にのみ適切です。</p>
+<h2 id="86-python">8.6 Pythonによる信頼区間の構築</h2>
+<p>Pythonでは、ブートストラップリサンプリングと信頼区間の計算を体系的に行うために、<code>bootstrap</code>関数を作成できます。</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">bootstrap_ci</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_resamples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">ci_level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">statistic</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ブートストラップ法による信頼区間を計算する関数</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    data : array-like</span>
+<span class="sd">        元のサンプルデータ</span>
+<span class="sd">    n_resamples : int, default 1000</span>
+<span class="sd">        ブートストラップサンプルの数</span>
+<span class="sd">    ci_level : float, default 0.95</span>
+<span class="sd">        信頼水準（0から1の間）</span>
+<span class="sd">    statistic : function, default np.mean</span>
+<span class="sd">        計算する統計量の関数</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    tuple : (bootstrap_distribution, lower_ci, upper_ci)</span>
+<span class="sd">        ブートストラップ分布と信頼区間の下限・上限</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ブートストラップリサンプリング</span>
+    <span class="n">bootstrap_distribution</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="n">statistic</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_resamples</span><span class="p">)</span>
+    <span class="p">])</span>
+
+    <span class="c1"># パーセンタイル法による信頼区間</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ci_level</span>
+    <span class="n">lower_percentile</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">upper_percentile</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">percentile_ci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">bootstrap_distribution</span><span class="p">,</span> <span class="p">[</span><span class="n">lower_percentile</span><span class="p">,</span> <span class="n">upper_percentile</span><span class="p">])</span>
+
+    <span class="c1"># 標準誤差法による信頼区間</span>
+    <span class="n">point_estimate</span> <span class="o">=</span> <span class="n">statistic</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">bootstrap_distribution</span><span class="p">)</span>
+    <span class="n">z_critical</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 95%信頼区間の場合は約1.96</span>
+    <span class="n">se_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">point_estimate</span> <span class="o">-</span> <span class="n">z_critical</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="n">point_estimate</span> <span class="o">+</span> <span class="n">z_critical</span> <span class="o">*</span> <span class="n">se</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;bootstrap_distribution&#39;</span><span class="p">:</span> <span class="n">bootstrap_distribution</span><span class="p">,</span>
+        <span class="s1">&#39;percentile_ci&#39;</span><span class="p">:</span> <span class="n">percentile_ci</span><span class="p">,</span>
+        <span class="s1">&#39;se_ci&#39;</span><span class="p">:</span> <span class="n">se_ci</span><span class="p">,</span>
+        <span class="s1">&#39;point_estimate&#39;</span><span class="p">:</span> <span class="n">point_estimate</span><span class="p">,</span>
+        <span class="s1">&#39;standard_error&#39;</span><span class="p">:</span> <span class="n">se</span>
+    <span class="p">}</span>
+</code></pre></div>
+<p>この関数を使って、ペニーデータの信頼区間を計算してみましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ペニーデータに対する95%信頼区間</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">bootstrap_results</span> <span class="o">=</span> <span class="n">bootstrap_ci</span><span class="p">(</span><span class="n">pennies_sample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">n_resamples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">ci_level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+
+<span class="c1"># 結果の表示</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;点推定値 (サンプル平均): </span><span class="si">{</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;point_estimate&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ブートストラップ標準誤差: </span><span class="si">{</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;standard_error&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;パーセンタイル法による95%信頼区間: (</span><span class="si">{</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;標準誤差法による95%信頼区間: (</span><span class="si">{</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;se_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;se_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="c1"># 結果の可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;bootstrap_distribution&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;パーセンタイル法CI&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;se_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;標準誤差法CI&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;se_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;point_estimate&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;サンプル平均&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ペニーの平均製造年のブートストラップ分布と95%信頼区間&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均製造年&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="87">8.7 信頼区間の解釈</h2>
+<p>信頼区間の正確な統計的解釈は少し長くなります：「サンプリング手順を多数回繰り返した場合、得られる信頼区間の約95%が母集団パラメータの真の値を捕捉する」</p>
+<p>これは信頼区間構築手順の信頼性に関する記述です。単一の信頼区間に対しては、「95%の確率で母集団パラメータを含む」という解釈は厳密には正しくありません。なぜなら、特定の信頼区間は母集団パラメータを含むか含まないかのどちらかだからです。</p>
+<p>実用的な短い解釈は：「95%信頼区間は、母集団パラメータの真の値を捕捉する95%の『確信』を持つ区間である」</p>
+<p>ペニーの例では、「2019年に流通しているすべてのペニーの真の平均製造年は約1991年から2000年の間である」と95%の確信を持って言えます。</p>
+<h3 id="_4">信頼区間の幅に影響する要因</h3>
+<ol>
+<li><strong>信頼水準</strong>: 信頼水準が高いほど、信頼区間は広くなります（例：99%信頼区間は95%信頼区間より広い）</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># 異なる信頼水準の比較</span>
+<span class="n">confidence_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.80</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">]</span>
+<span class="n">ci_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">confidence_levels</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">bootstrap_ci</span><span class="p">(</span><span class="n">pennies_sample</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">n_resamples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">ci_level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+    <span class="n">ci_width</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ci_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;confidence_level&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">level</span><span class="o">*</span><span class="mi">100</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;lower_ci&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s1">&#39;upper_ci&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">ci_width</span>
+    <span class="p">})</span>
+
+<span class="c1"># 結果をデータフレームに変換</span>
+<span class="n">ci_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ci_results</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_comparison</span><span class="p">)</span>
+
+<span class="c1"># 可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ci_results</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;lower_ci&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;upper_ci&#39;</span><span class="p">]],</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;confidence_level&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> CI (幅=</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">bootstrap_results</span><span class="p">[</span><span class="s1">&#39;point_estimate&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;サンプル平均&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">confidence_levels</span><span class="p">)),</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">level</span><span class="o">*</span><span class="mi">100</span><span class="si">}</span><span class="s2">%&quot;</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">confidence_levels</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;異なる信頼水準の信頼区間の比較&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均製造年&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;信頼水準&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<ol>
+<li><strong>サンプルサイズ</strong>: サンプルサイズが大きいほど、信頼区間は狭くなります</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># サンプルサイズの影響をシミュレーション</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">sample_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+<span class="n">sample_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># 仮想的な大きな母集団を作成</span>
+<span class="n">population_years</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">1995</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">:</span>
+    <span class="c1"># サンプルを取得</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">population_years</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">bootstrap_ci</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">n_resamples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">ci_level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+    <span class="n">ci_width</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sample_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;sample_size&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;lower_ci&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s1">&#39;upper_ci&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">ci_width</span><span class="p">,</span>
+        <span class="s1">&#39;point_estimate&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;point_estimate&#39;</span><span class="p">]</span>
+    <span class="p">})</span>
+
+<span class="c1"># 結果をデータフレームに変換</span>
+<span class="n">sample_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sample_results</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_comparison</span><span class="p">)</span>
+
+<span class="c1"># 可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_results</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;lower_ci&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;upper_ci&#39;</span><span class="p">]],</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;sample_size&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (幅=</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;point_estimate&#39;</span><span class="p">],</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample_sizes</span><span class="p">)),</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;異なるサンプルサイズの95%信頼区間の比較&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均製造年&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;サンプルサイズ&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="88">8.8 ケーススタディ：あくびは伝染するか？</h2>
+<p>Mythbustersのテレビ番組で行われた実験を分析するケーススタディを見てみましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Mythbustersのあくびデータを読み込む</span>
+<span class="n">mythbusters_url</span> <span class="o">=</span> <span class="n">github_url</span> <span class="o">+</span> <span class="s2">&quot;mythbusters_yawn.csv&quot;</span>
+<span class="n">mythbusters_yawn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">mythbusters_url</span><span class="p">)</span>
+
+<span class="c1"># データの概要を確認</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mythbusters_yawn</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">データの要約:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mythbusters_yawn</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;yawn&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+<p>このデータセットでは、50人の参加者が「seed」グループ（あくびを見せられる）と「control」グループ（あくびを見せられない）に分けられました。実験の目的は、あくびを見ることであくびが誘発されるかどうかを調べることです。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 各グループのあくび率を計算</span>
+<span class="n">control_yawn_rate</span> <span class="o">=</span> <span class="n">mythbusters_yawn</span><span class="p">[</span><span class="n">mythbusters_yawn</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;control&#39;</span><span class="p">][</span><span class="s1">&#39;yawn&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">seed_yawn_rate</span> <span class="o">=</span> <span class="n">mythbusters_yawn</span><span class="p">[</span><span class="n">mythbusters_yawn</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;seed&#39;</span><span class="p">][</span><span class="s1">&#39;yawn&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">diff_proportion</span> <span class="o">=</span> <span class="n">seed_yawn_rate</span> <span class="o">-</span> <span class="n">control_yawn_rate</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Control group yawn rate: </span><span class="si">{</span><span class="n">control_yawn_rate</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">control_yawn_rate</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Seed group yawn rate: </span><span class="si">{</span><span class="n">seed_yawn_rate</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">seed_yawn_rate</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Difference (seed - control): </span><span class="si">{</span><span class="n">diff_proportion</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">diff_proportion</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>二項比率の差に対する信頼区間を計算するためにブートストラップ法を使用します。</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">bootstrap_diff_proportions</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_col</span><span class="p">,</span> <span class="n">outcome_col</span><span class="p">,</span> <span class="n">success_val</span><span class="p">,</span> <span class="n">group1</span><span class="p">,</span> <span class="n">group2</span><span class="p">,</span> <span class="n">n_resamples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">ci_level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    二つのグループ間の比率の差に対するブートストラップ信頼区間を計算</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    data : pandas DataFrame</span>
+<span class="sd">        元のデータセット</span>
+<span class="sd">    group_col : str</span>
+<span class="sd">        グループを表す列名</span>
+<span class="sd">    outcome_col : str</span>
+<span class="sd">        結果を表す列名</span>
+<span class="sd">    success_val : any</span>
+<span class="sd">        成功とみなす値</span>
+<span class="sd">    group1, group2 : any</span>
+<span class="sd">        比較する2つのグループの値</span>
+<span class="sd">    n_resamples : int</span>
+<span class="sd">        ブートストラップ反復回数</span>
+<span class="sd">    ci_level : float</span>
+<span class="sd">        信頼水準</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    dict</span>
+<span class="sd">        ブートストラップ結果を含む辞書</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 点推定値を計算</span>
+    <span class="n">prop1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">group_col</span><span class="p">]</span> <span class="o">==</span> <span class="n">group1</span><span class="p">][</span><span class="n">outcome_col</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">success_val</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">prop2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">group_col</span><span class="p">]</span> <span class="o">==</span> <span class="n">group2</span><span class="p">][</span><span class="n">outcome_col</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">success_val</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">point_estimate</span> <span class="o">=</span> <span class="n">prop1</span> <span class="o">-</span> <span class="n">prop2</span>
+
+    <span class="c1"># ブートストラップリサンプリング</span>
+    <span class="n">bootstrap_diffs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_resamples</span><span class="p">):</span>
+        <span class="c1"># 置換を伴うリサンプリング</span>
+        <span class="n">resample</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># 各グループの比率を計算</span>
+        <span class="n">resample_prop1</span> <span class="o">=</span> <span class="n">resample</span><span class="p">[</span><span class="n">resample</span><span class="p">[</span><span class="n">group_col</span><span class="p">]</span> <span class="o">==</span> <span class="n">group1</span><span class="p">][</span><span class="n">outcome_col</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">success_val</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">resample_prop2</span> <span class="o">=</span> <span class="n">resample</span><span class="p">[</span><span class="n">resample</span><span class="p">[</span><span class="n">group_col</span><span class="p">]</span> <span class="o">==</span> <span class="n">group2</span><span class="p">][</span><span class="n">outcome_col</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">success_val</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="c1"># 差を保存</span>
+        <span class="n">bootstrap_diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">resample_prop1</span> <span class="o">-</span> <span class="n">resample_prop2</span><span class="p">)</span>
+
+    <span class="n">bootstrap_diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bootstrap_diffs</span><span class="p">)</span>
+
+    <span class="c1"># パーセンタイル法による信頼区間</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ci_level</span>
+    <span class="n">percentile_ci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">bootstrap_diffs</span><span class="p">,</span> <span class="p">[</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">])</span>
+
+    <span class="c1"># 標準誤差法による信頼区間</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">bootstrap_diffs</span><span class="p">)</span>
+    <span class="n">z_critical</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">se_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">point_estimate</span> <span class="o">-</span> <span class="n">z_critical</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="n">point_estimate</span> <span class="o">+</span> <span class="n">z_critical</span> <span class="o">*</span> <span class="n">se</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;bootstrap_distribution&#39;</span><span class="p">:</span> <span class="n">bootstrap_diffs</span><span class="p">,</span>
+        <span class="s1">&#39;point_estimate&#39;</span><span class="p">:</span> <span class="n">point_estimate</span><span class="p">,</span>
+        <span class="s1">&#39;percentile_ci&#39;</span><span class="p">:</span> <span class="n">percentile_ci</span><span class="p">,</span>
+        <span class="s1">&#39;se_ci&#39;</span><span class="p">:</span> <span class="n">se_ci</span><span class="p">,</span>
+        <span class="s1">&#39;standard_error&#39;</span><span class="p">:</span> <span class="n">se</span>
+    <span class="p">}</span>
+</code></pre></div>
+<p>MythbustersのあくびデータにこのブートストラップLを適用しましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">yawn_bootstrap</span> <span class="o">=</span> <span class="n">bootstrap_diff_proportions</span><span class="p">(</span>
+    <span class="n">mythbusters_yawn</span><span class="p">,</span> 
+    <span class="n">group_col</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> 
+    <span class="n">outcome_col</span><span class="o">=</span><span class="s1">&#39;yawn&#39;</span><span class="p">,</span> 
+    <span class="n">success_val</span><span class="o">=</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span>
+    <span class="n">group1</span><span class="o">=</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> 
+    <span class="n">group2</span><span class="o">=</span><span class="s1">&#39;control&#39;</span><span class="p">,</span> 
+    <span class="n">n_resamples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> 
+    <span class="n">ci_level</span><span class="o">=</span><span class="mf">0.95</span>
+<span class="p">)</span>
+
+<span class="c1"># 結果の表示</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;点推定値 (seed - control): </span><span class="si">{</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;point_estimate&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;パーセンタイル法による95%信頼区間: (</span><span class="si">{</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;標準誤差法による95%信頼区間: (</span><span class="si">{</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;se_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;se_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ブートストラップ標準誤差: </span><span class="si">{</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;standard_error&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 結果の可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;bootstrap_distribution&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;差なし (0)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;point_estimate&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;観測された差&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;95%信頼区間&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">yawn_bootstrap</span><span class="p">[</span><span class="s1">&#39;percentile_ci&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;あくびの伝染: 比率の差のブートストラップ分布 (seed - control)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;比率の差 (seed - control)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>95%信頼区間は0を含んでいることから、あくびを見せられたグループとそうでないグループの間のあくび率に統計的に有意な差があるという証拠はないことがわかります。つまり、この実験からは「あくびは伝染する」という仮説を支持する強い証拠は得られませんでした。</p>
+<h2 id="89">8.9 ブートストラップ分布とサンプリング分布の比較</h2>
+<p>ブートストラップ分布とサンプリング分布の関係を理解することは重要です。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ボウルデータを読み込む</span>
+<span class="n">bowl_url</span> <span class="o">=</span> <span class="n">github_url</span> <span class="o">+</span> <span class="s2">&quot;bowl.csv&quot;</span>
+<span class="n">bowl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">bowl_url</span><span class="p">)</span>
+
+<span class="c1"># 赤いボールの真の割合を計算</span>
+<span class="n">p_red</span> <span class="o">=</span> <span class="p">(</span><span class="n">bowl</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ボウル内の赤いボールの真の割合: </span><span class="si">{</span><span class="n">p_red</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># サンプリング分布の生成（理想的な状況のシミュレーション）</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">sampling_distribution</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">p_hat</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">sampling_distribution</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p_hat</span><span class="p">)</span>
+
+<span class="c1"># サンプリング分布の標準誤差</span>
+<span class="n">sampling_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sampling_distribution</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;サンプリング分布の標準誤差: </span><span class="si">{</span><span class="n">sampling_se</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 単一サンプルの取得</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">bowl_sample</span> <span class="o">=</span> <span class="n">bowl</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">p_hat_sample</span> <span class="o">=</span> <span class="p">(</span><span class="n">bowl_sample</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;サンプルの赤いボールの割合: </span><span class="si">{</span><span class="n">p_hat_sample</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ブートストラップ分布の生成（現実的な状況）</span>
+<span class="n">bootstrap_distribution</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">bootstrap_sample</span> <span class="o">=</span> <span class="n">bowl_sample</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">p_hat_bootstrap</span> <span class="o">=</span> <span class="p">(</span><span class="n">bootstrap_sample</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">bootstrap_distribution</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p_hat_bootstrap</span><span class="p">)</span>
+
+<span class="c1"># ブートストラップ分布の標準誤差</span>
+<span class="n">bootstrap_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">bootstrap_distribution</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ブートストラップ分布の標準誤差: </span><span class="si">{</span><span class="n">bootstrap_se</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 理論上の標準誤差</span>
+<span class="n">theoretical_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p_hat_sample</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_hat_sample</span><span class="p">)</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;理論上の標準誤差: </span><span class="si">{</span><span class="n">theoretical_se</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 両方の分布を比較するプロット</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sampling_distribution</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">p_red</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;真の割合 p = </span><span class="si">{</span><span class="n">p_red</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;サンプリング分布（多数のサンプルから得られる理想的なケース）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;サンプル割合&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bootstrap_distribution</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">p_hat_sample</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;元のサンプル割合 p̂ = </span><span class="si">{</span><span class="n">p_hat_sample</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ブートストラップ分布（単一サンプルから得られる現実的なケース）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ブートストラップサンプル割合&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 標準誤差の比較</span>
+<span class="n">se_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Method&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Sampling Distribution&#39;</span><span class="p">,</span> <span class="s1">&#39;Bootstrap Distribution&#39;</span><span class="p">,</span> <span class="s1">&#39;Theoretical Formula&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Standard Error&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">sampling_se</span><span class="p">,</span> <span class="n">bootstrap_se</span><span class="p">,</span> <span class="n">theoretical_se</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">標準誤差の比較:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">se_comparison</span><span class="p">)</span>
+</code></pre></div>
+<p>このシミュレーションから以下の重要な点がわかります：</p>
+<ol>
+<li>
+<p><strong>ブートストラップ分布はサンプリング分布と同じ中心を持たない</strong> - ブートストラップ分布は元のサンプル統計量（この場合はp̂）を中心としますが、サンプリング分布は真の母数値（p）を中心とします。</p>
+</li>
+<li>
+<p><strong>ブートストラップ分布はサンプリング分布と同様の形状と広がりを持つ</strong> - 両方の分布の標準誤差は非常に似ており、理論式による推定値とも近いです。</p>
+</li>
+<li>
+<p><strong>ブートストラップ法は推定の精度を直接向上させることはできないが、標準誤差の良い推定値を提供する</strong> - これにより、単一サンプルからでも信頼区間を構築できます。</p>
+</li>
+</ol>
+<h2 id="810">8.10 理論に基づく信頼区間</h2>
+<p>サンプリング分布が正規分布に従う場合、数学的公式を使用して信頼区間を構築することもできます。例えば、比率pの95%信頼区間は以下のように計算できます：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">theoretical_proportion_ci</span><span class="p">(</span><span class="n">p_hat</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ci_level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    比率の理論的信頼区間を計算</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    p_hat : float</span>
+<span class="sd">        サンプル比率</span>
+<span class="sd">    n : int</span>
+<span class="sd">        サンプルサイズ</span>
+<span class="sd">    ci_level : float</span>
+<span class="sd">        信頼水準</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        信頼区間の下限と上限</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ci_level</span>
+    <span class="n">z_critical</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># 標準誤差</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p_hat</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_hat</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># 誤差の範囲</span>
+    <span class="n">margin_of_error</span> <span class="o">=</span> <span class="n">z_critical</span> <span class="o">*</span> <span class="n">se</span>
+
+    <span class="c1"># 信頼区間</span>
+    <span class="n">lower_ci</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">p_hat</span> <span class="o">-</span> <span class="n">margin_of_error</span><span class="p">)</span>  <span class="c1"># 0未満にならないように</span>
+    <span class="n">upper_ci</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">p_hat</span> <span class="o">+</span> <span class="n">margin_of_error</span><span class="p">)</span>  <span class="c1"># 1を超えないように</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">lower_ci</span><span class="p">,</span> <span class="n">upper_ci</span><span class="p">,</span> <span class="n">margin_of_error</span><span class="p">)</span>
+</code></pre></div>
+<p>例として、ボウルのサンプルにこの理論式を適用してみましょう。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 理論に基づく信頼区間</span>
+<span class="n">theory_ci</span><span class="p">,</span> <span class="n">theory_ci_upper</span><span class="p">,</span> <span class="n">margin_of_error</span> <span class="o">=</span> <span class="n">theoretical_proportion_ci</span><span class="p">(</span><span class="n">p_hat_sample</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;理論に基づく95%信頼区間: (</span><span class="si">{</span><span class="n">theory_ci</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">theory_ci_upper</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;誤差の範囲: ±</span><span class="si">{</span><span class="n">margin_of_error</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Mythbustersの世論調査の例</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">オバマ支持率の世論調査の例:&quot;</span><span class="p">)</span>
+<span class="n">obama_p_hat</span> <span class="o">=</span> <span class="mf">0.41</span>
+<span class="n">obama_n</span> <span class="o">=</span> <span class="mi">2089</span>
+<span class="n">obama_ci_lower</span><span class="p">,</span> <span class="n">obama_ci_upper</span><span class="p">,</span> <span class="n">obama_moe</span> <span class="o">=</span> <span class="n">theoretical_proportion_ci</span><span class="p">(</span><span class="n">obama_p_hat</span><span class="p">,</span> <span class="n">obama_n</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;サンプルサイズ: </span><span class="si">{</span><span class="n">obama_n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;サンプル比率: </span><span class="si">{</span><span class="n">obama_p_hat</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">obama_p_hat</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;誤差の範囲: ±</span><span class="si">{</span><span class="n">obama_moe</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (±</span><span class="si">{</span><span class="n">obama_moe</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;95%信頼区間: (</span><span class="si">{</span><span class="n">obama_ci_lower</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">obama_ci_upper</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">) または (</span><span class="si">{</span><span class="n">obama_ci_lower</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%, </span><span class="si">{</span><span class="n">obama_ci_upper</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="811">8.11 結論</h2>
+<p>信頼区間は、母集団パラメータの妥当な値の範囲を提供するための強力なツールです。この章では、以下の重要な概念を学びました：</p>
+<ol>
+<li><strong>ブートストラップリサンプリング</strong> - 単一サンプルからサンプリング変動の影響を研究する方法</li>
+<li><strong>信頼区間の構築</strong> - パーセンタイル法と標準誤差法による信頼区間の構築方法</li>
+<li><strong>信頼区間の解釈</strong> - 信頼区間の正確な統計的解釈と実用的な短い解釈</li>
+<li><strong>信頼区間の幅に影響する要因</strong> - 信頼水準とサンプルサイズの影響</li>
+<li><strong>ブートストラップ分布とサンプリング分布の関係</strong> - 両者の類似点と相違点</li>
+</ol>
+<p>信頼区間についての理解を深めるために、さまざまなデータセットに対して信頼区間を構築し、解釈する練習をしてみることをお勧めします。</p>
+<p>以下のPythonコードは、この章の主要な機能をまとめたものです：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">bootstrap_analysis</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">statistic</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">n_resamples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">ci_level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    完全なブートストラップ分析を実行</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    data : array-like</span>
+<span class="sd">        分析するデータ</span>
+<span class="sd">    statistic : function</span>
+<span class="sd">        計算する統計量</span>
+<span class="sd">    n_resamples : int</span>
+<span class="sd">        ブートストラップ反復回数</span>
+<span class="sd">    ci_level : float</span>
+<span class="sd">        信頼水準</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    dict</span>
+<span class="sd">        結果を含む辞書</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 点推定値</span>
+    <span class="n">point_estimate</span> <span class="o">=</span> <span class="n">statistic</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="c1"># ブートストラップリサンプリング</span>
+    <span class="n">bootstrap_stats</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_resamples</span><span class="p">):</span>
+        <span class="n">resample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">bootstrap_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">statistic</span><span class="p">(</span><span class="n">resample</span><span class="p">))</span>
+
+    <span class="n">bootstrap_stats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bootstrap_stats</span><span class="p">)</span>
+
+    <span class="c1"># 標準誤差</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">bootstrap_stats</span><span class="p">)</span>
+
+    <span class="c1"># パーセンタイル法CI</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ci_level</span>
+    <span class="n">percentile_ci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">bootstrap_stats</span><span class="p">,</span> <span class="p">[</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">])</span>
+
+    <span class="c1"># 標準誤差法CI</span>
+    <span class="n">z_critical</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">se_ci</span> <span class="o">=</span> <span class="p">(</span><span class="n">point_estimate</span> <span class="o">-</span> <span class="n">z_critical</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="n">point_estimate</span> <span class="o">+</span> <span class="n">z_critical</span> <span class="o">*</span> <span class="n">se</span><span class="p">)</span>
+
+    <span class="c1"># 理論に基づく標準誤差（適用可能な場合）</span>
+    <span class="k">if</span> <span class="n">statistic</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">:</span>
+        <span class="n">theoretical_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">statistic</span> <span class="o">==</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="n">statistic</span> <span class="o">==</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="n">p_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">theoretical_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p_hat</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_hat</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">theoretical_se</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># 結果を可視化</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bootstrap_stats</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">point_estimate</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;点推定値&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">percentile_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ci_level</span><span class="o">*</span><span class="mi">100</span><span class="si">}</span><span class="s1">%パーセンタイルCI&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">percentile_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">se_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ci_level</span><span class="o">*</span><span class="mi">100</span><span class="si">}</span><span class="s1">%標準誤差CI&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">se_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ブートストラップ分布と信頼区間&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;統計量の値&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># 結果を返す</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;point_estimate&#39;</span><span class="p">:</span> <span class="n">point_estimate</span><span class="p">,</span>
+        <span class="s1">&#39;bootstrap_distribution&#39;</span><span class="p">:</span> <span class="n">bootstrap_stats</span><span class="p">,</span>
+        <span class="s1">&#39;standard_error&#39;</span><span class="p">:</span> <span class="n">se</span><span class="p">,</span>
+        <span class="s1">&#39;theoretical_se&#39;</span><span class="p">:</span> <span class="n">theoretical_se</span><span class="p">,</span>
+        <span class="s1">&#39;percentile_ci&#39;</span><span class="p">:</span> <span class="n">percentile_ci</span><span class="p">,</span>
+        <span class="s1">&#39;se_ci&#39;</span><span class="p">:</span> <span class="n">se_ci</span><span class="p">,</span>
+        <span class="s1">&#39;ci_level&#39;</span><span class="p">:</span> <span class="n">ci_level</span>
+    <span class="p">}</span>
+</code></pre></div>
+<p>次の章では、信頼区間と密接に関連する統計的推論のもう一つの重要なツールである<strong>仮説検定</strong>について学びます。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

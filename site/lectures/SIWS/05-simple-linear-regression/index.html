@@ -1,0 +1,3403 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/05-simple-linear-regression/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>第5章 基本的回帰分析 - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第5章 基本的回帰分析
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/32-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/33-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/34-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/35-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/36-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/37-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/38-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/39-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/40-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/41-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/42-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/43-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/44-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/45-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/46-nonlinear-dimension-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46. Nonlinear dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/47-wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47. Wrap up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/48-final-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48. Final Report
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-brain-analysis.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="はじめに">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      必要なパッケージ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 1つの数値的説明変数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 1つの数値的説明変数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      探索的データ分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      単純線形回帰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      観測値/予測値と残差
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      最適な当てはめ直線
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 1つのカテゴリ的説明変数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 1つのカテゴリ的説明変数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      探索的データ分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      線形回帰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      観測値/予測値と残差
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 関連トピック
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 関連トピック">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      相関は必ずしも因果関係ではない
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      最適な当てはめ直線
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      結論
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="5">第5章 基本的回帰分析</h1>
+<h2 id="_1">はじめに</h2>
+<p>これまでに習得したデータ可視化のスキル（第2章）、データ操作のスキル（第3章）、データのインポートと「整然データ」の概念（第4章）を踏まえて、データモデリングに進みましょう。データモデリングの基本的な前提は、以下の関係を明示することです：</p>
+<ul>
+<li><em>目的変数</em> <span class="arithmatex">\(y\)</span>（<em>従属変数</em>または応答変数とも呼ばれる）と</li>
+<li><em>説明変数</em>/<em>予測変数</em> <span class="arithmatex">\(x\)</span>（<em>独立変数</em>または共変量とも呼ばれる）</li>
+</ul>
+<p>数学的な用語では、目的変数 <span class="arithmatex">\(y\)</span> を説明変数 <span class="arithmatex">\(x\)</span> の「関数として」モデル化します。ここで「関数」とは、Rの<code>ggplot()</code>のような関数ではなく、数学的な関数を指します。説明変数と予測変数という2つの異なる用語がありますが、これらは互換的に使用されることが多いです。大まかに言えば、データモデリングは次の2つの目的のいずれかを果たします：</p>
+<ol>
+<li><strong>説明のためのモデリング</strong>：目的変数 <span class="arithmatex">\(y\)</span> と説明変数 <span class="arithmatex">\(x\)</span> の間の関係を明示的に記述し定量化し、その関係の有意性を判断し、これらの関係を要約する指標を持ち、場合によっては変数間の<em>因果関係</em>を特定することを目的とします。</li>
+<li><strong>予測のためのモデリング</strong>：予測変数 <span class="arithmatex">\(x\)</span> に含まれる情報に基づいて目的変数 <span class="arithmatex">\(y\)</span> を予測することを目的とします。説明のためのモデリングとは異なり、すべての変数がどのように関連し相互作用するかを理解することよりも、<span class="arithmatex">\(x\)</span> の情報を使って <span class="arithmatex">\(y\)</span> について良い予測ができるかどうかに重点を置きます。</li>
+</ol>
+<p>例えば、患者が肺がんを発症するかどうかという目的変数 <span class="arithmatex">\(y\)</span> と、喫煙習慣、年齢、社会経済的地位などのリスク要因に関する情報 <span class="arithmatex">\(x\)</span> に興味があるとします。説明のためのモデリングでは、異なるリスク要因の影響を記述し定量化することに関心があります。これは、特定の年齢層の喫煙者を禁煙プログラムの広告でターゲットにするなど、集団の肺がん発生率を減らすための介入を設計したいからかもしれません。一方、予測のためのモデリングでは、個々のリスク要因がどのように肺がんに寄与するかを理解することよりも、どの人が肺がんにかかるかをうまく予測できるかどうかだけが重要です。</p>
+<p>本書では、説明のためのモデリングに焦点を当て、<span class="arithmatex">\(x\)</span> を<em>説明変数</em>と呼びます。予測のためのモデリングに興味がある場合は、『Pythonによる統計的学習入門』などの書籍を参照することをお勧めします。また、決定木モデルやニューラルネットワークなど、多くのモデリング技術がありますが、本書では特定の技術に焦点を当てます：<em>線形回帰</em>です。線形回帰は、最も一般的かつ理解しやすいモデリングアプローチの一つです。</p>
+<p>線形回帰には<em>数値的</em>な目的変数 <span class="arithmatex">\(y\)</span> と、<em>数値的</em>または<em>カテゴリ的</em>な説明変数 <span class="arithmatex">\(x\)</span> が含まれます。さらに、<span class="arithmatex">\(y\)</span> と <span class="arithmatex">\(x\)</span> の関係は線形、つまり直線であると仮定されます。ただし、「直線」が何を構成するかは、説明変数 <span class="arithmatex">\(x\)</span> の性質によって異なります。</p>
+<p>第5章では、1つの説明変数 <span class="arithmatex">\(x\)</span> を持つモデルのみを考えます。5.1節では、説明変数が数値的です。このシナリオは<em>単純線形回帰</em>として知られています。5.2節では、説明変数がカテゴリ的です。</p>
+<p>第6章では、基本的な回帰分析の考え方を拡張し、2つの説明変数 <span class="arithmatex">\(x_1\)</span> と <span class="arithmatex">\(x_2\)</span> を持つモデルを考えます。6.1節では、2つの数値的説明変数を持ちます。6.2節では、1つの数値的説明変数と1つのカテゴリ的説明変数を持ちます。</p>
+<p>第7章では、回帰モデルを再検討し、第8章、第9章、第10章で学ぶ<em>統計的推論</em>のツールを使用して結果を分析します。</p>
+<p>それでは、基本的な回帰分析から始めましょう。これは、1つの説明変数 <span class="arithmatex">\(x\)</span> を持つ線形回帰モデルを指します。また、<em>相関係数</em>、「相関は必ずしも因果関係ではない」、「最適な当てはめ直線」とは何かなどの重要な統計的概念についても説明します。</p>
+<h3 id="_2">必要なパッケージ</h3>
+<p>この章で必要なパッケージをすべてインポートしましょう。このチュートリアルでは、Pythonを使用するため、R言語のパッケージに相当するPythonライブラリをインポートします。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.weightstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">DescrStatsW</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+</code></pre></div>
+<p>Google Colabで実行する場合は、以下のコードでデータをダウンロードしましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># データのダウンロード</span>
+<span class="err">!</span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">data</span>
+<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="n">data</span><span class="o">/</span><span class="n">evals</span><span class="o">.</span><span class="n">csv</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">moderndive</span><span class="o">/</span><span class="n">moderndive_book</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">evals</span><span class="o">.</span><span class="n">csv</span>
+<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="n">data</span><span class="o">/</span><span class="n">gapminder2007</span><span class="o">.</span><span class="n">csv</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">moderndive</span><span class="o">/</span><span class="n">moderndive_book</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">gapminder2007</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+<h2 id="51-1">5.1 1つの数値的説明変数</h2>
+<p>大学や大学の教授や講師の中には、学生から高い教育評価を受ける人とそうでない人がいるのはなぜでしょうか？異なる人口統計グループの教員間で教育評価に違いはありますか？学生のバイアスが影響している可能性はありますか？これらはすべて、大学/大学の管理者が関心を持つ質問です。教育評価は、どの講師や教授が昇進するかを判断する際に考慮される多くの基準の一つだからです。</p>
+<p>テキサス州オースティンのテキサス大学（UT Austin）の研究者たちは、次の研究課題に取り組みました：教育の評価スコアの違いを説明する要因は何か？そのために、463のコースに関する教員とコース情報を収集しました。</p>
+<p>この節では、教師の「美しさ」スコア（これがどのように決定されたかは後で説明します）という1つの数値変数に基づいて教師の教育スコアの違いを説明してみましょう。「美しさ」スコアが高い教師は教育評価も高いのでしょうか？あるいは「美しさ」スコアが高い教師は教育評価が低い傾向があるのでしょうか？または「美しさ」スコアと教育評価の間に関係はないのでしょうか？これらの疑問に答えるために、<em>単純線形回帰</em>を使用して教育スコアと「美しさ」スコアの関係をモデル化します：</p>
+<ol>
+<li>数値的な目的変数 <span class="arithmatex">\(y\)</span>（教師の教育スコア）と</li>
+<li>1つの数値的な説明変数 <span class="arithmatex">\(x\)</span>（教師の「美しさ」スコア）を持ちます。</li>
+</ol>
+<h3 id="_3">探索的データ分析</h3>
+<p>UT Austinの463コースのデータを読み込みましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># データの読み込み</span>
+<span class="n">evals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/evals.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># この章で使用する変数のみを選択</span>
+<span class="n">evals_ch5</span> <span class="o">=</span> <span class="n">evals</span><span class="p">[[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;bty_avg&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">]]</span>
+</code></pre></div>
+<p>分析やモデリングを行う前の重要なステップは、<em>探索的データ分析</em>（EDA）を実行することです。EDAによって、データ内の個々の変数の分布、変数間に存在する可能性のある関係、外れ値や欠損値の有無、そして最も重要なことにモデルの構築方法についての理解が得られます。EDAでは主に以下の3つのステップを行います：</p>
+<ol>
+<li>生のデータ値を見る</li>
+<li>平均値、中央値、四分位範囲などの要約統計量を計算する</li>
+<li>データの可視化を作成する</li>
+</ol>
+<p>まず最初のステップとして、生のデータ値を見てみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># データの最初の数行を表示</span>
+<span class="n">evals_ch5</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1"># データの構造を確認</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">evals_ch5</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+</code></pre></div>
+<p>変数の詳細は以下の通りです：</p>
+<ol>
+<li><code>ID</code>：1から463までのコースを区別するための識別変数。</li>
+<li><code>score</code>：コース講師の平均教育スコア。1が最低、5が最高。これが興味のある目的変数 <span class="arithmatex">\(y\)</span> です。</li>
+<li><code>bty_avg</code>：コース講師の平均「美しさ」スコア。1が最低、10が最高。これが興味のある説明変数 <span class="arithmatex">\(x\)</span> です。</li>
+<li><code>age</code>：コース講師の年齢。これは後で学習確認で使用する別の説明変数 <span class="arithmatex">\(x\)</span> です。</li>
+</ol>
+<p>次に、要約統計量を計算しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 要約統計量の計算</span>
+<span class="n">evals_ch5</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+
+<span class="c1"># 相関係数の計算</span>
+<span class="n">correlation</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[[</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;bty_avg&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;相関係数: </span><span class="si">{</span><span class="n">correlation</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>相関係数の値は約0.187であり、これは教育スコアと「美しさ」スコアの間に「弱い正の」関係があることを示しています。相関係数は-1から1の範囲で、以下を示します：</p>
+<ul>
+<li>-1は完全な<em>負の関係</em>を示します：一方の変数が増加すると、もう一方の変数は直線的に減少する傾向があります。</li>
+<li>0は関係がないことを示します：両方の変数の値は互いに独立して上下します。</li>
+<li>+1は完全な<em>正の関係</em>を示します：一方の変数が増加すると、もう一方の変数も線形的に増加する傾向があります。</li>
+</ul>
+<p>次に、データの可視化を行いましょう。両方の変数が数値的なので、散布図が適切です：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 散布図の作成</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">],</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;美しさスコア&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;教育スコア&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;教育スコアと美しさスコアの関係&#39;</span><span class="p">)</span>
+
+<span class="c1"># 回帰直線の追加</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+<span class="n">m</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;回帰直線の式: score = </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> * bty_avg&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>この図から、ほとんどの「美しさ」スコアは2から8の間にあり、ほとんどの教育スコアは3から5の間にあることがわかります。また、教育スコアと「美しさ」スコアの間の関係は「弱い正の」関係であるように見えます。これは、先ほど計算した相関係数0.187と一致しています。</p>
+<p>さらに、オーバープロットの問題を調べるために、ジッタリングを適用してみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ジッタリングを適用した散布図</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">)),</span> 
+            <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">)),</span> 
+            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;美しさスコア (ジッタリング適用)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;教育スコア (ジッタリング適用)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;教育スコアと美しさスコアの関係 (ジッタリング適用)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>ジッタリングを適用すると、点が重なっている場所がより明確になります。これにより、データの分布をよりよく理解できます。</p>
+<h3 id="_4">単純線形回帰</h3>
+<p>中学校や高校の代数学から、直線の方程式は <span class="arithmatex">\(y = a + b\cdot x\)</span> であることを思い出すかもしれません。この式は2つの係数 <span class="arithmatex">\(a\)</span> と <span class="arithmatex">\(b\)</span> で定義されます。切片係数 <span class="arithmatex">\(a\)</span> は <span class="arithmatex">\(x = 0\)</span> のときの <span class="arithmatex">\(y\)</span> の値です。傾き係数 <span class="arithmatex">\(b\)</span> は <span class="arithmatex">\(x\)</span> が1増加するごとの <span class="arithmatex">\(y\)</span> の増加量です。これは「上昇/実行」とも呼ばれます。</p>
+<p>しかし、回帰直線を定義する際は、少し異なる表記を使用します：回帰直線の方程式は <span class="arithmatex">\(\widehat{y} = b_0 + b_1 \cdot x\)</span> です。切片係数は <span class="arithmatex">\(b_0\)</span> なので、<span class="arithmatex">\(b_0\)</span> は <span class="arithmatex">\(x = 0\)</span> のときの <span class="arithmatex">\(\widehat{y}\)</span> の値です。<span class="arithmatex">\(x\)</span> の傾き係数は <span class="arithmatex">\(b_1\)</span> で、<span class="arithmatex">\(x\)</span> が1増加するごとの <span class="arithmatex">\(\widehat{y}\)</span> の増加量です。<span class="arithmatex">\(y\)</span> の上に「ハット」をつけるのはなぜでしょうか？これは、回帰において「当てはめ値」、つまり与えられた <span class="arithmatex">\(x\)</span> 値に対する回帰直線上の <span class="arithmatex">\(y\)</span> の値を示すために一般的に使用される表記法です。</p>
+<p>Pythonで線形回帰モデルを適合させましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># statsmodelsを使用した線形回帰</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;score ~ bty_avg&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">evals_ch5</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+<span class="c1"># 回帰表の出力（簡略化バージョン）</span>
+<span class="n">coef</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span>
+<span class="n">std_err</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">bse</span>
+<span class="n">t_vals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">tvalues</span>
+<span class="n">p_vals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">pvalues</span>
+<span class="n">conf_int</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+
+<span class="n">regression_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;term&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;bty_avg&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="n">coef</span><span class="p">,</span>
+    <span class="s1">&#39;std_error&#39;</span><span class="p">:</span> <span class="n">std_err</span><span class="p">,</span>
+    <span class="s1">&#39;t_statistic&#39;</span><span class="p">:</span> <span class="n">t_vals</span><span class="p">,</span>
+    <span class="s1">&#39;p_value&#39;</span><span class="p">:</span> <span class="n">p_vals</span><span class="p">,</span>
+    <span class="s1">&#39;lower_ci&#39;</span><span class="p">:</span> <span class="n">conf_int</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s1">&#39;upper_ci&#39;</span><span class="p">:</span> <span class="n">conf_int</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">regression_table</span><span class="p">)</span>
+</code></pre></div>
+<p>回帰表の<code>estimate</code>列から、切片 <span class="arithmatex">\(b_0\)</span> ≈ 3.88と傾き <span class="arithmatex">\(b_1\)</span> ≈ 0.067があります。したがって、回帰直線の方程式は以下のようになります：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\widehat{y} &amp;= b_0 + b_1 \cdot x\\
+\widehat{\text{score}} &amp;= b_0 + b_{\text{bty}\_\text{avg}} \cdot\text{bty}\_\text{avg}\\
+&amp;= 3.88 + 0.067\cdot\text{bty}\_\text{avg}
+\end{aligned}
+\]</div>
+<p>切片 <span class="arithmatex">\(b_0\)</span> = 3.88は、「美しさ」スコア<code>bty_avg</code>が0のコースの平均教育スコア <span class="arithmatex">\(\widehat{y}\)</span> = <span class="arithmatex">\(\widehat{\text{score}}\)</span> です。あるいはグラフで言えば、<span class="arithmatex">\(x\)</span> = 0のとき、直線が<span class="arithmatex">\(y\)</span>軸と交わる点です。ただし、回帰直線の切片には数学的な解釈がありますが、ここでは<em>実用的な</em>解釈はありません。<code>bty_avg</code>が0の値を観察することは不可能だからです。これは6人のパネリストの「美しさ」スコア（1から10の範囲）の平均です。さらに、回帰直線を含む散布図を見ると、「美しさ」スコアが0に近い教師はいません。</p>
+<p>より興味深いのは、<code>bty_avg</code>の傾き <span class="arithmatex">\(b_1\)</span> = <span class="arithmatex">\(b_{\text{bty}\_\text{avg}}\)</span> ≈ 0.067です。これは教育スコアと「美しさ」スコアの変数間の関係を要約しています。符号が正であることから、これらの2つの変数間に正の関係があることが示唆されています。つまり、「美しさ」スコアが高い教師は教育スコアも高い傾向があります。先ほど相関係数が0.187であることを思い出してください。両方とも同じ正の符号を持っていますが、値は異なります。相関の解釈は「線形関連の強さ」です。傾きの解釈は少し異なります：</p>
+<blockquote>
+<p><code>bty_avg</code>が1単位増加するごとに、<em>平均して</em>、<code>score</code>は0.067単位<em>関連して</em>増加します。</p>
+</blockquote>
+<p>我々は<em>関連した</em>増加のみを述べており、必ずしも<em>因果的な</em>増加ではないことに注意してください。例えば、高い「美しさ」スコアが直接的に高い教育スコアを引き起こすわけではないかもしれません。代わりに、次のようなことが当てはまるかもしれません：裕福な背景を持つ個人は教育背景が強いため、教育スコアが高くなる傾向があり、同時にこれらの裕福な個人は「美しさ」スコアも高い傾向があります。言い換えれば、2つの変数が強く関連しているからといって、一方が他方を引き起こすとは限りません。これは「相関は必ずしも因果関係ではない」とよく言われるフレーズに要約されています。</p>
+<p>さらに、この関連した増加は<em>平均して</em>0.067単位の教育<code>score</code>であると言います。なぜなら、<code>bty_avg</code>スコアが1単位異なる2人の教師がいても、教育スコアの差が正確に0.067になるとは限らないからです。傾き0.067が言っているのは、すべての可能なコースにわたって、「美しさ」スコアが1異なる2人の教師の教育スコアの<em>平均</em>差が0.067であるということです。</p>
+<h3 id="_5">観測値/予測値と残差</h3>
+<p>回帰分析では、以下の3つの重要な概念があります：</p>
+<ol>
+<li>観測値 <span class="arithmatex">\(y\)</span>：目的変数の実際の観測値</li>
+<li>予測値 <span class="arithmatex">\(\widehat{y}\)</span>：与えられた <span class="arithmatex">\(x\)</span> 値に対する回帰直線上の値</li>
+<li>残差 <span class="arithmatex">\(y - \widehat{y}\)</span>：観測値と予測値の間の誤差</li>
+</ol>
+<p>例えば、「美しさ」スコアが <span class="arithmatex">\(x\)</span> = 7.333で、実際の教育スコアが <span class="arithmatex">\(y\)</span> = 4.9のある講師を考えてみましょう。このケースでは：</p>
+<ul>
+<li>予測値 <span class="arithmatex">\(\widehat{y} = b_0 + b_1 \cdot x = 3.88 + 0.067 \cdot 7.333 = 4.37\)</span> です。</li>
+<li>残差は <span class="arithmatex">\(y - \widehat{y} = 4.9 - 4.37 = 0.53\)</span> です。</li>
+</ul>
+<p>Pythonではこれらの値を以下のように計算できます：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 予測値と残差の計算</span>
+<span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">)</span>
+<span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score_hat&#39;</span><span class="p">]</span>
+
+<span class="c1"># 例示用に特定の講師のデータを表示</span>
+<span class="n">example_instructor</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">7.333</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;「美しさ」スコア: </span><span class="si">{</span><span class="n">example_instructor</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;実際の教育スコア (y): </span><span class="si">{</span><span class="n">example_instructor</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;予測された教育スコア (ŷ): </span><span class="si">{</span><span class="n">example_instructor</span><span class="p">[</span><span class="s1">&#39;score_hat&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;残差 (y - ŷ): </span><span class="si">{</span><span class="n">example_instructor</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 残差と予測値の関係を可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score_hat&#39;</span><span class="p">],</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;予測値 (ŷ)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;残差 (y - ŷ)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;残差プロット&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># ヒストグラムで残差の分布を確認</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;残差 (y - ŷ)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;残差のヒストグラム&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="_6">最適な当てはめ直線</h3>
+<p>回帰直線は「最適な当てはめ」直線とも呼ばれます。しかし、「最適」とは何を意味するのでしょうか？回帰で「最適」を決定するために使用される基準を詳しく見てみましょう。</p>
+<p>回帰分析では、すべての可能な直線の中から、「残差平方和」を最小にする直線を選びます。残差平方和は以下のように計算されます：</p>
+<div class="arithmatex">\[
+\sum_{i=1}^{n}(y_i - \widehat{y}_i)^2
+\]</div>
+<p>これは、モデルの「適合度の欠如」の尺度です。残差平方和の値が大きいほど、適合度の欠如が大きくなります。これは、より悪い当てはめのモデルに対応します。</p>
+<p>回帰直線がすべての点に完全に当てはまる場合、残差平方和は0になります。これは、回帰直線がすべての点に完全に当てはまる場合、予測値 <span class="arithmatex">\(\widehat{y}\)</span> はすべてのケースで観測値 <span class="arithmatex">\(y\)</span> に等しく、したがって残差 <span class="arithmatex">\(y-\widehat{y}\)</span> はすべてのケースで0になるためです。そして、多数の0の合計はまだ0です。</p>
+<p>さらに、463点の雲を通して描くことができるすべての可能な直線のうち、回帰直線はこの値を最小化します。言い換えれば、回帰とそれに対応する予測値 <span class="arithmatex">\(\widehat{y}\)</span> は残差平方和を最小化します。</p>
+<p>Pythonで残差平方和を計算しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 残差平方和の計算</span>
+<span class="n">sum_squared_residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;残差平方和: </span><span class="si">{</span><span class="n">sum_squared_residuals</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>他の直線を散布図に描いて、残差平方和がどのように変化するかを見ることもできます：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># オリジナルの回帰直線と任意の2つの直線を比較</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">],</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># オリジナルの回帰直線</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="n">m</span><span class="o">*</span><span class="n">x_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;回帰直線: y = </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">x&#39;</span><span class="p">)</span>
+
+<span class="c1"># 任意の直線1</span>
+<span class="n">m1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">4.0</span>  <span class="c1"># 任意の傾きと切片</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">b1</span> <span class="o">+</span> <span class="n">m1</span><span class="o">*</span><span class="n">x_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> 
+         <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;任意の直線1: y = </span><span class="si">{</span><span class="n">b1</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">m1</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">x&#39;</span><span class="p">)</span>
+
+<span class="c1"># 任意の直線2</span>
+<span class="n">m2</span><span class="p">,</span> <span class="n">b2</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">3.5</span>  <span class="c1"># 別の任意の傾きと切片</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">b2</span> <span class="o">+</span> <span class="n">m2</span><span class="o">*</span><span class="n">x_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> 
+         <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;任意の直線2: y = </span><span class="si">{</span><span class="n">b2</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">m2</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">x&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;美しさスコア&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;教育スコア&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;オリジナルの回帰直線と任意の直線の比較&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># それぞれの直線に対する残差平方和を計算</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_sse</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">):</span>
+    <span class="n">predicted</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span>
+    <span class="n">residuals</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">predicted</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">sse_regression</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">sse_line1</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">b1</span><span class="p">)</span>
+<span class="n">sse_line2</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;回帰直線の残差平方和: </span><span class="si">{</span><span class="n">sse_regression</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;任意の直線1の残差平方和: </span><span class="si">{</span><span class="n">sse_line1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;任意の直線2の残差平方和: </span><span class="si">{</span><span class="n">sse_line2</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="52-1">5.2 1つのカテゴリ的説明変数</h2>
+<p>世界中のすべての国で平均寿命は同じではないという不幸な真実があります。国際開発機関はこの問題に取り組むためにリソースをどこに配分すべきかを特定するために、平均寿命の違いを研究することに関心を持っています。この節では、平均寿命の違いを2つの方法で探ります：</p>
+<ol>
+<li>大陸間の違い：アフリカ、南北アメリカ、アジア、ヨーロッパ、オセアニアという世界の5つの人口のある大陸間で平均寿命に有意な違いはありますか？</li>
+<li>大陸内の違い：世界の5つの大陸内で平均寿命はどのように変動しますか？例えば、アフリカの国々の平均寿命のばらつきは、アジアの国々の平均寿命のばらつきよりも大きいですか？</li>
+</ol>
+<p>このような疑問に答えるために、Gapminderデータセットを使用します。このデータセットには、1952年から2007年の5年間隔で142カ国の平均寿命、一人当たりGDP、人口などの国際開発統計が含まれています。</p>
+<p>2007年のデータを読み込み、分析に必要な変数のみを選択します：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 2007年のGapminderデータを読み込む</span>
+<span class="n">gapminder2007</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder2007.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># データの最初の数行を表示</span>
+<span class="n">gapminder2007</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="_7">探索的データ分析</h3>
+<p>まず、データの要約統計量を確認しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 数値変数の要約統計量</span>
+<span class="n">gapminder2007</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+
+<span class="c1"># continentごとの国の数を確認</span>
+<span class="n">continent_counts</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">continent_counts</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">continent_counts</span><span class="p">)</span>
+
+<span class="c1"># 各大陸の平均寿命を計算</span>
+<span class="n">lifeExp_by_continent</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;continent&#39;</span><span class="p">)[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lifeExp_by_continent</span><span class="p">)</span>
+</code></pre></div>
+<p>データの可視化をいくつか作成しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 平均寿命のヒストグラム</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均寿命&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;国の数&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;全世界の平均寿命分布（2007年）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 大陸ごとのヒストグラム</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">continent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="p">[</span><span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">continent</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">continent</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均寿命&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;国の数&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 箱ひげ図</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">gapminder2007</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;大陸&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;平均寿命&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;大陸別の平均寿命（2007年）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>残念ながら、アフリカの平均寿命分布は他の大陸よりもかなり低く、ヨーロッパでは平均寿命が高い傾向があり、さらにその変動も少ないことがわかります。一方、アジアとアフリカは平均寿命の変動が最も大きいです。オセアニアの変動は最も少ないですが、オセアニアにはオーストラリアとニュージーランドの2カ国しかないことに注意してください。</p>
+<h3 id="_8">線形回帰</h3>
+<p>カテゴリ的な説明変数を持つ線形回帰モデルを適合させましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># カテゴリ変数を使った線形回帰</span>
+<span class="n">model_categorical</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;lifeExp ~ C(continent)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">gapminder2007</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_categorical</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+<span class="c1"># 回帰表の作成（簡略化バージョン）</span>
+<span class="n">coef_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">params</span>
+<span class="n">std_err_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">bse</span>
+<span class="n">t_vals_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">tvalues</span>
+<span class="n">p_vals_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">pvalues</span>
+<span class="n">conf_int_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+
+<span class="c1"># 回帰表のデータフレームを作成</span>
+<span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;intercept&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;continent: </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+<span class="n">regression_table_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;term&#39;</span><span class="p">:</span> <span class="n">terms</span><span class="p">,</span>
+    <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="n">coef_cat</span><span class="p">,</span>
+    <span class="s1">&#39;std_error&#39;</span><span class="p">:</span> <span class="n">std_err_cat</span><span class="p">,</span>
+    <span class="s1">&#39;t_statistic&#39;</span><span class="p">:</span> <span class="n">t_vals_cat</span><span class="p">,</span>
+    <span class="s1">&#39;p_value&#39;</span><span class="p">:</span> <span class="n">p_vals_cat</span><span class="p">,</span>
+    <span class="s1">&#39;lower_ci&#39;</span><span class="p">:</span> <span class="n">conf_int_cat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s1">&#39;upper_ci&#39;</span><span class="p">:</span> <span class="n">conf_int_cat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">regression_table_cat</span><span class="p">)</span>
+</code></pre></div>
+<p>この回帰表を解釈してみましょう。<code>term</code>列と<code>estimate</code>列の値に注目します：</p>
+<ol>
+<li><code>intercept</code>はアフリカ諸国の平均寿命の平均に対応し、約54.8年です。アフリカが「比較のためのベースライン」として選ばれたのは、5つの大陸の中でアルファベット順で最初にくるからです。</li>
+<li><code>continent: Americas</code>は南北アメリカの国々に対応し、値+18.8はアフリカに対する平均寿命の差です。つまり、南北アメリカの国々の平均寿命の平均は<span class="arithmatex">\(54.8 + 18.8 = 73.6\)</span>年です。</li>
+<li><code>continent: Asia</code>はアジアの国々に対応し、値+15.9はアフリカに対する平均寿命の差です。つまり、アジアの国々の平均寿命の平均は<span class="arithmatex">\(54.8 + 15.9 = 70.7\)</span>年です。</li>
+<li><code>continent: Europe</code>はヨーロッパの国々に対応し、値+22.8はアフリカに対する平均寿命の差です。つまり、ヨーロッパの国々の平均寿命の平均は<span class="arithmatex">\(54.8 + 22.8 = 77.6\)</span>年です。</li>
+<li><code>continent: Oceania</code>はオセアニアの国々に対応し、値+25.9はアフリカに対する平均寿命の差です。つまり、オセアニアの国々の平均寿命の平均は<span class="arithmatex">\(54.8 + 25.9 = 80.7\)</span>年です。</li>
+</ol>
+<p>カテゴリ変数を使用した線形回帰モデルでは、<span class="arithmatex">\(k\)</span>個の可能なカテゴリを持つカテゴリ的説明変数 <span class="arithmatex">\(x\)</span> を使用すると、回帰表は切片と <span class="arithmatex">\(k - 1\)</span> 個の「オフセット」を返します。この場合、<span class="arithmatex">\(k = 5\)</span>大陸があるので、回帰モデルは比較のためのベースライングループであるアフリカに対応する切片と、南北アメリカ、アジア、ヨーロッパ、オセアニアに対応する <span class="arithmatex">\(k - 1 = 4\)</span> 個のオフセットを返します。</p>
+<h3 id="_9">観測値/予測値と残差</h3>
+<p>カテゴリ変数を用いた回帰モデルの観測値、予測値、残差を計算しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 予測値と残差の計算</span>
+<span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">gapminder2007</span><span class="p">)</span>
+<span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">]</span>
+
+<span class="c1"># 国名を含めて最初の10行を表示</span>
+<span class="n">result_df</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="p">[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">,</span> <span class="s1">&#39;residual&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result_df</span><span class="p">)</span>
+
+<span class="c1"># 残差の箱ひげ図</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;residual&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">gapminder2007</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;大陸&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;残差 (平均寿命 - 予測平均寿命)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;大陸別の残差分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 残差が最も小さい5カ国</span>
+<span class="n">worst_5</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;residual&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">,</span> <span class="s1">&#39;residual&#39;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;残差が最も小さい（最も負の）5カ国:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">worst_5</span><span class="p">)</span>
+
+<span class="c1"># 残差が最も大きい5カ国</span>
+<span class="n">best_5</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;residual&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">,</span> <span class="s1">&#39;residual&#39;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">残差が最も大きい（最も正の）5カ国:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">best_5</span><span class="p">)</span>
+</code></pre></div>
+<p>この残差は、国の平均寿命とその国が属する大陸の平均平均寿命からの偏差として解釈できます。例えば、アフガニスタンの残差 <span class="arithmatex">\(y - \widehat{y}\)</span> の大きな負の値は、アフガニスタンの平均寿命がアジア諸国の平均平均寿命よりもかなり低いことを示しています。これは部分的に、その国が長年にわたって経験した多くの戦争によって説明できます。</p>
+<h2 id="53">5.3 関連トピック</h2>
+<h3 id="_10">相関は必ずしも因果関係ではない</h3>
+<p>この章を通して、回帰の傾き係数を解釈する際に慎重でした。常に説明変数 <span class="arithmatex">\(x\)</span> の目的変数 <span class="arithmatex">\(y\)</span> への「関連する」効果について議論しました。例えば、「<code>bty_avg</code>が1単位増加するごとに、<em>平均して</em>、<code>score</code>は0.067単位<em>関連して</em>増加します」という表現をしました。我々は「関連する」という用語を含めることで、<em>因果的な</em>主張をしていないことを特に注意しています。したがって、「美しさ」スコア<code>bty_avg</code>は教育<code>score</code>と正の相関がありますが、この研究がどのように実施されたかについてのさらなる情報がなければ、「美しさ」スコアの教育スコアへの直接的な因果効果についての主張はできません。</p>
+<p>例えば、ある医師が靴を履いて寝た患者は、頭痛で目覚める傾向があることを医療記録から発見したとします。そこで医師は「靴を履いて寝ることは頭痛の原因である！」と宣言します。</p>
+<p>しかし、誰かが靴を履いて寝ている場合、それはアルコールに酔っているからである可能性が高いです。さらに、飲酒量が多いとより多くの二日酔いが生じ、したがってより多くの頭痛につながります。ここでの飲酒量は、<em>交絡/潜在</em>変数として知られています。それは背景に「潜んで」おり、「靴を履いて寝ること」と「頭痛で目覚めること」の因果関係（もしあれば）を「交絡」させます。</p>
+<p>以下のような<em>因果グラフ</em>でこれを要約できます：</p>
+<ul>
+<li>Y は<em>応答</em>変数です。ここでは「頭痛で目覚めること」です。</li>
+<li>X は<em>処置</em>変数で、我々が因果効果に関心を持っているものです。ここでは「靴を履いて寝ること」です。</li>
+<li>Z は<em>交絡</em>変数で、X と Y の両方に影響を与え、それによってそれらの関係を「交絡」させます。ここでは、交絡変数はアルコールです。</li>
+</ul>
+<p>アルコールは、人々が靴を履いて寝る可能性を高めると同時に、頭痛で目覚める可能性も高めます。したがって、X と Y の関係に関する回帰モデルには、Z も説明変数として含める必要があります。言い換えれば、医師は前夜に誰が飲んでいたかを考慮する必要があります。</p>
+<p>因果関係の確立は難しい問題であり、しばしば慎重に設計された実験や交絡変数の効果を制御するための方法が必要です。これらのアプローチはどちらも、可能な限りすべての交絡変数を考慮するか、その影響を無効にしようとします。これにより、研究者は関心のある関係のみに焦点を当てることができます：目的変数 Y と処置変数 X の関係です。</p>
+<p>ニュース記事を読むときは、相関が必ずしも因果関係を意味するわけではないという罠に陥らないように注意してください。</p>
+<h3 id="_11">最適な当てはめ直線</h3>
+<p>回帰直線は「最適な当てはめ」直線とも呼ばれます。しかし、「最適」とは何を意味するのでしょうか？回帰で「最適」を決定するために使用される基準を詳しく見てみましょう。</p>
+<p>図5.4を思い出すと、「美しさ」スコアが <span class="arithmatex">\(x = 7.333\)</span> の教師について、<em>観測値</em> <span class="arithmatex">\(y\)</span> を円で、<em>予測値</em> <span class="arithmatex">\(\widehat{y}\)</span> を四角で、<em>残差</em> <span class="arithmatex">\(y - \widehat{y}\)</span> を矢印でマークしました。</p>
+<p>回帰直線の「最適」を決定する基準は、<em>残差平方和</em>の最小化です。残差平方和は以下のように計算されます：</p>
+<div class="arithmatex">\[
+\sum_{i=1}^{n}(y_i - \widehat{y}_i)^2
+\]</div>
+<p>回帰直線がすべての点に完全に当てはまる場合、残差平方和は0になります。これは、予測値 <span class="arithmatex">\(\widehat{y}\)</span> がすべてのケースで観測値 <span class="arithmatex">\(y\)</span> に等しく、したがって残差 <span class="arithmatex">\(y-\widehat{y}\)</span> がすべてのケースで0になるためです。</p>
+<p>さらに、463点の雲を通して引くことができるすべての可能な直線のうち、回帰直線はこの値を最小化します。これは、微積分と線形代数を使って証明できる数学的に保証された事実です。そのため、線形回帰直線は<em>最適な当てはめ直線</em>や<em>最小二乗直線</em>とも呼ばれます。</p>
+<h2 id="_12">結論</h2>
+<p>この章では、基本的な回帰分析の概念を紹介しました。単純線形回帰について学び、数値的な説明変数とカテゴリ的な説明変数の両方を扱う方法を見てきました。また、重要な統計的概念である相関係数についても学び、相関と因果関係の違いについて議論しました。</p>
+<p>Pythonを使用して回帰分析を行う方法と、回帰モデルの結果を解釈する方法を示しました。また、残差分析や最小二乗法の考え方についても説明しました。</p>
+<p>次の章では、複数の説明変数を持つ回帰モデルについて学びます。これにより、より洗練された強力なモデルを構築し、目的変数 <span class="arithmatex">\(y\)</span> をより適切に説明することができるようになります。</p>
+<p>これで第5章「基本的回帰分析」の翻訳と、R言語のコードをPythonに変換する作業を完了しました。</p>
+<p>この章では、データモデリングの基本概念と、単純線形回帰分析のアプローチについて学びました。特に以下の重要なポイントを説明しました：</p>
+<ol>
+<li><strong>説明のためのモデリング</strong>と<strong>予測のためのモデリング</strong>の違い</li>
+<li>数値的説明変数を持つ単純線形回帰の実装と解釈</li>
+<li>カテゴリ的説明変数を持つ回帰モデルの実装と解釈</li>
+<li>回帰分析における相関と因果関係の違い</li>
+<li>「最適な当てはめ直線」の意味と最小二乗法の原理</li>
+</ol>
+<p>また、観測値、予測値、残差などの重要な概念や、モデルの適合度を評価する方法についても説明しました。</p>
+<p>Pythonコードは<code>statsmodels</code>、<code>pandas</code>、<code>matplotlib</code>、<code>seaborn</code>などのライブラリを使用して実装しており、Google Colabで実行可能です。データはGitHubから直接ダウンロードするようにしています。</p>
+<p>作成したコードは、人々の教育評価スコアとその「美しさ」スコアの関係、そして異なる大陸間での平均寿命の違いという2つの異なる事例を分析することで、回帰分析の適用方法と解釈を具体的に示しています。</p>
+<p>コードには詳細なコメントを付け、視覚化も多く含めることで、回帰分析の概念をより直感的に理解できるようにしました。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 必要なライブラリのインポート</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.weightstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">DescrStatsW</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+
+<span class="c1"># Google Colabで実行する場合のデータダウンロード</span>
+<span class="err">!</span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">data</span>
+<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="n">data</span><span class="o">/</span><span class="n">evals</span><span class="o">.</span><span class="n">csv</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">moderndive</span><span class="o">/</span><span class="n">moderndive_book</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">evals</span><span class="o">.</span><span class="n">csv</span>
+<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="n">data</span><span class="o">/</span><span class="n">gapminder2007</span><span class="o">.</span><span class="n">csv</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">moderndive</span><span class="o">/</span><span class="n">moderndive_book</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">gapminder2007</span><span class="o">.</span><span class="n">csv</span>
+
+<span class="c1"># データの読み込み</span>
+<span class="n">evals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/evals.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># この章で使用する変数のみを選択</span>
+<span class="n">evals_ch5</span> <span class="o">=</span> <span class="n">evals</span><span class="p">[[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;bty_avg&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">]]</span>
+
+<span class="c1"># ----- 1つの数値的説明変数 -----</span>
+<span class="c1"># データの最初の数行を表示</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;UT Austin講師評価データの最初の数行:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">evals_ch5</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># データの構造を確認</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">データの構造:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">evals_ch5</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+
+<span class="c1"># 要約統計量の計算</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">要約統計量:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">evals_ch5</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># 相関係数の計算</span>
+<span class="n">correlation</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[[</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;bty_avg&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">相関係数: </span><span class="si">{</span><span class="n">correlation</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 散布図の作成</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">],</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;美しさスコア&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;教育スコア&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;教育スコアと美しさスコアの関係&#39;</span><span class="p">)</span>
+
+<span class="c1"># 回帰直線の追加</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+<span class="n">m</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;回帰直線の式: score = </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> * bty_avg&#39;</span><span class="p">)</span>
+
+<span class="c1"># ジッタリングを適用した散布図</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">)),</span> 
+            <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">)),</span> 
+            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;美しさスコア (ジッタリング適用)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;教育スコア (ジッタリング適用)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;教育スコアと美しさスコアの関係 (ジッタリング適用)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># statsmodelsを使用した線形回帰</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;score ~ bty_avg&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">evals_ch5</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">回帰モデルの要約:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+<span class="c1"># 回帰表の出力（簡略化バージョン）</span>
+<span class="n">coef</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span>
+<span class="n">std_err</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">bse</span>
+<span class="n">t_vals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">tvalues</span>
+<span class="n">p_vals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">pvalues</span>
+<span class="n">conf_int</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+
+<span class="n">regression_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;term&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;bty_avg&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="n">coef</span><span class="p">,</span>
+    <span class="s1">&#39;std_error&#39;</span><span class="p">:</span> <span class="n">std_err</span><span class="p">,</span>
+    <span class="s1">&#39;t_statistic&#39;</span><span class="p">:</span> <span class="n">t_vals</span><span class="p">,</span>
+    <span class="s1">&#39;p_value&#39;</span><span class="p">:</span> <span class="n">p_vals</span><span class="p">,</span>
+    <span class="s1">&#39;lower_ci&#39;</span><span class="p">:</span> <span class="n">conf_int</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s1">&#39;upper_ci&#39;</span><span class="p">:</span> <span class="n">conf_int</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">回帰表:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">regression_table</span><span class="p">)</span>
+
+<span class="c1"># 予測値と残差の計算</span>
+<span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">)</span>
+<span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score_hat&#39;</span><span class="p">]</span>
+
+<span class="c1"># 例示用に特定の講師のデータを表示</span>
+<span class="n">example_instructor</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">7.333</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">特定の講師の例:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;「美しさ」スコア: </span><span class="si">{</span><span class="n">example_instructor</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;実際の教育スコア (y): </span><span class="si">{</span><span class="n">example_instructor</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;予測された教育スコア (ŷ): </span><span class="si">{</span><span class="n">example_instructor</span><span class="p">[</span><span class="s1">&#39;score_hat&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;残差 (y - ŷ): </span><span class="si">{</span><span class="n">example_instructor</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 残差と予測値の関係を可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score_hat&#39;</span><span class="p">],</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;予測値 (ŷ)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;残差 (y - ŷ)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;残差プロット&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># ヒストグラムで残差の分布を確認</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;残差 (y - ŷ)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;残差のヒストグラム&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 残差平方和の計算</span>
+<span class="n">sum_squared_residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">残差平方和: </span><span class="si">{</span><span class="n">sum_squared_residuals</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># オリジナルの回帰直線と任意の2つの直線を比較</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">],</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># オリジナルの回帰直線</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="n">m</span><span class="o">*</span><span class="n">x_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;回帰直線: y = </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">x&#39;</span><span class="p">)</span>
+
+<span class="c1"># 任意の直線1</span>
+<span class="n">m1</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">4.0</span>  <span class="c1"># 任意の傾きと切片</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">b1</span> <span class="o">+</span> <span class="n">m1</span><span class="o">*</span><span class="n">x_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> 
+         <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;任意の直線1: y = </span><span class="si">{</span><span class="n">b1</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">m1</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">x&#39;</span><span class="p">)</span>
+
+<span class="c1"># 任意の直線2</span>
+<span class="n">m2</span><span class="p">,</span> <span class="n">b2</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">3.5</span>  <span class="c1"># 別の任意の傾きと切片</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">b2</span> <span class="o">+</span> <span class="n">m2</span><span class="o">*</span><span class="n">x_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> 
+         <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;任意の直線2: y = </span><span class="si">{</span><span class="n">b2</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">m2</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">x&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;美しさスコア&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;教育スコア&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;オリジナルの回帰直線と任意の直線の比較&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># それぞれの直線に対する残差平方和を計算</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_sse</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">):</span>
+    <span class="n">predicted</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;bty_avg&#39;</span><span class="p">]</span>
+    <span class="n">residuals</span> <span class="o">=</span> <span class="n">evals_ch5</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">predicted</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">sse_regression</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">sse_line1</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">b1</span><span class="p">)</span>
+<span class="n">sse_line2</span> <span class="o">=</span> <span class="n">calculate_sse</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">回帰直線の残差平方和: </span><span class="si">{</span><span class="n">sse_regression</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;任意の直線1の残差平方和: </span><span class="si">{</span><span class="n">sse_line1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;任意の直線2の残差平方和: </span><span class="si">{</span><span class="n">sse_line2</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># ----- 1つのカテゴリ的説明変数 -----</span>
+<span class="c1"># 2007年のGapminderデータを読み込む</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">=== カテゴリ変数を用いた回帰分析 ===</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">gapminder2007</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder2007.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># データの最初の数行を表示</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gapminder 2007データの最初の数行:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">gapminder2007</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 数値変数の要約統計量</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">要約統計量:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">gapminder2007</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># continentごとの国の数を確認</span>
+<span class="n">continent_counts</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">continent_counts</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">大陸ごとの国の数:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">continent_counts</span><span class="p">)</span>
+
+<span class="c1"># 各大陸の平均寿命を計算</span>
+<span class="n">lifeExp_by_continent</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;continent&#39;</span><span class="p">)[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">大陸ごとの平均寿命統計:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">lifeExp_by_continent</span><span class="p">)</span>
+
+<span class="c1"># 平均寿命のヒストグラム</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均寿命&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;国の数&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;全世界の平均寿命分布（2007年）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 大陸ごとのヒストグラム</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">continent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="p">[</span><span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">continent</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">continent</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;平均寿命&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;国の数&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 箱ひげ図</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">gapminder2007</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;大陸&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;平均寿命&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;大陸別の平均寿命（2007年）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># カテゴリ変数を使った線形回帰</span>
+<span class="n">model_categorical</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;lifeExp ~ C(continent)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">gapminder2007</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">大陸を説明変数とした回帰モデルの要約:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_categorical</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+<span class="c1"># 回帰表の作成</span>
+<span class="n">coef_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">params</span>
+<span class="n">std_err_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">bse</span>
+<span class="n">t_vals_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">tvalues</span>
+<span class="n">p_vals_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">pvalues</span>
+<span class="n">conf_int_cat</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+
+<span class="c1"># インデックス名を取得</span>
+<span class="n">index_names</span> <span class="o">=</span> <span class="n">coef_cat</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="c1"># 最初の要素（切片）とそれ以外を分ける</span>
+<span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;intercept&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">index_names</span><span class="p">)):</span>
+    <span class="c1"># C(continent)[T.XXX]形式の文字列からXXXを抽出</span>
+    <span class="n">continent_name</span> <span class="o">=</span> <span class="n">index_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[T.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">)</span>
+    <span class="n">terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;continent: </span><span class="si">{</span><span class="n">continent_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">regression_table_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;term&#39;</span><span class="p">:</span> <span class="n">terms</span><span class="p">,</span>
+    <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="n">coef_cat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;std_error&#39;</span><span class="p">:</span> <span class="n">std_err_cat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;t_statistic&#39;</span><span class="p">:</span> <span class="n">t_vals_cat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;p_value&#39;</span><span class="p">:</span> <span class="n">p_vals_cat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;lower_ci&#39;</span><span class="p">:</span> <span class="n">conf_int_cat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;upper_ci&#39;</span><span class="p">:</span> <span class="n">conf_int_cat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">回帰表:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">regression_table_cat</span><span class="p">)</span>
+
+<span class="c1"># 予測値と残差の計算</span>
+<span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_categorical</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">gapminder2007</span><span class="p">)</span>
+<span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;residual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">gapminder2007</span><span class="p">[</span><span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">]</span>
+
+<span class="c1"># 国名を含めて最初の10行を表示</span>
+<span class="n">result_df</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="p">[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">,</span> <span class="s1">&#39;residual&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">観測値、予測値、残差の最初の10行:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">result_df</span><span class="p">)</span>
+
+<span class="c1"># 残差の箱ひげ図</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;residual&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">gapminder2007</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;大陸&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;残差 (平均寿命 - 予測平均寿命)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;大陸別の残差分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 残差が最も小さい5カ国</span>
+<span class="n">worst_5</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;residual&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">,</span> <span class="s1">&#39;residual&#39;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">残差が最も小さい（最も負の）5カ国:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">worst_5</span><span class="p">)</span>
+
+<span class="c1"># 残差が最も大きい5カ国</span>
+<span class="n">best_5</span> <span class="o">=</span> <span class="n">gapminder2007</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;residual&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;continent&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp&#39;</span><span class="p">,</span> <span class="s1">&#39;lifeExp_hat&#39;</span><span class="p">,</span> <span class="s1">&#39;residual&#39;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">残差が最も大きい（最も正の）5カ国:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">best_5</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3612 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/09-hypothesis-testing/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>第9章 仮説検定 - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#9" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第9章 仮説検定
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Lectures
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+    
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exersice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/30-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Report Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/32-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/33-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/34-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/35-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/36-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Eigen value and vector
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/37-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/38-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/39-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/40-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Singular value decomposition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/41-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/42-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/43-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43. Principal component analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/44-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/45-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45. Factor analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/46-nonlinear-dimension-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46. Nonlinear dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/47-wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47. Wrap up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LA/48-final-report/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48. Final Report
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualizaion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../OC/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Open Campus
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Open Campus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/consistency-of-soft-decision-trees/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Consistency of SRT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-brain-analysis.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal Brain Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析(Technical)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 昇進活動
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.1 昇進活動">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      銀行での昇進に性別は影響するか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      一度のシャッフル
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      16回のシャッフル
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      今何をしたのか？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 仮説検定の理解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 仮説検定の実施
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 仮説検定の実施">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 変数を指定する
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 帰無仮説を指定する
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 複製を生成する
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 統計量を計算する
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. p値を可視化する
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      信頼区間との比較
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4 仮説検定の解釈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4 仮説検定の解釈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2つの可能な結果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      誤りの種類
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      αをどのように選ぶか？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.5 ケーススタディ：アクション映画とロマンス映画はどちらの評価が高いか？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.5 ケーススタディ：アクション映画とロマンス映画はどちらの評価が高いか？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      IMDb評価データ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      サンプリングシナリオ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      仮説検定の実施
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#96" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6 結論
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.6 結論">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      理論ベースの仮説検定
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理論ベースの仮説検定">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t" class="md-nav__link">
+    <span class="md-ellipsis">
+      二標本t統計量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      推論が必要でない場合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p" class="md-nav__link">
+    <span class="md-ellipsis">
+      p値の問題点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="9">第9章 仮説検定</h1>
+<h2 id="_1">はじめに</h2>
+<p>第8章の信頼区間について学んだので、今度は統計的推論のもう一つのよく使われる方法である仮説検定について学びましょう。仮説検定により、母集団からのサンプルデータを用いて、競合する仮説の妥当性について推論することができます。例えば、これから見る「昇進」の例（9.2節）では、1970年代の心理学研究から収集されたデータを使用して、当時の銀行業界に性別に基づく昇進差別が存在したかどうかを調査します。</p>
+<p>第7章と第8章ですでに多くの必要な概念を学んできました。これらの考え方をさらに拡張し、仮説検定の一般的なフレームワークを提供します。このフレームワークを理解すれば、さまざまなシナリオに適用できるようになります。</p>
+<p>信頼区間と同様に、仮説検定にも一般的なフレームワークがあります。<code>infer</code>パッケージはこのフレームワークに基づいて設計されています。特定の種類の仮説検定のための理論ベースのアプローチに焦点を当てるよりも、長期的な学習のためには一般的なフレームワークを学ぶ方が良いと考えています。</p>
+<p>必要なライブラリをインポートしましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="c1"># Google Colabで実行している場合、matplotlibの設定を変更して日本語表示を可能にする</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;IPAexGothic&#39;</span>
+
+<span class="c1"># データの表示形式を設定</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># 乱数シードを設定</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>
+
+<span class="c1"># スタイル設定</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-whitegrid&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="91">9.1 昇進活動</h2>
+<p>まず、銀行における昇進に対する性別の影響を調査する活動から始めましょう。</p>
+<h3 id="_2">銀行での昇進に性別は影響するか？</h3>
+<p>1970年代に銀行で働いていて、昇進の申請のために履歴書を提出するとします。あなたの性別は昇進の機会に影響するでしょうか？この質問に答えるために、1974年に『Journal of Applied Psychology』で発表された研究のデータに焦点を当てます。</p>
+<p>この研究では、48人の銀行の監督者が「銀行の支店長」という架空の役割を担うように求められました。それぞれの監督者に履歴書が与えられ、その候補者が新しいポジションへの昇進に適しているかどうかを尋ねられました。</p>
+<p>しかし、これらの48通の履歴書は、履歴書の一番上にある応募者の名前を除いて、すべての点で同一でした。監督者のうち24人にはステレオタイプ的に「男性」の名前の履歴書が無作為に与えられ、残りの24人には「女性」の名前の履歴書が無作為に与えられました。名前の性別のみが履歴書ごとに異なっていたため、研究者はこの変数が昇進率に与える影響を分離することができました。</p>
+<p>今日の視点（私たち著者を含む）では、このような性別の二元的な見方に同意しない人も多いですが、この研究が行われた時代には、より微妙な性別の見方が一般的ではなかったことを覚えておくことが重要です。</p>
+<p>まず、GitHubからデータをダウンロードして調査しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># GitHubからデータをダウンロード</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/moderndive/moderndive_book/master/data/promotions.csv&quot;</span>
+<span class="n">promotions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># ランダムにいくつかの行を選択して表示</span>
+<span class="n">promotions</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><code>id</code>変数は48行すべての識別変数として機能し、<code>decision</code>変数は応募者が昇進に選ばれたかどうかを示し、<code>gender</code>変数は履歴書に使用された名前の性別を示します。このデータは実際の24人の男性と24人の女性に関するものではなく、24個は「男性」の名前が、24個は「女性」の名前が割り当てられた同一の48通の履歴書に関するものであることを思い出してください。</p>
+<p>2つのカテゴリ変数<code>decision</code>と<code>gender</code>の関係を探索的に分析してみましょう。積み上げ棒グラフを使用してこの関係を視覚化できます：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 積み上げ棒グラフを作成</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">],</span> <span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;decision&#39;</span><span class="p">])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;履歴書の名前の性別&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;人数&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;性別と昇進決定の関係&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;決定&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>図を見ると、女性の名前の履歴書は昇進に選ばれる可能性がはるかに低いように見えます。これらの昇進率を数値で表現しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 性別と決定によるクロス集計表を作成</span>
+<span class="n">cross_tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">],</span> <span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;decision&#39;</span><span class="p">],</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cross_tab</span><span class="p">)</span>
+
+<span class="c1"># 昇進率を計算</span>
+<span class="n">promotion_rates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">],</span> <span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;decision&#39;</span><span class="p">],</span> <span class="n">normalize</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">昇進率（行ごとの割合）:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">promotion_rates</span><span class="p">[</span><span class="s1">&#39;promoted&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p>男性の名前の履歴書24通のうち、21通が昇進に選ばれました（割合は21/24 = 0.875 = 87.5%）。一方、女性の名前の履歴書24通のうち、14通が昇進に選ばれました（割合は14/24 = 0.583 = 58.3%）。これらの昇進率を比較すると、男性の名前の履歴書は女性の名前の履歴書よりも0.875 - 0.583 = 0.292 = 29.2%高い割合で昇進に選ばれました。これは男性の名前の履歴書に有利な傾向を示唆しています。</p>
+<p>しかし、これは銀行での昇進における性別差別が存在するという<em>決定的な</em>証拠を提供するでしょうか？性別差別が存在しない仮想的な世界でも、29.2%の昇進率の差が偶然によって生じる可能性はあるでしょうか？言い換えれば、この仮想的な世界では<em>標本変動</em>がどのような役割を果たすでしょうか？この質問に答えるために、再び<em>シミュレーション</em>を実行するためにコンピュータを使用します。</p>
+<h3 id="_3">一度のシャッフル</h3>
+<p>まず、性差別が存在しない仮想的な宇宙を想像してみてください。このような仮想的な宇宙では、応募者の性別は昇進の可能性に影響を与えません。私たちの<code>promotions</code>データフレームに戻ると、<code>gender</code>変数は関係のないラベルになります。これらの<code>gender</code>ラベルが関係ないのであれば、それらをランダムに再割り当て（「シャッフル」）しても結果に影響しないはずです！</p>
+<p>この考え方を説明するために、48通の履歴書のうち任意に選んだ6通に焦点を当ててみましょう。以下の表は、<code>decision</code>列は3つの履歴書が昇進につながり、3つがつながらなかったことを示しています。<code>gender</code>列は、元の履歴書の名前の性別を示しています。</p>
+<p>しかし、性差別がないという仮想的な宇宙では、性別は無関係であり、<code>gender</code>値をランダムに「シャッフル」しても問題ありません。<code>shuffled_gender</code>列は、可能な1つのランダムなシャッフルを示しています。第4列では、男性と女性の名前の数がそれぞれ3つのままですが、異なる順序で表示されていることに注目してください。</p>
+<p>このような性別ラベルのランダムなシャッフルは、性差別が存在しない仮想的な宇宙でのみ意味を持ちます。この性別変数のシャッフルを48通すべての履歴書に手動で拡張するにはどうすればよいでしょうか？52枚の標準的なトランプを使用する方法があります。</p>
+<p>カードの半分が赤（ダイヤとハート）でもう半分が黒（スペードとクラブ）なので、赤のカード2枚と黒のカード2枚を取り除けば、24枚の赤のカードと24枚の黒のカードが残ります。これらの48枚のカードをシャッフルした後、1枚ずつめくり、赤のカードごとに「男性」、黒のカードごとに「女性」を割り当てることができます。</p>
+<p>このようなシャッフルの1例をPythonで実行してみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># シャッフルされた性別を作成</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># 再現性のために乱数シードを設定</span>
+<span class="n">shuffled_gender</span> <span class="o">=</span> <span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 元のデータと同じ意思決定を保持しながら、シャッフルされた性別を持つ新しいデータフレームを作成</span>
+<span class="n">promotions_shuffled</span> <span class="o">=</span> <span class="n">promotions</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">promotions_shuffled</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shuffled_gender</span>
+
+<span class="c1"># 元のデータとシャッフルされたデータの棒グラフを作成して比較</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># 元のデータ</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">],</span> <span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;decision&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;元のデータ&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;履歴書の名前の性別&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;人数&#39;</span><span class="p">)</span>
+
+<span class="c1"># シャッフルされたデータ</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">promotions_shuffled</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">],</span> <span class="n">promotions_shuffled</span><span class="p">[</span><span class="s1">&#39;decision&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;シャッフルされたデータ&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;履歴書の名前の性別&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>元のデータの左側のバープロットと比較して、右側の新しい「シャッフルされた」データでは「男性」と「女性」の昇進率が似通っています。</p>
+<p>各グループの昇進率も計算してみましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># シャッフルされたデータの昇進率を計算</span>
+<span class="n">shuffled_rates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span>
+    <span class="n">promotions_shuffled</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">],</span> 
+    <span class="n">promotions_shuffled</span><span class="p">[</span><span class="s1">&#39;decision&#39;</span><span class="p">],</span> 
+    <span class="n">normalize</span><span class="o">=</span><span class="s1">&#39;index&#39;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;シャッフルされたデータの昇進率:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shuffled_rates</span><span class="p">[</span><span class="s1">&#39;promoted&#39;</span><span class="p">])</span>
+
+<span class="c1"># 差を計算</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">男性と女性の昇進率の差: </span><span class="si">{</span><span class="n">shuffled_rates</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;male&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;promoted&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">shuffled_rates</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;female&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;promoted&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>性差別がない仮想的な世界では、「男性」履歴書の70.8%が昇進に選ばれました。一方、「女性」履歴書の75.0%が昇進に選ばれました。これらの2つの値を比較すると、「男性」履歴書と「女性」履歴書の選ばれた割合に-4.2%の差があることがわかります。</p>
+<p>この差は、元々観察された差である29.2%とは異なることに注目してください。これは再び<em>標本変動</em>によるものです。この標本変動の効果をよりよく理解するにはどうすればよいでしょうか？このシャッフルを何度も繰り返すことです！</p>
+<h3 id="16">16回のシャッフル</h3>
+<p>16人の友人グループがこのシャッフル演習を繰り返すように依頼しました。彼らはこれらの値を共有スプレッドシートに記録しました。</p>
+<p>各シャッフルに対して、昇進率の差を計算し、ヒストグラムでそれらの分布を表示してみましょう。また、実際に観測された昇進率の差29.2%を縦線で示します。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 16回のシャッフルをシミュレーション</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">n_shuffles</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_shuffles</span><span class="p">):</span>
+    <span class="c1"># 性別をシャッフル</span>
+    <span class="n">shuffled_gender</span> <span class="o">=</span> <span class="n">promotions</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 新しいデータフレームを作成</span>
+    <span class="n">promotions_shuffled</span> <span class="o">=</span> <span class="n">promotions</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">promotions_shuffled</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shuffled_gender</span>
+
+    <span class="c1"># 男性と女性の昇進率を計算</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span>
+        <span class="n">promotions_shuffled</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">],</span> 
+        <span class="n">promotions_shuffled</span><span class="p">[</span><span class="s1">&#39;decision&#39;</span><span class="p">],</span> 
+        <span class="n">normalize</span><span class="o">=</span><span class="s1">&#39;index&#39;</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 差を計算して保存</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;promoted&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">rates</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;promoted&#39;</span><span class="p">]</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+
+<span class="c1"># 結果をプロット</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.292</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+           <span class="n">label</span><span class="o">=</span><span class="s1">&#39;観測された差 (29.2%)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;昇進率の差 (男性 - 女性)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;シャッフルされた差の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>このヒストグラムについて議論する前に、最も重要なことを強調しておきます：このヒストグラムは、性差別がない<em>仮説上の宇宙</em>で観察されるであろう昇進率の差を表しています。</p>
+<p>まず、ヒストグラムがほぼ0を中心にしていることがわかります。昇進率の差が0であるということは、両方の性別が同じ昇進率を持っていることを意味します。言い換えれば、これらの16個の値の中心は、性差別がない仮説上の宇宙で予想されることと一致しています。</p>
+<p>しかし、値は0を中心にしていますが、0の周りには変動があります。これは、性差別がない仮説上の宇宙でも、偶然の<em>標本変動</em>によって昇進率に小さな差が依然として観察される可能性があるためです。</p>
+<p>実生活で観察されたものに目を向けると：29.2%の差は縦の濃い線でマークされています。あなた自身に尋ねてみてください：性差別のない仮説上の世界で、このような差が観察される可能性はどれくらいでしょうか？意見が分かれるかもしれませんが、私たちの意見では、そうそうあることではありません！次に自問してください：これらの結果は、性差別のない仮説上の宇宙について何を物語っていますか？</p>
+<h3 id="_4">今何をしたのか？</h3>
+<p>今示した活動は、<em>置換検定</em>を使用した<em>仮説検定</em>という統計的手順です。「置換」という用語は「シャッフル」の数学的用語です：一連の値をランダムに並べ替えることです。</p>
+<p>実際、置換は第8章でブートストラップ法とともに実行した<em>再サンプリング</em>の別の形式です。ブートストラップ法は<em>置換</em>による再サンプリングを含む一方、置換法は<em>置換なし</em>の再サンプリングを含みます。</p>
+<p>第8章の紙片を使ったペニーと帽子の演習を思い出してください：ペニーをサンプリングした後、それを帽子に戻しました。今度はトランプのデッキについて考えてみましょう。カードを引いた後、それを目の前に置き、色を記録し、<em>デッキに戻しませんでした</em>。</p>
+<p>前の例では、性差別のない仮説上の宇宙の妥当性をテストしました。48通の履歴書のサンプルにある証拠は、この仮説上の宇宙と矛盾しているようでした。したがって、この仮説上の宇宙を<em>棄却</em>し、性差別が存在すると宣言する傾向があります。</p>
+<p>第8章のあくびは伝染するかどうかのケーススタディを思い出してください。前の例も母集団の比率の差についての推論を含んでいます。今回は、<span class="arithmatex">\(p_{m} - p_{f}\)</span>となります。ここで、<span class="arithmatex">\(p_{m}\)</span>は男性の名前の履歴書が昇進を推薦される母集団の比率、<span class="arithmatex">\(p_{f}\)</span>は女性の名前の履歴書に対する同等の比率です。</p>
+<h2 id="92">9.2 仮説検定の理解</h2>
+<p>サンプリングに関する用語、表記法、定義について第7章で学んだように、仮説検定に関連する多くの用語、表記法、定義もあります。これらを学ぶことは最初は非常に困難な作業のように思えるかもしれません。しかし、練習を重ねることで、誰でもそれらをマスターすることができます。</p>
+<p>まず、<strong>仮説</strong>は未知の母集団パラメータの値に関する声明です。履歴書の活動では、私たちの関心のある母集団パラメータは母集団比率の差<span class="arithmatex">\(p_{m} - p_{f}\)</span>でした。</p>
+<p>次に、<strong>仮説検定</strong>は2つの競合する仮説間の検定で構成されます：(1) <strong>帰無仮説</strong> <span class="arithmatex">\(H_0\)</span>（「Hノート」と発音）対(2) <strong>対立仮説</strong> <span class="arithmatex">\(H_A\)</span>（<span class="arithmatex">\(H_1\)</span>とも表記）。</p>
+<p>一般的に帰無仮説は「効果なし」または「関心のある差なし」という主張です。多くの場合、帰無仮説は現状または面白いことが何も起こっていない状況を表します。さらに、一般的に対立仮説は実験者または研究者が確立したいまたは支持する証拠を見つけたい主張です。これは帰無仮説<span class="arithmatex">\(H_0\)</span>に対する「挑戦者」仮説と見なされます。履歴書の活動では、適切な仮説検定は次のようになります：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+H_0 &amp;: \text{男性と女性は同じ昇進率である}\\
+\text{vs } H_A &amp;: \text{男性の昇進率は女性よりも高い}
+\end{aligned}
+\]</div>
+<p>私たちが行った選択のいくつかに注目してください。まず、帰無仮説<span class="arithmatex">\(H_0\)</span>を昇進率に差がないことに設定し、「挑戦者」対立仮説<span class="arithmatex">\(H_A\)</span>を差があることに設定しました。原則的には二つを逆にしても間違いではありませんが、統計的推論では、帰無仮説を「何も起こっていない」状況を反映するように設定することが慣例です。先ほど述べたように、この場合、<span class="arithmatex">\(H_0\)</span>は昇進率に差がないことに対応します。さらに、<span class="arithmatex">\(H_A\)</span>を男性が<em>より高い</em>昇進率を持つように設定しました。これは男性に有利な差別があるという事前の疑いを反映した主観的な選択です。このような対立仮説を<em>片側対立仮説</em>と呼びます。しかし、そのような疑いを共有せず、より高いかより低いかにかかわらず差があるかどうかだけを調査したい場合、<em>両側対立仮説</em>として知られるものを設定します。</p>
+<p>母集団パラメータ<span class="arithmatex">\(p_{m} - p_{f}\)</span>に対する数学的表記を使用して、仮説検定の定式化を次のように再表現できます：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+H_0 &amp;: p_{m} - p_{f} = 0\\
+\text{vs } H_A&amp;: p_{m} - p_{f} &gt; 0
+\end{aligned}
+\]</div>
+<p>対立仮説<span class="arithmatex">\(H_A\)</span>が片側であり、<span class="arithmatex">\(p_{m} - p_{f} &gt; 0\)</span>であることに注目してください。両側対立仮説を選択していた場合、<span class="arithmatex">\(p_{m} - p_{f} \neq 0\)</span>と設定していたでしょう。今のところ簡単にするために、より単純な片側対立仮説を使用しましょう。9.5節で両側対立仮説の例を紹介します。</p>
+<p>第三に、<strong>検定統計量</strong>は仮説検定に使用される<em>点推定値/標本統計量</em>の式です。標本統計量は単にサンプル観測値に基づく要約統計量であることに注意してください。第5章で見たように、要約統計量は多くの値を取り、一つだけを返します。ここでのサンプルは、男性名の履歴書<span class="arithmatex">\(n_m\)</span> = 24と女性名の履歴書<span class="arithmatex">\(n_f\)</span> = 24になります。したがって、関心のある点推定値は標本比率の差<span class="arithmatex">\(\hat{p}_{m} - \hat{p}_{f}\)</span>です。</p>
+<p>第四に、<strong>観測検定統計量</strong>は実生活で観測された検定統計量の値です。私たちの場合、この値は<code>promotions</code>データフレームに保存されたデータを使用して計算しました。それは男性名の履歴書に有利な<span class="arithmatex">\(\hat{p}_{m} -\hat{p}_{f} = 0.875 - 0.583 = 0.292 = 29.2\%\)</span>の観測された差でした。</p>
+<p>第五に、<strong>帰無分布</strong>は<em>帰無仮説<span class="arithmatex">\(H_0\)</span>が真であると仮定した場合の</em>検定統計量のサンプリング分布です。これは長い説明です！少しずつ解きほぐしましょう。帰無分布を理解するための鍵は、帰無仮説<span class="arithmatex">\(H_0\)</span>が真であると<em>仮定</em>されていることです。この時点で<span class="arithmatex">\(H_0\)</span>が真であるとは言っていません。仮説検定の目的のためにのみ真であると仮定しています。私たちの場合、これは昇進率に性差別がない仮説上の宇宙に対応します。帰無仮説<span class="arithmatex">\(H_0\)</span>を仮定すると（「<span class="arithmatex">\(H_0\)</span>の下で」とも言います）、検定統計量はサンプリング変動によってどのように変化するでしょうか？私たちの場合、標本比率の差<span class="arithmatex">\(\hat{p}_{m} - \hat{p}_{f}\)</span>は<span class="arithmatex">\(H_0\)</span>の下でのサンプリングによってどのように変化するでしょうか？第7章から、点推定値がサンプリング変動によってどのように変化するかを示す分布は<em>サンプリング分布</em>と呼ばれることを思い出してください。帰無分布について覚えておくべき唯一の追加の点は、それらが<em>帰無仮説<span class="arithmatex">\(H_0\)</span>が真であると仮定した</em>サンプリング分布であることです。</p>
+<p>私たちの場合、以前に帰無分布を可視化しました。それは友人たちが計算した16の標本比率の差の分布で、性差別のない仮説上の宇宙を<em>仮定</em>しています。また、観測検定統計量の値である0.292を縦線でマークしました。</p>
+<p>第六に、<strong><span class="arithmatex">\(p\)</span>値</strong>は<em>帰無仮説<span class="arithmatex">\(H_0\)</span>が真であると仮定した場合に</em>、観測検定統計量と同じくらい極端またはより極端な検定統計量を得る確率です。これもゆっくり解きほぐしましょう。<span class="arithmatex">\(p\)</span>値を「驚き」の量的表現と考えることができます：<span class="arithmatex">\(H_0\)</span>が真であると仮定すると、私たちが観察したことにどれくらい驚くでしょうか？あるいは、私たちの場合、性差別のない仮説上の宇宙では、<span class="arithmatex">\(H_0\)</span>が真であると仮定して、サンプルから0.292の昇進率の差を観察することにどれくらい驚くでしょうか？非常に驚くでしょうか？やや驚くでしょうか？</p>
+<p><span class="arithmatex">\(p\)</span>値はこの確率を数値化します。あるいは、図の16の標本比率の差の場合、どれくらいの割合がより「極端な」結果を持っていたでしょうか？ここで、極端とは「男性」応募者が「女性」応募者よりも高い昇進率を持つという対立仮説<span class="arithmatex">\(H_A\)</span>の観点から定義されます。言い換えれば、男性に有利な差別が<span class="arithmatex">\(0.875 - 0.583 = 0.292 = 29.2\%\)</span>よりも_さらに_顕著だったのはどれくらいの頻度でしょうか？</p>
+<p>この場合、16回中0回、観測された差0.292以上の比率の差を得ました。非常にまれな（実際には発生しない）結果です！仮説上の性差別のない宇宙でこのような顕著な昇進率の差がまれであることを考えると、私たちは仮説上の宇宙を<em>棄却</em>する傾向があります。代わりに、「男性」応募者に有利な差別が存在するという仮説を支持します。言い換えれば、<span class="arithmatex">\(H_0\)</span>を<span class="arithmatex">\(H_A\)</span>のために棄却します。</p>
+<p>第七に最後に、多くの仮説検定手順では、あらかじめ検定の<strong>有意水準</strong>を設定することが一般的に推奨されています。ギリシャ文字<span class="arithmatex">\(\alpha\)</span>（「アルファ」と発音）で表されます。この値は<span class="arithmatex">\(p\)</span>値のカットオフとして機能し、<span class="arithmatex">\(p\)</span>値が<span class="arithmatex">\(\alpha\)</span>を下回る場合、「帰無仮説<span class="arithmatex">\(H_0\)</span>を棄却する」ことになります。</p>
+<p>あるいは、<span class="arithmatex">\(p\)</span>値が<span class="arithmatex">\(\alpha\)</span>を下回らない場合、「<span class="arithmatex">\(H_0\)</span>を棄却しない」ことになります。後者の声明は「<span class="arithmatex">\(H_0\)</span>を受け入れる」というのとは少し異なることに注意してください。この区別はかなり微妙であり、すぐには明らかではありません。そのため、9.4節で再訪します。</p>
+<p>異なる分野では異なる<span class="arithmatex">\(\alpha\)</span>の値が使用される傾向がありますが、0.1、0.01、0.05などのよく使われる値があります。0.05は多くの人があまり考えずに選択することが多い値です。9.4節で<span class="arithmatex">\(\alpha\)</span>有意水準についてさらに詳しく説明しますが、まず、<code>infer</code>パッケージを使用して昇進活動に対応する仮説検定を完全に実施しましょう。</p>
+<h2 id="93">9.3 仮説検定の実施</h2>
+<p>Rの<code>infer</code>パッケージと同様の機能をPythonで実装して、仮説検定のフレームワークを実施しましょう。以下では、<code>infer</code>のワークフローに似た関数を作成します：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">specify</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">explanatory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    式または応答・説明変数を指定してデータを準備します</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">formula</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># formula = &#39;response ~ explanatory&#39; の形式を解析</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">formula</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">explanatory</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="c1"># データに関するメタ情報を設定</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;explanatory&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">explanatory</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;success&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">success</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">hypothesize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="s1">&#39;independence&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    帰無仮説を指定します</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;null&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">null</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;permute&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    シミュレーションを生成します</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># データの属性を取得</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">)</span>
+    <span class="n">explanatory</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;explanatory&#39;</span><span class="p">)</span>
+    <span class="n">success</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">)</span>
+    <span class="n">null</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;null&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;permute&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">reps</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">null</span> <span class="o">==</span> <span class="s1">&#39;independence&#39;</span><span class="p">:</span>
+                <span class="c1"># 説明変数をシャッフル</span>
+                <span class="n">shuffled_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">shuffled_data</span><span class="p">[</span><span class="n">explanatory</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">explanatory</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="n">shuffled_data</span><span class="p">[</span><span class="s1">&#39;replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shuffled_data</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">result_list</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;diff in props&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    要約統計量を計算します</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">)</span>
+    <span class="n">explanatory</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;explanatory&#39;</span><span class="p">)</span>
+    <span class="n">success</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">stat</span> <span class="o">==</span> <span class="s1">&#39;diff in props&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;replicate&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="c1"># 複数の複製に対して計算</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">rep</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;replicate&#39;</span><span class="p">):</span>
+                <span class="n">prop_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span>
+                    <span class="n">group</span><span class="p">[</span><span class="n">explanatory</span><span class="p">],</span> 
+                    <span class="n">group</span><span class="p">[</span><span class="n">response</span><span class="p">]</span> <span class="o">==</span> <span class="n">success</span><span class="p">,</span>
+                    <span class="n">normalize</span><span class="o">=</span><span class="s1">&#39;index&#39;</span>
+                <span class="p">)[</span><span class="kc">True</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">diff</span> <span class="o">=</span> <span class="n">prop_table</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">prop_table</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># デフォルトの順序</span>
+                    <span class="n">diff</span> <span class="o">=</span> <span class="n">prop_table</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">prop_table</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;replicate&#39;</span><span class="p">:</span> <span class="n">rep</span><span class="p">,</span> <span class="s1">&#39;stat&#39;</span><span class="p">:</span> <span class="n">diff</span><span class="p">})</span>
+
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># 単一のデータセットに対して計算</span>
+            <span class="n">prop_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">explanatory</span><span class="p">],</span> 
+                <span class="n">data</span><span class="p">[</span><span class="n">response</span><span class="p">]</span> <span class="o">==</span> <span class="n">success</span><span class="p">,</span>
+                <span class="n">normalize</span><span class="o">=</span><span class="s1">&#39;index&#39;</span>
+            <span class="p">)[</span><span class="kc">True</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">diff</span> <span class="o">=</span> <span class="n">prop_table</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">prop_table</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># デフォルトの順序</span>
+                <span class="n">diff</span> <span class="o">=</span> <span class="n">prop_table</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">prop_table</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;stat&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">diff</span><span class="p">]})</span>
+
+    <span class="k">elif</span> <span class="n">stat</span> <span class="o">==</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span>
+        <span class="c1"># t統計量の計算</span>
+        <span class="k">if</span> <span class="s1">&#39;replicate&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="c1"># 複数の複製に対して計算</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">rep</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;replicate&#39;</span><span class="p">):</span>
+                <span class="n">grouped</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">explanatory</span><span class="p">)[</span><span class="n">response</span><span class="p">]</span>
+                <span class="n">group1</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">group2</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+                <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">group2</span><span class="p">)</span>
+                <span class="n">mean1</span><span class="p">,</span> <span class="n">mean2</span> <span class="o">=</span> <span class="n">group1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">group2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                <span class="n">var1</span><span class="p">,</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">group1</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">group2</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+
+                <span class="c1"># 2標本のt統計量</span>
+                <span class="n">t_stat</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean1</span> <span class="o">-</span> <span class="n">mean2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var1</span><span class="o">/</span><span class="n">n1</span> <span class="o">+</span> <span class="n">var2</span><span class="o">/</span><span class="n">n2</span><span class="p">)</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;replicate&#39;</span><span class="p">:</span> <span class="n">rep</span><span class="p">,</span> <span class="s1">&#39;stat&#39;</span><span class="p">:</span> <span class="n">t_stat</span><span class="p">})</span>
+
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># 単一のデータセットに対して計算</span>
+            <span class="n">grouped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">explanatory</span><span class="p">)[</span><span class="n">response</span><span class="p">]</span>
+            <span class="n">group1</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">group2</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">group2</span><span class="p">)</span>
+            <span class="n">mean1</span><span class="p">,</span> <span class="n">mean2</span> <span class="o">=</span> <span class="n">group1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">group2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">var1</span><span class="p">,</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">group1</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">group2</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+
+            <span class="c1"># 2標本のt統計量</span>
+            <span class="n">t_stat</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean1</span> <span class="o">-</span> <span class="n">mean2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var1</span><span class="o">/</span><span class="n">n1</span> <span class="o">+</span> <span class="n">var2</span><span class="o">/</span><span class="n">n2</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;stat&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t_stat</span><span class="p">]})</span>
+
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_p_value</span><span class="p">(</span><span class="n">null_distribution</span><span class="p">,</span> <span class="n">obs_stat</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;greater&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    p値を計算します</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">observed</span> <span class="o">=</span> <span class="n">obs_stat</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;greater&#39;</span><span class="p">:</span>
+        <span class="n">p_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">null_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">observed</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;less&#39;</span><span class="p">:</span>
+        <span class="n">p_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">null_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">observed</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;two-sided&#39;</span> <span class="ow">or</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;both&#39;</span><span class="p">:</span>
+        <span class="n">p_value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">null_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">observed</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;p_value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">p_value</span><span class="p">]})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span><span class="n">null_distribution</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">obs_stat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    帰無分布を可視化します</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+    <span class="c1"># ヒストグラムの作成</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">null_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 観測された統計量と方向が提供されている場合、p値を影付けする</span>
+    <span class="k">if</span> <span class="n">obs_stat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">direction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">observed</span> <span class="o">=</span> <span class="n">obs_stat</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">observed</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+                   <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;観測値: </span><span class="si">{</span><span class="n">observed</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;greater&#39;</span><span class="p">:</span>
+            <span class="c1"># 右側を強調表示</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span> <span class="n">null_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">get_xaxis_transform</span><span class="p">())</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;帰無分布 (右側 p値)&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;less&#39;</span><span class="p">:</span>
+            <span class="c1"># 左側を強調表示</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">null_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">observed</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">get_xaxis_transform</span><span class="p">())</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;帰無分布 (左側 p値)&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;two-sided&#39;</span> <span class="ow">or</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;both&#39;</span><span class="p">:</span>
+            <span class="c1"># 両側を強調表示</span>
+            <span class="n">abs_observed</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span>
+            <span class="n">x_left</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">null_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="o">-</span><span class="n">abs_observed</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="n">x_right</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">abs_observed</span><span class="p">,</span> <span class="n">null_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_left</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">get_xaxis_transform</span><span class="p">())</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_right</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">get_xaxis_transform</span><span class="p">())</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;帰無分布 (両側 p値)&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;帰無分布&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;統計量&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;度数&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">obs_stat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">plt</span>
+</code></pre></div>
+<p>これで、<code>infer</code>パッケージと同様のワークフローで仮説検定を実行できるようになりました。以下のステップに従って検定を行います。</p>
+<h3 id="1">1. 変数を指定する</h3>
+<p>まず、<code>promotions</code>データフレームの興味のある変数を指定します。<code>decision</code>を応答変数、<code>gender</code>を説明変数として、また「昇進した」という成功イベントに興味があるため、<code>success='promoted'</code>と設定します。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 変数を指定</span>
+<span class="n">promotions_specified</span> <span class="o">=</span> <span class="n">specify</span><span class="p">(</span>
+    <span class="n">promotions</span><span class="p">,</span> 
+    <span class="n">formula</span><span class="o">=</span><span class="s1">&#39;decision ~ gender&#39;</span><span class="p">,</span> 
+    <span class="n">success</span><span class="o">=</span><span class="s1">&#39;promoted&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="2">2. 帰無仮説を指定する</h3>
+<p>帰無仮説を明示的に指定します。この場合、2つの独立したサンプルがあるため、<code>null='independence'</code>を設定します。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 帰無仮説を指定</span>
+<span class="n">promotions_hypothesized</span> <span class="o">=</span> <span class="n">hypothesize</span><span class="p">(</span>
+    <span class="n">promotions_specified</span><span class="p">,</span> 
+    <span class="n">null</span><span class="o">=</span><span class="s1">&#39;independence&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="3">3. 複製を生成する</h3>
+<p>帰無仮説が真であると仮定してシミュレーションを1000回実行します。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 帰無仮説の下でのシミュレーションを生成</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">promotions_generated</span> <span class="o">=</span> <span class="n">generate</span><span class="p">(</span>
+    <span class="n">promotions_hypothesized</span><span class="p">,</span> 
+    <span class="n">reps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> 
+    <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;permute&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="4">4. 統計量を計算する</h3>
+<p>各シミュレーションに対して適切な統計量を計算します。この場合、男性と女性の間の比率の差に関心があります。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 帰無分布を計算</span>
+<span class="n">null_distribution</span> <span class="o">=</span> <span class="n">calculate</span><span class="p">(</span>
+    <span class="n">promotions_generated</span><span class="p">,</span> 
+    <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;diff in props&#39;</span><span class="p">,</span> 
+    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># 観測された統計量を計算</span>
+<span class="n">obs_diff_prop</span> <span class="o">=</span> <span class="n">calculate</span><span class="p">(</span>
+    <span class="n">promotions_specified</span><span class="p">,</span> 
+    <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;diff in props&#39;</span><span class="p">,</span> 
+    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;観測された差: </span><span class="si">{</span><span class="n">obs_diff_prop</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="5-p">5. p値を可視化する</h3>
+<p>最後に、帰無分布と観測値を可視化し、p値を計算します。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 帰無分布を可視化して右側p値を強調表示</span>
+<span class="n">visualize</span><span class="p">(</span><span class="n">null_distribution</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">obs_stat</span><span class="o">=</span><span class="n">obs_diff_prop</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;greater&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># p値を計算</span>
+<span class="n">p_value</span> <span class="o">=</span> <span class="n">get_p_value</span><span class="p">(</span><span class="n">null_distribution</span><span class="p">,</span> <span class="n">obs_stat</span><span class="o">=</span><span class="n">obs_diff_prop</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;greater&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p値: </span><span class="si">{</span><span class="n">p_value</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>p値の定義を念頭に置くと、帰無分布内で観測値0.292以上のサンプリング変動だけによる昇進率の差を観察する確率は非常に小さいことがわかります。このp値はあらかじめ指定した有意水準α = 0.05よりも小さいため、帰無仮説<span class="arithmatex">\(H_0: p_{m} - p_{f} = 0\)</span>を棄却する傾向があります。統計的でない言葉で言えば、結論は次のようになります：このサンプルデータには、性別に基づく差別が存在するという仮説を棄却すべきではないという十分な証拠があります。男性の名前の履歴書に有利な性別差別が原因である可能性が高いです。</p>
+<h3 id="_5">信頼区間との比較</h3>
+<p><code>infer</code>パッケージの優れた点の一つは、最小限の変更で仮説検定と信頼区間の構築を切り替えられることです。帰無分布を作成するためのコードを思い出しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 帰無分布を作成するコード</span>
+<span class="n">promotions_specified</span> <span class="o">=</span> <span class="n">specify</span><span class="p">(</span><span class="n">promotions</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="s1">&#39;decision ~ gender&#39;</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="s1">&#39;promoted&#39;</span><span class="p">)</span>
+<span class="n">promotions_hypothesized</span> <span class="o">=</span> <span class="n">hypothesize</span><span class="p">(</span><span class="n">promotions_specified</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="s1">&#39;independence&#39;</span><span class="p">)</span>
+<span class="n">promotions_generated</span> <span class="o">=</span> <span class="n">generate</span><span class="p">(</span><span class="n">promotions_hypothesized</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;permute&#39;</span><span class="p">)</span>
+<span class="n">null_distribution</span> <span class="o">=</span> <span class="n">calculate</span><span class="p">(</span><span class="n">promotions_generated</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;diff in props&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p><span class="arithmatex">\(p_{m} - p_{f}\)</span>の95%信頼区間を構築するために必要なブートストラップ分布を作成するには、2つの変更だけが必要です。まず、帰無仮説を想定していないため、<code>hypothesize()</code>ステップを削除します。次に、<code>generate()</code>ステップの再サンプリングの<code>type</code>を<code>'permute'</code>から<code>'bootstrap'</code>に変更します。</p>
+<p>Pythonでブートストラップを実装しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">bootstrap_generate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ブートストラップサンプルを生成します</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># データの属性を取得</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">)</span>
+    <span class="n">explanatory</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;explanatory&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">reps</span><span class="p">):</span>
+        <span class="c1"># データから置換ありでリサンプリング</span>
+        <span class="n">bootstrap_sample</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">bootstrap_sample</span><span class="p">[</span><span class="s1">&#39;replicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bootstrap_sample</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">result_list</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_confidence_interval</span><span class="p">(</span><span class="n">bootstrap_distribution</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;percentile&#39;</span><span class="p">,</span> <span class="n">point_estimate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ブートストラップ分布から信頼区間を計算します</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">level</span>
+
+    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;percentile&#39;</span><span class="p">:</span>
+        <span class="n">lower</span> <span class="o">=</span> <span class="n">bootstrap_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">upper</span> <span class="o">=</span> <span class="n">bootstrap_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;lower_ci&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">lower</span><span class="p">],</span> <span class="s1">&#39;upper_ci&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">upper</span><span class="p">]})</span>
+
+    <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;se&#39;</span> <span class="ow">and</span> <span class="n">point_estimate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># 標準誤差法</span>
+        <span class="n">se</span> <span class="o">=</span> <span class="n">bootstrap_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">point_est</span> <span class="o">=</span> <span class="n">point_estimate</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 通常、95%信頼区間では1.96</span>
+
+        <span class="n">lower</span> <span class="o">=</span> <span class="n">point_est</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span>
+        <span class="n">upper</span> <span class="o">=</span> <span class="n">point_est</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;lower_ci&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">lower</span><span class="p">],</span> <span class="s1">&#39;upper_ci&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">upper</span><span class="p">]})</span>
+
+    <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+<p>これらの関数を使用して、95%信頼区間を構築しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ブートストラップ分布を作成</span>
+<span class="n">promotions_specified</span> <span class="o">=</span> <span class="n">specify</span><span class="p">(</span><span class="n">promotions</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="s1">&#39;decision ~ gender&#39;</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="s1">&#39;promoted&#39;</span><span class="p">)</span>
+<span class="c1"># hypothesize()ステップを削除</span>
+<span class="n">bootstrap_samples</span> <span class="o">=</span> <span class="n">bootstrap_generate</span><span class="p">(</span><span class="n">promotions_specified</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">bootstrap_distribution</span> <span class="o">=</span> <span class="n">calculate</span><span class="p">(</span><span class="n">bootstrap_samples</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;diff in props&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">])</span>
+
+<span class="c1"># パーセンタイル法で95%信頼区間を構築</span>
+<span class="n">percentile_ci</span> <span class="o">=</span> <span class="n">get_confidence_interval</span><span class="p">(</span><span class="n">bootstrap_distribution</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;percentile&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;パーセンタイル法の95%信頼区間:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">percentile_ci</span><span class="p">)</span>
+
+<span class="c1"># 標準誤差法で95%信頼区間を構築</span>
+<span class="n">se_ci</span> <span class="o">=</span> <span class="n">get_confidence_interval</span><span class="p">(</span><span class="n">bootstrap_distribution</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;se&#39;</span><span class="p">,</span> <span class="n">point_estimate</span><span class="o">=</span><span class="n">obs_diff_prop</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">標準誤差法の95%信頼区間:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">se_ci</span><span class="p">)</span>
+
+<span class="c1"># ブートストラップ分布とパーセンタイル法の信頼区間を可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bootstrap_distribution</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">percentile_ci</span><span class="p">[</span><span class="s1">&#39;lower_ci&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">percentile_ci</span><span class="p">[</span><span class="s1">&#39;upper_ci&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;0の値&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;比率の差 (男性 - 女性)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;頻度&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ブートストラップ分布とパーセンタイル法の95%信頼区間&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>95%信頼区間に含まれていない重要な値があることに注目してください：0の値です。つまり、<span class="arithmatex">\(p_{m}\)</span>と<span class="arithmatex">\(p_{f}\)</span>の差が0という値は私たちの「ネット」に含まれておらず、<span class="arithmatex">\(p_{m}\)</span>と<span class="arithmatex">\(p_{f}\)</span>が真に異なることを示唆しています！さらに、<span class="arithmatex">\(p_{m} - p_{f}\)</span>の95%信頼区間全体が0より上にあることを観察してください。これは男性に有利な差であることを示唆しています。</p>
+<h2 id="94">9.4 仮説検定の解釈</h2>
+<p>仮説検定の結果を解釈することは、この統計的推論の方法の中でより難しい側面の一つです。このセクションでは、プロセスの解読を助ける方法と、いくつかの一般的な誤解について説明します。</p>
+<h3 id="2_1">2つの可能な結果</h3>
+<p>9.2節で述べたように、あらかじめ指定された有意水準<span class="arithmatex">\(\alpha\)</span>が与えられた場合、仮説検定には2つの可能な結果があります：</p>
+<ul>
+<li><span class="arithmatex">\(p\)</span>値が<span class="arithmatex">\(\alpha\)</span>より小さい場合、私たちは帰無仮説<span class="arithmatex">\(H_0\)</span>を対立仮説<span class="arithmatex">\(H_A\)</span>のために<em>棄却します</em>。</li>
+<li><span class="arithmatex">\(p\)</span>値が<span class="arithmatex">\(\alpha\)</span>以上の場合、帰無仮説<span class="arithmatex">\(H_0\)</span>を<em>棄却しません</em>。</li>
+</ul>
+<p>残念ながら、後者の結果はしばしば「帰無仮説<span class="arithmatex">\(H_0\)</span>を受け入れる」と誤解されます。一見すると、「<span class="arithmatex">\(H_0\)</span>を棄却しない」という声明と「<span class="arithmatex">\(H_0\)</span>を受け入れる」という声明は同等のように思えるかもしれませんが、実際には微妙な違いがあります。「帰無仮説<span class="arithmatex">\(H_0\)</span>を受け入れる」と言うことは、「帰無仮説<span class="arithmatex">\(H_0\)</span>が真であると考える」と述べることと同等です。しかし、「帰無仮説<span class="arithmatex">\(H_0\)</span>を棄却しない」と言うことは別のことを意味します：「<span class="arithmatex">\(H_0\)</span>がまだ偽である可能性があるが、そう言うのに十分な証拠がない」。つまり、十分な証拠の欠如です。しかし、証拠の欠如は存在しないという証拠ではありません。</p>
+<p>この区別をさらに明らかにするために、米国の刑事司法制度を類似のものとして使用しましょう。米国の刑事裁判は、被告人について矛盾する2つの主張の間で選択をしなければならない仮説検定と同様の状況です：</p>
+<ol>
+<li>被告人は実際に「無罪」または「有罪」のいずれかです。</li>
+<li>被告人は「有罪が証明されるまで無罪」と推定されます。</li>
+<li>被告人は、有罪であるという<em>強力な証拠</em>がある場合にのみ有罪とされます。「合理的な疑いを超えて」という表現は、被告人を有罪とするのに十分な証拠があるかどうかを判断するためのガイドラインとしてよく使われます。</li>
+<li>被告人は最終的な評決で「無罪」または「有罪」のいずれかとされます。</li>
+</ol>
+<p>言い換えれば、_無罪_の評決は被告人が_無実_であることを示唆しているのではなく、「被告人が実際にはまだ有罪である可能性があるが、この事実を証明するのに十分な証拠がなかった」ということです。では、仮説検定との関連性を見てみましょう：</p>
+<ol>
+<li>帰無仮説<span class="arithmatex">\(H_0\)</span>または対立仮説<span class="arithmatex">\(H_A\)</span>のいずれかが真です。</li>
+<li>仮説検定は帰無仮説<span class="arithmatex">\(H_0\)</span>が真であると仮定して実施されます。</li>
+<li>サンプルで見つかった証拠が<span class="arithmatex">\(H_A\)</span>が真であることを示唆する場合にのみ、帰無仮説<span class="arithmatex">\(H_0\)</span>を<span class="arithmatex">\(H_A\)</span>のために棄却します。有意水準<span class="arithmatex">\(\alpha\)</span>は、必要とする証拠の強さの閾値を設定するためのガイドラインとして使用されます。</li>
+<li>最終的に「<span class="arithmatex">\(H_0\)</span>を棄却しない」または「<span class="arithmatex">\(H_0\)</span>を棄却する」と決定します。</li>
+</ol>
+<p>したがって、本能的には「<span class="arithmatex">\(H_0\)</span>を棄却しない」と「<span class="arithmatex">\(H_0\)</span>を受け入れる」が同等の声明であると思われるかもしれませんが、そうではありません。「<span class="arithmatex">\(H_0\)</span>を受け入れる」ことは被告人を無実とすることと同等です。しかし、裁判所は被告人を「無実」とは認定せず、むしろ「無罪」と認定します。違った言い方をすれば、弁護士は依頼人が無実であることを証明する必要はなく、依頼人が「合理的な疑いを超えて有罪」ではないことを証明するだけで十分です。</p>
+<p>9.3節の昇進活動に戻ると、私たちの仮説検定は<span class="arithmatex">\(H_0: p_{m} - p_{f} = 0\)</span>対<span class="arithmatex">\(H_A: p_{m} - p_{f} &gt; 0\)</span>であり、あらかじめ指定した有意水準<span class="arithmatex">\(\alpha\)</span> = 0.05を使用したことを思い出してください。<span class="arithmatex">\(p\)</span>値は0.001以下でした。<span class="arithmatex">\(p\)</span>値が<span class="arithmatex">\(\alpha\)</span> = 0.05よりも小さかったため、<span class="arithmatex">\(H_0\)</span>を棄却しました。言い換えれば、<span class="arithmatex">\(\alpha\)</span> = 0.05の有意水準で<span class="arithmatex">\(H_0\)</span>が偽であるために、この特定のサンプルで必要なレベルの証拠を見つけました。また、非統計的な言語でこの結論を述べると次のようになります：このデータには、性別差別が存在したことを示唆するのに十分な証拠がありました。</p>
+<h3 id="_6">誤りの種類</h3>
+<p>残念ながら、陪審員や裁判官が刑事裁判で間違った評決に達することで、不正確な決定をする可能性があります。例えば、本当に無実の被告人を「有罪」とすること。あるいは反対に、本当に有罪の被告人を「無罪」とすること。これはしばしば、検察官がすべての関連証拠にアクセスできず、警察が見つけることができる証拠だけに限られているという事実に起因します。</p>
+<p>同じことが仮説検定にも当てはまります。母集団パラメータについて間違った決定を下す可能性があります。なぜなら、母集団からのサンプルデータしか持っておらず、サンプリング変動が間違った結論につながる可能性があるからです。</p>
+<p>刑事裁判には2つの可能な誤った結論があります：(1)本当に無実の人が有罪とされるか、(2)本当に有罪の人が無罪とされるか。同様に、仮説検定には2つの可能な誤りがあります：(1)実際は<span class="arithmatex">\(H_0\)</span>が真である場合に<span class="arithmatex">\(H_0\)</span>を棄却すること（<strong>第一種の誤り</strong>）、または(2)実際は<span class="arithmatex">\(H_0\)</span>が偽である場合に<span class="arithmatex">\(H_0\)</span>を棄却しないこと（<strong>第二種の誤り</strong>）。「第一種の誤り」の別の用語は「偽陽性」であり、「第二種の誤り」の別の用語は「偽陰性」です。</p>
+<p>このエラーのリスクは、母集団全体の全数調査を実施する代わりにサンプルに基づいて推論するために研究者が支払う代償です。しかし、これまでの多くの例や活動で見てきたように、全数調査はしばしば非常に高価であり、他の場合には不可能であるため、研究者にはサンプルを使用する以外の選択肢がありません。したがって、サンプルに基づく仮説検定では、第一種の誤りが発生する可能性と第二種の誤りが発生する可能性の両方を容認する必要があります。</p>
+<p>第一種の誤りと第二種の誤りの概念を理解するために、これらの用語を刑事司法のアナロジーに適用してみましょう：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>実際に無罪</th>
+<th>実際に有罪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>無罪判決</strong></td>
+<td>正しい</td>
+<td>第二種の誤り</td>
+</tr>
+<tr>
+<td><strong>有罪判決</strong></td>
+<td>第一種の誤り</td>
+<td>正しい</td>
+</tr>
+</tbody>
+</table>
+<p>したがって、第一種の誤りは本当に無実の人を誤って刑務所に入れることに対応し、第二種の誤りは本当に有罪の人を自由にすることに対応します。同様に、仮説検定の対応する表は次のようになります：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><span class="arithmatex">\(H_0\)</span>が真</th>
+<th><span class="arithmatex">\(H_A\)</span>が真</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><span class="arithmatex">\(H_0\)</span>を棄却しない</strong></td>
+<td>正しい</td>
+<td>第二種の誤り</td>
+</tr>
+<tr>
+<td><strong><span class="arithmatex">\(H_0\)</span>を棄却する</strong></td>
+<td>第一種の誤り</td>
+<td>正しい</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">αをどのように選ぶか？</h3>
+<p>サンプルを使用して母集団について推論する場合、誤りのリスクがあります。信頼区間の場合、対応する「誤り」は、母集団パラメータの真の値を含まない信頼区間を構築することです。仮説検定の場合、これは第一種または第二種の誤りを犯すことになります。明らかに、どちらのエラーの確率も最小限に抑えたいと考えています。間違った結論を出す確率を小さくしたいです：</p>
+<ul>
+<li>第一種の誤りが発生する確率は<span class="arithmatex">\(\alpha\)</span>で表されます。<span class="arithmatex">\(\alpha\)</span>の値は仮説検定の<em>有意水準</em>と呼ばれ、9.2節で定義しました。</li>
+<li>第二種の誤りの確率は<span class="arithmatex">\(\beta\)</span>で表されます。<span class="arithmatex">\(1-\beta\)</span>の値は仮説検定の<em>検出力</em>として知られています。</li>
+</ul>
+<p>言い換えれば、<span class="arithmatex">\(\alpha\)</span>は実際に<span class="arithmatex">\(H_0\)</span>が真である場合に<span class="arithmatex">\(H_0\)</span>を誤って棄却する確率に対応します。一方、<span class="arithmatex">\(\beta\)</span>は実際に<span class="arithmatex">\(H_0\)</span>が偽である場合に<span class="arithmatex">\(H_0\)</span>を誤って棄却しない確率に対応します。</p>
+<p>理想的には、<span class="arithmatex">\(\alpha = 0\)</span>かつ<span class="arithmatex">\(\beta = 0\)</span>を望みます。つまり、どちらのエラーを犯す可能性も0です。しかし、これは推論のためにサンプリングを行う状況では決して実現できません。サンプルデータを使用する場合、常にどちらかのエラーを犯す可能性があります。さらに、これら2つのエラー確率は逆の関係にあります。第一種の誤りの確率が下がると、第二種の誤りの確率が上がります。</p>
+<p>実際に行われるのは通常、あらかじめ有意水準<span class="arithmatex">\(\alpha\)</span>を指定することによって第一種の誤りの確率を固定し、<span class="arithmatex">\(\beta\)</span>を最小化しようとすることです。言い換えれば、帰無仮説<span class="arithmatex">\(H_0\)</span>の不正確な棄却の一定の割合を許容し、<span class="arithmatex">\(H_0\)</span>の不正確な非棄却の割合を最小化しようとします。</p>
+<p>たとえば<span class="arithmatex">\(\alpha\)</span> = 0.01を使用した場合、長期的には帰無仮説<span class="arithmatex">\(H_0\)</span>を1%の時間で誤って棄却する仮説検定手順を使用することになります。これは信頼区間の信頼水準を設定するのと類似しています。</p>
+<p>では、<span class="arithmatex">\(\alpha\)</span>にはどのような値を使用すべきでしょうか？異なる分野には異なる慣例がありますが、0.10、0.05、0.01、0.001などのよく使用される値があります。ただし、比較的小さな<span class="arithmatex">\(\alpha\)</span>の値を使用する場合、他の条件が同じであれば、<span class="arithmatex">\(p\)</span>値が<span class="arithmatex">\(\alpha\)</span>より小さくなるのは難しくなることに留意することが重要です。したがって、帰無仮説をあまり棄却しなくなります。言い換えれば、<em>非常に強い</em>証拠がある場合にのみ帰無仮説<span class="arithmatex">\(H_0\)</span>を棄却することになります。これは「保守的な」検定として知られています。</p>
+<p>一方、比較的大きな<span class="arithmatex">\(\alpha\)</span>の値を使用した場合、他の条件が同じであれば、<span class="arithmatex">\(p\)</span>値が<span class="arithmatex">\(\alpha\)</span>より小さくなるのは容易になります。したがって、帰無仮説をより頻繁に棄却することになります。言い換えれば、<em>軽度の</em>証拠しかなくても帰無仮説<span class="arithmatex">\(H_0\)</span>を棄却することになります。これは「リベラルな」検定として知られています。</p>
+<h2 id="95">9.5 ケーススタディ：アクション映画とロマンス映画はどちらの評価が高いか？</h2>
+<p>仮説検定に関する知識を適用して、「IMDbではアクション映画とロマンス映画のどちらの評価が高いか？」という質問に答えてみましょう。IMDbは、映画やテレビ番組のキャスト、あらすじ、トリビア、評価に関する情報を提供するインターネット上のデータベースです。アクション映画とロマンス映画がIMDbで平均的にどちらが高い評価を得ているかを調査します。</p>
+<h3 id="imdb">IMDb評価データ</h3>
+<p>まず、GitHubからデータをダウンロードしましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># GitHubからサンプルデータをダウンロード</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/moderndive/moderndive_book/master/data/movies_sample.csv&quot;</span>
+<span class="n">movies_sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># データを確認</span>
+<span class="n">movies_sample</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<p>変数には映画の<code>title</code>と撮影された<code>year</code>が含まれています。さらに、10星満点のIMDb評価である数値変数<code>rating</code>と、映画が<code>Action</code>か<code>Romance</code>かを示す二項カテゴリ変数<code>genre</code>があります。私たちは、<code>Action</code>と<code>Romance</code>のどちらの映画が平均して高い<code>rating</code>を得たかに興味があります。</p>
+<p>このデータの探索的データ分析を行いましょう。数値変数とカテゴリ変数の関係を示すために箱ひげ図を使用できます。また、分割したヒストグラムを使用することもできますが、簡潔にするために箱ひげ図のみを表示します：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ジャンルと評価の関係を箱ひげ図で可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">movies_sample</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ジャンル&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;IMDb評価&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ジャンル別のIMDb評価&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>図を見ると、ロマンス映画の方が中央値の評価が高いことがわかります。しかし、アクション映画とロマンス映画の間で平均<code>rating</code>に<em>有意な</em>差があると信じる理由はあるでしょうか？このプロットだけでは判断するのは難しいです。箱ひげ図はロマンス映画の方がサンプルの中央値評価が高いことを示しています。</p>
+<p>しかし、箱の間には大きな重なりがあります。また、分布が歪んでいるかどうかによって、中央値は必ずしも平均値と同じではないことも思い出してください。</p>
+<p>二項カテゴリ変数<code>genre</code>によって分割した要約統計量を計算しましょう：映画の数、平均評価、標準偏差です。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ジャンル別の要約統計量</span>
+<span class="n">summary_stats</span> <span class="o">=</span> <span class="n">movies_sample</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;genre&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="c1"># 映画の数</span>
+    <span class="s1">&#39;rating&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">]</span>  <span class="c1"># 平均と標準偏差</span>
+<span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># カラム名を整形</span>
+<span class="n">summary_stats</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_rating&#39;</span><span class="p">,</span> <span class="s1">&#39;std_dev&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary_stats</span><span class="p">)</span>
+</code></pre></div>
+<p>Romance映画は36本あり、平均評価は6.32星です。Action映画は32本あり、平均評価は5.28星です。これらの平均評価の差は6.32 - 5.28 = 1.04星でロマンス映画に有利です。しかし、この1.04の差は<em>すべての</em>ロマンス映画とアクション映画の真の差を示しているのでしょうか？それともこの差を偶然と<em>サンプリング変動</em>のせいにできるでしょうか？この質問に答えるために、仮説検定を使用します。</p>
+<h3 id="_8">サンプリングシナリオ</h3>
+<p>この研究を第7章で学んだサンプリングに関する用語と表記法の観点から再考してみましょう。<em>研究対象の母集団</em>はIMDbデータベース内のアクションまたはロマンス（両方ではない）映画のすべてです。この母集団から抽出された<em>サンプル</em>は、<code>movies_sample</code>データセットに含まれる68本の映画です。</p>
+<p>このサンプルは母集団<code>movies</code>からランダムに抽出されたものなので、IMDb上のすべてのロマンス映画とアクション映画を代表しています。したがって、<code>movies_sample</code>に基づく分析と結果は母集団全体に一般化できます。関連する<em>母集団パラメータ</em>と<em>点推定値</em>は何でしょうか？</p>
+<p>私たちは以下の仮説検定を行います：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+H_0 &amp;: \mu_a - \mu_r = 0\\
+\text{vs } H_A&amp;: \mu_a - \mu_r \neq 0
+\end{aligned}
+\]</div>
+<p>つまり、帰無仮説<span class="arithmatex">\(H_0\)</span>は、ロマンス映画とアクション映画は同じ平均評価を持つことを示唆しています。これは私たちが<em>仮定</em>する「仮説上の宇宙」です。一方、対立仮説<span class="arithmatex">\(H_A\)</span>は違いがあることを示唆しています。昇進の演習で使用した片側対立仮説<span class="arithmatex">\(H_A: p_m - p_f &gt; 0\)</span>とは異なり、今回は両側対立仮説<span class="arithmatex">\(H_A: \mu_a - \mu_r \neq 0\)</span>を検討しています。</p>
+<p>さらに、<span class="arithmatex">\(\alpha\)</span> = 0.001という低い有意水準をあらかじめ指定します。この値を低く設定することで、他の条件が同じであれば、<span class="arithmatex">\(p\)</span>値が<span class="arithmatex">\(\alpha\)</span>より小さくなる可能性が低くなります。したがって、帰無仮説<span class="arithmatex">\(H_0\)</span>を対立仮説<span class="arithmatex">\(H_A\)</span>のために棄却する可能性が低くなります。言い換えれば、すべてのアクション映画とロマンス映画の平均評価に差がないという仮説は、かなり強力な証拠がある場合にのみ棄却します。これは「保守的な」仮説検定手順として知られています。</p>
+<h3 id="_9">仮説検定の実施</h3>
+<p>前に定義した関数を使用して、仮説検定を実施しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 変数を指定</span>
+<span class="n">movies_specified</span> <span class="o">=</span> <span class="n">specify</span><span class="p">(</span><span class="n">movies_sample</span><span class="p">,</span> <span class="n">formula</span><span class="o">=</span><span class="s1">&#39;rating ~ genre&#39;</span><span class="p">)</span>
+
+<span class="c1"># 帰無仮説を仮定</span>
+<span class="n">movies_hypothesized</span> <span class="o">=</span> <span class="n">hypothesize</span><span class="p">(</span><span class="n">movies_specified</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="s1">&#39;independence&#39;</span><span class="p">)</span>
+
+<span class="c1"># 帰無仮説の下で1000回のシミュレーションを生成</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">movies_generated</span> <span class="o">=</span> <span class="n">generate</span><span class="p">(</span><span class="n">movies_hypothesized</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;permute&#39;</span><span class="p">)</span>
+
+<span class="c1"># 帰無分布を計算</span>
+<span class="n">null_distribution_movies</span> <span class="o">=</span> <span class="n">calculate</span><span class="p">(</span>
+    <span class="n">movies_generated</span><span class="p">,</span> 
+    <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;diff in means&#39;</span><span class="p">,</span>  <span class="c1"># 今回は平均の差を使用</span>
+    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Action&#39;</span><span class="p">,</span> <span class="s1">&#39;Romance&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># 観測された統計量を計算</span>
+<span class="n">obs_diff_means</span> <span class="o">=</span> <span class="n">calculate</span><span class="p">(</span>
+    <span class="n">movies_specified</span><span class="p">,</span> 
+    <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;diff in means&#39;</span><span class="p">,</span> 
+    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Action&#39;</span><span class="p">,</span> <span class="s1">&#39;Romance&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;観測された評価の差（アクション - ロマンス）: </span><span class="si">{</span><span class="n">obs_diff_means</span><span class="p">[</span><span class="s1">&#39;stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 帰無分布をプロット</span>
+<span class="n">visualize</span><span class="p">(</span><span class="n">null_distribution_movies</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">obs_stat</span><span class="o">=</span><span class="n">obs_diff_means</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;two-sided&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># p値を計算</span>
+<span class="n">p_value_movies</span> <span class="o">=</span> <span class="n">get_p_value</span><span class="p">(</span><span class="n">null_distribution_movies</span><span class="p">,</span> <span class="n">obs_stat</span><span class="o">=</span><span class="n">obs_diff_means</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;two-sided&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p値: </span><span class="si">{</span><span class="n">p_value_movies</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>観測された評価の差は-1.04（アクション - ロマンス）で、これはロマンス映画の方が平均的に1.04星高い評価を受けていることを示しています。p値は非常に小さく、帰無仮説の下でこのような極端な差が偶然によって発生する確率は非常に低いことを示しています。</p>
+<p>しかし、このp値はさらに小さいあらかじめ指定された<span class="arithmatex">\(\alpha\)</span>有意水準0.001よりも大きいです。したがって、帰無仮説<span class="arithmatex">\(H_0: \mu_a - \mu_r = 0\)</span>を棄却しない傾向があります。非統計的な言語では、結論は次のようになります：このサンプルデータでは、ロマンス映画とアクション映画の間のIMDb評価に差がないという仮説を棄却するのに必要な証拠がありません。したがって、すべてのIMDb映画について、平均してロマンス映画とアクション映画の評価に差があるとは言えません。</p>
+<h2 id="96">9.6 結論</h2>
+<h3 id="_10">理論ベースの仮説検定</h3>
+<p>第7章と第8章で数学的公式を使用して標準誤差を計算し、信頼区間を構築する理論ベースの方法を示したように、今度は仮説検定を実施するための伝統的な理論ベースの方法の例を紹介します。この方法は、帰無分布を構成するために確率モデル、確率分布、いくつかの仮定に依存しています。これは、コンピュータシミュレーションを使用して帰無分布を構築するというこの本全体で採用してきたアプローチとは対照的です。</p>
+<p>これらの伝統的な理論ベースの方法は、研究者が数千の計算を迅速かつ効率的に実行できるコンピュータにアクセスできなかったため、何十年も使用されてきました。現在、計算能力ははるかに安価でアクセスしやすくなっているため、シミュレーションベースの方法がはるかに実行可能になっています。しかし、多くの分野の研究者は引き続き理論ベースの方法を使用しています。そのため、ここで例を含めることが重要だと考えています。</p>
+<p>このセクションで示すように、理論ベースの方法は最終的にシミュレーションベースの方法の近似です。ここで焦点を当てる理論ベースの方法は、平均の差をテストするための<em>二標本t検定</em>として知られています。ただし、使用する検定統計量は平均の差<span class="arithmatex">\(\bar{x}_1 - \bar{x}_2\)</span>ではなく、関連する<em>二標本t統計量</em>になります。使用するデータは、9.5節のアクション映画とロマンス映画の<code>movies_sample</code>データです。</p>
+<h4 id="t">二標本t統計量</h4>
+<p>統計学における一般的なタスクは、「変数の標準化」のプロセスです。異なる変数を標準化することで、それらをより比較しやすくします。例えば、アメリカのオレゴン州ポートランドからの気温記録とカナダのケベック州モントリオールからの気温記録の分布を比較したいとします。アメリカの気温は一般に華氏で記録され、カナダの気温は一般に摂氏で記録されているため、どのように比較できるでしょうか？一つのアプローチは、華氏を摂氏に変換する、またはその逆を行うことです。もう一つのアプローチは、ケルビン単位の温度のような共通の「標準化された」スケールに両方を変換することです。</p>
+<p>確率と統計理論から変数を標準化する一般的な方法は、<em>z</em>スコアを計算することです：</p>
+<div class="arithmatex">\[z = \frac{x - \mu}{\sigma}\]</div>
+<p>ここで、<span class="arithmatex">\(x\)</span>は変数の1つの値、<span class="arithmatex">\(\mu\)</span>はその変数の平均、<span class="arithmatex">\(\sigma\)</span>はその変数の標準偏差を表します。まず各<span class="arithmatex">\(x\)</span>の値から平均<span class="arithmatex">\(\mu\)</span>を引き、次に<span class="arithmatex">\(x - \mu\)</span>を標準偏差<span class="arithmatex">\(\sigma\)</span>で割ります。これらの操作は、変数を0を中心に<em>再中心化</em>し、変数<span class="arithmatex">\(x\)</span>を「標準単位」と呼ばれるものに<em>再スケール</em>する効果があります。したがって、変数が取りうるすべての値について、その値が平均<span class="arithmatex">\(\mu\)</span>からどれだけの標準単位離れているかを示す対応する<span class="arithmatex">\(z\)</span>スコアがあります。<span class="arithmatex">\(z\)</span>スコアは平均0、標準偏差1の正規分布に従います。この曲線は「<span class="arithmatex">\(z\)</span>分布」または「標準正規」曲線と呼ばれ、付録で議論されている一般的なベル型のパターンを持っています。</p>
+<p>アクション映画とロマンス映画の評価の平均差<span class="arithmatex">\(\bar{x}_a - \bar{x}_r\)</span>に戻って、この変数をどのように標準化すればよいでしょうか？再び、その平均を引き、標準偏差で割ることによってです。第7章から二つの事実を思い出してください。まず、サンプリングが代表的な方法で行われた場合、<span class="arithmatex">\(\bar{x}_a - \bar{x}_r\)</span>のサンプリング分布は真の母集団パラメータ<span class="arithmatex">\(\mu_a - \mu_r\)</span>を中心にします。第二に、<span class="arithmatex">\(\bar{x}_a - \bar{x}_r\)</span>のような点推定値の標準偏差には特別な名前があります：標準誤差です。</p>
+<p>これらの考え方を適用して、<em>二標本t統計量</em>を紹介します：</p>
+<div class="arithmatex">\[t = \dfrac{ (\bar{x}_a - \bar{x}_r) - (\mu_a - \mu_r)}{ \text{SE}_{\bar{x}_a - \bar{x}_r} } = \dfrac{ (\bar{x}_a - \bar{x}_r) - (\mu_a - \mu_r)}{ \sqrt{\dfrac{{s_a}^2}{n_a} + \dfrac{{s_r}^2}{n_r}}  }\]</div>
+<p>ここで解きほぐしましょう。分子では、<span class="arithmatex">\(\bar{x}_a-\bar{x}_r\)</span>はサンプル平均の差、<span class="arithmatex">\(\mu_a - \mu_r\)</span>は母集団平均の差です。分母では、<span class="arithmatex">\(s_a\)</span>と<span class="arithmatex">\(s_r\)</span>はサンプル<code>movies_sample</code>のアクション映画とロマンス映画の<em>サンプル標準偏差</em>です。最後に、<span class="arithmatex">\(n_a\)</span>と<span class="arithmatex">\(n_r\)</span>はアクション映画とロマンス映画のサンプルサイズです。これらを平方根の下にまとめると、標準誤差<span class="arithmatex">\(\text{SE}_{\bar{x}_a - \bar{x}_r}\)</span>が得られます。</p>
+<p>Pythonで二標本t検定を実装しましょう：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="c1"># アクション映画とロマンス映画のデータを分離</span>
+<span class="n">action_ratings</span> <span class="o">=</span> <span class="n">movies_sample</span><span class="p">[</span><span class="n">movies_sample</span><span class="p">[</span><span class="s1">&#39;genre&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Action&#39;</span><span class="p">][</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span>
+<span class="n">romance_ratings</span> <span class="o">=</span> <span class="n">movies_sample</span><span class="p">[</span><span class="n">movies_sample</span><span class="p">[</span><span class="s1">&#39;genre&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Romance&#39;</span><span class="p">][</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span>
+
+<span class="c1"># t検定を実行</span>
+<span class="n">t_stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">action_ratings</span><span class="p">,</span> <span class="n">romance_ratings</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t統計量: </span><span class="si">{</span><span class="n">t_stat</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p値: </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 自由度を計算</span>
+<span class="n">n_a</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">action_ratings</span><span class="p">)</span>
+<span class="n">n_r</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">romance_ratings</span><span class="p">)</span>
+<span class="n">s_a</span> <span class="o">=</span> <span class="n">action_ratings</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">s_r</span> <span class="o">=</span> <span class="n">romance_ratings</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="c1"># Welchのt検定の自由度（近似）</span>
+<span class="n">df</span> <span class="o">=</span> <span class="p">((</span><span class="n">s_a</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">n_a</span> <span class="o">+</span> <span class="n">s_r</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">n_r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">s_a</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">n_a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">n_a</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">s_r</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">n_r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">n_r</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;自由度: </span><span class="si">{</span><span class="n">df</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>理論ベースのt検定の結果は、私たちのシミュレーションベースの方法と同様に、ロマンス映画とアクション映画の平均評価には統計的に有意な差があることを示しています。</p>
+<h3 id="_11">推論が必要でない場合</h3>
+<p>これまで、<code>infer</code>パッケージのワークフローを複数の例で示してきました：信頼区間の構築と仮説検定の実施です。各例で、最初に探索的データ分析（EDA）を行うことを重視しました。具体的には、生のデータ値を見て、<code>matplotlib</code>と<code>seaborn</code>によるデータ可視化、そして<code>pandas</code>によるデータ操作です。常にこれを行うことを<em>強く</em>お勧めします。統計の初心者として、EDAは信頼区間や仮説検定などの統計的手法が教えてくれることについての直感を養うのに役立ちます。統計のベテラン実践者としても、EDAは統計的調査の指針となります。特に、統計的推論が本当に必要なのかどうかを考えさせてくれます。</p>
+<p>例を考えてみましょう。ニューヨーク市の空港から出発するすべてのフライトのうち、ハワイアン航空のフライトはアラスカ航空のフライトよりも長い時間空中にいるかどうかについて興味があるとします。さらに、2013年のフライトがすべてのフライトの代表的なサンプルであると仮定します。</p>
+<p>このような質問に答えるために使用できる2つの可能な統計的推論方法があります。まず、母集団平均の差<span class="arithmatex">\(\mu_{HA} - \mu_{AS}\)</span>の95%信頼区間を構築することができます。ここで、<span class="arithmatex">\(\mu_{HA}\)</span>はすべてのハワイアン航空フライトの平均空中時間、<span class="arithmatex">\(\mu_{AS}\)</span>はすべてのアラスカ航空フライトの平均空中時間です。次に、区間全体が0より大きいかどうかを確認し、<span class="arithmatex">\(\mu_{HA} - \mu_{AS} &gt; 0\)</span>、つまり<span class="arithmatex">\(\mu_{HA} &gt; \mu_{AS}\)</span>であることを示唆するかどうかを確認できます。もう一つの方法は、帰無仮説<span class="arithmatex">\(H_0: \mu_{HA} - \mu_{AS} = 0\)</span>対対立仮説<span class="arithmatex">\(H_A: \mu_{HA} - \mu_{AS} &gt; 0\)</span>の仮説検定を実施することです。</p>
+<p>しかし、まず先に述べたように探索的な可視化を構築しましょう。<code>air_time</code>は数値で<code>carrier</code>はカテゴリなので、箱ひげ図はこれら2つの変数の関係を表示できます：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># GitHubからフライトデータをロード</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/moderndive/moderndive_book/master/data/flights_sample.csv&quot;</span>
+<span class="n">flights_sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># ハワイアン航空(HA)とアラスカ航空(AS)のフライトを選択</span>
+<span class="n">ha_as_flights</span> <span class="o">=</span> <span class="n">flights_sample</span><span class="p">[</span><span class="n">flights_sample</span><span class="p">[</span><span class="s1">&#39;carrier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;HA&#39;</span><span class="p">,</span> <span class="s1">&#39;AS&#39;</span><span class="p">])]</span>
+
+<span class="c1"># 箱ひげ図を作成</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;carrier&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;air_time&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">ha_as_flights</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;航空会社&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;飛行時間&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;2013年ニューヨーク発のハワイアン航空とアラスカ航空の飛行時間&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>これは「統計学の博士号は必要ない」瞬間と呼ぶものです。アラスカ航空とハワイアン航空の飛行時間に<em>有意な</em>違いがあることを知るために専門家である必要はありません。2つの箱ひげ図はまったく重なっていません！信頼区間を構築したり仮説検定を実施したりすることは、率直に言って箱ひげ図以上の洞察をほとんど提供しないでしょう。</p>
+<p>なぜこのような明確な違いがこれら2つの航空会社の間で観察されるのか調査しましょう。データを整理して、<code>flights_sample</code>の行を<code>carrier</code>だけでなく目的地<code>dest</code>でもグループ化しましょう。その後、観測数と平均飛行時間の2つの要約統計量を計算します：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># キャリアと目的地でグループ化して要約統計量を計算</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">ha_as_flights</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;carrier&#39;</span><span class="p">,</span> <span class="s1">&#39;dest&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">&#39;air_time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">]</span>
+<span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># カラム名を整形</span>
+<span class="n">summary</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;carrier&#39;</span><span class="p">,</span> <span class="s1">&#39;dest&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_time&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+</code></pre></div>
+<p>2013年のニューヨークからの飛行機では、アラスカ航空は<code>SEA</code>（シアトル）にのみ飛んでおり、ハワイアン航空は<code>HNL</code>（ホノルル）にのみ飛んでいることがわかります。ニューヨークからシアトルまでとニューヨークからホノルルまでの距離の明らかな違いを考えると、飛行時間に非常に異なる（<em>統計的に有意に異なる</em>、実際には）観察されることは驚くべきことではありません。</p>
+<p>これは、データ可視化と記述統計を使用した単純な探索的データ分析以上のことを行わなくても、適切な結論を得ることができる明確な例です。そのため、信頼区間や仮説検定などの統計的推論方法を実行する前に、サンプルデータの探索的データ分析を実施することを強くお勧めします。</p>
+<h3 id="p">p値の問題点</h3>
+<p>仮説検定とp値についての多くの一般的な誤解に加えて、p値と仮説検定の使用拡大のもう一つの不幸な結果は、「p-hacking」と呼ばれる現象です。p-hackingは、科学的なアイデアを犠牲にしてでも、「統計的に有意」な結果だけを「選び出す」行為です。p値についての誤解と問題点については、最近多くの記事が書かれています。いくつかをチェックすることをお勧めします：</p>
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/Misunderstandings_of_p-values">p値の誤解</a></li>
+<li><a href="https://www.vox.com/science-and-health/2017/7/31/16021654/p-values-statistical-significance-redefine-0005">p値についてのオタク的な議論が科学について示すこと - そしてそれを修正する方法</a></li>
+<li><a href="https://www.nature.com/articles/nature.2016.19503">統計学者がp値の誤用に警告を発する</a></li>
+<li><a href="https://fivethirtyeight.com/features/you-cant-trust-what-you-read-about-nutrition/">栄養学について読むことは信頼できない</a></li>
+<li><a href="http://www.fharrell.com/post/pval-litany/">p値の問題の連祷</a></li>
+</ol>
+<p>このような問題は非常に深刻になってきたため、アメリカ統計学会（ASA）は2016年に「統計的有意性とP値に関するASA声明」というタイトルの声明を出しました。この声明では、p値の適切な使用と解釈の基礎となる6つの原則が示されています。ASAはこのp値に関するガイダンスを、定量的科学の実施と解釈を改善し、科学研究の再現性の重要性が高まっていることを知らせるために発表しました。</p>
+<p>著者として、私たちは統計的推論には信頼区間の使用を好みます。なぜなら、信頼区間は大きな誤解を受けにくいと考えているからです。しかし、多くの分野ではまだ統計的推論にp値を排他的に使用しており、これがこのテキストにp値を含めた理由の一つです。「p-hacking」とそれが科学に与える影響についてもっと学ぶことをお勧めします。</p>
+<h2 id="_12">まとめ</h2>
+<p>仮説検定フレームワークを図で示しました。この章では、仮説検定の基本的な考え方と実施方法について学びました。</p>
+<p>第8章の信頼区間と今章の仮説検定の理解を身につけたところで、次の第10章では回帰分析のための推論について学びます。</p>
+<p>第5章の基本的な回帰分析と第6章の重回帰分析で学んだ回帰モデルを再検討します。例えば、教員の教育スコアをその「美しさ」スコアの関数としての回帰モデルを思い出してください。</p>
+<p>次の章では、<code>std_error</code>（標準誤差）、<code>statistic</code>（観測された<em>標準化</em>検定統計量で、<code>p_value</code>を計算するために使用される）、そして<code>lower_ci</code>と<code>upper_ci</code>で与えられる95%信頼区間など、残りの列を解説します。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
