@@ -54,6 +54,8 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -343,9 +345,7 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           
@@ -497,9 +497,7 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
           
@@ -1593,9 +1591,7 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
         
           
           
@@ -1890,9 +1886,7 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
         
           
           
@@ -1946,8 +1940,6 @@
       
         
           
-        
-      
         
       
         
@@ -2580,27 +2572,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../causal-brain-analysis.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Causal Brain Analysis
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
       
@@ -2647,9 +2618,7 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
         
           
           
@@ -2665,14 +2634,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
             <span class="md-nav__icon md-icon"></span>
             Factor analysis
           </label>
@@ -3423,7 +3392,7 @@ $$
     $$
     また、以下の定義を用いる。
     $$
-    \Delta(\theta) = \frac{1}{N^+}\sum</em>{{ i : X_i \in \nu(x), (X_i)<em>j &gt; \theta }} Y_i - \frac{1}{N^-}\sum</em>{{ i : X_i \in \nu(x), (X_i)_j \leq \theta }} Y_i
+    \Delta(\theta) = \frac{1}{N^+}\sum</em>{{ i : X_i \in \nu(x), (X_i)<em :=":" X_i="X_i" _123_="{" _125_="}" _X_i__j="(X_i)_j" _in="\in" _leq="\leq" _nu_x_="\nu(x)," _theta="\theta" i="i">j &gt; \theta }} Y_i - \frac{1}{N^-}\sum</em> Y_i
     $$
     ただし、
     $$
@@ -3445,11 +3414,11 @@ $$
 <p>次は、Random forestの漸近分散の推定法に関する結果である。まず、漸近正規性の結果に先立って、<a href="https://jmlr.org/papers/volume15/wager14a/wager14a.pdf">Wager, Hastie and Efron (2014)</a> では、<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2013.823775">Efron (2014)</a> においてモデル選択によるデータ駆動型のアプローチがもたらす予測誤差の過小評価を補正する方法として提案した Infinitesimal Jacknifeによる方法を、ランダムフォレストに拡張し、ランダムフォレストによる推定量のばらつきを評価する方法を提案した。
 <span class="arithmatex">\(b=1,2,...,B\)</span>番目の回帰木による推定値を<span class="arithmatex">\(\hat{f}_{b}(x)\)</span>とし、 <span class="arithmatex">\(N_{ib} \in \{0,1\}\)</span> が <span class="arithmatex">\(b\)</span>番目の回帰木（Double Sample Treeの場合には、いずれか一方のグループに含まれる場合に<span class="arithmatex">\(N_{bi}=1\)</span>と定義する）に含まれるかどうかを表す指示関数とする。
 $$
-    \hat{V}<em>{IJ}(x) = \frac{n-1}{n} \left(\frac{n}{n-s}\right)^2 \sum</em>{i=1}^{n}\mathrm{Cov}^{<em>}\left[\hat{f}_{b}^{</em>}(x), N_{ib}^{<em>}\right]^2
+    \hat{V}<em i="1">{IJ}(x) = \frac{n-1}{n} \left(\frac{n}{n-s}\right)^2 \sum</em>^{}^{n}\mathrm{Cov<em>}\left[\hat{f}_{b}^{</em>}(x), N_{ib}^{<em>}\right]^2
 $$
 これに対して、有限標本化での推定量は
 $$
-    \hat{V}<em>{IJ}^{B}(x) = \frac{n-1}{n} \left(\frac{n}{n-s}\right)^2 \sum</em>{i=1}^{n}\frac{1}{B}\sum_{b=1}^{B}\left(N_{bi}^{</em>}-\frac{s}{n}\right)\left(t_{b}^{<em>}(x)-\bar{t}^{</em>}(x)\right)
+    \hat{V}<em i="1">{IJ}^{B}(x) = \frac{n-1}{n} \left(\frac{n}{n-s}\right)^2 \sum</em>^{}^{n}\frac{1}{B}\sum_{b=1}^{B}\left(N_{bi</em>}-\frac{s}{n}\right)\left(t_{b}^{<em>}(x)-\bar{t}^{</em>}(x)\right)
 $$
 となる。ただし、この結果はEmpiricalな評価にとどまっており、実際に漸近分散と一致することを示したのは、このあとの<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2017.1319839">Wager and Athey (2019)</a>である。漸近正規性の議論に移る前にもう1つの重要な論文は、<a href="https://www.pnas.org/doi/10.1073/pnas.1510489113">Athey and Imbens (2016)</a> において指摘された木構造モデルの学習におけるバイアスの問題である。木構造モデルを学習する際には、テストデータへの当てはまりがよくなるように学習を行う必要がある。しかし、一般的なCARTのような学習では訓練データを用いて木構造の学習と木による予測値の両方を学習するため、実はテストデータに対しての当てはまりを最適化しているのではないということを示している。また、この論文では、ランダム化比較試験に対する介入効果の異質性を発見する回帰木としてCausal Treeを提案している。従来のCART的なアプローチでは、共変量<span class="arithmatex">\(X\)</span>の分割と分割によって生成された葉の値には相関があるため、相関に依存した因果効果が検出されてしまう。そこで、<strong>Honest（誠実性）</strong> と呼ばれる概念を導入することで、この問題を解消する。誠実性とは、データを2つに分け、一方で木構造を学習させ、もう一方で予測値の計算と検定を行えば、分割と予測値は独立になるため、効果の検証ができるということである。ここで、導入された<strong>誠実性</strong>が次に示す漸近正規性を示すための1つの鍵となる。</p>
 <p><a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2017.1319839">Wager and Athey (2019)</a> では、次の性質を満たすbagging treeに対して、有限標本化でのバイアスを評価し、漸近正規性を示した。
@@ -3464,12 +3433,12 @@ $$
 <p>これに加えて<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.2017.1319839">Wager and Athey (2019)</a>では、因果効果を推定する方法として、causal forestを提案している。このcausal forestは現在はほとんど採用されないが、概念だけ紹介しておく。causal forest は、<a href="https://www.pnas.org/doi/10.1073/pnas.1510489113">Athey and Imbens (2016)</a> で提案された causal tree を弱学習器として用いるランダムフォレストである。causal tree は、回帰におけるノードの分割基準を、処置効果推定の文脈へと拡張したものである。ただし、単純に拡張したものではなく、テストデータへの当てはまりを最適化するような基準を用いている。
 $$
 \begin{align<em>}
-    -\widehat{\text{EMSE}}<em>{r} \left( \mathcal{S}^{\text{tr}}, N^{\text{est}}, \Pi \right) 
-    &amp;\equiv \frac{1}{N^{\text{tr}}} \sum</em>{i \in \mathcal{S}^{\text{tr}}} \hat{\tau}^2 \left( X_i, \mathcal{S}^{\text{tr}}, \Pi \right) \
+    -\widehat{\text{EMSE}}<em _in="\in" _mathcal_S="\mathcal{S" i="i">{r} \left( \mathcal{S}^{\text{tr}}, N^{\text{est}}, \Pi \right) 
+    &amp;\equiv \frac{1}{N^{\text{tr}}} \sum</em>, \Pi \right) \
     &amp;\quad - \left( \frac{1}{N^{\text{tr}}} + \frac{1}{N^{\text{est}}} \right) \cdot \sum_{\ell \in \Pi} 
-    \left( \frac{S^2_{\mathcal{S}^{\text{tr}}<em>{\text{treat}}} (\ell)}{p} 
-    + \frac{S^2</em>{\mathcal{S}^{\text{tr}}_{\text{control}}} (\ell)}{1 - p} \right).
-\end{align</em>}
+    \left( \frac{S^2_{\mathcal{S}^{\text{tr}}}^{\text{tr}}} \hat{\tau}^2 \left( X_i, \mathcal{S}^{\text{tr}<em _mathcal_S="\mathcal{S">{\text{treat}}} (\ell)}{p} 
+    + \frac{S^2</em> \right).
+\end{align}^{\text{tr}}_{\text{control}}} (\ell)}{1 - p</em>}
 $$
 この基準は、第1項が葉の推定値間の分散を最大化させる項であり、異質性を捉えるための項となっている。一方で、第2項は葉内の処置群および対照群の分散の和であり、当てはまりに対する罰則項である。つまり、予測の異質性を高めつつも、葉の中のサンプルが極端に少なくなったりすることで予測全体の分散が大きくなりすぎないように制御していると捉えることができる。</p>
 <h2 id="_3">一般化ランダムフォレストの一致性・漸近正規性</h2>
@@ -3495,9 +3464,9 @@ $$
 とおいた。<span class="arithmatex">\(\alpha_{i}(x)\)</span>は、回帰木それぞれが点<span class="arithmatex">\(i\)</span>を含むかどうかを確率変数とみなしたとき、<span class="arithmatex">\(B\)</span>個の確率変数の平均と解釈できる。つまり、点<span class="arithmatex">\(x\)</span>を同じ葉に含まれやすいサンプル<span class="arithmatex">\(i\)</span>に対しては、大きな重みがかかり、同じ葉にほとんど含まれないサンプル<span class="arithmatex">\(i\)</span>に対しては小さな重みがかかる。</p>
 <p>一方で、<span class="arithmatex">\(\hat{\theta}_{B}(x) = RF_{B}(x;D_n)\)</span> とおくと、これは以下の推定方程式の解として解釈することができる。
 $$
-    \hat{\theta}<em>{B}(x) = \arg\min</em>{\theta}\sum_{i=1}^{n}\alpha_{i}(x)(Y_i - \theta)^2
+    \hat{\theta}<em _theta="\theta">{B}(x) = \arg\min</em>(x)(Y_i - \theta)^2
 $$
-よって、ランダムフォレストは回帰木のアンサンブルと捉えることもできるが、回帰木によってテスト点<span class="arithmatex">\(x\)</span>と観測データの関係の強さを<span class="arithmatex">\(\alpha_{i}(x)\)</span>として定量化し、それによって推定方程式を解く方法と捉え直すことができる。この視点の切り替えによって、ランダムフォレストが<span class="arithmatex">\(\alpha_{i}(x)\)</span>をカーネル重み付け関数としたカーネル重み付け推定量であることが理解できる。この性質を用いて、ランダムフォレストでパラメータの推定を行うというのが一般化ランダムフォレストである。</p>
+よって、ランダムフォレストは回帰木のアンサンブルと捉えることもできるが、回帰木によってテスト点}\sum_{i=1}^{n}\alpha_{i<span class="arithmatex">\(x\)</span>と観測データの関係の強さを<span class="arithmatex">\(\alpha_{i}(x)\)</span>として定量化し、それによって推定方程式を解く方法と捉え直すことができる。この視点の切り替えによって、ランダムフォレストが<span class="arithmatex">\(\alpha_{i}(x)\)</span>をカーネル重み付け関数としたカーネル重み付け推定量であることが理解できる。この性質を用いて、ランダムフォレストでパラメータの推定を行うというのが一般化ランダムフォレストである。</p>
 <h3 id="_4">一般化ランダムフォレストと局所推定方程式</h3>
 <p>確率変数の組 <span class="arithmatex">\(Z = (X, O)\)</span> と考え、これらが従う分布を<span class="arithmatex">\(P\)</span>とおく。いま、<span class="arithmatex">\(P\)</span>からの独立同一なサンプルを<span class="arithmatex">\(Z_i, (i=1,2,...,n)\)</span> とする。ただし、<span class="arithmatex">\(O\)</span>は回帰であれば <span class="arithmatex">\(Y\)</span> であるが、因果推論などにおいては処置変数<span class="arithmatex">\(T\)</span>と結果変数<span class="arithmatex">\(Y\)</span>の組 <span class="arithmatex">\(O=\{T, Y\}\)</span> となる場合もあり、問題によって<span class="arithmatex">\(O\)</span>は読み替えるものとする。いま、スコア関数 <span class="arithmatex">\(\psi(\cdot)\)</span> によって特徴づけられる<strong>局所推定方程式</strong>
 $$
@@ -3543,13 +3512,13 @@ $$
 <h3 id="_6">一般化ランダムフォレストの一致性</h3>
 <p>以上の仮定のもとで構成された回帰木のアンサンブルによって生成される重みを <span class="arithmatex">\(\alpha_{i}(x)\)</span>とするとき、ランダムフォレストによる重みづけ推定方程式
 $$
-    (\hat\theta(x),\hat\nu(x)) = \arg\min_{\theta,\nu}\left|\sum_{i=1}^{n}\alpha_{i}(x)\psi_{\theta,\nu}(O_i)\right|<em>{2}
+    (\hat\theta(x),\hat\nu(x)) = \arg\min_{\theta,\nu}\left|\sum_{i=1}^{n}\alpha_{i}(x)\psi_{\theta,\nu}(O_i)\right|<em 2="2">{2}
 $$
 の解 <span class="arithmatex">\((\hat\theta(x),\hat\nu(x))\)</span> は、<span class="arithmatex">\((\theta(x),\nu(x))\)</span> に対する一致推定量となる。この証明の中で最も重要なのは、ランダムフォレストの生成する重みの性質である。Wager and Athey (2018) においては、<span class="arithmatex">\(\alpha_{i}(x)\)</span>の局所化が、上記の仮定を満たす回帰木では次のレートで起こることを示した。
 $$
-    E[\sup{|X_i - x|</em>{2} : \alpha_{i}(x) &gt; 0}] = O\left(s^{-\frac{\pi}{2}\cdot \frac{\log((1-\omega)^{-1})}{\log(\omega^{-1})}}\right)
+    E[\sup{|X_i - x|</em>\right)
 $$
-この局所化は、点<span class="arithmatex">\(x\)</span>を推定する際に、L2距離でどの程度離れたサンプルまで重みがかかるのかを示している。<span class="arithmatex">\(\omega\)</span> は分割を制御するパラメータで、<span class="arithmatex">\(\omega = 0.5\)</span> の場合はサンプルを<span class="arithmatex">\(1:1\)</span>に分割する点のみを分割点として採用することになり、<span class="arithmatex">\(\omega\)</span>の値が<span class="arithmatex">\(0\)</span>に近づくほどより柔軟なノードの分割が可能になる。このとき、<span class="arithmatex">\(0 &lt; \omega &lt; 0.5 <span class="arithmatex">\(に対して、\)</span>\frac{\log((1-\omega)^{-1})}{\log(\omega^{-1})}\)</span>は単調増加で、<span class="arithmatex">\([0,1]\)</span>の値を取るので、極端な分割を許容するとランダムフォレストの生成する重みの裾が<span class="arithmatex">\(x\)</span>の周辺への収束するのが遅くなることがわかる。</p>
+この局所化は、点} : \alpha_{i}(x) &gt; 0}] = O\left(s^{-\frac{\pi}{2}\cdot \frac{\log((1-\omega)^{-1})}{\log(\omega^{-1})}<span class="arithmatex">\(x\)</span>を推定する際に、L2距離でどの程度離れたサンプルまで重みがかかるのかを示している。<span class="arithmatex">\(\omega\)</span> は分割を制御するパラメータで、<span class="arithmatex">\(\omega = 0.5\)</span> の場合はサンプルを<span class="arithmatex">\(1:1\)</span>に分割する点のみを分割点として採用することになり、<span class="arithmatex">\(\omega\)</span>の値が<span class="arithmatex">\(0\)</span>に近づくほどより柔軟なノードの分割が可能になる。このとき、<span class="arithmatex">\(0 &lt; \omega &lt; 0.5 <span class="arithmatex">\(に対して、\)</span>\frac{\log((1-\omega)^{-1})}{\log(\omega^{-1})}\)</span>は単調増加で、<span class="arithmatex">\([0,1]\)</span>の値を取るので、極端な分割を許容するとランダムフォレストの生成する重みの裾が<span class="arithmatex">\(x\)</span>の周辺への収束するのが遅くなることがわかる。</p>
 <p>しかし、いずれにせよ<span class="arithmatex">\(\alpha_{i}(x)\)</span>が<span class="arithmatex">\(x\)</span>の周辺に収束するということは、重みづけ推定方程式が<span class="arithmatex">\(\sum_{i=1}^{n}\alpha_{i}(x)\psi_{\theta,\nu}(O_i)\)</span> が <span class="arithmatex">\(E[\psi_{\theta,\nu}(O)\mid X=x]\)</span> に収束することに対応するため、任意の <span class="arithmatex">\(x\in \mathcal{X}\)</span>得られる推定方程式の解も <span class="arithmatex">\((\hat\theta,\hat\nu) \rightarrow (\theta(x),\nu(x))\)</span> の確率収束が成り立つことを意味している。これらは直感的な説明であるが、詳細な証明の過程は経験過程を用いた議論となる。</p>
 <h3 id="_7">一般化ランダムフォレストの漸近正規性</h3>
 <p>一般化ランダムフォレストの漸近正規性についても、ここでは証明の直感的なプロセスを紹介する。いま、パラメータ<span class="arithmatex">\(\theta(x)\)</span>に対する <span class="arithmatex">\(i\)</span>番目のサンプルに対する影響関数を
@@ -3597,33 +3566,33 @@ $$
 $$
 とおく。次のような Half サンプルに基づく推定量を考える。
 $$
-    \widehat{H}<em>{n}^{HS} = \binom{n}{\lfloor n/2 \rfloor} \sum</em>{\mathcal{H}:|\mathcal{H}|= \lfloor n/2 \rfloor} \left(\Psi_{\mathcal{H}}(\hat\theta(x),\hat\nu(x)) - \Psi(\hat\theta(x),\hat\nu(x)) \right)^2
+    \widehat{H}<em _mathcal_H="\mathcal{H">{n}^{HS} = \binom{n}{\lfloor n/2 \rfloor} \sum</em>(\hat\theta(x),\hat\nu(x)) - \Psi(\hat\theta(x),\hat\nu(x)) \right)^2
 $$
-ここで、<span class="arithmatex">\(\Psi_{\mathcal{H}}\)</span> は Half サンプル <span class="arithmatex">\(\mathcal{H} \in \{1, 2, ..., n\}\)</span> を回帰木の<span class="arithmatex">\(\mathcal{I}\)</span>-サブサンプルが含むような回帰木によって推定される<span class="arithmatex">\(\Psi\)</span>によって計算される。ここで、<span class="arithmatex">\(\mathcal{I} \subseteq \mathcal{H}\)</span>であることを満たしているようなすべての回帰木を考えれば良いので、サブサンプルの<span class="arithmatex">\(\mathcal{J}\)</span>の選び方については <span class="arithmatex">\(\{1,2,...,n\}\backslash \mathcal{I}\)</span> の自由度があり、<span class="arithmatex">\(\mathcal{I} \subseteq \mathcal{H}\)</span>であればよいから、<span class="arithmatex">\(\mathcal{I}\)</span>についてはこれを含む形でより大きな集合をとっても良いので、ランダムフォレストを構成できる。このようなランダムフォレストの構成をすべての<span class="arithmatex">\(\mathcal{H}\)</span>の全てのパターンについて考えるというものである。実際、この推定量は<span class="arithmatex">\(H_{n}(x; \theta,\nu)\)</span>に対する一致性を持つことは、Athey et al.(2020) の Theorem 6からわかるが、すべての <span class="arithmatex">\(\mathcal{H}\)</span> について計算するのは実質的に不可能である。</p>
+ここで、}:|\mathcal{H}|= \lfloor n/2 \rfloor} \left(\Psi_{\mathcal{H}<span class="arithmatex">\(\Psi_{\mathcal{H}}\)</span> は Half サンプル <span class="arithmatex">\(\mathcal{H} \in \{1, 2, ..., n\}\)</span> を回帰木の<span class="arithmatex">\(\mathcal{I}\)</span>-サブサンプルが含むような回帰木によって推定される<span class="arithmatex">\(\Psi\)</span>によって計算される。ここで、<span class="arithmatex">\(\mathcal{I} \subseteq \mathcal{H}\)</span>であることを満たしているようなすべての回帰木を考えれば良いので、サブサンプルの<span class="arithmatex">\(\mathcal{J}\)</span>の選び方については <span class="arithmatex">\(\{1,2,...,n\}\backslash \mathcal{I}\)</span> の自由度があり、<span class="arithmatex">\(\mathcal{I} \subseteq \mathcal{H}\)</span>であればよいから、<span class="arithmatex">\(\mathcal{I}\)</span>についてはこれを含む形でより大きな集合をとっても良いので、ランダムフォレストを構成できる。このようなランダムフォレストの構成をすべての<span class="arithmatex">\(\mathcal{H}\)</span>の全てのパターンについて考えるというものである。実際、この推定量は<span class="arithmatex">\(H_{n}(x; \theta,\nu)\)</span>に対する一致性を持つことは、Athey et al.(2020) の Theorem 6からわかるが、すべての <span class="arithmatex">\(\mathcal{H}\)</span> について計算するのは実質的に不可能である。</p>
 <p>そこで、Sexton and Laake (2009) で提案された方法を拡張することで、<span class="arithmatex">\(\widehat{H}_{n}^{HS}\)</span> に対する推定量を構成する。いま、<span class="arithmatex">\(\ell \geq 2\)</span> を <code>little bag size</code> とし、<span class="arithmatex">\(B\)</span> を<span class="arithmatex">\(\ell\)</span>に乗じる定数とする。いま、<span class="arithmatex">\(g = 1, ..., B/\ell\)</span> 回 <span class="arithmatex">\(|\mathcal{H}_{g}| = n/2\)</span> となる Halfサンプル <span class="arithmatex">\(\mathcal{H}_{g} \in \{1,2,...,n\}\)</span> をとる。
-次に、回帰木を構成する際の予測に用いるサンプル <span class="arithmatex">\(\mathcal{I}_{b}\)</span> を、$\mathcal{I}<em>{b} \subseteq \mathcal{H}</em>{\lceil b/\ell \rceil} $ となるように <span class="arithmatex">\(b=1,2,...,B\)</span> に対して取る。</p>
-<p>例えば、<span class="arithmatex">\(\ell = 2\)</span>, <span class="arithmatex">\(B=10\)</span> の場合を考えると、<span class="arithmatex">\(\mathcal{H}_{g}, (g=1,2,3,4,5)\)</span> が Halfサンプルとして生成される。次に、ランダムフォレストの木を <span class="arithmatex">\(B\)</span> 回生成するときに、それぞれの木を構成する際のDouble Sampleで予測に用いるサンプル $\mathcal{I}<em>{b} = \mathcal{H}</em>{\lceil b/\ell \rceil} $ となるようにするので、<span class="arithmatex">\(\mathcal{I}_{1} = \mathcal{H}_{\lceil 1/2 \rceil} = \mathcal{H}_{1}\)</span>, <span class="arithmatex">\(\mathcal{I}_{2} = \mathcal{H}_{\lceil 2/2 \rceil} = \mathcal{H}_{1}\)</span>, <span class="arithmatex">\(\mathcal{I}_{3} = \mathcal{H}_{\lceil 3/2 \rceil} = \mathcal{H}_{2}...\)</span>  のようになる。</p>
+次に、回帰木を構成する際の予測に用いるサンプル <span class="arithmatex">\(\mathcal{I}_{b}\)</span> を、$\mathcal{I}<em _lceil="\lceil" _rceil="\rceil" b_ell="b/\ell">{b} \subseteq \mathcal{H}</em> $ となるように <span class="arithmatex">\(b=1,2,...,B\)</span> に対して取る。</p>
+<p>例えば、<span class="arithmatex">\(\ell = 2\)</span>, <span class="arithmatex">\(B=10\)</span> の場合を考えると、<span class="arithmatex">\(\mathcal{H}_{g}, (g=1,2,3,4,5)\)</span> が Halfサンプルとして生成される。次に、ランダムフォレストの木を <span class="arithmatex">\(B\)</span> 回生成するときに、それぞれの木を構成する際のDouble Sampleで予測に用いるサンプル $\mathcal{I}<em _lceil="\lceil" _rceil="\rceil" b_ell="b/\ell">{b} = \mathcal{H}</em> $ となるようにするので、<span class="arithmatex">\(\mathcal{I}_{1} = \mathcal{H}_{\lceil 1/2 \rceil} = \mathcal{H}_{1}\)</span>, <span class="arithmatex">\(\mathcal{I}_{2} = \mathcal{H}_{\lceil 2/2 \rceil} = \mathcal{H}_{1}\)</span>, <span class="arithmatex">\(\mathcal{I}_{3} = \mathcal{H}_{\lceil 3/2 \rceil} = \mathcal{H}_{2}...\)</span>  のようになる。</p>
 <p>ここで、データが固定されたもとでのサブサンプリングメカニズムについての期待値を<span class="arithmatex">\(E_{ss}\)</span>で表すことにすると、以下の形に分割できる。
 $$
-    E_{ss}\left[\left(\frac{1}{\ell}\sum_{b=1}^{\ell}\Psi_{b} - \Psi\right)^{2}\right] = \widehat{H}<em>{n}^{HS} + \frac{1}{\ell-1}E</em>{ss}\left[\frac{1}{\ell}\sum_{b=1}^{\ell}\left(\Psi_{b} - \frac{1}{\ell}\sum_{b=1}^{\ell}\Psi_{b}\right)^{2}\right]
+    E_{ss}\left[\left(\frac{1}{\ell}\sum_{b=1}^{\ell}\Psi_{b} - \Psi\right)^{2}\right] = \widehat{H}<em ss="ss">{n}^{HS} + \frac{1}{\ell-1}E</em>\right]
 $$
-この展開は、左辺の展開において<span class="arithmatex">\(\Psi_{\mathcal{H}}\)</span>を挟んで分解する。また、<span class="arithmatex">\(E_{ss}[\Psi_{\mathcal{H}} - \Psi]\)</span>は、すべての Half サンプル<span class="arithmatex">\(\mathcal{H}\)</span>について平均を取る操作を表すから、これは<span class="arithmatex">\(\widehat{H}_{n}^{HS}\)</span>　そのものであることに注意する。左辺は、little in Bagsによって構成されるフォレストの分散（全分散)が、これが <span class="arithmatex">\(\widehat{H}_{n}^{HS}\)</span> と、little in Bags内の分散に分解されるという意味になる。</p>
+この展開は、左辺の展開において}\left[\frac{1}{\ell}\sum_{b=1}^{\ell}\left(\Psi_{b} - \frac{1}{\ell}\sum_{b=1}^{\ell}\Psi_{b}\right)^{2<span class="arithmatex">\(\Psi_{\mathcal{H}}\)</span>を挟んで分解する。また、<span class="arithmatex">\(E_{ss}[\Psi_{\mathcal{H}} - \Psi]\)</span>は、すべての Half サンプル<span class="arithmatex">\(\mathcal{H}\)</span>について平均を取る操作を表すから、これは<span class="arithmatex">\(\widehat{H}_{n}^{HS}\)</span>　そのものであることに注意する。左辺は、little in Bagsによって構成されるフォレストの分散（全分散)が、これが <span class="arithmatex">\(\widehat{H}_{n}^{HS}\)</span> と、little in Bags内の分散に分解されるという意味になる。</p>
 <p>以上の議論から、十分大きな<span class="arithmatex">\(B\)</span>に対しては上記の関係性が成り立つから、漸近分散に対する一致推定量が計算可能となる。この方法による漸近分散の計算は、回帰木が最初に与えた仮定を満たしていれば妥当となるので、以降に説明する様々な一般化ランダムフォレストによる推定に対して漸近分散を与えることができる。</p>
 <h3 id="_9">推定方程式に対応した勾配ベースの回帰木</h3>
 <p>ここまでの議論では、推定方程式によって定義されるパラメータを扱っているにもかかわらず回帰木の構成法に触れていない。これは、回帰木の構成法にランダムフォレストによって生成された重みに基づく推定方程式の解が一致性や漸近正規性を有しており、漸近分散の導出結果を用いてよいということを表している。しかし、一般的にランダムフォレストを構成する際に、回帰木の学習は損失関数の最小化することによって行われる。これは、実際その方が効率的な学習ができるということと、有効な変数以外でのノードの分割を避けることは、予測における実質的な次元削減の効果があることから有効である。ここでは、Athey et al.(2020) で提案された推定方程式によって定義されるパラメータの推定において有効かつ計算効率の良いノードの繰り返し分割法である<strong>勾配ベースの回帰木</strong>について導入を行う。</p>
 <p>推定方程式によって定義されるパラメータは一般的に観測されず推定方程式を解くことによって得られる場合がほとんどである。そのため、予測の対象となる結果変数<span class="arithmatex">\(Y\)</span>が観測されたもとでの、条件付き平均 <span class="arithmatex">\(\mu(x)=E[Y|X=x]\)</span>の場合とは異なり、損失関数を工夫する必要がある。条件付き平均を予測する問題では、ノードを2つに分割する際には、分割された後のノード内での結果変数の分散の重み付け和が最小になるようにするのが一般的である。勾配ベースの回帰木においてもこの考え方を継承し、ノードを分割した後でパラメータ <span class="arithmatex">\(\theta(x)\)</span>のノード内での分散の重み付け和が最小になるように分割を考える。</p>
 <p>いま、ノード<span class="arithmatex">\(P\)</span>を2つの子ノード<span class="arithmatex">\(C_1, C_2\)</span>に分割する場合を考え、ノード<span class="arithmatex">\(P, C_1, C_2\)</span>における推定方程式の解を
 $$
-    (\hat\theta_{P}, \hat\nu_{P}) \in \argmin_{\theta,\nu}\left{\left|\sum_{{i\in \mathcal{J}:X_i \in P}}\psi_{\theta,\nu}(O_i)\right|<em>{2}\right}
+    (\hat\theta_{P}, \hat\nu_{P}) \in \argmin_{\theta,\nu}\left{\left|\sum_{{i\in \mathcal{J}:X_i \in P}}\psi_{\theta,\nu}(O_i)\right|<em C__j="C_{j">{2}\right}
 $$
 $$
-    (\hat\theta</em>{C_{j}}, \hat\nu_{C_{j}}) \in \argmin_{\theta,\nu}\left{\left|\sum_{{i\in \mathcal{J}:X_i \in C_{j}}}\psi_{\theta,\nu}(O_i)\right|<em>{2}\right}, \qquad j=1,2
+    (\hat\theta</em>(O_i)\right|}}, \hat\nu_{C_{j}}) \in \argmin_{\theta,\nu}\left{\left|\sum_{{i\in \mathcal{J}:X_i \in C_{j}}}\psi_{\theta,\nu<em j="1,2">{2}\right}, \qquad j=1,2
 $$
 とする。このとき、損失関数 <span class="arithmatex">\(\mathrm{err}(C_1, C_2)\)</span> は
 $$
-    \mathrm{err}(C_1, C_2) = \sum</em>{j=1,2}\Pr(X\in C_j \mid X\in P) E[(\hat\theta_{C_{j}} - \theta(X))^2 \mid X\in C_j]
+    \mathrm{err}(C_1, C_2) = \sum</em> - \theta(X))^2 \mid X\in C_j]
 $$
-とかける。この損失関数を用いて回帰木を学習させるには2つの問題がある。1つ目は<span class="arithmatex">\(\theta(X)\)</span>が観測できないことである。もう1つは、候補となる分割を試すたびに推定方程式を解く必要があるということである。特に、大量の回帰木を作成するランダムフォレストの場合、2つ目の問題はクリティカルな課題となる。そこで、漸近的には同値な言い換え (Proposition 1. of Athey et al.(2020))を用いて、
+とかける。この損失関数を用いて回帰木を学習させるには2つの問題がある。1つ目は}\Pr(X\in C_j \mid X\in P) E[(\hat\theta_{C_{j}<span class="arithmatex">\(\theta(X)\)</span>が観測できないことである。もう1つは、候補となる分割を試すたびに推定方程式を解く必要があるということである。特に、大量の回帰木を作成するランダムフォレストの場合、2つ目の問題はクリティカルな課題となる。そこで、漸近的には同値な言い換え (Proposition 1. of Athey et al.(2020))を用いて、
 $$
     \widetilde{\mathrm{err}}(C_1, C_2) = \frac{n_{C_1}n_{C_2}}{n_{P}^{2}}(\hat\theta_{C_1}-\hat\theta_{C_2})^{2}
 $$
@@ -3648,9 +3617,9 @@ $$
 <h2 id="_10">一般化ランダムフォレストの応用</h2>
 <p>一般化ランダムフォレストは、その一般的な理論的枠組みによって様々な回帰の問題を扱うことができる。ここでは、一般化ランダムフォレストで扱える代表的な回帰モデルについて紹介する。これらの方法の大枠では、1) 興味のあるパラメータを規定する局所推定方程式 <span class="arithmatex">\(\psi_{\theta,\nu}(O_i)\)</span>を構成し、次に局所推定方程式を用いて Double sample gradient tree （以降、勾配回帰木） を学習させる。パラメータの値を推定したい点<span class="arithmatex">\(x\)</span>に対して、学習済み勾配回帰木を用いて推定方程式に観測データ<span class="arithmatex">\(X_i\)</span>の重み <span class="arithmatex">\(\alpha_{i}(x)\)</span> を計算する。最後に、点<span class="arithmatex">\(x\)</span>におけるパラメータの推定量 <span class="arithmatex">\(\hat\theta(x), \hat\nu(x)\)</span>を<span class="arithmatex">\(\alpha_{i}(x)\)</span>で重み付けた推定方程式を解くことで推定する。
 $$
-    \hat\theta(x),\hat\nu(x) = \operatorname{argmin}<em>{\theta,\nu} \left{\left| \sum</em>{i=1}^{n}\alpha_{i}(x)\psi_{\theta,\nu}(O_i)\right|_{2} \right}
+    \hat\theta(x),\hat\nu(x) = \operatorname{argmin}<em i="1">{\theta,\nu} \left{\left| \sum</em> \right}
 $$
-よって、<span class="arithmatex">\(\hat\theta(x), \hat\nu(x)\)</span> は正規方程式の解となる。この方針に従うことで、様々な推定方程式の解を求めることができる。</p>
+よって、}^{n}\alpha_{i}(x)\psi_{\theta,\nu}(O_i)\right|_{2<span class="arithmatex">\(\hat\theta(x), \hat\nu(x)\)</span> は正規方程式の解となる。この方針に従うことで、様々な推定方程式の解を求めることができる。</p>
 <h3 id="quantile-regression-forest">quantile regression forest と、一般化ランダムフォレストによる分位点推定</h3>
 <p>ここでは、確率変数の組 <span class="arithmatex">\((X_i, Y_i) \in \mathbb{R}^{p}\times \mathbb{R}\)</span> (<span class="arithmatex">\(i=1,2,...,n\)</span>) が観測されたもとでの、条件付きq-分位点関数 <span class="arithmatex">\(\theta_{Y|X}(q) = \inf\{y : F_{Y|X}(y) \geq q\}\)</span> を推定するための方法である。この問題は、スコア関数として
 $$
@@ -3669,7 +3638,7 @@ $$
 $$
 となる。よって、ランダムフォレストによる重み <span class="arithmatex">\(\alpha_{i}\)</span> を用いて、それぞれの期待値に対するカーネル重み付け推定量を計算することで
 $$
-    \hat\theta(x) = \xi^{T}\left(\sum_{i=1}^{n}\alpha_{i}(x)(W_i - \bar{W}<em>{\alpha})(W_i - \bar{W}</em>{\alpha})^{T}\right)^{-1} \sum_{i=1}^{n}\alpha_{i}(x)(W_i - \bar{W}<em>{\alpha})(Y_i - \bar{Y}</em>{\alpha})
+    \hat\theta(x) = \xi^{T}\left(\sum_{i=1}^{n}\alpha_{i}(x)(W_i - \bar{W}<em _alpha="\alpha">{\alpha})(W_i - \bar{W}</em>})^{T}\right)^{-1} \sum_{i=1}^{n}\alpha_{i}(x)(W_i - \bar{W<em _alpha="\alpha">{\alpha})(Y_i - \bar{Y}</em>)
 $$
 ただし、<span class="arithmatex">\(\bar{W}_{\alpha} = \sum_{i=1}^{n}\alpha_{i}(x)W_{i}\)</span> および <span class="arithmatex">\(\bar{Y}_{\alpha} = \sum_{i=1}^{n}\alpha_{i}(x)Y_{i}\)</span> とかける。</p>
 <h3 id="local-centering-r-learner-by-nie-and-wager-2021">Local Centering (R-Learner by Nie and Wager., 2021)</h3>
@@ -3736,17 +3705,17 @@ $$
 <div class="arithmatex">\[L = \frac{\left(\sum_{j=1}^M \left(d_{j,L} - N_{j,L} \cdot \frac{d_j}{N_j}\right)\right)^2}{\sum_{j=1}^M \frac{N_{j,L}}{N_j} \cdot \left(1 - \frac{N_{j,L}}{N_j}\right) \cdot \frac{N_j - d_j}{N_j - 1} \cdot d_j}\]</div>
 <p>この統計量は、二つの子ノードにおけるハザード関数が同じであるという帰無仮説の下で、漸近的に自由度1の<span class="arithmatex">\(\chi^2\)</span>分布に従い、この値が大きほど生存時間関数に差があることを意味する。よって生存木では、生存時間関数のノード間での異質性を捉えるために、ログランク統計量を最大にする分割を各ノードで選択し、再起的分割を行い木構造を推定する。木構造が推定されたあとで、生存木の葉それぞれにおいてカプラン・マイヤー推定量（KM推定量）と、ネルソン・アーレン推定量（AL推定量）を計算し、条件付き生存関数と、条件付き累積ハザード関数を推定する。生存関数に対するKM推定量は、生存木の各葉内のサンプルに対して、
 $$
-    \hat{S}<em>{\text{KM}}(t) = \prod</em>{j: t_j \leq t} \left(1 - \frac{d_j}{N_j}\right)
+    \hat{S}<em _leq="\leq" j:="j:" t="t" t_j="t_j">{\text{KM}}(t) = \prod</em>\right)
 $$
 によって計算される。また、累積ハザード関数に対するAL推定量を、各葉に対して、
 $$
-    \hat{\Lambda}<em>{\text{NA}}(t) = \sum</em>{j: t_j \leq t} \frac{d_j}{N_j}
+    \hat{\Lambda}} \left(1 - \frac{d_j}{N_j<em _leq="\leq" j:="j:" t="t" t_j="t_j">{\text{NA}}(t) = \sum</em>
 $$
 によって推定し、AL推定量に基づいて生存関数の推定を行う。
 $$
-    \hat{S}<em>{\text{NA}}(t) = \exp(-\hat{\Lambda}</em>{\text{NA}}(t))
+    \hat{S}} \frac{d_j}{N_j<em _text_NA="\text{NA">{\text{NA}}(t) = \exp(-\hat{\Lambda}</em>(t))
 $$
-サバイバルフォレストでは、点<span class="arithmatex">\(x\)</span>における生存関数または累積ハザード関数を、生存木の各葉で推定されるKM推定量または、AL推定量の平均によって推定する。</p>
+サバイバルフォレストでは、点}<span class="arithmatex">\(x\)</span>における生存関数または累積ハザード関数を、生存木の各葉で推定されるKM推定量または、AL推定量の平均によって推定する。</p>
 <p>生存木に用いる分割基準の損失関数は、ログランク統計量に限る必要はなく、2つの生存関数の非類似度を測る指標であればよい。すなわち、損失関数の設計は研究者や実務家が、何を使うかを研究の文脈において決定することが望ましい。例えば、<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0116774">Li et al. (2015)</a> において報告されているように、ログランク検定は比例ハザード性が成り立つ場合において検出力が高いが、生存時間の交差が認められる場合などでは検出力が低下するため、代替的な手法を用いることが推奨されている。この論文では、<a href="https://rss.onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9868.2007.00622.x">Qui-Shengの2段階手順</a>や、適応的ネイマン平滑化検定などが、生存関数の交差においてその差を検出できたという報告がなされている。また、<a href="https://academic.oup.com/biostatistics/article-abstract/15/4/757/266340?redirectedFrom=fulltext">Ishwaran et al.(2014)</a> によってGray検定などを用いることで条件付き累積発生関数を推定することで、競合リスクがある場合へ対応した SRF も提案されている。</p>
 <p>一方で、一般化ランダムフォレストでは、生存木ではKM推定量や、AL推定量を計算せずに重みを計算し、その重み付けによってカーネル重み付け生存関数の推定を行う。いま、<span class="arithmatex">\(T_{b}, b=1,2,...,B\)</span>を、生存木であるとし、点<span class="arithmatex">\(x\)</span>を含む葉を<span class="arithmatex">\(L_{b}(x)\)</span>とすると、点<span class="arithmatex">\(x\)</span>を含むランダムフォレストの重みは、回帰木の場合同様に
 $$
@@ -3754,13 +3723,13 @@ $$
 $$
 となる。よって、サバイバルランダムフォレストにおけるKM推定量は<span class="arithmatex">\(\alpha_{i}(x)\)</span>による重み付け関数として得られる。
 $$
-    \hat{S}<em>{KM}^{(GRF)}(t|x) = \prod</em>{j: t_j \leq t} \left(1 - \frac{\sum_{i=1}^n \alpha_i(x) \cdot \mathbf{1}{T_i = t_j, \Delta_i = 1}}{\sum_{i=1}^n \alpha_i(x) \cdot \mathbf{1}{T_i \geq t_j}}\right)
+    \hat{S}<em _leq="\leq" j:="j:" t="t" t_j="t_j">{KM}^{(GRF)}(t|x) = \prod</em>\right)
 $$
 また、AL推定量も同様に得られる。
 $$
-    \hat{S}^{(GRF))}<em>{\text{NA}}(t|x) = \exp\left(-\sum</em>{j: t_j \leq t} \frac{\sum_{i=1}^n \alpha_i(x) \cdot \mathbf{1}{T_i = t_j, \Delta_i = 1}}{\sum_{i=1}^n \alpha_i(x) \cdot \mathbf{1}{T_i \geq t_j}}\right)
+    \hat{S}^{(GRF))}} \left(1 - \frac{\sum_{i=1}^n \alpha_i(x) \cdot \mathbf{1}{T_i = t_j, \Delta_i = 1}}{\sum_{i=1}^n \alpha_i(x) \cdot \mathbf{1}{T_i \geq t_j}<em _leq="\leq" j:="j:" t="t" t_j="t_j">{\text{NA}}(t|x) = \exp\left(-\sum</em>\right)
 $$
-GRFによる生存時間の推定量に対する一致性については結果が証明されているわけではなく、今後の課題である。関連する文献をいくつか挙げると、<a href="https://projecteuclid.org/journals/annals-of-statistics/volume-17/issue-3/Uniform-Consistency-of-the-Kernel-Conditional-Kaplan-Meier-Estimate/10.1214/aos/1176347261.full">Dabrowska (1989)</a> において、カーネル重み付け条件付きKM推定量については一様一致性の結果が得られている。また、<a href="https://onlinelibrary.wiley.com/doi/full/10.1111/sjos.12774">Bladt and Furrer (2025)</a>競合リスク下における 条件付きAalen-Johansen推定量に対する一致性と漸近正規性の結果も示されている。</p>
+GRFによる生存時間の推定量に対する一致性については結果が証明されているわけではなく、今後の課題である。関連する文献をいくつか挙げると、} \frac{\sum_{i=1}^n \alpha_i(x) \cdot \mathbf{1}{T_i = t_j, \Delta_i = 1}}{\sum_{i=1}^n \alpha_i(x) \cdot \mathbf{1}{T_i \geq t_j}<a href="https://projecteuclid.org/journals/annals-of-statistics/volume-17/issue-3/Uniform-Consistency-of-the-Kernel-Conditional-Kaplan-Meier-Estimate/10.1214/aos/1176347261.full">Dabrowska (1989)</a> において、カーネル重み付け条件付きKM推定量については一様一致性の結果が得られている。また、<a href="https://onlinelibrary.wiley.com/doi/full/10.1111/sjos.12774">Bladt and Furrer (2025)</a>競合リスク下における 条件付きAalen-Johansen推定量に対する一致性と漸近正規性の結果も示されている。</p>
 <h3 id="causal-survival-effect">一般化ランダムフォレストによる 条件付き causal survival effectの推定</h3>
 <p>処置を受けたグループ（処置群）と、処置を受けなかったグループ（対照群）を比較して、その生存関数が個体の特性によってどう異なるのかに着目するのが、Conditional causal survival effect の推定である。ここでは、<a href="https://academic.oup.com/jrsssb/article/85/2/179/7058918">Cui et al. (2023)</a> を中心に説明を行う。</p>
 <p>確率変数の組 <span class="arithmatex">\(\{X, T(0), T(1), C, W\} \in \mathcal{X} \times \mathbb{R}_{+} \times \mathbb{R}_{+} \times \mathbb{R}_{+} \times \{0,1\}\)</span> が従う分布を<span class="arithmatex">\(P\)</span>とする。 <span class="arithmatex">\(X\)</span> は特徴量であり、<span class="arithmatex">\(T(0)\)</span> と <span class="arithmatex">\(T(1)\)</span> は潜在的な生存時間、 <span class="arithmatex">\(C\)</span> は打ち切り時間、 <span class="arithmatex">\(W\)</span> はバイナリーの処置変数である。</p>
@@ -3784,9 +3753,9 @@ $$
 $$
 で定義する。非打ち切りに対応する確率変数を、<span class="arithmatex">\(\Delta_{i}^{h} = 1\{(T_{i} \wedge h) \leq C_i\}\)</span>とすると、非打ち切りデータに打ち切り過程の確率の推定値の逆数で重み付けた推定方程式
 $$
-    \sum_{{i : \Delta_{i}^{h}=1}}\frac{\alpha_{i}(x)}{\hat{S}<em>{w}^{C}(s\mid x)}\psi</em>{\tau}^{(c)}\bigl(X_i, y(T_i), W_i; \hat{e}, \hat{m}\bigr) = 0
+    \sum_{{i : \Delta_{i}^{h}=1}}\frac{\alpha_{i}(x)}{\hat{S}<em _tau="\tau">{w}^{C}(s\mid x)}\psi</em>\bigr) = 0
 $$
-を解くことで、<span class="arithmatex">\(\tau(x)\)</span>が推定できる。ここで、<span class="arithmatex">\(\hat{S}_{w}^{C}(s\mid x)\)</span>は、survival forest を用いて推定することができる。 Cui et al., (2023) では、IPCW推定量を用いる場合の問題点として、<span class="arithmatex">\(\hat{S}_{w}^{C}(s\mid x)\)</span> の推定精度が、 <span class="arithmatex">\(\tau(x)\)</span> の推定精度に大きな影響を与えることと、非打ち切りデータのみに絞った解析の問題として、観測データを捨てることによる情報量ロスの問題を挙げている。そこで、<a href="https://link.springer.com/book/10.1007/0-387-37345-4">Tsiatis (2007)</a> において提案された打ち切りに対して2重に頑健な推定量の構成の考え方を用いて、<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476818">Robins et al.(1994)</a> を拡張した観測データに基づく新たなスコア関数を提案した。</p>
+を解くことで、}^{(c)}\bigl(X_i, y(T_i), W_i; \hat{e}, \hat{m<span class="arithmatex">\(\tau(x)\)</span>が推定できる。ここで、<span class="arithmatex">\(\hat{S}_{w}^{C}(s\mid x)\)</span>は、survival forest を用いて推定することができる。 Cui et al., (2023) では、IPCW推定量を用いる場合の問題点として、<span class="arithmatex">\(\hat{S}_{w}^{C}(s\mid x)\)</span> の推定精度が、 <span class="arithmatex">\(\tau(x)\)</span> の推定精度に大きな影響を与えることと、非打ち切りデータのみに絞った解析の問題として、観測データを捨てることによる情報量ロスの問題を挙げている。そこで、<a href="https://link.springer.com/book/10.1007/0-387-37345-4">Tsiatis (2007)</a> において提案された打ち切りに対して2重に頑健な推定量の構成の考え方を用いて、<a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476818">Robins et al.(1994)</a> を拡張した観測データに基づく新たなスコア関数を提案した。</p>
 <p><span class="arithmatex">\(U_i = T_i \wedge C_i\; (i=1,2,...,n)\)</span>とし、スコア関数<span class="arithmatex">\(\psi_{\tau}(X_i, y(U_i), U_i \wedge h, W_i, \Delta_{i}^{h})\)</span>を以下で定義する。</p>
 <p>$$
     \begin{aligned}
@@ -3800,17 +3769,17 @@ $$
 <p>実際の因果効果推定においては、<span class="arithmatex">\(\mathbb{E}\left[\psi_{\tau}^{(c)}(X_i, y(T_i), W_i)|T_i \wedge h &gt; U_i \wedge h, W_i, X_i\right]\)</span> および、<span class="arithmatex">\(\lambda_{W_i}^{C}(s|X_i) <span class="arithmatex">\(、\)</span> S_{W_i}^{C}(s|X_i)\)</span>をデータから推定したものをプラグインしたスコア関数を用いる。ここで、推定量の構成は cross-fitting を用いて行う。
 $$
     \begin{aligned}
-    &amp;\psi_{\tau}(X_i, y(U_i), U_i \wedge h, W_i, \Delta_i^{h}; \hat{e}, \hat{m}, \hat{\lambda}^{C}<em>{w}, \hat{S}^{C}</em>{w}, \hat{Q}<em>{w}) \
-    &amp;= \left(\frac{\hat{Q}</em>{W_i}(U_i \wedge h|X_i) + \Delta_i^{h}[y(U_i) - \hat{Q}<em>{W_i}(U_i \wedge h|X_i)] - \hat{m}(X_i) - \tau(W_i - \hat{e}(X_i))}{\hat{S}^{C}</em>{W_i}(U_i \wedge h|X_i)}\right. \
-    &amp;\quad - \left.\int_{0}^{U_i \wedge h}\frac{\hat{\lambda}^{C}<em>{W_i}(s|X_i)}{\hat{S}^{C}</em>{W_i}(s|X_i)}[\hat{Q}_{W_i}(s|X_i) - \hat{m}(X_i) - \tau(W_i - \hat{e}(X_i))]\,ds\right)(W_i - \hat{e}(X_i)),
+    &amp;\psi_{\tau}(X_i, y(U_i), U_i \wedge h, W_i, \Delta_i^{h}; \hat{e}, \hat{m}, \hat{\lambda}^{C}<em w="w">{w}, \hat{S}^{C}</em>}, \hat{Q<em W_i="W_i">{w}) \
+    &amp;= \left(\frac{\hat{Q}</em>}(U_i \wedge h|X_i) + \Delta_i^{h}[y(U_i) - \hat{Q<em W_i="W_i">{W_i}(U_i \wedge h|X_i)] - \hat{m}(X_i) - \tau(W_i - \hat{e}(X_i))}{\hat{S}^{C}</em>\right. \
+    &amp;\quad - \left.\int_{0}^{U_i \wedge h}\frac{\hat{\lambda}^{C}}(U_i \wedge h|X_i)<em W_i="W_i">{W_i}(s|X_i)}{\hat{S}^{C}</em>(X_i)),
     \end{aligned}
 $$
-ここで、<span class="arithmatex">\(\hat{Q}_{W_i}(U_i \wedge h|X_i)\)</span>は、<span class="arithmatex">\(\mathbb{E}\left[\psi_{\tau}^{(c)}(X_i, y(T_i), W_i)|T_i \wedge h &gt; U_i \wedge h, W_i, X_i\right]\)</span>に対する推定量である。</p>
+ここで、}(s|X_i)}[\hat{Q}_{W_i}(s|X_i) - \hat{m}(X_i) - \tau(W_i - \hat{e}(X_i))]\,ds\right)(W_i - \hat{e<span class="arithmatex">\(\hat{Q}_{W_i}(U_i \wedge h|X_i)\)</span>は、<span class="arithmatex">\(\mathbb{E}\left[\psi_{\tau}^{(c)}(X_i, y(T_i), W_i)|T_i \wedge h &gt; U_i \wedge h, W_i, X_i\right]\)</span>に対する推定量である。</p>
 <p>Cui et al.(2023) では、
 $$
-    \sum_{i=1}^{n}\alpha_{i}(x)\psi_{\tau}(X_i, y(U_i), U_i \wedge h, W_i, \Delta_i^{h}; \hat{e}, \hat{m}, \hat{\lambda}^{C}<em>{w}, \hat{S}^{C}</em>{w}, \hat{Q}_{w}) = 0
+    \sum_{i=1}^{n}\alpha_{i}(x)\psi_{\tau}(X_i, y(U_i), U_i \wedge h, W_i, \Delta_i^{h}; \hat{e}, \hat{m}, \hat{\lambda}^{C}<em w="w">{w}, \hat{S}^{C}</em>) = 0
 $$
-の解として推定される条件付き因果効果の推定量 <span class="arithmatex">\(\hat\tau(x)\)</span> は、cross-fitting 推定量が <span class="arithmatex">\(\hat{e}\)</span>,<span class="arithmatex">\(\hat{m}\)</span>,<span class="arithmatex">\(\hat{Q}\)</span>,<span class="arithmatex">\(\hat{\lambda}_{w}^{C}\)</span>,<span class="arithmatex">\(\hat{S}_{w}^{C}\)</span> が一様一致性を満たす場合には、<span class="arithmatex">\(\hat{\tau}(x)\)</span>が一致性を持つことを示している。また、条件付き因果効果の推定と同様に、cross-fitting推定量の収束速度が適当な正則条件を満たす場合には、causal forest の推定量と同様に漸近正規性が成り立つ。また、漸近分散の推定方法についても一般化ランダムフォレストの枠組みで推定することがで可能である。ただし、Cui et al.(2023) では、推定された<span class="arithmatex">\(\hat\tau(x)\)</span>は、しばしば複雑な関数となることと、漸近分散は非常に大きくなるため、解釈を行う際には適当な特徴量の部分集合に対して線形射影した結果に対して解釈を行うことを推奨している。</p>
+の解として推定される条件付き因果効果の推定量 }, \hat{Q}_{w<span class="arithmatex">\(\hat\tau(x)\)</span> は、cross-fitting 推定量が <span class="arithmatex">\(\hat{e}\)</span>,<span class="arithmatex">\(\hat{m}\)</span>,<span class="arithmatex">\(\hat{Q}\)</span>,<span class="arithmatex">\(\hat{\lambda}_{w}^{C}\)</span>,<span class="arithmatex">\(\hat{S}_{w}^{C}\)</span> が一様一致性を満たす場合には、<span class="arithmatex">\(\hat{\tau}(x)\)</span>が一致性を持つことを示している。また、条件付き因果効果の推定と同様に、cross-fitting推定量の収束速度が適当な正則条件を満たす場合には、causal forest の推定量と同様に漸近正規性が成り立つ。また、漸近分散の推定方法についても一般化ランダムフォレストの枠組みで推定することがで可能である。ただし、Cui et al.(2023) では、推定された<span class="arithmatex">\(\hat\tau(x)\)</span>は、しばしば複雑な関数となることと、漸近分散は非常に大きくなるため、解釈を行う際には適当な特徴量の部分集合に対して線形射影した結果に対して解釈を行うことを推奨している。</p>
 <p>Causal survival forest を応用した事例としては、Cui et al.,(2023) においては、AIDS臨床試験グループプロトコル175（ACTG175）[Hammer et al., 1996]データへの応用を行なっており、このデータでは4つの治療群へ患者はランダムに割り付けられており、そのうち2つの治療群間の間での条件付き生存因果効果の推定を行っている。また、<a href="https://arxiv.org/abs/2312.02482">Sverdrup and Wager (2024)</a> では、National Job Training Partnership Act（JTPA）に基づくランダム化比較試験（RCT）のデータを用いて、職業訓練プログラムへの参加資格が失業期間に与える影響を、打ち切り時間（2年）を考慮してRMSTベースの因果効果を推定している。</p>
 <h2 id="_12">一般化ランダムフォレストの推定精度の改善</h2>
 <p>一般化ランダムフォレストによる解は、漸近的な性能は良いが、実際のデータに当て嵌めを行った場合、ランダムフォレスト同様の問題が生じる場合が多い。ここでは、ランダムフォレスト特有の問題を解消するための方法についてLocal Linear forest について説明する。</p>
@@ -3827,13 +3796,13 @@ $$
 と陽に表すことができる。</p>
 <p>次に、LLFにおける分割基準について考える。LLFの目標は、局所的な変動を除いて<span class="arithmatex">\(\mu(x)\)</span>を推定することである。そこで、分割においても局所的な変動を除いた上で、<span class="arithmatex">\(\mu(x)\)</span>の変動を捉えるような分割を考えるのは自然である。親ノード <span class="arithmatex">\(P\)</span> において、サイズ<span class="arithmatex">\(n_P\)</span> の観測データ <span class="arithmatex">\((X_1,Y_1),...,(X_n,Y_n)\)</span> が含まれるとする。2つのノード<span class="arithmatex">\(C_1, C_2\)</span> への分割は、分割後のノードの <span class="arithmatex">\(Y\)</span> の平均を、<span class="arithmatex">\(\bar{Y_1}, \bar{Y_2}\)</span> とおくと、2乗損失の和
 $$
-    \sum_{i : X_i \in C_1}\frac{#{i : X_i \in C_1}}{n_{P}}(Y_i - \bar{Y}<em>1)^{2} + \sum</em>{i : X_i \in C_2}\frac{#{i : X_i \in C_2}}{n_{P}}(Y_i - \bar{Y}<em>{2})^{2}
+    \sum_{i : X_i \in C_1}\frac{#{i : X_i \in C_1}}{n_{P}}(Y_i - \bar{Y}<em :=":" C_2="C_2" X_i="X_i" _in="\in" i="i">1)^{2} + \sum</em>}\frac{#{i : X_i \in C_2}}{n_{P}}(Y_i - \bar{Y<em i="i">{2})^{2}
 $$
 を最小にするのが一般的である。これに対して、LLFでは局所的な変動を除いた<span class="arithmatex">\(\mu(x)\)</span>への当てはまりをよくする。親ノードで、<span class="arithmatex">\(Y_i\)</span> に対してリッジ回帰モデルを当てはめた推定値を
 $$
-    \hat{Y}</em>{i} = \hat{\alpha}<em>{P} + X</em>{i}^{T}\hat\beta_{P}, \quad \hat\beta_{P} = (X_{P}^{T}X_{P}+ \lambda J)^{-1}X_{P}^{T}Y_{P}
+    \hat{Y}</em>} = \hat{\alpha<em i="i">{P} + X</em>
 $$
-とする。ここで、<span class="arithmatex">\(X_{P}\)</span> と <span class="arithmatex">\(Y_{P}\)</span> はそれぞれ、親ノードに含まれる <span class="arithmatex">\(X_{i}\)</span>と<span class="arithmatex">\(Y_{i}\)</span>からなる特徴量の行列、および結果変数のベクトルである。LLFにおけるノードの分割では局所変動を除いた斬差
+とする。ここで、}^{T}\hat\beta_{P}, \quad \hat\beta_{P} = (X_{P}^{T}X_{P}+ \lambda J)^{-1}X_{P}^{T}Y_{P<span class="arithmatex">\(X_{P}\)</span> と <span class="arithmatex">\(Y_{P}\)</span> はそれぞれ、親ノードに含まれる <span class="arithmatex">\(X_{i}\)</span>と<span class="arithmatex">\(Y_{i}\)</span>からなる特徴量の行列、および結果変数のベクトルである。LLFにおけるノードの分割では局所変動を除いた斬差
 $$
     Y-\hat{Y}_{i}
 $$
@@ -3844,9 +3813,9 @@ $$
     \left{\hat\tau(x_0), \hat\theta_{\tau}(x_0), \hat{a}(x_0), \hat\theta_{a}(x_0) \right} = \argmin_{\tau,\theta}\left{
         \sum_{i=1}^{n}\alpha_{i}(x_0)\left(
             Y_i - \hat{m}^{(-i)}(X_i) - a - (X_i - x_0)\theta_{a} - (\tau + \theta_{\tau}(X_i - x_0))(W_i - \hat{e}^{(-i)}(X_i))
-        \right)^2 + \lambda_{\tau}|\theta_{\tau}|<em>{2}^{2} + \lambda</em>{a}|\theta_{a}|_{2}^{2}
+        \right)^2 + \lambda_{\tau}|\theta_{\tau}|<em a="a">{2}^{2} + \lambda</em>
     \right}
-$$</p>
+$$}|\theta_{a}|_{2}^{2</p>
 <h2 id="_13">一般化ランダムフォレストのハイパーパラメータ選択</h2>
 <p>一般的な機械学習と同様に、ランダムフォレストの予測精度は、ハイパーパラメータの選択に依存している。ここでは、ランダムフォレストのパラメータチューニングの方法と、それによる予測性能の改善について説明する。まず、一般的な結果として、<a href="https://jmlr.org/papers/volume20/18-444/18-444.pdf">Probst et al.,(2019)</a> において、ランダムフォレストのデフォルトのパラメータと、ハイパーパラメータチューニングを行った場合の最小2乗誤差やAUCを比較し、ハイパーパラメータのチューニングがパフォーマンス改善に寄与するかを、SVMやXgBoostなどと比較をすることで、ランダムフォレストの tunability を評価している。その結果、k-近傍法についでランダムフォレストのパラメータはデフォルトと、CV等でチューニングした結果が変わらないという結果が得られている。よって、他のブースティングやNN等と比較して、ハイパーパラメータの選択が予測結果に大きな影響を与えないという点は、評価できる手法であることがわかる。</p>
 <p>しかし、ランダムフォレストにおいてパラメータチューニングが全く必要ないというわけではなく、いくつかのパラメータのチューニングは重要であることがわかっている。<a href="https://arxiv.org/abs/2001.04295">Scornet (2020)</a>の指摘にもある通り、ランダムフォレストにおいて推定量に影響を与えるのは、<code>min-node-size</code> と <code>subsample size</code> そして、<code>mtry</code> である。</p>
@@ -3886,17 +3855,17 @@ $$
 この第1項は、<span class="arithmatex">\(\tilde{Y}_{i} = Y_{i} - m(X_{i})\)</span> および <span class="arithmatex">\(\tilde{T}_{i} = T_{i} - e(X_{i})\)</span> と定義した時に、<span class="arithmatex">\((X_{i}^{(-j)}, \tilde{T}_{i}, \tilde{Y}_{i})\)</span> (<span class="arithmatex">\(i=1,2,...,n\)</span>) に対して、causal forest を学習させて得られる条件付き因果効果の推定値である。第2項は <span class="arithmatex">\(X_{j}\)</span> を条件から外すことで生じるバイアスに対応する。</p>
 <p>よって、このバイアス項に対応する推定量が得られれば、causal forest の推定量に対する変数重要度を推定することができる。<span class="arithmatex">\((X_{i}, \tilde{T}_{i}, \tilde{Y}_{i}), i=1,2,...,n\)</span> 上で学習された causal forest の点 <span class="arithmatex">\(x\)</span> に対する推定量を<span class="arithmatex">\(\hat{\tau}(x)\)</span> とする。一方で、特徴量の集合から特徴量<span class="arithmatex">\(X_{j}\)</span>を除いたデータ <span class="arithmatex">\((X_{i}^{(-j)}, \tilde{T}_{i}, \tilde{Y}_{i}), i=1,2,...,n\)</span> 上で学習された causal forest が生成するフォレストの重みを <span class="arithmatex">\(\alpha'_{i}(x^{(-j)})\)</span>とし、条件付き因果効果の推定量を<span class="arithmatex">\(\hat{\tau}^{(-j)}(x)\)</span> とする。このとき、<span class="arithmatex">\(E[\tau(X^{\mathcal{S}})\mid X^{(-j)}]\)</span>に対するバイアス修正済みの条件付き因果効果の推定量を、
 $$
-    \hat{\theta}^{(-j)}(x) = \hat{\tau}^{(-j)}(x) - \frac{\sum_{i=1}^{n}\alpha'<em>{i}(x^{(-j)})\tilde{T</em>{i}}^{2}\hat{\tau}(X_i) - \bar{T}<em>{\alpha'}^{2}\bar{\tau}</em>{\alpha'}}{\bar{T}<em>{\alpha'}^{2} - (\bar{T}</em>{\alpha'})^{2}}
+    \hat{\theta}^{(-j)}(x) = \hat{\tau}^{(-j)}(x) - \frac{\sum_{i=1}^{n}\alpha'<em i="i">{i}(x^{(-j)})\tilde{T</em>}}^{2}\hat{\tau}(X_i) - \bar{T<em _alpha_="\alpha'">{\alpha'}^{2}\bar{\tau}</em>}}{\bar{T<em _alpha_="\alpha'">{\alpha'}^{2} - (\bar{T}</em>
 $$
-で定義する。ただし、<span class="arithmatex">\(\bar{T}_{\alpha'}^{2} = \sum_{i=1}^{n}\alpha'_{i}(x^{(-j)})\tilde{T}_{i}^{2}\)</span>, <span class="arithmatex">\(\bar{T}_{\alpha'} = \sum_{i=1}^{n}\alpha'_{i}(x^{(-j)})\tilde{T}_{i}\)</span> および、<span class="arithmatex">\(\bar{\tau}_{\alpha'} = \sum_{i=1}^{n}\alpha'_{i}(x^{(-j)}) \hat\tau(X_i)\)</span> である。それぞれ、<span class="arithmatex">\(X^{(-j)}\)</span>を除いた causal forest によって得られた重みを用いて構成されている。</p>
+で定義する。ただし、})^{2}<span class="arithmatex">\(\bar{T}_{\alpha'}^{2} = \sum_{i=1}^{n}\alpha'_{i}(x^{(-j)})\tilde{T}_{i}^{2}\)</span>, <span class="arithmatex">\(\bar{T}_{\alpha'} = \sum_{i=1}^{n}\alpha'_{i}(x^{(-j)})\tilde{T}_{i}\)</span> および、<span class="arithmatex">\(\bar{\tau}_{\alpha'} = \sum_{i=1}^{n}\alpha'_{i}(x^{(-j)}) \hat\tau(X_i)\)</span> である。それぞれ、<span class="arithmatex">\(X^{(-j)}\)</span>を除いた causal forest によって得られた重みを用いて構成されている。</p>
 <p>変数重要度は、得られた推定量で<span class="arithmatex">\(I^{(j)}\)</span>の各項を置き換えることで得られる。いま、観測データの組 <span class="arithmatex">\(D= \{(X_i, T_i, Y_i)\}_{i=1}^{n}\)</span> が従う分布<span class="arithmatex">\(P\)</span> から、新たにサイズ<span class="arithmatex">\(n\)</span>の観測データとは独立に i.i.d. なサンプル <span class="arithmatex">\(D' = \{(X'_i, T'_i, Y'_i)\}_{i=1}^{n}\)</span> が得られたする。変数重要度の推定量は、<span class="arithmatex">\(D'\)</span>に基づいて以下のように構成する。
 $$
-    \hat{I}^{(j)} = \frac{\sum_{i=1}^{n}[\hat\tau(X'<em>i) - \hat{\theta}^{(-j)}(X'_i)]^{2}}{\sum</em>{i=1}^{n}[\hat\tau(X'<em>i) - \bar{\tau}]} - \hat{I}^{(0)}
+    \hat{I}^{(j)} = \frac{\sum_{i=1}^{n}[\hat\tau(X'<em i="1">i) - \hat{\theta}^{(-j)}(X'_i)]^{2}}{\sum</em>[\hat\tau(X'}^{n<em i="1">i) - \bar{\tau}]} - \hat{I}^{(0)}
 $$
 ここで、<span class="arithmatex">\(I^{(0)}\)</span> は、<span class="arithmatex">\(\hat{I}^{(j)}\)</span> に対するバイアスの修正項である。一般的に、ランダムフォレストでは木の構成にランダムネスが存在するため、変数重要度の推定ではその影響を取り除いている。
 $$
-    \hat{I}^{(j)} = \frac{\sum</em>{i=1}^{n}[\hat\tau(X'<em>i) - \hat{\theta}^{(-j)}(X'_i)]^{2}}{\sum</em>{i=1}^{n}[\hat\tau(X'_i) - \bar{\tau}]} - \hat{I}^{(0)}
-$$</p>
+    \hat{I}^{(j)} = \frac{\sum</em>[\hat\tau(X'}^{n<em i="1">i) - \hat{\theta}^{(-j)}(X'_i)]^{2}}{\sum</em>
+$$}^{n}[\hat\tau(X'_i) - \bar{\tau}]} - \hat{I}^{(0)</p>
 <p><a href="https://arxiv.org/pdf/2308.03369">Benard and Josse (2023)</a> の結果は、一般化ランダムフォレストによる推定量から、変数重要度を計算する場合には、従来の回帰の文脈では生じないバイアスが生じる可能性がある。バイアスの生じ方は、推定方程式の形状に依存するため、例えば生存データの文脈では再解析を行う必要がある。また、変数重要度の推定精度は、サンプルサイズに依存する。<a href="https://arxiv.org/pdf/2308.03369">Benard and Josse (2023)</a> では、 <span class="arithmatex">\(n=3000\)</span> を用いてシミュレーションを行っている。変数重要度は結果の解釈においては有効であるが、その一方でランダムフォレストの推定精度に依存することには注意が必要である。</p>
 <p>また、変数重要度の推定で注意が必要なのは、<span class="arithmatex">\(X_{j}\)</span>の変数重要度を評価する際に、相関の強い変数<span class="arithmatex">\(X_{k}\)</span>が存在すると、<span class="arithmatex">\(X_{j}\)</span>を取り除いても代替する情報を<span class="arithmatex">\(X_{k}\)</span>が与えるので、変数重要度が小さくなるという問題がある。これに対する対処としては、ドメイン知識などで変数をグループ化することで、変数単一の重要度ではなく、グループ単位の変数重要度を評価するなどの対処を行うことが望ましい。</p>
 <p>一般化ランダムフォレストに対する変数重要度の今後の方針として、特に重要なアプリケーションの1つである生存時間解析への拡張は今後行われていくと予想される。また近年、変数重要度に関する研究は、セミパラメトリック推論からの理論解析、Model-X knockoffs などの概念、Shapley Value などの分野で発展している。一般化ランダムフォレストの推定量を、これらの枠組みの中で解釈する取り組みが現在も行われている。</p>
@@ -3994,7 +3963,7 @@ $$
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.collapse", "navigation.path", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
     
     
       <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
