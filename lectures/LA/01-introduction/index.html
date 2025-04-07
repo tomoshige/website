@@ -3145,11 +3145,15 @@
 </ul>
 <h2 id="2">2. 本日の内容の説明（概要・定義・定理など）</h2>
 <h3 id="21">2.1 線形代数学とは</h3>
-<p>線形代数学は、ベクトル、行列、線形写像などの基本概念を用いて、データやシステムの構造を解析する数学の分野です。
-  - <strong>基本概念:</strong><br />
-    - <strong>ベクトル:</strong> 大きさと方向を持つ量。<br />
-    - <strong>行列:</strong> 数値や関数を格子状に並べたもので、複数のデータを一括して扱うためのツール。<br />
-    - <strong>線形写像:</strong> ベクトル空間間の変換で、加法性とスカラー倍の性質を保つ写像。</p>
+<p>線形代数学は、ベクトル、行列、線形写像などの基本概念を用いて、データやシステムの構造を解析する数学の分野です。</p>
+<ul>
+<li><strong>基本概念:</strong>  <ul>
+<li><strong>ベクトル:</strong> 大きさと方向を持つ量。  </li>
+<li><strong>行列:</strong> 数値や関数を格子状に並べたもので、複数のデータを一括して扱うためのツール。  </li>
+<li><strong>線形写像:</strong> ベクトル空間間の変換で、加法性とスカラー倍の性質を保つ写像。</li>
+</ul>
+</li>
+</ul>
 <p>この講義は、前期の「線形代数学I」「線形代数学（基礎）」、後期の「線形代数学II」の3つの授業で完結するように設計されています。</p>
 <h3 id="22">2.2 線形代数とデータサイエンスの関係</h3>
 <p>データサイエンスで解きたい課題は、大きく教師あり学習と教師なし学習に大別されます。</p>
@@ -3184,10 +3188,12 @@
 </ul>
 <h2 id="3-ai">3. 生成AIの活用</h2>
 <h3 id="31">3.1 概要</h3>
-<p>生成AIは、ウェブをメインとした文章を学習した深層学習モデルで、一般的には大規模言語モデル（Large Language Model; LLM）といいます。有名なものとしては、OpenAIのChatGPT, AnthropicのClaude、GoogleのGemini があります。
-- <a href="https://chatgpt.com/">ChatGPT</a>
-- <a href="https://claude.ai/">Claude</a>
-- <a href="https://aistudio.google.com/app/prompts/new_chat">Gemini</a></p>
+<p>生成AIは、ウェブをメインとした文章を学習した深層学習モデルで、一般的には大規模言語モデル（Large Language Model; LLM）といいます。有名なものとしては、OpenAIのChatGPT, AnthropicのClaude、GoogleのGemini があります。</p>
+<ul>
+<li><a href="https://chatgpt.com/">ChatGPT</a></li>
+<li><a href="https://claude.ai/">Claude</a></li>
+<li><a href="https://aistudio.google.com/app/prompts/new_chat">Gemini</a></li>
+</ul>
 <p>ChatGPTの無料版は、GPT-4o mini へのアクセスが基本ですが、数学的な能力はそれほど高くないので線形代数の質問への回答は不正確な場合が多いです。Claude の無料版は最新のモデルへのアクセイスが可能で、回数制限はありますが説明をさせるなら非常に有用です(<a href="https://www.anthropic.com/pricing">リンク</a>)。Gemini は google AI studio を経由して利用するとほとんど利用制限がなく、最新のモデル Gemini 2.5 へのアクセスが可能です。基本的には、皆さんの好みで使ってもらえれば良いですが、どのモデルが良かったなどの情報交換は積極的に行ってください。App storeや、Android store には、それぞれの生成AIのアプリもリリースされています。</p>
 <h2 id="4-google-colaboratory">4. Google Colaboratory の使い方</h2>
 <h3 id="41">4.1 概要</h3>
@@ -3197,21 +3203,17 @@
 <ol>
 <li>
 <p><strong>Google Colabへのアクセス:</strong>  </p>
-</li>
-<li>
-<p>ウェブブラウザで <a href="https://colab.research.google.com/">Google Colab</a> にアクセスします。  </p>
-</li>
-<li>
-<p>Googleアカウントでログインします。</p>
+<ul>
+<li>ウェブブラウザで <a href="https://colab.research.google.com/">Google Colab</a> にアクセスします。  </li>
+<li>Googleアカウントでログインします。</li>
+</ul>
 </li>
 <li>
 <p><strong>新しいノートブックの作成:</strong>  </p>
-</li>
-<li>
-<p>「新しいノートブック」をクリックして、空のノートブックを作成します。  </p>
-</li>
-<li>
-<p>ノートブックの名前を「線形代数学_第1回」などに変更して、管理しやすくします。</p>
+<ul>
+<li>「新しいノートブック」をクリックして、空のノートブックを作成します。  </li>
+<li>ノートブックの名前を「線形代数学_第1回」などに変更して、管理しやすくします。</li>
+</ul>
 </li>
 <li>
 <p><strong>セルの使い方の理解:</strong>  </p>
@@ -3251,7 +3253,7 @@
 <h2 id="5">5. いくつかの線形代数の応用例</h2>
 <p>線形代数を活用しているデータサイエンスの手法の具体的な例を紹介します。
 以下のリンクから、今回使用するコードを実行した結果が確認できます。
-https://colab.research.google.com/drive/1iW2o1gJHAYwW2xxGiC1j41CtdumtcgRo?usp=sharing</p>
+<a href="https://colab.research.google.com/drive/1iW2o1gJHAYwW2xxGiC1j41CtdumtcgRo?usp=sharing">事例紹介用コード</a></p>
 <h3 id="51">5.1 最小二乗法による線形回帰</h3>
 <h4 id="_3">最小二乗法とは</h4>
 <p>最小二乗法は、データポイントと予測モデル間の誤差の二乗和を最小化する手法です。線形回帰の文脈では、この方法は以下の最適化問題を解きます：</p>
