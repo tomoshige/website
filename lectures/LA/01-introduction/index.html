@@ -3258,11 +3258,13 @@
 <h4 id="_3">最小二乗法とは</h4>
 <p>最小二乗法は、データポイントと予測モデル間の誤差の二乗和を最小化する手法です。線形回帰の文脈では、この方法は以下の最適化問題を解きます：</p>
 <div class="arithmatex">\[\min_{\beta_0, \beta_1} \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2\]</div>
-<p>ここで：
-- <span class="arithmatex">\(y_i\)</span> は観測値（実際のデータ点）
-- <span class="arithmatex">\(\beta_0\)</span> は切片
-- <span class="arithmatex">\(\beta_1\)</span> は傾き
-- <span class="arithmatex">\(x_i\)</span> は説明変数</p>
+<p>ここで：</p>
+<ul>
+<li><span class="arithmatex">\(y_i\)</span> は観測値（実際のデータ点）</li>
+<li><span class="arithmatex">\(\beta_0\)</span> は切片</li>
+<li><span class="arithmatex">\(\beta_1\)</span> は傾き</li>
+<li><span class="arithmatex">\(x_i\)</span> は説明変数</li>
+</ul>
 <p>例えば、血糖値の値を <span class="arithmatex">\(y_i\)</span> にして、年齢を <span class="arithmatex">\(x_i\)</span> とすると、年齢が血糖値の値とどのような直線関係を持っているのかを明らかにできます。また、説明変数 <span class="arithmatex">\(x_i\)</span> に年齢だけではなく、性別や食事習慣、睡眠時間などのさまざまな情報を追加することで、より複雑な関係を表現することができます。</p>
 <h3 id="52-pca">5.2 主成分分析（PCA）による次元削減</h3>
 <ul>
@@ -3285,17 +3287,21 @@
 <h4 id="_4">数学的定義</h4>
 <p>任意の <span class="arithmatex">\(m \times n\)</span> 行列 <span class="arithmatex">\(A\)</span> に対して、SVDは以下のように行列を分解します：</p>
 <div class="arithmatex">\[A = U\Sigma V^T\]</div>
-<p>ここで：
-- <span class="arithmatex">\(U\)</span> は <span class="arithmatex">\(m \times m\)</span> の直交行列で、<span class="arithmatex">\(A\)</span> の<strong>左特異ベクトル</strong>を列として持ちます
-- <span class="arithmatex">\(\Sigma\)</span> は <span class="arithmatex">\(m \times n\)</span> の対角行列で、対角成分に<strong>特異値</strong>を持ちます（通常は降順）
-- <span class="arithmatex">\(V^T\)</span> は <span class="arithmatex">\(n \times n\)</span> の直交行列の転置で、<span class="arithmatex">\(A\)</span> の<strong>右特異ベクトル</strong>を行として持ちます</p>
+<p>ここで：</p>
+<ul>
+<li><span class="arithmatex">\(U\)</span> は <span class="arithmatex">\(m \times m\)</span> の直交行列で、<span class="arithmatex">\(A\)</span> の<strong>左特異ベクトル</strong>を列として持ちます</li>
+<li><span class="arithmatex">\(\Sigma\)</span> は <span class="arithmatex">\(m \times n\)</span> の対角行列で、対角成分に<strong>特異値</strong>を持ちます（通常は降順）</li>
+<li><span class="arithmatex">\(V^T\)</span> は <span class="arithmatex">\(n \times n\)</span> の直交行列の転置で、<span class="arithmatex">\(A\)</span> の<strong>右特異ベクトル</strong>を行として持ちます</li>
+</ul>
 <p>特異値は <span class="arithmatex">\(A\)</span> の表現において各「成分」の重要度を表しており、多くの場合、少数の大きな特異値だけでデータの本質的な部分を捉えることができます。</p>
 <h4 id="_5">画像処理における意味</h4>
 <p>画像は2次元の行列（グレースケール）または3次元のテンソル（カラー画像）として表現できます。カラー画像の場合、各チャンネル（RGB）を独立した行列として扱い、それぞれにSVDを適用します。</p>
-<p>SVDを画像に適用すると：
-1. 左特異ベクトル <span class="arithmatex">\(U\)</span> は画像の「縦方向」のパターン
-2. 右特異ベクトル <span class="arithmatex">\(V\)</span> は画像の「横方向」のパターン
-3. 特異値 <span class="arithmatex">\(\Sigma\)</span> はそれらのパターンの重要度</p>
+<p>SVDを画像に適用すると：</p>
+<ol>
+<li>左特異ベクトル <span class="arithmatex">\(U\)</span> は画像の「縦方向」のパターン</li>
+<li>右特異ベクトル <span class="arithmatex">\(V\)</span> は画像の「横方向」のパターン</li>
+<li>特異値 <span class="arithmatex">\(\Sigma\)</span> はそれらのパターンの重要度</li>
+</ol>
 <p>を表します。特異値の大きい上位の成分だけを使って画像を再構成することで、本質的な情報を保持しながらデータ量を削減できます。</p>
 <h4 id="_6">圧縮のアプローチ</h4>
 <p>画像圧縮においては、ランク <span class="arithmatex">\(r\)</span> の行列 <span class="arithmatex">\(A\)</span> を、より少ないランク <span class="arithmatex">\(k\)</span> (ただし <span class="arithmatex">\(k &lt; r\)</span>)の行列 <span class="arithmatex">\(A_k\)</span> で近似します：</p>
@@ -3313,9 +3319,11 @@
 <p><span class="arithmatex">\(k\)</span> が小さいほど、圧縮率は高くなります（値は小さくなる）。</p>
 <h4 id="_8">特異値の分布と累積寄与率</h4>
 <p>コードの実行結果から、特異値は急速に減衰していることがわかります。最初の数十の特異値だけで画像の情報の大部分（95〜99%）を表現できています。このことは、画像データに高い冗長性があり、効率的に圧縮できることを示しています。</p>
-<p>各チャンネルについて：
-- 95%のエネルギーを保持するには約50-100の特異値が必要
-- 99%のエネルギーを保持するには約150-200の特異値が必要</p>
+<p>各チャンネルについて：</p>
+<ul>
+<li>95%のエネルギーを保持するには約50-100の特異値が必要</li>
+<li>99%のエネルギーを保持するには約150-200の特異値が必要</li>
+</ul>
 <p>これは元の次元数（画像の幅や高さは数百ピクセル）と比較して非常に少ない数です。</p>
 <h2 id="6">6. 次回の内容</h2>
 <p>以上で今回の講義を終わります。今回は第1回目ということで、インパクトのある応用例を中心に紹介しましたが、実際の線形代数は、ベクトルや行列の計算といった手を動かしながら計算手順を追っていくというものになるので、応用までの距離が長くてツラいと感じると思います。ただ、データサイエンスを学ぶ上で絶対に避けては通れないので、1つ1つ確実に勉強しましょう。まずはベクトルの基礎から復習します。ベクトルは習っていないという方も、高校までの内容を忘れてしまったという方も、最初から丁寧に勉強しますので、ついてきてください。</p>
