@@ -137,7 +137,7 @@ plt.show()
 
 ```python
 # NYCフライトデータをダウンロード
-url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/flight.csv"
+url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/flights.csv"
 response = requests.get(url)
 data = StringIO(response.text)
 flights = pd.read_csv(data)

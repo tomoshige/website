@@ -21,125 +21,127 @@ theme:
     primary: indigo
     accent: indigo
   features:
-    - navigation.tabs
-    - navigation.expand
-    - navigation.path
-    # - navigation.footer
-    - navigation.indexes
-    # - navigation.instant
-    # - navigation.instant.prefetch
-    # - navigation.instant.progress
-    # - navigation.prune
     - navigation.sections
-    # - navigation.tabs
-    # - navigation.tabs.sticky
-    - navigation.top
+    - navigation.indexes
+    - navigation.collapse  # 初期状態で全て折りたたまれた状態にする
     - navigation.tracking
-    # - search.highlight
-    # - search.share
-    # - search.suggest
+    - navigation.path
+    - navigation.top
     - toc.follow
-    # - toc.integrate
 
 nav:
-  - Home : index.md
-  - Lectures : 
-      - lectures/index.md
-      - Linear algebra : 
-        - lectures/LA/index.md
-        - 1. Introduction : lectures/LA/01-introduction.md
-        - 2. Vector and Matrix1 : lectures/LA/02-vector-and-matrix.md
-        - 3. Vector and Matrix2 : lectures/LA/03-vector-and-matrix.md
-        - 4. Vector and Matrix3 : lectures/LA/04-vector-and-matrix.md
-        - 5. Vector and Matrix4 : lectures/LA/05-vector-and-matrix.md
-        - 6. Vector and Matrix5 : lectures/LA/06-vector-and-matrix.md
-        - 7. Vector and Matrix6 : lectures/LA/07-vector-and-matrix.md
-        - 8. Vector and Matrix7 : lectures/LA/08-vector-and-matrix.md
-        - 9. Exersice : lectures/LA/09-exercise.md
-        - 10. System of Linear Equation : lectures/LA/10-system-of-linear-equation.md
-        - 11. System of Linear Equation : lectures/LA/11-system-of-linear-equation.md
-        - 12. System of Linear Equation : lectures/LA/12-system-of-linear-equation.md
-        - 13. System of Linear Equation : lectures/LA/13-system-of-linear-equation.md
-        - 14. System of Linear Equation : lectures/LA/14-system-of-linear-equation.md
-        - 15. System of Linear Equation : lectures/LA/15-system-of-linear-equation.md
-        - 16. System of Linear Equation : lectures/LA/16-system-of-linear-equation.md
-        - 17. System of Linear Equation : lectures/LA/17-system-of-linear-equation.md
-        - 18. System of Linear Equation : lectures/LA/18-system-of-linear-equation.md
-        - 19. Exercise : lectures/LA/19-exercise.md
-        - 20. Midterm Exam : lectures/LA/20-midterm-exam.md
-        - 21. Determinant : lectures/LA/21-determinant.md
-        - 22. Determinant : lectures/LA/22-determinant.md
-        - 23. Determinant : lectures/LA/23-determinant.md
-        - 24. Determinant : lectures/LA/24-determinant.md
-        - 25. Exercise : lectures/LA/25-exercise.md
-        - 26. Vector space : lectures/LA/26-vector-space-and-inner-product.md
-        - 27. Vector space : lectures/LA/27-vector-space-and-inner-product.md
-        - 28. Vector space : lectures/LA/28-vector-space-and-inner-product.md
-        - 29. Exercise : lectures/LA/29-exercise.md
-        - 30. Report Exam : lectures/LA/30-report.md
-        - 31. Semester Exam : lectures/LA/31-exam.md
-        - 32. Eigen value and vector : lectures/LA/32-eigen-value-vector.md
-        - 33. Eigen value and vector : lectures/LA/33-eigen-value-vector.md
-        - 34. Eigen value and vector : lectures/LA/34-eigen-value-vector.md
-        - 35. Eigen value and vector : lectures/LA/35-eigen-value-vector.md
-        - 36. Eigen value and vector : lectures/LA/36-eigen-value-vector.md
-        - 37. Exercise : lectures/LA/37-exercise.md
-        - 38. Midterm Exam : lectures/LA/38-midterm-exam.md
-        - 39. Singular value decomposition : lectures/LA/39-singular-value-decomposition.md
-        - 40. Singular value decomposition : lectures/LA/40-singular-value-decomposition.md
-        - 41. Principal component analysis : lectures/LA/41-principal-component-analysis.md
-        - 42. Principal component analysis : lectures/LA/42-principal-component-analysis.md
-        - 43. Principal component analysis : lectures/LA/43-principal-component-analysis.md
-        - 44. Factor analysis : lectures/LA/44-factor-analysis.md
-        - 45. Factor analysis : lectures/LA/45-factor-analysis.md
-        - 46. Nonlinear dimension reduction : lectures/LA/46-nonlinear-dimension-reduction.md
-        - 47. Wrap up : lectures/LA/47-wrapup.md
-        - 48. Final Report : lectures/LA/48-final-report.md
-      - Data Science without syntax : 
-        - lectures/SIWS/index.md
-        - 1. Getting-Started : lectures/SIWS/01-getting-started.md
-        - 2. Data Visualizaion : lectures/SIWS/02-visualization.md
-        - 3. Data Wrangling : lectures/SIWS/03-wrangling.md
-        - 4. Data Import and Tidy Data : lectures/SIWS/04-data-import-and-tidy-data.md
-        - 5. Simple Linear Regression : lectures/SIWS/05-simple-linear-regression.md
-        - 6. Multiple Regression : lectures/SIWS/06-multiple-regression.md
-        - 7. Sampling Method : lectures/SIWS/07-sampling.md
-        - 8. Estimation, Confidence Interval and Bootstrapping : lectures/SIWS/08-Estimation-CI-Bootstrapping.md
-        - 9. Hypothesis Testing : lectures/SIWS/09-hypothesis-testing.md
-        - 10. Inference for Regression : lectures/SIWS/10-inference-for-regression.md
-        - 11. Tell Your Story with Data : lectures/SIWS/11-tell-your-story-with-data.md
-      - Statistics and Probability : 
-        - lectures/SP/index.md
-  - Research : 
-      - research/index.md
-      - Generalized random forests : research/note/generalized-random-forests.md
-      - Variable Importance Measures : research/note/variable-importance.md
-      - Random forest kernels : research/note/forest-kernel-and-its-asymptotics.md
-      - Consistency of SRT : research/note/consistency-of-soft-decision-trees.md
-      - Sparse Causal BART : research/note/sparseBART.md
-      - Causal mediation analysis : research/note/causal-mediation-analysis.md
-      - Causal data repository : research/note/causal-data-repository.md
-      - Causal Brain Analysis : research/note/causal-brain-analysis.md
-      - Factor analysis :
-        - research/note/factor-analysis/index.md
-        - 1. はじめに : research/note/factor-analysis/01-introduction.md 
-        - 2. 因子とは : research/note/factor-analysis/02-factor.md 
-        - 3. 因子負荷行列 : research/note/factor-analysis/03-factor-loading-matrix.md 
-        - 4. 潜在因子推定法 : research/note/factor-analysis/04-latent-factor-estimation.md
-        - 5. 回転基準と結果の解釈 : research/note/factor-analysis/05-rotation-and-interpretation.md 
-        - 6. 感度分析 : research/note/factor-analysis/06-sensitivity-analysis.md  
-        - 7. 因子分析の手順 : research/note/factor-analysis/07-analysis-step.md 
-        - 8. シミュレーション : research/note/factor-analysis/08-simulation.md 
-        - 9. 糖尿病潜在原因分析 : research/note/factor-analysis/09-pima-indians-diabetes-analysis.md  
-        - 10. 順序ありカテゴリカル変数の扱い : research/note/factor-analysis/10-ordered-categorical-factor-analysis.md 
-        - 11. 飛行機乗客満足度分析 : research/note/factor-analysis/11-airline-passenger-satisfaction-analysis.md 
-        - 12. 行列分解と因子分析(Technical) : research/note/factor-analysis/12-technical-note-matrix-factorization.md
-      
+  - Home: index.md
+  - Lectures: 
+      - Overview: lectures/index.md
+      - Linear algebra: 
+        - Overview: lectures/LA/index.md
+        - Module 1 - Vector and Matrix:
+          - 1. Introduction: lectures/LA/01-introduction.md
+          - 2. Vector and Matrix 1: lectures/LA/02-vector-and-matrix.md
+          - 3. Vector and Matrix 2: lectures/LA/03-vector-and-matrix.md
+          - 4. Vector and Matrix 3: lectures/LA/04-vector-and-matrix.md
+          - 5. Vector and Matrix 4: lectures/LA/05-vector-and-matrix.md
+          - 6. Vector and Matrix 5: lectures/LA/06-vector-and-matrix.md
+          - 7. Vector and Matrix 6: lectures/LA/07-vector-and-matrix.md
+          - 8. Vector and Matrix 7: lectures/LA/08-vector-and-matrix.md
+          - 9. Exercise: lectures/LA/09-exercise.md
+        - Module 2 - System of Linear Equations:
+          - 10. System of Linear Equation 1: lectures/LA/10-system-of-linear-equation.md
+          - 11. System of Linear Equation 2: lectures/LA/11-system-of-linear-equation.md
+          - 12. System of Linear Equation 3: lectures/LA/12-system-of-linear-equation.md
+          - 13. System of Linear Equation 4: lectures/LA/13-system-of-linear-equation.md
+          - 14. System of Linear Equation 5: lectures/LA/14-system-of-linear-equation.md
+          - 15. System of Linear Equation 6: lectures/LA/15-system-of-linear-equation.md
+          - 16. System of Linear Equation 7: lectures/LA/16-system-of-linear-equation.md
+          - 17. System of Linear Equation 8: lectures/LA/17-system-of-linear-equation.md
+          - 18. System of Linear Equation 9: lectures/LA/18-system-of-linear-equation.md
+          - 19. Exercise: lectures/LA/19-exercise.md
+          - 20. Midterm Exam: lectures/LA/20-midterm-exam.md
+        - Module 3 - Determinants:
+          - 21. Determinant 1: lectures/LA/21-determinant.md
+          - 22. Determinant 2: lectures/LA/22-determinant.md
+          - 23. Determinant 3: lectures/LA/23-determinant.md
+          - 24. Determinant 4: lectures/LA/24-determinant.md
+          - 25. Exercise: lectures/LA/25-exercise.md
+        - Module 4 - Vector Spaces:
+          - 26. Vector space 1: lectures/LA/26-vector-space-and-inner-product.md
+          - 27. Vector space 2: lectures/LA/27-vector-space-and-inner-product.md
+          - 28. Vector space 3: lectures/LA/28-vector-space-and-inner-product.md
+          - 29. Exercise: lectures/LA/29-exercise.md
+          - 30. Exercise: lectures/LA/30-exercise.md
+          - 31. Semester Exam: lectures/LA/31-exam.md
+        - Module 5 - Eigenvalues and Decomposition:
+          - 32. Eigen value and vector 1: lectures/LA/32-eigen-value-vector.md
+          - 33. Eigen value and vector 2: lectures/LA/33-eigen-value-vector.md
+          - 34. Eigen value and vector 3: lectures/LA/34-eigen-value-vector.md
+          - 35. Eigen value and vector 4: lectures/LA/35-eigen-value-vector.md
+          - 36. Eigen value and vector 5: lectures/LA/36-eigen-value-vector.md
+          - 37. Exercise: lectures/LA/37-exercise.md
+          - 38. Midterm Exam: lectures/LA/38-midterm-exam.md
+          - 39. Singular value decomposition 1: lectures/LA/39-singular-value-decomposition.md
+          - 40. Singular value decomposition 2: lectures/LA/40-singular-value-decomposition.md
+        - Module 6 - Applications:
+          - 41. Principal component analysis 1: lectures/LA/41-principal-component-analysis.md
+          - 42. Principal component analysis 2: lectures/LA/42-principal-component-analysis.md
+          - 43. Principal component analysis 3: lectures/LA/43-principal-component-analysis.md
+          - 44. Factor analysis 1: lectures/LA/44-factor-analysis.md
+          - 45. Factor analysis 2: lectures/LA/45-factor-analysis.md
+          - 46. Nonlinear dimension reduction: lectures/LA/46-nonlinear-dimension-reduction.md
+          - 47. Wrap up: lectures/LA/47-wrapup.md
+          - 48. Semester Exam: lectures/LA/48-exam.md
+      - Data Science without syntax: 
+        - Overview: lectures/SIWS/index.md
+        - Foundations:
+          - 1. Getting-Started: lectures/SIWS/01-getting-started.md
+          - 2. Data Visualization: lectures/SIWS/02-visualization.md
+          - 3. Data Wrangling: lectures/SIWS/03-wrangling.md
+          - 4. Data Import and Tidy Data: lectures/SIWS/04-data-import-and-tidy-data.md
+        - Regression Analysis:
+          - 5. Simple Linear Regression: lectures/SIWS/05-simple-linear-regression.md
+          - 6. Multiple Regression: lectures/SIWS/06-multiple-regression.md
+        - Statistical Methods:
+          - 7. Sampling Method: lectures/SIWS/07-sampling.md
+          - 8. Estimation, CI and Bootstrapping: lectures/SIWS/08-Estimation-CI-Bootstrapping.md
+          - 9. Hypothesis Testing: lectures/SIWS/09-hypothesis-testing.md
+          - 10. Inference for Regression: lectures/SIWS/10-inference-for-regression.md
+        - Communications:
+          - 11. Tell Your Story with Data: lectures/SIWS/11-tell-your-story-with-data.md
+      - Statistics and Probability: 
+        - Overview: lectures/SP/index.md
+  - Research: 
+      - Overview: research/index.md
+      - Decision Trees and Forests:
+        - Generalized random forests: research/note/generalized-random-forests.md
+        - Variable Importance Measures: research/note/variable-importance.md
+        - Random forest kernels: research/note/forest-kernel-and-its-asymptotics.md
+      - Causal Inference:
+        - Sparse Causal BART: research/note/sparseBART.md
+        - Causal mediation analysis: research/note/causal-mediation-analysis.md
+        - Causal data repository: research/note/causal-data-repository.md
+      - Factor analysis:
+        - Overview: research/note/factor-analysis/index.md
+        - Theoretical Foundations:
+          - 1. はじめに: research/note/factor-analysis/01-introduction.md 
+          - 2. 因子とは: research/note/factor-analysis/02-factor.md 
+          - 3. 因子負荷行列: research/note/factor-analysis/03-factor-loading-matrix.md 
+          - 4. 潜在因子推定法: research/note/factor-analysis/04-latent-factor-estimation.md
+        - Analysis Methods:
+          - 5. 回転基準と結果の解釈: research/note/factor-analysis/05-rotation-and-interpretation.md 
+          - 6. 感度分析: research/note/factor-analysis/06-sensitivity-analysis.md  
+          - 7. 因子分析の手順: research/note/factor-analysis/07-analysis-step.md 
+        - Applications:
+          - 8. シミュレーション: research/note/factor-analysis/08-simulation.md 
+          - 9. 糖尿病潜在原因分析: research/note/factor-analysis/09-pima-indians-diabetes-analysis.md  
+          - 10. 順序ありカテゴリカル変数の扱い: research/note/factor-analysis/10-ordered-categorical-factor-analysis.md 
+          - 11. 飛行機乗客満足度分析: research/note/factor-analysis/11-airline-passenger-satisfaction-analysis.md 
+        - Technical Notes:
+          - 12. 行列分解と因子分析: research/note/factor-analysis/12-technical-note-matrix-factorization.md
 
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
   - admonition
+  - attr_list
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
