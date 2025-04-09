@@ -12,7 +12,7 @@ Pythonでデータ探索を始める前に、まず理解すべき重要な概�
 
 本書全体を通して、PythonをGoogle Colabで使用することを前提とします。初心者はこの二つを混同することがよくあります。最も簡単に言えば、Pythonは車のエンジンのようなもので、Google Colabは車のダッシュボードのようなものです。
 
-![Python vs Google Colab](https://i.imgur.com/8YXkc7z.png)
+![Python vs Google Colab](images/python_and_colab.png)
 
 より正確に言えば、Pythonは計算を実行するプログラミング言語であり、Google Colabは多くの便利な機能やツールを提供するインターフェースを備えた統合開発環境（IDE）です。車のスピードメーター、バックミラー、ナビゲーションシステムがあることで運転が非常に楽になるように、Google Colabのインターフェースを使うことでPythonの使用が非常に楽になります。
 
@@ -37,7 +37,7 @@ Pythonでデータ探索を始める前に、まず理解すべき重要な概�
 
 Google Colabを開くと、以下のような画面が表示されるはずです。
 
-![Google Colabインターフェース](https://i.imgur.com/NHHvQdx.png)
+![Google Colabインターフェース](./images/colab.png)
 
 ノートブックには主に「コードセル」と「テキストセル」の2種類のセルがあります。コードセルにはPythonコードを書き、実行ボタンをクリックするか「Shift+Enter」を押して実行します。テキストセルはMarkdown形式で書かれ、説明文やノートを追加するために使用されます。
 
@@ -104,7 +104,7 @@ Pythonは3つの異なる状況でエラーメッセージを表示します：
 
 Pythonパッケージの良い類似性は、携帯電話にダウンロードできるアプリのようなものです：
 
-![Python vs Pythonパッケージ](https://i.imgur.com/XvHnHvS.png)
+![Python vs Pythonパッケージ](images/OS_and_app.png)
 
 つまり、Pythonは新しい携帯電話のようなものです：初めて使用するときにある程度の機能がありますが、すべてがあるわけではありません。Pythonパッケージは、Apple App StoreやAndroidのGoogle Playから携帯電話にダウンロードできるアプリのようなものです。
 
@@ -204,85 +204,35 @@ import seaborn as sns
 まず、このデータをGitHubからダウンロードしてみましょう：
 
 ```python
-# URLからデータをダウンロード
-flights_url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/flights.csv"
-airlines_url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/airlines.csv"
+# flights data
+url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/flights.csv"
+response = requests.get(url)
+data = StringIO(response.text)
+flights = pd.read_csv(data)
 
-# データフレームとして読み込む
-# 注意: このデータはnycflights13と完全に同じではありませんが、例示目的で使用します
-airports = pd.read_csv(flights_url, header=None, 
-                       names=["ID", "name", "city", "country", "IATA", "ICAO", 
-                              "latitude", "longitude", "altitude", "timezone", 
-                              "DST", "tz", "type", "source"])
+# airlines data
+url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/airlines.csv"
+response = requests.get(url)
+data = StringIO(response.text)
+airlines = pd.read_csv(data)
 
-airlines = pd.read_csv(airlines_url, header=None,
-                       names=["ID", "name", "alias", "IATA", "ICAO", "callsign", 
-                              "country", "active"])
+# airports data
+url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/airports.csv"
+response = requests.get(url)
+data = StringIO(response.text)
+airports = pd.read_csv(data)
 
-# より詳細なフライトデータを取得するためのURLを設定
-# 注意: これは例示目的です。実際のデータセットはこれより複雑になります
-flight_data = {
-    'year': [2013] * 10,
-    'month': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    'day': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    'dep_time': [517, 533, 542, 544, 554, 554, 555, 557, 557, 558],
-    'sched_dep_time': [515, 529, 540, 545, 600, 558, 600, 600, 600, 600],
-    'dep_delay': [2, 4, 2, -1, -6, -4, -5, -3, -3, -2],
-    'arr_time': [830, 850, 923, 1004, 812, 740, 913, 709, 838, 753],
-    'sched_arr_time': [819, 830, 850, 1022, 837, 728, 854, 723, 846, 745],
-    'arr_delay': [11, 20, 33, -18, -25, 12, 19, -14, -8, 8],
-    'carrier': ['UA', 'UA', 'AA', 'B6', 'DL', 'UA', 'B6', 'EV', 'B6', 'AA'],
-    'flight': [1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79, 301],
-    'tailnum': ['N14228', 'N24211', 'N619AA', 'N804JB', 'N668DN', 'N39463', 'N516JB', 'N829AS', 'N593JB', 'N3ALAA'],
-    'origin': ['EWR', 'LGA', 'JFK', 'JFK', 'LGA', 'EWR', 'EWR', 'LGA', 'JFK', 'LGA'],
-    'dest': ['IAH', 'IAH', 'MIA', 'BQN', 'ATL', 'ORD', 'FLL', 'IAD', 'MCO', 'ORD'],
-    'air_time': [227, 227, 160, 183, 116, 150, 158, 53, 140, 138],
-    'distance': [1400, 1416, 1089, 1576, 762, 719, 1065, 229, 944, 733],
-    'hour': [5, 5, 5, 5, 6, 5, 6, 6, 6, 6],
-    'minute': [15, 29, 40, 45, 0, 58, 0, 0, 0, 0],
-    'time_hour': ['2013-01-01T05:00:00Z', '2013-01-01T05:00:00Z', '2013-01-01T05:00:00Z', 
-                  '2013-01-01T05:00:00Z', '2013-01-01T06:00:00Z', '2013-01-01T05:00:00Z', 
-                  '2013-01-01T06:00:00Z', '2013-01-01T06:00:00Z', '2013-01-01T06:00:00Z', 
-                  '2013-01-01T06:00:00Z']
-}
+# planes data
+url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/planes.csv"
+response = requests.get(url)
+data = StringIO(response.text)
+planes = pd.read_csv(data)
 
-flights = pd.DataFrame(flight_data)
-
-# 天気データの作成（簡略化されたデモ用）
-weather_data = {
-    'origin': ['EWR', 'JFK', 'LGA'] * 3,
-    'year': [2013] * 9,
-    'month': [1] * 9,
-    'day': [1, 1, 1, 1, 1, 1, 1, 1, 1],
-    'hour': [0, 0, 0, 1, 1, 1, 2, 2, 2],
-    'temp': [39.02, 39.02, 39.92, 39.02, 39.02, 39.02, 39.02, 39.92, 39.02],
-    'dewp': [26.06, 26.96, 26.96, 26.96, 26.96, 26.96, 26.96, 26.96, 26.96],
-    'humid': [59.37, 60.27, 60.27, 60.27, 60.27, 60.27, 60.27, 60.27, 60.27],
-    'wind_dir': [270, 270, 270, 270, 270, 270, 270, 270, 270],
-    'wind_speed': [10.36, 10.36, 10.36, 10.36, 10.36, 10.36, 10.36, 10.36, 10.36],
-    'wind_gust': [np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan],
-    'precip': [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    'pressure': [1012.0, 1012.0, 1012.0, 1012.0, 1012.0, 1012.0, 1012.0, 1012.0, 1012.0],
-    'visib': [10, 10, 10, 10, 10, 10, 10, 10, 10]
-}
-
-weather = pd.DataFrame(weather_data)
-
-# 飛行機の情報データ（簡略化されたデモ用）
-planes_data = {
-    'tailnum': ['N10156', 'N102UW', 'N103US', 'N104UW', 'N10575'],
-    'year': [2004, 1998, 1999, 1999, 2002],
-    'type': ['Fixed wing multi engine', 'Fixed wing multi engine', 'Fixed wing multi engine', 
-             'Fixed wing multi engine', 'Fixed wing multi engine'],
-    'manufacturer': ['EMBRAER', 'AIRBUS INDUSTRIE', 'AIRBUS INDUSTRIE', 'AIRBUS INDUSTRIE', 'EMBRAER'],
-    'model': ['EMB-145XR', 'A320-214', 'A320-214', 'A320-214', 'EMB-145LR'],
-    'engines': [2, 2, 2, 2, 2],
-    'seats': [55, 182, 182, 182, 55],
-    'speed': [np.nan, np.nan, np.nan, np.nan, np.nan],
-    'engine': ['Turbo-fan', 'Turbo-fan', 'Turbo-fan', 'Turbo-fan', 'Turbo-fan']
-}
-
-planes = pd.DataFrame(planes_data)
+# planes data
+url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/weather.csv"
+response = requests.get(url)
+data = StringIO(response.text)
+weather = pd.read_csv(data)
 ```
 
 これで5つのデータフレームが利用できるようになりました：

@@ -1,23 +1,80 @@
-# 線形代数学 I 第2回 講義ノート
+---
+marp: true
+size: 16:9
+paginate: true
+theme: gaia
+backgroundColor: #fff
+math: katex
+---
+<!-- header: 'T. Nakamura | Juntendo Univ.' -->
+<!-- footer: '2025/02/08' -->
+<style>
+section { 
+    font-size: 20px; 
+}
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+/* ページ番号 */
+section::after {
+    content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+    fonr-size: 60%;
+}
+/* 発表会名 */
+header {
+    width: 100%;
+    position: absolute;
+    top: unset;
+    bottom: 21px;
+    left: 0;
+    text-align: center;
+    font-size: 60%;
+}
+/* 日付 */
+footer {
+    text-align: center;
+    font-size: 15px;
+}
+</style>
 
-## 1. 講義情報と予習ガイド
+
+<!--
+_class: lead
+_paginate: false
+-->
+
+![bg left:50% 80%](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png)
+
+# 線形代数学 I: 第2回講義
+## ベクトル - 定義と基本操作
+### 中村 知繁
+
+
+
+
+
+---
+
+## 講義情報
 
 - **講義回**: 第2回
 - **テーマ**: ベクトルの定義と基本操作①
 - **関連項目**: ベクトル空間、ベクトル演算、幾何学的解釈
 - **予習内容**: 高校数学の座標平面と空間座標の基礎知識を復習しておくこと
-- **スライド**: [リンク](./slides/02-vector-and-matrix-slide.pdf)
 
-## 2. 学習目標
+---
+
+## 学習目標
 
 1. 実ベクトルの定義と表記方法を理解する
 2. ベクトルの加法とスカラー倍の演算規則を習得する
 3. ベクトル演算の幾何学的意味を理解する
 4. Pythonを用いてベクトル演算を実装できるようになる
 
-## 3. 基本概念
+---
 
-### 3.1 実ベクトルの定義
+## 基本概念：実ベクトルの定義
 
 > **定義**: $n$次元実ベクトルとは、$n$個の実数を縦に並べたもので、以下のように表記される：
 > 
@@ -25,14 +82,21 @@
 > 
 > ここで $v_1, v_2, \ldots, v_n$ は実数である。また、ベクトルの1つ1つの要素を**成分**という。
 
-このようなベクトルの集合を $\mathbb{R}^n$ と表し、$n$次元実ベクトル空間と呼びます。特に重要な例として：
+---
 
+## ベクトル空間
+
+$n$次元実ベクトルの集合を $\mathbb{R}^n$ と表し、$n$次元実ベクトル空間と呼びます。
+
+重要な例：
 - $\mathbb{R}^2$: 2次元実ベクトル空間（平面上のベクトル）
 - $\mathbb{R}^3$: 3次元実ベクトル空間（空間上のベクトル）
 
-データサイエンスでは、データの各サンプルを1つのベクトルとして扱うことが一般的です。例えば、ある人の「年齢、身長、体重、血圧」といった4つの健康指標は4次元ベクトルとして表現できます。
+データサイエンスでは、データの各サンプルを1つのベクトルとして扱うことが一般的です。
 
-### 3.2 実ベクトルの表し方
+---
+
+## ベクトルの表し方
 
 ベクトルは以下のような様々な方法で表記されます：
 
@@ -44,9 +108,11 @@
 
 3. **列ベクトル**:
    $$\mathbf{v} = (v_1, v_2, \ldots, v_n)^T$$
-   ここで $T$ は転置という操作で、縦と横を入れ替える操作です。本来なら縦だけど、紙面の都合で横表記をしたい場合などに、$T$を付けて本来縦向きであることを表します。
+   ここで $T$ は転置という操作で、縦と横を入れ替える操作です。
 
-### 3.3 零ベクトル
+---
+
+## 零ベクトル
 
 > **定義**: 零ベクトル $\mathbf{0}$ とは、すべての成分が0であるベクトル
 > 
@@ -54,36 +120,40 @@
 
 零ベクトルは加法演算の単位元としての役割を持ちます。
 
-## 4. 理論と計算の方法
+---
 
-### 4.1 ベクトルの和
+## ベクトルの和
 
-> **定義**: 2つの同じ次元のベクトル $\mathbf{v} = (v_1, v_2, \ldots, v_n)^T$ と $\mathbf{w} = (w_1, w_2, \ldots, w_n)^T$ に対して、その和 $\mathbf{v} + \mathbf{w}$ は次のように定義する。：
+> **定義**: 2つの同じ次元のベクトル $\mathbf{v} = (v_1, v_2, \ldots, v_n)^T$ と $\mathbf{w} = (w_1, w_2, \ldots, w_n)^T$ に対して、その和 $\mathbf{v} + \mathbf{w}$ は次のように定義する：
 > 
 > $$\mathbf{v} + \mathbf{w} = \begin{pmatrix} v_1 + w_1 \\ v_2 + w_2 \\ \vdots \\ v_n + w_n \end{pmatrix}$$
 
-ベクトルの加法は「**対応する成分同士を足す**」操作。ベクトルの和は同じ成分数（大きさ）のベクトル同士でしか定義されません。
+ベクトルの加法は「**対応する成分同士を足す**」操作です。
 
-**例**: 
+---
 
-$\mathbf{v} = \begin{pmatrix} 1 \\ 3 \\ 5 \end{pmatrix}$ と $\mathbf{w} = \begin{pmatrix} 2 \\ -1 \\ 4 \end{pmatrix}$ のとき
+## ベクトル加法の例
+
+$\mathbf{v} = \begin{pmatrix} 1 \\ 3 \\ 5 \end{pmatrix}$ と $\mathbf{w} = \begin{pmatrix} 2 \\ -1 \\ 4 \end{pmatrix}$ のとき：
 
 $$
 \mathbf{v} + \mathbf{w} = \begin{pmatrix} 1 + 2 \\ 3 + (-1) \\ 5 + 4 \end{pmatrix} = \begin{pmatrix} 3 \\ 2 \\ 9 \end{pmatrix}
 $$
 
-### 4.2 ベクトル加法の性質
+---
 
-ベクトルの加法は、ベクトルの和の定義から、以下の性質があります：
+## ベクトル加法の性質
+
+ベクトルの加法は、以下の性質があります：
 
 1. **結合法則**: $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$
 2. **交換法則**: $\mathbf{v} + \mathbf{w} = \mathbf{w} + \mathbf{v}$
 3. **単位元**: 任意のベクトル $\mathbf{v}$ に対して $\mathbf{v} + \mathbf{0} = \mathbf{v}$
 4. **逆元**: 任意のベクトル $\mathbf{v}$ に対して $\mathbf{v} + (-\mathbf{v}) = \mathbf{0}$ となる $-\mathbf{v}$ が存在する
 
-これらの性質により、ベクトルの集合は加法に関して「可換（順番の入れ替えがOK）」となります。
+---
 
-### 4.3 ベクトルのスカラー倍
+## ベクトルのスカラー倍
 
 > **定義**: ベクトル $\mathbf{v} = (v_1, v_2, \ldots, v_n)^T$ と実数 $\alpha$ に対して、$\mathbf{v}$ のスカラー倍 $\alpha\mathbf{v}$ は次のように定義される：
 > 
@@ -91,41 +161,56 @@ $$
 
 ベクトルのスカラー倍は「すべての成分に同じ実数をかける」操作です。
 
-**例**: $\mathbf{v} = \begin{pmatrix} 2 \\ 3 \\ -1 \end{pmatrix}$ のとき、$3\mathbf{v}$ は
+---
+
+## スカラー倍の例
+
+$\mathbf{v} = \begin{pmatrix} 2 \\ 3 \\ -1 \end{pmatrix}$ のとき、$3\mathbf{v}$ は：
 
 $$3\mathbf{v} = \begin{pmatrix} 3 \cdot 2 \\ 3 \cdot 3 \\ 3 \cdot (-1) \end{pmatrix} = \begin{pmatrix} 6 \\ 9 \\ -3 \end{pmatrix}$$
 
-### 4.4 スカラー倍の性質
+---
 
-スカラー倍は、その定義から次の性質があります：
+## スカラー倍の性質
+
+スカラー倍は、次の性質があります：
 
 1. $1\mathbf{v} = \mathbf{v}$
 2. $\alpha(\beta\mathbf{v}) = (\alpha\beta)\mathbf{v}$
 3. $(\alpha + \beta)\mathbf{v} = \alpha\mathbf{v} + \beta\mathbf{v}$
 4. $\alpha(\mathbf{v} + \mathbf{w}) = \alpha\mathbf{v} + \alpha\mathbf{w}$
 
-### 4.5 ベクトルの幾何学的解釈
+---
 
-#### 二次元平面上のベクトル
+## ベクトルの幾何学的解釈
 
-$\mathbb{R}^2$ のベクトル $\mathbf{v} = (v_1, v_2)^T$ は、原点 $(0,0)$ から点 $(v_1, v_2)$ へ向かう矢印として幾何学的に解釈でき、
+- $\mathbb{R}^2$ のベクトル $\mathbf{v} = (v_1, v_2)^T$ は、原点 $(0,0)$ から点 $(v_1, v_2)$ へ向かう矢印として解釈できる
+- $\mathbb{R}^3$ や高次元でも同様（ただし高次元は視覚化が難しい）
 
-#### ベクトルの和の幾何学的意味
+---
 
-2つのベクトル $\mathbf{v}$ と $\mathbf{w}$ の和 $\mathbf{v} + \mathbf{w}$ は、ベクトル $\mathbf{v}$ の終点から $\mathbf{w}$ と平行なベクトルを描いたときの終点へ向かうベクトルです。これは「平行四辺形の法則」とも呼ばれます。
+## ベクトルの和の幾何学的意味
 
-#### スカラー倍の幾何学的意味
+2つのベクトル $\mathbf{v} + \mathbf{w}$ の和は幾何学的に以下のように解釈できます：
 
-ベクトル $\mathbf{v}$ のスカラー倍 $\alpha\mathbf{v}$ は：
+1. $\mathbf{v}$ と $\mathbf{w}$ で形成される平行四辺形の対角線
+2. 原点から $\mathbf{v}$ を通り、そこから $\mathbf{w}$ を辿った先の点へ向かうベクトル
 
-- $\alpha > 0$ のとき：$\mathbf{v}$ と同じ方向で、長さが $|\alpha|$ 倍
-- $\alpha < 0$ のとき：$\mathbf{v}$ と反対方向で、長さが $|\alpha|$ 倍
-- $\alpha = 0$ のとき：零ベクトル
+これは「平行四辺形の法則」とも呼ばれます。
 
-## 5. Pythonによる実装と可視化
-Google Colaboratory による可視化の例を見てみましょう（[リンク](https://colab.research.google.com/drive/1_4oK_CKLGly5Y6op7UkhYniisYSXMJAA?usp=sharing)）
+---
 
-### 5.1 NumPyを用いたベクトル演算
+## スカラー倍の幾何学的意味
+
+ベクトル $\mathbf{v}$ とスカラー $\alpha$ について：
+
+- $\alpha > 0$ のとき：$\alpha\mathbf{v}$ は $\mathbf{v}$ と同じ方向で、長さが $|\alpha|$ 倍
+- $\alpha < 0$ のとき：$\alpha\mathbf{v}$ は $\mathbf{v}$ と反対方向で、長さが $|\alpha|$ 倍
+- $\alpha = 0$ のとき：$\alpha\mathbf{v}$ は零ベクトル
+
+---
+
+## Python実装：ベクトル演算
 
 ```python
 import numpy as np
@@ -150,7 +235,9 @@ beta_w = beta * w
 print(f"{beta} * w = {beta_w}")
 ```
 
-### 5.2 ベクトルの可視化
+---
+
+## Python実装：ベクトルの可視化
 
 ```python
 # ベクトルを描画する関数
@@ -168,29 +255,15 @@ plt.grid(alpha=0.3)
 plot_vector(v, color='red', label='v')
 plot_vector(w, color='blue', label='w')
 plot_vector(v_plus_w, color='green', label='v + w')
-
-# v + wの別解法: vの終点からwを描く
 plot_vector(w, origin=v, color='purple', label='w (from v)')
-
-# スカラー倍のプロット
-plot_vector(alpha_v, color='orange', label=f'{alpha}v')
-plot_vector(beta_w, color='brown', label=f'{beta}w')
-
-# グラフの設定
-plt.xlim(-2, 10)
-plt.ylim(-2, 10)
-plt.title('ベクトルの加法とスカラー倍の幾何学的意味')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.legend()
-plt.axis('equal')  # アスペクト比を1:1に
-plt.show()
 ```
 
-### 5.3 健康データにおけるベクトル表現の例
+---
+
+## 例：健康データのベクトル表現
 
 ```python
-# 健康データの例（年齢、身長、体重、血圧、コレステロール値）
+# 健康データ（年齢、身長、体重、血圧、コレステロール値）
 patient1 = np.array([35, 170, 70, 120, 200])
 patient2 = np.array([42, 165, 80, 135, 220])
 
@@ -198,7 +271,7 @@ patient2 = np.array([42, 165, 80, 135, 220])
 average = (patient1 + patient2) / 2
 print("平均値:", average)
 
-# 年齢による重み付け（年齢が高いほど重視する場合）
+# 年齢による重み付け
 weight1 = patient1[0] / (patient1[0] + patient2[0])  # 35/(35+42) ≈ 0.45
 weight2 = patient2[0] / (patient1[0] + patient2[0])  # 42/(35+42) ≈ 0.55
 
@@ -206,9 +279,9 @@ weighted_avg = weight1 * patient1 + weight2 * patient2
 print("年齢による重み付け平均:", weighted_avg)
 ```
 
-## 6. 演習問題
+---
 
-### 基本問題
+## 演習問題：基本
 
 1. 次のベクトルの計算を行いなさい。
    
@@ -216,19 +289,27 @@ print("年齢による重み付け平均:", weighted_avg)
    
    (b) $2 \begin{pmatrix} 4 \\ 0 \\ -3 \end{pmatrix} - 3 \begin{pmatrix} 1 \\ -2 \\ 2 \end{pmatrix}$
 
-2. $\mathbf{a} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$, $\mathbf{b} = \begin{pmatrix} -1 \\ 3 \end{pmatrix}$ とするとき、$2\mathbf{a} - \mathbf{b}$ を求めなさい。また、この計算を幾何学的に解釈し、図示しなさい。
+2. $\mathbf{a} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$, $\mathbf{b} = \begin{pmatrix} -1 \\ 3 \end{pmatrix}$ とするとき、$2\mathbf{a} - \mathbf{b}$ を求め、幾何学的に解釈しなさい。
 
 3. ベクトル $\mathbf{a} = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$ と $\mathbf{b} = \begin{pmatrix} 4 \\ 5 \\ 6 \end{pmatrix}$ に対して、$\mathbf{x} = 2\mathbf{a} + \mathbf{b}$ と $\mathbf{y} = \mathbf{a} - 3\mathbf{b}$ を求めなさい。
 
-### 応用問題
+---
 
-4. ある地域の5日間の気温（°C）が $\mathbf{t}_1 = \begin{pmatrix} 25 \\ 27 \\ 24 \\ 26 \\ 28 \end{pmatrix}$ で、別の地域の同じ5日間の気温が $\mathbf{t}_2 = \begin{pmatrix} 22 \\ 23 \\ 21 \\ 24 \\ 25 \end{pmatrix}$ だったとします。
+## 演習問題：応用
 
-   (a) 二つの地域の気温差 $\mathbf{t}_1 - \mathbf{t}_2$ を求めなさい。
+4. 2つの地域の5日間の気温（°C）データ：
+
+   $\mathbf{t}_1 = \begin{pmatrix} 25 \\ 27 \\ 24 \\ 26 \\ 28 \end{pmatrix}$ と $\mathbf{t}_2 = \begin{pmatrix} 22 \\ 23 \\ 21 \\ 24 \\ 25 \end{pmatrix}$
+
+   (a) 気温差 $\mathbf{t}_1 - \mathbf{t}_2$ を求めなさい
    
-   (b) 両地域の平均気温 $\frac{1}{2}(\mathbf{t}_1 + \mathbf{t}_2)$ を求めなさい。
+   (b) 平均気温 $\frac{1}{2}(\mathbf{t}_1 + \mathbf{t}_2)$ を求めなさい
    
-   (c) 気象予報によると、明日の気温は今日より2°C上昇し、明後日は明日より1°C下降すると予測されています。ベクトル演算を用いて、この予測を表現しなさい。
+   (c) 天気予報（明日：+2°C、明後日：-1°C）をベクトル演算で表現しなさい
+
+---
+
+## 演習問題：応用
 
 5. 3人の患者の健康データ（年齢、収縮期血圧、拡張期血圧、血糖値）が以下のベクトルで表されるとします：
 
