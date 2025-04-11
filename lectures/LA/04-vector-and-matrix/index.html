@@ -730,15 +730,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#62" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.2 応用問題
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -748,15 +739,6 @@
   <a href="#7" class="md-nav__link">
     <span class="md-ellipsis">
       7. よくある質問と解答
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8" class="md-nav__link">
-    <span class="md-ellipsis">
-      8. まとめ
     </span>
   </a>
   
@@ -3638,15 +3620,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#62" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.2 応用問題
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3656,15 +3629,6 @@
   <a href="#7" class="md-nav__link">
     <span class="md-ellipsis">
       7. よくある質問と解答
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8" class="md-nav__link">
-    <span class="md-ellipsis">
-      8. まとめ
     </span>
   </a>
   
@@ -3691,15 +3655,14 @@
 <li><strong>講義回</strong>: 第4回</li>
 <li><strong>関連項目</strong>: ベクトル演算（第2-3回の内容）</li>
 <li><strong>予習内容</strong>: ベクトルの和とスカラー倍、ベクトルの内積の復習</li>
+<li><strong>スライド</strong>: <a href="...">リンク</a></li>
 </ul>
 <h2 id="2">2. 学習目標</h2>
-<p>この講義では、以下の能力を身につけることを目標とします：</p>
 <ol>
 <li>行列の定義を理解し、適切に表記できる</li>
 <li>行列の和を正確に計算できる</li>
 <li>行列のスカラー倍を正確に計算できる</li>
 <li>行列とベクトルの関係性を理解できる</li>
-<li>Google Colabを用いて行列計算を実行できる</li>
 </ol>
 <h2 id="3">3. 基本概念</h2>
 <h3 id="31">3.1 行列の定義</h3>
@@ -3899,14 +3862,8 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
 <li>次の計算をせよ。</li>
 </ol>
 <p><span class="arithmatex">\(2A - 3B\)</span>, ただし <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}\)</span></p>
-<h3 id="62">6.2 応用問題</h3>
 <ol>
-<li>
-<p>列ベクトル <span class="arithmatex">\(\vec{v}_1 = \begin{pmatrix} 2 \\ 1 \\ 3 \end{pmatrix}\)</span>, <span class="arithmatex">\(\vec{v}_2 = \begin{pmatrix} 0 \\ -1 \\ 4 \end{pmatrix}\)</span>, <span class="arithmatex">\(\vec{v}_3 = \begin{pmatrix} -2 \\ 5 \\ 1 \end{pmatrix}\)</span> から構成される行列 <span class="arithmatex">\(A\)</span> を書きなさい。また、<span class="arithmatex">\(2\vec{v}_1 - \vec{v}_2 + 3\vec{v}_3\)</span> を計算し、これを行列 <span class="arithmatex">\(A\)</span> と適切なベクトル <span class="arithmatex">\(\vec{x}\)</span> を用いて <span class="arithmatex">\(A\vec{x}\)</span> と表しなさい。</p>
-</li>
-<li>
-<p>以下の患者データ行列 <span class="arithmatex">\(P\)</span> があります：</p>
-</li>
+<li>以下の患者データ行列 <span class="arithmatex">\(P\)</span> があります：</li>
 </ol>
 <p><span class="arithmatex">\(<span class="arithmatex">\(P = \begin{pmatrix} 
    120 &amp; 80 &amp; 90 \\
@@ -3916,31 +3873,18 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
    \end{pmatrix}\)</span>\)</span></p>
 <p>各行は患者、各列は異なる健康指標（例：血圧、体重、コレステロール値）を表しています。全ての患者データに対して、標準化のために以下の操作を行います：</p>
 <ul>
-<li>血圧（1列目）から100を引く</li>
-<li>体重（2列目）から70を引く</li>
-<li>コレステロール値（3列目）から80を引く</li>
+<li>血圧（1列目）から血圧の平均を引く</li>
+<li>体重（2列目）から体重の平均を引く</li>
+<li>コレステロール値（3列目）からコレステロール値の平均を引く</li>
 </ul>
 <p>この操作を行列の計算として表現し、結果の行列を求めなさい。</p>
-<ol>
-<li>Google Colabを使って、以下のヘルスデータに関する行列演算を実装しなさい：</li>
-<li>患者10人×健康指標5つのランダムな行列データを生成する</li>
-<li>各健康指標の平均値を求める</li>
-<li>すべての値を正規化する（各列の平均が0、標準偏差が1になるように）</li>
-<li>結果を可視化する（ヒートマップ）</li>
-</ol>
 <h2 id="7">7. よくある質問と解答</h2>
 <p><strong>Q1: 行列とベクトルの違いは何ですか？</strong></p>
 <p>A1: ベクトルは行列の特殊な場合と考えることができます。列ベクトルは<span class="arithmatex">\(n \times 1\)</span>行列、行ベクトルは<span class="arithmatex">\(1 \times m\)</span>行列です。行列はベクトルを複数並べたものとも見ることができます。</p>
-<p><strong>Q2: 異なるサイズの行列同士を足し合わせることはできますか？</strong></p>
-<p>A2: できません。行列の加算は、対応する要素同士を足し合わせる操作であるため、行数と列数が一致している必要があります。</p>
-<p><strong>Q3: 行列の和やスカラー倍がデータサイエンスでどのように使われますか？</strong></p>
+<p><strong>Q2: 行列の和やスカラー倍がデータサイエンスでどのように使われますか？</strong></p>
 <p>A3: 行列の和やスカラー倍は、データの正規化、特徴量のスケーリング、複数のデータセットの結合、時系列データの移動平均の計算など、様々なデータ前処理や分析手法で使用されます。また、機械学習アルゴリズムの内部計算（勾配降下法など）でも重要な役割を果たします。</p>
-<p><strong>Q4: 行列の要素を並べる順序は重要ですか？</strong></p>
+<p><strong>Q3: 行列の要素を並べる順序は重要ですか？</strong></p>
 <p>A4: 非常に重要です。行列では要素の位置（行番号と列番号）が情報を持っています。行と列を入れ替えると、全く異なる行列になります。特に、データサイエンスでは行は通常サンプル（観測値）、列は特徴量（変数）を表すことが多いため、その構造を保つことが重要です。</p>
-<p><strong>Q5: なぜPythonのNumPyを使って行列計算をするのですか？</strong></p>
-<p>A5: NumPyは行列計算に最適化された効率的なライブラリです。大規模な行列でも高速に計算でき、また豊富な関数が用意されているため、データサイエンスの作業を効率化できます。また、正確な数値計算が保証されており、行列の様々な操作や分解を簡単に行うことができます。</p>
-<h2 id="8">8. まとめ</h2>
-<p>本講義では、行列の基本概念、表記法、行列の和とスカラー倍の計算方法について学びました。また、行列とベクトルの関係性についても考察しました。これらの概念はデータサイエンスの基礎となる重要な道具です。特に、データの表現や変換、モデリングにおいて、行列演算は中心的な役割を果たします。次回の講義では、行列の積について学習します。これは線形変換やデータの変換において非常に重要な操作です。</p>
 
 
 
