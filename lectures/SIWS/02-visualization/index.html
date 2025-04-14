@@ -4123,19 +4123,55 @@
 <p>この章を終える頃には、皆さんは基本的な5種類のグラフ（散布図、折れ線グラフ、ヒストグラム、箱ひげ図、棒グラフ）を作成し、データの特徴を捉えることができるようになります。</p>
 <p><strong>必要なライブラリ</strong></p>
 <p>まず、この章で使用するライブラリをインポートしておきましょう（インストールが必要な場合は第1章を参照）。</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># 必要なライブラリのインポート</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringIO</span>
 
-<span class="c1"># データ読み込み (第1章で実行済みと仮定)</span>
-<span class="c1"># ... (データ読み込みコードはColabノートブック参照)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ライブラリのインポート完了&quot;</span><span class="p">)</span>
 <span class="c1"># seabornのデフォルトスタイルを設定 (任意)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="c1"># 日本語フォント設定 (Google Colabの場合、日本語フォントをインストール・設定する必要あり)</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">japanize</span><span class="o">-</span><span class="n">matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">japanize_matplotlib</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;日本語フォント設定完了 (japanize-matplotlib)&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ライブラリのインポート完了&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;データ読み込みを開始します...&quot;</span><span class="p">)</span>
+<span class="n">url_flights</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/flights.csv&quot;</span>
+<span class="n">response_flights</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_flights</span><span class="p">)</span>
+<span class="n">data_flights</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">response_flights</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">flights</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_flights</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;flights 読み込み完了:&quot;</span><span class="p">,</span> <span class="n">flights</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">url_airlines</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/airlines.csv&quot;</span>
+<span class="n">response_airlines</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_airlines</span><span class="p">)</span>
+<span class="n">data_airlines</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">response_airlines</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">airlines</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_airlines</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;airlines 読み込み完了:&quot;</span><span class="p">,</span> <span class="n">airlines</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">url_airports</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/airports.csv&quot;</span>
+<span class="n">response_airports</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_airports</span><span class="p">)</span>
+<span class="n">data_airports</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">response_airports</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">airports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_airports</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;airports 読み込み完了:&quot;</span><span class="p">,</span> <span class="n">airports</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">url_planes</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/planes.csv&quot;</span>
+<span class="n">response_planes</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_planes</span><span class="p">)</span>
+<span class="n">data_planes</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">response_planes</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">planes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_planes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;planes 読み込み完了:&quot;</span><span class="p">,</span> <span class="n">planes</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">url_weather</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/weather.csv&quot;</span>
+<span class="n">response_weather</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_weather</span><span class="p">)</span>
+<span class="n">data_weather</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">response_weather</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_weather</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;weather 読み込み完了:&quot;</span><span class="p">,</span> <span class="n">weather</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">データの準備ができました。&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="22">2.2 グラフィックの文法</h2>
 <p>グラフを作成する際、闇雲に作るのではなく、一定のルールに基づいて構成要素を組み合わせると、効率的で再現性の高い作業ができます。そのための考え方が「グラフィックの文法」です。</p>
