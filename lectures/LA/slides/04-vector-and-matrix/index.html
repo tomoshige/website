@@ -12,7 +12,7 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/slides/03-vector-and-matrix/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/slides/04-vector-and-matrix/">
       
       
       
@@ -22,7 +22,7 @@
     
     
       
-        <title>03 vector and matrix - Statistical Learning Laboratory</title>
+        <title>04 vector and matrix - Statistical Learning Laboratory</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#i-3" class="md-skip">
+        <a href="#i-4" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              03 vector and matrix
+              04 vector and matrix
             
           </span>
         </div>
@@ -3249,7 +3249,7 @@
           <li class="md-nav__item">
   <a href="#31" class="md-nav__link">
     <span class="md-ellipsis">
-      3.1 ベクトルのノルム（大きさ）
+      3.1 行列の定義
     </span>
   </a>
   
@@ -3258,7 +3258,7 @@
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      ノルムの例と性質
+      行列のサイズ
     </span>
   </a>
   
@@ -3267,16 +3267,7 @@
           <li class="md-nav__item">
   <a href="#32" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2 ベクトルの内積
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      内積の例と性質
+      3.2 特殊な形状の行列
     </span>
   </a>
   
@@ -3285,43 +3276,7 @@
           <li class="md-nav__item">
   <a href="#33" class="md-nav__link">
     <span class="md-ellipsis">
-      3.3 内積とベクトルのノルムの関係
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4 内積と角度の関係
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      内積と角度の例
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.5 直交ベクトル
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      直交ベクトルの例
+      3.3 行列の表記法
     </span>
   </a>
   
@@ -3335,26 +3290,26 @@
         <li class="md-nav__item">
   <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 理論と手法
+      4. 計算手法
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. 理論と手法">
+    <nav class="md-nav" aria-label="4. 計算手法">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#41" class="md-nav__link">
     <span class="md-ellipsis">
-      4.1 ベクトルの射影
+      4.1 行列の和
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      射影の例
+      行列の和の例
     </span>
   </a>
   
@@ -3363,7 +3318,7 @@
           <li class="md-nav__item">
   <a href="#42" class="md-nav__link">
     <span class="md-ellipsis">
-      4.2 射影の幾何学的解釈
+      4.2 行列の和の性質
     </span>
   </a>
   
@@ -3372,16 +3327,16 @@
           <li class="md-nav__item">
   <a href="#43" class="md-nav__link">
     <span class="md-ellipsis">
-      4.3 直交分解
+      4.3 行列のスカラー倍
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      直交分解の例
+      行列のスカラー倍の例
     </span>
   </a>
   
@@ -3390,7 +3345,25 @@
           <li class="md-nav__item">
   <a href="#44" class="md-nav__link">
     <span class="md-ellipsis">
-      4.4 コーシー・シュワルツの不等式
+      4.4 行列のスカラー倍の性質
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 行列とベクトルの関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      例: 列ベクトルから行列を構成
     </span>
   </a>
   
@@ -3404,44 +3377,17 @@
         <li class="md-nav__item">
   <a href="#5-python" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Pythonによる実装と可視化
+      5. Pythonによる実装
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. Pythonによる実装と可視化">
+    <nav class="md-nav" aria-label="5. Pythonによる実装">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#51-numpy" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.1 NumPyを使ったベクトル演算
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#python" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pythonによる実装（続き）
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#52" class="md-nav__link">
     <span class="md-ellipsis">
-      5.2 ベクトルの可視化
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      ベクトルの可視化（続き）
+      5.2 行列の可視化
     </span>
   </a>
   
@@ -3450,7 +3396,7 @@
           <li class="md-nav__item">
   <a href="#53" class="md-nav__link">
     <span class="md-ellipsis">
-      5.3 データ分析における内積の応用例
+      5.3 行列とベクトルの関係の可視化
     </span>
   </a>
   
@@ -3472,36 +3418,27 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      基本問題
+      演習問題（続き）
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      基本問題（続き）
+      演習問題（続き）
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      応用問題
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      応用問題（続き）
+      演習問題（続き）
     </span>
   </a>
   
@@ -3523,18 +3460,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#q1" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Q1: なぜデータ分析で内積が重要なのですか？
+      よくある質問（続き）
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#q2" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      Q2: 内積とベクトルの長さだけから角度が計算できるのはなぜですか？
+      よくある質問（続き）
     </span>
   </a>
   
@@ -3598,285 +3535,250 @@ _paginate: false
 -->
 
 <p><img alt="bg left:50% 80%" src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png" /></p>
-<h1 id="i-3">線形代数学 I: 第3回講義</h1>
+<h1 id="i-4">線形代数学 I: 第4回講義</h1>
 <h2 id="-">ベクトル - 定義と基本操作</h2>
 <h3 id="_1">中村 知繁</h3>
 <hr />
 <h2 id="1">1. 講義情報と予習ガイド</h2>
-<p><strong>講義回</strong>: 第3回<br />
-<strong>関連項目</strong>: ベクトルの内積、ノルム、射影<br />
-<strong>予習すべき内容</strong>: 第2回講義で扱ったベクトルの定義、ベクトルの和、スカラー倍の概念</p>
+<ul>
+<li><strong>講義回</strong>: 第4回</li>
+<li><strong>関連項目</strong>: ベクトル演算（第2-3回の内容）</li>
+<li><strong>予習内容</strong>: ベクトルの和とスカラー倍、ベクトルの内積の復習</li>
+<li><strong>スライド</strong>: <a href="...">リンク</a></li>
+</ul>
 <hr />
 <h2 id="2">2. 学習目標</h2>
 <ol>
-<li>ベクトルのノルム（大きさ）の定義を理解し、計算できる</li>
-<li>ベクトルの内積の定義と幾何学的意味を理解する</li>
-<li>内積を用いてベクトル間の角度を計算できる</li>
-<li>ベクトルの射影の概念を理解し、計算方法を習得する</li>
-<li>これらの概念をデータ分析の文脈で応用する方法を学ぶ</li>
+<li>行列の定義を理解し、適切に表記できる</li>
+<li>行列の和を正確に計算できる</li>
+<li>行列のスカラー倍を正確に計算できる</li>
+<li>行列とベクトルの関係性を理解できる</li>
 </ol>
 <hr />
 <h2 id="3">3. 基本概念</h2>
-<h3 id="31">3.1 ベクトルのノルム（大きさ）</h3>
-<p><strong>定義</strong>: <span class="arithmatex">\(n\)</span>次元ベクトル <span class="arithmatex">\(\mathbf{x} = (x_1, x_2, \ldots, x_n)^T\)</span> のノルム（長さ・大きさ）は以下のように定義される：</p>
-<div class="arithmatex">\[\|\mathbf{x}\| = \sqrt{x_1^2 + x_2^2 + \ldots + x_n^2}\]</div>
-<p>ノルムは、原点からベクトルの終点までの距離を表します。</p>
+<h3 id="31">3.1 行列の定義</h3>
+<p><strong>定義</strong>: 行列（Matrix）とは、数や記号を縦と横に矩形状に配置したものです。<span class="arithmatex">\(m\)</span>行<span class="arithmatex">\(n\)</span>列の行列<span class="arithmatex">\(A\)</span>は次のように表されます：</p>
+<div class="arithmatex">\[A = \begin{pmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
+\end{pmatrix}\]</div>
+<p>ここで、<span class="arithmatex">\(a_{ij}\)</span>は<span class="arithmatex">\(i\)</span>行<span class="arithmatex">\(j\)</span>列目の要素を表します。</p>
 <hr />
-<h3 id="_2">ノルムの例と性質</h3>
-<p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{v} = (3, 4)^T\)</span> のノルムを計算</p>
-<div class="arithmatex">\[\|\mathbf{v}\| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5\]</div>
-<p><strong>ノルムの性質</strong>:</p>
+<h3 id="_2">行列のサイズ</h3>
+<p><strong>サイズ</strong>: 行列のサイズは行数×列数で表し、<span class="arithmatex">\(m \times n\)</span>行列などと呼びます。</p>
+<p><strong>例</strong>:</p>
+<div class="arithmatex">\[A = \begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6
+\end{pmatrix}\]</div>
+<p>この行列<span class="arithmatex">\(A\)</span>は<span class="arithmatex">\(2 \times 3\)</span>行列（2行3列の行列）です。</p>
+<hr />
+<h3 id="32">3.2 特殊な形状の行列</h3>
 <ol>
-<li>非負性: <span class="arithmatex">\(\|\mathbf{x}\| \geq 0\)</span> （ゼロベクトルの場合のみ等号成立）</li>
-<li>スカラー倍: <span class="arithmatex">\(\|c\mathbf{x}\| = |c|\|\mathbf{x}\|\)</span> （<span class="arithmatex">\(c\)</span>はスカラー）</li>
-<li>三角不等式: <span class="arithmatex">\(\|\mathbf{x} + \mathbf{y}\| \leq \|\mathbf{x}\| + \|\mathbf{y}\|\)</span></li>
+<li><strong>正方行列（Square Matrix）</strong>: 行数と列数が等しい行列（<span class="arithmatex">\(m = n\)</span>）</li>
+</ol>
+<p>例: <span class="arithmatex">\(B = \begin{pmatrix}
+   1 &amp; 2 \\
+   3 &amp; 4
+   \end{pmatrix}\)</span> は<span class="arithmatex">\(2 \times 2\)</span>の正方行列</p>
+<ol>
+<li><strong>行ベクトル（Row Vector）</strong>: 1行<span class="arithmatex">\(n\)</span>列の行列</li>
+</ol>
+<p>例: <span class="arithmatex">\(r = \begin{pmatrix} 1 &amp; 2 &amp; 3 \end{pmatrix}\)</span> は<span class="arithmatex">\(1 \times 3\)</span>の行ベクトル</p>
+<ol>
+<li><strong>列ベクトル（Column Vector）</strong>: <span class="arithmatex">\(m\)</span>行1列の行列</li>
+</ol>
+<p>例: <span class="arithmatex">\(c = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}\)</span> は<span class="arithmatex">\(3 \times 1\)</span>の列ベクトル</p>
+<hr />
+<h3 id="33">3.3 行列の表記法</h3>
+<p>行列は通常、大文字のアルファベット（<span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(B\)</span>, <span class="arithmatex">\(C\)</span>など）で表します。行列の要素は小文字の添え字付きの文字（<span class="arithmatex">\(a_{ij}\)</span>など）で表します。</p>
+<ul>
+<li><span class="arithmatex">\(A\)</span>: 行列全体</li>
+<li><span class="arithmatex">\(a_{ij}\)</span>: 行列<span class="arithmatex">\(A\)</span>の<span class="arithmatex">\(i\)</span>行<span class="arithmatex">\(j\)</span>列目の要素</li>
+<li><span class="arithmatex">\(A_{i,j}\)</span>: 行列<span class="arithmatex">\(A\)</span>の<span class="arithmatex">\(i\)</span>行<span class="arithmatex">\(j\)</span>列目の要素（別表記）</li>
+</ul>
+<hr />
+<h2 id="4">4. 計算手法</h2>
+<h3 id="41">4.1 行列の和</h3>
+<p><strong>定義</strong>: 同じサイズの行列<span class="arithmatex">\(A\)</span>と<span class="arithmatex">\(B\)</span>の和<span class="arithmatex">\(A + B\)</span>は、対応する要素同士を足し合わせた行列です：</p>
+<div class="arithmatex">\[(A + B)_{ij} = a_{ij} + b_{ij}\]</div>
+<p><strong>注意点</strong>: 異なるサイズの行列同士は足し合わせることができません。</p>
+<hr />
+<h3 id="_3">行列の和の例</h3>
+<ul>
+<li><span class="arithmatex">\(2\times 2\)</span> 行列の例</li>
+</ul>
+<div class="arithmatex">\[A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}\]</div>
+<div class="arithmatex">\[A + B = \begin{pmatrix} 1+5 &amp; 2+6 \\ 3+7 &amp; 4+8 \end{pmatrix} = \begin{pmatrix} 6 &amp; 8 \\ 10 &amp; 12 \end{pmatrix}\]</div>
+<ul>
+<li><span class="arithmatex">\(3\times 2\)</span> 行列の例</li>
+</ul>
+<div class="arithmatex">\[A = \begin{pmatrix} 1 &amp; 2 \\ -1 &amp; -3 \\ 1 &amp; -2 \\ \end{pmatrix}, \quad B = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 2 \\ 3 &amp; -1  \end{pmatrix}\]</div>
+<div class="arithmatex">\[A - B = \begin{pmatrix} 1 &amp; 2 \\ -1 &amp; -3 \\ 1 &amp; -2 \\ \end{pmatrix} + \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 2 \\ 3 &amp; -1  \end{pmatrix} = \begin{pmatrix} 0 &amp; 3 \\ 0 &amp; -1 \\ 4 &amp; -3  \end{pmatrix}\]</div>
+<hr />
+<h3 id="42">4.2 行列の和の性質</h3>
+<p>行列の和は以下の性質を持ちます：</p>
+<ol>
+<li><strong>交換法則</strong>: <span class="arithmatex">\(A + B = B + A\)</span></li>
+<li><strong>結合法則</strong>: <span class="arithmatex">\((A + B) + C = A + (B + C)\)</span></li>
+<li><strong>単位元</strong>: 零行列 <span class="arithmatex">\(O\)</span> について <span class="arithmatex">\(A + O = A\)</span></li>
+<li><strong>逆元</strong>: <span class="arithmatex">\(-A\)</span> について <span class="arithmatex">\(A + (-A) = O\)</span></li>
 </ol>
 <hr />
-<h3 id="32">3.2 ベクトルの内積</h3>
-<p><strong>定義</strong>: <span class="arithmatex">\(n\)</span>次元ベクトル <span class="arithmatex">\(\mathbf{x} = (x_1, x_2, \ldots, x_n)^T\)</span> と <span class="arithmatex">\(\mathbf{y} = (y_1, y_2, \ldots, y_n)^T\)</span> の内積は以下のように定義される：</p>
-<div class="arithmatex">\[\mathbf{x} \cdot \mathbf{y} = x_1y_1 + x_2y_2 + \ldots + x_ny_n = \sum_{i=1}^{n} x_iy_i\]</div>
-<p>表記として、<span class="arithmatex">\(&lt;\mathbf{x},\mathbf{y}&gt;\)</span> を使う場合もある。</p>
+<h3 id="43">4.3 行列のスカラー倍</h3>
+<p><strong>定義</strong>: 行列<span class="arithmatex">\(A\)</span>のスカラー倍<span class="arithmatex">\(cA\)</span>は、<span class="arithmatex">\(A\)</span>の各要素に<span class="arithmatex">\(c\)</span>を掛けた行列です：</p>
+<div class="arithmatex">\[(cA)_{ij} = c \cdot a_{ij}\]</div>
 <hr />
-<h3 id="_3">内積の例と性質</h3>
-<p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3, 1)^T\)</span> と <span class="arithmatex">\(\mathbf{b} = (1, 0, 4)^T\)</span> の内積を計算</p>
-<div class="arithmatex">\[\mathbf{a} \cdot \mathbf{b} = 2 \times 1 + 3 \times 0 + 1 \times 4 = 2 + 0 + 4 = 6\]</div>
-<p><strong>内積の性質</strong>:</p>
+<h3 id="_4">行列のスカラー倍の例</h3>
+<ul>
+<li><span class="arithmatex">\(2\times 2\)</span> 行列の例
+<span class="arithmatex">\(<span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, \quad c = 3\)</span>\)</span></li>
+</ul>
+<div class="arithmatex">\[cA = 3 \cdot \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix} = \begin{pmatrix} 3 \cdot 1 &amp; 3 \cdot 2 \\ 3 \cdot 3 &amp; 3 \cdot 4 \end{pmatrix} = \begin{pmatrix} 3 &amp; 6 \\ 9 &amp; 12 \end{pmatrix}\]</div>
+<ul>
+<li><span class="arithmatex">\(3\times 2\)</span> 行列の例</li>
+</ul>
+<div class="arithmatex">\[A = \begin{pmatrix} 1 &amp; 2 &amp; 1 \\ 3 &amp; 4 &amp; 2 \end{pmatrix}, \quad c = -2\]</div>
+<div class="arithmatex">\[cA = -2 \cdot \begin{pmatrix} 1 &amp; 2 &amp; 1 \\ 3 &amp; 4 &amp; 2 \end{pmatrix} =  \begin{pmatrix}(-2) \cdot 1 &amp; (-2) \cdot 2 &amp; (-2) \cdot 1 \\ (-2) \cdot 3 &amp; (-2) \cdot 4 &amp; (-2) \cdot 2 \end{pmatrix} = \begin{pmatrix} -1 &amp; -2 &amp; -1 \\ -3 &amp; -4 &amp; -2 \end{pmatrix}\]</div>
+<hr />
+<h3 id="44">4.4 行列のスカラー倍の性質</h3>
+<p>行列のスカラー倍は以下の性質を持ちます：</p>
 <ol>
-<li>対称性: <span class="arithmatex">\(\mathbf{x} \cdot \mathbf{y} = \mathbf{y} \cdot \mathbf{x}\)</span></li>
-<li>線形性: <span class="arithmatex">\((\alpha\mathbf{x} + \beta\mathbf{y}) \cdot \mathbf{z} = \alpha(\mathbf{x} \cdot \mathbf{z}) + \beta(\mathbf{y} \cdot \mathbf{z})\)</span></li>
-<li>正定値性: <span class="arithmatex">\(\mathbf{x} \cdot \mathbf{x} \geq 0\)</span> （ゼロベクトルの場合のみ等号成立）</li>
+<li><span class="arithmatex">\(c(A + B) = cA + cB\)</span></li>
+<li><span class="arithmatex">\((c + d)A = cA + dA\)</span></li>
+<li><span class="arithmatex">\(c(dA) = (cd)A\)</span></li>
+<li><span class="arithmatex">\(1 \cdot A = A\)</span></li>
 </ol>
 <hr />
-<h3 id="33">3.3 内積とベクトルのノルムの関係</h3>
-<p>内積とノルムには以下の関係があります：</p>
-<div class="arithmatex">\[\mathbf{x} \cdot \mathbf{x} = \|\mathbf{x}\|^2\]</div>
-<p>つまり、ベクトル自身との内積はそのベクトルのノルムの2乗に等しいです。</p>
+<h3 id="45">4.5 行列とベクトルの関係</h3>
+<p>行列は「ベクトルを列に並べたもの」と見ることができます。例えば、<span class="arithmatex">\(n\)</span>次元の列ベクトル<span class="arithmatex">\(\vec{v}_1, \vec{v}_2, ..., \vec{v}_m\)</span>を考えると、それらを横に並べた行列<span class="arithmatex">\(A\)</span>は：</p>
+<div class="arithmatex">\[A = \begin{pmatrix} | &amp; | &amp; &amp; | \\ \vec{v}_1 &amp; \vec{v}_2 &amp; \cdots &amp; \vec{v}_m \\ | &amp; | &amp; &amp; | \end{pmatrix}\]</div>
+<p>同様に、行列を「行ベクトルを縦に積み重ねたもの」と見ることもできます。</p>
 <hr />
-<h3 id="34">3.4 内積と角度の関係</h3>
-<p><strong>定義</strong>: 二つの非ゼロベクトル <span class="arithmatex">\(\mathbf{x}\)</span> と <span class="arithmatex">\(\mathbf{y}\)</span> がなす角 <span class="arithmatex">\(\theta\)</span> は、以下の式で計算できる：</p>
-<div class="arithmatex">\[\cos \theta = \frac{\mathbf{x} \cdot \mathbf{y}}{\|\mathbf{x}\| \|\mathbf{y}\|}\]</div>
-<p>この関係は、内積の幾何学的解釈として重要です。</p>
+<h3 id="_5">例: 列ベクトルから行列を構成</h3>
+<p>列ベクトル <span class="arithmatex">\(\vec{v}_1 = \begin{pmatrix} 1 \\ 3 \end{pmatrix}\)</span>, <span class="arithmatex">\(\vec{v}_2 = \begin{pmatrix} 2 \\ 4 \end{pmatrix}\)</span> を並べると、</p>
+<div class="arithmatex">\[A = \begin{pmatrix} | &amp; | \\ \vec{v}_1 &amp; \vec{v}_2 \\ | &amp; | \end{pmatrix} = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}\]</div>
 <hr />
-<h3 id="_4">内積と角度の例</h3>
-<p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{u} = (1, 1)^T\)</span> と <span class="arithmatex">\(\mathbf{v} = (0, 1)^T\)</span> のなす角を計算</p>
-<div class="arithmatex">\[\mathbf{u} \cdot \mathbf{v} = 1 \times 0 + 1 \times 1 = 1$$
-$$\|\mathbf{u}\| = \sqrt{1^2 + 1^2} = \sqrt{2}$$
-$$\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1\]</div>
-<div class="arithmatex">\[\cos \theta = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} = \frac{1}{\sqrt{2} \times 1} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}\]</div>
-<p>したがって、<span class="arithmatex">\(\theta = 45^\circ\)</span>（<span class="arithmatex">\(\pi/4\)</span> ラジアン）となります。</p>
-<hr />
-<h3 id="35">3.5 直交ベクトル</h3>
-<p><strong>定義</strong>: 二つのベクトル <span class="arithmatex">\(\mathbf{x}\)</span> と <span class="arithmatex">\(\mathbf{y}\)</span> が直交するとは、その内積がゼロになることを意味する：</p>
-<div class="arithmatex">\[\mathbf{x} \cdot \mathbf{y} = 0\]</div>
-<p>これは幾何学的には、二つのベクトルが90度（<span class="arithmatex">\(\pi/2\)</span> ラジアン）の角度をなすことを意味します。</p>
-<hr />
-<h3 id="_5">直交ベクトルの例</h3>
-<p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{a} = (3, 4)^T\)</span> と <span class="arithmatex">\(\mathbf{b} = (4, -3)^T\)</span> が直交することを確認</p>
-<div class="arithmatex">\[\mathbf{a} \cdot \mathbf{b} = 3 \times 4 + 4 \times (-3) = 12 - 12 = 0\]</div>
-<p>よって、ベクトル <span class="arithmatex">\(\mathbf{a}\)</span> と <span class="arithmatex">\(\mathbf{b}\)</span> は直交しています。</p>
-<hr />
-<h2 id="4">4. 理論と手法</h2>
-<h3 id="41">4.1 ベクトルの射影</h3>
-<p>ベクトルの射影は、あるベクトルを別のベクトルに投影したときの成分を表します。</p>
-<p><strong>定義</strong>: ベクトル <span class="arithmatex">\(\mathbf{b}\)</span> 上へのベクトル <span class="arithmatex">\(\mathbf{a}\)</span> の射影ベクトル <span class="arithmatex">\(\text{proj}_{\mathbf{b}}\mathbf{a}\)</span> は以下のように定義される：</p>
-<div class="arithmatex">\[\text{proj}_{\mathbf{b}}\mathbf{a} = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{b}\|^2} \mathbf{b}\]</div>
-<p>射影ベクトルの大きさ（スカラー射影）は以下のように計算されます：</p>
-<div class="arithmatex">\[\|\text{proj}_{\mathbf{b}}\mathbf{a}\| = \frac{|\mathbf{a} \cdot \mathbf{b}|}{\|\mathbf{b}\|}\]</div>
-<hr />
-<h3 id="_6">射影の例</h3>
-<p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3)^T\)</span> のベクトル <span class="arithmatex">\(\mathbf{b} = (1, 0)^T\)</span> 上への射影を計算</p>
-<div class="arithmatex">\[\mathbf{a} \cdot \mathbf{b} = 2 \times 1 + 3 \times 0 = 2$$
-$$\|\mathbf{b}\|^2 = 1^2 + 0^2 = 1\]</div>
-<div class="arithmatex">\[\text{proj}_{\mathbf{b}}\mathbf{a} = \frac{2}{1} (1, 0)^T = (2, 0)^T\]</div>
-<p>この結果は、ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3)^T\)</span> の<span class="arithmatex">\(x\)</span>軸方向の成分が2であることを示しています。</p>
-<hr />
-<h3 id="42">4.2 射影の幾何学的解釈</h3>
-<p>射影は、あるベクトルを別のベクトル方向に分解する操作と考えることができます。</p>
-<p>射影の幾何学的解釈として重要なのは：
-- 射影ベクトルは元のベクトルの「影」のようなもの
-- 射影ベクトルは常に射影先のベクトルと同じ方向（またはその反対方向）
-- 射影ベクトルと元のベクトルの差ベクトルは、射影先のベクトルと直交する</p>
-<hr />
-<h3 id="43">4.3 直交分解</h3>
-<p>任意のベクトル <span class="arithmatex">\(\mathbf{a}\)</span> は、あるベクトル <span class="arithmatex">\(\mathbf{b}\)</span> の方向に平行な成分と垂直な成分に分解できます：</p>
-<div class="arithmatex">\[\mathbf{a} = \text{proj}_{\mathbf{b}}\mathbf{a} + \mathbf{a_{\perp}}\]</div>
-<p>ここで、<span class="arithmatex">\(\mathbf{a_{\perp}}\)</span> は <span class="arithmatex">\(\mathbf{b}\)</span> に垂直な成分で、以下のように計算できます：</p>
-<div class="arithmatex">\[\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}\]</div>
-<hr />
-<h3 id="_7">直交分解の例</h3>
-<p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3)^T\)</span> をベクトル <span class="arithmatex">\(\mathbf{b} = (1, 0)^T\)</span> に平行な成分と垂直な成分に分解</p>
-<p>平行成分: <span class="arithmatex">\(\text{proj}_{\mathbf{b}}\mathbf{a} = (2, 0)^T\)</span>（上記の計算結果）</p>
-<p>垂直成分: <span class="arithmatex">\(\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = (2, 3)^T - (2, 0)^T = (0, 3)^T\)</span></p>
-<hr />
-<h3 id="44">4.4 コーシー・シュワルツの不等式</h3>
-<p><strong>定理</strong>: 任意の二つのベクトル <span class="arithmatex">\(\mathbf{x}\)</span> と <span class="arithmatex">\(\mathbf{y}\)</span> に対して、以下の不等式が成り立つ：</p>
-<div class="arithmatex">\[|\mathbf{x} \cdot \mathbf{y}| \leq \|\mathbf{x}\| \|\mathbf{y}\|\]</div>
-<p>等号は、<span class="arithmatex">\(\mathbf{x}\)</span> と <span class="arithmatex">\(\mathbf{y}\)</span> が平行（または一方がゼロベクトル）のときに成立する。</p>
-<p>この不等式は、内積の絶対値がノルムの積を超えないことを示しています。</p>
-<hr />
-<h2 id="5-python">5. Pythonによる実装と可視化</h2>
-<h3 id="51-numpy">5.1 NumPyを使ったベクトル演算</h3>
+<h2 id="5-python">5. Pythonによる実装</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="c1"># ベクトルの定義</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="c1"># 行列の定義</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
 
-<span class="c1"># ノルムの計算</span>
-<span class="n">norm_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="n">norm_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ベクトルaのノルム: </span><span class="si">{</span><span class="n">norm_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ベクトルbのノルム: </span><span class="si">{</span><span class="n">norm_b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;行列 A:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">行列 B:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
 
-<span class="c1"># 内積の計算</span>
-<span class="n">dot_product</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ベクトルaとbの内積: </span><span class="si">{</span><span class="n">dot_product</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># 行列の和</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">A + B =&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
 
-<span class="c1"># 角度の計算（ラジアン）</span>
-<span class="n">angle_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">dot_product</span> <span class="o">/</span> <span class="p">(</span><span class="n">norm_a</span> <span class="o">*</span> <span class="n">norm_b</span><span class="p">))</span>
-<span class="c1"># 角度（度）</span>
-<span class="n">angle_deg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">angle_rad</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ベクトルaとbのなす角: </span><span class="si">{</span><span class="n">angle_deg</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">度&quot;</span><span class="p">)</span>
+<span class="c1"># 行列のスカラー倍</span>
+<span class="n">scalar</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">scalar</span> <span class="o">*</span> <span class="n">A</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">scalar</span><span class="si">}</span><span class="s2"> × A =&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
 </code></pre></div>
 <hr />
-<h3 id="python">Pythonによる実装（続き）</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 射影の計算</span>
-<span class="n">proj_a_on_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">dot_product</span> <span class="o">/</span> <span class="p">(</span><span class="n">norm_b</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">b</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ベクトルaのbへの射影: </span><span class="si">{</span><span class="n">proj_a_on_b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<h3 id="52">5.2 行列の可視化</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;値&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
 
-<span class="c1"># 直交成分の計算</span>
-<span class="n">perp_component</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">proj_a_on_b</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ベクトルaのbに垂直な成分: </span><span class="si">{</span><span class="n">perp_component</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h3 id="52">5.2 ベクトルの可視化</h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_vectors_and_projection</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">proj_a_on_b</span><span class="p">,</span> <span class="n">perp_component</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="c1"># 値を表示</span>
+    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> 
+                     <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
 
-    <span class="c1"># ベクトルの原点</span>
-    <span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-
-    <span class="c1"># ベクトルaとbを描画</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="o">*</span><span class="n">origin</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> 
-              <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ベクトルa&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="o">*</span><span class="n">origin</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> 
-              <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ベクトルb&#39;</span><span class="p">)</span>
-
-    <span class="c1"># 射影ベクトルを描画</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="o">*</span><span class="n">origin</span><span class="p">,</span> <span class="o">*</span><span class="n">proj_a_on_b</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> 
-              <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;射影ベクトル&#39;</span><span class="p">)</span>
-
-    <span class="c1"># 垂直成分を描画（射影ベクトルの終点から）</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="o">*</span><span class="n">proj_a_on_b</span><span class="p">,</span> <span class="o">*</span><span class="n">perp_component</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> 
-              <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;垂直成分&#39;</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h3 id="_8">ベクトルの可視化（続き）</h3>
-<div class="highlight"><pre><span></span><code>    <span class="c1"># 射影線を点線で描画</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj_a_on_b</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj_a_on_b</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
-
-    <span class="c1"># 軸の設定</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-
-    <span class="c1"># グラフの範囲設定</span>
-    <span class="n">margin</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">max_val</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span> <span class="o">+</span> <span class="n">margin</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="n">max_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="n">max_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ベクトルの射影と直交分解&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># ベクトルを可視化</span>
-<span class="n">plot_vectors_and_projection</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">proj_a_on_b</span><span class="p">,</span> <span class="n">perp_component</span><span class="p">)</span>
+<span class="c1"># 行列の可視化</span>
+<span class="n">plot_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;行列 A&#39;</span><span class="p">)</span>
+<span class="n">plot_matrix</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="s1">&#39;行列 B&#39;</span><span class="p">)</span>
 </code></pre></div>
 <hr />
-<h3 id="53">5.3 データ分析における内積の応用例</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># サンプルデータ（身長と体重）</span>
-<span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">170</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">160</span><span class="p">])</span>  <span class="c1"># cm</span>
-<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">65</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">55</span><span class="p">])</span>      <span class="c1"># kg</span>
+<h3 id="53">5.3 行列とベクトルの関係の可視化</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># ベクトルから行列を構成</span>
+<span class="n">v1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 
-<span class="c1"># 平均を引いて中心化</span>
-<span class="n">heights_centered</span> <span class="o">=</span> <span class="n">heights</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
-<span class="n">weights_centered</span> <span class="o">=</span> <span class="n">weights</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<span class="c1"># 列ベクトルとして結合</span>
+<span class="n">A_from_columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;列ベクトルから構成した行列:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_from_columns</span><span class="p">)</span>
 
-<span class="c1"># 相関係数の計算（内積を使用）</span>
-<span class="n">correlation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">heights_centered</span><span class="p">,</span> <span class="n">weights_centered</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">heights_centered</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">weights_centered</span><span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;身長と体重の相関係数: </span><span class="si">{</span><span class="n">correlation</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># 行ベクトルとして結合</span>
+<span class="n">row1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">row2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">A_from_rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">行ベクトルから構成した行列:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_from_rows</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <h2 id="6">6. 演習問題</h2>
-<h3 id="_9">基本問題</h3>
 <ol>
-<li>以下のベクトルのノルムを計算せよ。</li>
-<li><span class="arithmatex">\(\mathbf{a} = (1, 2, 3)^T\)</span></li>
-<li><span class="arithmatex">\(\mathbf{b} = (5, 0, -5)^T\)</span></li>
-<li>
-<p><span class="arithmatex">\(\mathbf{c} = (2, 2, 2, 2)^T\)</span></p>
-</li>
-<li>
-<p>以下のベクトルの組の内積を計算せよ。</p>
-</li>
-<li><span class="arithmatex">\(\mathbf{u} = (3, -1, 2)^T\)</span> と <span class="arithmatex">\(\mathbf{v} = (2, 4, 1)^T\)</span></li>
-<li><span class="arithmatex">\(\mathbf{p} = (1, 1, 1, 1)^T\)</span> と <span class="arithmatex">\(\mathbf{q} = (2, -2, 3, -3)^T\)</span></li>
+<li>次の行列のサイズを答えなさい。</li>
 </ol>
+<p>(a) <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{pmatrix}\)</span></p>
+<p>(b) <span class="arithmatex">\(B = \begin{pmatrix} 7 &amp; 8 \\ 9 &amp; 10 \\ 11 &amp; 12 \end{pmatrix}\)</span></p>
+<p>(c) <span class="arithmatex">\(C = \begin{pmatrix} 13 &amp; 14 &amp; 15 &amp; 16 \end{pmatrix}\)</span></p>
 <hr />
-<h3 id="_10">基本問題（続き）</h3>
+<h3 id="_6">演習問題（続き）</h3>
 <ol>
-<li>以下のベクトルの組がなす角度（度）を計算せよ。</li>
-<li><span class="arithmatex">\(\mathbf{a} = (1, 1)^T\)</span> と <span class="arithmatex">\(\mathbf{b} = (1, -1)^T\)</span></li>
-<li>
-<p><span class="arithmatex">\(\mathbf{c} = (3, 0, 4)^T\)</span> と <span class="arithmatex">\(\mathbf{d} = (5, 0, 0)^T\)</span></p>
-</li>
-<li>
-<p>ベクトル <span class="arithmatex">\(\mathbf{a} = (3, 4, 0)^T\)</span> のベクトル <span class="arithmatex">\(\mathbf{b} = (1, 1, 1)^T\)</span> 上への射影ベクトルを求めよ。</p>
-</li>
-<li>
-<p>以下のベクトルの組が直交するかどうかを判定せよ。</p>
-</li>
-<li><span class="arithmatex">\(\mathbf{u} = (2, -1, 3)^T\)</span> と <span class="arithmatex">\(\mathbf{v} = (1, 2, 0)^T\)</span></li>
-<li><span class="arithmatex">\(\mathbf{p} = (4, 3)^T\)</span> と <span class="arithmatex">\(\mathbf{q} = (3, -4)^T\)</span></li>
+<li>次の行列の和を求めなさい。</li>
 </ol>
+<p><span class="arithmatex">\(A = \begin{pmatrix} 2 &amp; 0 \\ -1 &amp; 3 \end{pmatrix}, \quad B = \begin{pmatrix} 4 &amp; -2 \\ 1 &amp; 5 \end{pmatrix}\)</span></p>
+<ol>
+<li>次の行列のスカラー倍を求めなさい。</li>
+</ol>
+<p><span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; -2 &amp; 3 \\ 0 &amp; 4 &amp; -5 \end{pmatrix}, \quad c = -2\)</span></p>
 <hr />
-<h3 id="_11">応用問題</h3>
+<h3 id="_7">演習問題（続き）</h3>
 <ol>
-<li>
-<p>ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 1, 3)^T\)</span> と <span class="arithmatex">\(\mathbf{b} = (1, -1, 2)^T\)</span> に対して、<span class="arithmatex">\(\mathbf{c} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}\)</span> を計算せよ。<span class="arithmatex">\(\mathbf{c}\)</span> と <span class="arithmatex">\(\mathbf{b}\)</span> が直交することを確認せよ。</p>
-</li>
-<li>
-<p>コーシー・シュワルツの不等式 <span class="arithmatex">\(|\mathbf{x} \cdot \mathbf{y}| \leq \|\mathbf{x}\| \|\mathbf{y}\|\)</span> を、ベクトル <span class="arithmatex">\(\mathbf{x} = (1, 2)^T\)</span> と <span class="arithmatex">\(\mathbf{y} = (3, 4)^T\)</span> を用いて確認せよ。</p>
-</li>
+<li>次の計算をせよ。</li>
 </ol>
+<p><span class="arithmatex">\(2A - 3B\)</span>, ただし <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}\)</span></p>
 <hr />
-<h3 id="_12">応用問題（続き）</h3>
+<h3 id="_8">演習問題（続き）</h3>
 <ol>
-<li>
-<p>3次元空間内のある平面が、法線ベクトル <span class="arithmatex">\(\mathbf{n} = (1, 2, 3)^T\)</span> で表されるとする。点 <span class="arithmatex">\(P(2, 3, 4)\)</span> からこの平面への最短距離を求めよ。(ヒント: 原点から平面までの距離を考え、そこからベクトルの射影を利用する)</p>
-</li>
-<li>
-<p><strong>健康データ分析の応用</strong>: 5人の患者の血圧（収縮期/拡張期）データが以下のように与えられている。</p>
-</li>
-<li>患者1: (120, 80)</li>
-<li>患者2: (130, 85)</li>
-<li>患者3: (140, 90)</li>
-<li>患者4: (125, 75)</li>
-<li>患者5: (135, 88)</li>
+<li>以下の患者データ行列 <span class="arithmatex">\(P\)</span> があります：</li>
 </ol>
-<p>このデータを用いて、収縮期血圧と拡張期血圧の相関係数を内積を使って計算せよ。また、各患者のデータを、平均値のベクトルと、それに直交する方向の成分に分解せよ。</p>
+<p><span class="arithmatex">\(<span class="arithmatex">\(P = \begin{pmatrix} 
+   115 &amp; 80 &amp; 90 \\
+   130 &amp; 85 &amp; 110 \\
+   125 &amp; 75 &amp; 95 \\
+   140 &amp; 90 &amp; 125
+   \end{pmatrix}\)</span>\)</span></p>
+<p>各行は患者、各列は異なる健康指標（例：血圧、体重、コレステロール値）を表しています。全ての患者データに対して、標準化のために以下の操作を行います：</p>
+<ul>
+<li>血圧（1列目）から血圧の平均を引く</li>
+<li>体重（2列目）から体重の平均を引く</li>
+<li>コレステロール値（3列目）からコレステロール値の平均を引く</li>
+</ul>
+<p>この操作を行列の計算として表現し、結果の行列を求めなさい。</p>
 <hr />
 <h2 id="7">7. よくある質問と解答</h2>
-<h3 id="q1">Q1: なぜデータ分析で内積が重要なのですか？</h3>
-<p><strong>A1</strong>: 内積は、二つのデータベクトル間の類似性や関連性を測る基本的な道具です。例えば、正規化された二つのデータベクトル間の内積は相関係数になり、データの線形関係を測ることができます。また、内積に基づく射影は、データの次元削減や特徴抽出の基礎となります。</p>
+<p><strong>Q1: 行列とベクトルの違いは何ですか？</strong></p>
+<p>A1: ベクトルは行列の特殊な場合と考えることができます。列ベクトルは<span class="arithmatex">\(n \times 1\)</span>行列、行ベクトルは<span class="arithmatex">\(1 \times m\)</span>行列です。行列はベクトルを複数並べたものとも見ることができます。</p>
 <hr />
-<h3 id="q2">Q2: 内積とベクトルの長さだけから角度が計算できるのはなぜですか？</h3>
-<p><strong>A2</strong>: これは余弦定理の応用です。二つのベクトル <span class="arithmatex">\(\mathbf{a}\)</span> と <span class="arithmatex">\(\mathbf{b}\)</span> のなす角を <span class="arithmatex">\(\theta\)</span> とすると、余弦定理から <span class="arithmatex">\(\|\mathbf{a} - \mathbf{b}\|^2 = \|\mathbf{a}\|^2 + \|\mathbf{b}\|^2 - 2\|\mathbf{a}\|\|\mathbf{b}\|\cos\theta\)</span> が成り立ちます。また、<span class="arithmatex">\(\|\mathbf{a} - \mathbf{b}\|^2 = (\mathbf{a} - \mathbf{b}) \cdot (\mathbf{a} - \mathbf{b}) = \|\mathbf{a}\|^2 + \|\mathbf{b}\|^2 - 2(\mathbf{a} \cdot \mathbf{b})\)</span> です。これら二つの式を比較すると、<span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b} = \|\mathbf{a}\|\|\mathbf{b}\|\cos\theta\)</span> が導かれます。</p>
+<h3 id="_9">よくある質問（続き）</h3>
+<p><strong>Q2: 行列の和やスカラー倍がデータサイエンスでどのように使われますか？</strong></p>
+<p>A2: 行列の和やスカラー倍は、データの正規化、特徴量のスケーリング、複数のデータセットの結合、時系列データの移動平均の計算など、様々なデータ前処理や分析手法で使用されます。また、機械学習アルゴリズムの内部計算（勾配降下法など）でも重要な役割を果たします。</p>
+<hr />
+<h3 id="_10">よくある質問（続き）</h3>
+<p><strong>Q3: 行列の要素を並べる順序は重要ですか？</strong></p>
+<p>A3: 非常に重要です。行列では要素の位置（行番号と列番号）が情報を持っています。行と列を入れ替えると、全く異なる行列になります。特に、データサイエンスでは行は通常サンプル（観測値）、列は特徴量（変数）を表すことが多いため、その構造を保つことが重要です。</p>
 
 
 

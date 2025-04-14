@@ -624,11 +624,11 @@
         <li class="md-nav__item">
   <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 理論と手法
+      4. 行列積の性質
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. 理論と手法">
+    <nav class="md-nav" aria-label="4. 行列積の性質">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -821,45 +821,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#q2-ab-neq-ba" class="md-nav__link">
+  <a href="#q2" class="md-nav__link">
     <span class="md-ellipsis">
-      Q2: 行列の積が可換でない（\(AB \neq BA\)）のはなぜですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q3" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q3: 行列が正則であることと逆行列が存在することは同じ意味ですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q4" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q4: 行列の積の計算で最もよくある間違いは何ですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q5" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q5: データサイエンスでは、なぜ行列の積が重要なのですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q6" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q6: 逆行列はどのような場合に存在しませんか？
+      Q2: 行列が正則であることと逆行列が存在することは同じ意味ですか？
     </span>
   </a>
   
@@ -3598,11 +3562,11 @@
         <li class="md-nav__item">
   <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 理論と手法
+      4. 行列積の性質
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. 理論と手法">
+    <nav class="md-nav" aria-label="4. 行列積の性質">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3795,45 +3759,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#q2-ab-neq-ba" class="md-nav__link">
+  <a href="#q2" class="md-nav__link">
     <span class="md-ellipsis">
-      Q2: 行列の積が可換でない（\(AB \neq BA\)）のはなぜですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q3" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q3: 行列が正則であることと逆行列が存在することは同じ意味ですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q4" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q4: 行列の積の計算で最もよくある間違いは何ですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q5" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q5: データサイエンスでは、なぜ行列の積が重要なのですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q6" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q6: 逆行列はどのような場合に存在しませんか？
+      Q2: 行列が正則であることと逆行列が存在することは同じ意味ですか？
     </span>
   </a>
   
@@ -3889,10 +3817,33 @@
 <p><span class="arithmatex">\((AB)_{21} = a_{21}b_{11} + a_{22}b_{21} = 3 \times 5 + 4 \times 7 = 15 + 28 = 43\)</span></p>
 <p><span class="arithmatex">\((AB)_{22} = a_{21}b_{12} + a_{22}b_{22} = 3 \times 6 + 4 \times 8 = 18 + 32 = 50\)</span></p>
 <p>よって、<span class="arithmatex">\(AB = \begin{pmatrix} 19 &amp; 22 \\ 43 &amp; 50 \end{pmatrix}\)</span> となります。</p>
+<p><strong>例 3.1.2</strong>： <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ 5 &amp; 6 \end{pmatrix}\)</span>（<span class="arithmatex">\(3 \times 2\)</span> 行列）と <span class="arithmatex">\(B = \begin{pmatrix} 7 &amp; 8 &amp; 9 \\ 10 &amp; 11 &amp; 12 \end{pmatrix}\)</span>（<span class="arithmatex">\(2 \times 3\)</span> 行列）の積を計算してみましょう。</p>
+<p><span class="arithmatex">\((AB){11} = a_{11}b_{11} + a_{12}b_{21} = 1 \times 7 + 2 \times 10 = 7 + 20 = 27\)</span></p>
+<p><span class="arithmatex">\((AB){12} = a_{11}b_{12} + a_{12}b_{22} = 1 \times 8 + 2 \times 11 = 8 + 22 = 30\)</span></p>
+<p><span class="arithmatex">\((AB){13} = a_{11}b_{13} + a_{12}b_{23} = 1 \times 9 + 2 \times 12 = 9 + 24 = 33\)</span></p>
+<p><span class="arithmatex">\((AB){21} = a_{21}b_{11} + a_{22}b_{21} = 3 \times 7 + 4 \times 10 = 21 + 40 = 61\)</span></p>
+<p><span class="arithmatex">\((AB){22} = a_{21}b_{12} + a_{22}b_{22} = 3 \times 8 + 4 \times 11 = 24 + 44 = 68\)</span></p>
+<p><span class="arithmatex">\((AB){23} = a_{21}b_{13} + a_{22}b_{23} = 3 \times 9 + 4 \times 12 = 27 + 48 = 75\)</span></p>
+<p><span class="arithmatex">\((AB){31} = a_{31}b_{11} + a_{32}b_{21} = 5 \times 7 + 6 \times 10 = 35 + 60 = 95\)</span></p>
+<p><span class="arithmatex">\((AB){32} = a_{31}b_{12} + a_{32}b_{22} = 5 \times 8 + 6 \times 11 = 40 + 66 = 106\)</span></p>
+<p><span class="arithmatex">\((AB){33} = a_{31}b_{13} + a_{32}b_{23} = 5 \times 9 + 6 \times 12 = 45 + 72 = 117\)</span></p>
+<p>よって、<span class="arithmatex">\(AB = \begin{pmatrix} 27 &amp; 30 &amp; 33 \\ 61 &amp; 68 &amp; 75 \\ 95 &amp; 106 &amp; 117 \end{pmatrix}\)</span> となります。</p>
+<p><strong>例 3.1.3（続き）</strong>： 次に、<span class="arithmatex">\(B\)</span> と <span class="arithmatex">\(A\)</span> の積 <span class="arithmatex">\(BA\)</span> を計算してみましょう。</p>
+<p><span class="arithmatex">\(B = \begin{pmatrix} 7 &amp; 8 &amp; 9 \\ 10 &amp; 11 &amp; 12 \end{pmatrix}\)</span>（<span class="arithmatex">\(2 \times 3\)</span> 行列）と <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ 5 &amp; 6 \end{pmatrix}\)</span>（<span class="arithmatex">\(3 \times 2\)</span> 行列）の積：</p>
+<p><span class="arithmatex">\((BA){11} = b_{11}a_{11} + b_{12}a_{21} + b_{13}a_{31} = 7 \times 1 + 8 \times 3 + 9 \times 5 = 7 + 24 + 45 = 76\)</span></p>
+<p><span class="arithmatex">\((BA){12} = b_{11}a_{12} + b_{12}a_{22} + b_{13}a_{32} = 7 \times 2 + 8 \times 4 + 9 \times 6 = 14 + 32 + 54 = 100\)</span></p>
+<p><span class="arithmatex">\((BA){21} = b_{21}a_{11} + b_{22}a_{21} + b_{23}a_{31} = 10 \times 1 + 11 \times 3 + 12 \times 5 = 10 + 33 + 60 = 103\)</span></p>
+<p><span class="arithmatex">\((BA){22} = b_{21}a_{12} + b_{22}a_{22} + b_{23}a_{32} = 10 \times 2 + 11 \times 4 + 12 \times 6 = 20 + 44 + 72 = 136\)</span></p>
+<p>よって、<span class="arithmatex">\(BA = \begin{pmatrix} 76 &amp; 100 \\ 103 &amp; 136 \end{pmatrix}\)</span> となります。</p>
+<p><span class="arithmatex">\(AB\)</span> は <span class="arithmatex">\(3 \times 3\)</span> 行列、<span class="arithmatex">\(BA\)</span> は <span class="arithmatex">\(2 \times 2\)</span> 行列となり、サイズが異なります。これは行列の積の順序によって結果の次元が変わることを示しています。</p>
 <h3 id="32">3.2 行列積の幾何学的解釈</h3>
-<p>行列積は線形変換の合成として幾何学的に解釈できます。行列 <span class="arithmatex">\(A\)</span> と行列 <span class="arithmatex">\(B\)</span> がそれぞれ線形変換を表すとき、<span class="arithmatex">\(AB\)</span> はまず <span class="arithmatex">\(B\)</span> による変換を行い、次に <span class="arithmatex">\(A\)</span> による変換を行うという合成変換を表します。</p>
-<p>特に、ベクトル <span class="arithmatex">\(\mathbf{x}\)</span> に対して行列 <span class="arithmatex">\(A\)</span> を作用させると、<span class="arithmatex">\(A\mathbf{x}\)</span> は <span class="arithmatex">\(\mathbf{x}\)</span> を線形変換した結果を表します。</p>
-<h2 id="4">4. 理論と手法</h2>
+<p>行列積は線形変換の合成として幾何学的に解釈できます。行列 <span class="arithmatex">\(A\)</span> と行列 <span class="arithmatex">\(B\)</span> がそれぞれ線形変換を表すとき、<span class="arithmatex">\(AB\)</span> はまず <span class="arithmatex">\(B\)</span> による変換を行い、次に <span class="arithmatex">\(A\)</span> による変換を行うという合成変換を表します。特に、ベクトル <span class="arithmatex">\(\mathbf{x}\)</span> に対して行列 <span class="arithmatex">\(A\)</span> を作用させると、<span class="arithmatex">\(A\mathbf{x}\)</span> は <span class="arithmatex">\(\mathbf{x}\)</span> を線形変換した結果を表します。</p>
+<p><strong>例:3.2.1</strong>: 角度 <span class="arithmatex">\(0 \leq \theta \leq 2\pi\)</span> に対して、行列
+<span class="arithmatex">\(A = \begin{pmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{pmatrix}\)</span>を考えます。このとき、<span class="arithmatex">\(\mathbf{x}=(1,0)^T\)</span> に対して</p>
+<div class="arithmatex">\[Ax = \begin{pmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{pmatrix}\begin{pmatrix} 1\\ 0 \end{pmatrix} = \begin{pmatrix} \cos\theta \\ \sin\theta \end{pmatrix}\]</div>
+<div class="arithmatex">\[A^2 x = A(Ax) = \begin{pmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{pmatrix}\begin{pmatrix} \cos\theta \\ \sin\theta \end{pmatrix} = \begin{pmatrix} \cos^2\theta - \sin^2\theta \\ 2\cos\theta\sin\theta \end{pmatrix} = \begin{pmatrix} \cos 2\theta \\ \sin 2\theta \end{pmatrix}\]</div>
+<p>行列<span class="arithmatex">\(A\)</span>が回転を表すことがわかる。</p>
+<h2 id="4">4. 行列積の性質</h2>
 <h3 id="41">4.1 行列積の基本的な性質</h3>
 <p>行列積には以下のような重要な性質があります：</p>
 <blockquote>
@@ -4105,40 +4056,34 @@
 <h2 id="7">7. 演習問題</h2>
 <h3 id="_1">基本問題</h3>
 <ol>
+<li>以下の行列の積を計算しなさい。</li>
+</ol>
+<p>(a) <span class="arithmatex">\(\begin{pmatrix} 2 &amp; 3 \\ 4 &amp; 5 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \\ 2 &amp; 3 \end{pmatrix}\)</span></p>
+<p>(b) <span class="arithmatex">\(\begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{pmatrix} \begin{pmatrix} 7 &amp; 8 \\ 9 &amp; 10 \\ 11 &amp; 12 \end{pmatrix}\)</span></p>
+<ol>
 <li>
-<p>以下の行列の積を計算しなさい。
-   (a) <span class="arithmatex">\(\begin{pmatrix} 2 &amp; 3 \\ 4 &amp; 5 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \\ 2 &amp; 3 \end{pmatrix}\)</span>
-   (b) <span class="arithmatex">\(\begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{pmatrix} \begin{pmatrix} 7 &amp; 8 \\ 9 &amp; 10 \\ 11 &amp; 12 \end{pmatrix}\)</span></p>
-</li>
-<li>
-<p>以下の行列 <span class="arithmatex">\(A\)</span> の逆行列を求め、<span class="arithmatex">\(A A^{-1} = I\)</span> であることを確認しなさい。
-   <span class="arithmatex">\(A = \begin{pmatrix} 2 &amp; 1 \\ 1 &amp; 1 \end{pmatrix}\)</span></p>
+<p>以下の行列 <span class="arithmatex">\(A = \begin{pmatrix} 2 &amp; 1 \\ 1 &amp; 1 \end{pmatrix}\)</span> の逆行列を求め、<span class="arithmatex">\(A A^{-1} = I\)</span> であることを確認しなさい。</p>
 </li>
 <li>
 <p>行列 <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}\)</span> と <span class="arithmatex">\(B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}\)</span> に対して、<span class="arithmatex">\(AB\)</span> と <span class="arithmatex">\(BA\)</span> を計算し、<span class="arithmatex">\(AB \neq BA\)</span> であることを確認しなさい。</p>
 </li>
 <li>
-<p><span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 0 \\ 0 &amp; 3 \end{pmatrix}\)</span> と <span class="arithmatex">\(B = \begin{pmatrix} 2 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}\)</span> について、<span class="arithmatex">\(AB = BA\)</span> となることを確認しなさい。どのような場合に行列の積は交換可能になるでしょうか？</p>
-</li>
-</ol>
-<h3 id="_2">応用問題</h3>
-<ol>
-<li>
-<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} 0 &amp; 1 \\ -1 &amp; 0 \end{pmatrix}\)</span> について、<span class="arithmatex">\(A^2\)</span>, <span class="arithmatex">\(A^3\)</span>, <span class="arithmatex">\(A^4\)</span> を計算しなさい。規則性を見つけ、<span class="arithmatex">\(A^n\)</span> の一般形を予想しなさい。</p>
+<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} 0 &amp; 1 \\ -1 &amp; 0 \end{pmatrix}\)</span> について、<span class="arithmatex">\(A^2 = AA\)</span>, <span class="arithmatex">\(A^3 = AAA\)</span>, <span class="arithmatex">\(A^4 = AAAA\)</span> を計算しなさい。規則性を見つけ、<span class="arithmatex">\(A^n\)</span> の一般形を予想しなさい。</p>
 </li>
 <li>
 <p>行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> が正則であるための必要十分条件は <span class="arithmatex">\(\det(A) = ad - bc \neq 0\)</span> です。この条件を満たさない例を挙げ、その行列が逆行列を持たないことを確認しなさい。</p>
 </li>
-<li>
-<p>ある会社の製品 A, B, C の3つの成分 X, Y, Z の含有量（単位: g）は以下の通りです：</p>
-</li>
-<li>製品 A: X = 2, Y = 1, Z = 3</li>
-<li>製品 B: X = 1, Y = 2, Z = 2</li>
-<li>製品 C: X = 3, Y = 1, Z = 1</li>
 </ol>
-<p>各成分の単価（円/g）は X = 100, Y = 200, Z = 150 です。行列の積を使って、各製品の原価を計算しなさい。</p>
+<h3 id="_2">応用問題</h3>
 <ol>
-<li><strong>健康データサイエンス応用問題</strong>：3人の患者（患者1, 2, 3）の血圧、血糖値、コレステロール値の標準化スコア（平均0、標準偏差1に変換したもの）が以下の行列 <span class="arithmatex">\(X\)</span> で表されるとします：</li>
+<li>ある会社の製品 A, B, C の3つの成分 X, Y, Z の含有量（単位: g）は以下の通りです：</li>
+<li>製品 A: <span class="arithmatex">\(X = 2, Y = 1, Z = 3\)</span></li>
+<li>製品 B: <span class="arithmatex">\(X = 1, Y = 2, Z = 2\)</span></li>
+<li>製品 C: <span class="arithmatex">\(X = 3, Y = 1, Z = 1\)</span></li>
+</ol>
+<p>各成分の単価（円/g）は <span class="arithmatex">\(X = 100, Y = 200, Z = 150\)</span> です。行列の積を使って、各製品の原価を計算しなさい。</p>
+<ol>
+<li><strong>健康データサイエンス応用問題</strong>：3人の患者（患者1, 2, 3）の血圧、血糖値、コレステロール値の標準化スコア（平均0、標準偏差1に変換したもの）が以下の行列 <span class="arithmatex">\(X\)</span> で表されるとします（行は患者1,2,3を表し、列は1:血圧、2:血糖値、3:コレステロール値を表す）：</li>
 </ol>
 <p><span class="arithmatex">\(X = \begin{pmatrix} 
    0.5 &amp; 1.2 &amp; -0.3 \\
@@ -4147,35 +4092,14 @@
    \end{pmatrix}\)</span></p>
 <p>ここで、行は患者、列は順に血圧、血糖値、コレステロール値を表します。</p>
 <p>また、これらの値と心疾患リスクの関連を表す重み係数が <span class="arithmatex">\(w = \begin{pmatrix} 0.4 \\ 0.3 \\ 0.5 \end{pmatrix}\)</span> で与えられているとします。</p>
-<p>(a) 行列の積 <span class="arithmatex">\(Xw\)</span> を計算し、各患者の心疾患リスクスコアを求めなさい。
-   (b) どの患者が最もリスクが高いでしょうか？
-   (c) 各測定値（血圧、血糖値、コレステロール値）がリスクスコアにどの程度寄与しているかを分析しなさい。</p>
+<p>(a) 行列の積 <span class="arithmatex">\(Xw\)</span> を計算し、各患者の心疾患リスクスコアを求めなさい。</p>
+<p>(b) どの患者が最もリスクが高いでしょうか？</p>
+<p>(c) 各測定値（血圧、血糖値、コレステロール値）がリスクスコアにどの程度寄与しているかを分析しなさい。</p>
 <h2 id="8">8. よくある質問と解答</h2>
 <h3 id="q1">Q1: 行列の積が定義されるための条件は何ですか？</h3>
 <p>A1: 行列 <span class="arithmatex">\(A\)</span> と <span class="arithmatex">\(B\)</span> の積 <span class="arithmatex">\(AB\)</span> が定義されるためには、<span class="arithmatex">\(A\)</span> の列数と <span class="arithmatex">\(B\)</span> の行数が一致している必要があります。すなわち、<span class="arithmatex">\(A\)</span> が <span class="arithmatex">\(m \times n\)</span> 行列で <span class="arithmatex">\(B\)</span> が <span class="arithmatex">\(p \times q\)</span> 行列のとき、<span class="arithmatex">\(n = p\)</span> であれば積 <span class="arithmatex">\(AB\)</span> が定義でき、結果は <span class="arithmatex">\(m \times q\)</span> 行列になります。</p>
-<h3 id="q2-ab-neq-ba">Q2: 行列の積が可換でない（<span class="arithmatex">\(AB \neq BA\)</span>）のはなぜですか？</h3>
-<p>A2: 行列の積は、幾何学的には線形変換の合成を表します。一般に、変換の適用順序を変えると結果も変わるため、行列の積は可換ではありません。ただし、特別な場合（例えば、対角行列同士の積など）には可換になることもあります。</p>
-<h3 id="q3">Q3: 行列が正則であることと逆行列が存在することは同じ意味ですか？</h3>
+<h3 id="q2">Q2: 行列が正則であることと逆行列が存在することは同じ意味ですか？</h3>
 <p>A3: はい、同じ意味です。正方行列 <span class="arithmatex">\(A\)</span> が正則（可逆）であるとは、その逆行列 <span class="arithmatex">\(A^{-1}\)</span> が存在することを意味します。2次の行列の場合、<span class="arithmatex">\(\det(A) \neq 0\)</span> が正則であるための必要十分条件です。</p>
-<h3 id="q4">Q4: 行列の積の計算で最もよくある間違いは何ですか？</h3>
-<p>A4: 行列の積の計算でよくある間違いには以下のようなものがあります：
-1. 行列の次元を確認せずに計算しようとすること（左側の行列の列数と右側の行列の行数が一致しない場合、積は定義されません）
-2. 成分ごとの積（アダマール積）と行列積を混同すること（行列積は内積の集まりであり、対応する成分同士の積ではありません）
-3. 行列の積の非可換性を忘れ、<span class="arithmatex">\(AB = BA\)</span> と誤って仮定すること
-4. 計算過程での添字の管理ミス（特に大きな行列では添字の扱いに注意が必要です）</p>
-<h3 id="q5">Q5: データサイエンスでは、なぜ行列の積が重要なのですか？</h3>
-<p>A5: データサイエンスにおいて行列の積は以下の理由で重要です：
-- 多次元データを効率的に処理できる（多数の観測値と特徴量を一度に扱える）
-- 線形変換や座標変換を表現できる（次元削減や特徴抽出など）
-- 線形回帰や主成分分析などの統計的手法の基礎となる
-- 多変量データの関係性を簡潔に記述できる
-- 機械学習アルゴリズムの多くは行列計算に基づいている（ニューラルネットワークの層間の計算など）</p>
-<h3 id="q6">Q6: 逆行列はどのような場合に存在しませんか？</h3>
-<p>A6: 逆行列が存在しない（特異行列である）のは、以下の場合です：
-- 行列式が0である場合（<span class="arithmatex">\(\det(A) = 0\)</span>）
-- 行列のランクが行数（または列数）よりも小さい場合
-- 行列の行（または列）が線形従属である場合（一つの行が他の行の線形結合で表せる）
-- 正方行列でない場合（行数と列数が異なる場合）</p>
 
 
 
