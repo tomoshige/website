@@ -1,545 +1,398 @@
-# 2. データの可視化
+# 第2章 データ可視化
 
-データサイエンスツールボックスの開発をデータビジュアリゼーションから始めましょう。データを視覚化することによって、生のデータ値を見ただけでは得られない貴重な洞察が得られます。Pythonでのビジュアリゼーションには、Leland Wilkinsonによって開発された「グラフィックの文法」というデータビジュアリゼーション理論に基づく手法を使用します。
+* データを可視化するための5つの基本のプロットを理解する
+* データの可視化のためのコマンドを覚える
+* コード: <https://colab.research.google.com/drive/1GzU-4uC8_ldem-1w5sX4RpDE2nPH9cnW?usp=sharing>
 
-基本的に、グラフィックス/プロット/チャート（この本ではこれらの用語を同じ意味で使用します）は、データのパターンを探索するための優れた方法を提供します。例えば、外れ値の存在、個々の変数の分布、変数グループ間の関係などを調べることができます。グラフィックスは、視聴者に理解してほしい発見や洞察を強調するために設計されています。
 
-## 必要なパッケージをインポートする
+## 2.1 はじめに
 
-まずは、この章で必要なPythonライブラリをインポートしましょう。
+ようこそ、データ可視化の世界へ！この章では、データの中に隠されたパターンや関係性を「見る」ための強力なツール、データ可視化について学びます。単に数字の羅列を眺めるよりも、グラフを使ってデータを表現することで、より深い洞察を得ることができます。
+
+Pythonには、データ可視化のための優れたライブラリがいくつかあります。この章では主に `seaborn` と `matplotlib` というライブラリを使います。`seaborn` は美しい統計グラフを簡単に作成でき、`matplotlib` はより細かいカスタマイズが可能です。これらのライブラリは、「グラフィックの文法」という考え方に基づいて設計されており、体系的にグラフを作成するのに役立ちます。
+
+この章を終える頃には、皆さんは基本的な5種類のグラフ（散布図、折れ線グラフ、ヒストグラム、箱ひげ図、棒グラフ）を作成し、データの特徴を捉えることができるようになります。
+
+**必要なライブラリ**
+
+まず、この章で使用するライブラリをインポートしておきましょう（インストールが必要な場合は第1章を参照）。
 
 ```python
+# 必要なライブラリのインポート
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pylab import rcParams
 import requests
 from io import StringIO
-from matplotlib.ticker import FuncFormatter
 
-# プロットのスタイル設定
-plt.style.use('seaborn-v0_8-whitegrid')
-rcParams['figure.figsize'] = 12, 8
+# seabornのデフォルトスタイルを設定 (任意)
+sns.set_theme(style="whitegrid")
+
+# 日本語フォント設定 (Google Colabの場合、日本語フォントをインストール・設定する必要あり)
+!pip install japanize-matplotlib
+import japanize_matplotlib
+print("日本語フォント設定完了 (japanize-matplotlib)")
+
+print("ライブラリのインポート完了")
+
+print("データ読み込みを開始します...")
+url_flights = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/flights.csv"
+response_flights = requests.get(url_flights)
+data_flights = StringIO(response_flights.text)
+flights = pd.read_csv(data_flights)
+print("flights 読み込み完了:", flights.shape)
+
+url_airlines = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/airlines.csv"
+response_airlines = requests.get(url_airlines)
+data_airlines = StringIO(response_airlines.text)
+airlines = pd.read_csv(data_airlines)
+print("airlines 読み込み完了:", airlines.shape)
+
+url_airports = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/airports.csv"
+response_airports = requests.get(url_airports)
+data_airports = StringIO(response_airports.text)
+airports = pd.read_csv(data_airports)
+print("airports 読み込み完了:", airports.shape)
+
+url_planes = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/planes.csv"
+response_planes = requests.get(url_planes)
+data_planes = StringIO(response_planes.text)
+planes = pd.read_csv(data_planes)
+print("planes 読み込み完了:", planes.shape)
+
+url_weather = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/weather.csv"
+response_weather = requests.get(url_weather)
+data_weather = StringIO(response_weather.text)
+weather = pd.read_csv(data_weather)
+print("weather 読み込み完了:", weather.shape)
+print("\nデータの準備ができました。")
 ```
 
-## グラフィックの文法
+## 2.2 グラフィックの文法
 
-データビジュアリゼーションの理論的なフレームワークである「グラフィックの文法」から始めましょう。このフレームワークは、この章で広く使用するデータビジュアリゼーションの基礎となります。英語で文章を構成するように、異なる要素を組み合わせて統計グラフィックスを構築するための一連のルールを定義します。
+グラフを作成する際、闇雲に作るのではなく、一定のルールに基づいて構成要素を組み合わせると、効率的で再現性の高い作業ができます。そのための考え方が「グラフィックの文法」です。
 
-### 文法の構成要素
+### 2.2.1 文法の基本概念
 
-簡単に言えば、この文法は以下のことを示しています：
+グラフィックの文法では、統計グラフは以下の3つの主要な要素から構成されると考えます。
 
-> 統計グラフィックスは、データ変数を幾何学的オブジェクトの審美的属性に「マッピング」したものである。
+1.  **データ (Data)**: グラフで表現したい情報を含むデータセット（通常はPandas DataFrame）。
+2.  **幾何学的オブジェクト (Geometric Objects / Geoms)**: データを表現するための視覚的な形。点、線、棒など。Pythonライブラリでは、`scatterplot`, `lineplot`, `histplot` といったプロットの種類に対応します。
+3.  **美的属性 (Aesthetics / aes)**: 幾何学的オブジェクトの見た目を制御する要素。x/y座標、色、サイズ、形状など。これらをデータの変数に **マッピング** します。Pythonライブラリでは、`x`, `y`, `hue`, `size` といった引数に対応します。
 
-具体的には、グラフィックを以下の3つの基本要素に分解できます：
+> **統計グラフィック = データ変数を、幾何学的オブジェクトの美的属性にマッピングしたもの**
 
-1. `data`：対象となるデータセット
-2. `geom`：対象となる幾何学的オブジェクト。プロットで観察できるオブジェクトのタイプを指します。例：点、線、棒など
-3. `aes`：幾何学的オブジェクトの審美的属性。例：x/y位置、色、形、サイズなど。審美的属性はデータセット内の変数に「マッピング」されます。
+### 2.2.2 Gapminderデータの例による解説
 
-### Gapminderデータ
+この概念を、世界各国の経済や健康に関する Gapminder データ（の一部）を使って見てみましょう。
 
-実例を使ってこの文法を理解しましょう。Hans Roslingは「The best stats you've ever seen」というTEDトークで、世界の経済、健康、開発データを紹介しました。2007年の142カ国のデータを見てみましょう。
+**(データ準備とプロットのコード例はColabノートブックを参照)**
 
-まず、Gapminderデータをダウンロードします：
+例えば、国ごとの「一人当たりGDP」をx軸に、「平均寿命」をy軸に、「人口」を点のサイズに、「大陸」を点の色に対応させた散布図を作成できます。
 
-```python
-# Gapminderデータをダウンロード
-!pip install gapminder
-from gapminder import gapminder
+**表 2.1: Gapminderプロットの文法要素**
 
-# 2007年のデータだけをフィルタリング
-gapminder_2007 = gapminder[gapminder['year'] == 2007].drop('year', axis=1)
-gapminder_2007 = gapminder_2007.rename(columns={
-    'country': 'Country',
-    'continent': 'Continent',
-    'lifeExp': 'Life Expectancy',
-    'pop': 'Population',
-    'gdpPercap': 'GDP per Capita'
-})
+| データ変数      | 美的属性 (引数)   | 幾何学的オブジェクト (プロットタイプ)   |
+|:----------------|:------------------|:------------------------------------|
+| GDP per Capita  | x                 | 点 (scatterplot)                    |
+| Life Expectancy | y                 | 点 (scatterplot)                    |
+| Population      | size              | 点 (scatterplot)                    |
+| Continent       | hue               | 点 (scatterplot)                    |
 
-# 最初の3カ国を表示
-gapminder_2007.head(3)
-```
+このように、どのデータ（`data`）を、どの形（`geom`）で、どのように見せるか（`aes`のマッピング）を指定することで、グラフが構成されます。
 
-各行はこのテーブルの国を表し、5つの列があります：
+### 2.2.3 その他の構成要素
 
-1. **Country**：国名
-2. **Continent**：国が属する大陸（「Americas」は北米と南米の両方を含む）
-3. **Life Expectancy**：平均寿命（年）
-4. **Population**：国の人口
-5. **GDP per Capita**：一人当たりGDP（米ドル）
+基本的な3要素に加え、以下のような要素もグラフの表現力を高めます。
 
-このデータをプロットしてみましょう：
+*   **ファセット (Faceting)**: データをグループに分けて、グループごとに同じ種類のグラフを並べて表示します。（後述）
+*   **位置調整 (Position Adjustment)**: 特に棒グラフなどで、棒の配置方法（積み上げ、並列など）を調整します。（後述）
+*   **スケール (Scales)**: 軸の目盛りや範囲、色の段階などを調整します。
+*   **座標系 (Coordinate Systems)**: デカルト座標（直交座標）以外に、極座標なども使えます。
 
-```python
-# スケーリングのために人口の大きさを調整
-size_scaling = gapminder_2007['Population'] / 1000000
+### 2.2.4 `seaborn` と `matplotlib` ライブラリの役割
 
-# カラーマッピングのための大陸のカテゴリカルデータを準備
-continents = gapminder_2007['Continent'].unique()
-color_map = dict(zip(continents, sns.color_palette("Set1", len(continents))))
-colors = [color_map[c] for c in gapminder_2007['Continent']]
+*   `seaborn`: グラフィックの文法の考え方に基づき、少ないコードで見栄えの良い統計グラフを作成できる高レベルライブラリ。`data`, `x`, `y`, `hue` などの引数で要素を指定します。
+*   `matplotlib`: Pythonの基本的な描画ライブラリ。`seaborn` の内部でも使われています。軸ラベル、タイトル、凡例の調整など、細かいカスタマイズに使用します。
 
-# プロットの作成
-plt.figure(figsize=(12, 8))
-scatter = plt.scatter(
-    x=gapminder_2007['GDP per Capita'],
-    y=gapminder_2007['Life Expectancy'],
-    s=size_scaling,  # サイズを人口に基づいてスケーリング
-    c=colors,        # 色を大陸に基づいて設定
-    alpha=0.7
-)
+## 2.3 5つの基本的なグラフ (5NG)
 
-# 凡例を追加
-legend_elements = [plt.Line2D([0], [0], marker='o', color='w', 
-                             label=continent,
-                             markerfacecolor=color_map[continent], 
-                             markersize=10)
-                  for continent in continents]
-plt.legend(handles=legend_elements, title='Continent')
-
-# ラベルとタイトルを設定
-plt.xlabel('GDP per capita')
-plt.ylabel('Life expectancy')
-plt.title('Life expectancy vs GDP per capita (2007)')
+データ可視化には様々な種類のグラフがありますが、まずは以下の5つの基本的なグラフ（Five Named Graphs, 5NG）をマスターしましょう。これらを使えば、多くのデータ分析タスクに対応できます。
 
-# プロットを表示
-plt.show()
-```
+1.  **散布図 (Scatterplot)**: 2つの数値変数の関係を見る。
+2.  **折れ線グラフ (Linegraph)**: 順序のある変数（特に時間）に対する数値変数の変化を見る。
+3.  **ヒストグラム (Histogram)**: 1つの数値変数の分布（値のばらつき）を見る。
+4.  **箱ひげ図 (Boxplot)**: カテゴリ変数ごとに数値変数の分布を比較する。
+5.  **棒グラフ (Barplot)**: カテゴリ変数の各項目の頻度（数）や集計値を見る。
 
-この図で文法に基づいて解釈すると：
+## 2.4 5NG#1: 散布図 (Scatterplots)
 
-1. `data`変数**GDP per Capita**が点の`x`位置にマッピングされます
-2. `data`変数**Life Expectancy**が点の`y`位置にマッピングされます
-3. `data`変数**Population**が点の`size`（大きさ）にマッピングされます
-4. `data`変数**Continent**が点の`color`（色）にマッピングされます
+### 2.4.1 散布図とは？
 
-`geom`要素は点（ポイント）です。
+散布図は、2つの**数値変数**の間の関係性を視覚化するのに最も基本的なグラフです。横軸（x軸）と縦軸（y軸）にそれぞれの変数を対応させ、データ一点一点をプロットします。
 
-## 5つの基本グラフ - 5NG
-
-この本では、5つの基本的なグラフ（5NG）に焦点を当てます：
+### 2.4.2 `seaborn.scatterplot()` による作成
 
-1. 散布図 (scatterplots)
-2. 線グラフ (linegraphs)
-3. ヒストグラム (histograms)
-4. 箱ひげ図 (boxplots)
-5. 棒グラフ (barplots)
-
-これらの基本的なグラフィックを使えば、様々なタイプの変数を視覚化できます。
-
-## 5NG#1: 散布図
-
-まず、最もシンプルな散布図から始めましょう。散布図は2つの数値変数間の関係を視覚化する方法です。NYCフライトデータセットを使用して、出発遅延と到着遅延の関係を調べてみましょう。
-
-```python
-# NYCフライトデータをダウンロード
-url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/flights.csv"
-response = requests.get(url)
-data = StringIO(response.text)
-flights = pd.read_csv(data)
-
-# Envoy Air（コード: MQ）のフライトだけをフィルタリング
-envoy_flights = flights[flights['carrier'] == 'MQ']
-
-# 散布図を作成
-plt.figure(figsize=(10, 6))
-plt.scatter(envoy_flights['dep_delay'], envoy_flights['arr_delay'], alpha=0.2)
-plt.xlabel('Departure Delay (minutes)')
-plt.ylabel('Arrival Delay (minutes)')
-plt.title('Arrival Delays vs. Departure Delays for Envoy Air Flights (2023)')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-この散布図から、出発遅延と到着遅延の間には正の関係があることがわかります。出発が遅れると、到着も遅れる傾向があります。また、(0,0)付近の点の集積が多いことも観察できます。これは定刻通りに出発・到着したフライトが多いことを示しています。
-
-### オーバープロッティングへの対処
-
-図に見られる(0,0)付近の大量の点は、「オーバープロッティング」と呼ばれる現象を引き起こします。これは、点が互いに重なって表示され、実際のデータポイントの数が見えにくくなる問題です。
-
-オーバープロッティングに対処するには2つの方法があります：
-
-1. 点の透明度を調整する
-2. 各点にランダムな「ジッター」（小さなランダム移動）を追加する
-
-**方法1: 透明度の変更**
-
-```python
-plt.figure(figsize=(10, 6))
-plt.scatter(envoy_flights['dep_delay'], envoy_flights['arr_delay'], alpha=0.2)
-plt.xlabel('Departure Delay (minutes)')
-plt.ylabel('Arrival Delay (minutes)')
-plt.title('Arrival Delays vs. Departure Delays (alpha = 0.2)')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-**方法2: ジッターの追加**
-
-```python
-# ジッターを加えた散布図
-plt.figure(figsize=(10, 6))
-# ランダムなジッターを追加
-jitter_x = np.random.uniform(-15, 15, size=len(envoy_flights))
-jitter_y = np.random.uniform(-15, 15, size=len(envoy_flights))
-
-plt.scatter(
-    envoy_flights['dep_delay'] + jitter_x, 
-    envoy_flights['arr_delay'] + jitter_y, 
-    alpha=0.2
-)
-plt.xlabel('Departure Delay (minutes)')
-plt.ylabel('Arrival Delay (minutes)')
-plt.title('Arrival Delays vs. Departure Delays (with jitter)')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-この例では、透明度を調整することで重なり具合がよく見えますが、どちらの方法が良いかは状況によって異なります。目的に合わせて両方試してみるのが良いでしょう。
-
-## 5NG#2: 線グラフ
-
-次に線グラフについて見ていきましょう。線グラフは、X軸にある変数（説明変数）が時間のような順序性を持つ場合に特に有効です。
-
-ニューヨーク市の気象データを使って、ニューアーク空港の1月の最初の15日間における風速の時系列を調べてみましょう。
-
-```python
-# 気象データをダウンロード
-url = "https://raw.githubusercontent.com/tomoshige/website/refs/heads/main/docs/lectures/SIWS/datasets/weather.csv"
-response = requests.get(url)
-data = StringIO(response.text)
-weather = pd.read_csv(data)
-
-# ニューアーク空港(EWR)の1月の最初の15日間のデータをフィルタリング
-early_january_2023_weather = weather[
-    (weather['origin'] == 'EWR') & 
-    (weather['month'] == 1) & 
-    (weather['day'] <= 15)
-]
-
-# 日時のデータフォーマットを修正
-early_january_2023_weather['time_hour'] = pd.to_datetime(early_january_2023_weather['time_hour'], format='%Y-%m-%d %H:%M:%S') 
-```
-
-実はこれではエラーが出る。この原因について考えてみよう。ちなみに、解消するためのコードは以下の通り。生成AIなどを用いて、このコードの意味を解き明かしてください。
-
-```python
-# prompt: early_january_2023_weather['time_hour'] は、"2023-01-03 20:00:00" のように時刻が記載されている場合と、"2023-01-03" のように時刻が記載されていない場合があります。"2023-01-03" のように時刻が記載されていない場合は、" 00:00:00"を追加し、"2023-01-03 00:00:00"と修正してください
-
-# 時刻データの修正
-early_january_2023_weather['time_hour'] = early_january_2023_weather['time_hour'].astype(str)
-early_january_2023_weather['time_hour'] = early_january_2023_weather['time_hour'].str.replace(r'(\d{4}-\d{2}-\d{2})$', r'\1 00:00:00', regex=True)
-early_january_2023_weather['time_hour'] = pd.to_datetime(early_january_2023_weather['time_hour'])
-```
-
-```python
-# 線グラフを作成
-plt.figure(figsize=(12, 6))
-plt.plot(early_january_2023_weather['time_hour'], early_january_2023_weather['wind_speed'])
-plt.xlabel('Date and Time')
-plt.ylabel('Wind Speed (mph)')
-plt.title('Hourly Wind Speed at Newark Airport (Jan 1-15, 2023)')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-
-
-線グラフは、時間経過による変数値の変化を視覚的に追跡するのに最適です。この例では、ニューアーク空港の風速が時間とともにどのように変化するかを見ることができます。
-
-## 5NG#3: ヒストグラム
-
-次は、単一の数値変数の分布を視覚化する方法としてヒストグラムを紹介します。例えば、ニューヨーク市の3つの空港における風速の分布を調べてみましょう。
-
-```python
-# 風速のヒストグラムを作成
-plt.figure(figsize=(10, 6))
-plt.hist(weather['wind_speed'].dropna(), bins=30, color='steelblue', edgecolor='white')
-plt.xlabel('Wind Speed (mph)')
-plt.ylabel('Frequency')
-plt.title('Histogram of Hourly Wind Speeds at Three NYC Airports')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-ヒストグラムは、値の範囲をビンに分割し、各ビンに入るデータの数を高さとして表示します。これにより：
-
-1. 最小値と最大値がわかる
-2. 「中心」または「最も典型的な」値がわかる
-3. 値の広がり方がわかる
-4. 頻繁に出現する値と稀な値が識別できる
-
-### ビンの調整
-
-ヒストグラムのビン（区間）の数や幅を調整することで、データの見え方が変わります：
-
-```python
-# ビンを調整したヒストグラムを並べて表示
-fig, ax = plt.subplots(1, 2, figsize=(14, 6))
-
-# ビン数を20に設定
-ax[0].hist(weather['wind_speed'].dropna(), bins=20, color='steelblue', edgecolor='white')
-ax[0].set_xlabel('Wind Speed (mph)')
-ax[0].set_ylabel('Frequency')
-ax[0].set_title('With 20 bins')
-ax[0].grid(True, alpha=0.3)
-
-# ビン幅を5に設定
-ax[1].hist(weather['wind_speed'].dropna(), bins=range(0, 45, 5), color='steelblue', edgecolor='white')
-ax[1].set_xlabel('Wind Speed (mph)')
-ax[1].set_ylabel('Frequency')
-ax[1].set_title('With binwidth = 5 mph')
-ax[1].grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-## ファセット
-
-次に、ファセット（面分割）という概念を紹介します。ファセットは、別の変数の値によって視覚化を分割したい場合に使用します。
-
-例えば、風速のヒストグラムを月ごとに分けて表示してみましょう：
-
-```python
-# 月ごとの風速ヒストグラムを作成
-fig, axes = plt.subplots(4, 3, figsize=(15, 12))
-axes = axes.flatten()
-
-for i, month in enumerate(range(1, 13)):
-    month_data = weather[weather['month'] == month]
-    axes[i].hist(month_data['wind_speed'].dropna(), bins=range(0, 45, 5), 
-                 color='steelblue', edgecolor='white')
-    axes[i].set_title(f'Month {month}')
-    axes[i].set_xlim(0, 40)
-    # Y軸の範囲を統一
-    axes[i].set_ylim(0, 1100)
-    
-    # x軸ラベルは最下段のグラフだけに表示
-    if i >= 9:
-        axes[i].set_xlabel('Wind Speed (mph)')
-    
-    # y軸ラベルは左端のグラフだけに表示
-    if i % 3 == 0:
-        axes[i].set_ylabel('Frequency')
-
-plt.tight_layout()
-plt.show()
-```
-
-この分割表示により、月ごとの風速分布の違いを比較できます。すべての月で0～20 mph の間に大半の観測値があり、30 mph を超える観測値は非常に少ないことがわかります。
-
-## 5NG#4: 箱ひげ図
-
-箱ひげ図は、数値変数の分布を別の変数のカテゴリごとに比較する際に役立ちます。箱ひげ図は「五数要約」（最小値、第1四分位数、中央値、第3四分位数、最大値）に基づいて構築されます。
-
-まず、4月の風速データに基づいて箱ひげ図の構造を理解しましょう：
-
-```python
-# 4月の風速データをフィルタリング
-april_data = weather[(weather['month'] == 4) & (~weather['wind_speed'].isna())]
-
-# 五数要約を計算
-min_apr = april_data['wind_speed'].min()
-q1 = april_data['wind_speed'].quantile(0.25)
-median = april_data['wind_speed'].quantile(0.5)
-q3 = april_data['wind_speed'].quantile(0.75)
-max_apr = april_data['wind_speed'].max()
-
-print(f"五数要約:")
-print(f"最小値: {min_apr}")
-print(f"第1四分位数: {q1:.1f}")
-print(f"中央値: {median:.1f}")
-print(f"第3四分位数: {q3:.1f}")
-print(f"最大値: {max_apr}")
-
-# 箱ひげ図の構造を示す図を作成
-fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6))
-
-# 1. 点と水平線
-ax1.scatter(np.zeros(len(april_data)), april_data['wind_speed'], alpha=0.1, jitter=0.2)
-for val in [min_apr, q1, median, q3, max_apr]:
-    ax1.axhline(y=val, color='black', linestyle='--')
-ax1.set_title('Jittered Points with Five-Number Summary')
-ax1.set_ylim(0, max_apr + 5)
-ax1.set_xticklabels([])
-
-# 2. 箱ひげ図と点、水平線
-ax2.boxplot(april_data['wind_speed'], showfliers=False)
-ax2.scatter(np.ones(len(april_data)) + np.random.normal(0, 0.05, size=len(april_data)), 
-           april_data['wind_speed'], alpha=0.1)
-for val in [min_apr, q1, median, q3, max_apr]:
-    ax2.axhline(y=val, color='black', linestyle='--')
-ax2.set_title('Boxplot with Points and Five-Number Summary')
-ax2.set_ylim(0, max_apr + 5)
-ax2.set_xticklabels(['April'])
-
-# 3. 箱ひげ図のみ
-ax3.boxplot(april_data['wind_speed'])
-ax3.set_title('Boxplot Only')
-ax3.set_ylim(0, max_apr + 5)
-ax3.set_xticklabels(['April'])
-
-plt.show()
-```
-
-箱ひげ図は、データの四分位数で分割します：
-
-1. 箱の下端は第1四分位数（25パーセンタイル）
-2. 箱の中の実線は中央値（50パーセンタイル）
-3. 箱の上端は第3四分位数（75パーセンタイル）
-4. ひげは箱から外れたデータの範囲を示し、通常は箱の長さの1.5倍までの範囲を表示
-5. それを超える値は外れ値として点で表示
-
-次に、月ごとの風速の分布を比較する箱ひげ図を作成しましょう：
-
-```python
-# 月ごとの風速の箱ひげ図
-plt.figure(figsize=(14, 8))
-# factorプロットのため、月を文字列に変換
-weather['month_factor'] = weather['month'].astype(str)
-sns.boxplot(x='month_factor', y='wind_speed', data=weather)
-plt.xlabel('Month')
-plt.ylabel('Wind Speed (mph)')
-plt.title('Side-by-side Boxplot of Wind Speed Split by Month')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-この箱ひげ図から、2月と3月の中央値風速が他の月よりも高いことがわかります。また、箱の高さ（四分位範囲）からは、各月の風速の変動性も読み取れます。
-
-## 5NG#5: 棒グラフ
-
-最後に、カテゴリ変数の分布を視覚化するための棒グラフを見ていきましょう。
-
-まず、データが表現されている方法によって2つの異なるアプローチが必要になることを理解しましょう：
-
-```python
-# 果物データの2つの表現方法
-fruits = pd.DataFrame({
-    'fruit': ['apple', 'apple', 'orange', 'apple', 'orange']
-})
-
-fruits_counted = pd.DataFrame({
-    'fruit': ['apple', 'orange'],
-    'number': [3, 2]
-})
-
-print("fruits:")
-print(fruits)
-print("\nfruits_counted:")
-print(fruits_counted)
-```
-
-カテゴリデータの表現方法に応じて、異なる方法で棒グラフを作成します：
-
-```python
-# 1. 集計されていないデータの棒グラフ
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-
-fruits['fruit'].value_counts().plot.bar(ax=ax1)
-ax1.set_title('Using value_counts() for non-pre-counted data')
-ax1.set_xlabel('Fruit')
-ax1.set_ylabel('Count')
-
-# 2. 集計済みデータの棒グラフ
-fruits_counted.plot.bar(x='fruit', y='number', ax=ax2)
-ax2.set_title('Using pre-counted data')
-ax2.set_xlabel('Fruit')
-ax2.set_ylabel('Count')
-
-plt.tight_layout()
-plt.show()
-```
-
-次に、NYCからの航空会社別の出発便数を可視化してみましょう：
-
-```python
-# 航空会社別の出発便数の棒グラフ
-plt.figure(figsize=(12, 6))
-flights['carrier'].value_counts().plot.bar()
-plt.xlabel('Carrier')
-plt.ylabel('Number of Flights')
-plt.title('Number of Flights Departing NYC in 2023 by Airline')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-### 2つのカテゴリ変数の関係
-
-棒グラフは、2つのカテゴリ変数の同時分布を視覚化するのにも役立ちます。例えば、航空会社と出発空港の関係を調べてみましょう：
-
-```python
-# 航空会社と出発空港による積み上げ棒グラフ
-plt.figure(figsize=(14, 7))
-carrier_origin = pd.crosstab(flights['carrier'], flights['origin'])
-carrier_origin.plot.bar(stacked=True)
-plt.xlabel('Carrier')
-plt.ylabel('Number of Flights')
-plt.title('Number of Flights by Carrier and Origin (Stacked)')
-plt.legend(title='Origin Airport')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-積み上げ棒グラフは単純ですが、特定の比較が難しいこともあります。並べて表示する方法もあります：
-
-```python
-# 航空会社と出発空港による並べて表示する棒グラフ
-plt.figure(figsize=(14, 7))
-pd.crosstab(flights['carrier'], flights['origin']).plot.bar()
-plt.xlabel('Carrier')
-plt.ylabel('Number of Flights')
-plt.title('Number of Flights by Carrier and Origin (Side-by-side)')
-plt.legend(title='Origin Airport')
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-また、ファセット分割した棒グラフも有効です：
-
-```python
-# 出発空港ごとにファセット分割した棒グラフ
-fig, axes = plt.subplots(3, 1, figsize=(14, 15))
-
-for i, origin in enumerate(['EWR', 'JFK', 'LGA']):
-    origin_data = flights[flights['origin'] == origin]
-    origin_data['carrier'].value_counts().plot.bar(ax=axes[i])
-    axes[i].set_title(f'Origin: {origin}')
-    axes[i].set_xlabel('Carrier')
-    axes[i].set_ylabel('Number of Flights')
-    axes[i].grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-### 円グラフを避ける理由
-
-カテゴリデータの分布を視覚化するために一般的に使用される円グラフには実は問題があります。人間は角度を正確に判断することが難しいからです。角度が90度より大きいと過大評価し、90度より小さいと過小評価します。
-
-棒グラフは単一の水平線で比較できるため、円グラフよりも効果的です。
-
-## 結論
-
-この章では、データビジュアリゼーションの基本的な手法として5つの基本グラフ（5NG）を学びました：
-
-1. 散布図：2つの数値変数の関係を示す
-2. 線グラフ：時系列などの順序性のあるデータの変化を示す
-3. ヒストグラム：単一の数値変数の分布を示す
-4. 箱ひげ図：数値変数の分布をカテゴリごとに比較する
-5. 棒グラフ：カテゴリ変数の頻度を示す
-
-これらの基本的なグラフを組み合わせることで、データの様々な側面を視覚化し、洞察を得ることができます。
-
-### 追加リソース
-
-Pythonでのデータビジュアリゼーションについてさらに学ぶには、以下のリソースが役立ちます：
-
-- Matplotlib公式ドキュメント: https://matplotlib.org/
-- Seaborn公式ドキュメント: https://seaborn.pydata.org/
-- Pandas可視化ガイド: https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html
+ここでは、NYC発のアラスカ航空（キャリアコード `AS`）のフライトデータ `alaska_flights` を使い、「出発遅延 (`dep_delay`)」と「到着遅延 (`arr_delay`)」の関係を見てみましょう。
+
+**(コード例はColabノートブックを参照)**
+
+`seaborn`の`scatterplot`関数を使い、`data`にデータフレーム、`x`と`y`にそれぞれの列名を指定します。プロットを見ると、出発遅延が大きくなると到着遅延も大きくなるという**正の関係**が見て取れます。また、遅延がほぼない(0, 0)付近に多くの点が集まっていることもわかります。
+
+---
+**学習チェック (LC2.1 - LC2.6)**
+(Colabノートブックで確認)
+---
+
+### 2.4.3 オーバープロットとその対策
+
+データ点が多い場合、点が重なり合ってしまい、その領域に実際にどれだけの点があるのか分かりにくくなることがあります。これを**オーバープロット**と言います。対策としては、以下の方法があります。
+
+1.  **透明度の調整 (`alpha`)**: `scatterplot`の`alpha`引数に0から1の値を設定します（例: `alpha=0.2`）。点が重なるほど色が濃くなり、密集度合いが分かります。
+2.  **ジッター化 (Jittering)**: 点の位置をランダムに少しだけずらして、重なりを減らします。`seaborn`の`stripplot`や`regplot(x_jitter=...)`などで実現できますが、`scatterplot`自体には直接的な機能はありません。手動で座標にノイズを加える方法もあります。
+
+**(コード例はColabノートブックを参照)**
+
+どちらの方法が良いかは状況によりますが、オーバープロットに気づいたら試してみる価値があります。
+
+---
+**学習チェック (LC2.7 - LC2.8)**
+(Colabノートブックで確認)
+---
+
+### 2.4.4 散布図のまとめ
+
+*   2つの数値変数の関係を見るための基本的なグラフ。
+*   点の密集具合やトレンド（正の関係、負の関係、無関係など）を把握できる。
+*   オーバープロットには`alpha`やジッターで対処する。
+
+## 2.5 5NG#2: 折れ線グラフ (Linegraphs)
+
+### 2.5.1 折れ線グラフとは？
+
+折れ線グラフも2つの数値変数の関係を見ますが、特に横軸（x軸）の変数が**時間のような連続性・順序性**を持つ場合に適しています。隣り合うデータ点を線で結ぶことで、変化の推移を分かりやすく表現します。時系列データの可視化によく使われます。
+
+### 2.5.2 `seaborn.lineplot()` による作成
+
+NYCの気象データ `weather` から、ニューアーク空港(`EWR`)の2013年1月前半の気温(`temp`)の推移を見てみましょう。x軸に日時(`time_hour_dt`)、y軸に気温(`temp`)を指定します。
+
+**(コード例はColabノートブックを参照)**
+
+`seaborn`の`lineplot`関数を使います。プロットを見ると、日々の気温の変動や、期間中の全体的な傾向（寒波の到来など）を読み取ることができます。
+
+---
+**学習チェック (LC2.9 - LC2.13)**
+(Colabノートブックで確認)
+---
+
+### 2.5.3 折れ線グラフのまとめ
+
+*   順序性のある変数（特に時間）に対する数値変数の変化を見るのに適している。
+*   トレンドや周期性を捉えやすい。
+*   x軸が順序性のないカテゴリ変数の場合は不適切。
+
+## 2.6 5NG#3: ヒストグラム (Histograms)
+
+### 2.6.1 ヒストグラムとは？
+
+ヒストグラムは、**単一の数値変数**がどのような値を取り、それらの値がどのくらいの頻度で出現するのか、つまり**分布**を視覚化するためのグラフです。
+
+### 2.6.2 分布の概念とヒストグラムの仕組み（ビン）
+
+データの分布とは、値がどのように散らばっているかを示すものです。ヒストグラムは、以下の手順で分布を表現します。
+
+1.  数値変数の全範囲を、いくつかの連続した区間（**ビン (bin)**）に分割します。
+2.  各ビンに、いくつのデータ点が含まれるかを数えます（**度数 / 頻度 (frequency)**）。
+3.  各ビンの度数を、棒の高さで表現します。
+
+### 2.6.3 `seaborn.histplot()` による作成
+
+NYCの気象データ `weather` の気温 `temp` の分布を見てみましょう。
+
+**(コード例はColabノートブックを参照)**
+
+`seaborn`の`histplot`関数を使い、`data`と`x`に分析したい数値変数を指定します。y軸は自動的に度数（カウント）になります。プロットから、どの温度帯が最も多いか、分布の形状（山が一つか、左右対称かなど）が分かります。棒の枠線(`edgecolor`)や色(`color`)も調整できます。
+
+### 2.6.4 ビンの調整 (`bins`, `binwidth`)
+
+ヒストグラムの見え方は、ビンの数や幅によって大きく変わります。`seaborn`は自動で適切と思われるビンを設定しますが、自分で調整することも重要です。
+
+*   `bins=整数`: ビンの数を指定します。
+*   `binwidth=数値`: 各ビンの幅を指定します。
+
+**(コード例はColabノートブックを参照)**
+
+ビンの数を増やすとより詳細な分布が見えますが、ギザギザになりすぎることもあります。ビン幅を広くすると滑らかになりますが、細かな特徴を見逃す可能性があります。適切なビン設定を探ることが重要です。
+
+---
+**学習チェック (LC2.14 - LC2.17)**
+(Colabノートブックで確認)
+---
+
+### 2.6.5 ヒストグラムのまとめ
+
+*   単一の数値変数の分布（形状、中心、広がり）を視覚化する。
+*   データの範囲、最も頻繁な値、外れ値の存在などを把握するのに役立つ。
+*   ビンの数や幅の設定が重要。
+
+## 2.7 ファセット (Faceting)
+
+### 2.7.1 ファセットとは？
+
+ファセットは、あるカテゴリ変数の**水準（レベル）ごとに**、同じ種類のグラフを複数並べて表示する機能です。これにより、グループ間での分布や関係性の違いを比較しやすくなります。
+
+### 2.7.2 `seaborn.FacetGrid` や `col`/`row` 引数を使った作成例
+
+例えば、気温(`temp`)のヒストグラムを、月(`month`)ごとに別々に表示したい場合に使えます。
+
+**(コード例はColabノートブックを参照)**
+
+`seaborn`では、`FacetGrid`オブジェクトを使う方法や、`histplot`などの関数自体が持つ`col`（列方向に分割）や`row`（行方向に分割）引数を使う方法があります。`col_wrap`で1行に表示するグラフの数を指定することもできます。
+
+ファセットを使うと、例えば「夏は気温が高く分布の山も右に寄り、冬は低い」「気温のばらつきも月によって異なる」といったことが一目で分かります。
+
+---
+**学習チェック (LC2.18 - LC2.21)**
+(Colabノートブックで確認)
+---
+
+## 2.8 5NG#4: 箱ひげ図 (Boxplots)
+
+### 2.8.1 箱ひげ図とは？
+
+箱ひげ図は、**カテゴリ変数**の各水準（グループ）に対して、**数値変数**の分布を比較するのに非常に便利なグラフです。ヒストグラムをグループごとに並べる（ファセット）のと似た目的で使われますが、よりコンパクトに分布の要約情報を示します。
+
+### 2.8.2 五数要約と箱ひげ図の構成要素
+
+箱ひげ図は、データの**五数要約**（最小値、第1四分位数(Q1)、中央値(Q2/Median)、第3四分位数(Q3)、最大値）に基づいて描画されます。
+
+*   **箱 (Box)**:
+    *   下端: 第1四分位数 (Q1) - データの下位25%点
+    *   中央線: 中央値 (Median) - データの中央値(50%点)
+    *   上端: 第3四分位数 (Q3) - データの上位25%点（下から75%点）
+    *   箱の高さ (Q3 - Q1) は**四分位範囲 (IQR)** と呼ばれ、データの中央50%のばらつきを表します。
+*   **ひげ (Whiskers)**: 箱から上下に伸びる線。通常、箱の端から $1.5 \times IQR$ の範囲内で最も遠いデータ点まで伸びます。データの広がりを示します。
+*   **外れ値 (Outliers)**: ひげの範囲から外れたデータ点は、個別の点としてプロットされます。異常値の候補を示唆します。
+
+**(11月の気温データを使った構築過程の例はColabノートブックを参照)**
+
+### 2.8.3 `seaborn.boxplot()` による並列箱ひげ図の作成
+
+月(`month`)ごとに気温(`temp`)の分布を比較するために、並列箱ひげ図を作成します。x軸にカテゴリ変数（月）、y軸に数値変数（気温）を指定します。
+
+**(コード例はColabノートブックを参照)**
+
+`seaborn`の`boxplot`関数を使います。月を表す列が数値型の場合、カテゴリ型として扱われるように変換（例: `.astype(str)`) する必要があることに注意してください。
+
+並べて表示された箱ひげ図を見ることで、各月の中央値（箱の中の線）の位置、ばらつき（箱の高さやひげの長さ）、外れ値の有無などを簡単に比較できます。
+
+---
+**学習チェック (LC2.22 - LC2.25)**
+(Colabノートブックで確認)
+---
+
+### 2.8.4 箱ひげ図のまとめ
+
+*   カテゴリ変数ごとに数値変数の分布（中央値、ばらつき、外れ値）を比較するのに適している。
+*   複数のグループの分布をコンパクトに並べて表示できる。
+*   外れ値の特定が容易。
+
+## 2.9 5NG#5: 棒グラフ (Barplots)
+
+### 2.9.1 棒グラフとは？
+
+棒グラフは、**カテゴリ変数**の各水準（カテゴリ）がどのくらいの**頻度（カウント数）**で出現するか、あるいは各カテゴリに対応する**何らかの集計値**（平均値など）の大きさを比較するのに使われるグラフです。
+
+### 2.9.2 データの形式による関数の使い分け
+
+棒グラフを作成する際、元のデータがカテゴリごとの頻度を**事前に集計（カウント）しているか**どうかで、使う関数が異なります。
+
+*   **カウント前データ**: 各行が個々の観測を表すデータ（例: `fruits` dataframe）。
+    *   `seaborn.countplot()` を使います。カテゴリを指定すると、自動で頻度を計算して棒グラフを描画します。
+*   **カウント後データ**: カテゴリとそれに対応する頻度（数値）が列として存在するデータ（例: `fruits_counted` dataframe）。
+    *   `seaborn.barplot()` を使います。カテゴリをx軸、頻度（数値）をy軸に指定します。
+
+**(果物の例はColabノートブックを参照)**
+
+### 2.9.3 航空会社別フライト数の例 (`countplot`)
+
+NYC発のフライトデータ `flights` を使って、航空会社(`carrier`)ごとのフライト数を可視化します。`flights`データは各行が1フライトなので、カウント前のデータです。したがって `countplot` を使います。
+
+**(コード例はColabノートブックを参照)**
+
+`countplot`の`order`引数を使うと、棒を頻度の多い順（または少ない順）に並べ替えることができ、比較しやすくなります。
+
+---
+**学習チェック (LC2.26 - LC2.29)**
+(Colabノートブックで確認)
+---
+
+### 2.9.4 円グラフの問題点と棒グラフの優位性
+
+カテゴリ変数の割合を示す際によく**円グラフ**が使われますが、データ可視化の専門家は**棒グラフ**を推奨します。なぜなら、人間は**角度の大きさを正確に比較するのが苦手**だからです。円グラフでは、各部分（スライス）の相対的な大きさを把握するのが困難ですが、棒グラフなら棒の長さを比較するだけで済み、はるかに正確に比較できます。割合を示したい場合でも、棒グラフ（特に合計が100%になるように正規化した棒グラフ）の方が優れています。
+
+---
+**学習チェック (LC2.30 - LC2.31)**
+(Colabノートブックで確認)
+---
+
+### 2.9.5 2つのカテゴリ変数の可視化
+
+棒グラフは、2つのカテゴリ変数の関係性を視覚化するためにも使えます。例えば、航空会社(`carrier`)と出発空港(`origin`)の両方を考慮したフライト数を見る場合などです。主な方法として以下の3つがあります。
+
+1.  **積み上げ棒グラフ (Stacked Barplot)**: 1つの棒の中で、第2のカテゴリ変数（例: `origin`）の内訳を色分けして積み重ねて表示します。`countplot`の`hue`引数で指定し、`dodge=False`（または`histplot`で`multiple='stack'`）を設定します。全体の大きさと内訳の割合を同時に見たい場合に有効ですが、内訳の各部分の大きさを正確に比較するのは難しいです。
+2.  **並列棒グラフ (Dodged/Grouped Barplot)**: 第1のカテゴリ変数（例: `carrier`）ごとに、第2のカテゴリ変数（例: `origin`）の棒を横に並べて表示します。`countplot`の`hue`引数で指定すると、これがデフォルトの動作になります。グループ内での各カテゴリの値を直接比較しやすいですが、カテゴリ数が多いと見づらくなることがあります。
+3.  **ファセット棒グラフ (Faceted Barplot)**: 第2のカテゴリ変数（例: `origin`）の水準ごとに、第1のカテゴリ変数（例: `carrier`）の棒グラフを別々に並べて表示します。`FacetGrid`を使います。各グループ内でのパターンを明確に比較したい場合に非常に有効です。
+
+**(コード例はColabノートブックを参照)**
+
+どの方法を選ぶかは、何を強調したいかによって決まります。
+
+---
+**学習チェック (LC2.32 - LC2.37)**
+(Colabノートブックで確認)
+---
+
+### 2.9.6 棒グラフのまとめ
+
+*   カテゴリ変数の頻度や集計値を比較するのに適している。
+*   データの形式（カウント前/後）に応じて `countplot` か `barplot` を使い分ける。
+*   円グラフよりも比較が正確なため、棒グラフの使用が推奨される。
+*   2つのカテゴリ変数の関係は、積み上げ、並列、ファセットなどの方法で可視化できる。
+
+## 2.10 結論
+
+### 2.10.1 5NGの振り返り
+
+この章では、データ可視化の基礎となる5つの基本的なグラフ（5NG）について学びました。
+
+**表 2.2: 5つの基本的なグラフの要約 (Python版)**
+
+| グラフ名                   | Seaborn関数 (例)           | 目的                                   | 主なマッピング (引数)                       | 備考                                      |
+|:---------------------------|:---------------------------|:---------------------------------------|:------------------------------------------|:------------------------------------------|
+| 散布図 (Scatterplot)       | `scatterplot`              | 2つの数値変数の関係                    | `x`, `y` (数値)                           | オーバープロットに注意                    |
+| 折れ線グラフ (Linegraph)   | `lineplot`                 | 順序のある変数(例:時間)に対する数値変数の関係 | `x` (順序), `y` (数値)                    | x軸に変数の順序がある場合に適す           |
+| ヒストグラム (Histogram)   | `histplot`                 | 単一の数値変数の分布                   | `x` (数値)                                | ビンの設定が重要                          |
+| 箱ひげ図 (Boxplot)         | `boxplot`                  | カテゴリ変数別の数値変数の分布比較       | `x` (カテゴリ), `y` (数値)                | 五数要約と外れ値の可視化                  |
+| 棒グラフ (Barplot/Countplot) | `barplot`/`countplot`      | カテゴリ変数の頻度分布                 | `x` (カテゴリ), [y (数値, barplot)]       | カウント前は`countplot`, カウント後は`barplot` |
+
+これらに加え、美的属性（色 `hue`, サイズ `size` など）のマッピングやファセットを組み合わせることで、さらに複雑なデータの関係性も表現できるようになります。
+
+### 2.10.2 関数の引数指定について
+
+`seaborn` や `matplotlib` の関数を呼び出す際、引数は `data=my_df`, `x="column_name"` のように **キーワード引数** で指定することが推奨されます。これにより、コードの可読性が向上し、引数の順序を気にする必要がなくなります。
+
+### 2.10.3 追加リソース
+
+データ可視化のスキルをさらに高めたい場合は、以下のリソースが役立ちます。
+
+*   Seaborn 公式チュートリアル: <https://seaborn.pydata.org/tutorial.html>
+*   Matplotlib 公式チュートリアル: <https://matplotlib.org/stable/tutorials/index.html>
+*   各種チートシート（Web検索で見つかります）
+
+### 2.10.4 次章へのつながり
+
+この章では、既存のデータフレームを使ってグラフを作成しました。しかし、実際のデータ分析では、グラフ作成に適した形にデータを**前処理・加工**する必要が頻繁にあります。例えば、特定の条件でデータを絞り込んだり（フィルタリング）、新しい変数を計算したり、複数のデータソースを結合したりといった作業です。
+
+次の第3章では、このようなデータの前処理・加工、すなわち**データラングリング (Data Wrangling)** のための強力なツールである `pandas` ライブラリの主要な機能について学びます。

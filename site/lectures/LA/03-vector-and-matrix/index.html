@@ -745,43 +745,16 @@
           <li class="md-nav__item">
   <a href="#q1" class="md-nav__link">
     <span class="md-ellipsis">
-      Q1: ベクトルの内積とノルムの関係を簡単に説明してください。
+      Q1: なぜデータ分析で内積が重要なのですか？
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#q2-0" class="md-nav__link">
+  <a href="#q2" class="md-nav__link">
     <span class="md-ellipsis">
-      Q2: 内積が0のとき、ベクトル同士はどのような関係にありますか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q3" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q3: なぜデータ分析で内積が重要なのですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q4" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q4: ベクトルの射影とはどのようなものですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q5" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q5: 内積とベクトルの長さだけから角度が計算できるのはなぜですか？
+      Q2: 内積とベクトルの長さだけから角度が計算できるのはなぜですか？
     </span>
   </a>
   
@@ -3725,43 +3698,16 @@
           <li class="md-nav__item">
   <a href="#q1" class="md-nav__link">
     <span class="md-ellipsis">
-      Q1: ベクトルの内積とノルムの関係を簡単に説明してください。
+      Q1: なぜデータ分析で内積が重要なのですか？
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#q2-0" class="md-nav__link">
+  <a href="#q2" class="md-nav__link">
     <span class="md-ellipsis">
-      Q2: 内積が0のとき、ベクトル同士はどのような関係にありますか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q3" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q3: なぜデータ分析で内積が重要なのですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q4" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q4: ベクトルの射影とはどのようなものですか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q5" class="md-nav__link">
-    <span class="md-ellipsis">
-      Q5: 内積とベクトルの長さだけから角度が計算できるのはなぜですか？
+      Q2: 内積とベクトルの長さだけから角度が計算できるのはなぜですか？
     </span>
   </a>
   
@@ -3789,9 +3735,10 @@
 
 <h1 id="i-32">線形代数学 I 第3回講義ノート：ベクトルの基本操作②と内積の導入</h1>
 <h2 id="1">1. 講義情報と予習ガイド</h2>
-<p><strong>講義回</strong>: 第3回<br />
-<strong>関連項目</strong>: ベクトルの内積、ノルム、射影<br />
-<strong>予習すべき内容</strong>: 第2回講義で扱ったベクトルの定義、ベクトルの和、スカラー倍の概念</p>
+<p><strong>講義回</strong>: 第3回  </p>
+<p><strong>関連項目</strong>: ベクトルの内積、ノルム、射影  </p>
+<p><strong>予習すべき内容</strong>: 第2回講義で扱ったベクトルの定義、ベクトルの和、スカラー倍の概念</p>
+<p><strong>スライド</strong>: <a href="../slides/03-vector-and-matrix-slide.pdf">リンク</a></p>
 <h2 id="2">2. 学習目標</h2>
 <ol>
 <li>ベクトルのノルム（大きさ）の定義を理解し、計算できる</li>
@@ -3818,7 +3765,8 @@
 <h3 id="32">3.2 ベクトルの内積</h3>
 <blockquote>
 <p><strong>定義</strong>: <span class="arithmatex">\(n\)</span>次元ベクトル <span class="arithmatex">\(\mathbf{x} = (x_1, x_2, \ldots, x_n)^T\)</span> と <span class="arithmatex">\(\mathbf{y} = (y_1, y_2, \ldots, y_n)^T\)</span> の内積は以下のように定義される：</p>
-<div class="arithmatex">\[\mathbf{x} \cdot \mathbf{y} = x_1y_1 + x_2y_2 + \ldots + x_ny_n = \sum_{i=1}^{n} x_iy_i\]</div>
+<p><span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x} \cdot \mathbf{y} = x_1y_1 + x_2y_2 + \ldots + x_ny_n = \sum_{i=1}^{n} x_iy_i\)</span>\)</span>
+表記として、<span class="arithmatex">\(&lt;\mathbf{x},\mathbf{y}&gt;\)</span> を使う場合もある。</p>
 </blockquote>
 <p>内積は、二つのベクトルの対応する成分の積の総和として計算されます。</p>
 <p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3, 1)^T\)</span> と <span class="arithmatex">\(\mathbf{b} = (1, 0, 4)^T\)</span> の内積を計算</p>
@@ -3856,7 +3804,7 @@ $$\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1\]</div>
 <p>よって、ベクトル <span class="arithmatex">\(\mathbf{a}\)</span> と <span class="arithmatex">\(\mathbf{b}\)</span> は直交しています。</p>
 <h2 id="4">4. 理論と手法</h2>
 <h3 id="41">4.1 ベクトルの射影</h3>
-<p>ベクトルの射影は、あるベクトルを別のベクトルに投影したときの成分を表します。</p>
+<p>ベクトルの射影は、あるベクトルを別のベクトルに投影したときの成分を表します。つまり、あるベクトルの別の向き方向の成分を意味します。</p>
 <blockquote>
 <p><strong>定義</strong>: ベクトル <span class="arithmatex">\(\mathbf{b}\)</span> 上へのベクトル <span class="arithmatex">\(\mathbf{a}\)</span> の射影ベクトル <span class="arithmatex">\(\text{proj}_{\mathbf{b}}\mathbf{a}\)</span> は以下のように定義される：</p>
 <div class="arithmatex">\[\text{proj}_{\mathbf{b}}\mathbf{a} = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{b}\|^2} \mathbf{b}\]</div>
@@ -4019,9 +3967,6 @@ $$\|\mathbf{b}\|^2 = 1^2 + 0^2 = 1\]</div>
 <h3 id="_2">応用問題</h3>
 <ol>
 <li>
-<p>3次元ベクトル <span class="arithmatex">\(\mathbf{v} = (2, 3, 4)^T\)</span> を、<span class="arithmatex">\(\mathbf{u}_1 = (1, 0, 0)^T\)</span>, <span class="arithmatex">\(\mathbf{u}_2 = (0, 1, 0)^T\)</span>, <span class="arithmatex">\(\mathbf{u}_3 = (0, 0, 1)^T\)</span> の3つの方向への射影の和として表せ。これは何を意味するか説明せよ。</p>
-</li>
-<li>
 <p>ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 1, 3)^T\)</span> と <span class="arithmatex">\(\mathbf{b} = (1, -1, 2)^T\)</span> に対して、<span class="arithmatex">\(\mathbf{c} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}\)</span> を計算せよ。<span class="arithmatex">\(\mathbf{c}\)</span> と <span class="arithmatex">\(\mathbf{b}\)</span> が直交することを確認せよ。</p>
 </li>
 <li>
@@ -4041,15 +3986,9 @@ $$\|\mathbf{b}\|^2 = 1^2 + 0^2 = 1\]</div>
 </ol>
 <p>このデータを用いて、収縮期血圧と拡張期血圧の相関係数を内積を使って計算せよ。また、各患者のデータを、平均値のベクトルと、それに直交する方向の成分に分解せよ。これはどのような意味を持つか考察せよ。</p>
 <h2 id="7">7. よくある質問と解答</h2>
-<h3 id="q1">Q1: ベクトルの内積とノルムの関係を簡単に説明してください。</h3>
-<p><strong>A1</strong>: ベクトル自身との内積は、そのベクトルのノルムの2乗になります。つまり、<span class="arithmatex">\(\mathbf{v} \cdot \mathbf{v} = \|\mathbf{v}\|^2\)</span> です。これは、各成分の2乗和を計算する点で共通しているためです。</p>
-<h3 id="q2-0">Q2: 内積が0のとき、ベクトル同士はどのような関係にありますか？</h3>
-<p><strong>A2</strong>: 内積が0の二つのベクトルは互いに直交（垂直）しています。これは、<span class="arithmatex">\(\cos \theta = 0\)</span> となる角度 <span class="arithmatex">\(\theta = 90°\)</span> （または <span class="arithmatex">\(\pi/2\)</span> ラジアン）で交わることを意味します。</p>
-<h3 id="q3">Q3: なぜデータ分析で内積が重要なのですか？</h3>
+<h3 id="q1">Q1: なぜデータ分析で内積が重要なのですか？</h3>
 <p><strong>A3</strong>: 内積は、二つのデータベクトル間の類似性や関連性を測る基本的な道具です。例えば、正規化された二つのデータベクトル間の内積は相関係数になり、データの線形関係を測ることができます。また、内積に基づく射影は、データの次元削減や特徴抽出の基礎となります。</p>
-<h3 id="q4">Q4: ベクトルの射影とはどのようなものですか？</h3>
-<p><strong>A4</strong>: ベクトル <span class="arithmatex">\(\mathbf{a}\)</span> のベクトル <span class="arithmatex">\(\mathbf{b}\)</span> への射影とは、<span class="arithmatex">\(\mathbf{a}\)</span> を <span class="arithmatex">\(\mathbf{b}\)</span> の方向に落とした「影」のようなものです。これは <span class="arithmatex">\(\mathbf{b}\)</span> と同じ（または反対）方向を持つベクトルであり、<span class="arithmatex">\(\mathbf{a}\)</span> が <span class="arithmatex">\(\mathbf{b}\)</span> の方向にどれだけ寄与しているかを表します。</p>
-<h3 id="q5">Q5: 内積とベクトルの長さだけから角度が計算できるのはなぜですか？</h3>
+<h3 id="q2">Q2: 内積とベクトルの長さだけから角度が計算できるのはなぜですか？</h3>
 <p><strong>A5</strong>: これは余弦定理の応用です。二つのベクトル <span class="arithmatex">\(\mathbf{a}\)</span> と <span class="arithmatex">\(\mathbf{b}\)</span> のなす角を <span class="arithmatex">\(\theta\)</span> とすると、余弦定理から <span class="arithmatex">\(\|\mathbf{a} - \mathbf{b}\|^2 = \|\mathbf{a}\|^2 + \|\mathbf{b}\|^2 - 2\|\mathbf{a}\|\|\mathbf{b}\|\cos\theta\)</span> が成り立ちます。また、<span class="arithmatex">\(\|\mathbf{a} - \mathbf{b}\|^2 = (\mathbf{a} - \mathbf{b}) \cdot (\mathbf{a} - \mathbf{b}) = \|\mathbf{a}\|^2 + \|\mathbf{b}\|^2 - 2(\mathbf{a} \cdot \mathbf{b})\)</span> です。これら二つの式を比較すると、<span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b} = \|\mathbf{a}\|\|\mathbf{b}\|\cos\theta\)</span> が導かれます。</p>
 
 
