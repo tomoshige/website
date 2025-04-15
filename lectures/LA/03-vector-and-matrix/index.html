@@ -3788,9 +3788,9 @@
 </blockquote>
 <p>この関係は、内積の幾何学的解釈として重要です。</p>
 <p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{u} = (1, 1)^T\)</span> と <span class="arithmatex">\(\mathbf{v} = (0, 1)^T\)</span> のなす角を計算</p>
-<div class="arithmatex">\[\mathbf{u} \cdot \mathbf{v} = 1 \times 0 + 1 \times 1 = 1$$
-$$\|\mathbf{u}\| = \sqrt{1^2 + 1^2} = \sqrt{2}$$
-$$\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1\]</div>
+<div class="arithmatex">\[\mathbf{u} \cdot \mathbf{v} = 1 \times 0 + 1 \times 1 = 1\]</div>
+<div class="arithmatex">\[\|\mathbf{u}\| = \sqrt{1^2 + 1^2} = \sqrt{2}\]</div>
+<div class="arithmatex">\[\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1\]</div>
 <div class="arithmatex">\[\cos \theta = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} = \frac{1}{\sqrt{2} \times 1} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}\]</div>
 <p>したがって、<span class="arithmatex">\(\theta = 45^\circ\)</span>（<span class="arithmatex">\(\pi/4\)</span> ラジアン）となります。</p>
 <h3 id="35">3.5 直交ベクトル</h3>
@@ -3828,8 +3828,14 @@ $$\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1\]</div>
 <p>ここで、<span class="arithmatex">\(\mathbf{a_{\perp}}\)</span> は <span class="arithmatex">\(\mathbf{b}\)</span> に垂直な成分で、以下のように計算できます：</p>
 <div class="arithmatex">\[\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}\]</div>
 <p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3)^T\)</span> をベクトル <span class="arithmatex">\(\mathbf{b} = (1, 0)^T\)</span> に平行な成分と垂直な成分に分解</p>
-<p>平行成分: <span class="arithmatex">\(\text{proj}_{\mathbf{b}}\mathbf{a} = (2, 0)^T\)</span>（上記の計算結果）
-垂直成分: <span class="arithmatex">\(\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = (2, 3)^T - (2, 0)^T = (0, 3)^T\)</span></p>
+<ul>
+<li>
+<p>平行成分: <span class="arithmatex">\(\text{proj}_{\mathbf{b}}\mathbf{a} = (2, 0)^T\)</span>（上記の計算結果）</p>
+</li>
+<li>
+<p>垂直成分: <span class="arithmatex">\(\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = (2, 3)^T - (2, 0)^T = (0, 3)^T\)</span></p>
+</li>
+</ul>
 <h3 id="44">4.4 コーシー・シュワルツの不等式</h3>
 <blockquote>
 <p><strong>定理</strong>: 任意の二つのベクトル <span class="arithmatex">\(\mathbf{x}\)</span> と <span class="arithmatex">\(\mathbf{y}\)</span> に対して、以下の不等式が成り立つ：</p>
