@@ -3369,34 +3369,10 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-python" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Pythonによる実装
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. Pythonによる実装">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
-  <a href="#52" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      5.2 行列の可視化
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#53" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.3 行列とベクトルの関係の可視化
+      例: 列ベクトルから行列を構成
     </span>
   </a>
   
@@ -3418,15 +3394,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      演習問題（続き）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       演習問題（続き）
@@ -3437,6 +3404,15 @@
         
           <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      演習問題（続き）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       演習問題（続き）
     </span>
@@ -3460,7 +3436,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       よくある質問（続き）
     </span>
@@ -3469,7 +3445,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       よくある質問（続き）
     </span>
@@ -3661,70 +3637,9 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
 <p>列ベクトル <span class="arithmatex">\(\vec{v}_1 = \begin{pmatrix} 1 \\ 3 \end{pmatrix}\)</span>, <span class="arithmatex">\(\vec{v}_2 = \begin{pmatrix} 2 \\ 4 \end{pmatrix}\)</span> を並べると、</p>
 <div class="arithmatex">\[A = \begin{pmatrix} | &amp; | \\ \vec{v}_1 &amp; \vec{v}_2 \\ | &amp; | \end{pmatrix} = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}\]</div>
 <hr />
-<h2 id="5-python">5. Pythonによる実装</h2>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-
-<span class="c1"># 行列の定義</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;行列 A:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">行列 B:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
-
-<span class="c1"># 行列の和</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">A + B =&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
-
-<span class="c1"># 行列のスカラー倍</span>
-<span class="n">scalar</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">D</span> <span class="o">=</span> <span class="n">scalar</span> <span class="o">*</span> <span class="n">A</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">scalar</span><span class="si">}</span><span class="s2"> × A =&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h3 id="52">5.2 行列の可視化</h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;値&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-
-    <span class="c1"># 値を表示</span>
-    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> 
-                     <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># 行列の可視化</span>
-<span class="n">plot_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;行列 A&#39;</span><span class="p">)</span>
-<span class="n">plot_matrix</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="s1">&#39;行列 B&#39;</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h3 id="53">5.3 行列とベクトルの関係の可視化</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># ベクトルから行列を構成</span>
-<span class="n">v1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-
-<span class="c1"># 列ベクトルとして結合</span>
-<span class="n">A_from_columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;列ベクトルから構成した行列:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">A_from_columns</span><span class="p">)</span>
-
-<span class="c1"># 行ベクトルとして結合</span>
-<span class="n">row1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">row2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">A_from_rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">行ベクトルから構成した行列:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">A_from_rows</span><span class="p">)</span>
-</code></pre></div>
+<h3 id="_6">例: 列ベクトルから行列を構成</h3>
+<p>列ベクトル <span class="arithmatex">\(\vec{v}_1 = \begin{pmatrix} 1 \\ 3 \\ 2 \end{pmatrix}\)</span>, <span class="arithmatex">\(\vec{v}_2 = \begin{pmatrix} 2 \\ 4 \\ -3 \end{pmatrix}\)</span>, <span class="arithmatex">\(\vec{v}_3 = \begin{pmatrix} -1 \\ -2 \\ 1 \end{pmatrix}\)</span> を並べると、</p>
+<div class="arithmatex">\[A = \begin{pmatrix} | &amp; | &amp; | \\ \vec{v}_1 &amp; \vec{v}_2 &amp; \vec{v}_3 \\ | &amp; | &amp; | \end{pmatrix} = \begin{pmatrix} 1 &amp; 2 &amp; -1 \\ 3 &amp; 4 &amp; -2 \\ 2 &amp; -3 &amp; 1 \end{pmatrix}\]</div>
 <hr />
 <h2 id="6">6. 演習問題</h2>
 <ol>
@@ -3733,8 +3648,9 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
 <p>(a) <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{pmatrix}\)</span></p>
 <p>(b) <span class="arithmatex">\(B = \begin{pmatrix} 7 &amp; 8 \\ 9 &amp; 10 \\ 11 &amp; 12 \end{pmatrix}\)</span></p>
 <p>(c) <span class="arithmatex">\(C = \begin{pmatrix} 13 &amp; 14 &amp; 15 &amp; 16 \end{pmatrix}\)</span></p>
+<p>(c) <span class="arithmatex">\(D = \begin{pmatrix} 1 &amp; 2 &amp; 1  \\ -2 &amp; -2 &amp; 1 \\ 1 &amp; 2 &amp; 1  \\ -2 &amp; -2 &amp; 1  \end{pmatrix}\)</span></p>
 <hr />
-<h3 id="_6">演習問題（続き）</h3>
+<h3 id="_7">演習問題（続き）</h3>
 <ol>
 <li>次の行列の和を求めなさい。</li>
 </ol>
@@ -3744,13 +3660,13 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
 </ol>
 <p><span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; -2 &amp; 3 \\ 0 &amp; 4 &amp; -5 \end{pmatrix}, \quad c = -2\)</span></p>
 <hr />
-<h3 id="_7">演習問題（続き）</h3>
+<h3 id="_8">演習問題（続き）</h3>
 <ol>
 <li>次の計算をせよ。</li>
 </ol>
 <p><span class="arithmatex">\(2A - 3B\)</span>, ただし <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}\)</span></p>
 <hr />
-<h3 id="_8">演習問題（続き）</h3>
+<h3 id="_9">演習問題（続き）</h3>
 <ol>
 <li>以下の患者データ行列 <span class="arithmatex">\(P\)</span> があります：</li>
 </ol>
@@ -3772,11 +3688,11 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
 <p><strong>Q1: 行列とベクトルの違いは何ですか？</strong></p>
 <p>A1: ベクトルは行列の特殊な場合と考えることができます。列ベクトルは<span class="arithmatex">\(n \times 1\)</span>行列、行ベクトルは<span class="arithmatex">\(1 \times m\)</span>行列です。行列はベクトルを複数並べたものとも見ることができます。</p>
 <hr />
-<h3 id="_9">よくある質問（続き）</h3>
+<h3 id="_10">よくある質問（続き）</h3>
 <p><strong>Q2: 行列の和やスカラー倍がデータサイエンスでどのように使われますか？</strong></p>
 <p>A2: 行列の和やスカラー倍は、データの正規化、特徴量のスケーリング、複数のデータセットの結合、時系列データの移動平均の計算など、様々なデータ前処理や分析手法で使用されます。また、機械学習アルゴリズムの内部計算（勾配降下法など）でも重要な役割を果たします。</p>
 <hr />
-<h3 id="_10">よくある質問（続き）</h3>
+<h3 id="_11">よくある質問（続き）</h3>
 <p><strong>Q3: 行列の要素を並べる順序は重要ですか？</strong></p>
 <p>A3: 非常に重要です。行列では要素の位置（行番号と列番号）が情報を持っています。行と列を入れ替えると、全く異なる行列になります。特に、データサイエンスでは行は通常サンプル（観測値）、列は特徴量（変数）を表すことが多いため、その構造を保つことが重要です。</p>
 
