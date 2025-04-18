@@ -3685,20 +3685,21 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
 </ol>
 <p><span class="arithmatex">\(2A - 3B\)</span>, ただし <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}, B = \begin{pmatrix} 5 &amp; 6 \\ 7 &amp; 8 \end{pmatrix}\)</span></p>
 <ol>
-<li>以下の患者データ行列 <span class="arithmatex">\(P\)</span> があります。</li>
-</ol>
-<p><span class="arithmatex">\(<span class="arithmatex">\(P = \begin{pmatrix} 
-   105 &amp; 60 &amp; 90 \\
-   120 &amp; 85 &amp; 110 \\
-   125 &amp; 75 &amp; 95 \\
-   110 &amp; 80 &amp; 125 \end{pmatrix}\)</span>\)</span></p>
-<p>各行は患者、各列は異なる健康指標（例：血圧、体重、コレステロール値）を表しています。全ての患者データに対して、標準化のために以下の操作を行います：</p>
-<ul>
-<li>血圧（1列目）から血圧の平均を引く</li>
+<li>
+<p>以下の患者データ行列 <span class="arithmatex">\(P\)</span> があります。各行は患者、各列は異なる健康指標（例：血圧、体重、コレステロール値）を表しています。全ての患者データに対して、標準化のために以下の操作を行います：</p>
+</li>
+<li>
+<p>血圧（1列目）から血圧の平均を引く</p>
+</li>
 <li>体重（2列目）から体重の平均を引く</li>
 <li>コレステロール値（3列目）からコレステロール値の平均を引く</li>
-</ul>
+</ol>
 <p>この操作を行列の計算として表現し、結果の行列を求めなさい。</p>
+<div class="arithmatex">\[P = \begin{pmatrix} 
+105 &amp; 60 &amp; 90 \\
+120 &amp; 85 &amp; 110 \\
+125 &amp; 75 &amp; 95 \\
+110 &amp; 80 &amp; 125 \end{pmatrix}\]</div>
 <h2 id="7">7. よくある質問と解答</h2>
 <p><strong>Q1: 行列とベクトルの違いは何ですか？</strong></p>
 <p>A1: ベクトルは行列の特殊な場合と考えることができます。列ベクトルは<span class="arithmatex">\(n \times 1\)</span>行列、行ベクトルは<span class="arithmatex">\(1 \times m\)</span>行列です。行列はベクトルを複数並べたものとも見ることができます。</p>
