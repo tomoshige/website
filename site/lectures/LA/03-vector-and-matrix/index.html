@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#i-32" class="md-skip">
+        <a href="#i-3" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -3733,7 +3733,7 @@
                   
 
 
-<h1 id="i-32">線形代数学 I 第3回講義ノート：ベクトルの基本操作②と内積の導入</h1>
+<h1 id="i-3">線形代数学 I 第3回 講義ノート</h1>
 <h2 id="1">1. 講義情報と予習ガイド</h2>
 <p><strong>講義回</strong>: 第3回  </p>
 <p><strong>関連項目</strong>: ベクトルの内積、ノルム、射影  </p>
@@ -3764,9 +3764,12 @@
 </ol>
 <h3 id="32">3.2 ベクトルの内積</h3>
 <blockquote>
-<p><strong>定義</strong>: <span class="arithmatex">\(n\)</span>次元ベクトル <span class="arithmatex">\(\mathbf{x} = (x_1, x_2, \ldots, x_n)^T\)</span> と <span class="arithmatex">\(\mathbf{y} = (y_1, y_2, \ldots, y_n)^T\)</span> の内積は以下のように定義される：</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x} \cdot \mathbf{y} = x_1y_1 + x_2y_2 + \ldots + x_ny_n = \sum_{i=1}^{n} x_iy_i\)</span>\)</span>
-表記として、<span class="arithmatex">\(&lt;\mathbf{x},\mathbf{y}&gt;\)</span> を使う場合もある。</p>
+<p><strong>定義</strong>: <span class="arithmatex">\(n\)</span>次元ベクトル <span class="arithmatex">\(\mathbf{x} = (x_1, x_2, \ldots, x_n)^T\)</span> と <span class="arithmatex">\(\mathbf{y} = (y_1, y_2, \ldots, y_n)^T\)</span> の内積は以下のように定義される：
+</p>
+</blockquote>
+<div class="arithmatex">\[\mathbf{x} \cdot \mathbf{y} = x_1y_1 + x_2y_2 + \ldots + x_ny_n = \sum_{i=1}^{n} x_iy_i\]</div>
+<blockquote>
+<p>表記として、<span class="arithmatex">\(&lt;\mathbf{x},\mathbf{y}&gt;\)</span> を使う場合もある。</p>
 </blockquote>
 <p>内積は、二つのベクトルの対応する成分の積の総和として計算されます。</p>
 <p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3, 1)^T\)</span> と <span class="arithmatex">\(\mathbf{b} = (1, 0, 4)^T\)</span> の内積を計算</p>
@@ -3788,9 +3791,9 @@
 </blockquote>
 <p>この関係は、内積の幾何学的解釈として重要です。</p>
 <p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{u} = (1, 1)^T\)</span> と <span class="arithmatex">\(\mathbf{v} = (0, 1)^T\)</span> のなす角を計算</p>
-<div class="arithmatex">\[\mathbf{u} \cdot \mathbf{v} = 1 \times 0 + 1 \times 1 = 1$$
-$$\|\mathbf{u}\| = \sqrt{1^2 + 1^2} = \sqrt{2}$$
-$$\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1\]</div>
+<div class="arithmatex">\[\mathbf{u} \cdot \mathbf{v} = 1 \times 0 + 1 \times 1 = 1\]</div>
+<div class="arithmatex">\[\|\mathbf{u}\| = \sqrt{1^2 + 1^2} = \sqrt{2}\]</div>
+<div class="arithmatex">\[\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1\]</div>
 <div class="arithmatex">\[\cos \theta = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} = \frac{1}{\sqrt{2} \times 1} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}\]</div>
 <p>したがって、<span class="arithmatex">\(\theta = 45^\circ\)</span>（<span class="arithmatex">\(\pi/4\)</span> ラジアン）となります。</p>
 <h3 id="35">3.5 直交ベクトル</h3>
@@ -3812,8 +3815,8 @@ $$\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1\]</div>
 <p>射影ベクトルの大きさ（スカラー射影）は以下のように計算されます：</p>
 <div class="arithmatex">\[\|\text{proj}_{\mathbf{b}}\mathbf{a}\| = \frac{|\mathbf{a} \cdot \mathbf{b}|}{\|\mathbf{b}\|}\]</div>
 <p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3)^T\)</span> のベクトル <span class="arithmatex">\(\mathbf{b} = (1, 0)^T\)</span> 上への射影を計算</p>
-<div class="arithmatex">\[\mathbf{a} \cdot \mathbf{b} = 2 \times 1 + 3 \times 0 = 2$$
-$$\|\mathbf{b}\|^2 = 1^2 + 0^2 = 1\]</div>
+<div class="arithmatex">\[\mathbf{a} \cdot \mathbf{b} = 2 \times 1 + 3 \times 0 = 2\]</div>
+<div class="arithmatex">\[\|\mathbf{b}\|^2 = 1^2 + 0^2 = 1\]</div>
 <div class="arithmatex">\[\text{proj}_{\mathbf{b}}\mathbf{a} = \frac{2}{1} (1, 0)^T = (2, 0)^T\]</div>
 <p>この結果は、ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3)^T\)</span> の<span class="arithmatex">\(x\)</span>軸方向の成分が2であることを示しています。</p>
 <h3 id="42">4.2 射影の幾何学的解釈</h3>
@@ -3828,8 +3831,14 @@ $$\|\mathbf{b}\|^2 = 1^2 + 0^2 = 1\]</div>
 <p>ここで、<span class="arithmatex">\(\mathbf{a_{\perp}}\)</span> は <span class="arithmatex">\(\mathbf{b}\)</span> に垂直な成分で、以下のように計算できます：</p>
 <div class="arithmatex">\[\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}\]</div>
 <p><strong>例</strong>: ベクトル <span class="arithmatex">\(\mathbf{a} = (2, 3)^T\)</span> をベクトル <span class="arithmatex">\(\mathbf{b} = (1, 0)^T\)</span> に平行な成分と垂直な成分に分解</p>
-<p>平行成分: <span class="arithmatex">\(\text{proj}_{\mathbf{b}}\mathbf{a} = (2, 0)^T\)</span>（上記の計算結果）
-垂直成分: <span class="arithmatex">\(\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = (2, 3)^T - (2, 0)^T = (0, 3)^T\)</span></p>
+<ul>
+<li>
+<p>平行成分: <span class="arithmatex">\(\text{proj}_{\mathbf{b}}\mathbf{a} = (2, 0)^T\)</span>（上記の計算結果）</p>
+</li>
+<li>
+<p>垂直成分: <span class="arithmatex">\(\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = (2, 3)^T - (2, 0)^T = (0, 3)^T\)</span></p>
+</li>
+</ul>
 <h3 id="44">4.4 コーシー・シュワルツの不等式</h3>
 <blockquote>
 <p><strong>定理</strong>: 任意の二つのベクトル <span class="arithmatex">\(\mathbf{x}\)</span> と <span class="arithmatex">\(\mathbf{y}\)</span> に対して、以下の不等式が成り立つ：</p>

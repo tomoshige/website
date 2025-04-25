@@ -47,7 +47,7 @@ _paginate: false
 ![bg left:50% 80%](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png)
 
 # 線形代数学 I: 第4回講義
-## ベクトル - 定義と基本操作
+## 行列 - 定義と和の計算
 ### 中村 知繁
 
 ---
@@ -223,82 +223,14 @@ $$A = \begin{pmatrix} | & | \\ \vec{v}_1 & \vec{v}_2 \\ | & | \end{pmatrix} = \b
 
 ---
 
-## 5. Pythonによる実装
+### 例: 列ベクトルから行列を構成
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+列ベクトル $\vec{v}_1 = \begin{pmatrix} 1 \\ 3 \\ 2 \end{pmatrix}$, $\vec{v}_2 = \begin{pmatrix} 2 \\ 4 \\ -3 \end{pmatrix}$, $\vec{v}_3 = \begin{pmatrix} -1 \\ -2 \\ 1 \end{pmatrix}$ を並べると、
 
-# 行列の定義
-A = np.array([[1, 2], [3, 4]])
-B = np.array([[5, 6], [7, 8]])
-
-print("行列 A:")
-print(A)
-print("\n行列 B:")
-print(B)
-
-# 行列の和
-C = A + B
-print("\nA + B =")
-print(C)
-
-# 行列のスカラー倍
-scalar = 3
-D = scalar * A
-print(f"\n{scalar} × A =")
-print(D)
-```
+$$A = \begin{pmatrix} | & | & | \\ \vec{v}_1 & \vec{v}_2 & \vec{v}_3 \\ | & | & | \end{pmatrix} = \begin{pmatrix} 1 & 2 & -1 \\ 3 & 4 & -2 \\ 2 & -3 & 1 \end{pmatrix}$$
 
 ---
 
-### 5.2 行列の可視化
-
-```python
-def plot_matrix(matrix, title):
-    plt.figure(figsize=(6, 6))
-    plt.imshow(matrix, cmap='viridis')
-    plt.colorbar(label='値')
-    plt.title(title)
-    
-    # 値を表示
-    rows, cols = matrix.shape
-    for i in range(rows):
-        for j in range(cols):
-            plt.text(j, i, f'{matrix[i, j]}', 
-                     ha='center', va='center', color='white')
-    
-    plt.tight_layout()
-    plt.show()
-
-# 行列の可視化
-plot_matrix(A, '行列 A')
-plot_matrix(B, '行列 B')
-```
-
----
-
-### 5.3 行列とベクトルの関係の可視化
-
-```python
-# ベクトルから行列を構成
-v1 = np.array([1, 3])
-v2 = np.array([2, 4])
-
-# 列ベクトルとして結合
-A_from_columns = np.column_stack((v1, v2))
-print("列ベクトルから構成した行列:")
-print(A_from_columns)
-
-# 行ベクトルとして結合
-row1 = np.array([1, 2])
-row2 = np.array([3, 4])
-A_from_rows = np.vstack((row1, row2))
-print("\n行ベクトルから構成した行列:")
-print(A_from_rows)
-```
-
----
 
 ## 6. 演習問題
 
@@ -309,6 +241,8 @@ print(A_from_rows)
    (b) $B = \begin{pmatrix} 7 & 8 \\ 9 & 10 \\ 11 & 12 \end{pmatrix}$
    
    (c) $C = \begin{pmatrix} 13 & 14 & 15 & 16 \end{pmatrix}$
+
+   (c) $D = \begin{pmatrix} 1 & 2 & 1  \\ -2 & -2 & 1 \\ 1 & 2 & 1  \\ -2 & -2 & 1  \end{pmatrix}$
 
 ---
 
@@ -337,11 +271,10 @@ print(A_from_rows)
 5. 以下の患者データ行列 $P$ があります：
    
    $$P = \begin{pmatrix} 
-   115 & 80 & 90 \\
-   130 & 85 & 110 \\
+   105 & 60 & 90 \\
+   120 & 85 & 110 \\
    125 & 75 & 95 \\
-   140 & 90 & 125
-   \end{pmatrix}$$
+   110 & 80 & 125 \end{pmatrix}$$
    
    各行は患者、各列は異なる健康指標（例：血圧、体重、コレステロール値）を表しています。全ての患者データに対して、標準化のために以下の操作を行います：
    

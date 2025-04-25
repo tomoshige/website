@@ -1,4 +1,4 @@
-# 線形代数学 I 第3回講義ノート：ベクトルの基本操作②と内積の導入
+# 線形代数学 I 第3回 講義ノート
 
 ## 1. 講義情報と予習ガイド
 
@@ -42,7 +42,9 @@ $$\|\mathbf{v}\| = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5$$
 
 > **定義**: $n$次元ベクトル $\mathbf{x} = (x_1, x_2, \ldots, x_n)^T$ と $\mathbf{y} = (y_1, y_2, \ldots, y_n)^T$ の内積は以下のように定義される：
 > 
-> $$\mathbf{x} \cdot \mathbf{y} = x_1y_1 + x_2y_2 + \ldots + x_ny_n = \sum_{i=1}^{n} x_iy_i$$
+
+$$\mathbf{x} \cdot \mathbf{y} = x_1y_1 + x_2y_2 + \ldots + x_ny_n = \sum_{i=1}^{n} x_iy_i$$
+
 > 表記として、$<\mathbf{x},\mathbf{y}>$ を使う場合もある。
 
 内積は、二つのベクトルの対応する成分の積の総和として計算されます。
@@ -76,7 +78,9 @@ $$\mathbf{x} \cdot \mathbf{x} = \|\mathbf{x}\|^2$$
 **例**: ベクトル $\mathbf{u} = (1, 1)^T$ と $\mathbf{v} = (0, 1)^T$ のなす角を計算
 
 $$\mathbf{u} \cdot \mathbf{v} = 1 \times 0 + 1 \times 1 = 1$$
+
 $$\|\mathbf{u}\| = \sqrt{1^2 + 1^2} = \sqrt{2}$$
+
 $$\|\mathbf{v}\| = \sqrt{0^2 + 1^2} = 1$$
 
 $$\cos \theta = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} = \frac{1}{\sqrt{2} \times 1} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}$$
@@ -114,6 +118,7 @@ $$\|\text{proj}_{\mathbf{b}}\mathbf{a}\| = \frac{|\mathbf{a} \cdot \mathbf{b}|}{
 **例**: ベクトル $\mathbf{a} = (2, 3)^T$ のベクトル $\mathbf{b} = (1, 0)^T$ 上への射影を計算
 
 $$\mathbf{a} \cdot \mathbf{b} = 2 \times 1 + 3 \times 0 = 2$$
+
 $$\|\mathbf{b}\|^2 = 1^2 + 0^2 = 1$$
 
 $$\text{proj}_{\mathbf{b}}\mathbf{a} = \frac{2}{1} (1, 0)^T = (2, 0)^T$$
@@ -141,8 +146,9 @@ $$\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a}$$
 
 **例**: ベクトル $\mathbf{a} = (2, 3)^T$ をベクトル $\mathbf{b} = (1, 0)^T$ に平行な成分と垂直な成分に分解
 
-平行成分: $\text{proj}_{\mathbf{b}}\mathbf{a} = (2, 0)^T$（上記の計算結果）
-垂直成分: $\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = (2, 3)^T - (2, 0)^T = (0, 3)^T$
+- 平行成分: $\text{proj}_{\mathbf{b}}\mathbf{a} = (2, 0)^T$（上記の計算結果）
+
+- 垂直成分: $\mathbf{a_{\perp}} = \mathbf{a} - \text{proj}_{\mathbf{b}}\mathbf{a} = (2, 3)^T - (2, 0)^T = (0, 3)^T$
 
 ### 4.4 コーシー・シュワルツの不等式
 

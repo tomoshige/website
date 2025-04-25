@@ -5,6 +5,7 @@
 - データを読み込んで、確認する
 - 簡単なコードを実行する
 - コード: <https://colab.research.google.com/drive/1lP0DkYCDpp1XrH2s5fHsiyQGbJ4xyw9I?usp=sharing>
+- [ipynb](./ipynb/section1.ipynb)
 
 ## 1.1 はじめに
 

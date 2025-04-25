@@ -1,11 +1,11 @@
-# 線形代数学 I 第4回講義ノート：行列の定義・行列の和・行列のスカラー倍
+# 線形代数学 I 第4回 講義ノート
 
 ## 1. 講義情報と予習ガイド
 
 - **講義回**: 第4回
 - **関連項目**: ベクトル演算（第2-3回の内容）
 - **予習内容**: ベクトルの和とスカラー倍、ベクトルの内積の復習
-- **スライド**: [リンク](...)
+- **スライド**: [リンク](./slides/04-vector-and-matrix-slide.pdf)
 
 ## 2. 学習目標
 
@@ -125,152 +125,53 @@ $$A = \begin{pmatrix} | & | & & | \\ \vec{v}_1 & \vec{v}_2 & \cdots & \vec{v}_m 
 
 $$A = \begin{pmatrix} | & | \\ \vec{v}_1 & \vec{v}_2 \\ | & | \end{pmatrix} = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$$
 
-## 5. Pythonによる実装と可視化
+**例2**:
 
-### 5.1 NumPy を用いた行列の操作
 
-Python の NumPy ライブラリを使用して行列の基本操作を実行する方法を見ていきましょう。
+列ベクトル $\vec{v}_1 = \begin{pmatrix} 1 \\ 3 \\ 2 \end{pmatrix}$, $\vec{v}_2 = \begin{pmatrix} 2 \\ 4 \\ -3 \end{pmatrix}$, $\vec{v}_3 = \begin{pmatrix} -1 \\ -2 \\ 1 \end{pmatrix}$ を並べると、
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+$$A = \begin{pmatrix} | & | & | \\ \vec{v}_1 & \vec{v}_2 & \vec{v}_3 \\ | & | & | \end{pmatrix} = \begin{pmatrix} 1 & 2 & -1 \\ 3 & 4 & -2 \\ 2 & -3 & 1 \end{pmatrix}$$
 
-# 行列の定義
-A = np.array([[1, 2], [3, 4]])
-B = np.array([[5, 6], [7, 8]])
 
-print("行列 A:")
-print(A)
-print("\n行列 B:")
-print(B)
+## 5. 演習問題
 
-# 行列の和
-C = A + B
-print("\nA + B =")
-print(C)
-
-# 行列のスカラー倍
-scalar = 3
-D = scalar * A
-print(f"\n{scalar} × A =")
-print(D)
-
-# 行列のサイズ
-print(f"\n行列 A のサイズ: {A.shape}")
-```
-
-### 5.2 行列の可視化
-
-```python
-def plot_matrix(matrix, title):
-    plt.figure(figsize=(6, 6))
-    plt.imshow(matrix, cmap='viridis')
-    plt.colorbar(label='値')
-    plt.title(title)
-    
-    # 値を表示
-    rows, cols = matrix.shape
-    for i in range(rows):
-        for j in range(cols):
-            plt.text(j, i, f'{matrix[i, j]}', 
-                     ha='center', va='center', color='white')
-    
-    plt.tight_layout()
-    plt.show()
-
-# 行列の可視化
-plot_matrix(A, '行列 A')
-plot_matrix(B, '行列 B')
-plot_matrix(C, '行列 A + B')
-plot_matrix(D, f'行列 {scalar} × A')
-```
-
-### 5.3 行列とベクトルの関係の可視化
-
-```python
-# ベクトルから行列を構成
-v1 = np.array([1, 3])
-v2 = np.array([2, 4])
-
-# 列ベクトルとして結合
-A_from_columns = np.column_stack((v1, v2))
-print("列ベクトルから構成した行列:")
-print(A_from_columns)
-
-# 行ベクトルとして結合
-row1 = np.array([1, 2])
-row2 = np.array([3, 4])
-A_from_rows = np.vstack((row1, row2))
-print("\n行ベクトルから構成した行列:")
-print(A_from_rows)
-
-# 可視化
-plt.figure(figsize=(10, 5))
-
-# v1, v2 を別々に描画
-plt.subplot(1, 2, 1)
-plt.quiver(0, 0, v1[0], v1[1], angles='xy', scale_units='xy', scale=1, color='r', label='v1')
-plt.quiver(0, 0, v2[0], v2[1], angles='xy', scale_units='xy', scale=1, color='b', label='v2')
-plt.xlim(-1, 5)
-plt.ylim(-1, 5)
-plt.grid()
-plt.title('ベクトル v1, v2')
-plt.legend()
-
-# 行列 A の列ベクトル表現
-plt.subplot(1, 2, 2)
-plt.quiver(0, 0, A[0, 0], A[1, 0], angles='xy', scale_units='xy', scale=1, color='r', label='A[:,0]')
-plt.quiver(0, 0, A[0, 1], A[1, 1], angles='xy', scale_units='xy', scale=1, color='b', label='A[:,1]')
-plt.xlim(-1, 5)
-plt.ylim(-1, 5)
-plt.grid()
-plt.title('行列 A の列ベクトル')
-plt.legend()
-
-plt.tight_layout()
-plt.show()
-```
-
-## 6. 演習問題
-
-### 6.1 基本問題
+### 5.1 基本問題
 
 1. 次の行列のサイズを答えなさい。
-   
-   (a) $A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}$
-   
-   (b) $B = \begin{pmatrix} 7 & 8 \\ 9 & 10 \\ 11 & 12 \end{pmatrix}$
-   
-   (c) $C = \begin{pmatrix} 13 & 14 & 15 & 16 \end{pmatrix}$
+      
+      (a) $A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}$
+
+      (b) $B = \begin{pmatrix} 7 & 8 \\ 9 & 10 \\ 11 & 12 \end{pmatrix}$
+
+      (c) $C = \begin{pmatrix} 13 & 14 & 15 & 16 \end{pmatrix}$
+
+      (c) $D = \begin{pmatrix} 1 & 2 & 1  \\ -2 & -2 & 1 \\ 1 & 2 & 1  \\ -2 & -2 & 1  \end{pmatrix}$
 
 2. 次の行列の和を求めなさい。
-   
-   $A = \begin{pmatrix} 2 & 0 \\ -1 & 3 \end{pmatrix}, \quad B = \begin{pmatrix} 4 & -2 \\ 1 & 5 \end{pmatrix}$
+      
+      $A = \begin{pmatrix} 2 & 0 \\ -1 & 3 \end{pmatrix}, \quad B = \begin{pmatrix} 4 & -2 \\ 1 & 5 \end{pmatrix}$
 
 3. 次の行列のスカラー倍を求めなさい。
-   
-   $A = \begin{pmatrix} 1 & -2 & 3 \\ 0 & 4 & -5 \end{pmatrix}, \quad c = -2$
+      
+      $A = \begin{pmatrix} 1 & -2 & 3 \\ 0 & 4 & -5 \end{pmatrix}, \quad c = -2$
 
 4. 次の計算をせよ。
    
-   $2A - 3B$, ただし $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}, B = \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}$
+      $2A - 3B$, ただし $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}, B = \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}$
 
-5. 以下の患者データ行列 $P$ があります：
+5. 以下の患者データ行列 $P$ があります。各行は患者、各列は異なる健康指標（例：血圧、体重、コレステロール値）を表しています。全ての患者データに対して、標準化のために以下の操作を行います。この操作を行列の計算として表現し、結果の行列を求めなさい。
+
+      - 血圧（1列目）から血圧の平均を引く
+      - 体重（2列目）から体重の平均を引く
+      - コレステロール値（3列目）からコレステロール値の平均を引く
+      
+$$P = \begin{pmatrix} 
+105 & 60 & 90 \\
+120 & 85 & 110 \\
+125 & 75 & 95 \\
+110 & 80 & 125 \end{pmatrix}$$
    
-   $$P = \begin{pmatrix} 
-   120 & 80 & 90 \\
-   130 & 85 & 110 \\
-   125 & 75 & 95 \\
-   140 & 90 & 120
-   \end{pmatrix}$$
    
-   各行は患者、各列は異なる健康指標（例：血圧、体重、コレステロール値）を表しています。全ての患者データに対して、標準化のために以下の操作を行います：
-   
-   - 血圧（1列目）から血圧の平均を引く
-   - 体重（2列目）から体重の平均を引く
-   - コレステロール値（3列目）からコレステロール値の平均を引く
-   
-   この操作を行列の計算として表現し、結果の行列を求めなさい。
 
 ## 7. よくある質問と解答
 
