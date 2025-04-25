@@ -656,46 +656,31 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4.3 特殊な行列と行列積">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#431" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3.1 単位行列
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#432" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3.2 零行列
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#44" class="md-nav__link">
     <span class="md-ellipsis">
-      4.4 逆行列
+      4.4 零行列
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4.4 逆行列">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 逆行列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 逆行列">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#441-2" class="md-nav__link">
+  <a href="#451-2" class="md-nav__link">
     <span class="md-ellipsis">
-      4.4.1 2次の行列の逆行列の計算
+      4.5.1 2次の行列の逆行列の計算
     </span>
   </a>
   
@@ -703,6 +688,15 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 2次行列に対するケーリハミルトンの定理
+    </span>
+  </a>
   
 </li>
         
@@ -740,9 +734,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#alpha" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      問題 （応用へ至る +\(\alpha\)）
+      問題 （少し難しい）
     </span>
   </a>
   
@@ -3555,46 +3549,31 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4.3 特殊な行列と行列積">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#431" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3.1 単位行列
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#432" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3.2 零行列
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#44" class="md-nav__link">
     <span class="md-ellipsis">
-      4.4 逆行列
+      4.4 零行列
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4.4 逆行列">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 逆行列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 逆行列">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#441-2" class="md-nav__link">
+  <a href="#451-2" class="md-nav__link">
     <span class="md-ellipsis">
-      4.4.1 2次の行列の逆行列の計算
+      4.5.1 2次の行列の逆行列の計算
     </span>
   </a>
   
@@ -3602,6 +3581,15 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 2次行列に対するケーリハミルトンの定理
+    </span>
+  </a>
   
 </li>
         
@@ -3639,9 +3627,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#alpha" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      問題 （応用へ至る +\(\alpha\)）
+      問題 （少し難しい）
     </span>
   </a>
   
@@ -3777,12 +3765,12 @@
 スカラー <span class="arithmatex">\(c\)</span> と行列 <span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(B\)</span> に対して、<span class="arithmatex">\(c(AB) = (cA)B = A(cB)\)</span> が成り立つ。</p>
 </blockquote>
 <p><strong>例 4.1.1</strong>：</p>
-<p><span class="arithmatex">\(2 \times 2\)</span> 行列を用いて、これらの法則を確認してみましょう。</p>
+<p><span class="arithmatex">\(2 \times 2\)</span> 行列を用いて、分配法則を確認してみましょう。</p>
 <p>以下の行列を定義します。
 <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 0 &amp; 3 \end{pmatrix}\)</span>
 <span class="arithmatex">\(B = \begin{pmatrix} 4 &amp; 1 \\ 2 &amp; 5 \end{pmatrix}\)</span>
 <span class="arithmatex">\(C = \begin{pmatrix} 2 &amp; 0 \\ 1 &amp; 3 \end{pmatrix}\)</span></p>
-<p><strong>1. 左分配法則 <span class="arithmatex">\(A(B+C) = AB + AC\)</span> の確認</strong></p>
+<p><strong>1. 分配法則 <span class="arithmatex">\(A(B+C) = AB + AC\)</span> の確認</strong></p>
 <ul>
 <li>
 <p><strong>左辺 <span class="arithmatex">\(A(B+C)\)</span> の計算:</strong></p>
@@ -3830,36 +3818,52 @@
 <span class="arithmatex">\(AB = \begin{pmatrix} 8 &amp; 11 \\ 12 &amp; 3 \end{pmatrix} \neq \begin{pmatrix} 7 &amp; 8 \\ 17 &amp; 4 \end{pmatrix} =BA\)</span>
 となるため、行列の積は順序を交換すると結果が変わります。</p>
 <h3 id="43">4.3 特殊な行列と行列積</h3>
-<h4 id="431">4.3.1 単位行列</h4>
 <blockquote>
-<p><strong>定義 4.3.1（単位行列）</strong><br />
+<p><strong>定義 4.3（単位行列）</strong><br />
 <span class="arithmatex">\(n\)</span> 次の単位行列 <span class="arithmatex">\(I_n\)</span> は、主対角線上の成分がすべて <span class="arithmatex">\(1\)</span> で、それ以外の成分がすべて <span class="arithmatex">\(0\)</span> である <span class="arithmatex">\(n \times n\)</span> の正方行列です：</p>
 <p><span class="arithmatex">\(I_n = \begin{pmatrix} 1 &amp; 0 &amp; \cdots &amp; 0 \\ 0 &amp; 1 &amp; \cdots &amp; 0 \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; \cdots &amp; 1 \end{pmatrix}\)</span></p>
 </blockquote>
 <p>単位行列は、任意の <span class="arithmatex">\(n \times m\)</span> 行列 <span class="arithmatex">\(A\)</span> に対して、<span class="arithmatex">\(I_n A = A\)</span> かつ <span class="arithmatex">\(A I_m = A\)</span> を満たします。この性質から、単位行列は行列の積に関する「単位元」と呼ばれます。</p>
-<p><strong>例 4.3.1</strong>：
+<p><strong>例 4.3</strong>：
 <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}\)</span> と <span class="arithmatex">\(2\)</span> 次の単位行列 <span class="arithmatex">\(I_2 = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span> について、<span class="arithmatex">\(I_2 A\)</span> と <span class="arithmatex">\(A I_2\)</span> を計算してみましょう。</p>
 <p><span class="arithmatex">\(I_2 A = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix} \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix} = \begin{pmatrix} 1 \times 1 + 0 \times 3 &amp; 1 \times 2 + 0 \times 4 \\ 0 \times 1 + 1 \times 3 &amp; 0 \times 2 + 1 \times 4 \end{pmatrix} = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix} = A\)</span></p>
 <p><span class="arithmatex">\(A I_2 = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix} = \begin{pmatrix} 1 \times 1 + 2 \times 0 &amp; 1 \times 0 + 2 \times 1 \\ 3 \times 1 + 4 \times 0 &amp; 3 \times 0 + 4 \times 1 \end{pmatrix} = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix} = A\)</span></p>
 <p>よって、<span class="arithmatex">\(I_2 A = A I_2 = A\)</span> が確認できました。</p>
-<h4 id="432">4.3.2 零行列</h4>
+<h3 id="44">4.4 零行列</h3>
 <p>すべての成分が <span class="arithmatex">\(0\)</span> である行列を零行列と呼び、<span class="arithmatex">\(O\)</span> で表します。任意の行列 <span class="arithmatex">\(A\)</span> に対して、<span class="arithmatex">\(A + O = A\)</span> および <span class="arithmatex">\(A \times O = O \times A = O\)</span> が成り立ちます。</p>
-<h3 id="44">4.4 逆行列</h3>
+<h3 id="45">4.5 逆行列</h3>
 <blockquote>
-<p><strong>定義 4.4.1（逆行列）</strong><br />
+<p><strong>定義 4.5（逆行列）</strong><br />
 <span class="arithmatex">\(n\)</span> 次正方行列 <span class="arithmatex">\(A\)</span> に対して、<span class="arithmatex">\(AB = BA = I_n\)</span> を満たす <span class="arithmatex">\(n\)</span> 次正方行列 <span class="arithmatex">\(B\)</span> が存在するとき、<span class="arithmatex">\(B\)</span> を <span class="arithmatex">\(A\)</span> の逆行列といい、<span class="arithmatex">\(A^{-1}\)</span> と表します。</p>
 </blockquote>
 <p>逆行列が存在する行列を<strong>正則行列</strong>（または<strong>可逆行列</strong>）と呼びます。逆行列が存在しない行列は<strong>特異行列</strong>（または<strong>非可逆行列</strong>）と呼ばれます。</p>
-<h4 id="441-2">4.4.1 2次の行列の逆行列の計算</h4>
+<h4 id="451-2">4.5.1 2次の行列の逆行列の計算</h4>
+<blockquote>
 <p>2次の行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> に対して、<span class="arithmatex">\(\det(A) = ad - bc \neq 0\)</span> であれば、<span class="arithmatex">\(A\)</span> は正則であり、その逆行列は次の式で与えられます：</p>
-<p><span class="arithmatex">\(A^{-1} = \frac{1}{\det(A)} \begin{pmatrix} d &amp; -b \\ -c &amp; a \end{pmatrix} = \frac{1}{ad-bc} \begin{pmatrix} d &amp; -b \\ -c &amp; a \end{pmatrix}\)</span></p>
-<p><strong>例 4.4.1</strong>：
+<div class="arithmatex">\[A^{-1} = \frac{1}{\det(A)} \begin{pmatrix} d &amp; -b \\ -c &amp; a \end{pmatrix} = \frac{1}{ad-bc} \begin{pmatrix} d &amp; -b \\ -c &amp; a \end{pmatrix}\]</div>
+</blockquote>
+<p><strong>例 4.5.1</strong>：
 <span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 2 \end{pmatrix}\)</span> の逆行列を求めましょう。</p>
 <p>まず、<span class="arithmatex">\(\det(A) = 3 \times 2 - 1 \times 2 = 6 - 2 = 4 \neq 0\)</span> なので、<span class="arithmatex">\(A\)</span> は正則です。</p>
-<p><span class="arithmatex">\(A^{-1} = \frac{1}{4} \begin{pmatrix} 2 &amp; -1 \\ -2 &amp; 3 \end{pmatrix} = \begin{pmatrix} \frac{1}{2} &amp; -\frac{1}{4} \\ -\frac{1}{2} &amp; \frac{3}{4} \end{pmatrix}\)</span></p>
+<div class="arithmatex">\[A^{-1} = \frac{1}{4} \begin{pmatrix} 2 &amp; -1 \\ -2 &amp; 3 \end{pmatrix} = \begin{pmatrix} \frac{1}{2} &amp; -\frac{1}{4} \\ -\frac{1}{2} &amp; \frac{3}{4} \end{pmatrix}\]</div>
 <p>検算として、<span class="arithmatex">\(A A^{-1}\)</span> を計算してみましょう：</p>
-<p><span class="arithmatex">\(A A^{-1} = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 2 \end{pmatrix} \begin{pmatrix} \frac{1}{2} &amp; -\frac{1}{4} \\ -\frac{1}{2} &amp; \frac{3}{4} \end{pmatrix} = \begin{pmatrix} 3 \times \frac{1}{2} + 1 \times (-\frac{1}{2}) &amp; 3 \times (-\frac{1}{4}) + 1 \times \frac{3}{4} \\ 2 \times \frac{1}{2} + 2 \times (-\frac{1}{2}) &amp; 2 \times (-\frac{1}{4}) + 2 \times \frac{3}{4} \end{pmatrix} = \begin{pmatrix} \frac{3}{2} - \frac{1}{2} &amp; -\frac{3}{4} + \frac{3}{4} \\ 1 - 1 &amp; -\frac{1}{2} + \frac{3}{2} \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix} = I_2\)</span></p>
+<div class="arithmatex">\[A A^{-1} = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 2 \end{pmatrix} \begin{pmatrix} \frac{1}{2} &amp; -\frac{1}{4} \\ -\frac{1}{2} &amp; \frac{3}{4} \end{pmatrix} = \begin{pmatrix} \frac{3}{2} - \frac{1}{2} &amp; -\frac{3}{4} + \frac{3}{4} \\ 1 - 1 &amp; -\frac{1}{2} + \frac{3}{2} \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix} = I_2\]</div>
 <p>よって、求めた逆行列が正しいことが確認できました。</p>
+<h3 id="46-2">4.6 2次行列に対するケーリハミルトンの定理</h3>
+<blockquote>
+<p><strong>定理 4.5.1 （ケーリ・ハミルトンの定理, KC定理）</strong><br />
+<span class="arithmatex">\(2 \times 2\)</span> 行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> について考える。ここで、<span class="arithmatex">\(a, b, c, d\)</span> は実数とする。また、<span class="arithmatex">\(I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span> を <span class="arithmatex">\(2 \times 2\)</span> 単位行列、<span class="arithmatex">\(O = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}\)</span> を <span class="arithmatex">\(2 \times 2\)</span> 零行列とする。行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> について、以下の関係式が成り立つ。</p>
+<div class="arithmatex">\[A^2 - (a+d)A + (ad-bc)I = O\]</div>
+</blockquote>
+<p><strong>例 4.5.1</strong>：
+<span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 2 \end{pmatrix}\)</span> に対して、ケーリハミルトンの定理が成り立つかを確認します。</p>
+<div class="arithmatex">\[A^2 = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 2 \end{pmatrix}\begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 2 \end{pmatrix} = \begin{pmatrix} 11 &amp; 5 \\ 10 &amp; 6 \end{pmatrix}\]</div>
+<div class="arithmatex">\[(a+d)A = 5\begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 2 \end{pmatrix} = \begin{pmatrix} 15 &amp; 5 \\ 10 &amp; 10 \end{pmatrix}\]</div>
+<p>ここで、<span class="arithmatex">\((ad-bc) = 4\)</span> なので、</p>
+<div class="arithmatex">\[A^2 - (a+d)A = \begin{pmatrix} -4 &amp; 0 \\ 0 &amp; -4 \end{pmatrix} = -(ad-bc)I\]</div>
+<p>であるから、</p>
+<div class="arithmatex">\[A^2 - (a+d)A + (ad-bc)I = O\]</div>
+<p>が成り立つ。</p>
 <h2 id="5">5. 演習問題</h2>
 <h3 id="_1">問題（基礎）</h3>
 <ol>
@@ -3867,11 +3871,18 @@
 </ol>
 <p>(a) <span class="arithmatex">\(\begin{pmatrix} 2 &amp; 1 \\ 1 &amp; -2 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \\ 2 &amp; 3 \end{pmatrix}\)</span></p>
 <p>(b) <span class="arithmatex">\(\begin{pmatrix} 1 &amp; -1 \\ 0 &amp; 2 \\ 3 &amp; 1 \end{pmatrix} \begin{pmatrix} 4 &amp; 1 \\ 0 &amp; 5 \end{pmatrix}\)</span></p>
-<p>(b) <span class="arithmatex">\(\begin{pmatrix} 1 &amp; 0 &amp; 2 \\ -1 &amp; 1 &amp; 0 \end{pmatrix} \begin{pmatrix} 3 &amp; 1 \\ -2 &amp; 1 \\ -1 &amp; 0 \end{pmatrix}\)</span></p>
+<p>(c) <span class="arithmatex">\(\begin{pmatrix} 1 &amp; 0 &amp; 2 \\ -1 &amp; 1 &amp; 0 \end{pmatrix} \begin{pmatrix} 3 &amp; 1 \\ -2 &amp; 1 \\ -1 &amp; 0 \end{pmatrix}\)</span></p>
+<p>(d) <span class="arithmatex">\(\begin{pmatrix} 1 &amp; 2 \\ 0 &amp; -1 \\ 3 &amp; 1 \end{pmatrix}\begin{pmatrix} 1 &amp; -1 &amp; 2 \\ 0 &amp; 3 &amp; 1 \end{pmatrix}\)</span></p>
+<p>(e) <span class="arithmatex">\(\begin{pmatrix} 2 \\ -1 \\ 3 \end{pmatrix}\begin{pmatrix} 1 &amp; 0 &amp; 4 \end{pmatrix}\)</span></p>
+<p>(f) <span class="arithmatex">\(\begin{pmatrix} 1 &amp; 0 &amp; 4 \end{pmatrix}\begin{pmatrix} 2 \\ -1 \\ 3 \end{pmatrix}\)</span></p>
 <ol>
 <li>
-<p>次の行列 <span class="arithmatex">\(E, F\)</span> について、積 <span class="arithmatex">\(EF\)</span> は定義されますか？定義される場合は、積 <span class="arithmatex">\(EF\)</span> を計算しなさい。
-    <span class="arithmatex">\(E = \begin{pmatrix} 1 &amp; 4 &amp; 2 \end{pmatrix}, \quad F = \begin{pmatrix} 3 \\ 0 \\ -1 \end{pmatrix}\)</span></p>
+<p><span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 0 \\ -2 &amp; 3 \end{pmatrix}\)</span>, <span class="arithmatex">\(B = \begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 0 &amp; -1 &amp; 1 \end{pmatrix}\)</span>, <span class="arithmatex">\(C = \begin{pmatrix} 1 \\ 2 \end{pmatrix}\)</span> とする。以下の行列の積のうち、計算可能なものをすべて計算せよ。計算不可能な場合はその理由を述べよ。</p>
+<p>(a) <span class="arithmatex">\(AB\)</span></p>
+<p>(b) <span class="arithmatex">\(BA\)</span></p>
+<p>(c) <span class="arithmatex">\(AC\)</span></p>
+<p>(d) <span class="arithmatex">\(CA\)</span></p>
+<p>(e) <span class="arithmatex">\(BC\)</span></p>
 </li>
 <li>
 <p><span class="arithmatex">\(G = \begin{pmatrix} 5 &amp; -2 \\ 1 &amp; 3 \end{pmatrix}\)</span> とする。単位行列 <span class="arithmatex">\(I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span> について、<span class="arithmatex">\(GI\)</span> および <span class="arithmatex">\(IG\)</span> を計算しなさい。</p>
@@ -3895,60 +3906,130 @@
 <p>行列 <span class="arithmatex">\(A = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix}, B = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}\)</span> について、<span class="arithmatex">\((A+B)(A-B)\)</span> と <span class="arithmatex">\(A^2 - B^2\)</span> をそれぞれ計算し、結果を比較しなさい。（実数の場合 <span class="arithmatex">\((a+b)(a-b)=a^2-b^2\)</span> ですが、行列ではどうなるでしょうか？）</p>
 </li>
 <li>
-<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> が正則であるための必要十分条件は <span class="arithmatex">\(\det(A) = ad - bc \neq 0\)</span> です。この条件を満たさない例を挙げ、その行列が逆行列を持たないことを確認しなさい。</p>
+<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> が正則（逆行列を持つ）ための必要十分条件は <span class="arithmatex">\(\det(A) = ad - bc \neq 0\)</span> です。この条件を満たさない例を挙げ、その行列が逆行列を持たないことを確認しなさい。</p>
+</li>
+<li>
+<p>2次の正方行列 <span class="arithmatex">\(A, B\)</span> が
+<span class="arithmatex">\(A+B = \begin{pmatrix} 3 &amp; 3 \\ -1 &amp; 0 \end{pmatrix}\)</span>,
+<span class="arithmatex">\(A-B = \begin{pmatrix} -1 &amp; -3 \\ 1 &amp; -2 \end{pmatrix}\)</span>
+を満たすとき、
+<span class="arithmatex">\(A^2 - B^2\)</span> を求めよ。 </p>
+</li>
+<li>
+<p>2つの正方行列
+<span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 2 \\ a &amp; b \end{pmatrix}\)</span>,
+<span class="arithmatex">\(B = \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix}\)</span>
+について、<span class="arithmatex">\(AB = BA\)</span> が成り立つとき、<span class="arithmatex">\(a\)</span> と <span class="arithmatex">\(b\)</span>を求めなさい。</p>
+</li>
+<li>
+<p>行列
+<span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}\)</span>,
+<span class="arithmatex">\(B = \begin{pmatrix} x &amp; -1 \\ y &amp; 1 \end{pmatrix}\)</span>
+に対して、<span class="arithmatex">\(AB = BA\)</span> が成り立つとき、<span class="arithmatex">\(x\)</span> と <span class="arithmatex">\(y\)</span> を求めよ。</p>
+</li>
+<li>
+<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} x &amp; 5 \\ -3 &amp; y \end{pmatrix}\)</span> が <span class="arithmatex">\(A = A^{-1}\)</span> を満たすとき、<span class="arithmatex">\(x, y\)</span> を求めよ。</p>
+</li>
+<li>
+<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; 3 \\ 3 &amp; 1 \end{pmatrix}\)</span> の逆行列が <span class="arithmatex">\(A^{-1} \begin{pmatrix} 1 &amp; x \\ b &amp; y \end{pmatrix}\)</span>とする。<span class="arithmatex">\(x, y\)</span>を求めなさい。</p>
+</li>
+<li>
+<p>（ケーリ・ハミルトン） <span class="arithmatex">\(2 \times 2\)</span> 行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> について考える。ここで、<span class="arithmatex">\(a, b, c, d\)</span> は実数とする。また、<span class="arithmatex">\(I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span> を <span class="arithmatex">\(2 \times 2\)</span> 単位行列、<span class="arithmatex">\(O = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}\)</span> を <span class="arithmatex">\(2 \times 2\)</span> 零行列とする。<span class="arithmatex">\(A^2 - (a+d)A + (ad-bc)I = O\)</span> 成り立つことを計算で示しなさい。</p>
+</li>
+<li>
+<p>（ケーリ・ハミルトン） 行列 <span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 4 \end{pmatrix}\)</span> とする。<span class="arithmatex">\(A^3\)</span> を <span class="arithmatex">\(pA + qI\)</span> (ただし <span class="arithmatex">\(p, q\)</span> は実数) の形で表しなさい。また、<span class="arithmatex">\(A^3\)</span> を求めなさい。</p>
+</li>
+<li>
+<p>（ケーリ・ハミルトン）行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; 1 \\ 1 &amp; -a \end{pmatrix}\)</span> について、<span class="arithmatex">\(A^{10}\)</span> の <span class="arithmatex">\((2,2)\)</span>成分を求めなさい。</p>
+</li>
+<li>
+<p><span class="arithmatex">\(A = \begin{pmatrix} 9 &amp; 4 &amp; 8 \\ -8 &amp; -3 &amp; -8 \\ 4 &amp; 2 &amp; 5 \end{pmatrix}\)</span> とし、<span class="arithmatex">\(E\)</span> を 3 次の単位行列とする。このとき、次の問いに答えよ。</p>
+<p>(1) <span class="arithmatex">\(A^2 - 10A = -9E\)</span> であることを示せ。</p>
+<p>(2) <span class="arithmatex">\(AB = \begin{pmatrix} -3 &amp; 4 &amp; -18 \\ 5 &amp; -1 &amp; 18 \\ -4 &amp; 1 &amp; -9 \end{pmatrix}\)</span> を満たす行列 <span class="arithmatex">\(B\)</span> を求めよ。</p>
+</li>
+<li>
+<p>（逆行列の有無）<span class="arithmatex">\(A, B, C\)</span> はいずれも 2 次の正方行列であり、下記の性質を満たす <span class="arithmatex">\(A, B, C\)</span> のうち逆行列をもつものはどれか。理由を付して答えよ。</p>
+<p>(ア) <span class="arithmatex">\(A\)</span> は <span class="arithmatex">\(A^2 + A - 2E = O\)</span> を満たす。</p>
+<p>(イ) <span class="arithmatex">\(B\)</span> は <span class="arithmatex">\(B^2 = O\)</span> を満たす。</p>
+<p>(ウ) <span class="arithmatex">\(C = E + B\)</span></p>
 </li>
 </ol>
 <h3 id="_2">問題（標準）</h3>
 <ol>
 <li>
-<p><strong>可換な行列の探求:</strong>
-    行列 <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 0 &amp; 3 \end{pmatrix}\)</span> と可換な（つまり <span class="arithmatex">\(AB = BA\)</span> を満たす） <span class="arithmatex">\(2 \times 2\)</span> 行列 <span class="arithmatex">\(B = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> の <span class="arithmatex">\(a, b, c, d\)</span> が満たすべき条件を示しなさい。</p>
+<p><strong>可換な行列の探求:</strong></p>
+<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 \\ 0 &amp; 3 \end{pmatrix}\)</span> と可換な（つまり <span class="arithmatex">\(AB = BA\)</span> を満たす） <span class="arithmatex">\(2 \times 2\)</span> 行列 <span class="arithmatex">\(B = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> の <span class="arithmatex">\(a, b, c, d\)</span> が満たすべき条件を求めなさい。</p>
 </li>
 <li>
-<p><strong>冪零行列と恒等行列:</strong>
-    <span class="arithmatex">\(N = \begin{pmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{pmatrix}\)</span> とする。</p>
+<p><strong>冪零行列と恒等行列:</strong></p>
+<p><span class="arithmatex">\(N = \begin{pmatrix} 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{pmatrix}\)</span> とする。</p>
 <p>(a) <span class="arithmatex">\(N^2\)</span> と <span class="arithmatex">\(N^3\)</span> を計算しなさい。</p>
 <p>(b) <span class="arithmatex">\(I\)</span> を <span class="arithmatex">\(3 \times 3\)</span> の単位行列とする。 <span class="arithmatex">\((I-N)(I+N+N^2)\)</span> を計算し、結果が <span class="arithmatex">\(I\)</span> になることを示しなさい（この問題が後の問題のヒントになります）。</p>
 </li>
 <li>
-<p><strong>行列のトレースと積の性質:</strong>
-    行列 <span class="arithmatex">\(M = \begin{pmatrix}x &amp; y \\ z &amp; w \end{pmatrix}\)</span> のトレース <span class="arithmatex">\(\mathrm{tr}(M)\)</span> とは、その対角成分の和のことで、 <span class="arithmatex">\(\mathrm{tr}(M) = x + w\)</span> です。</p>
+<p><strong>行列のトレースと積の性質:</strong></p>
+<p>行列 <span class="arithmatex">\(M = \begin{pmatrix}x &amp; y \\ z &amp; w \end{pmatrix}\)</span> のトレース <span class="arithmatex">\(\mathrm{tr}(M)\)</span> とは、その対角成分の和のことで、 <span class="arithmatex">\(\mathrm{tr}(M) = x + w\)</span> です。</p>
 <p><span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}, B = \begin{pmatrix} p &amp; q \\ r &amp; s \end{pmatrix}\)</span> を一般的な <span class="arithmatex">\(2 \times 2\)</span> 行列とする。
 積 <span class="arithmatex">\(AB\)</span> と <span class="arithmatex">\(BA\)</span> を計算し、 <span class="arithmatex">\(\mathrm{tr}(AB) = \mathrm{tr}(BA)\)</span> が成り立つことを示しなさい。（この性質は一般の <span class="arithmatex">\(n \times n\)</span> 行列でも成り立ちます）。</p>
 </li>
 <li>
-<p><strong>行列の <span class="arithmatex">\(n\)</span> 乗の規則性:</strong>
-    <span class="arithmatex">\(A = \begin{pmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{pmatrix}\)</span> （回転行列）とする。</p>
+<p><strong>行列の <span class="arithmatex">\(n\)</span> 乗の規則性:</strong></p>
+<p><span class="arithmatex">\(A = \begin{pmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{pmatrix}\)</span> （回転行列）とする。</p>
 <p>(a) <span class="arithmatex">\(A^2\)</span> および <span class="arithmatex">\(A^3\)</span> を計算しなさい。（三角関数の加法定理を用いるとよいでしょう）</p>
 <p>(b) <span class="arithmatex">\(A^n\)</span> (<span class="arithmatex">\(n\)</span> は正の整数) の形を推測し、数学的帰納法を用いてその推測が正しいことを証明しなさい。</p>
 </li>
 <li>
-<p><strong>射影行列（Idempotent Matrix）の性質:</strong>
-    ある正方行列 <span class="arithmatex">\(X\)</span> が <span class="arithmatex">\(X^2 = X\)</span> を満たすとき、<span class="arithmatex">\(X\)</span> は冪等行列（idempotent matrix）または射影行列と呼ばれます。
-    <span class="arithmatex">\(P\)</span> が冪等行列であるとき、以下のことを証明しなさい。</p>
+<p><strong>射影行列（Idempotent Matrix）の性質:</strong></p>
+<p>ある正方行列 <span class="arithmatex">\(X\)</span> が <span class="arithmatex">\(X^2 = X\)</span> を満たすとき、<span class="arithmatex">\(X\)</span> は冪等行列（idempotent matrix）または射影行列と呼ばれます。
+<span class="arithmatex">\(P\)</span> が冪等行列であるとき、以下のことを証明しなさい。</p>
 <p>(a) <span class="arithmatex">\(I-P\)</span> も冪等行列である（<span class="arithmatex">\((I-P)^2 = (I-P)\)</span>を示す）。</p>
 <p>(b) <span class="arithmatex">\(P(I-P) = (I-P)P = O\)</span> （<span class="arithmatex">\(O\)</span> は零行列）である。</p>
 </li>
+<li>
+<p><strong>行列の<span class="arithmatex">\(n\)</span>乗の探求1</strong></p>
+<p><span class="arithmatex">\(A = \begin{pmatrix} 2 &amp; -1 \\ 1 &amp; 0 \end{pmatrix}\)</span> とする。<span class="arithmatex">\(A^2, A^3\)</span> を計算し、<span class="arithmatex">\(A^n\)</span> の規則性を見つけるのは難しい。しかし、<span class="arithmatex">\(A=I+N\)</span> となる <span class="arithmatex">\(N = \begin{pmatrix} 1 &amp; -1 \\ 1 &amp; -1 \end{pmatrix}\)</span> を考えると、<span class="arithmatex">\(N^2=O\)</span>（ゼロ行列）となることを示せ。これを用いて <span class="arithmatex">\((I+N)^n\)</span> を二項展開し、<span class="arithmatex">\(A^n\)</span> を求めよ。</p>
+</li>
+<li>
+<p><strong>行列の<span class="arithmatex">\(n\)</span>乗の探求2</strong></p>
+<p><span class="arithmatex">\(A = \begin{pmatrix} \lambda &amp; 1 \\ 0 &amp; \lambda \end{pmatrix}\)</span> (<span class="arithmatex">\(\lambda\)</span> はスカラー) とする。<span class="arithmatex">\(A^n\)</span> (<span class="arithmatex">\(n\)</span> は自然数) を推測し証明せよ。</p>
+</li>
+<li>
+<p><strong>行列の<span class="arithmatex">\(n\)</span>乗の探求3</strong></p>
+<p><span class="arithmatex">\(A = \begin{pmatrix} -1 &amp; -3 \\ 4 &amp; 6 \end{pmatrix},  U=\begin{pmatrix} 1 &amp; 3 \\ -1 &amp; -4 \end{pmatrix}\)</span> に対して次の問いに答えなさい。</p>
+<p>(a) 行列 <span class="arithmatex">\(U\)</span> の逆行列 <span class="arithmatex">\(U^{-1}\)</span> を求めなさい</p>
+<p>(b) <span class="arithmatex">\(B = U^{-1}AU\)</span> とおくとき、自然数 <span class="arithmatex">\(n\)</span> に対して、行列 <span class="arithmatex">\(B^n\)</span> を求めなさい</p>
+<p>(c) 自然数 <span class="arithmatex">\(n\)</span> に対して、行列 <span class="arithmatex">\(A^n\)</span> を求めなさい。</p>
+</li>
 </ol>
-<h3 id="alpha">問題 （応用へ至る +<span class="arithmatex">\(\alpha\)</span>）</h3>
+<h3 id="_3">問題 （少し難しい）</h3>
 <ol>
 <li>
-<p><strong>ケーリハミルトンの定理</strong>
-    <span class="arithmatex">\(2 \times 2\)</span> 行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> について考える。ここで、<span class="arithmatex">\(a, b, c, d\)</span> は実数とする。また、<span class="arithmatex">\(I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span> を <span class="arithmatex">\(2 \times 2\)</span> 単位行列、<span class="arithmatex">\(O = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}\)</span> を <span class="arithmatex">\(2 \times 2\)</span> 零行列とする。</p>
-<p>(a) 行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> について、<span class="arithmatex">\(A^2 - (a+d)A + (ad-bc)I = O\)</span> 成り立つことを計算で示しなさい。</p>
-<p>(b) 行列 <span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 4 \end{pmatrix}\)</span> とする。<span class="arithmatex">\(A^3\)</span> を <span class="arithmatex">\(pA + qI\)</span> (ただし <span class="arithmatex">\(p, q\)</span> は実数) の形で表しなさい。(ヒント: まず <span class="arithmatex">\(A\)</span> について <span class="arithmatex">\(A^2 - (a+d)A + (ad-bc)I = O\)</span> の具体的な形を計算します。その式を <span class="arithmatex">\(A^2 = \dots\)</span> の形に変形し、それを用いて <span class="arithmatex">\(A^3 = A \cdot A^2\)</span> を計算します。)</p>
-<p>(c) 行列 <span class="arithmatex">\(B = \begin{pmatrix} 4 &amp; -1 \\ 3 &amp; 2 \end{pmatrix}\)</span> とする。<span class="arithmatex">\(B\)</span> の逆行列 <span class="arithmatex">\(B^{-1}\)</span> を <span class="arithmatex">\(pB + qI\)</span> (ただし <span class="arithmatex">\(p, q\)</span> は実数) の形で表しなさい。</p>
-<p>(d) 行列 <span class="arithmatex">\(C = \begin{pmatrix} 1 &amp; 3 \\ -1 &amp; 0 \end{pmatrix}\)</span> とする。<span class="arithmatex">\(f(C) = C^4 - C^3 + 4C^2 - 2C + 5I\)</span> の値を計算しなさい。</p>
+<p>行列 <span class="arithmatex">\(B = \begin{pmatrix} 4 &amp; -1 \\ 3 &amp; 2 \end{pmatrix}\)</span> とする。<span class="arithmatex">\(B\)</span> の逆行列 <span class="arithmatex">\(B^{-1}\)</span> を <span class="arithmatex">\(pB + qI\)</span> (ただし <span class="arithmatex">\(p, q\)</span> は実数) の形で表しなさい。</p>
 </li>
 <li>
-<p><strong>行列の平方根:</strong>
-    <span class="arithmatex">\(I_2 = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span> とする。<span class="arithmatex">\(X^2 = I_2\)</span> を満たす <span class="arithmatex">\(2 \times 2\)</span> <strong>実数</strong>行列 <span class="arithmatex">\(X\)</span> を<strong>すべて</strong>求めなさい。（<span class="arithmatex">\(X=I_2, X=-I_2\)</span> 以外にも存在します。ケーリー・ハミルトンの定理などを考慮すると見通しが良くなるかもしれません）。</p>
+<p>行列 <span class="arithmatex">\(C = \begin{pmatrix} 1 &amp; 3 \\ -1 &amp; 0 \end{pmatrix}\)</span> とする。<span class="arithmatex">\(f(C) = C^4 - C^3 + 4C^2 - 2C + 5I\)</span> の値を計算しなさい。</p>
 </li>
 <li>
-<p><strong>冪零行列と逆行列:</strong>
-    <span class="arithmatex">\(N\)</span> を <span class="arithmatex">\(n \times n\)</span> 行列とし、<span class="arithmatex">\(N^k = O\)</span> (零行列) となる正の整数 <span class="arithmatex">\(k\)</span> が存在するとする（このような行列 <span class="arithmatex">\(N\)</span> を冪零行列といいます）。</p>
+<p>行列 <span class="arithmatex">\(D = \begin{pmatrix} 2 &amp; 4 \\ -1 &amp; -1 \end{pmatrix}\)</span> とする。<span class="arithmatex">\(A^6 + 2 A^4 + 2 A^3 + 2 A^2 + 2 A + I\)</span> の値を計算しなさい。</p>
+</li>
+<li>
+<p>行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> が <span class="arithmatex">\(A^2 - 97A + 2010E = O\)</span> を満たすとき、<span class="arithmatex">\(a+d\)</span>, <span class="arithmatex">\(ad-bc\)</span> の値の組をすべて求めよ。ただし、<span class="arithmatex">\(I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span>, <span class="arithmatex">\(O = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}\)</span> とする。</p>
+</li>
+<li>
+<p><span class="arithmatex">\(a\)</span> を実数とする。行列 <span class="arithmatex">\(X = \begin{pmatrix} x &amp; -y \\ y &amp; x \end{pmatrix}\)</span> が <span class="arithmatex">\(X^2 - 2X + aE = O\)</span> をみたすような実数 <span class="arithmatex">\(x, y\)</span> を求めよ。ただし、<span class="arithmatex">\(E = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span>, <span class="arithmatex">\(O = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}\)</span> とする。</p>
+</li>
+<li>
+<p><span class="arithmatex">\(N\)</span> を <span class="arithmatex">\(n \times n\)</span> 行列とし、<span class="arithmatex">\(N^k = O\)</span> (零行列) となる正の整数 <span class="arithmatex">\(k\)</span> が存在するとする（このような行列 <span class="arithmatex">\(N\)</span> を冪零行列といいます）。</p>
 <p>(a) <span class="arithmatex">\(I - N\)</span> が正則行列（逆行列を持つ行列）であることを証明しなさい。</p>
-<p>(b) <span class="arithmatex">\((I - N)^{-1}\)</span> を <span class="arithmatex">\(I, N, N^2, \dots, N^{k-1}\)</span> を用いて具体的に表しなさい。（ヒント: 等比数列の和の公式 <span class="arithmatex">\(1+x+x^2+\dots+x^{k-1} = \frac{1-x^k}{1-x}\)</span> を想起しましょう）。</p>
+<p>(b) <span class="arithmatex">\((I - N)^{-1}\)</span> を <span class="arithmatex">\(I, N, N^2, \dots, N^{k-1}\)</span> を用いて具体的に表しなさい。</p>
+</li>
+<li>
+<p><span class="arithmatex">\(a, b, c, d\)</span> は実数とする。行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> に対して、等式 <span class="arithmatex">\(A^2 + BA = 4E\)</span>, <span class="arithmatex">\(AB + B^2 = 12E\)</span> をみたす行列 <span class="arithmatex">\(B\)</span> が存在するとき、<span class="arithmatex">\(a+d\)</span> と <span class="arithmatex">\(ad-bc\)</span> の値を求めよ。ただし、<span class="arithmatex">\(E = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span> とする。</p>
+</li>
+<li>
+<p>2次元ベクトル <span class="arithmatex">\(A_n (n=1, 2, 3, \dots)\)</span> が以下の関係式を満たすとき、<span class="arithmatex">\(A_n\)</span> を求めよ。</p>
+<p><span class="arithmatex">\(A_1 = \begin{pmatrix} 2 \\ 1 \end{pmatrix}\)</span>,　<span class="arithmatex">\(A_2 = \begin{pmatrix} 3 \\ 1 \end{pmatrix}\)</span>,
+<span class="arithmatex">\(<span class="arithmatex">\(A_{n+2} = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix} A_{n+1} + \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix} A_n \quad (n=1, 2, 3, \dots)\)</span>\)</span></p>
 </li>
 </ol>
 <h3 id="beta">問題 （データサイエンス応用 +<span class="arithmatex">\(\beta\)</span>）</h3>
