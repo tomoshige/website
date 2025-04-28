@@ -3372,7 +3372,7 @@
           <li class="md-nav__item">
   <a href="#451-2" class="md-nav__link">
     <span class="md-ellipsis">
-      4.5.1 2次の行列の逆行列の計算
+      4.5.1 2次の行列の逆行列
     </span>
   </a>
   
@@ -4142,27 +4142,29 @@ $$ I_n = \begin{pmatrix} 1 &amp; 0 &amp; \cdots &amp; 0 \ 0 &amp; 1 &amp; \cdots
 </ul>
 <hr />
 <h3 id="45">4.5 逆行列</h3>
-<blockquote>
-<p><strong>定義 4.5（逆行列）</strong>
-<span class="arithmatex">\(n\)</span> 次正方行列 <span class="arithmatex">\(A\)</span> に対して、<span class="arithmatex">\(AB = BA = I_n\)</span> を満たす <span class="arithmatex">\(n\)</span> 次正方行列 <span class="arithmatex">\(B\)</span> が存在するとき、<span class="arithmatex">\(B\)</span> を <span class="arithmatex">\(A\)</span> の<strong>逆行列</strong>といい、<span class="arithmatex">\(A^{-1}\)</span> と表す。
-$$ AA^{-1} = A^{-1}A = I_n $$</p>
-</blockquote>
+<p><strong>定義 4.5（逆行列）</strong></p>
+<p><span class="arithmatex">\(n\)</span> 次正方行列 <span class="arithmatex">\(A\)</span> に対して、<span class="arithmatex">\(AB = BA = I_n\)</span> を満たす <span class="arithmatex">\(n\)</span> 次正方行列 <span class="arithmatex">\(B\)</span> が存在するとき、<span class="arithmatex">\(B\)</span> を <span class="arithmatex">\(A\)</span> の<strong>逆行列</strong>といい、<span class="arithmatex">\(A^{-1}\)</span> と表す。</p>
+<div class="arithmatex">\[ AA^{-1} = A^{-1}A = I_n \]</div>
 <ul>
-<li>逆行列が存在する行列 <span class="arithmatex">\(A\)</span> を<strong>正則行列</strong> (regular) または<strong>可逆行列</strong> (invertible) という。</li>
-<li>逆行列が存在しない正方行列は<strong>特異行列</strong> (singular) または<strong>非可逆行列</strong> (non-invertible) という。</li>
-<li>逆行列は正方行列に対してのみ定義される。</li>
+<li>
+<p>逆行列が存在する行列 <span class="arithmatex">\(A\)</span> を<strong>正則行列</strong> (regular) または<strong>可逆行列</strong> (invertible) という。</p>
+</li>
+<li>
+<p>逆行列が存在しない正方行列は<strong>特異行列</strong> (singular) または<strong>非可逆行列</strong> (non-invertible) という。</p>
+</li>
+<li>
+<p>逆行列は正方行列に対してのみ定義される。</p>
+</li>
 </ul>
 <hr />
-<h3 id="451-2">4.5.1 2次の行列の逆行列の計算</h3>
-<blockquote>
-<p>2次の行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> に対して、</p>
+<h3 id="451-2">4.5.1 2次の行列の逆行列</h3>
+<p><strong>定理 4.5（2次行列の逆行列）</strong></p>
+<p>2次の行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> に対して、
+*   <span class="arithmatex">\(ad - bc \neq 0\)</span> ならば、<span class="arithmatex">\(A\)</span> は正則であり、逆行列 <span class="arithmatex">\(A^{-1}\)</span> が存在し、逆行列は次の式で与えられる：
+$$ A^{-1} = \frac{1}{ad-bc} \begin{pmatrix} d &amp; -b \ -c &amp; a \end{pmatrix} $$</p>
 <ul>
-<li><span class="arithmatex">\(ad - bc \neq 0\)</span> ならば、<span class="arithmatex">\(A\)</span> は正則であり、逆行列 <span class="arithmatex">\(A^{-1}\)</span> が存在する。</li>
-<li>逆行列は次の式で与えられる：
-    $$ A^{-1} = \frac{1}{\det(A)} \begin{pmatrix} d &amp; -b \ -c &amp; a \end{pmatrix} = \frac{1}{ad-bc} \begin{pmatrix} d &amp; -b \ -c &amp; a \end{pmatrix} $$</li>
 <li><span class="arithmatex">\(ad - bc = 0\)</span> ならば、<span class="arithmatex">\(A\)</span> は特異行列であり、逆行列は存在しない。</li>
 </ul>
-</blockquote>
 <hr />
 <h3 id="2-451">2次の行列の逆行列の計算 - 例 4.5.1</h3>
 <p><span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 2 \end{pmatrix}\)</span> の逆行列を求める。</p>
@@ -4179,12 +4181,10 @@ $$ AA^{-1} = A^{-1}A = I_n $$</p>
 <span class="arithmatex">\(A^{-1}A\)</span> も同様に <span class="arithmatex">\(I_2\)</span> となる（各自確認）。</p>
 <hr />
 <h3 id="46-2">4.6 2次行列に対するケーリ・ハミルトンの定理</h3>
-<blockquote>
-<p><strong>定理 4.5.1 （ケーリ・ハミルトンの定理, Cayley-Hamilton Theorem, CHT）</strong>
-<span class="arithmatex">\(2 \times 2\)</span> 行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> について、以下の関係式が成り立つ。
-$$ A^2 - (a+d)A + (ad-bc)I = O $$
-ここで、<span class="arithmatex">\(I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span> は単位行列、<span class="arithmatex">\(O = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}\)</span> は零行列。</p>
-</blockquote>
+<p><strong>定理 4.5.1 （ケーリ・ハミルトンの定理, Cayley-Hamilton Theorem, CHT）</strong></p>
+<p><span class="arithmatex">\(2 \times 2\)</span> 行列 <span class="arithmatex">\(A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\)</span> について、以下の関係式が成り立つ。</p>
+<div class="arithmatex">\[ A^2 - (a+d)A + (ad-bc)I = O \]</div>
+<p>ここで、<span class="arithmatex">\(I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\)</span> は単位行列、<span class="arithmatex">\(O = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; 0 \end{pmatrix}\)</span> は零行列。</p>
 <hr />
 <h3 id="-451">ケーリ・ハミルトンの定理 - 例 4.5.1</h3>
 <p><span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 2 \end{pmatrix}\)</span> でケーリ・ハミルトンの定理を確認する。</p>

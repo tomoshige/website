@@ -243,24 +243,29 @@ $A I_2 = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ 0
 
 ### 4.5 逆行列
 
-> **定義 4.5（逆行列）**
-> $n$ 次正方行列 $A$ に対して、$AB = BA = I_n$ を満たす $n$ 次正方行列 $B$ が存在するとき、$B$ を $A$ の**逆行列**といい、$A^{-1}$ と表す。
-> $$ AA^{-1} = A^{-1}A = I_n $$
+**定義 4.5（逆行列）**
+
+$n$ 次正方行列 $A$ に対して、$AB = BA = I_n$ を満たす $n$ 次正方行列 $B$ が存在するとき、$B$ を $A$ の**逆行列**といい、$A^{-1}$ と表す。
+
+$$ AA^{-1} = A^{-1}A = I_n $$
 
 *   逆行列が存在する行列 $A$ を**正則行列** (regular) または**可逆行列** (invertible) という。
+
 *   逆行列が存在しない正方行列は**特異行列** (singular) または**非可逆行列** (non-invertible) という。
+
 *   逆行列は正方行列に対してのみ定義される。
 
 ---
 
-### 4.5.1 2次の行列の逆行列の計算
+### 4.5.1 2次の行列の逆行列
 
-> 2次の行列 $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ に対して、
->
-> *   $ad - bc \neq 0$ ならば、$A$ は正則であり、逆行列 $A^{-1}$ が存在する。
-> *   逆行列は次の式で与えられる：
->     $$ A^{-1} = \frac{1}{\det(A)} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix} = \frac{1}{ad-bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix} $$
-> *   $ad - bc = 0$ ならば、$A$ は特異行列であり、逆行列は存在しない。
+**定理 4.5（2次行列の逆行列）**
+
+2次の行列 $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ に対して、
+*   $ad - bc \neq 0$ ならば、$A$ は正則であり、逆行列 $A^{-1}$ が存在し、逆行列は次の式で与えられる：
+$$ A^{-1} = \frac{1}{ad-bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix} $$
+
+*   $ad - bc = 0$ ならば、$A$ は特異行列であり、逆行列は存在しない。
 
 ---
 
@@ -283,10 +288,13 @@ $A^{-1}A$ も同様に $I_2$ となる（各自確認）。
 
 ### 4.6 2次行列に対するケーリ・ハミルトンの定理
 
-> **定理 4.5.1 （ケーリ・ハミルトンの定理, Cayley-Hamilton Theorem, CHT）**
-> $2 \times 2$ 行列 $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ について、以下の関係式が成り立つ。
-> $$ A^2 - (a+d)A + (ad-bc)I = O $$
-> ここで、$I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$ は単位行列、$O = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$ は零行列。
+**定理 4.5.1 （ケーリ・ハミルトンの定理, Cayley-Hamilton Theorem, CHT）**
+
+$2 \times 2$ 行列 $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ について、以下の関係式が成り立つ。
+
+$$ A^2 - (a+d)A + (ad-bc)I = O $$
+
+ここで、$I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$ は単位行列、$O = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$ は零行列。
 
 
 ---
