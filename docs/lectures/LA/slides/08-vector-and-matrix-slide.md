@@ -1,20 +1,73 @@
-# 線形代数学 I データサイエンス基礎 第8回講義ノート
+---
+marp: true
+size: 16:9
+paginate: true
+theme: gaia
+backgroundColor: #fff
+math: katex
+---
+<!-- header: 'T. Nakamura | Juntendo Univ.' -->
+<!-- footer: '2025/02/08' -->
+<style>
+section { 
+    font-size: 20px; 
+}
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+/* ページ番号 */
+section::after {
+    content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+    fonr-size: 60%;
+}
+/* 発表会名 */
+header {
+    width: 100%;
+    position: absolute;
+    top: unset;
+    bottom: 21px;
+    left: 0;
+    text-align: center;
+    font-size: 60%;
+}
+/* 日付 */
+footer {
+    text-align: center;
+    font-size: 15px;
+}
+</style>
+
+
+<!--
+_class: lead
+_paginate: false
+-->
+
+![bg left:50% 80%](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png)
+
+# 線形代数学 I: 第8回講義
+## 分散共分散行列と行列表示
+
+### 中村 知繁
+
+---
 
 ## 1. 講義情報と予習ガイド
 
-**本講義の学習目標**
+**講義回**: 第8回
+
+**テーマ**: 2次元データと行列の積  
+
+**関連項目**: データの共分散、相関係数、行列表現  
+
+**予習内容**: 第7回「1次元データとベクトルの和と積」の復習、特に平均・分散の計算方法
 
 1. 2次元データの共分散と相関係数の概念を理解する
-
 2. 行列とベクトルを用いた共分散の計算方法を習得する
-
 3. 行列とベクトルを用いた相関係数の計算方法を習得する
 
-**スライド**
-スライドは[こちら](./slides/08-vector-and-matrix-slide.pdf)から。
-
-**問題**は[こちら](./exercise/exercise3.pdf)から
-
+---
 
 ## 2. 基本概念
 
@@ -31,6 +84,8 @@
 - $y_i$: $i$番目のデータの第2変数の値
 - $n$: データ数
 
+---
+
 ### 2.2 共分散の定義
 
 > **定義**: 2つの変数 $X$ と $Y$ の共分散 $\mathrm{Cov}(X,Y)$ は、各変数の平均からの偏差の積の平均として定義されます。
@@ -45,6 +100,8 @@
 - $\mathrm{Cov}(X,Y) < 0$ : $X$ が大きくなると $Y$ は小さくなる傾向（負の相関）
 - $\mathrm{Cov}(X,Y) \approx 0$ : $X$ と $Y$ に明確な関連がない（無相関）
 - $\mathrm{Cov}(X,X) = \mathrm{Var}(X)$ : 変数自身との共分散は分散に等しい
+
+---
 
 ### 2.3 相関係数の定義
 
@@ -62,6 +119,8 @@
 - $\rho_{XY} = 1$ : 完全な正の相関（直線的な比例関係）
 - $\rho_{XY} = -1$ : 完全な負の相関（直線的な反比例関係）
 - $\rho_{XY} = 0$ : 無相関（線形の関連性がない）
+
+---
 
 ## 3. 共分散と相関行列の行列表示
 
@@ -83,20 +142,18 @@ x_2 & y_2 \\
 x_n & y_n
 \end{bmatrix}$$
 
+---
+
 ### 3.2 行列とベクトルを用いた共分散の計算
 
 ベクトル表記を用いた共分散の計算方法を示します。
 
 まず、各変数の平均ベクトルを求めます:
-
 - $\bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_i$ : 第1変数の平均
-
 - $\bar{y} = \frac{1}{n}\sum_{i=1}^{n}y_i$ : 第2変数の平均
 
 偏差ベクトルを定義します:
-
 - $\mathbf{x}_{dev} = \mathbf{x} - \bar{x}\mathbf{1}$ : 第1変数の偏差ベクトル
-
 - $\mathbf{y}_{dev} = \mathbf{y} - \bar{y}\mathbf{1}$ : 第2変数の偏差ベクトル
 
 ここで、$\mathbf{1}$ は全ての要素が1である長さ $n$ のベクトルです。
@@ -105,28 +162,27 @@ x_n & y_n
 
 $$\mathrm{Cov}(X,Y) = \frac{1}{n}\mathbf{x}_{dev}^T\mathbf{y}_{dev}$$
 
+---
+
 ### 3.3 行列とベクトルを用いた相関係数の計算
 
 相関係数は、共分散を各変数の標準偏差で除することで計算できます。
 
 各変数の分散を計算します:
-
 - $\mathrm{Var}(X) = \frac{1}{n}\mathbf{x}_{dev}^T\mathbf{x}_{dev}$ : 第1変数の分散
-
 - $\mathrm{Var}(Y) = \frac{1}{n}\mathbf{y}_{dev}^T\mathbf{y}_{dev}$ : 第2変数の分散
 
 標準偏差を計算します:
-
 - $\sigma_X = \sqrt{\mathrm{Var}(X)}$ : 第1変数の標準偏差
-
 - $\sigma_Y = \sqrt{\mathrm{Var}(Y)}$ : 第2変数の標準偏差
 
 相関係数は次の式で計算されます:
 
 $$\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbf{x}_{dev}^T\mathbf{y}_{dev}}{\sqrt{(\mathbf{x}_{dev}^T\mathbf{x}_{dev})(\mathbf{y}_{dev}^T\mathbf{y}_{dev})}}$$
 
-### 4.4 共分散行列
+---
 
+### 3.4 共分散行列 
 多変量データを扱う際には、全ての変数のペアに対する共分散を含む共分散行列が重要になります。2変数 $X$ と $Y$ の場合、共分散行列 $\mathbf{\Sigma}$ は次のようになります:
 
 $$\mathbf{\Sigma} = 
@@ -141,9 +197,11 @@ $$\mathbf{\Sigma} = \frac{1}{n}(\mathbf{X} - \mathbf{1}\boldsymbol{\mu}^T)^T(\ma
 
 ここで、$\boldsymbol{\mu}$ は各変数の平均値を含むベクトルです。
 
+---
+
 ## 4. 計算例と実装
 
-### 4.1 数値例: 共分散と相関係数の計算
+### 4.1 数値例: 共分散と相関係数の計算 (1/3)
 
 以下の5つのデータポイントに対して共分散と相関係数を計算してみましょう:
 
@@ -159,6 +217,10 @@ $$\mathbf{\Sigma} = \frac{1}{n}(\mathbf{X} - \mathbf{1}\boldsymbol{\mu}^T)^T(\ma
 - $\bar{x} = \frac{160 + 170 + 180 + 165 + 175}{5} = 170$
 - $\bar{y} = \frac{55 + 65 + 75 + 60 + 70}{5} = 65$
 
+---
+
+### 4.1 数値例: 共分散と相関係数の計算 (2/3)
+
 **ステップ2**: 各データポイントの偏差を計算します。
 
 | データ番号 | $x_i - \bar{x}$ | $y_i - \bar{y}$ | $(x_i - \bar{x})(y_i - \bar{y})$ |
@@ -173,29 +235,34 @@ $$\mathbf{\Sigma} = \frac{1}{n}(\mathbf{X} - \mathbf{1}\boldsymbol{\mu}^T)^T(\ma
 
 $$\mathrm{Cov}(X,Y) = \frac{100 + 0 + 100 + 25 + 25}{5} = \frac{250}{5} = 50$$
 
+---
+
+### 4.1 数値例: 共分散と相関係数の計算 (3/3)
+
 **ステップ4**: 各変数の分散と標準偏差を計算します。
 
 $$\mathrm{Var}(X) = \frac{(-10)^2 + 0^2 + 10^2 + (-5)^2 + 5^2}{5} = \frac{250}{5} = 50$$
 
 $$\mathrm{Var}(Y) = \frac{(-10)^2 + 0^2 + 10^2 + (-5)^2 + 5^2}{5} = \frac{250}{5} = 50$$
 
-$$\sigma_X = \sqrt{50} = 7.07$$
+$$\sigma_X = \sqrt{50} \approx 7.07$$
 
-$$\sigma_Y = \sqrt{50} = 7.07$$
+$$\sigma_Y = \sqrt{50} \approx 7.07$$
 
 **ステップ5**: 相関係数を計算します。
 
-$$\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{50}{7.07 \times 7.07} = \frac{50}{50} = 1$$
+$$\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{50}{7.07 \times 7.07} \approx \frac{50}{50} = 1$$
 
 この例では、相関係数が1であり、身長と体重の間に完全な正の線形相関があることを示しています。
 
-### 4.2 行列を用いた計算例
+---
+
+### 4.2 行列を用いた計算例 (1/2)
 
 同じデータを行列形式で表現し、計算してみましょう。
 
 $$x = [160, 170, 180, 165, 175]^T$$
 $$y = [55, 65, 75, 60, 70]^T$$
-
 
 **ステップ1**: 各変数の平均値ベクトルを計算します。
 - $\bar{x} = 170$
@@ -206,6 +273,10 @@ $$y = [55, 65, 75, 60, 70]^T$$
 $$\mathbf{x}_{dev} = [160-170, 170-170, 180-170, 165-170, 175-170]^T = [-10, 0, 10, -5, 5]^T$$
  
 $$\mathbf{y}_{dev} = [55-65, 65-65, 75-65, 60-65, 70-65]^T = [-10, 0, 10, -5, 5]^T$$
+
+---
+
+### 4.2 行列を用いた計算例 (2/2)
 
 **ステップ3**: 共分散を計算します。
 
@@ -221,6 +292,8 @@ $$\mathrm{Var}(Y) = \frac{1}{5}\mathbf{y}_{dev}^T\mathbf{y}_{dev} = \frac{1}{5}(
 
 $$\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sqrt{\mathrm{Var}(X) \times \mathrm{Var}(Y)}} = \frac{50}{\sqrt{50 \times 50}} = \frac{50}{50} = 1$$
 
+---
+
 ## 5. 演習問題
 
 ### 5.1 基本問題
@@ -234,6 +307,8 @@ $$\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sqrt{\mathrm{Var}(X) \times \mathrm{Var}
 | C    | 90              | 12                   |
 | D    | 65              | 6                    |
 | E    | 80              | 9                    |
+
+---
 
 **問題2**: 以下の2セットのデータの相関係数を比較しなさい。また、その結果からどのような解釈ができるか説明しなさい。
 
@@ -249,6 +324,8 @@ X: [1, 2, 3, 4, 5]
 Y: [5, 4, 3, 2, 1]
 ```
 
+---
+
 **問題3**: 共分散行列が以下のように与えられている場合、相関行列を求めなさい。
 
 $$\mathbf{\Sigma} = 
@@ -257,7 +334,7 @@ $$\mathbf{\Sigma} =
 12 & 25
 \end{bmatrix}$$
 
-
+---
 **問題5**: あるクラスの10人の学生について、数学のテスト点数 $(X)$、英語のテスト点数 $(Y)$、勉強時間 $(Z)$ （時間/週）のデータが以下のように得られた。
 
 ```

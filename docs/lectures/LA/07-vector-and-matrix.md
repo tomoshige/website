@@ -18,6 +18,8 @@
 **スライド**
 スライドは[こちら](./slides/07-vector-and-matrix-slide.pdf)から。
 
+**問題**は[こちら](./exercise/exercise2.pdf)から
+
 
 ## 1. 1次元データとベクトル表現
 

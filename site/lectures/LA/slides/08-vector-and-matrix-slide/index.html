@@ -12,28 +12,24 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/08-vector-and-matrix/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/slides/08-vector-and-matrix-slide/">
       
       
-        <link rel="prev" href="../07-vector-and-matrix/">
       
       
-        <link rel="next" href="../09-exercise/">
-      
-      
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>8. Vector and Matrix 7 - Statistical Learning Laboratory</title>
+        <title>08 vector and matrix slide - Statistical Learning Laboratory</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -54,7 +50,7 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -94,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="ヘッダー">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              8. Vector and Matrix 7
+              08 vector and matrix slide
             
           </span>
         </div>
@@ -201,7 +197,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -231,7 +227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -248,8 +244,6 @@
       
   
   
-    
-  
   
   
     
@@ -273,16 +267,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -299,7 +293,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Lectures
@@ -312,8 +306,6 @@
                 
   
   
-    
-  
   
   
     
@@ -340,16 +332,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -366,7 +358,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Linear algebra
@@ -379,10 +371,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -409,11 +399,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
         
           
           <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
@@ -427,7 +417,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2_2">
             <span class="md-nav__icon md-icon"></span>
             Module 1 - Vector and Matrix
@@ -441,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01-introduction/" class="md-nav__link">
+      <a href="../../01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -462,7 +452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-vector-and-matrix/" class="md-nav__link">
+      <a href="../../02-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -483,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-vector-and-matrix/" class="md-nav__link">
+      <a href="../../03-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -504,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-vector-and-matrix/" class="md-nav__link">
+      <a href="../../04-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -525,7 +515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-vector-and-matrix/" class="md-nav__link">
+      <a href="../../05-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -546,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-vector-and-matrix/" class="md-nav__link">
+      <a href="../../06-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -567,7 +557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-vector-and-matrix/" class="md-nav__link">
+      <a href="../../07-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -585,30 +575,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    8. Vector and Matrix 7
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../08-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -617,185 +587,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 講義情報と予習ガイド
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 基本概念
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 基本概念">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#21-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1 2次元データとは
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2 共分散の定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3 相関係数の定義
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 共分散と相関行列の行列表示
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 共分散と相関行列の行列表示">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 行列とベクトルによるデータ表現
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 行列とベクトルを用いた共分散の計算
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3 行列とベクトルを用いた相関係数の計算
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#44" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4 共分散行列
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. 計算例と実装
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. 計算例と実装">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 数値例: 共分散と相関係数の計算
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2 行列を用いた計算例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. 演習問題
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. 演習問題">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#51" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.1 基本問題
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -808,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-exercise/" class="md-nav__link">
+      <a href="../../09-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -898,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../10-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -919,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../11-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../11-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -940,7 +731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../12-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../12-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -961,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../13-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../13-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -982,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../14-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../14-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1003,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../15-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../15-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1024,7 +815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../16-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../16-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1045,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../17-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../17-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1066,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../18-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../18-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1087,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../19-exercise/" class="md-nav__link">
+      <a href="../../19-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1108,7 +899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../20-midterm-exam/" class="md-nav__link">
+      <a href="../../20-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1186,7 +977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../21-determinant/" class="md-nav__link">
+      <a href="../../21-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1207,7 +998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../22-determinant/" class="md-nav__link">
+      <a href="../../22-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1228,7 +1019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../23-determinant/" class="md-nav__link">
+      <a href="../../23-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1249,7 +1040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../24-determinant/" class="md-nav__link">
+      <a href="../../24-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1270,7 +1061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../25-exercise/" class="md-nav__link">
+      <a href="../../25-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1350,7 +1141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../26-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../26-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1371,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../27-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../27-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1392,7 +1183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../28-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../28-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1413,7 +1204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../29-exercise/" class="md-nav__link">
+      <a href="../../29-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1434,7 +1225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../30-exercise/" class="md-nav__link">
+      <a href="../../30-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1455,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../31-exam/" class="md-nav__link">
+      <a href="../../31-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1541,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../32-eigen-value-vector/" class="md-nav__link">
+      <a href="../../32-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1562,7 +1353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../33-eigen-value-vector/" class="md-nav__link">
+      <a href="../../33-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1583,7 +1374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../34-eigen-value-vector/" class="md-nav__link">
+      <a href="../../34-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1604,7 +1395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../35-eigen-value-vector/" class="md-nav__link">
+      <a href="../../35-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1625,7 +1416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../36-eigen-value-vector/" class="md-nav__link">
+      <a href="../../36-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1646,7 +1437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../37-exercise/" class="md-nav__link">
+      <a href="../../37-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1667,7 +1458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../38-midterm-exam/" class="md-nav__link">
+      <a href="../../38-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1688,7 +1479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../39-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../39-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1709,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../40-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../40-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1793,7 +1584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../41-principal-component-analysis/" class="md-nav__link">
+      <a href="../../41-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1814,7 +1605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../42-principal-component-analysis/" class="md-nav__link">
+      <a href="../../42-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1835,7 +1626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../43-principal-component-analysis/" class="md-nav__link">
+      <a href="../../43-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1856,7 +1647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../44-factor-analysis/" class="md-nav__link">
+      <a href="../../44-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1877,7 +1668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../45-factor-analysis/" class="md-nav__link">
+      <a href="../../45-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1898,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../46-nonlinear-dimension-reduction/" class="md-nav__link">
+      <a href="../../46-nonlinear-dimension-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1919,7 +1710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../47-wrapup/" class="md-nav__link">
+      <a href="../../47-wrapup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1940,7 +1731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../48-exam/" class="md-nav__link">
+      <a href="../../48-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2005,7 +1796,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SIWS/" class="md-nav__link ">
+            <a href="../../../SIWS/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2085,7 +1876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+      <a href="../../../SIWS/01-getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2106,7 +1897,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+      <a href="../../../SIWS/02-visualization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2127,7 +1918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+      <a href="../../../SIWS/03-wrangling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2148,7 +1939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+      <a href="../../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2220,7 +2011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/05-simple-linear-regression/" class="md-nav__link">
+      <a href="../../../SIWS/05-simple-linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2241,7 +2032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/06-multiple-regression/" class="md-nav__link">
+      <a href="../../../SIWS/06-multiple-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2317,7 +2108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/07-sampling/" class="md-nav__link">
+      <a href="../../../SIWS/07-sampling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2338,7 +2129,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
+      <a href="../../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2359,7 +2150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/09-hypothesis-testing/" class="md-nav__link">
+      <a href="../../../SIWS/09-hypothesis-testing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2380,7 +2171,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/10-inference-for-regression/" class="md-nav__link">
+      <a href="../../../SIWS/10-inference-for-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2450,7 +2241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
+      <a href="../../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2507,7 +2298,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SP/" class="md-nav__link ">
+            <a href="../../../SP/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2579,7 +2370,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/" class="md-nav__link ">
+            <a href="../../../../research/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2657,7 +2448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+      <a href="../../../../research/note/generalized-random-forests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2678,7 +2469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+      <a href="../../../../research/note/variable-importance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2699,7 +2490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+      <a href="../../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2773,7 +2564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+      <a href="../../../../research/note/sparseBART/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2794,7 +2585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/causal-mediation-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2815,7 +2606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+      <a href="../../../../research/note/causal-data-repository/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2872,7 +2663,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+            <a href="../../../../research/note/factor-analysis/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2952,7 +2743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2973,7 +2764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2994,7 +2785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3015,7 +2806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3089,7 +2880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3110,7 +2901,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3131,7 +2922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3207,7 +2998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3228,7 +3019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3249,7 +3040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3270,7 +3061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3340,7 +3131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3402,6 +3193,30 @@
       目次
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      分散共分散行列と行列表示
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分散共分散行列と行列表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      中村 知繁
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#1" class="md-nav__link">
@@ -3492,9 +3307,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#44" class="md-nav__link">
+  <a href="#34" class="md-nav__link">
     <span class="md-ellipsis">
-      4.4 共分散行列
+      3.4 共分散行列
     </span>
   </a>
   
@@ -3516,18 +3331,45 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
+  <a href="#41-13" class="md-nav__link">
     <span class="md-ellipsis">
-      4.1 数値例: 共分散と相関係数の計算
+      4.1 数値例: 共分散と相関係数の計算 (1/3)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#42" class="md-nav__link">
+  <a href="#41-23" class="md-nav__link">
     <span class="md-ellipsis">
-      4.2 行列を用いた計算例
+      4.1 数値例: 共分散と相関係数の計算 (2/3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#41-33" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 数値例: 共分散と相関係数の計算 (3/3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 行列を用いた計算例 (1/2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-22" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 行列を用いた計算例 (2/2)
     </span>
   </a>
   
@@ -3577,23 +3419,59 @@
                   
 
 
-<h1 id="i-8">線形代数学 I データサイエンス基礎 第8回講義ノート</h1>
+<!-- header: 'T. Nakamura | Juntendo Univ.' -->
+<!-- footer: '2025/02/08' -->
+<style>
+section { 
+    font-size: 20px; 
+}
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+/* ページ番号 */
+section::after {
+    content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+    fonr-size: 60%;
+}
+/* 発表会名 */
+header {
+    width: 100%;
+    position: absolute;
+    top: unset;
+    bottom: 21px;
+    left: 0;
+    text-align: center;
+    font-size: 60%;
+}
+/* 日付 */
+footer {
+    text-align: center;
+    font-size: 15px;
+}
+</style>
+
+<!--
+_class: lead
+_paginate: false
+-->
+
+<p><img alt="bg left:50% 80%" src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png" /></p>
+<h1 id="i-8">線形代数学 I: 第8回講義</h1>
+<h2 id="_1">分散共分散行列と行列表示</h2>
+<h3 id="_2">中村 知繁</h3>
+<hr />
 <h2 id="1">1. 講義情報と予習ガイド</h2>
-<p><strong>本講義の学習目標</strong></p>
+<p><strong>講義回</strong>: 第8回</p>
+<p><strong>テーマ</strong>: 2次元データと行列の積  </p>
+<p><strong>関連項目</strong>: データの共分散、相関係数、行列表現  </p>
+<p><strong>予習内容</strong>: 第7回「1次元データとベクトルの和と積」の復習、特に平均・分散の計算方法</p>
 <ol>
-<li>
-<p>2次元データの共分散と相関係数の概念を理解する</p>
-</li>
-<li>
-<p>行列とベクトルを用いた共分散の計算方法を習得する</p>
-</li>
-<li>
-<p>行列とベクトルを用いた相関係数の計算方法を習得する</p>
-</li>
+<li>2次元データの共分散と相関係数の概念を理解する</li>
+<li>行列とベクトルを用いた共分散の計算方法を習得する</li>
+<li>行列とベクトルを用いた相関係数の計算方法を習得する</li>
 </ol>
-<p><strong>スライド</strong>
-スライドは<a href="../slides/08-vector-and-matrix-slide.pdf">こちら</a>から。</p>
-<p><strong>問題</strong>は<a href="../exercise/exercise3.pdf">こちら</a>から</p>
+<hr />
 <h2 id="2">2. 基本概念</h2>
 <h3 id="21-2">2.1 2次元データとは</h3>
 <p>2次元データとは、各観測対象に対して2つの変数の値が記録されているデータのことです。例えば：</p>
@@ -3606,6 +3484,7 @@
 - <span class="arithmatex">\(x_i\)</span>: <span class="arithmatex">\(i\)</span>番目のデータの第1変数の値
 - <span class="arithmatex">\(y_i\)</span>: <span class="arithmatex">\(i\)</span>番目のデータの第2変数の値
 - <span class="arithmatex">\(n\)</span>: データ数</p>
+<hr />
 <h3 id="22">2.2 共分散の定義</h3>
 <blockquote>
 <p><strong>定義</strong>: 2つの変数 <span class="arithmatex">\(X\)</span> と <span class="arithmatex">\(Y\)</span> の共分散 <span class="arithmatex">\(\mathrm{Cov}(X,Y)\)</span> は、各変数の平均からの偏差の積の平均として定義されます。</p>
@@ -3619,6 +3498,7 @@
 <li><span class="arithmatex">\(\mathrm{Cov}(X,Y) \approx 0\)</span> : <span class="arithmatex">\(X\)</span> と <span class="arithmatex">\(Y\)</span> に明確な関連がない（無相関）</li>
 <li><span class="arithmatex">\(\mathrm{Cov}(X,X) = \mathrm{Var}(X)\)</span> : 変数自身との共分散は分散に等しい</li>
 </ul>
+<hr />
 <h3 id="23">2.3 相関係数の定義</h3>
 <p>共分散は変数のスケールに依存するため、変数間の関連性を標準化した指標として相関係数があります。</p>
 <blockquote>
@@ -3633,6 +3513,7 @@
 <li><span class="arithmatex">\(\rho_{XY} = -1\)</span> : 完全な負の相関（直線的な反比例関係）</li>
 <li><span class="arithmatex">\(\rho_{XY} = 0\)</span> : 無相関（線形の関連性がない）</li>
 </ul>
+<hr />
 <h2 id="3">3. 共分散と相関行列の行列表示</h2>
 <h3 id="31">3.1 行列とベクトルによるデータ表現</h3>
 <p>2次元データを行列とベクトルで表現しましょう。</p>
@@ -3647,52 +3528,31 @@ x_2 &amp; y_2 \\
 \vdots &amp; \vdots \\
 x_n &amp; y_n
 \end{bmatrix}\]</div>
+<hr />
 <h3 id="32">3.2 行列とベクトルを用いた共分散の計算</h3>
 <p>ベクトル表記を用いた共分散の計算方法を示します。</p>
-<p>まず、各変数の平均ベクトルを求めます:</p>
-<ul>
-<li>
-<p><span class="arithmatex">\(\bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_i\)</span> : 第1変数の平均</p>
-</li>
-<li>
-<p><span class="arithmatex">\(\bar{y} = \frac{1}{n}\sum_{i=1}^{n}y_i\)</span> : 第2変数の平均</p>
-</li>
-</ul>
-<p>偏差ベクトルを定義します:</p>
-<ul>
-<li>
-<p><span class="arithmatex">\(\mathbf{x}_{dev} = \mathbf{x} - \bar{x}\mathbf{1}\)</span> : 第1変数の偏差ベクトル</p>
-</li>
-<li>
-<p><span class="arithmatex">\(\mathbf{y}_{dev} = \mathbf{y} - \bar{y}\mathbf{1}\)</span> : 第2変数の偏差ベクトル</p>
-</li>
-</ul>
+<p>まず、各変数の平均ベクトルを求めます:
+- <span class="arithmatex">\(\bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_i\)</span> : 第1変数の平均
+- <span class="arithmatex">\(\bar{y} = \frac{1}{n}\sum_{i=1}^{n}y_i\)</span> : 第2変数の平均</p>
+<p>偏差ベクトルを定義します:
+- <span class="arithmatex">\(\mathbf{x}_{dev} = \mathbf{x} - \bar{x}\mathbf{1}\)</span> : 第1変数の偏差ベクトル
+- <span class="arithmatex">\(\mathbf{y}_{dev} = \mathbf{y} - \bar{y}\mathbf{1}\)</span> : 第2変数の偏差ベクトル</p>
 <p>ここで、<span class="arithmatex">\(\mathbf{1}\)</span> は全ての要素が1である長さ <span class="arithmatex">\(n\)</span> のベクトルです。</p>
 <p>このとき、共分散は次のように計算されます:</p>
 <div class="arithmatex">\[\mathrm{Cov}(X,Y) = \frac{1}{n}\mathbf{x}_{dev}^T\mathbf{y}_{dev}\]</div>
+<hr />
 <h3 id="33">3.3 行列とベクトルを用いた相関係数の計算</h3>
 <p>相関係数は、共分散を各変数の標準偏差で除することで計算できます。</p>
-<p>各変数の分散を計算します:</p>
-<ul>
-<li>
-<p><span class="arithmatex">\(\mathrm{Var}(X) = \frac{1}{n}\mathbf{x}_{dev}^T\mathbf{x}_{dev}\)</span> : 第1変数の分散</p>
-</li>
-<li>
-<p><span class="arithmatex">\(\mathrm{Var}(Y) = \frac{1}{n}\mathbf{y}_{dev}^T\mathbf{y}_{dev}\)</span> : 第2変数の分散</p>
-</li>
-</ul>
-<p>標準偏差を計算します:</p>
-<ul>
-<li>
-<p><span class="arithmatex">\(\sigma_X = \sqrt{\mathrm{Var}(X)}\)</span> : 第1変数の標準偏差</p>
-</li>
-<li>
-<p><span class="arithmatex">\(\sigma_Y = \sqrt{\mathrm{Var}(Y)}\)</span> : 第2変数の標準偏差</p>
-</li>
-</ul>
+<p>各変数の分散を計算します:
+- <span class="arithmatex">\(\mathrm{Var}(X) = \frac{1}{n}\mathbf{x}_{dev}^T\mathbf{x}_{dev}\)</span> : 第1変数の分散
+- <span class="arithmatex">\(\mathrm{Var}(Y) = \frac{1}{n}\mathbf{y}_{dev}^T\mathbf{y}_{dev}\)</span> : 第2変数の分散</p>
+<p>標準偏差を計算します:
+- <span class="arithmatex">\(\sigma_X = \sqrt{\mathrm{Var}(X)}\)</span> : 第1変数の標準偏差
+- <span class="arithmatex">\(\sigma_Y = \sqrt{\mathrm{Var}(Y)}\)</span> : 第2変数の標準偏差</p>
 <p>相関係数は次の式で計算されます:</p>
 <div class="arithmatex">\[\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbf{x}_{dev}^T\mathbf{y}_{dev}}{\sqrt{(\mathbf{x}_{dev}^T\mathbf{x}_{dev})(\mathbf{y}_{dev}^T\mathbf{y}_{dev})}}\]</div>
-<h3 id="44">4.4 共分散行列</h3>
+<hr />
+<h3 id="34">3.4 共分散行列</h3>
 <p>多変量データを扱う際には、全ての変数のペアに対する共分散を含む共分散行列が重要になります。2変数 <span class="arithmatex">\(X\)</span> と <span class="arithmatex">\(Y\)</span> の場合、共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> は次のようになります:</p>
 <div class="arithmatex">\[\mathbf{\Sigma} = 
 \begin{bmatrix} 
@@ -3702,8 +3562,9 @@ x_n &amp; y_n
 <p>一般に、データ行列 <span class="arithmatex">\(\mathbf{X}\)</span> の各列が変数を表す場合、共分散行列は以下のように計算できます:</p>
 <div class="arithmatex">\[\mathbf{\Sigma} = \frac{1}{n}(\mathbf{X} - \mathbf{1}\boldsymbol{\mu}^T)^T(\mathbf{X} - \mathbf{1}\boldsymbol{\mu}^T)\]</div>
 <p>ここで、<span class="arithmatex">\(\boldsymbol{\mu}\)</span> は各変数の平均値を含むベクトルです。</p>
+<hr />
 <h2 id="4">4. 計算例と実装</h2>
-<h3 id="41">4.1 数値例: 共分散と相関係数の計算</h3>
+<h3 id="41-13">4.1 数値例: 共分散と相関係数の計算 (1/3)</h3>
 <p>以下の5つのデータポイントに対して共分散と相関係数を計算してみましょう:</p>
 <table>
 <thead>
@@ -3744,6 +3605,8 @@ x_n &amp; y_n
 <p><strong>ステップ1</strong>: 各変数の平均を計算します。
 - <span class="arithmatex">\(\bar{x} = \frac{160 + 170 + 180 + 165 + 175}{5} = 170\)</span>
 - <span class="arithmatex">\(\bar{y} = \frac{55 + 65 + 75 + 60 + 70}{5} = 65\)</span></p>
+<hr />
+<h3 id="41-23">4.1 数値例: 共分散と相関係数の計算 (2/3)</h3>
 <p><strong>ステップ2</strong>: 各データポイントの偏差を計算します。</p>
 <table>
 <thead>
@@ -3789,15 +3652,18 @@ x_n &amp; y_n
 </table>
 <p><strong>ステップ3</strong>: 共分散を計算します。</p>
 <div class="arithmatex">\[\mathrm{Cov}(X,Y) = \frac{100 + 0 + 100 + 25 + 25}{5} = \frac{250}{5} = 50\]</div>
+<hr />
+<h3 id="41-33">4.1 数値例: 共分散と相関係数の計算 (3/3)</h3>
 <p><strong>ステップ4</strong>: 各変数の分散と標準偏差を計算します。</p>
 <div class="arithmatex">\[\mathrm{Var}(X) = \frac{(-10)^2 + 0^2 + 10^2 + (-5)^2 + 5^2}{5} = \frac{250}{5} = 50\]</div>
 <div class="arithmatex">\[\mathrm{Var}(Y) = \frac{(-10)^2 + 0^2 + 10^2 + (-5)^2 + 5^2}{5} = \frac{250}{5} = 50\]</div>
-<div class="arithmatex">\[\sigma_X = \sqrt{50} = 7.07\]</div>
-<div class="arithmatex">\[\sigma_Y = \sqrt{50} = 7.07\]</div>
+<div class="arithmatex">\[\sigma_X = \sqrt{50} \approx 7.07\]</div>
+<div class="arithmatex">\[\sigma_Y = \sqrt{50} \approx 7.07\]</div>
 <p><strong>ステップ5</strong>: 相関係数を計算します。</p>
-<div class="arithmatex">\[\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{50}{7.07 \times 7.07} = \frac{50}{50} = 1\]</div>
+<div class="arithmatex">\[\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{50}{7.07 \times 7.07} \approx \frac{50}{50} = 1\]</div>
 <p>この例では、相関係数が1であり、身長と体重の間に完全な正の線形相関があることを示しています。</p>
-<h3 id="42">4.2 行列を用いた計算例</h3>
+<hr />
+<h3 id="42-12">4.2 行列を用いた計算例 (1/2)</h3>
 <p>同じデータを行列形式で表現し、計算してみましょう。</p>
 <div class="arithmatex">\[x = [160, 170, 180, 165, 175]^T$$
 $$y = [55, 65, 75, 60, 70]^T\]</div>
@@ -3807,6 +3673,8 @@ $$y = [55, 65, 75, 60, 70]^T\]</div>
 <p><strong>ステップ2</strong>: 偏差ベクトルを計算します。</p>
 <div class="arithmatex">\[\mathbf{x}_{dev} = [160-170, 170-170, 180-170, 165-170, 175-170]^T = [-10, 0, 10, -5, 5]^T\]</div>
 <div class="arithmatex">\[\mathbf{y}_{dev} = [55-65, 65-65, 75-65, 60-65, 70-65]^T = [-10, 0, 10, -5, 5]^T\]</div>
+<hr />
+<h3 id="42-22">4.2 行列を用いた計算例 (2/2)</h3>
 <p><strong>ステップ3</strong>: 共分散を計算します。</p>
 <div class="arithmatex">\[\mathrm{Cov}(X,Y) = \frac{1}{5}\mathbf{x}_{dev}^T\mathbf{y}_{dev} = \frac{1}{5}((-10) \times (-10) + 0 \times 0 + 10 \times 10 + (-5) \times (-5) + 5 \times 5) = \frac{250}{5} = 50\]</div>
 <p><strong>ステップ4</strong>: 分散を計算します。</p>
@@ -3814,6 +3682,7 @@ $$y = [55, 65, 75, 60, 70]^T\]</div>
 <div class="arithmatex">\[\mathrm{Var}(Y) = \frac{1}{5}\mathbf{y}_{dev}^T\mathbf{y}_{dev} = \frac{1}{5}((-10)^2 + 0^2 + 10^2 + (-5)^2 + 5^2) = \frac{250}{5} = 50\]</div>
 <p><strong>ステップ5</strong>: 相関係数を計算します。</p>
 <div class="arithmatex">\[\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sqrt{\mathrm{Var}(X) \times \mathrm{Var}(Y)}} = \frac{50}{\sqrt{50 \times 50}} = \frac{50}{50} = 1\]</div>
+<hr />
 <h2 id="5">5. 演習問題</h2>
 <h3 id="51">5.1 基本問題</h3>
 <p><strong>問題1</strong>: 以下のデータについて、共分散と相関係数を手計算で求めなさい。</p>
@@ -3853,6 +3722,7 @@ $$y = [55, 65, 75, 60, 70]^T\]</div>
 </tr>
 </tbody>
 </table>
+<hr />
 <p><strong>問題2</strong>: 以下の2セットのデータの相関係数を比較しなさい。また、その結果からどのような解釈ができるか説明しなさい。</p>
 <p>データセット1:
 <div class="highlight"><pre><span></span><code>X: [1, 2, 3, 4, 5]
@@ -3862,12 +3732,14 @@ Y: [2, 4, 6, 8, 10]
 <div class="highlight"><pre><span></span><code>X: [1, 2, 3, 4, 5]
 Y: [5, 4, 3, 2, 1]
 </code></pre></div></p>
+<hr />
 <p><strong>問題3</strong>: 共分散行列が以下のように与えられている場合、相関行列を求めなさい。</p>
 <div class="arithmatex">\[\mathbf{\Sigma} = 
 \begin{bmatrix} 
 16 &amp; 12 \\
 12 &amp; 25
 \end{bmatrix}\]</div>
+<hr />
 <p><strong>問題5</strong>: あるクラスの10人の学生について、数学のテスト点数 <span class="arithmatex">\((X)\)</span>、英語のテスト点数 <span class="arithmatex">\((Y)\)</span>、勉強時間 <span class="arithmatex">\((Z)\)</span> （時間/週）のデータが以下のように得られた。</p>
 <div class="highlight"><pre><span></span><code>数学: [85, 70, 90, 65, 80, 75, 95, 60, 85, 75]
 英語: [80, 75, 85, 70, 75, 80, 90, 65, 80, 70]
@@ -3882,6 +3754,9 @@ Y: [5, 4, 3, 2, 1]
 
 
 
+
+  
+  
 
 
 
@@ -3927,12 +3802,12 @@ Y: [5, 4, 3, 2, 1]
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
