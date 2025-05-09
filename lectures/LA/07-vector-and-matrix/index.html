@@ -3998,9 +3998,11 @@
 <p>それでは、1次元データをベクトルとしてどのように表現するかを定義しましょう。</p>
 <blockquote>
 <p><strong>定義：データベクトル</strong>
-<span class="arithmatex">\(n\)</span>個の観測値 <span class="arithmatex">\(x_1, x_2, \ldots, x_n\)</span> からなる1次元データセットは、<span class="arithmatex">\(n\)</span>次元の列ベクトル <span class="arithmatex">\(\mathbf{x}\)</span> として以下のように表現できます。
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}\)</span>\)</span>
-このベクトル <span class="arithmatex">\(\mathbf{x}\)</span> を「データベクトル」と呼びます。</p>
+<span class="arithmatex">\(n\)</span>個の観測値 <span class="arithmatex">\(x_1, x_2, \ldots, x_n\)</span> からなる1次元データセットは、<span class="arithmatex">\(n\)</span>次元の列ベクトル <span class="arithmatex">\(\mathbf{x}\)</span> として以下のように表現できます。</p>
+</blockquote>
+<div class="arithmatex">\[\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}\]</div>
+<blockquote>
+<p>このベクトル <span class="arithmatex">\(\mathbf{x}\)</span> を「データベクトル」と呼びます。</p>
 </blockquote>
 <p>この定義では列ベクトルを用いていますが、文脈によっては行ベクトルとして扱うこともあります。本講義では、特に断りのない限り、データベクトルは列ベクトルとします。</p>
 <h3 id="13">1.3 例：体温データ</h3>
@@ -4011,9 +4013,11 @@
 <p>データベクトルと並んで、データの統計量を計算する際に非常に重要な役割を果たす特別なベクトルがあります。それは、全ての要素が1であるベクトルで、<span class="arithmatex">\(\mathbf{1}\)</span>（イチベクトル）と表記されることが多いです。</p>
 <blockquote>
 <p><strong>定義：全ての要素が1のベクトル (<span class="arithmatex">\(\mathbf{1}\)</span> ベクトル)</strong>
-<span class="arithmatex">\(n\)</span>次元の「1ベクトル」<span class="arithmatex">\(\mathbf{1}_n\)</span> は、全ての要素が1である <span class="arithmatex">\(n\)</span>次元の列ベクトルとして、以下のように定義されます。
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{1}_n = \begin{pmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{pmatrix}\)</span>\)</span>
-ベクトルの次元 <span class="arithmatex">\(n\)</span> が文脈から明らかな場合は、添え字の <span class="arithmatex">\(n\)</span> を省略して単に <span class="arithmatex">\(\mathbf{1}\)</span> と書くこともあります。</p>
+<span class="arithmatex">\(n\)</span>次元の「1ベクトル」<span class="arithmatex">\(\mathbf{1}_n\)</span> は、全ての要素が1である <span class="arithmatex">\(n\)</span>次元の列ベクトルとして、以下のように定義されます。</p>
+</blockquote>
+<div class="arithmatex">\[\mathbf{1}_n = \begin{pmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{pmatrix}\]</div>
+<blockquote>
+<p>ベクトルの次元 <span class="arithmatex">\(n\)</span> が文脈から明らかな場合は、添え字の <span class="arithmatex">\(n\)</span> を省略して単に <span class="arithmatex">\(\mathbf{1}\)</span> と書くこともあります。</p>
 </blockquote>
 <p>例えば、3次元の1ベクトルは <span class="arithmatex">\(\mathbf{1}_3 = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}\)</span> です。</p>
 <p>この <span class="arithmatex">\(\mathbf{1}\)</span> ベクトルは、特にデータの総和を計算したり、平均値をベクトル表記で簡潔に表現したりする際に非常に便利です。後ほど具体的な使い方を見ていきましょう。</p>
@@ -4035,9 +4039,11 @@
 <p>したがって、平均値 <span class="arithmatex">\(\bar{x}\)</span> は、この内積をデータの個数 <span class="arithmatex">\(n\)</span> で割ることにより、以下のようにベクトル表記で表すことができます。</p>
 <blockquote>
 <p><strong>定義：データの平均値 (ベクトル表記)</strong>
-データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> の平均値 <span class="arithmatex">\(\bar{x}\)</span> は、次のように定義されます。
-<span class="arithmatex">\(<span class="arithmatex">\(\bar{x} = \frac{1}{n} (\mathbf{1}_n^T \mathbf{x})\)</span>\)</span>
-または、内積の記号 <code>·</code> を用いて <span class="arithmatex">\(\bar{x} = \frac{1}{n} (\mathbf{1}_n \cdot \mathbf{x})\)</span> と書くこともあります。</p>
+データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> の平均値 <span class="arithmatex">\(\bar{x}\)</span> は、次のように定義されます。</p>
+</blockquote>
+<div class="arithmatex">\[\bar{x} = \frac{1}{n} (\mathbf{1}_n^T \mathbf{x})\]</div>
+<blockquote>
+<p>または、内積の記号 <code>·</code> を用いて <span class="arithmatex">\(\bar{x} = \frac{1}{n} (\mathbf{1}_n \cdot \mathbf{x})\)</span> と書くこともあります。</p>
 </blockquote>
 <p>このように、ベクトルを用いると総和の記号 <span class="arithmatex">\(\sum\)</span> を使わずに平均値を表現でき、数式が非常にスッキリします。</p>
 <h4 id="213">2.1.3 例題：体温データの平均値</h4>
