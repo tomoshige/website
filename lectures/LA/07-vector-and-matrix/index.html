@@ -4079,8 +4079,8 @@
 <div class="arithmatex">\[= \sum_{i=1}^{n} x_i - \sum_{i=1}^{n} \bar{x}\]</div>
 <p>ここで、<span class="arithmatex">\(\sum_{i=1}^{n} x_i = n\bar{x}\)</span> （平均の定義より）であり、また <span class="arithmatex">\(\bar{x}\)</span> は <span class="arithmatex">\(i\)</span> によらない定数なので <span class="arithmatex">\(\sum_{i=1}^{n} \bar{x} = n\bar{x}\)</span> となります。</p>
 <p>したがって、</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(= n\bar{x} - n\bar{x} = 0\)</span>\)</span>
-（証明終）</p>
+<div class="arithmatex">\[= n\bar{x} - n\bar{x} = 0\]</div>
+<p>（証明終）</p>
 <p>この性質をベクトル表記で表現すると、偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> と <span class="arithmatex">\(\mathbf{1}_n\)</span> ベクトルの内積が0になることを意味します。</p>
 <div class="arithmatex">\[\mathbf{1}_n^T \mathbf{d} = \sum_{i=1}^{n} (1 \times d_i) = \sum_{i=1}^{n} d_i = 0\]</div>
 <p>幾何学的には、これは <span class="arithmatex">\(\mathbf{1}_n\)</span> ベクトルと偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> が直交していることを示しています。</p>
@@ -4094,19 +4094,18 @@
 <h4 id="231">2.3.1 スカラ表記・ベクトル表記による定義</h4>
 <blockquote>
 <p><strong>定義：データの分散 (スカラ表記)</strong>
-データセットの分散 <span class="arithmatex">\(\sigma^2\)</span> (シグマ二乗と読みます) は、次のように定義されます。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} d_i^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span>\)</span></p>
+データセットの分散 <span class="arithmatex">\(\sigma^2\)</span> (シグマ二乗と読みます) は、次のように定義されます。</p>
 </blockquote>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} d_i^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\]</div>
 <p>これをベクトル表記で表すと、偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> の自分自身との内積（これは偏差ベクトルのノルムの二乗 <span class="arithmatex">\(\|\mathbf{d}\|^2\)</span> に等しい）を用いることになります。
 <span class="arithmatex">\(\mathbf{d}^T \mathbf{d} = d_1^2 + d_2^2 + \ldots + d_n^2 = \sum_{i=1}^n d_i^2\)</span> ですから、</p>
 <blockquote>
 <p><strong>定義：データの分散 (ベクトル表記)</strong>
 データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> から計算される偏差ベクトルを <span class="arithmatex">\(\mathbf{d}\)</span> とするとき、分散 <span class="arithmatex">\(\sigma^2\)</span> は次のように定義されます。
 <span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} (\mathbf{d}^T \mathbf{d}) = \frac{1}{n} \|\mathbf{d}\|^2\)</span>\)</span>
-また、<span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_n\)</span> を代入して、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} (\mathbf{x} - \bar{x}\mathbf{1}_n)^T (\mathbf{x} - \bar{x}\mathbf{1}_n)\)</span>\)</span>
-とも書けます。</p>
+また、<span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_n\)</span> を代入して、</p>
 </blockquote>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} (\mathbf{x} - \bar{x}\mathbf{1}_n)^T (\mathbf{x} - \bar{x}\mathbf{1}_n)\]</div>
 <p>分散の値が大きいほど、データは平均値の周りに広く散らばっている（ばらつきが大きい）と解釈できます。逆に、分散が小さいほど、データは平均値の近くに集中している（ばらつきが小さい）と解釈できます。
 ただし、分散の単位は元のデータの単位の二乗（例：体温が℃なら分散は℃²）になることに注意が必要です。</p>
 <h4 id="232">2.3.2 例題：体温データの分散</h4>
@@ -4124,11 +4123,13 @@
 <h4 id="241">2.4.1 定義とベクトル表記</h4>
 <blockquote>
 <p><strong>定義：データの標準偏差</strong>
-データセットの標準偏差 <span class="arithmatex">\(\sigma\)</span> (シグマと読みます) は、分散 <span class="arithmatex">\(\sigma^2\)</span> の正の平方根として定義されます。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma = \sqrt{\sigma^2} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}\)</span>\)</span>
-ベクトル表記では、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma = \sqrt{\frac{1}{n} (\mathbf{d}^T \mathbf{d})} = \frac{1}{\sqrt{n}} \|\mathbf{d}\|\)</span>\)</span></p>
+データセットの標準偏差 <span class="arithmatex">\(\sigma\)</span> (シグマと読みます) は、分散 <span class="arithmatex">\(\sigma^2\)</span> の正の平方根として定義されます。</p>
 </blockquote>
+<div class="arithmatex">\[\sigma = \sqrt{\sigma^2} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}\]</div>
+<blockquote>
+<p>ベクトル表記では、</p>
+</blockquote>
+<div class="arithmatex">\[\sigma = \sqrt{\frac{1}{n} (\mathbf{d}^T \mathbf{d})} = \frac{1}{\sqrt{n}} \|\mathbf{d}\|\]</div>
 <p>標準偏差が大きいほどデータのばらつきが大きく、小さいほどばらつきが小さいことを意味します。平均値と標準偏差をセットで見ることで、データセットの中心的な位置とその周りの広がり具合を把握することができます。</p>
 <h4 id="242">2.4.2 例題：体温データの標準偏差</h4>
 <p>体温データの分散は <span class="arithmatex">\(\sigma^2 = 0.0824\)</span> (℃²) でした。この標準偏差 <span class="arithmatex">\(\sigma\)</span> を計算しましょう。</p>
@@ -4139,11 +4140,15 @@
 <h4 id="251">2.5.1 公式の紹介とその意義</h4>
 <blockquote>
 <p><strong>定理：分散の計算公式 (別バージョン)</strong>
-データの分散 <span class="arithmatex">\(\sigma^2\)</span> は、以下の式でも計算できます。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \sum_{i=1}^{n} x_i^2\right) - \bar{x}^2\)</span>\)</span>
-ベクトル表記では、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2\)</span>\)</span>
-この式は、「（データの二乗の平均）引く（平均の二乗）」と覚えることができます。</p>
+データの分散 <span class="arithmatex">\(\sigma^2\)</span> は、以下の式でも計算できます。</p>
+</blockquote>
+<div class="arithmatex">\[\sigma^2 = \left(\frac{1}{n} \sum_{i=1}^{n} x_i^2\right) - \bar{x}^2\]</div>
+<blockquote>
+<p>ベクトル表記では、</p>
+</blockquote>
+<div class="arithmatex">\[\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2\]</div>
+<blockquote>
+<p>この式は、「（データの二乗の平均）引く（平均の二乗）」と覚えることができます。</p>
 </blockquote>
 <h4 id="252">2.5.2 証明</h4>
 <p>この別公式を証明してみましょう。分散の定義式から出発します。</p>
@@ -4188,18 +4193,24 @@
 <h4 id="_3">偏差値の定義と計算式</h4>
 <p>あるデータ <span class="arithmatex">\(x_i\)</span> の偏差値 <span class="arithmatex">\(T_i\)</span> は、そのデータが含まれるデータセットの平均値を <span class="arithmatex">\(\bar{x}\)</span>、標準偏差を <span class="arithmatex">\(\sigma\)</span> とするとき、以下の式で計算されます。</p>
 <div class="arithmatex">\[T_i = 10 \times \frac{x_i - \bar{x}}{\sigma} + 50\]</div>
-<p>この式を詳しく見てみましょう。
-* <strong><span class="arithmatex">\(x_i\)</span></strong>: 個人の得点などの具体的なデータ値。
-* <strong><span class="arithmatex">\(\bar{x}\)</span></strong>: データセット全体の平均値。
-* <strong><span class="arithmatex">\(\sigma\)</span></strong>: データセット全体の標準偏差。
-* <strong><span class="arithmatex">\(\frac{x_i - \bar{x}}{\sigma}\)</span></strong>: この部分は「基準化」または「標準化」と呼ばれる操作で計算される値で、<span class="arithmatex">\(z\)</span>スコア（標準得点）とも呼ばれます。これは、個々のデータが平均から標準偏差の何倍分離れているかを示します。
-    * もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> と同じなら、<span class="arithmatex">\(z = 0\)</span> です。
-    * もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> より標準偏差 <span class="arithmatex">\(\sigma\)</span> １つ分だけ高ければ、<span class="arithmatex">\(z = 1\)</span> です。
-    * もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> より標準偏差 <span class="arithmatex">\(\sigma\)</span> １つ分だけ低ければ、<span class="arithmatex">\(z = -1\)</span> です。
-* <strong><span class="arithmatex">\(10 \times z + 50\)</span></strong>: <span class="arithmatex">\(z\)</span>スコアを10倍して50を加えることで、平均が50、標準偏差が10の尺度に変換しています。
-    * <span class="arithmatex">\(z=0\)</span> (平均点) のとき、偏差値は <span class="arithmatex">\(10 \times 0 + 50 = 50\)</span> となります。
-    * <span class="arithmatex">\(z=1\)</span> (平均点 + 1標準偏差) のとき、偏差値は <span class="arithmatex">\(10 \times 1 + 50 = 60\)</span> となります。
-    * <span class="arithmatex">\(z=-1\)</span> (平均点 - 1標準偏差) のとき、偏差値は <span class="arithmatex">\(10 \times (-1) + 50 = 40\)</span> となります。</p>
+<p>この式を詳しく見てみましょう。</p>
+<ul>
+<li><strong><span class="arithmatex">\(x_i\)</span></strong>: 個人の得点などの具体的なデータ値。</li>
+<li><strong><span class="arithmatex">\(\bar{x}\)</span></strong>: データセット全体の平均値。</li>
+<li><strong><span class="arithmatex">\(\sigma\)</span></strong>: データセット全体の標準偏差。</li>
+<li><strong><span class="arithmatex">\(\frac{x_i - \bar{x}}{\sigma}\)</span></strong>: この部分は「基準化」または「標準化」と呼ばれる操作で計算される値で、<span class="arithmatex">\(z\)</span>スコア（標準得点）とも呼ばれます。これは、個々のデータが平均から標準偏差の何倍分離れているかを示します。<ul>
+<li>もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> と同じなら、<span class="arithmatex">\(z = 0\)</span> です。</li>
+<li>もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> より標準偏差 <span class="arithmatex">\(\sigma\)</span> １つ分だけ高ければ、<span class="arithmatex">\(z = 1\)</span> です。</li>
+<li>もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> より標準偏差 <span class="arithmatex">\(\sigma\)</span> １つ分だけ低ければ、<span class="arithmatex">\(z = -1\)</span> です。</li>
+</ul>
+</li>
+<li><strong><span class="arithmatex">\(10 \times z + 50\)</span></strong>: <span class="arithmatex">\(z\)</span>スコアを10倍して50を加えることで、平均が50、標準偏差が10の尺度に変換しています。<ul>
+<li><span class="arithmatex">\(z=0\)</span> (平均点) のとき、偏差値は <span class="arithmatex">\(10 \times 0 + 50 = 50\)</span> となります。</li>
+<li><span class="arithmatex">\(z=1\)</span> (平均点 + 1標準偏差) のとき、偏差値は <span class="arithmatex">\(10 \times 1 + 50 = 60\)</span> となります。</li>
+<li><span class="arithmatex">\(z=-1\)</span> (平均点 - 1標準偏差) のとき、偏差値は <span class="arithmatex">\(10 \times (-1) + 50 = 40\)</span> となります。</li>
+</ul>
+</li>
+</ul>
 <h4 id="_4">例：あるテストの得点から偏差値を計算する</h4>
 <p><strong>シナリオ:</strong>
 5人の学生A, B, C, D, E が受けた数学のテスト（100点満点）の結果が以下のようであったとします。
