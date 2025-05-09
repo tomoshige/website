@@ -4059,15 +4059,17 @@
 <h4 id="221">2.2.1 スカラ表記・ベクトル表記による定義</h4>
 <p>各データ点 <span class="arithmatex">\(x_i\)</span> の平均値 <span class="arithmatex">\(\bar{x}\)</span> からの偏差 <span class="arithmatex">\(d_i\)</span> は以下のように定義されます。</p>
 <blockquote>
-<p><strong>定義：データの偏差 (スカラ表記)</strong>
-<span class="arithmatex">\(<span class="arithmatex">\(d_i = x_i - \bar{x}\)</span>\)</span></p>
+<p><strong>定義：データの偏差 (スカラ表記)</strong></p>
 </blockquote>
+<div class="arithmatex">\[d_i = x_i - \bar{x}\]</div>
 <p>この偏差を全てのデータ点について計算し、それらを要素とするベクトルを「偏差ベクトル」と呼びます。</p>
 <blockquote>
 <p><strong>定義：データの偏差 (ベクトル表記)</strong>
-データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> の平均値を <span class="arithmatex">\(\bar{x}\)</span> とするとき、偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> は次のように定義されます。
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_n = \begin{pmatrix} x_1 - \bar{x} \\ x_2 - \bar{x} \\ \vdots \\ x_n - \bar{x} \end{pmatrix} = \begin{pmatrix} d_1 \\ d_2 \\ \vdots \\ d_n \end{pmatrix}\)</span>\)</span>
-ここで、<span class="arithmatex">\(\bar{x}\mathbf{1}_n\)</span> は、全ての要素が平均値 <span class="arithmatex">\(\bar{x}\)</span> であるベクトル <span class="arithmatex">\(\begin{pmatrix} \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{pmatrix}\)</span> を表します。つまり、元のデータベクトルの各要素から一律に平均値を引く操作です。</p>
+データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> の平均値を <span class="arithmatex">\(\bar{x}\)</span> とするとき、偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> は次のように定義されます。</p>
+</blockquote>
+<div class="arithmatex">\[\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_n = \begin{pmatrix} x_1 - \bar{x} \\ x_2 - \bar{x} \\ \vdots \\ x_n - \bar{x} \end{pmatrix} = \begin{pmatrix} d_1 \\ d_2 \\ \vdots \\ d_n \end{pmatrix}\]</div>
+<blockquote>
+<p>ここで、<span class="arithmatex">\(\bar{x}\mathbf{1}_n\)</span> は、全ての要素が平均値 <span class="arithmatex">\(\bar{x}\)</span> であるベクトル <span class="arithmatex">\(\begin{pmatrix} \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{pmatrix}\)</span> を表します。つまり、元のデータベクトルの各要素から一律に平均値を引く操作です。</p>
 </blockquote>
 <h4 id="222-0">2.2.2 偏差の総和が0になる性質とその証明</h4>
 <p>偏差には非常に重要な性質があります。それは、「偏差の総和は常に0になる」というものです。つまり、<span class="arithmatex">\(\sum_{i=1}^{n} d_i = 0\)</span> です。</p>
