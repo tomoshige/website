@@ -47,7 +47,7 @@ _paginate: false
 ![bg left:50% 80%](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png)
 
 # 線形代数学 I: 第5回講義
-## ベクトル - 定義と基本操作
+## 行列積の計算
 ### 中村 知繁
 ---
 

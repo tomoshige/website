@@ -12,28 +12,24 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/07-vector-and-matrix/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/slides/07-vector-and-matrix-slide/">
       
       
-        <link rel="prev" href="../06-vector-and-matrix/">
       
       
-        <link rel="next" href="../08-vector-and-matrix/">
-      
-      
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>7. Vector and Matrix 6 - Statistical Learning Laboratory</title>
+        <title>07 vector and matrix slide - Statistical Learning Laboratory</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -54,7 +50,7 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#i-7" class="md-skip">
+        <a href="#i-6" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -94,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="ヘッダー">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              7. Vector and Matrix 6
+              07 vector and matrix slide
             
           </span>
         </div>
@@ -201,7 +197,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -231,7 +227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -248,8 +244,6 @@
       
   
   
-    
-  
   
   
     
@@ -273,16 +267,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -299,7 +293,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Lectures
@@ -312,8 +306,6 @@
                 
   
   
-    
-  
   
   
     
@@ -340,16 +332,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -366,7 +358,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Linear algebra
@@ -379,10 +371,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -409,11 +399,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
         
           
           <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
@@ -427,7 +417,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2_2">
             <span class="md-nav__icon md-icon"></span>
             Module 1 - Vector and Matrix
@@ -441,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01-introduction/" class="md-nav__link">
+      <a href="../../01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -462,7 +452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-vector-and-matrix/" class="md-nav__link">
+      <a href="../../02-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -483,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-vector-and-matrix/" class="md-nav__link">
+      <a href="../../03-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -504,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-vector-and-matrix/" class="md-nav__link">
+      <a href="../../04-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -525,7 +515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-vector-and-matrix/" class="md-nav__link">
+      <a href="../../05-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -546,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-vector-and-matrix/" class="md-nav__link">
+      <a href="../../06-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -564,30 +554,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    7. Vector and Matrix 6
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../07-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -596,377 +566,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      はじめに
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 1次元データとベクトル表現
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. 1次元データとベクトル表現">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#11" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.1 なぜデータをベクトルで表現するのか？
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#12" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2 データベクトルの定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3 例：体温データ
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#14-1-mathbf1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.4 全ての要素が1のベクトル (\(\mathbf{1}\) ベクトル) の定義と役割
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. ベクトルを用いた記述統計量の計算
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. ベクトルを用いた記述統計量の計算">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#21" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1 データの平均値
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.1 データの平均値">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#211" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.1 スカラ表記による定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#212" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2 ベクトル表記による定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#213" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.3 例題：体温データの平均値
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2 データの偏差
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.2 データの偏差">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#221" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.1 スカラ表記・ベクトル表記による定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#222-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.2 偏差の総和が0になる性質とその証明
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#223" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.3 例題：体温データの偏差ベクトル
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3 データの分散
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.3 データの分散">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#231" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3.1 スカラ表記・ベクトル表記による定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#232" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3.2 例題：体温データの分散
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#24" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.4 データの標準偏差
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.4 データの標準偏差">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#241" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.4.1 定義とベクトル表記
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#242" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.4.2 例題：体温データの標準偏差
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#25" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.5 分散の別公式
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.5 分散の別公式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#251" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.5.1 公式の紹介とその意義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#252" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.5.2 証明
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#253" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.5.3 例題：体温データの分散（別公式による計算）
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#26" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.6 偏差値
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.6 偏差値">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      偏差値の導入：異なる集団間での相対的な位置を知るために
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      偏差値の定義と計算式
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      例：あるテストの得点から偏差値を計算する
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      偏差値の性質と利点・注意点
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. 演習問題
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. 演習問題">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 基本問題
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. まとめと次回予告
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -979,7 +578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-vector-and-matrix/" class="md-nav__link">
+      <a href="../../08-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1000,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-exercise/" class="md-nav__link">
+      <a href="../../09-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1090,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../10-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1111,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../11-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../11-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1132,7 +731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../12-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../12-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1153,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../13-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../13-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1174,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../14-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../14-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1195,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../15-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../15-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1216,7 +815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../16-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../16-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1237,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../17-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../17-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1258,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../18-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../18-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1279,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../19-exercise/" class="md-nav__link">
+      <a href="../../19-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1300,7 +899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../20-midterm-exam/" class="md-nav__link">
+      <a href="../../20-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1378,7 +977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../21-determinant/" class="md-nav__link">
+      <a href="../../21-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1399,7 +998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../22-determinant/" class="md-nav__link">
+      <a href="../../22-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1420,7 +1019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../23-determinant/" class="md-nav__link">
+      <a href="../../23-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1441,7 +1040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../24-determinant/" class="md-nav__link">
+      <a href="../../24-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1462,7 +1061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../25-exercise/" class="md-nav__link">
+      <a href="../../25-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1542,7 +1141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../26-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../26-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1563,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../27-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../27-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1584,7 +1183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../28-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../28-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1605,7 +1204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../29-exercise/" class="md-nav__link">
+      <a href="../../29-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1626,7 +1225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../30-exercise/" class="md-nav__link">
+      <a href="../../30-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1647,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../31-exam/" class="md-nav__link">
+      <a href="../../31-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1733,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../32-eigen-value-vector/" class="md-nav__link">
+      <a href="../../32-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1754,7 +1353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../33-eigen-value-vector/" class="md-nav__link">
+      <a href="../../33-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1775,7 +1374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../34-eigen-value-vector/" class="md-nav__link">
+      <a href="../../34-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1796,7 +1395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../35-eigen-value-vector/" class="md-nav__link">
+      <a href="../../35-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1817,7 +1416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../36-eigen-value-vector/" class="md-nav__link">
+      <a href="../../36-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1838,7 +1437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../37-exercise/" class="md-nav__link">
+      <a href="../../37-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1859,7 +1458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../38-midterm-exam/" class="md-nav__link">
+      <a href="../../38-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1880,7 +1479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../39-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../39-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1901,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../40-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../40-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1985,7 +1584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../41-principal-component-analysis/" class="md-nav__link">
+      <a href="../../41-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2006,7 +1605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../42-principal-component-analysis/" class="md-nav__link">
+      <a href="../../42-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2027,7 +1626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../43-principal-component-analysis/" class="md-nav__link">
+      <a href="../../43-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2048,7 +1647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../44-factor-analysis/" class="md-nav__link">
+      <a href="../../44-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2069,7 +1668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../45-factor-analysis/" class="md-nav__link">
+      <a href="../../45-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2090,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../46-nonlinear-dimension-reduction/" class="md-nav__link">
+      <a href="../../46-nonlinear-dimension-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2111,7 +1710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../47-wrapup/" class="md-nav__link">
+      <a href="../../47-wrapup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2132,7 +1731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../48-exam/" class="md-nav__link">
+      <a href="../../48-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2197,7 +1796,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SIWS/" class="md-nav__link ">
+            <a href="../../../SIWS/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2277,7 +1876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+      <a href="../../../SIWS/01-getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2298,7 +1897,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+      <a href="../../../SIWS/02-visualization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2319,7 +1918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+      <a href="../../../SIWS/03-wrangling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2340,7 +1939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+      <a href="../../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2412,7 +2011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/05-simple-linear-regression/" class="md-nav__link">
+      <a href="../../../SIWS/05-simple-linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2433,7 +2032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/06-multiple-regression/" class="md-nav__link">
+      <a href="../../../SIWS/06-multiple-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2509,7 +2108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/07-sampling/" class="md-nav__link">
+      <a href="../../../SIWS/07-sampling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2530,7 +2129,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
+      <a href="../../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2551,7 +2150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/09-hypothesis-testing/" class="md-nav__link">
+      <a href="../../../SIWS/09-hypothesis-testing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2572,7 +2171,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/10-inference-for-regression/" class="md-nav__link">
+      <a href="../../../SIWS/10-inference-for-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2642,7 +2241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
+      <a href="../../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2699,7 +2298,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SP/" class="md-nav__link ">
+            <a href="../../../SP/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2771,7 +2370,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/" class="md-nav__link ">
+            <a href="../../../../research/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2849,7 +2448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+      <a href="../../../../research/note/generalized-random-forests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2870,7 +2469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+      <a href="../../../../research/note/variable-importance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2891,7 +2490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+      <a href="../../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2965,7 +2564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+      <a href="../../../../research/note/sparseBART/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2986,7 +2585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/causal-mediation-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3007,7 +2606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+      <a href="../../../../research/note/causal-data-repository/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3064,7 +2663,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+            <a href="../../../../research/note/factor-analysis/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3144,7 +2743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3165,7 +2764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3186,7 +2785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3207,7 +2806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3281,7 +2880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3302,7 +2901,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3323,7 +2922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3399,7 +2998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3420,7 +3019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3441,7 +3040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3462,7 +3061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3532,7 +3131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3598,6 +3197,30 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      データサイエンスに必要なベクトルと行列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="データサイエンスに必要なベクトルと行列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      中村 知繁
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
       はじめに
     </span>
   </a>
@@ -3605,46 +3228,64 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-1" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      1. 1次元データとベクトル表現
+      はじめに
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. 1次元データとベクトル表現">
+    <nav class="md-nav" aria-label="はじめに">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      1.1 なぜデータをベクトルで表現するのか？
+      なぜデータをベクトルで表現するのか？
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#12" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      1.2 データベクトルの定義
+      なぜデータをベクトルで表現するのか？
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#13" class="md-nav__link">
+  <a href="#33" class="md-nav__link">
     <span class="md-ellipsis">
-      1.3 例：体温データ
+      なぜデータをベクトルで表現するのか？ (3/3)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#14-1-mathbf1" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      1.4 全ての要素が1のベクトル (\(\mathbf{1}\) ベクトル) の定義と役割
+      データベクトルの定義
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      例：体温データ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-mathbf1" class="md-nav__link">
+    <span class="md-ellipsis">
+      全ての要素が1のベクトル (\(\mathbf{1}\) ベクトル) の定義と役割
     </span>
   </a>
   
@@ -3668,35 +3309,17 @@
           <li class="md-nav__item">
   <a href="#21" class="md-nav__link">
     <span class="md-ellipsis">
-      2.1 データの平均値
+      2.1 平均値 : 定義
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2.1 データの平均値">
+    <nav class="md-nav" aria-label="2.1 平均値 : 定義">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#211" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      2.1.1 スカラ表記による定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#212" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2 ベクトル表記による定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#213" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.3 例題：体温データの平均値
+      スカラ表記による定義
     </span>
   </a>
   
@@ -3704,41 +3327,41 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 平均値 : 定義
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 平均値 : 例
+    </span>
+  </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#22" class="md-nav__link">
     <span class="md-ellipsis">
-      2.2 データの偏差
+      2.2 偏差 : 定義
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2.2 データの偏差">
+    <nav class="md-nav" aria-label="2.2 偏差 : 定義">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#221" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      2.2.1 スカラ表記・ベクトル表記による定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#222-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.2 偏差の総和が0になる性質とその証明
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#223" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.3 例題：体温データの偏差ベクトル
+      スカラ表記・ベクトル表記による定義
     </span>
   </a>
   
@@ -3746,72 +3369,87 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 偏差 : 偏差の総和はゼロ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 偏差：例
+    </span>
+  </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#23" class="md-nav__link">
     <span class="md-ellipsis">
-      2.3 データの分散
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.3 データの分散">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#231" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3.1 スカラ表記・ベクトル表記による定義
+      2.3 分散
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#232" class="md-nav__link">
+  <a href="#23_1" class="md-nav__link">
     <span class="md-ellipsis">
-      2.3.2 例題：体温データの分散
+      2.3 分散: 定義
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#23_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 分散: 定義
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 分散: 例
+    </span>
+  </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#24" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4 データの標準偏差
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.4 データの標準偏差">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#241" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.4.1 定義とベクトル表記
+      2.4 標準偏差
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#242" class="md-nav__link">
+  <a href="#24_1" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4.2 例題：体温データの標準偏差
+      2.4 標準偏差： 定義
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#24_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 標準偏差: 例
+    </span>
+  </a>
   
 </li>
         
@@ -3826,27 +3464,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#251" class="md-nav__link">
+  <a href="#25_1" class="md-nav__link">
     <span class="md-ellipsis">
-      2.5.1 公式の紹介とその意義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#252" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.5.2 証明
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#253" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.5.3 例題：体温データの分散（別公式による計算）
+      2.5 分散の別公式
     </span>
   </a>
   
@@ -3854,6 +3474,42 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 分散の別公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 分散の別公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 分散の別公式: 例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 分散の別公式: 例
+    </span>
+  </a>
   
 </li>
         
@@ -3864,69 +3520,39 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2.6 偏差値">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#26_1" class="md-nav__link">
     <span class="md-ellipsis">
-      偏差値の導入：異なる集団間での相対的な位置を知るために
+      2.6 偏差値 : 定義と計算式
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#26_2" class="md-nav__link">
     <span class="md-ellipsis">
-      偏差値の定義と計算式
+      2.6 偏差値 : 定義と計算式
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#26_3" class="md-nav__link">
     <span class="md-ellipsis">
-      例：あるテストの得点から偏差値を計算する
+      2.6 偏差値 :あるテストの得点から偏差値を計算する
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#26_4" class="md-nav__link">
     <span class="md-ellipsis">
-      偏差値の性質と利点・注意点
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. 演習問題
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. 演習問題">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 基本問題
+      2.6 偏差値 : 性質と利点・注意点
     </span>
   </a>
   
@@ -3938,9 +3564,78 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      5. まとめと次回予告
+      3. 演習問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 演習問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題 - 問題1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題 - 問題2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題 - 問題3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-4-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題 - 問題4 (1/2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-5-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題 - 問題5 (1/2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. まとめと次回予告 (1/2)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-22" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. まとめと次回予告 (2/2)
     </span>
   </a>
   
@@ -3961,299 +3656,360 @@
                   
 
 
-<h1 id="i-7">線形代数学 I - 第7回講義ノート</h1>
-<h2 id="_1">はじめに</h2>
-<p>今回のテーマは「1次元データとベクトルの和と積」です。具体的には、身近な1次元の数値データを数学的な道具である「ベクトル」として捉え、そのベクトル表現を用いてデータの基本的な性質を示す指標である平均、偏差、分散、標準偏差を計算し、理解することを目標とします。</p>
-<p>線形代数学で学ぶベクトルや行列の概念は、抽象的な数学の道具としてだけでなく、現代社会で必須となっているデータサイエンスや機械学習の分野で、データを効率的に扱い、分析するための強力な言語としても機能します。今回の内容は、その第一歩となるものです。</p>
-<p><strong>本講義の学習目標</strong></p>
-<p>この講義を終える頃には、皆さんは以下のことができるようになります。</p>
-<ol>
-<li>1次元データをベクトルとして表現する意義を理解し、実際に表現できる。</li>
-<li>ベクトルの演算（特に内積やスカラー倍）を用いて、データの平均値を計算できる。</li>
-<li>ベクトルの演算を用いて、データの偏差（各データ点が平均からどれだけ離れているか）を計算できる。</li>
-<li>ベクトルの演算を用いて、データの分散（データのばらつき具合）を計算できる。</li>
-</ol>
-<p><strong>スライド</strong>
-スライドは<a href="../slides/07-vector-and-matrix-slide.pdf">こちら</a>から。</p>
-<h2 id="1-1">1. 1次元データとベクトル表現</h2>
-<h3 id="11">1.1 なぜデータをベクトルで表現するのか？</h3>
-<p>私たちの周りには、様々な数値データがあふれています。例えば、クラスの学生のテストの点数、ある都市の毎日の最高気温、患者さんの血圧の測定値など、これらはすべて「1次元データ」の例です。これらのデータが少数であれば個別に扱うことも可能ですが、データ数が増える（例えば、数百人、数千人のデータ）と、それらを効率的に、かつ統一的な方法で処理する必要が出てきます。</p>
-<p>ここで線形代数学の「ベクトル」という概念が役立ちます。データをベクトルとして表現することには、以下のような大きなメリットがあります。</p>
+<!-- header: 'T. Nakamura | Juntendo Univ.' -->
+<!-- footer: '2025/02/08' -->
+<style>
+section { 
+    font-size: 20px; 
+}
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+/* ページ番号 */
+section::after {
+    content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+    fonr-size: 60%;
+}
+/* 発表会名 */
+header {
+    width: 100%;
+    position: absolute;
+    top: unset;
+    bottom: 21px;
+    left: 0;
+    text-align: center;
+    font-size: 60%;
+}
+/* 日付 */
+footer {
+    text-align: center;
+    font-size: 15px;
+}
+</style>
+
+<!--
+_class: lead
+_paginate: false
+-->
+
+<p><img alt="bg left:50% 80%" src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png" /></p>
+<h1 id="i-6">線形代数学 I: 第6回講義</h1>
+<h2 id="_1">データサイエンスに必要なベクトルと行列</h2>
+<h3 id="_2">中村 知繁</h3>
+<hr />
+<h2 id="_3">はじめに</h2>
+<p><strong>今回のテーマ</strong>: 「1次元データとベクトルの和と積」</p>
+<p><strong>目標</strong>:
+* 身近な1次元の数値データを「ベクトル」として捉える。
+* ベクトル表現を用いて、データの基本的性質（平均、偏差、分散、標準偏差）を計算し、理解する。</p>
+<hr />
+<h2 id="_4">はじめに</h2>
+<p><strong>線形代数学の役割</strong>:
+* ベクトルや行列は、抽象的な数学の道具であると同時に、データサイエンスや機械学習でデータを効率的に扱い、分析するための強力な言語。
+* 今回の内容は、その第一歩。</p>
+<p><strong>本講義の学習目標</strong>:
+1.  1次元データをベクトルとして表現する<strong>意義</strong>を理解し、実際に表現できる。
+2.  ベクトルの演算を用いてデータの<strong>平均値</strong>を計算できる。
+3.  ベクトルの演算を用いてデータの<strong>偏差</strong>を計算できる。
+4.  ベクトルの演算を用いてデータの<strong>分散</strong>を計算できる。</p>
+<hr />
+<h3 id="_5">なぜデータをベクトルで表現するのか？</h3>
+<p>私たちの周りには、様々な数値データがあふれています。
+（例：テストの点数、毎日の最高気温、血圧の測定値など）
+これらは「1次元データ」の例です。</p>
+<p>データ数が少ないうちは個別処理も可能ですが、データ数が増大すると（数百、数千…）、効率的かつ統一的な処理方法が必要になります。</p>
+<p><strong>→ ここで「ベクトル」が役立ちます！</strong></p>
+<hr />
+<h3 id="_6">なぜデータをベクトルで表現するのか？</h3>
+<p><strong>ベクトル表現の主なメリット</strong>:</p>
 <ul>
 <li>
-<p><strong>記述の簡潔さ</strong>: 例えば100個の数値データを、<span class="arithmatex">\(\mathbf{x}\)</span> という一つの記号で代表させることができます。これにより、数式やアルゴリズムの記述が非常にスッキリとし、見通しが良くなります。</p>
+<p><strong>記述の簡潔さ</strong>:
+    多数の数値データ（例：100個）を、<span class="arithmatex">\(\mathbf{x}\)</span> という一つの記号で代表可能。
+    数式やアルゴリズムの記述がスッキリし、見通しが良くなります。</p>
 </li>
 <li>
-<p><strong>計算の効率化</strong>: 現代のコンピュータでは、ベクトルや行列の演算を非常に高速に行うための専用の計算ライブラリ（例えば、Python言語のNumPyライブラリなど）が整備されています。データをベクトルとして扱うことで、これらのライブラリの恩恵を受け、大量のデータ処理を効率的に行うことができます。</p>
-</li>
-<li>
-<p><strong>幾何学的解釈の導入</strong>: データをベクトルとして捉えると、<span class="arithmatex">\(n\)</span>個のデータセットを<span class="arithmatex">\(n\)</span>次元空間内の「点」または「ベクトル」として視覚的・幾何学的に解釈する道が開けます。これにより、データの分布や関係性について直感的な洞察を得やすくなります（この恩恵は特に多次元データの場合に顕著になります）。</p>
-</li>
-<li>
-<p><strong>多次元データへの自然な拡張性</strong>: 本講義では1次元データから始めますが、実世界のデータは複数の特徴量を持つ「多次元データ」であることが一般的です。多次元データをベクトルで扱う考え方は、このような多次元データをベクトルや行列で表現し、分析するための基礎となります。</p>
+<p><strong>計算の効率化</strong>:
+    ベクトル・行列演算に特化した計算ライブラリ（例：PythonのNumPy）の利用。
+    大量のデータ処理を高速に実行できます。</p>
 </li>
 </ul>
-<h3 id="12">1.2 データベクトルの定義</h3>
-<p>それでは、1次元データをベクトルとしてどのように表現するかを定義しましょう。</p>
+<hr />
+<h3 id="33">なぜデータをベクトルで表現するのか？ (3/3)</h3>
+<p><strong>ベクトル表現の主なメリット (続き)</strong>:</p>
+<ul>
+<li>
+<p><strong>幾何学的解釈の導入</strong>:
+    <span class="arithmatex">\(n\)</span>個のデータを<span class="arithmatex">\(n\)</span>次元空間内の「点」または「ベクトル」として解釈。
+    データの分布や関係性について直感的な洞察を得やすくなります (特に多次元データで有効)。</p>
+</li>
+<li>
+<p><strong>多次元データへの自然な拡張性</strong>:
+    本講義は1次元データから開始。
+    実世界のデータは多次元（複数の特徴量を持つ）が一般的。
+    ベクトル・行列による表現は、多次元データ分析の基礎となります。</p>
+</li>
+</ul>
+<hr />
+<h3 id="_7">データベクトルの定義</h3>
+<p>1次元データをベクトルとしてどのように表現するかを定義しましょう。</p>
 <blockquote>
 <p><strong>定義：データベクトル</strong>
 <span class="arithmatex">\(n\)</span>個の観測値 <span class="arithmatex">\(x_1, x_2, \ldots, x_n\)</span> からなる1次元データセットは、<span class="arithmatex">\(n\)</span>次元の列ベクトル <span class="arithmatex">\(\mathbf{x}\)</span> として以下のように表現できます。
 <span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}\)</span>\)</span>
 このベクトル <span class="arithmatex">\(\mathbf{x}\)</span> を「データベクトル」と呼びます。</p>
 </blockquote>
-<p>この定義では列ベクトルを用いていますが、文脈によっては行ベクトルとして扱うこともあります。本講義では、特に断りのない限り、データベクトルは列ベクトルとします。</p>
-<h3 id="13">1.3 例：体温データ</h3>
-<p>具体的な例を見てみましょう。5人の学生A, B, C, D, Eの体温を測定したところ、それぞれ 36.5℃, 36.8℃, 37.2℃, 36.4℃, 36.9℃ であったとします。この1次元データセットは、5次元のデータベクトル <span class="arithmatex">\(\mathbf{x}\)</span> として次のように表現できます。</p>
+<ul>
+<li>本講義では、特に断りのない限り、データベクトルは<strong>列ベクトル</strong>とします。</li>
+</ul>
+<hr />
+<h3 id="_8">例：体温データ</h3>
+<p>具体的な例を見てみましょう。
+5人の学生A, B, C, D, Eの体温:
+36.5℃, 36.8℃, 37.2℃, 36.4℃, 36.9℃</p>
+<p>この1次元データセットは、5次元のデータベクトル <span class="arithmatex">\(\mathbf{x}\)</span> として次のように表現できます。</p>
 <div class="arithmatex">\[\mathbf{x} = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\]</div>
-<p>このように、複数の数値データを一つのベクトルにまとめることで、以降の計算や議論が扱いやすくなります。</p>
-<h3 id="14-1-mathbf1">1.4 全ての要素が1のベクトル (<span class="arithmatex">\(\mathbf{1}\)</span> ベクトル) の定義と役割</h3>
-<p>データベクトルと並んで、データの統計量を計算する際に非常に重要な役割を果たす特別なベクトルがあります。それは、全ての要素が1であるベクトルで、<span class="arithmatex">\(\mathbf{1}\)</span>（イチベクトル）と表記されることが多いです。</p>
+<p>複数の数値データを一つのベクトルにまとめることで、計算や議論が扱いやすくなります。</p>
+<hr />
+<h3 id="1-mathbf1">全ての要素が1のベクトル (<span class="arithmatex">\(\mathbf{1}\)</span> ベクトル) の定義と役割</h3>
+<p>データの統計量を計算する際に重要な役割を果たす特別なベクトルがあります。
+それは、全ての要素が1であるベクトルで、<span class="arithmatex">\(\mathbf{1}\)</span>（イチベクトル）と表記されます。</p>
 <blockquote>
 <p><strong>定義：全ての要素が1のベクトル (<span class="arithmatex">\(\mathbf{1}\)</span> ベクトル)</strong>
 <span class="arithmatex">\(n\)</span>次元の「1ベクトル」<span class="arithmatex">\(\mathbf{1}_n\)</span> は、全ての要素が1である <span class="arithmatex">\(n\)</span>次元の列ベクトルとして、以下のように定義されます。
 <span class="arithmatex">\(<span class="arithmatex">\(\mathbf{1}_n = \begin{pmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{pmatrix}\)</span>\)</span>
-ベクトルの次元 <span class="arithmatex">\(n\)</span> が文脈から明らかな場合は、添え字の <span class="arithmatex">\(n\)</span> を省略して単に <span class="arithmatex">\(\mathbf{1}\)</span> と書くこともあります。</p>
+次元 <span class="arithmatex">\(n\)</span> が明らかな場合は、添え字 <span class="arithmatex">\(n\)</span> を省略して <span class="arithmatex">\(\mathbf{1}\)</span> と書くこともあります。</p>
 </blockquote>
-<p>例えば、3次元の1ベクトルは <span class="arithmatex">\(\mathbf{1}_3 = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}\)</span> です。</p>
-<p>この <span class="arithmatex">\(\mathbf{1}\)</span> ベクトルは、特にデータの総和を計算したり、平均値をベクトル表記で簡潔に表現したりする際に非常に便利です。後ほど具体的な使い方を見ていきましょう。</p>
+<p>例：3次元の1ベクトル <span class="arithmatex">\(\mathbf{1}_3 = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}\)</span></p>
+<p>この <span class="arithmatex">\(\mathbf{1}\)</span> ベクトルは、データの総和や平均値をベクトル表記で簡潔に表す際に非常に便利です。</p>
+<hr />
 <h2 id="2">2. ベクトルを用いた記述統計量の計算</h2>
-<p>ここからは、1次元データを表現したデータベクトルを用いて、そのデータの基本的な特性を示す記述統計量である「平均値」「偏差」「分散」「標準偏差」を計算する方法を学びます。ベクトル演算、特に内積がどのように活用されるかに注目してください。</p>
-<h3 id="21">2.1 データの平均値</h3>
-<p>データの平均値（または算術平均）は、データセット全体の代表的な値を示す最も基本的な統計量の一つです。</p>
-<h4 id="211">2.1.1 スカラ表記による定義</h4>
-<p>まず、皆さんがよく知っているであろう、総和を用いた平均値の定義を確認しましょう。
-<span class="arithmatex">\(n\)</span>個のデータ <span class="arithmatex">\(x_1, x_2, \ldots, x_n\)</span> があるとき、その平均値 <span class="arithmatex">\(\bar{x}\)</span> は以下のように計算されます。</p>
-<div class="arithmatex">\[\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = \frac{x_1 + x_2 + \ldots + x_n}{n}\]</div>
-<p>これは、「全てのデータの値を合計し、データの個数で割る」という操作ですね。</p>
-<h4 id="212">2.1.2 ベクトル表記による定義</h4>
-<p>この平均値の計算を、データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> と <span class="arithmatex">\(\mathbf{1}\)</span> ベクトルを用いて表現してみましょう。
-データベクトル <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}\)</span> と <span class="arithmatex">\(n\)</span>次元の1ベクトル <span class="arithmatex">\(\mathbf{1}_n\)</span> を考えます。
-ここで、<span class="arithmatex">\(\mathbf{1}_n\)</span> の転置ベクトル <span class="arithmatex">\(\mathbf{1}_n^T = \begin{pmatrix} 1 &amp; 1 &amp; \ldots &amp; 1 \end{pmatrix}\)</span> とデータベクトル <span class="arithmatex">\(\mathbf{x}\)</span> の内積を計算すると、
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{1}_n^T \mathbf{x} = (1 \times x_1) + (1 \times x_2) + \ldots + (1 \times x_n) = \sum_{i=1}^{n} x_i\)</span>\)</span>
-となり、これはデータの総和に他なりません。</p>
-<p>したがって、平均値 <span class="arithmatex">\(\bar{x}\)</span> は、この内積をデータの個数 <span class="arithmatex">\(n\)</span> で割ることにより、以下のようにベクトル表記で表すことができます。</p>
+<p>ここからは、データベクトルを用いて、基本的な記述統計量（平均値、偏差、分散、標準偏差、偏差値）を計算する方法を学びます。</p>
+<p>特に<strong>内積</strong>がどのように活用されるかに注目してください。</p>
+<hr />
+<h3 id="21">2.1 平均値 : 定義</h3>
+<p>データの平均値（算術平均）は、データセット全体の代表的な値を示す最も基本的な統計量の一つです。</p>
+<h4 id="_9">スカラ表記による定義</h4>
+<p><span class="arithmatex">\(n\)</span>個のデータ <span class="arithmatex">\(x_1, x_2, \ldots, x_n\)</span> の平均値 <span class="arithmatex">\(\bar{x}\)</span> は：
+<span class="arithmatex">\(<span class="arithmatex">\(\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = \frac{x_1 + x_2 + \ldots + x_n}{n}\)</span>\)</span>
+「全てのデータの値を合計し、データの個数で割る」操作です。</p>
+<hr />
+<h3 id="21_1">2.1 平均値 : 定義</h3>
+<p>データベクトル <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix}\)</span> と <span class="arithmatex">\(n\)</span>次元の1ベクトル <span class="arithmatex">\(\mathbf{1}_n\)</span> を考えます。
+<span class="arithmatex">\(\mathbf{1}_n\)</span> の転置ベクトル <span class="arithmatex">\(\mathbf{1}_n^T = \begin{pmatrix} 1 &amp; \ldots &amp; 1 \end{pmatrix}\)</span> と <span class="arithmatex">\(\mathbf{x}\)</span> の内積は、
+<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{1}_n^T \mathbf{x} = \sum_{i=1}^{n} x_i \quad (\text{データの総和})\)</span>\)</span>
+となります。
+したがって、平均値 <span class="arithmatex">\(\bar{x}\)</span> は、</p>
 <blockquote>
 <p><strong>定義：データの平均値 (ベクトル表記)</strong>
-データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> の平均値 <span class="arithmatex">\(\bar{x}\)</span> は、次のように定義されます。
 <span class="arithmatex">\(<span class="arithmatex">\(\bar{x} = \frac{1}{n} (\mathbf{1}_n^T \mathbf{x})\)</span>\)</span>
-または、内積の記号 <code>·</code> を用いて <span class="arithmatex">\(\bar{x} = \frac{1}{n} (\mathbf{1}_n \cdot \mathbf{x})\)</span> と書くこともあります。</p>
+（内積記号 <code>·</code> を用いて <span class="arithmatex">\(\bar{x} = \frac{1}{n} (\mathbf{1}_n \cdot \mathbf{x})\)</span> とも書けます。）</p>
 </blockquote>
-<p>このように、ベクトルを用いると総和の記号 <span class="arithmatex">\(\sum\)</span> を使わずに平均値を表現でき、数式が非常にスッキリします。</p>
-<h4 id="213">2.1.3 例題：体温データの平均値</h4>
-<p>先ほどの5人の学生の体温データ <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span> を用いて、平均体温 <span class="arithmatex">\(\bar{x}\)</span> を計算してみましょう。
-ここでは <span class="arithmatex">\(n=5\)</span> ですから、<span class="arithmatex">\(\mathbf{1}_5^T = \begin{pmatrix} 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \end{pmatrix}\)</span> を用います。</p>
+<p>ベクトルを用いると <span class="arithmatex">\(\sum\)</span> を使わずに平均値を表現でき、<strong>数式がスッキリ</strong>します。</p>
+<hr />
+<h3 id="21_2">2.1 平均値 : 例</h3>
+<p>5人の学生の体温データ: <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span>
+<span class="arithmatex">\(n=5\)</span> なので、<span class="arithmatex">\(\mathbf{1}_5^T = \begin{pmatrix} 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \end{pmatrix}\)</span> を用います。</p>
 <p><span class="arithmatex">\(<span class="arithmatex">\(\bar{x} = \frac{1}{5} (\mathbf{1}_5^T \mathbf{x}) = \frac{1}{5} \begin{pmatrix} 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \end{pmatrix} \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= \frac{1}{5} (1 \times 36.5 + 1 \times 36.8 + 1 \times 37.2 + 1 \times 36.4 + 1 \times 36.9)\)</span>\)</span>
 <span class="arithmatex">\(<span class="arithmatex">\(= \frac{1}{5} (36.5 + 36.8 + 37.2 + 36.4 + 36.9)\)</span>\)</span>
 <span class="arithmatex">\(<span class="arithmatex">\(= \frac{1}{5} (183.8) = 36.76\)</span>\)</span>
-したがって、この5人の学生の平均体温は 36.76℃ であることが分かります。</p>
-<h3 id="22">2.2 データの偏差</h3>
-<p>平均値はデータセットの中心的な傾向を示しますが、個々のデータがその平均値からどれだけ離れているか、つまり「偏差」を見ることも重要です。</p>
-<h4 id="221">2.2.1 スカラ表記・ベクトル表記による定義</h4>
-<p>各データ点 <span class="arithmatex">\(x_i\)</span> の平均値 <span class="arithmatex">\(\bar{x}\)</span> からの偏差 <span class="arithmatex">\(d_i\)</span> は以下のように定義されます。</p>
-<blockquote>
-<p><strong>定義：データの偏差 (スカラ表記)</strong>
-<span class="arithmatex">\(<span class="arithmatex">\(d_i = x_i - \bar{x}\)</span>\)</span></p>
-</blockquote>
-<p>この偏差を全てのデータ点について計算し、それらを要素とするベクトルを「偏差ベクトル」と呼びます。</p>
-<blockquote>
-<p><strong>定義：データの偏差 (ベクトル表記)</strong>
-データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> の平均値を <span class="arithmatex">\(\bar{x}\)</span> とするとき、偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> は次のように定義されます。
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_n = \begin{pmatrix} x_1 - \bar{x} \\ x_2 - \bar{x} \\ \vdots \\ x_n - \bar{x} \end{pmatrix} = \begin{pmatrix} d_1 \\ d_2 \\ \vdots \\ d_n \end{pmatrix}\)</span>\)</span>
-ここで、<span class="arithmatex">\(\bar{x}\mathbf{1}_n\)</span> は、全ての要素が平均値 <span class="arithmatex">\(\bar{x}\)</span> であるベクトル <span class="arithmatex">\(\begin{pmatrix} \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{pmatrix}\)</span> を表します。つまり、元のデータベクトルの各要素から一律に平均値を引く操作です。</p>
-</blockquote>
-<h4 id="222-0">2.2.2 偏差の総和が0になる性質とその証明</h4>
-<p>偏差には非常に重要な性質があります。それは、「偏差の総和は常に0になる」というものです。
-つまり、<span class="arithmatex">\(\sum_{i=1}^{n} d_i = 0\)</span> です。</p>
-<p><strong>証明 (スカラ表記):</strong>
-<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{n} d_i = \sum_{i=1}^{n} (x_i - \bar{x})\)</span>\)</span>
-分配法則により、
-<span class="arithmatex">\(<span class="arithmatex">\(= \sum_{i=1}^{n} x_i - \sum_{i=1}^{n} \bar{x}\)</span>\)</span>
-ここで、<span class="arithmatex">\(\sum_{i=1}^{n} x_i = n\bar{x}\)</span> （平均の定義より）であり、また <span class="arithmatex">\(\bar{x}\)</span> は <span class="arithmatex">\(i\)</span> によらない定数なので <span class="arithmatex">\(\sum_{i=1}^{n} \bar{x} = n\bar{x}\)</span> となります。
-したがって、
-<span class="arithmatex">\(<span class="arithmatex">\(= n\bar{x} - n\bar{x} = 0\)</span>\)</span>
-（証明終）</p>
-<p>この性質をベクトル表記で表現すると、偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> と <span class="arithmatex">\(\mathbf{1}_n\)</span> ベクトルの内積が0になることを意味します。
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{1}_n^T \mathbf{d} = \sum_{i=1}^{n} (1 \times d_i) = \sum_{i=1}^{n} d_i = 0\)</span>\)</span>
-幾何学的には、これは <span class="arithmatex">\(\mathbf{1}_n\)</span> ベクトルと偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> が直交していることを示しています。</p>
-<h4 id="223">2.2.3 例題：体温データの偏差ベクトル</h4>
-<p>再び体温データの例 <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span> に戻り、平均値 <span class="arithmatex">\(\bar{x} = 36.76\)</span>℃ を用いて偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> を計算してみましょう。</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_5 = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix} - 36.76 \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 36.5 - 36.76 \\ 36.8 - 36.76 \\ 37.2 - 36.76 \\ 36.4 - 36.76 \\ 36.9 - 36.76 \end{pmatrix} = \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\)</span>\)</span>
-この偏差ベクトルの要素の和を計算してみると、
-<span class="arithmatex">\((-0.26) + 0.04 + 0.44 + (-0.36) + 0.14 = 0\)</span>
-となり、確かに偏差の総和が0になることが確認できます。</p>
-<h3 id="23">2.3 データの分散</h3>
-<p>偏差は個々のデータ点が平均からどれだけ離れているかを示しますが、データセット全体としてどの程度ばらついているか、その「散らばり具合」を一つの数値で表したい場合があります。その代表的な指標が「分散」です。
-分散は、各データ点の偏差を二乗し、それらを平均したものです。偏差を二乗する理由は、偏差には正の値も負の値もあり、そのまま合計すると0になってしまうため、散らばり具合の指標としては不適切だからです。二乗することで、平均からの距離の大きさを正の値として評価できます。</p>
-<h4 id="231">2.3.1 スカラ表記・ベクトル表記による定義</h4>
-<blockquote>
-<p><strong>定義：データの分散 (スカラ表記)</strong>
-データセットの分散 <span class="arithmatex">\(\sigma^2\)</span> (シグマ二乗と読みます) は、次のように定義されます。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} d_i^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span>\)</span></p>
-</blockquote>
-<p>これをベクトル表記で表すと、偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> の自分自身との内積（これは偏差ベクトルのノルムの二乗 <span class="arithmatex">\(\|\mathbf{d}\|^2\)</span> に等しい）を用いることになります。
-<span class="arithmatex">\(\mathbf{d}^T \mathbf{d} = d_1^2 + d_2^2 + \ldots + d_n^2 = \sum_{i=1}^n d_i^2\)</span> ですから、</p>
-<blockquote>
-<p><strong>定義：データの分散 (ベクトル表記)</strong>
-データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> から計算される偏差ベクトルを <span class="arithmatex">\(\mathbf{d}\)</span> とするとき、分散 <span class="arithmatex">\(\sigma^2\)</span> は次のように定義されます。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} (\mathbf{d}^T \mathbf{d}) = \frac{1}{n} \|\mathbf{d}\|^2\)</span>\)</span>
-また、<span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_n\)</span> を代入して、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} (\mathbf{x} - \bar{x}\mathbf{1}_n)^T (\mathbf{x} - \bar{x}\mathbf{1}_n)\)</span>\)</span>
-とも書けます。</p>
-</blockquote>
-<p>分散の値が大きいほど、データは平均値の周りに広く散らばっている（ばらつきが大きい）と解釈できます。逆に、分散が小さいほど、データは平均値の近くに集中している（ばらつきが小さい）と解釈できます。
-ただし、分散の単位は元のデータの単位の二乗（例：体温が℃なら分散は℃²）になることに注意が必要です。</p>
-<h4 id="232">2.3.2 例題：体温データの分散</h4>
-<p>体温データの例で、偏差ベクトルが <span class="arithmatex">\(\mathbf{d} = \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\)</span> であったことを思い出しましょう。
-このデータセットの分散 <span class="arithmatex">\(\sigma^2\)</span> を計算します。</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(\mathbf{d}^T \mathbf{d} = \begin{pmatrix} -0.26 &amp; 0.04 &amp; 0.44 &amp; -0.36 &amp; 0.14 \end{pmatrix} \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= (-0.26)^2 + (0.04)^2 + (0.44)^2 + (-0.36)^2 + (0.14)^2\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= 0.0676 + 0.0016 + 0.1936 + 0.1296 + 0.0196\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= 0.412\)</span>\)</span>
-したがって、分散 <span class="arithmatex">\(\sigma^2\)</span> は、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{5} (0.412) = 0.0824\)</span>\)</span>
-この体温データの分散は 0.0824 (℃²) です。</p>
-<h3 id="24">2.4 データの標準偏差</h3>
-<p>分散はデータのばらつき具合を示す重要な指標ですが、その単位が元のデータの単位の二乗になってしまうため、直感的に解釈しづらいことがあります。そこで、分散の正の平方根をとったものを「標準偏差」と呼び、ばらつきの指標としてよく用いられます。標準偏差の単位は、元のデータと同じになります。</p>
-<h4 id="241">2.4.1 定義とベクトル表記</h4>
-<blockquote>
-<p><strong>定義：データの標準偏差</strong>
-データセットの標準偏差 <span class="arithmatex">\(\sigma\)</span> (シグマと読みます) は、分散 <span class="arithmatex">\(\sigma^2\)</span> の正の平方根として定義されます。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma = \sqrt{\sigma^2} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}\)</span>\)</span>
-ベクトル表記では、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma = \sqrt{\frac{1}{n} (\mathbf{d}^T \mathbf{d})} = \frac{1}{\sqrt{n}} \|\mathbf{d}\|\)</span>\)</span></p>
-</blockquote>
-<p>標準偏差が大きいほどデータのばらつきが大きく、小さいほどばらつきが小さいことを意味します。平均値と標準偏差をセットで見ることで、データセットの中心的な位置とその周りの広がり具合を把握することができます。</p>
-<h4 id="242">2.4.2 例題：体温データの標準偏差</h4>
-<p>体温データの分散は <span class="arithmatex">\(\sigma^2 = 0.0824\)</span> (℃²) でした。この標準偏差 <span class="arithmatex">\(\sigma\)</span> を計算しましょう。</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(\sigma = \sqrt{0.0824} \approx 0.287054\)</span>\)</span>
-有効数字を考慮して、標準偏差は約 0.287℃ となります。
-平均体温が 36.76℃ で、標準偏差が約 0.287℃ であることから、この5人の学生の体温は、平均的に見ると平均値から ±0.287℃ 程度の範囲に散らばっている、というような大まかな目安を得ることができます。</p>
-<h3 id="25">2.5 分散の別公式</h3>
-<p>分散を計算する際には、定義式 <span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum (x_i - \bar{x})^2\)</span> だけでなく、もう一つ便利な計算公式があります。</p>
-<h4 id="251">2.5.1 公式の紹介とその意義</h4>
-<blockquote>
-<p><strong>定理：分散の計算公式 (別バージョン)</strong>
-データの分散 <span class="arithmatex">\(\sigma^2\)</span> は、以下の式でも計算できます。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \sum_{i=1}^{n} x_i^2\right) - \bar{x}^2\)</span>\)</span>
-ベクトル表記では、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2\)</span>\)</span>
-この式は、「（データの二乗の平均）引く（平均の二乗）」と覚えることができます。</p>
-</blockquote>
-<h4 id="252">2.5.2 証明</h4>
-<p>この別公式を証明してみましょう。分散の定義式から出発します。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span>\)</span>
-まず、<span class="arithmatex">\((x_i - \bar{x})^2\)</span> を展開します。
-<span class="arithmatex">\(<span class="arithmatex">\((x_i - \bar{x})^2 = x_i^2 - 2x_i\bar{x} + \bar{x}^2\)</span>\)</span>
-これを総和の式に代入します。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i^2 - 2x_i\bar{x} + \bar{x}^2)\)</span>\)</span>
-総和の性質（和の総和は総和の和、定数倍は総和の外に出せる）を使って分解します。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - \sum_{i=1}^{n} 2x_i\bar{x} + \sum_{i=1}^{n} \bar{x}^2 \right)\)</span>\)</span>
-ここで、<span class="arithmatex">\(\bar{x}\)</span> は <span class="arithmatex">\(i\)</span> に依存しない定数なので、第2項と第3項の <span class="arithmatex">\(\bar{x}\)</span> や <span class="arithmatex">\(2\bar{x}\)</span> を総和の外に出せます。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - 2\bar{x} \sum_{i=1}^{n} x_i + \bar{x}^2 \sum_{i=1}^{n} 1 \right)\)</span>\)</span>
-<span class="arithmatex">\(\sum_{i=1}^{n} x_i = n\bar{x}\)</span> （平均の定義より）であり、<span class="arithmatex">\(\sum_{i=1}^{n} 1 = n\)</span> ですから、これらを代入します。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - 2\bar{x} (n\bar{x}) + \bar{x}^2 (n) \right)\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - 2n\bar{x}^2 + n\bar{x}^2 \right)\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - n\bar{x}^2 \right)\)</span>\)</span>
-最後に <span class="arithmatex">\(\frac{1}{n}\)</span> を分配すると、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \sum_{i=1}^{n} x_i^2\right) - \bar{x}^2\)</span>\)</span>
-となり、公式が証明されました。（証明終）</p>
-<p>ベクトル表記 <span class="arithmatex">\(\mathbf{x}^T \mathbf{x} = \sum x_i^2\)</span> を用いれば、<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2\)</span> も同様に示せます。</p>
-<h4 id="253">2.5.3 例題：体温データの分散（別公式による計算）</h4>
-<p>再び体温データ <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span> と平均値 <span class="arithmatex">\(\bar{x} = 36.76\)</span> を用いて、この別公式で分散を計算してみましょう。</p>
-<p>まず、<span class="arithmatex">\(\mathbf{x}^T \mathbf{x} = \sum_{i=1}^{5} x_i^2\)</span> を計算します。
-<span class="arithmatex">\(<span class="arithmatex">\(x_1^2 = 36.5^2 = 1332.25\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(x_2^2 = 36.8^2 = 1354.24\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(x_3^2 = 37.2^2 = 1383.84\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(x_4^2 = 36.4^2 = 1324.96\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(x_5^2 = 36.9^2 = 1361.61\)</span>\)</span>
-これらの和は、
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x}^T \mathbf{x} = 1332.25 + 1354.24 + 1383.84 + 1324.96 + 1361.61 = 6756.9\)</span>\)</span>
-次に、「データの二乗の平均」を計算します。
-<span class="arithmatex">\(<span class="arithmatex">\(\frac{1}{n} \mathbf{x}^T \mathbf{x} = \frac{1}{5} (6756.9) = 1351.38\)</span>\)</span>
-最後に、「平均の二乗」<span class="arithmatex">\(\bar{x}^2\)</span> を計算します。
-<span class="arithmatex">\(<span class="arithmatex">\(\bar{x}^2 = (36.76)^2 = 1351.298\)</span>\)</span>
-よって、分散 <span class="arithmatex">\(\sigma^2\)</span> は、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2 = 1351.38 - 1351.298 = 0.0824\)</span>\)</span></p>
-<h3 id="26">2.6 偏差値</h3>
-<p>「偏差値」という言葉は、特に学力テストの結果などでよく使われます。これは、ある集団の中で、個人の成績がどの程度の位置にあるのかを相対的に示すための指標です。</p>
-<h4 id="_2">偏差値の導入：異なる集団間での相対的な位置を知るために</h4>
-<p>例えば、あなたが数学のテストで80点、英語のテストで70点を取ったとします。単純に点数だけを見ると数学の方が良いように思えますが、もし数学のテストの平均点が85点で、英語のテストの平均点が60点だったらどうでしょうか？ このように、テストの難易度（平均点）や点数のばらつき具合（標準偏差）が異なると、単純な点数比較だけでは自分の相対的な位置を把握しにくい場合があります。</p>
-<p>偏差値は、このような異なるテストや集団における成績を、<strong>平均が50、標準偏差が10となるような共通の尺度に変換</strong>することで、比較しやすくするためのものです。</p>
-<h4 id="_3">偏差値の定義と計算式</h4>
-<p>あるデータ <span class="arithmatex">\(x_i\)</span> の偏差値 <span class="arithmatex">\(T_i\)</span> は、そのデータが含まれるデータセットの平均値を <span class="arithmatex">\(\bar{x}\)</span>、標準偏差を <span class="arithmatex">\(\sigma\)</span> とするとき、以下の式で計算されます。</p>
-<div class="arithmatex">\[T_i = 10 \times \frac{x_i - \bar{x}}{\sigma} + 50\]</div>
-<p>この式を詳しく見てみましょう。
-* <strong><span class="arithmatex">\(x_i\)</span></strong>: 個人の得点などの具体的なデータ値。
-* <strong><span class="arithmatex">\(\bar{x}\)</span></strong>: データセット全体の平均値。
-* <strong><span class="arithmatex">\(\sigma\)</span></strong>: データセット全体の標準偏差。
-* <strong><span class="arithmatex">\(\frac{x_i - \bar{x}}{\sigma}\)</span></strong>: この部分は「基準化」または「標準化」と呼ばれる操作で計算される値で、<span class="arithmatex">\(z\)</span>スコア（標準得点）とも呼ばれます。これは、個々のデータが平均から標準偏差の何倍分離れているかを示します。
-    * もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> と同じなら、<span class="arithmatex">\(z = 0\)</span> です。
-    * もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> より標準偏差 <span class="arithmatex">\(\sigma\)</span> １つ分だけ高ければ、<span class="arithmatex">\(z = 1\)</span> です。
-    * もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> より標準偏差 <span class="arithmatex">\(\sigma\)</span> １つ分だけ低ければ、<span class="arithmatex">\(z = -1\)</span> です。
-* <strong><span class="arithmatex">\(10 \times z + 50\)</span></strong>: <span class="arithmatex">\(z\)</span>スコアを10倍して50を加えることで、平均が50、標準偏差が10の尺度に変換しています。
-    * <span class="arithmatex">\(z=0\)</span> (平均点) のとき、偏差値は <span class="arithmatex">\(10 \times 0 + 50 = 50\)</span> となります。
-    * <span class="arithmatex">\(z=1\)</span> (平均点 + 1標準偏差) のとき、偏差値は <span class="arithmatex">\(10 \times 1 + 50 = 60\)</span> となります。
-    * <span class="arithmatex">\(z=-1\)</span> (平均点 - 1標準偏差) のとき、偏差値は <span class="arithmatex">\(10 \times (-1) + 50 = 40\)</span> となります。</p>
-<h4 id="_4">例：あるテストの得点から偏差値を計算する</h4>
-<p><strong>シナリオ:</strong>
-5人の学生A, B, C, D, E が受けた数学のテスト（100点満点）の結果が以下のようであったとします。
-* 学生A: 55点
-* 学生B: 80点
-* 学生C: 65点
-* 学生D: 40点
-* 学生E: 70点</p>
-<p>これらの学生の偏差値を計算すると、
-<strong>実行結果の例:</strong>
-<div class="highlight"><pre><span></span><code>--- 数学テスト結果 ---
-点数: [55 80 65 40 70]
-平均点: 62.00 点
-標準偏差: 14.00 点
-
---- 各学生の偏差値 ---
-学生A: 55点 -&gt; zスコア: -0.50, 偏差値: 45.00
-学生B: 80点 -&gt; zスコア: 1.29, 偏差値: 62.86
-学生C: 65点 -&gt; zスコア: 0.21, 偏差値: 52.14
-学生D: 40点 -&gt; zスコア: -1.57, 偏差値: 34.29
-学生E: 70点 -&gt; zスコア: 0.57, 偏差値: 55.71
-</code></pre></div></p>
-<p><strong>解釈:</strong>
-* 平均点は62点です。
-* 学生Aは55点で平均より低く、偏差値は45.00です（平均より標準偏差の0.5倍低い位置）。
-* 学生Bは80点で最も高く、偏差値は62.86です（平均より標準偏差の約1.29倍高い位置）。
-* 学生Cは65点で平均より少し高く、偏差値は52.14です。
-* 学生Dは40点で最も低く、偏差値は34.29です（平均より標準偏差の約1.57倍低い位置）。
-* 学生Eは70点で平均より高く、偏差値は55.71です。</p>
-<p>もし誰かがちょうど平均点の62点を取ったなら、その人の偏差値は50になります。
-もし誰かが平均点より1標準偏差高い点数（62点 + 14点 = 76点）を取ったなら、その人の偏差値は60になります。</p>
-<h4 id="_5">偏差値の性質と利点・注意点</h4>
-<p><strong>性質と利点:</strong>
-* <strong>平均が50、標準偏差が10の尺度:</strong> 偏差値は、どのような元のデータの分布であっても、変換後の値の平均が必ず50、標準偏差が必ず10（元のデータが正規分布に従うと仮定した場合、または十分な個数のデータがある場合）になるように作られています。
-* <strong>相対的な位置の把握:</strong> 集団の中での自分の位置を、平均を基準としてどの程度離れているかで客観的に評価できます。
-* <strong>異なるテスト間の比較:</strong> 平均点や点数のばらつきが異なる複数のテストの結果を、同じ土俵（偏差値という共通の尺度）で比較することができます。例えば、数学の偏差値60と英語の偏差値55なら、数学の方が集団の中で相対的に良い成績だった、と判断できます。</p>
-<p><strong>注意点:</strong>
-* <strong>元のデータの分布形状:</strong> 偏差値は、元のデータが正規分布（左右対称の釣鐘型の分布）に近い形をしている場合に最も解釈しやすくなります。データが極端に偏っている場合や、外れ値が多い場合には、偏差値の解釈に注意が必要です。
-* <strong>集団のレベル:</strong> 偏差値はあくまでその集団内での相対的な位置を示すものです。非常にレベルの高い集団での偏差値50と、平均的なレベルの集団での偏差値50では、同じ偏差値50でも、その人の絶対的な学力は異なる可能性があります。
-* <strong>1点の重み:</strong> 元のテストの点数のばらつき（標準偏差）によって、偏差値を1上げるために必要な素点の点数が変わります。標準偏差が小さいテストでは、わずかな点数の差が偏差値の大きな差につながることがあります。</p>
+平均体温は 36.76℃ です。</p>
 <hr />
-<h2 id="4">4. 演習問題</h2>
-<p>ここまでの内容の理解を深めるために、いくつかの演習問題に取り組みましょう。これらの問題は、手計算でも比較的容易に扱えるように数値を調整してあります。</p>
-<h3 id="41">4.1 基本問題</h3>
+<h3 id="22">2.2 偏差 : 定義</h3>
+<p>平均値はデータセットの中心的な傾向を示しますが、個々のデータが平均値からどれだけ離れているか（「偏差」）も重要です。</p>
+<h4 id="_10">スカラ表記・ベクトル表記による定義</h4>
+<p><strong>スカラ表記:</strong> 各データ点 <span class="arithmatex">\(x_i\)</span> の平均値 <span class="arithmatex">\(\bar{x}\)</span> からの偏差 <span class="arithmatex">\(d_i\)</span> は：</p>
+<div class="arithmatex">\[d_i = x_i - \bar{x}\]</div>
+<p><strong>ベクトル表記:</strong> 全ての偏差 <span class="arithmatex">\(d_i\)</span> を要素とする「偏差ベクトル」<span class="arithmatex">\(\mathbf{d}\)</span> は：</p>
+<div class="arithmatex">\[\mathbf{d} = \begin{pmatrix} d_1 \\ \vdots \\ d_n \end{pmatrix} = \mathbf{x} - \bar{x}\mathbf{1}_n = \begin{pmatrix} x_1 - \bar{x} \\ \vdots \\ x_n - \bar{x} \end{pmatrix}\]</div>
+<p><span class="arithmatex">\(\bar{x} \; \mathbf{1}_n\)</span> は、全要素が平均値 <span class="arithmatex">\(\bar{x}\)</span> のベクトル。</p>
+<hr />
+<h3 id="22_1">2.2 偏差 : 偏差の総和はゼロ</h3>
+<p><strong>重要な性質</strong>: 「偏差の総和は常に0になる」 i.e., <span class="arithmatex">\(\sum_{i=1}^{n} d_i = 0\)</span></p>
+<hr />
+<h3 id="22_2">2.2 偏差：例</h3>
+<p>体温データ <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span>, 平均値 <span class="arithmatex">\(\bar{x} = 36.76\)</span>℃</p>
+<div class="arithmatex">\[\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_5 = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix} - 36.76 \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\]</div>
+<p>偏差ベクトルの要素の和:
+<span class="arithmatex">\((-0.26) + 0.04 + 0.44 + (-0.36) + 0.14 = 0\)</span>
+確かに偏差の総和は0になります。</p>
+<hr />
+<h3 id="23">2.3 分散</h3>
+<ul>
+<li>
+<p>データがどの程度ばらついているか（散らばり具合）を一つの数値で表す代表的な指標が「分散」</p>
+</li>
+<li>
+<p>分散は、各データ点の偏差を二乗し、それらを平均したもの。</p>
+</li>
+<li>
+<p>偏差を二乗するのは、正負の値をそのまま合計すると0になるため、平均からの距離の大きさを正の値として評価するためです。</p>
+</li>
+</ul>
+<hr />
+<h3 id="23_1">2.3 分散: 定義</h3>
+<p><strong>スカラ表記:</strong> 分散 <span class="arithmatex">\(\sigma^2\)</span> (シグマ二乗) は：</p>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} d_i^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\]</div>
+<hr />
+<h3 id="23_2">2.3 分散: 定義</h3>
+<p><strong>ベクトル表記:</strong> 偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> の自分自身との内積 (<span class="arithmatex">\(\|\mathbf{d}\|^2\)</span> に等しい) を用います。</p>
+<div class="arithmatex">\[\mathbf{d}^T \mathbf{d} = d_1^2 + \ldots + d_n^2 = \sum d_i^2\]</div>
+<p>なので、</p>
+<p><strong>定義：データの分散 (ベクトル表記)</strong></p>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} (\mathbf{d}^T \mathbf{d}) = \frac{1}{n} \|\mathbf{d}\|^2\]</div>
+<p>または、<span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_n\)</span> を代入して、</p>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} (\mathbf{x} - \bar{x}\mathbf{1}_n)^T (\mathbf{x} - \bar{x}\mathbf{1}_n)\]</div>
+<ul>
+<li>分散大 → ばらつき大</li>
+<li>分散小 → ばらつき小。</li>
+</ul>
+<hr />
+<h3 id="23_3">2.3 分散: 例</h3>
+<p>体温データの偏差ベクトル: <span class="arithmatex">\(\mathbf{d} = \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\)</span></p>
+<div class="arithmatex">\[\mathbf{d}^T \mathbf{d} = (-0.26)^2 + (0.04)^2 + (0.44)^2 + (-0.36)^2 + (0.14)^2$$
+$$= 0.0676 + 0.0016 + 0.1936 + 0.1296 + 0.0196 = 0.412\]</div>
+<p>分散 <span class="arithmatex">\(\sigma^2\)</span>:
+<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{5} (0.412) = 0.0824\)</span>\)</span>
+この体温データの分散は 0.0824 です。</p>
+<hr />
+<h3 id="24">2.4 標準偏差</h3>
+<p>分散の単位は元のデータの単位の二乗となり直感的に解釈しづらいため、分散の正の平方根をとった「標準偏差」がよく用いられます。標準偏差の単位は、元のデータと同じになります。</p>
+<hr />
+<h3 id="24_1">2.4 標準偏差： 定義</h3>
+<p><strong>定義：データの標準偏差</strong></p>
+<p>標準偏差 <span class="arithmatex">\(\sigma\)</span> (シグマ) は、分散 <span class="arithmatex">\(\sigma^2\)</span> の正の平方根：</p>
+<div class="arithmatex">\[\sigma = \sqrt{\sigma^2} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}\]</div>
+<p>ベクトル表記では：</p>
+<div class="arithmatex">\[\sigma = \sqrt{\frac{1}{n} (\mathbf{d}^T \mathbf{d})} = \frac{1}{\sqrt{n}} \|\mathbf{d}\|\]</div>
+<ul>
+<li>標準偏差大 → ばらつき大。</li>
+<li>標準偏差小 → ばらつき小。</li>
+</ul>
+<hr />
+<h3 id="24_2">2.4 標準偏差:　例</h3>
+<p>体温データの分散 <span class="arithmatex">\(\sigma^2 = 0.0824\)</span> (℃²) でした。</p>
+<p>標準偏差 <span class="arithmatex">\(\sigma\)</span> は：</p>
+<div class="arithmatex">\[\sigma = \sqrt{0.0824} \approx 0.287054\]</div>
+<p>有効数字を考慮し、標準偏差は約 0.287℃ となります。</p>
+<p>平均体温 36.76℃、標準偏差 約 0.287℃ から、データは平均値から ±0.287℃ 程度の範囲に散らばっている、という目安が得られます。</p>
+<hr />
+<h3 id="25">2.5 分散の別公式</h3>
+<p>分散には、定義式以外にもう一つ便利な計算公式があります。</p>
+<hr />
+<h4 id="25_1">2.5 分散の別公式</h4>
+<p><strong>定理：分散の計算公式 (別バージョン)</strong></p>
+<div class="arithmatex">\[\sigma^2 = \left(\frac{1}{n} \sum_{i=1}^{n} x_i^2\right) - \bar{x}^2\]</div>
+<p>ベクトル表記：</p>
+<div class="arithmatex">\[\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2\]</div>
+<hr />
+<h3 id="25_2">2.5 分散の別公式</h3>
+<p>分散の定義式から出発：
+<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span>\)</span></p>
+<hr />
+<h3 id="25_3">2.5 分散の別公式</h3>
+<hr />
+<h3 id="25_4">2.5 分散の別公式: 例</h3>
+<p>体温データ <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 36.5 \\ \vdots \\ 36.9 \end{pmatrix}\)</span>, 平均値 <span class="arithmatex">\(\bar{x} = 36.76\)</span></p>
+<p><span class="arithmatex">\(\mathbf{x}^T \mathbf{x} = \sum x_i^2\)</span> を計算：</p>
+<p><span class="arithmatex">\(36.5^2 = 1332.25\)</span></p>
+<p><span class="arithmatex">\(36.8^2 = 1354.24\)</span></p>
+<p><span class="arithmatex">\(37.2^2 = 1383.84\)</span></p>
+<p><span class="arithmatex">\(36.4^2 = 1324.96\)</span></p>
+<p><span class="arithmatex">\(36.9^2 = 1361.61\)</span></p>
+<p><span class="arithmatex">\(\mathbf{x}^T \mathbf{x} = 1332.25 + \ldots + 1361.61 = 6756.9\)</span></p>
+<hr />
+<h3 id="25_5">2.5 分散の別公式: 例</h3>
+<p>「データの二乗の平均」:</p>
+<div class="arithmatex">\[\frac{1}{n} \mathbf{x}^T \mathbf{x} = \frac{1}{5} (6756.9) = 1351.38\]</div>
+<p>「平均の二乗」:
+<span class="arithmatex">\(<span class="arithmatex">\(\bar{x}^2 = (36.76)^2 = 1351.298\)</span>\)</span></p>
+<p>分散 <span class="arithmatex">\(\sigma^2\)</span>:</p>
+<div class="arithmatex">\[\sigma^2 = 1351.38 - 1351.298 = 0.0824\]</div>
+<hr />
+<h3 id="26">2.6 偏差値</h3>
+<p><strong>偏差値とは?</strong></p>
+<p>学力テストなどで使われ、集団の中で個人の成績がどの程度の位置にあるかを相対的に示す指標。</p>
+<p><strong>導入：なぜ偏差値が必要か？</strong></p>
+<p>異なるテスト間の単純な点数比較は難しい。</p>
+<p>例: 数学80点 (平均85点) vs 英語70点 (平均60点)</p>
+<p>テストの難易度 (平均点) や点数のばらつき (標準偏差) が異なると、相対的な位置を把握しにくい。</p>
+<p><strong>偏差値の役割</strong>:</p>
+<p>平均が50、標準偏差が10となる共通の尺度に変換することで、比較しやすくする。</p>
+<hr />
+<h3 id="26_1">2.6 偏差値 : 定義と計算式</h3>
+<p>あるデータ <span class="arithmatex">\(x_i\)</span> の偏差値 <span class="arithmatex">\(T_i\)</span> は、平均 <span class="arithmatex">\(\bar{x}\)</span>、標準偏差 <span class="arithmatex">\(\sigma\)</span> のとき：</p>
+<div class="arithmatex">\[T_i = 10 \times \frac{x_i - \bar{x}}{\sigma} + 50\]</div>
+<ul>
+<li><strong><span class="arithmatex">\(x_i\)</span></strong>: 個人の得点など</li>
+<li><strong><span class="arithmatex">\(\bar{x}\)</span></strong>: データセット全体の平均値</li>
+<li><strong><span class="arithmatex">\(\sigma\)</span></strong>: データセット全体の標準偏差</li>
+<li><strong><span class="arithmatex">\(\frac{x_i - \bar{x}}{\sigma}\)</span></strong>: <span class="arithmatex">\(z\)</span>スコア (標準得点)。平均から標準偏差の何倍分離れているかを示す。<ul>
+<li><span class="arithmatex">\(x_i = \bar{x} \implies z = 0\)</span></li>
+<li><span class="arithmatex">\(x_i = \bar{x} + \sigma \implies z = 1\)</span></li>
+<li><span class="arithmatex">\(x_i = \bar{x} - \sigma \implies z = -1\)</span></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="26_2">2.6 偏差値 : 定義と計算式</h3>
+<ul>
+<li><strong><span class="arithmatex">\(10 \times z + 50\)</span></strong>: <span class="arithmatex">\(z\)</span>スコアを10倍して50を加え、平均50、標準偏差10の尺度に変換。<ul>
+<li><span class="arithmatex">\(z=0\)</span> (平均点) <span class="arithmatex">\(\implies T = 10 \times 0 + 50 = 50\)</span></li>
+<li><span class="arithmatex">\(z=1\)</span> (平均点 + 1<span class="arithmatex">\(\sigma\)</span>) <span class="arithmatex">\(\implies T = 10 \times 1 + 50 = 60\)</span></li>
+<li><span class="arithmatex">\(z=-1\)</span> (平均点 - 1<span class="arithmatex">\(\sigma\)</span>) <span class="arithmatex">\(\implies T = 10 \times (-1) + 50 = 40\)</span></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="26_3">2.6 偏差値 :あるテストの得点から偏差値を計算する</h3>
+<p>5人の数学テスト結果 (100点満点):
+A: 55点, B: 80点, C: 65点, D: 40点, E: 70点</p>
+<p><strong>計算結果 (再掲)</strong>:
+平均点: 62.00 点, 標準偏差: 14.00 点
+* 学生A (55点): 偏差値 45.00
+* 学生B (80点): 偏差値 62.86
+* 学生C (65点): 偏差値 52.14
+* 学生D (40点): 偏差値 34.29
+* 学生E (70点): 偏差値 55.71</p>
+<p><strong>解釈</strong>: 平均(62点)なら偏差値50。平均+1<span class="arithmatex">\(\sigma\)</span>(76点)なら偏差値60。</p>
+<hr />
+<h3 id="26_4">2.6 偏差値 : 性質と利点・注意点</h3>
+<p><strong>性質と利点</strong>:
+* <strong>共通尺度</strong>: 平均50、標準偏差10の尺度に変換される。
+* <strong>相対的位置の把握</strong>: 集団内での自分の位置を客観的に評価。
+* <strong>異なるテスト間の比較</strong>: 平均点やばらつきが異なるテスト結果を同じ土俵で比較可能。</p>
+<p><strong>注意点</strong>:
+* <strong>元のデータの分布形状</strong>: 正規分布に近い場合に解釈しやすい。極端な偏りや外れ値が多い場合は注意。
+* <strong>集団のレベル</strong>: あくまで集団内での相対位置。異なる集団間での絶対的な学力比較は困難。
+* <strong>1点の重み</strong>: 元のテストの標準偏差により、偏差値1を上げるのに必要な素点が変わる。</p>
+<hr />
+<h2 id="3">3. 演習問題</h2>
+<p>ここまでの内容の理解を深めるために、いくつかの演習問題に取り組みましょう。
+これらの問題は、手計算でも比較的容易に扱えるように数値を調整してあります。</p>
+<hr />
+<h3 id="-1">基本問題 - 問題1</h3>
 <p><strong>問題1 (基本的な統計量の計算)</strong></p>
 <p>データベクトル <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 1 \\ 2 \\ 3 \\ 4 \\ 5 \end{pmatrix}\)</span> について、以下を計算せよ。</p>
 <p>a) 平均 <span class="arithmatex">\(\bar{x}\)</span></p>
 <p>b) 偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span></p>
 <p>c) 分散 <span class="arithmatex">\(\sigma^2\)</span></p>
 <p>d) 標準偏差 <span class="arithmatex">\(\sigma\)</span></p>
+<hr />
+<h3 id="-2">基本問題 - 問題2</h3>
 <p><strong>問題2 (ベクトル表記を用いた計算)</strong></p>
 <p>データベクトル <span class="arithmatex">\(\mathbf{y} = \begin{pmatrix} 10 \\ 20 \\ 30 \\ 40 \end{pmatrix}\)</span> と、全ての要素が1である4次元ベクトル <span class="arithmatex">\(\mathbf{1}_4\)</span> を用いて、以下を計算せよ。</p>
 <p>a) 平均 <span class="arithmatex">\(\bar{y} = \frac{1}{4} \mathbf{1}_4^T \mathbf{y}\)</span></p>
 <p>b) 偏差ベクトル <span class="arithmatex">\(\mathbf{d_y} = \mathbf{y} - \bar{y}\mathbf{1}_4\)</span></p>
 <p>c) 分散 <span class="arithmatex">\(\sigma_y^2 = \frac{1}{4} \mathbf{d_y}^T \mathbf{d_y}\)</span></p>
+<hr />
+<h3 id="-3">基本問題 - 問題3</h3>
 <p><strong>問題3 (分散の別公式の利用)</strong></p>
-<p>データセット <span class="arithmatex">\(\{2, 4, 9\}\)</span> について、分散の別公式 </p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} x_i^2 - \bar{x}^2\)</span>\)</span>
+<p>データセット <span class="arithmatex">\(\{2, 4, 9\}\)</span> について、分散の別公式
+<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} x_i^2 - \bar{x}^2\)</span>\)</span>
 を用いて分散を計算せよ。</p>
+<hr />
+<h3 id="-4-12">基本問題 - 問題4 (1/2)</h3>
 <p><strong>問題4 (標準化を含む総合問題)</strong></p>
 <p>ある少人数のグループの小テストの得点（単位：点）が以下のように与えられている。
 <span class="arithmatex">\(\mathbf{s} = \begin{pmatrix} 6 \\ 8 \\ 10 \end{pmatrix}\)</span></p>
@@ -4261,35 +4017,43 @@
 <p>b) 偏差ベクトル <span class="arithmatex">\(\mathbf{d_s}\)</span> を求めよ。</p>
 <p>c) 分散 <span class="arithmatex">\(\sigma_s^2\)</span> と標準偏差 <span class="arithmatex">\(\sigma_s\)</span> を計算せよ。</p>
 <p>d) 各学生の得点を標準化（<span class="arithmatex">\(z\)</span>スコア化）せよ。標準化された値 <span class="arithmatex">\(z_i\)</span> は <span class="arithmatex">\(z_i = \frac{s_i - \bar{s}}{\sigma_s}\)</span> で定義される。</p>
-<p>e) 標準化されたデータの平均と分散を計算し、それぞれ0と1になることを確認せよ（計算誤差も考慮すること）。</p>
+<p>e) 標準化されたデータの平均と分散を計算し、それぞれ0と1になることを確認せよ（計算誤差も考慮すること）</p>
+<hr />
+<h3 id="-5-12">基本問題 - 問題5 (1/2)</h3>
 <p><strong>問題5 (データの変換と統計量の変化)</strong></p>
 <p>データベクトル <span class="arithmatex">\(\mathbf{u} = \begin{pmatrix} 0 \\ 0 \\ 10 \\ 10 \end{pmatrix}\)</span> について、以下を考察し、計算せよ。</p>
 <p>a) 平均 <span class="arithmatex">\(\bar{u}\)</span> と 分散 <span class="arithmatex">\(\sigma_u^2\)</span> を計算せよ。</p>
 <p>b) 各データ点に定数 <span class="arithmatex">\(c=5\)</span> を加えた新しいデータベクトル <span class="arithmatex">\(\mathbf{v} = \mathbf{u} + c\mathbf{1}_4\)</span> を考える。<span class="arithmatex">\(\mathbf{v}\)</span> の平均 <span class="arithmatex">\(\bar{v}\)</span> と分散 <span class="arithmatex">\(\sigma_v^2\)</span> を計算し、<span class="arithmatex">\(\bar{u}, \sigma_u^2\)</span> と比較せよ。</p>
 <p>c) 各データ点を定数 <span class="arithmatex">\(k=2\)</span> 倍した新しいデータベクトル <span class="arithmatex">\(\mathbf{w} = k\mathbf{u}\)</span> を考える。<span class="arithmatex">\(\mathbf{w}\)</span> の平均 <span class="arithmatex">\(\bar{w}\)</span> と分散 <span class="arithmatex">\(\sigma_w^2\)</span> を計算し、<span class="arithmatex">\(\bar{u}, \sigma_u^2\)</span> と比較せよ。</p>
 <p>(ヒント：一般に、元のデータの平均を <span class="arithmatex">\(\mu\)</span>、分散を <span class="arithmatex">\(\sigma^2\)</span> とすると、データ全体に定数 <span class="arithmatex">\(c\)</span> を加えたデータの平均は <span class="arithmatex">\(\mu+c\)</span>、分散は <span class="arithmatex">\(\sigma^2\)</span>。データ全体を定数 <span class="arithmatex">\(k\)</span> 倍したデータの平均は <span class="arithmatex">\(k\mu\)</span>、分散は <span class="arithmatex">\(k^2\sigma^2\)</span> となる。)</p>
-<h2 id="5">5. まとめと次回予告</h2>
-<p>本日の講義では、1次元の数値データをベクトルとして表現し、そのベクトル演算を用いてデータの基本的な統計量である平均値、偏差、分散、標準偏差を計算する方法について学びました。</p>
+<hr />
+<h2 id="4-12">4. まとめと次回予告 (1/2)</h2>
 <p><strong>本講義の重要なポイント：</strong></p>
 <ol>
-<li><strong>データベクトルの導入</strong>: 複数の観測値を一つのベクトルとしてまとめることで、記述が簡潔になり、計算の効率化や多次元データへの拡張といったメリットがあることを理解しました。</li>
-<li><strong><span class="arithmatex">\(\mathbf{1}\)</span>ベクトルの活用</strong>: 全ての要素が1である<span class="arithmatex">\(\mathbf{1}\)</span>ベクトルは、特にデータの総和や平均値をベクトル表記で表す際に重要な役割を果たします。</li>
-<li><strong>平均値のベクトル表現</strong>: <span class="arithmatex">\(\bar{x} = \frac{1}{n} (\mathbf{1}_n^T \mathbf{x})\)</span></li>
-<li><strong>偏差ベクトルの導入</strong>: <span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_n\)</span>。また、偏差の総和 <span class="arithmatex">\(\mathbf{1}_n^T \mathbf{d}\)</span> は常に0になるという重要な性質を確認しました。</li>
-<li><strong>分散のベクトル表現</strong>: <span class="arithmatex">\(\sigma^2 = \frac{1}{n} (\mathbf{d}^T \mathbf{d}) = \frac{1}{n} \|\mathbf{d}\|^2\)</span>。また、別公式として <span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2\)</span> も学びました。</li>
-<li><strong>標準偏差</strong>: <span class="arithmatex">\(\sigma = \sqrt{\sigma^2}\)</span>。分散の平方根であり、元のデータと同じ単位でばらつきの大きさを評価できます。</li>
-<li><strong>(発展) NumPyによる計算</strong>: これらの統計量の計算が、NumPyのような数値計算ライブラリを用いることで容易に実装できることを見ました。</li>
+<li><strong>データベクトルの導入</strong>: 記述の簡潔化、計算効率化、多次元への拡張。</li>
+<li><strong><span class="arithmatex">\(\mathbf{1}\)</span>ベクトルの活用</strong>: 総和や平均計算に役立つ。</li>
+<li><strong>平均値</strong>: <span class="arithmatex">\(\bar{x} = \frac{1}{n} (\mathbf{1}_n^T \mathbf{x})\)</span></li>
+<li><strong>偏差ベクトル</strong>: <span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_n\)</span> (総和 <span class="arithmatex">\(\mathbf{1}_n^T \mathbf{d} = 0\)</span>)</li>
+<li><strong>分散</strong>: <span class="arithmatex">\(\sigma^2 = \frac{1}{n} (\mathbf{d}^T \mathbf{d}) = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2\)</span></li>
+<li><strong>標準偏差</strong>: <span class="arithmatex">\(\sigma = \sqrt{\sigma^2}\)</span> (元のデータと同じ単位)</li>
+<li><strong>偏差値</strong> </li>
 </ol>
-<p>これらのベクトルを用いたデータの扱いや統計量の概念は、皆さんが今後、より複雑なデータ分析手法、例えば多変量データ分析、線形回帰モデル、主成分分析といった機械学習のトピックなどを学ぶ上で、非常に重要な基礎となります。</p>
-<p><strong>次回の講義予告</strong></p>
-<p>次回の講義では、今回の内容をさらに発展させ、1次元データだけでなく、複数の特徴量を持つ「2次元データ」（あるいはより一般の多次元データ）を扱います。具体的には、そのようなデータを「行列」を用いて表現する方法や、複数の変数間の関係性を示す「共分散」などについて学んでいく予定です。</p>
+<div class="arithmatex">\[T_i = 50 + 10\times \frac{x_i - \bar{x}}{\sigma}\]</div>
 <hr />
+<h2 id="5-22">5. まとめと次回予告 (2/2)</h2>
+<p>これらのベクトルを用いたデータの扱いや統計量の概念は、今後の機械学習やより複雑なデータ分析手法（多変量データ分析、線形回帰モデル、主成分分析など）を学ぶ上での非常に重要な基礎となります。</p>
+<p><strong>次回の講義予告</strong></p>
+<p>今回の内容をさらに発展させ、1次元データだけでなく、複数の特徴量を持つ「2次元データ」（あるいはより一般の多次元データ）を扱います。
+具体的には、そのようなデータを「行列」を用いて表現する方法や、複数の変数間の関係性を示す「共分散」などについて学んでいく予定です。</p>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -4335,12 +4099,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       

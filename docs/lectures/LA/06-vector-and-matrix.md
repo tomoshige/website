@@ -1,38 +1,45 @@
 # 線形代数学 I / 基礎 / II
 ## 第6回 講義ノート：データサイエンスに必要な行列
 
-### 1. 講義情報と予習ガイド
 
-- **講義回**: 第6回
-- **関連項目**: 行列の特殊形、行列の性質
-- **予習すべき内容**: 
-  - 行列の定義（第4回）
-  - 行列の和とスカラー倍（第4回）
-  - 行列の積（第5回）
+## 1. 講義情報と予習ガイド
 
-### 2. 学習目標
+-   **講義回**: 第6回
+-   **関連項目**: 行列の特殊形、行列の性質
+-   **予習すべき内容**:
+    -   行列の定義（第4回）
+    -   行列の和とスカラー倍（第4回）
+    -   行列の積（第5回）
 
-1. 単位行列の定義と性質を理解し、応用できる
-2. 転置行列の定義と性質を理解し、応用できる
-3. 対称行列の定義と性質を理解し、応用できる
-4. 行列の特殊形がデータサイエンスでどのように活用されるかを理解する
+- **スライド**: [スライド](./slides/06-vector-and-matrix-slide.pdf)
 
-### 3. 基本概念
 
-#### 3.1 単位行列（Identity Matrix）
+## 2. 学習目標
 
-> **定義**: n次の単位行列 $I_n$ は、主対角線上の要素がすべて1で、それ以外の要素がすべて0である正方行列である。
-> 
-> $$I_n = \begin{pmatrix}
+1.  単位行列の定義と性質を理解し、応用できる
+2.  転置行列の定義と性質を理解し、応用できる
+3.  対称行列の定義と性質を理解し、応用できる
+
+
+## 3. 基本概念
+
+### 3.1 単位行列（Identity Matrix）
+
+> **定義**: $n$次の単位行列 $I_n$ は、主対角線上の要素がすべて1で、それ以外の要素がすべて0である正方行列である。
+>
+> $$
+> I_n = \begin{pmatrix}
 > 1 & 0 & \cdots & 0 \\
 > 0 & 1 & \cdots & 0 \\
 > \vdots & \vdots & \ddots & \vdots \\
 > 0 & 0 & \cdots & 1
-> \end{pmatrix}$$
+> \end{pmatrix}
+> $$
 
 **例**: 2次単位行列と3次単位行列
 
-$$I_2 = \begin{pmatrix}
+$$
+I_2 = \begin{pmatrix}
 1 & 0 \\
 0 & 1
 \end{pmatrix}, \quad
@@ -40,291 +47,161 @@ I_3 = \begin{pmatrix}
 1 & 0 & 0 \\
 0 & 1 & 0 \\
 0 & 0 & 1
-\end{pmatrix}$$
+\end{pmatrix}
+$$
 
 **単位行列の性質**:
 
-1. 任意の行列 $A$ に対して: $AI = IA = A$ （ただし $I$ は適切なサイズの単位行列）
-2. 単位行列 $I$ は対称行列である
-3. 単位行列 $I$ の逆行列は $I$ 自身である: $I^{-1} = I$
-4. 単位行列 $I$ のランクは $n$ である（$I$ が $n \times n$ 行列の場合）
+1.  任意の行列 $A$ に対して: $AI = IA = A$ （ただし $I$ は適切なサイズの単位行列）
+2.  単位行列 $I$ は対称行列である
+3.  単位行列 $I$ の逆行列は $I$ 自身である: $I^{-1} = I$
+4.  単位行列 $I$ のランクは $n$ である（$I$ が $n \times n$ 行列の場合）
 
 **数値例**:
 
 ある $2 \times 2$ 行列 $A = \begin{pmatrix} 3 & 1 \\ 2 & 4 \end{pmatrix}$ と単位行列 $I_2$ との積を計算してみましょう。
 
-$$A \cdot I_2 = \begin{pmatrix} 3 & 1 \\ 2 & 4 \end{pmatrix} \cdot \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 3 \cdot 1 + 1 \cdot 0 & 3 \cdot 0 + 1 \cdot 1 \\ 2 \cdot 1 + 4 \cdot 0 & 2 \cdot 0 + 4 \cdot 1 \end{pmatrix} = \begin{pmatrix} 3 & 1 \\ 2 & 4 \end{pmatrix} = A$$
+$$
+A \cdot I_2 = \begin{pmatrix} 3 & 1 \\ 2 & 4 \end{pmatrix} \cdot \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 3 \cdot 1 + 1 \cdot 0 & 3 \cdot 0 + 1 \cdot 1 \\ 2 \cdot 1 + 4 \cdot 0 & 2 \cdot 0 + 4 \cdot 1 \end{pmatrix} = \begin{pmatrix} 3 & 1 \\ 2 & 4 \end{pmatrix} = A
+$$
 
 同様に $I_2 \cdot A$ も計算すると結果は $A$ になります。
 
-#### 3.2 転置行列（Transpose Matrix）
+### 3.2 転置行列（Transpose Matrix）
 
 > **定義**: 行列 $A$ の転置行列 $A^T$ は、$A$ の行と列を入れ替えた行列である。
-> 
+>
 > $A$ が $m \times n$ 行列の場合、$A^T$ は $n \times m$ 行列となる。
-> 
+>
 > 具体的には、$A = (a_{ij})$ に対して、$A^T = (a_{ji})$ である。
 
 **例**: 行列 $A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}$ の転置行列は:
 
-$$A^T = \begin{pmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{pmatrix}$$
+$$
+A^T = \begin{pmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{pmatrix}
+$$
 
 **転置行列の性質**:
 
-1. $(A^T)^T = A$
-2. $(A + B)^T = A^T + B^T$
-3. $(cA)^T = cA^T$ （$c$ はスカラー）
-4. $(AB)^T = B^T A^T$ （行列の積の転置は、転置の積の順序を逆にしたものに等しい）
-5. $\text{rank}(A) = \text{rank}(A^T)$ （行列とその転置のランクは等しい）
+1.  $(A^T)^T = A$
+2.  $(A + B)^T = A^T + B^T$
+3.  $(cA)^T = cA^T$ （$c$ はスカラー）
+4.  $(AB)^T = B^T A^T$ （行列の積の転置は、転置の積の順序を逆にしたものに等しい）
 
 **数値例**:
 
 行列 $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ と $B = \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}$ について、$(A + B)^T$ と $A^T + B^T$ が等しいことを確認します。
 
-$$A + B = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix} + \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix} = \begin{pmatrix} 6 & 8 \\ 10 & 12 \end{pmatrix}$$
+$$
+A + B = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix} + \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix} = \begin{pmatrix} 6 & 8 \\ 10 & 12 \end{pmatrix}
+$$
 
-$$(A + B)^T = \begin{pmatrix} 6 & 10 \\ 8 & 12 \end{pmatrix}$$
+$$
+(A + B)^T = \begin{pmatrix} 6 & 10 \\ 8 & 12 \end{pmatrix}
+$$
 
-$$A^T + B^T = \begin{pmatrix} 1 & 3 \\ 2 & 4 \end{pmatrix} + \begin{pmatrix} 5 & 7 \\ 6 & 8 \end{pmatrix} = \begin{pmatrix} 6 & 10 \\ 8 & 12 \end{pmatrix}$$
+$$
+A^T + B^T = \begin{pmatrix} 1 & 3 \\ 2 & 4 \end{pmatrix} + \begin{pmatrix} 5 & 7 \\ 6 & 8 \end{pmatrix} = \begin{pmatrix} 6 & 10 \\ 8 & 12 \end{pmatrix}
+$$
 
 したがって、$(A + B)^T = A^T + B^T$ が成り立ちます。
 
-#### 3.3 対称行列（Symmetric Matrix）
+### 3.3 対称行列（Symmetric Matrix）
 
 > **定義**: 正方行列 $A$ が対称行列であるとは、$A = A^T$ が成り立つことである。つまり、$a_{ij} = a_{ji}$ がすべての $i, j$ について成り立つ。
 
-**例**: 
+**例**:
 
-$$A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 5 \\ 3 & 5 & 6 \end{pmatrix}$$
+$$
+A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 5 \\ 3 & 5 & 6 \end{pmatrix}
+$$
 
 この行列では、$a_{12} = a_{21} = 2$, $a_{13} = a_{31} = 3$, $a_{23} = a_{32} = 5$ となっており、主対角線に関して対称な位置にある要素が等しいため、対称行列です。
 
 **対称行列の性質**:
 
-1. 対称行列の対角要素 $a_{ii}$ は実数である
-2. 対称行列の固有値はすべて実数である（後の講義で詳細に説明）
-3. 異なる固有値に対応する固有ベクトルは互いに直交する（後の講義で詳細に説明）
-4. 任意の行列 $A$ に対して、$A^T A$ と $A A^T$ は常に対称行列である
-5. 対称行列同士の和も対称行列になる
+1.  対称行列の対角要素 $a_{ii}$ は実数である（複素行列の場合、エルミート行列の対角要素は実数）
+
+2.  任意の行列 $A$ に対して、$A^T A$ と $A A^T$ は常に対称行列である
+
+3.  対称行列同士の和も対称行列になる
 
 **数値例**:
 
 任意の行列から対称行列を作る方法として、$A^T A$ を計算してみましょう。
 
-$$A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$$
+$$
+A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
+$$
 
-$$A^T = \begin{pmatrix} 1 & 3 \\ 2 & 4 \end{pmatrix}$$
+$$
+A^T = \begin{pmatrix} 1 & 3 \\ 2 & 4 \end{pmatrix}
+$$
 
-$$A^T A = \begin{pmatrix} 1 & 3 \\ 2 & 4 \end{pmatrix} \cdot \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix} = \begin{pmatrix} 1 \cdot 1 + 3 \cdot 3 & 1 \cdot 2 + 3 \cdot 4 \\ 2 \cdot 1 + 4 \cdot 3 & 2 \cdot 2 + 4 \cdot 4 \end{pmatrix} = \begin{pmatrix} 10 & 14 \\ 14 & 20 \end{pmatrix}$$
+$$
+A^T A = \begin{pmatrix} 1 & 3 \\ 2 & 4 \end{pmatrix} \cdot \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix} = \begin{pmatrix} 1 \cdot 1 + 3 \cdot 3 & 1 \cdot 2 + 3 \cdot 4 \\ 2 \cdot 1 + 4 \cdot 3 & 2 \cdot 2 + 4 \cdot 4 \end{pmatrix} = \begin{pmatrix} 10 & 14 \\ 14 & 20 \end{pmatrix}
+$$
 
 結果の行列が対称行列になっていることを確認できます。
 
-### 4. 理論と手法
 
-#### 4.1 単位行列の応用
+## 4. 演習問題
 
-1. **連立方程式の解法**:
-   連立1次方程式 $Ax = b$ において、両辺に $A$ の逆行列 $A^{-1}$ をかけると:
-   $A^{-1}Ax = A^{-1}b$
-   $Ix = A^{-1}b$
-   $x = A^{-1}b$
-   となり、解が得られます。
+**行列の積**
 
-2. **行列の逆行列の存在条件**:
-   行列 $A$ に対して、$AB = BA = I$ となる行列 $B$ が存在するとき、$B$ を $A$ の逆行列といい、$A^{-1}$ と表します。すべての行列に逆行列が存在するわけではなく、$A$ が正則（行列式が0でない）のときのみ存在します。
+1.  $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}, B = \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}$ とする。$AB$ を計算せよ。
 
-3. **線形変換**:
-   単位行列 $I$ は、空間を変化させない線形変換（恒等変換）を表します。
+2.  $A = \begin{pmatrix} 1 & 0 \\ 2 & 1 \end{pmatrix}, B = \begin{pmatrix} 3 & 1 \\ -1 & 0 \end{pmatrix}$ とする。$BA$ を計算せよ。
 
-#### 4.2 転置行列の応用
+3.  $A = \begin{pmatrix} 1 & 2 & 3 \end{pmatrix}, B = \begin{pmatrix} 4 \\ 5 \\ 6 \end{pmatrix}$ とする。$AB$ と $BA$ を計算せよ。
 
-1. **内積の計算**:
-   ベクトル $x, y$ の内積は $x^T y$ で計算できます。
+4.  $A = \begin{pmatrix} 1 & 0 & -1 \\ 2 & 1 & 0 \end{pmatrix}, B = \begin{pmatrix} 1 & 1 \\ 0 & 2 \\ 3 & 0 \end{pmatrix}$ とする。$AB$ を計算せよ。
 
-2. **二次形式**:
-   $x^T A x$ の形の式は二次形式と呼ばれ、多変量統計解析で重要です。
+5.  $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}, C = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$ とする。$AC$ と $CA$ はそれぞれ定義されるか。定義される場合は計算し、定義されない場合はその理由を述べよ。
 
-3. **正規方程式**:
-   線形回帰における正規方程式 $X^T X \beta = X^T y$ の導出に転置行列が使われます。
+6.  $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$ とする。$A^2$ と $A^3$ を計算せよ。（$A^2 = AA$, $A^3 = AAA$）
 
-#### 4.3 対称行列の応用
+7.  $A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}$、$E_2 = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$、$E_3 = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}$ とする。$E_2 A$ と $A E_3$ を計算し、結果が $A$ と一致することを確認せよ。
 
-1. **共分散行列**:
-   データの共分散行列は常に対称行列になります。これは主成分分析（PCA）の基礎となります。
+8.  $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ と $2 \times 2$ の単位行列 $E$ について、$AE = EA = A$ となることを計算により確認せよ。
 
-2. **二次形式と半正定値性**:
-   対称行列 $A$ が半正定値であるとは、任意の非ゼロベクトル $x$ に対して $x^T A x \geq 0$ が成り立つことです。共分散行列は半正定値です。
+9.  $A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}$ の転置行列 $A^T$ を求めよ。
 
-3. **スペクトル分解**:
-   対称行列 $A$ は固有値 $\lambda_i$ と対応する正規直交固有ベクトル $u_i$ を用いて、$A = \sum_{i=1}^{n} \lambda_i u_i u_i^T$ と分解できます（後の講義で詳細に説明）。
+10. $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}, B = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$ とする。$(A+B)^T$ と $A^T + B^T$ をそれぞれ計算し、両者が等しいことを確認せよ。
 
-### 5. Pythonによる実装と可視化
+11. 問10の行列 $A, B$ について、$(AB)^T$ と $B^T A^T$ をそれぞれ計算し、両者が等しいことを確認せよ。
 
-NumPyを使って、単位行列、転置行列、対称行列の基本的な操作を実装してみましょう。
+12. 次の行列の中から、(i) 対称行列、(ii) 反対称行列（$B^T = -B$となる行列）をすべて選べ。
+    (a) $$ \begin{pmatrix} 1 & 2 \\\ 2 & 3 \end{pmatrix} $$
+    (b) $$ \begin{pmatrix} 0 & 1 \\\ -1 & 0 \end{pmatrix} $$
+    (c) $$ \begin{pmatrix} 1 & 0 & 0 \\\ 0 & 2 & 0 \\\ 0 & 0 & 3 \end{pmatrix} $$
+    (d) $$ \begin{pmatrix} 1 & 1 & 1 \\\ 1 & 1 & 1 \end{pmatrix} $$
+    (e) $$ \begin{pmatrix} 0 & -2 & 3 \\\ 2 & 0 & -1 \\\ -3 & 1 & 0 \end{pmatrix} $$
+    (f) $$ \begin{pmatrix} 1 & 2 \\\ 3 & 4 \end{pmatrix} $$
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch
-from mpl_toolkits.mplot3d import proj3d
+13. $A = \begin{pmatrix} 1 & 3 & 5 \\ 2 & 4 & 6 \end{pmatrix}$ とする。$A^T A$ を計算し、この結果が対称行列になることを確認せよ。
 
-# 単位行列の生成
-I2 = np.eye(2)  # 2次の単位行列
-I3 = np.eye(3)  # 3次の単位行列
-print("2次の単位行列:\n", I2)
-print("\n3次の単位行列:\n", I3)
+14. $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ とする。$S = \frac{1}{2}(A + A^T)$ と $K = \frac{1}{2}(A - A^T)$ をそれぞれ計算せよ。そして、$S$ が対称行列、$K$ が反対称行列であり、かつ $A = S + K$ が成り立つことを確認せよ。
 
-# 行列の転置
-A = np.array([[1, 2, 3], [4, 5, 6]])
-AT = A.T
-print("\n行列A:\n", A)
-print("\n行列Aの転置:\n", AT)
+15. $A, B$ を $n \times n$ 行列とする。$X = A^T B A$ とおく。
+    (a) $X^T$ を $A, B, A^T, B^T$ を用いて表せ。
+    (b) $B$ が対称行列である場合、$X = A^T B A$ も対称行列になることを示せ。
 
-# 対称行列の生成と検証
-B = np.array([[1, 2, 3], [2, 4, 5], [3, 5, 6]])
-BT = B.T
-is_symmetric = np.array_equal(B, BT)
-print("\n行列B:\n", B)
-print("\n行列Bは対称行列か?:", is_symmetric)
+16. **対称・反対称部分への分解と積**
+    任意の $n \times n$ 正方行列 $A$ に対して、$S = \frac{1}{2}(A+A^T)$（対称部分）、$K = \frac{1}{2}(A-A^T)$（反対称部分）とおく。
+    (a) $A = S+K$ および $A^T = S-K$ であることを確認せよ。
+    (b) $A A^T$ を $S$ と $K$ を用いて表せ。（ヒント: $A A^T = (S+K)(S-K)$ を展開する）
 
-# 任意の行列から対称行列を作る
-C = np.array([[1, 2], [3, 4]])
-C_symmetric = C.T @ C  # C^T * C
-print("\n行列C:\n", C)
-print("\n行列C^T * C (対称行列):\n", C_symmetric)
+17. **対称行列の決定と性質**
+    行列 $A = \begin{pmatrix} 1 & x & y \\ 2 & 3 & z \\ 0 & 1 & 4 \end{pmatrix}$ が対称行列であるように、$x, y, z$ の値を定めよ。
 
-# 単位行列の性質を視覚化（行列とベクトルの積）
-# 2次元ベクトルを単位行列で変換（変化なし）を示す
-v = np.array([2, 1])  # 元のベクトル
-v_transformed = I2 @ v  # 単位行列との積
+18. **転置と双線形形式**
+    $A$ を $n \times n$ 行列、$x, y$ を $n \times 1$ の列ベクトルとする。$s = x^T A y$ はスカラー（$1 \times 1$ 行列）である。
+    (a) $s^T$ を $x, y, A$ の転置を用いて表せ。（スカラーの転置は元のスカラーと同じであることを思い出そう）
+    (b) $A$ が対称行列のとき、$x^T A y = y^T A x$ が成り立つことを示せ。
 
-plt.figure(figsize=(8, 6))
-plt.axhline(y=0, color='k', linestyle='-', alpha=0.3)
-plt.axvline(x=0, color='k', linestyle='-', alpha=0.3)
-plt.grid(alpha=0.3)
-plt.quiver(0, 0, v[0], v[1], angles='xy', scale_units='xy', scale=1, color='b', label='元のベクトル v')
-plt.quiver(0, 0, v_transformed[0], v_transformed[1], angles='xy', scale_units='xy', scale=1, color='r', label='I*v')
-plt.xlim(-3, 3)
-plt.ylim(-3, 3)
-plt.title("単位行列による変換（恒等変換）")
-plt.legend()
-plt.axis('equal')
-plt.show()
-
-# 対称行列のヒートマップ表示
-plt.figure(figsize=(10, 8))
-plt.subplot(1, 2, 1)
-plt.imshow(B, cmap='viridis')
-plt.colorbar()
-plt.title("対称行列B")
-for i in range(B.shape[0]):
-    for j in range(B.shape[1]):
-        plt.text(j, i, str(B[i, j]), ha="center", va="center", color="w")
-
-# 非対称行列のヒートマップ
-D = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-plt.subplot(1, 2, 2)
-plt.imshow(D, cmap='viridis')
-plt.colorbar()
-plt.title("非対称行列D")
-for i in range(D.shape[0]):
-    for j in range(D.shape[1]):
-        plt.text(j, i, str(D[i, j]), ha="center", va="center", color="w")
-
-plt.tight_layout()
-plt.show()
-```
-
-### 6. 演習問題
-
-#### 基本問題
-
-1. 3次の単位行列を手で書き下げ、次の行列との積を計算しなさい。
-   $$A = \begin{pmatrix} 2 & 0 & 1 \\ 3 & 1 & 4 \\ 0 & 2 & 5 \end{pmatrix}$$
-
-2. 以下の行列に対して、転置行列を求めなさい。
-   a) $$A = \begin{pmatrix} 3 & -1 \\ 2 & 4 \\ 0 & 5 \end{pmatrix}$$
-   b) $$B = \begin{pmatrix} 1 & 0 & -2 \\ 3 & 1 & 4 \end{pmatrix}$$
-
-3. 以下の行列が対称行列であるかどうかを判定しなさい。
-   a) $$A = \begin{pmatrix} 3 & 1 & 2 \\ 1 & 5 & 0 \\ 2 & 0 & 4 \end{pmatrix}$$
-   b) $$B = \begin{pmatrix} 2 & 1 & 3 \\ 1 & 4 & 2 \\ 2 & 2 & 5 \end{pmatrix}$$
-
-4. 次の行列 $A$ に対して、$A^T A$ と $A A^T$ を計算し、どちらも対称行列になることを確認しなさい。
-   $$A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{pmatrix}$$
-
-5. $3 \times 3$ の対称行列 $S$ を1つ作成し、$S = S^T$ を満たすことを確認しなさい。
-
-#### 応用問題
-
-1. 行列 $A$ と $B$ が対称行列であるとき、$A + B$ も対称行列であることを証明しなさい。また、$AB$ が一般に対称行列になるとは限らないことを例を挙げて示しなさい。
-
-2. 任意の行列 $A$ に対して、$A + A^T$ が対称行列であることを証明しなさい。同様に、$A - A^T$ が反対称行列（$B^T = -B$ を満たす行列）であることを証明しなさい。
-
-3. 対称行列 $A$ と非対称行列 $B$ の積 $AB$ を使って対称行列を作る方法を考えなさい。
-
-4. **健康データサイエンス応用問題**：
-   患者の血圧（収縮期、拡張期）、心拍数、体温、および酸素飽和度の5つの生体データがあるとします。これらのデータ間の相関を表す相関行列は対称行列になります。以下の10人分のデータがあるとき、相関行列を計算してください。また、この相関行列から分かる健康指標間の関係を考察してください。
-
-```python
-# 健康データ（10人分）
-# 収縮期血圧, 拡張期血圧, 心拍数, 体温, 酸素飽和度
-health_data = np.array([
-    [120, 80, 72, 36.5, 98],
-    [130, 85, 78, 36.8, 97],
-    [125, 82, 70, 36.6, 99],
-    [140, 90, 85, 37.0, 96],
-    [115, 75, 65, 36.4, 98],
-    [135, 88, 80, 36.9, 97],
-    [122, 78, 68, 36.5, 99],
-    [128, 84, 75, 36.7, 98],
-    [132, 86, 82, 36.8, 96],
-    [118, 76, 67, 36.4, 99]
-])
-
-# ヒント：相関行列の計算には numpy.corrcoef() 関数が使えます
-```
-
-5. 行列 $A$ に対して、$A^T A$ がどのような条件下で単位行列になるか考察しなさい。また、そのような行列 $A$ の例を挙げなさい。
-
-### 7. よくある質問と解答
-
-**Q1: 対称行列と単位行列の違いは何ですか？**
-
-A1: 単位行列は、主対角線上の要素がすべて1で、それ以外の要素がすべて0である特殊な対称行列です。対称行列は $A = A^T$ を満たす行列で、主対角線に関して対称な位置にある要素が等しいものですが、対角要素や非対角要素の値に制約はありません。
-
-**Q2: 転置行列を求める際によくある間違いは？**
-
-A2: 転置行列を求める際によくある間違いは、行と列を入れ替える操作を正確に行わないことです。特に大きな行列の場合、要素の位置を混同しやすくなります。転置操作では、$a_{ij}$ が $a_{ji}$ になることを常に念頭に置くことが大切です。
-
-**Q3: データサイエンスでなぜ対称行列が重要なのですか？**
-
-A3: 対称行列はデータサイエンスで非常に重要です。特に共分散行列や相関行列は常に対称行列になり、主成分分析（PCA）や因子分析などの多変量解析の基礎となります。また、対称行列は実数の固有値を持ち、直交する固有ベクトルを持つという特殊な性質があるため、データの特徴抽出や次元削減に利用されます。
-
-**Q4: 行列 $A^T A$ はなぜいつも対称行列になるのですか？**
-
-A4: 行列 $A^T A$ の転置を考えると：
-$(A^T A)^T = A^T (A^T)^T = A^T A$
-となり、定義から対称行列であることがわかります。これは任意の行列 $A$ に対して成り立ちます。
-
-**Q5: 単位行列はどのようにしてPythonで生成しますか？**
-
-A5: NumPyを使って単位行列を生成するには、`numpy.eye(n)` 関数を使用します。ここで `n` は行列のサイズです。例えば、`numpy.eye(3)` は3次の単位行列を生成します。
-
-```python
-import numpy as np
-I3 = np.eye(3)  # 3次の単位行列を生成
-print(I3)
-```
-
-### 8. まとめ
-
-この講義では、データサイエンスで特に重要な特殊な行列について学びました：
-
-1. **単位行列**：主対角線上の要素がすべて1で、それ以外は0の行列。任意の行列 $A$ に対して $AI = IA = A$ が成り立つ。
-2. **転置行列**：行と列を入れ替えた行列。$(AB)^T = B^T A^T$ など重要な性質を持つ。
-3. **対称行列**：転置行列と等しい行列 ($A = A^T$)。共分散行列や相関行列など、データサイエンスで頻繁に現れる。
-
-これらの特殊な行列の性質を理解することは、後の講義で扱う固有値・固有ベクトルや主成分分析などの高度なトピックを理解するための基礎となります。特に、対称行列の性質は主成分分析の理論的基盤となる重要な概念です。
-
-次回の講義では、1次元データとベクトルの関係について学び、統計量の計算にベクトルと行列がどのように活用されるかを見ていきます。
+19. **条件を満たす対称行列**
+    次の3つの条件をすべて満たす $2 \times 2$ 行列 $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ を$b$を用いて表せ。
+    (i) $A$ は対称行列である。($c=b$)
+    (ii) $A$ の対角成分の和（トレース）は 5 である ($a+d=5$)。
+    (iii) $A$ の行列式は 4 である ($ad-bc=4$)。
