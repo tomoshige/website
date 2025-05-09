@@ -4104,13 +4104,13 @@
 <h4 id="232">2.3.2 例題：体温データの分散</h4>
 <p>体温データの例で、偏差ベクトルが <span class="arithmatex">\(\mathbf{d} = \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\)</span> であったことを思い出しましょう。
 このデータセットの分散 <span class="arithmatex">\(\sigma^2\)</span> を計算します。</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(\mathbf{d}^T \mathbf{d} = \begin{pmatrix} -0.26 &amp; 0.04 &amp; 0.44 &amp; -0.36 &amp; 0.14 \end{pmatrix} \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= (-0.26)^2 + (0.04)^2 + (0.44)^2 + (-0.36)^2 + (0.14)^2\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= 0.0676 + 0.0016 + 0.1936 + 0.1296 + 0.0196\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= 0.412\)</span>\)</span>
-したがって、分散 <span class="arithmatex">\(\sigma^2\)</span> は、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{5} (0.412) = 0.0824\)</span>\)</span>
-この体温データの分散は 0.0824 (℃²) です。</p>
+<div class="arithmatex">\[\mathbf{d}^T \mathbf{d} = \begin{pmatrix} -0.26 &amp; 0.04 &amp; 0.44 &amp; -0.36 &amp; 0.14 \end{pmatrix} \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\]</div>
+<div class="arithmatex">\[= (-0.26)^2 + (0.04)^2 + (0.44)^2 + (-0.36)^2 + (0.14)^2\]</div>
+<div class="arithmatex">\[= 0.0676 + 0.0016 + 0.1936 + 0.1296 + 0.0196\]</div>
+<div class="arithmatex">\[= 0.412\]</div>
+<p>したがって、分散 <span class="arithmatex">\(\sigma^2\)</span> は、</p>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{5} (0.412) = 0.0824\]</div>
+<p>この体温データの分散は 0.0824 (℃²) です。</p>
 <h3 id="24">2.4 データの標準偏差</h3>
 <p>分散はデータのばらつき具合を示す重要な指標ですが、その単位が元のデータの単位の二乗になってしまうため、直感的に解釈しづらいことがあります。そこで、分散の正の平方根をとったものを「標準偏差」と呼び、ばらつきの指標としてよく用いられます。標準偏差の単位は、元のデータと同じになります。</p>
 <h4 id="241">2.4.1 定義とベクトル表記</h4>
