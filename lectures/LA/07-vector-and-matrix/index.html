@@ -4027,11 +4027,11 @@
 <div class="arithmatex">\[\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = \frac{x_1 + x_2 + \ldots + x_n}{n}\]</div>
 <p>これは、「全てのデータの値を合計し、データの個数で割る」という操作ですね。</p>
 <h4 id="212">2.1.2 ベクトル表記による定義</h4>
-<p>この平均値の計算を、データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> と <span class="arithmatex">\(\mathbf{1}\)</span> ベクトルを用いて表現してみましょう。
-データベクトル <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}\)</span> と <span class="arithmatex">\(n\)</span>次元の1ベクトル <span class="arithmatex">\(\mathbf{1}_n\)</span> を考えます。
-ここで、<span class="arithmatex">\(\mathbf{1}_n\)</span> の転置ベクトル <span class="arithmatex">\(\mathbf{1}_n^T = \begin{pmatrix} 1 &amp; 1 &amp; \ldots &amp; 1 \end{pmatrix}\)</span> とデータベクトル <span class="arithmatex">\(\mathbf{x}\)</span> の内積を計算すると、
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{1}_n^T \mathbf{x} = (1 \times x_1) + (1 \times x_2) + \ldots + (1 \times x_n) = \sum_{i=1}^{n} x_i\)</span>\)</span>
-となり、これはデータの総和に他なりません。</p>
+<p>この平均値の計算を、データベクトル <span class="arithmatex">\(\mathbf{x}\)</span> と <span class="arithmatex">\(\mathbf{1}\)</span> ベクトルを用いて表現してみましょう。</p>
+<p>データベクトル <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}\)</span> と <span class="arithmatex">\(n\)</span>次元の1ベクトル <span class="arithmatex">\(\mathbf{1}_n\)</span> を考えます。</p>
+<p>ここで、<span class="arithmatex">\(\mathbf{1}_n\)</span> の転置ベクトル <span class="arithmatex">\(\mathbf{1}_n^T = \begin{pmatrix} 1 &amp; 1 &amp; \ldots &amp; 1 \end{pmatrix}\)</span> とデータベクトル <span class="arithmatex">\(\mathbf{x}\)</span> の内積を計算すると、</p>
+<div class="arithmatex">\[\mathbf{1}_n^T \mathbf{x} = (1 \times x_1) + (1 \times x_2) + \ldots + (1 \times x_n) = \sum_{i=1}^{n} x_i\]</div>
+<p>となり、これはデータの総和に他なりません。</p>
 <p>したがって、平均値 <span class="arithmatex">\(\bar{x}\)</span> は、この内積をデータの個数 <span class="arithmatex">\(n\)</span> で割ることにより、以下のようにベクトル表記で表すことができます。</p>
 <blockquote>
 <p><strong>定義：データの平均値 (ベクトル表記)</strong>
@@ -4043,11 +4043,11 @@
 <h4 id="213">2.1.3 例題：体温データの平均値</h4>
 <p>先ほどの5人の学生の体温データ <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span> を用いて、平均体温 <span class="arithmatex">\(\bar{x}\)</span> を計算してみましょう。
 ここでは <span class="arithmatex">\(n=5\)</span> ですから、<span class="arithmatex">\(\mathbf{1}_5^T = \begin{pmatrix} 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \end{pmatrix}\)</span> を用います。</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(\bar{x} = \frac{1}{5} (\mathbf{1}_5^T \mathbf{x}) = \frac{1}{5} \begin{pmatrix} 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \end{pmatrix} \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= \frac{1}{5} (1 \times 36.5 + 1 \times 36.8 + 1 \times 37.2 + 1 \times 36.4 + 1 \times 36.9)\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= \frac{1}{5} (36.5 + 36.8 + 37.2 + 36.4 + 36.9)\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(= \frac{1}{5} (183.8) = 36.76\)</span>\)</span>
-したがって、この5人の学生の平均体温は 36.76℃ であることが分かります。</p>
+<div class="arithmatex">\[\bar{x} = \frac{1}{5} (\mathbf{1}_5^T \mathbf{x}) = \frac{1}{5} \begin{pmatrix} 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \end{pmatrix} \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\]</div>
+<div class="arithmatex">\[= \frac{1}{5} (1 \times 36.5 + 1 \times 36.8 + 1 \times 37.2 + 1 \times 36.4 + 1 \times 36.9)\]</div>
+<div class="arithmatex">\[= \frac{1}{5} (36.5 + 36.8 + 37.2 + 36.4 + 36.9)\]</div>
+<div class="arithmatex">\[= \frac{1}{5} (183.8) = 36.76\]</div>
+<p>したがって、この5人の学生の平均体温は 36.76℃ であることが分かります。</p>
 <h3 id="22">2.2 データの偏差</h3>
 <p>平均値はデータセットの中心的な傾向を示しますが、個々のデータがその平均値からどれだけ離れているか、つまり「偏差」を見ることも重要です。</p>
 <h4 id="221">2.2.1 スカラ表記・ベクトル表記による定義</h4>
@@ -4064,25 +4064,22 @@
 ここで、<span class="arithmatex">\(\bar{x}\mathbf{1}_n\)</span> は、全ての要素が平均値 <span class="arithmatex">\(\bar{x}\)</span> であるベクトル <span class="arithmatex">\(\begin{pmatrix} \bar{x} \\ \bar{x} \\ \vdots \\ \bar{x} \end{pmatrix}\)</span> を表します。つまり、元のデータベクトルの各要素から一律に平均値を引く操作です。</p>
 </blockquote>
 <h4 id="222-0">2.2.2 偏差の総和が0になる性質とその証明</h4>
-<p>偏差には非常に重要な性質があります。それは、「偏差の総和は常に0になる」というものです。
-つまり、<span class="arithmatex">\(\sum_{i=1}^{n} d_i = 0\)</span> です。</p>
-<p><strong>証明 (スカラ表記):</strong>
-<span class="arithmatex">\(<span class="arithmatex">\(\sum_{i=1}^{n} d_i = \sum_{i=1}^{n} (x_i - \bar{x})\)</span>\)</span>
-分配法則により、
-<span class="arithmatex">\(<span class="arithmatex">\(= \sum_{i=1}^{n} x_i - \sum_{i=1}^{n} \bar{x}\)</span>\)</span>
-ここで、<span class="arithmatex">\(\sum_{i=1}^{n} x_i = n\bar{x}\)</span> （平均の定義より）であり、また <span class="arithmatex">\(\bar{x}\)</span> は <span class="arithmatex">\(i\)</span> によらない定数なので <span class="arithmatex">\(\sum_{i=1}^{n} \bar{x} = n\bar{x}\)</span> となります。
-したがって、
-<span class="arithmatex">\(<span class="arithmatex">\(= n\bar{x} - n\bar{x} = 0\)</span>\)</span>
+<p>偏差には非常に重要な性質があります。それは、「偏差の総和は常に0になる」というものです。つまり、<span class="arithmatex">\(\sum_{i=1}^{n} d_i = 0\)</span> です。</p>
+<p><strong>証明 (スカラ表記):</strong></p>
+<div class="arithmatex">\[\sum_{i=1}^{n} d_i = \sum_{i=1}^{n} (x_i - \bar{x})\]</div>
+<p>分配法則により、</p>
+<div class="arithmatex">\[= \sum_{i=1}^{n} x_i - \sum_{i=1}^{n} \bar{x}\]</div>
+<p>ここで、<span class="arithmatex">\(\sum_{i=1}^{n} x_i = n\bar{x}\)</span> （平均の定義より）であり、また <span class="arithmatex">\(\bar{x}\)</span> は <span class="arithmatex">\(i\)</span> によらない定数なので <span class="arithmatex">\(\sum_{i=1}^{n} \bar{x} = n\bar{x}\)</span> となります。</p>
+<p>したがって、</p>
+<p><span class="arithmatex">\(<span class="arithmatex">\(= n\bar{x} - n\bar{x} = 0\)</span>\)</span>
 （証明終）</p>
-<p>この性質をベクトル表記で表現すると、偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> と <span class="arithmatex">\(\mathbf{1}_n\)</span> ベクトルの内積が0になることを意味します。
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{1}_n^T \mathbf{d} = \sum_{i=1}^{n} (1 \times d_i) = \sum_{i=1}^{n} d_i = 0\)</span>\)</span>
-幾何学的には、これは <span class="arithmatex">\(\mathbf{1}_n\)</span> ベクトルと偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> が直交していることを示しています。</p>
+<p>この性質をベクトル表記で表現すると、偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> と <span class="arithmatex">\(\mathbf{1}_n\)</span> ベクトルの内積が0になることを意味します。</p>
+<div class="arithmatex">\[\mathbf{1}_n^T \mathbf{d} = \sum_{i=1}^{n} (1 \times d_i) = \sum_{i=1}^{n} d_i = 0\]</div>
+<p>幾何学的には、これは <span class="arithmatex">\(\mathbf{1}_n\)</span> ベクトルと偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> が直交していることを示しています。</p>
 <h4 id="223">2.2.3 例題：体温データの偏差ベクトル</h4>
 <p>再び体温データの例 <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span> に戻り、平均値 <span class="arithmatex">\(\bar{x} = 36.76\)</span>℃ を用いて偏差ベクトル <span class="arithmatex">\(\mathbf{d}\)</span> を計算してみましょう。</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_5 = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix} - 36.76 \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 36.5 - 36.76 \\ 36.8 - 36.76 \\ 37.2 - 36.76 \\ 36.4 - 36.76 \\ 36.9 - 36.76 \end{pmatrix} = \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\)</span>\)</span>
-この偏差ベクトルの要素の和を計算してみると、
-<span class="arithmatex">\((-0.26) + 0.04 + 0.44 + (-0.36) + 0.14 = 0\)</span>
-となり、確かに偏差の総和が0になることが確認できます。</p>
+<div class="arithmatex">\[\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}_5 = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix} - 36.76 \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 36.5 - 36.76 \\ 36.8 - 36.76 \\ 37.2 - 36.76 \\ 36.4 - 36.76 \\ 36.9 - 36.76 \end{pmatrix} = \begin{pmatrix} -0.26 \\ 0.04 \\ 0.44 \\ -0.36 \\ 0.14 \end{pmatrix}\]</div>
+<p>この偏差ベクトルの要素の和を計算してみると、<span class="arithmatex">\((-0.26) + 0.04 + 0.44 + (-0.36) + 0.14 = 0\)</span> となり、確かに偏差の総和が0になることが確認できます。</p>
 <h3 id="23">2.3 データの分散</h3>
 <p>偏差は個々のデータ点が平均からどれだけ離れているかを示しますが、データセット全体としてどの程度ばらついているか、その「散らばり具合」を一つの数値で表したい場合があります。その代表的な指標が「分散」です。
 分散は、各データ点の偏差を二乗し、それらを平均したものです。偏差を二乗する理由は、偏差には正の値も負の値もあり、そのまま合計すると0になってしまうため、散らばり具合の指標としては不適切だからです。二乗することで、平均からの距離の大きさを正の値として評価できます。</p>
@@ -4142,40 +4139,40 @@
 この式は、「（データの二乗の平均）引く（平均の二乗）」と覚えることができます。</p>
 </blockquote>
 <h4 id="252">2.5.2 証明</h4>
-<p>この別公式を証明してみましょう。分散の定義式から出発します。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span>\)</span>
-まず、<span class="arithmatex">\((x_i - \bar{x})^2\)</span> を展開します。
-<span class="arithmatex">\(<span class="arithmatex">\((x_i - \bar{x})^2 = x_i^2 - 2x_i\bar{x} + \bar{x}^2\)</span>\)</span>
-これを総和の式に代入します。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i^2 - 2x_i\bar{x} + \bar{x}^2)\)</span>\)</span>
-総和の性質（和の総和は総和の和、定数倍は総和の外に出せる）を使って分解します。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - \sum_{i=1}^{n} 2x_i\bar{x} + \sum_{i=1}^{n} \bar{x}^2 \right)\)</span>\)</span>
-ここで、<span class="arithmatex">\(\bar{x}\)</span> は <span class="arithmatex">\(i\)</span> に依存しない定数なので、第2項と第3項の <span class="arithmatex">\(\bar{x}\)</span> や <span class="arithmatex">\(2\bar{x}\)</span> を総和の外に出せます。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - 2\bar{x} \sum_{i=1}^{n} x_i + \bar{x}^2 \sum_{i=1}^{n} 1 \right)\)</span>\)</span>
-<span class="arithmatex">\(\sum_{i=1}^{n} x_i = n\bar{x}\)</span> （平均の定義より）であり、<span class="arithmatex">\(\sum_{i=1}^{n} 1 = n\)</span> ですから、これらを代入します。
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - 2\bar{x} (n\bar{x}) + \bar{x}^2 (n) \right)\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - 2n\bar{x}^2 + n\bar{x}^2 \right)\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - n\bar{x}^2 \right)\)</span>\)</span>
-最後に <span class="arithmatex">\(\frac{1}{n}\)</span> を分配すると、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \sum_{i=1}^{n} x_i^2\right) - \bar{x}^2\)</span>\)</span>
-となり、公式が証明されました。（証明終）</p>
+<p>この別公式を証明してみましょう。分散の定義式から出発します。</p>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\]</div>
+<p>まず、<span class="arithmatex">\((x_i - \bar{x})^2\)</span> を展開します。</p>
+<div class="arithmatex">\[(x_i - \bar{x})^2 = x_i^2 - 2x_i\bar{x} + \bar{x}^2\]</div>
+<p>これを総和の式に代入します。</p>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i^2 - 2x_i\bar{x} + \bar{x}^2)\]</div>
+<p>総和の性質（和の総和は総和の和、定数倍は総和の外に出せる）を使って分解します。</p>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - \sum_{i=1}^{n} 2x_i\bar{x} + \sum_{i=1}^{n} \bar{x}^2 \right)\]</div>
+<p>ここで、<span class="arithmatex">\(\bar{x}\)</span> は <span class="arithmatex">\(i\)</span> に依存しない定数なので、第2項と第3項の <span class="arithmatex">\(\bar{x}\)</span> や <span class="arithmatex">\(2\bar{x}\)</span> を総和の外に出せます。</p>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - 2\bar{x} \sum_{i=1}^{n} x_i + \bar{x}^2 \sum_{i=1}^{n} 1 \right)\]</div>
+<p><span class="arithmatex">\(\sum_{i=1}^{n} x_i = n\bar{x}\)</span> （平均の定義より）であり、<span class="arithmatex">\(\sum_{i=1}^{n} 1 = n\)</span> ですから、これらを代入します。</p>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - 2\bar{x} (n\bar{x}) + \bar{x}^2 (n) \right)\]</div>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - 2n\bar{x}^2 + n\bar{x}^2 \right)\]</div>
+<div class="arithmatex">\[\sigma^2 = \frac{1}{n} \left( \sum_{i=1}^{n} x_i^2 - n\bar{x}^2 \right)\]</div>
+<p>最後に <span class="arithmatex">\(\frac{1}{n}\)</span> を分配すると、</p>
+<div class="arithmatex">\[\sigma^2 = \left(\frac{1}{n} \sum_{i=1}^{n} x_i^2\right) - \bar{x}^2\]</div>
+<p>となり、公式が証明されました。（証明終）</p>
 <p>ベクトル表記 <span class="arithmatex">\(\mathbf{x}^T \mathbf{x} = \sum x_i^2\)</span> を用いれば、<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2\)</span> も同様に示せます。</p>
 <h4 id="253">2.5.3 例題：体温データの分散（別公式による計算）</h4>
 <p>再び体温データ <span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} 36.5 \\ 36.8 \\ 37.2 \\ 36.4 \\ 36.9 \end{pmatrix}\)</span> と平均値 <span class="arithmatex">\(\bar{x} = 36.76\)</span> を用いて、この別公式で分散を計算してみましょう。</p>
-<p>まず、<span class="arithmatex">\(\mathbf{x}^T \mathbf{x} = \sum_{i=1}^{5} x_i^2\)</span> を計算します。
-<span class="arithmatex">\(<span class="arithmatex">\(x_1^2 = 36.5^2 = 1332.25\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(x_2^2 = 36.8^2 = 1354.24\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(x_3^2 = 37.2^2 = 1383.84\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(x_4^2 = 36.4^2 = 1324.96\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(x_5^2 = 36.9^2 = 1361.61\)</span>\)</span>
-これらの和は、
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x}^T \mathbf{x} = 1332.25 + 1354.24 + 1383.84 + 1324.96 + 1361.61 = 6756.9\)</span>\)</span>
-次に、「データの二乗の平均」を計算します。
-<span class="arithmatex">\(<span class="arithmatex">\(\frac{1}{n} \mathbf{x}^T \mathbf{x} = \frac{1}{5} (6756.9) = 1351.38\)</span>\)</span>
-最後に、「平均の二乗」<span class="arithmatex">\(\bar{x}^2\)</span> を計算します。
-<span class="arithmatex">\(<span class="arithmatex">\(\bar{x}^2 = (36.76)^2 = 1351.298\)</span>\)</span>
-よって、分散 <span class="arithmatex">\(\sigma^2\)</span> は、
-<span class="arithmatex">\(<span class="arithmatex">\(\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2 = 1351.38 - 1351.298 = 0.0824\)</span>\)</span></p>
+<p>まず、<span class="arithmatex">\(\mathbf{x}^T \mathbf{x} = \sum_{i=1}^{5} x_i^2\)</span> を計算します。</p>
+<div class="arithmatex">\[x_1^2 = 36.5^2 = 1332.25\]</div>
+<div class="arithmatex">\[x_2^2 = 36.8^2 = 1354.24\]</div>
+<div class="arithmatex">\[x_3^2 = 37.2^2 = 1383.84\]</div>
+<div class="arithmatex">\[x_4^2 = 36.4^2 = 1324.96\]</div>
+<div class="arithmatex">\[x_5^2 = 36.9^2 = 1361.61\]</div>
+<p>これらの和は、</p>
+<div class="arithmatex">\[\mathbf{x}^T \mathbf{x} = 1332.25 + 1354.24 + 1383.84 + 1324.96 + 1361.61 = 6756.9\]</div>
+<p>次に、「データの二乗の平均」を計算します。</p>
+<div class="arithmatex">\[\frac{1}{n} \mathbf{x}^T \mathbf{x} = \frac{1}{5} (6756.9) = 1351.38\]</div>
+<p>最後に、「平均の二乗」<span class="arithmatex">\(\bar{x}^2\)</span> を計算します。</p>
+<div class="arithmatex">\[\bar{x}^2 = (36.76)^2 = 1351.298\]</div>
+<p>よって、分散 <span class="arithmatex">\(\sigma^2\)</span> は、</p>
+<div class="arithmatex">\[\sigma^2 = \left(\frac{1}{n} \mathbf{x}^T \mathbf{x}\right) - \bar{x}^2 = 1351.38 - 1351.298 = 0.0824\]</div>
 <h3 id="26">2.6 偏差値</h3>
 <p>「偏差値」という言葉は、特に学力テストの結果などでよく使われます。これは、ある集団の中で、個人の成績がどの程度の位置にあるのかを相対的に示すための指標です。</p>
 <h4 id="_2">偏差値の導入：異なる集団間での相対的な位置を知るために</h4>
