@@ -4198,13 +4198,17 @@
 <li><strong><span class="arithmatex">\(x_i\)</span></strong>: 個人の得点などの具体的なデータ値。</li>
 <li><strong><span class="arithmatex">\(\bar{x}\)</span></strong>: データセット全体の平均値。</li>
 <li><strong><span class="arithmatex">\(\sigma\)</span></strong>: データセット全体の標準偏差。</li>
-<li><strong><span class="arithmatex">\(\frac{x_i - \bar{x}}{\sigma}\)</span></strong>: この部分は「基準化」または「標準化」と呼ばれる操作で計算される値で、<span class="arithmatex">\(z\)</span>スコア（標準得点）とも呼ばれます。これは、個々のデータが平均から標準偏差の何倍分離れているかを示します。<ul>
+<li>
+<p><strong><span class="arithmatex">\(\frac{x_i - \bar{x}}{\sigma}\)</span></strong>: この部分は「基準化」または「標準化」と呼ばれる操作で計算される値で、<span class="arithmatex">\(z\)</span>スコア（標準得点）とも呼ばれます。これは、個々のデータが平均から標準偏差の何倍分離れているかを示します。</p>
+<ul>
 <li>もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> と同じなら、<span class="arithmatex">\(z = 0\)</span> です。</li>
 <li>もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> より標準偏差 <span class="arithmatex">\(\sigma\)</span> １つ分だけ高ければ、<span class="arithmatex">\(z = 1\)</span> です。</li>
 <li>もし <span class="arithmatex">\(x_i\)</span> が平均 <span class="arithmatex">\(\bar{x}\)</span> より標準偏差 <span class="arithmatex">\(\sigma\)</span> １つ分だけ低ければ、<span class="arithmatex">\(z = -1\)</span> です。</li>
 </ul>
 </li>
-<li><strong><span class="arithmatex">\(10 \times z + 50\)</span></strong>: <span class="arithmatex">\(z\)</span>スコアを10倍して50を加えることで、平均が50、標準偏差が10の尺度に変換しています。<ul>
+<li>
+<p><strong><span class="arithmatex">\(10 \times z + 50\)</span></strong>: <span class="arithmatex">\(z\)</span>スコアを10倍して50を加えることで、平均が50、標準偏差が10の尺度に変換しています。</p>
+<ul>
 <li><span class="arithmatex">\(z=0\)</span> (平均点) のとき、偏差値は <span class="arithmatex">\(10 \times 0 + 50 = 50\)</span> となります。</li>
 <li><span class="arithmatex">\(z=1\)</span> (平均点 + 1標準偏差) のとき、偏差値は <span class="arithmatex">\(10 \times 1 + 50 = 60\)</span> となります。</li>
 <li><span class="arithmatex">\(z=-1\)</span> (平均点 - 1標準偏差) のとき、偏差値は <span class="arithmatex">\(10 \times (-1) + 50 = 40\)</span> となります。</li>
