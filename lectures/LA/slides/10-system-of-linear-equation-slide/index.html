@@ -12,28 +12,24 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/08-vector-and-matrix/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/slides/10-system-of-linear-equation-slide/">
       
       
-        <link rel="prev" href="../07-vector-and-matrix/">
       
       
-        <link rel="next" href="../09-exercise/">
-      
-      
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>8. Vector and Matrix 7 - Statistical Learning Laboratory</title>
+        <title>10 system of linear equation slide - Statistical Learning Laboratory</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -54,7 +50,7 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#i-8" class="md-skip">
+        <a href="#i-10" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -94,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="ヘッダー">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              8. Vector and Matrix 7
+              10 system of linear equation slide
             
           </span>
         </div>
@@ -201,7 +197,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -231,7 +227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -248,8 +244,6 @@
       
   
   
-    
-  
   
   
     
@@ -273,16 +267,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -299,7 +293,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Lectures
@@ -312,8 +306,6 @@
                 
   
   
-    
-  
   
   
     
@@ -340,16 +332,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -366,7 +358,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Linear algebra
@@ -379,10 +371,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -409,11 +399,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
         
           
           <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
@@ -427,7 +417,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2_2">
             <span class="md-nav__icon md-icon"></span>
             Module 1 - Vector and Matrix
@@ -441,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01-introduction/" class="md-nav__link">
+      <a href="../../01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -462,7 +452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-vector-and-matrix/" class="md-nav__link">
+      <a href="../../02-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -483,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-vector-and-matrix/" class="md-nav__link">
+      <a href="../../03-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -504,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-vector-and-matrix/" class="md-nav__link">
+      <a href="../../04-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -525,7 +515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-vector-and-matrix/" class="md-nav__link">
+      <a href="../../05-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -546,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-vector-and-matrix/" class="md-nav__link">
+      <a href="../../06-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -567,7 +557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-vector-and-matrix/" class="md-nav__link">
+      <a href="../../07-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -585,30 +575,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    8. Vector and Matrix 7
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../08-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -617,185 +587,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 講義情報と予習ガイド
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 基本概念
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 基本概念">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#21-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1 2次元データとは
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2 共分散の定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3 相関係数の定義
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 共分散と相関行列の行列表示
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 共分散と相関行列の行列表示">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 行列とベクトルによるデータ表現
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 行列とベクトルを用いた共分散の計算
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3 行列とベクトルを用いた相関係数の計算
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#44" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4 共分散行列
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. 計算例と実装
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. 計算例と実装">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 数値例: 共分散と相関係数の計算
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2 行列を用いた計算例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. 演習問題
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. 演習問題">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#51" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.1 基本問題
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -808,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-exercise/" class="md-nav__link">
+      <a href="../../09-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -898,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../10-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -919,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../11-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../11-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -940,7 +731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../12-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../12-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -961,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../13-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../13-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -982,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../14-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../14-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1003,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../15-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../15-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1024,7 +815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../16-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../16-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1045,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../17-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../17-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1066,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../18-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../18-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1087,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../19-exercise/" class="md-nav__link">
+      <a href="../../19-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1108,7 +899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../20-midterm-exam/" class="md-nav__link">
+      <a href="../../20-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1186,7 +977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../21-determinant/" class="md-nav__link">
+      <a href="../../21-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1207,7 +998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../22-determinant/" class="md-nav__link">
+      <a href="../../22-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1228,7 +1019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../23-determinant/" class="md-nav__link">
+      <a href="../../23-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1249,7 +1040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../24-determinant/" class="md-nav__link">
+      <a href="../../24-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1270,7 +1061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../25-exercise/" class="md-nav__link">
+      <a href="../../25-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1350,7 +1141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../26-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../26-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1371,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../27-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../27-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1392,7 +1183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../28-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../28-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1413,7 +1204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../29-exercise/" class="md-nav__link">
+      <a href="../../29-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1434,7 +1225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../30-exercise/" class="md-nav__link">
+      <a href="../../30-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1455,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../31-exam/" class="md-nav__link">
+      <a href="../../31-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1541,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../32-eigen-value-vector/" class="md-nav__link">
+      <a href="../../32-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1562,7 +1353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../33-eigen-value-vector/" class="md-nav__link">
+      <a href="../../33-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1583,7 +1374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../34-eigen-value-vector/" class="md-nav__link">
+      <a href="../../34-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1604,7 +1395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../35-eigen-value-vector/" class="md-nav__link">
+      <a href="../../35-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1625,7 +1416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../36-eigen-value-vector/" class="md-nav__link">
+      <a href="../../36-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1646,7 +1437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../37-exercise/" class="md-nav__link">
+      <a href="../../37-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1667,7 +1458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../38-midterm-exam/" class="md-nav__link">
+      <a href="../../38-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1688,7 +1479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../39-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../39-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1709,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../40-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../40-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1793,7 +1584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../41-principal-component-analysis/" class="md-nav__link">
+      <a href="../../41-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1814,7 +1605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../42-principal-component-analysis/" class="md-nav__link">
+      <a href="../../42-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1835,7 +1626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../43-principal-component-analysis/" class="md-nav__link">
+      <a href="../../43-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1856,7 +1647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../44-factor-analysis/" class="md-nav__link">
+      <a href="../../44-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1877,7 +1668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../45-factor-analysis/" class="md-nav__link">
+      <a href="../../45-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1898,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../46-nonlinear-dimension-reduction/" class="md-nav__link">
+      <a href="../../46-nonlinear-dimension-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1919,7 +1710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../47-wrapup/" class="md-nav__link">
+      <a href="../../47-wrapup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1940,7 +1731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../48-exam/" class="md-nav__link">
+      <a href="../../48-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2007,7 +1798,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SIWS/" class="md-nav__link ">
+            <a href="../../../SIWS/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2087,7 +1878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+      <a href="../../../SIWS/01-getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2108,7 +1899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+      <a href="../../../SIWS/02-visualization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2129,7 +1920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+      <a href="../../../SIWS/03-wrangling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2150,7 +1941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+      <a href="../../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2222,7 +2013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/05-simple-linear-regression/" class="md-nav__link">
+      <a href="../../../SIWS/05-simple-linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2243,7 +2034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/06-multiple-regression/" class="md-nav__link">
+      <a href="../../../SIWS/06-multiple-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2319,7 +2110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/07-sampling/" class="md-nav__link">
+      <a href="../../../SIWS/07-sampling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2340,7 +2131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
+      <a href="../../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2361,7 +2152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/09-hypothesis-testing/" class="md-nav__link">
+      <a href="../../../SIWS/09-hypothesis-testing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2382,7 +2173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/10-inference-for-regression/" class="md-nav__link">
+      <a href="../../../SIWS/10-inference-for-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2452,7 +2243,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
+      <a href="../../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2522,7 +2313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/12-how-to-create-a-compelling-proposal/" class="md-nav__link">
+      <a href="../../../SIWS/12-how-to-create-a-compelling-proposal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2579,7 +2370,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SP/" class="md-nav__link ">
+            <a href="../../../SP/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2651,7 +2442,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/" class="md-nav__link ">
+            <a href="../../../../research/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2729,7 +2520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+      <a href="../../../../research/note/generalized-random-forests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2750,7 +2541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+      <a href="../../../../research/note/variable-importance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2771,7 +2562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+      <a href="../../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2845,7 +2636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+      <a href="../../../../research/note/sparseBART/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2866,7 +2657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/causal-mediation-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2887,7 +2678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+      <a href="../../../../research/note/causal-data-repository/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2944,7 +2735,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+            <a href="../../../../research/note/factor-analysis/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3024,7 +2815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3045,7 +2836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3066,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3087,7 +2878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3161,7 +2952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3182,7 +2973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3203,7 +2994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3279,7 +3070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3300,7 +3091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3321,7 +3112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3342,7 +3133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3412,7 +3203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3478,6 +3269,30 @@
         <li class="md-nav__item">
   <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
+      連立1次方程式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="連立1次方程式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      中村 知繁
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
       1. 講義情報と予習ガイド
     </span>
   </a>
@@ -3487,59 +3302,35 @@
         <li class="md-nav__item">
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. 基本概念
+      2. 学習目標
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2. 基本概念">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#21-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1 2次元データとは
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2 共分散の定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3 相関係数の定義
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. 共分散と相関行列の行列表示
+      3. 基本概念
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. 共分散と相関行列の行列表示">
+    <nav class="md-nav" aria-label="3. 基本概念">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#31" class="md-nav__link">
     <span class="md-ellipsis">
-      3.1 行列とベクトルによるデータ表現
+      3.1 連立一次方程式とは
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 連立一次方程式とは (続き)
     </span>
   </a>
   
@@ -3548,7 +3339,16 @@
           <li class="md-nav__item">
   <a href="#32" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2 行列とベクトルを用いた共分散の計算
+      3.2 連立一次方程式の行列表現
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 連立一次方程式の行列表現 (続き)
     </span>
   </a>
   
@@ -3557,16 +3357,53 @@
           <li class="md-nav__item">
   <a href="#33" class="md-nav__link">
     <span class="md-ellipsis">
-      3.3 行列とベクトルを用いた相関係数の計算
+      3.3 拡大係数行列
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#44" class="md-nav__link">
+  <a href="#41" class="md-nav__link">
     <span class="md-ellipsis">
-      4.4 共分散行列
+      4.1 連立一次方程式の解法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 連立一次方程式の解法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1.1 代入法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1.2 加減法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1.3 行列の逆行列を用いる方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1.3 行列の逆行列を用いる方法 (続き)
     </span>
   </a>
   
@@ -3576,32 +3413,46 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 計算例と実装
+      4.2 連立一次方程式の幾何学的解釈
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. 計算例と実装">
+    <nav class="md-nav" aria-label="4.2 連立一次方程式の幾何学的解釈">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
+  <a href="#421-21" class="md-nav__link">
     <span class="md-ellipsis">
-      4.1 数値例: 共分散と相関係数の計算
+      4.2.1 2元連立1次方程式の幾何学的解釈
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#42" class="md-nav__link">
+  <a href="#421-21_1" class="md-nav__link">
     <span class="md-ellipsis">
-      4.2 行列を用いた計算例
+      4.2.1 2元連立1次方程式の幾何学的解釈 (続き)
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-31" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.2 3元連立1次方程式の幾何学的解釈
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3613,17 +3464,44 @@
         <li class="md-nav__item">
   <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. 演習問題
+      5. 健康データにおける連立一次方程式の応用
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. 演習問題">
+    <nav class="md-nav" aria-label="5. 健康データにおける連立一次方程式の応用">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#51" class="md-nav__link">
     <span class="md-ellipsis">
-      5.1 基本問題
+      5.1 薬物動態モデル
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 栄養素バランスの最適化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      応用問題
     </span>
   </a>
   
@@ -3631,6 +3509,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめと次回予告
+    </span>
+  </a>
   
 </li>
       
@@ -3649,315 +3536,379 @@
                   
 
 
-<h1 id="i-8">線形代数学 I データサイエンス基礎 第8回講義ノート</h1>
-<h2 id="1">1. 講義情報と予習ガイド</h2>
-<p><strong>本講義の学習目標</strong></p>
+<!-- header: 'T. Nakamura | Juntendo Univ.' -->
+<!-- footer: '2025/02/08' -->
+<style>
+section { 
+    font-size: 20px; 
+}
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+/* ページ番号 */
+section::after {
+    content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+    fonr-size: 60%;
+}
+/* 発表会名 */
+header {
+    width: 100%;
+    position: absolute;
+    top: unset;
+    bottom: 21px;
+    left: 0;
+    text-align: center;
+    font-size: 60%;
+}
+/* 日付 */
+footer {
+    text-align: center;
+    font-size: 15px;
+}
+</style>
+
+<!--
+_class: lead
+_paginate: false
+-->
+
+<p><img alt="bg left:50% 80%" src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png" /></p>
+<h1 id="i-10">線形代数学 I: 第10回講義</h1>
+<h2 id="1">連立1次方程式</h2>
+<h3 id="_1">中村 知繁</h3>
+<p>はい、承知いたしました。元の講義内容（ガウスの消去法の詳細説明は含めず、次回扱うという前提）をMarp形式の講義スライドに変換します。</p>
+<hr />
+<h2 id="1_1">1. 講義情報と予習ガイド</h2>
+<ul>
+<li><strong>講義回</strong>: 第10回</li>
+<li><strong>関連項目</strong>: 連立一次方程式、行列表現、解法の基礎</li>
+<li><strong>予習すべき内容</strong>:<ul>
+<li>行列の基本演算（第4-6回）</li>
+<li>ベクトルと行列の関係（第7-8回）</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="2">2. 学習目標</h2>
+<p>本講義の終了時には、以下のことができるようになることを目指します：</p>
+<ol>
+<li>連立一次方程式の行列表現ができるようになる</li>
+<li>連立一次方程式の幾何学的意味を理解する</li>
+<li>連立一次方程式の基本的な解法を習得する</li>
+<li>連立一次方程式の解の種類とその特徴を理解する</li>
+</ol>
+<hr />
+<h2 id="3">3. 基本概念</h2>
+<h3 id="31">3.1 連立一次方程式とは</h3>
+<blockquote>
+<p><strong>定義</strong>: 連立一次方程式とは、複数の一次方程式（変数の次数が全て1次である方程式）を同時に満たす解を求める問題です。</p>
+</blockquote>
+<p>一般的な形式：
+$$
+\begin{cases}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2\
+\vdots\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m
+\end{cases}
+$$
+ここで、<span class="arithmatex">\(a_{ij}\)</span>は係数、<span class="arithmatex">\(x_j\)</span>は未知変数、<span class="arithmatex">\(b_i\)</span>は定数項です。
+<span class="arithmatex">\(m\)</span>は方程式の数、<span class="arithmatex">\(n\)</span>は未知変数の数を表します。</p>
+<hr />
+<h3 id="31_1">3.1 連立一次方程式とは (続き)</h3>
+<p><strong>例</strong>: 次の連立方程式を考えてみましょう。
+$$
+\begin{cases}
+2x + 3y = 8\
+4x - y = 2
+\end{cases}
+$$
+この連立方程式には2つの未知変数（<span class="arithmatex">\(x\)</span>と<span class="arithmatex">\(y\)</span>）と2つの方程式があります。</p>
+<hr />
+<h3 id="32">3.2 連立一次方程式の行列表現</h3>
+<p>連立一次方程式は行列とベクトルを用いて、より簡潔に表現することができます。</p>
+<blockquote>
+<p><strong>定義</strong>: <span class="arithmatex">\(m\)</span>個の方程式と<span class="arithmatex">\(n\)</span>個の未知数からなる連立一次方程式は、次の行列方程式で表すことができます。
+<span class="arithmatex">\(<span class="arithmatex">\(A\mathbf{x} = \mathbf{b}\)</span>\)</span>
+ここで、<span class="arithmatex">\(A\)</span>は<span class="arithmatex">\(m \times n\)</span>の係数行列、<span class="arithmatex">\(\mathbf{x}\)</span>は<span class="arithmatex">\(n\)</span>次元の未知数ベクトル、<span class="arithmatex">\(\mathbf{b}\)</span>は<span class="arithmatex">\(m\)</span>次元の定数項ベクトルです。</p>
+</blockquote>
+<hr />
+<h3 id="32_1">3.2 連立一次方程式の行列表現 (続き)</h3>
+<p>具体的には：
+$$
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n}\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\
+a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
+\end{pmatrix}
+\begin{pmatrix}
+x_1\
+x_2\
+\vdots\
+x_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+b_1\
+b_2\
+\vdots\
+b_m
+\end{pmatrix}
+$$</p>
+<p><strong>例</strong>: 先ほどの連立方程式を行列表現すると：
+$$
+\begin{pmatrix}
+2 &amp; 3\
+4 &amp; -1
+\end{pmatrix}
+\begin{pmatrix}
+x\
+y
+\end{pmatrix}
+=
+\begin{pmatrix}
+8\
+2
+\end{pmatrix}
+$$
+これにより、複雑な連立方程式も簡潔に表現できます。</p>
+<hr />
+<h3 id="33">3.3 拡大係数行列</h3>
+<p>連立一次方程式を解く際には、「拡大係数行列」という概念が役立ちます。</p>
+<blockquote>
+<p><strong>定義</strong>: 拡大係数行列とは、係数行列<span class="arithmatex">\(A\)</span>に定数項ベクトル<span class="arithmatex">\(\mathbf{b}\)</span>を右側に追加した行列です。
+<span class="arithmatex">\(<span class="arithmatex">\([A|\mathbf{b}] =
+\begin{pmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; | &amp; b_1\\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; | &amp; b_2\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; | &amp; \vdots\\
+a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
+\end{pmatrix}\)</span>\)</span></p>
+</blockquote>
+<p><strong>例</strong>: 拡大係数行列の例
+<span class="arithmatex">\(<span class="arithmatex">\([A|\mathbf{b}] =
+\begin{pmatrix}
+2 &amp; 3 &amp; | &amp; 8\\
+4 &amp; -1 &amp; | &amp; 2
+\end{pmatrix}\)</span>\)</span>
+拡大係数行列は、連立方程式を解く際のガウスの消去法などで特に重要になります。</p>
+<hr />
+<h3 id="41">4.1 連立一次方程式の解法</h3>
+<p>連立一次方程式を解くための基本的な方法には、以下のものがあります：</p>
+<ol>
+<li><strong>代入法</strong>: 一つの方程式から変数を他の変数で表し、それを他の方程式に代入する方法</li>
+<li><strong>加減法</strong>: 複数の方程式を加えたり引いたりして変数を消去する方法</li>
+<li><strong>行列の逆行列を用いる方法</strong>: <span class="arithmatex">\(A\mathbf{x} = \mathbf{b}\)</span> から <span class="arithmatex">\(\mathbf{x} = A^{-1}\mathbf{b}\)</span> を求める方法</li>
+<li><strong>ガウスの消去法</strong>: 行の基本変形を用いて上三角行列または行簡約形に変形する方法
+    （※ガウスの消去法の詳細は次回扱います）</li>
+</ol>
+<p>ここでは、1～3の方法について具体例を用いて説明します。</p>
+<hr />
+<h4 id="411">4.1.1 代入法</h4>
+<p><strong>例</strong>: 次の連立方程式を代入法で解きます。
+$$
+\begin{cases}
+2x + 3y = 8\
+4x - y = 2
+\end{cases}
+$$
+<strong>解法</strong>:
+1. 2番目の方程式から<span class="arithmatex">\(y\)</span>について解きます：<span class="arithmatex">\(y = 4x - 2\)</span>
+2. この<span class="arithmatex">\(y\)</span>の式を1番目の方程式に代入します：<span class="arithmatex">\(2x + 3(4x - 2) = 8\)</span>
+3. 整理します：<span class="arithmatex">\(2x + 12x - 6 = 8\)</span>
+4. さらに整理：<span class="arithmatex">\(14x = 14\)</span>
+5. よって<span class="arithmatex">\(x = 1\)</span>
+6. <span class="arithmatex">\(x = 1\)</span>を<span class="arithmatex">\(y = 4x - 2\)</span>に代入：<span class="arithmatex">\(y = 4 \cdot 1 - 2 = 2\)</span>
+7. 解は<span class="arithmatex">\((x, y) = (1, 2)\)</span>です。</p>
+<hr />
+<h4 id="412">4.1.2 加減法</h4>
+<p><strong>例</strong>: 同じ連立方程式を加減法で解きます。
+$$
+\begin{cases}
+2x + 3y = 8 \quad \ldots (1)\
+4x - y = 2 \quad \ldots (2)
+\end{cases}
+$$
+<strong>解法</strong>:
+1. 方程式(1)の両辺を2倍します：<span class="arithmatex">\(4x + 6y = 16 \quad \ldots (1')\)</span>
+2. 方程式(1')から方程式(2)を引きます：<span class="arithmatex">\((4x + 6y) - (4x - y) = 16 - 2 \Rightarrow 7y = 14\)</span>
+3. よって<span class="arithmatex">\(y = 2\)</span>
+4. <span class="arithmatex">\(y = 2\)</span>を方程式(2)に代入：<span class="arithmatex">\(4x - 2 = 2 \Rightarrow 4x = 4\)</span>
+5. よって<span class="arithmatex">\(x = 1\)</span>
+6. 解は<span class="arithmatex">\((x, y) = (1, 2)\)</span>です。</p>
+<hr />
+<h4 id="413">4.1.3 行列の逆行列を用いる方法</h4>
+<p><strong>例</strong>: 同じ連立方程式を行列の逆行列を用いて解きます。
+<span class="arithmatex">\(A\mathbf{x} = \mathbf{b}\)</span>
+ここで、
+<span class="arithmatex">\(<span class="arithmatex">\(A = \begin{pmatrix} 2 &amp; 3\\ 4 &amp; -1 \end{pmatrix}, \quad
+\mathbf{x} = \begin{pmatrix} x\\ y \end{pmatrix}, \quad
+\mathbf{b} = \begin{pmatrix} 8\\ 2 \end{pmatrix}\)</span>\)</span>
+<strong>解法</strong>:
+1. <span class="arithmatex">\(A\)</span>の逆行列<span class="arithmatex">\(A^{-1}\)</span>を求めます。
+   <span class="arithmatex">\(\det(A) = 2 \cdot (-1) - 3 \cdot 4 = -2 - 12 = -14\)</span>
+   <span class="arithmatex">\(<span class="arithmatex">\(A^{-1} = \frac{1}{\det(A)} \begin{pmatrix} -1 &amp; -3\\ -4 &amp; 2 \end{pmatrix} = \frac{1}{-14} \begin{pmatrix} -1 &amp; -3\\ -4 &amp; 2 \end{pmatrix} = \begin{pmatrix} \frac{1}{14} &amp; \frac{3}{14}\\ \frac{4}{14} &amp; -\frac{2}{14} \end{pmatrix}\)</span>\)</span></p>
+<ol>
+<li><span class="arithmatex">\(\mathbf{x} = A^{-1}\mathbf{b}\)</span>より：</li>
+</ol>
+<p><span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x} = \begin{pmatrix} \frac{1}{14} &amp; \frac{3}{14}\\ \frac{4}{14} &amp; -\frac{2}{14} \end{pmatrix}\begin{pmatrix} 8\\ 2 \end{pmatrix}= \begin{pmatrix} \frac{1}{14} \cdot 8 + \frac{3}{14} \cdot 2\\ \frac{4}{14} \cdot 8 + (-\frac{2}{14}) \cdot 2 \end{pmatrix}= \begin{pmatrix} \frac{8 + 6}{14}\\ \frac{32 - 4}{14} \end{pmatrix} = \begin{pmatrix} \frac{14}{14}\\ \frac{28}{14} \end{pmatrix} = \begin{pmatrix} 1\\ 2 \end{pmatrix}\)</span>\)</span></p>
+<ol>
+<li>解は<span class="arithmatex">\((x, y) = (1, 2)\)</span>です。</li>
+</ol>
+<hr />
+<h4 id="413_1">4.1.3 行列の逆行列を用いる方法 (続き)</h4>
+<p><em>注意</em> : この方法は係数行列 <span class="arithmatex">\(A\)</span> が正方行列で、かつ逆行列 <span class="arithmatex">\(A^{-1}\)</span> が存在する場合にのみ適用可能です。*</p>
+<hr />
+<h3 id="42">4.2 連立一次方程式の幾何学的解釈</h3>
+<h4 id="421-21">4.2.1 2元連立1次方程式の幾何学的解釈</h4>
+<p>2元連立1次方程式は平面上の直線として解釈できます。
+- 各方程式は平面上の1本の直線を表します
+- 連立方程式の解は、これらの直線の交点に対応します</p>
+<p><strong>例</strong>: 先ほどの連立方程式の幾何学的解釈
+$$
+\begin{cases}
+2x + 3y = 8 \quad \ldots \text{直線1}\
+4x - y = 2 \quad \ldots \text{直線2}
+\end{cases}
+$$
+この2つの直線は点<span class="arithmatex">\((1, 2)\)</span>で交わります。 (図を挿入推奨)</p>
+<hr />
+<h4 id="421-21_1">4.2.1 2元連立1次方程式の幾何学的解釈 (続き)</h4>
+<p>連立方程式の解の存在については、次の3つのケースがあります：</p>
+<ol>
+<li><strong>唯一解</strong>: 2つの直線が1点で交わる（一般的なケース）
+    <img alt="height:150px" src="https://via.placeholder.com/300x150/E8E8E8/B0B0B0?text=Intersecting+Lines" /></li>
+<li><strong>無数の解</strong>: 2つの直線が一致する（無限個の解）
+    <img alt="height:150px" src="https://via.placeholder.com/300x150/E8E8E8/B0B0B0?text=Coincident+Lines" /></li>
+<li><strong>解なし</strong>: 2つの直線が平行で交わらない
+    <img alt="height:150px" src="https://via.placeholder.com/300x150/E8E8E8/B0B0B0?text=Parallel+Lines" /></li>
+</ol>
+<hr />
+<h4 id="422-31">4.2.2 3元連立1次方程式の幾何学的解釈</h4>
+<p>3元連立1次方程式は3次元空間内の平面として解釈できます。</p>
+<ul>
+<li>各方程式は3次元空間内の1つの平面を表します</li>
+<li>連立方程式の解は、これらの平面の共通部分（交点や交線）に対応します</li>
+</ul>
+<p>連立方程式の解の存在については、次のケースなどがあります：
+1.  <strong>唯一解</strong>: 3つの平面が1点で交わる
+2.  <strong>無数の解</strong>: 3つの平面が一直線または平面で交わる
+3.  <strong>解なし</strong>: 3つの平面に共通部分がない</p>
+<hr />
+<h2 id="5">5. 健康データにおける連立一次方程式の応用</h2>
+<p>健康データ分析において、連立一次方程式はさまざまな場面で活用されます。</p>
+<h3 id="51">5.1 薬物動態モデル</h3>
+<p>薬物動態学では、薬物が体内でどのように吸収、分布、代謝、排泄されるかを数学的にモデル化します。最も基本的なコンパートメントモデルでは、その定常状態解析に連立一次方程式が必要になります。</p>
+<p><strong>例</strong>: 2コンパートメントモデル
+ある薬物が血液（コンパートメント1）と組織（コンパートメント2）の間で移動する定常状態モデル：
+$$
+\begin{cases}
+k_{12}x_1 - k_{21}x_2 = 0\
+x_1 + x_2 = D
+\end{cases}
+$$
+<span class="arithmatex">\(k_{12}\)</span>: 血液から組織への移行速度定数
+<span class="arithmatex">\(k_{21}\)</span>: 組織から血液への移行速度定数
+<span class="arithmatex">\(D\)</span>: 投与された薬物の総量</p>
+<hr />
+<h3 id="52">5.2 栄養素バランスの最適化</h3>
+<p>栄養計画では、複数の栄養素要件を満たす食事の組み合わせを求める問題があります。これは連立一次方程式（または制約条件によっては連立一次不等式）として表現できます。</p>
+<p><strong>例</strong>: 3種類の食品から2種類の栄養素要件を満たす問題</p>
+<div class="arithmatex">\[
+\begin{cases}
+a_{11}x_1 + a_{12}x_2 + a_{13}x_3 = b_1\\
+a_{21}x_1 + a_{22}x_2 + a_{23}x_3 = b_2
+\end{cases}
+\]</div>
+<p><span class="arithmatex">\(a_{ij}\)</span>: 食品<span class="arithmatex">\(j\)</span>に含まれる栄養素<span class="arithmatex">\(i\)</span>の量
+<span class="arithmatex">\(x_j\)</span>: 食品<span class="arithmatex">\(j\)</span>の摂取量
+<span class="arithmatex">\(b_i\)</span>: 栄養素<span class="arithmatex">\(i\)</span>の必要量</p>
+<hr />
+<h3 id="_2">基本問題</h3>
+<ol>
+<li>次の連立方程式を解きなさい。</li>
+</ol>
+<div class="arithmatex">\[
+\begin{cases}
+3x + 2y = 7\\
+x - 4y = 9
+\end{cases}
+\]</div>
 <ol>
 <li>
-<p>2次元データの共分散と相関係数の概念を理解する</p>
+<p>次の連立方程式を行列表現しなさい。</p>
+<p>$$\begin{cases}
+2x - 3y + z = 7\
+5x + y - 2z = 4\
+-x + 4y + 3z = 10
+\end{cases}</p>
 </li>
 <li>
-<p>行列とベクトルを用いた共分散の計算方法を習得する</p>
-</li>
-<li>
-<p>行列とベクトルを用いた相関係数の計算方法を習得する</p>
+<p>次の連立方程式を解きなさい。</p>
+<div class="arithmatex">\[\begin{cases}
+x + 2y + 3z = 14\\
+2x - y + z = 4\\
+3x + y - z = 2
+\end{cases}
+\]</div>
 </li>
 </ol>
-<p><strong>スライド</strong>
-スライドは<a href="../slides/08-vector-and-matrix-slide.pdf">こちら</a>から。</p>
-<p><strong>問題</strong>は<a href="../exercise/exercise3.pdf">こちら</a>から</p>
-<h2 id="2">2. 基本概念</h2>
-<h3 id="21-2">2.1 2次元データとは</h3>
-<p>2次元データとは、各観測対象に対して2つの変数の値が記録されているデータのことです。例えば：</p>
+<hr />
+<ol>
+<li>
+<p>次の行列方程式を解きなさい。</p>
+<div class="arithmatex">\[
+\begin{pmatrix} 2 &amp; 5\\ 1 &amp; 3 \end{pmatrix} \begin{pmatrix} x\\ y \end{pmatrix}
+= \begin{pmatrix}
+16\\
+10
+\end{pmatrix}\]</div>
+</li>
+</ol>
+<hr />
+<h3 id="_3">応用問題</h3>
+<ol>
+<li>
+<p>次の連立方程式の解の存在と一意性を判定し、解が存在する場合は求めなさい。</p>
+<div class="arithmatex">\[\begin{cases}
+2x + 4y = 6\\
+x + 2y = 3
+\end{cases}
+\]</div>
+</li>
+<li>
+<p>次の連立方程式の解の存在と一意性を判定し、解が存在する場合は求めなさい。</p>
+<div class="arithmatex">\[\begin{cases}
+2x + 4y = 6\\
+x + 2y = 4
+\end{cases}
+\]</div>
+</li>
+</ol>
+<h2 id="_4">まとめと次回予告</h2>
+<p><strong>今回のまとめ</strong></p>
 <ul>
-<li>学生の身長と体重</li>
-<li>都市の気温と降水量</li>
-<li>商品の価格と販売数</li>
+<li>連立一次方程式の定義と行列表現</li>
+<li>拡大係数行列</li>
+<li>基本的な解法（代入法、加減法、逆行列）</li>
+<li>解の幾何学的解釈</li>
+<li>健康データへの応用例</li>
 </ul>
-<p>2次元データは、<span class="arithmatex">\((x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\)</span> のような形式で表されます。ここで:
-- <span class="arithmatex">\(x_i\)</span>: <span class="arithmatex">\(i\)</span>番目のデータの第1変数の値
-- <span class="arithmatex">\(y_i\)</span>: <span class="arithmatex">\(i\)</span>番目のデータの第2変数の値
-- <span class="arithmatex">\(n\)</span>: データ数</p>
-<h3 id="22">2.2 共分散の定義</h3>
-<blockquote>
-<p><strong>定義</strong>: 2つの変数 <span class="arithmatex">\(X\)</span> と <span class="arithmatex">\(Y\)</span> の共分散 <span class="arithmatex">\(\mathrm{Cov}(X,Y)\)</span> は、各変数の平均からの偏差の積の平均として定義されます。</p>
-</blockquote>
-<div class="arithmatex">\[\mathrm{Cov}(X,Y) = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})\]</div>
-<blockquote>
-<p>ここで、<span class="arithmatex">\(\bar{x}\)</span> と <span class="arithmatex">\(\bar{y}\)</span> はそれぞれ変数 <span class="arithmatex">\(X\)</span> と <span class="arithmatex">\(Y\)</span> の平均値です。</p>
-</blockquote>
-<p>共分散は2つの変数の関連性を測る指標であり、以下のような性質を持ちます:</p>
+<p><strong>次回予告</strong></p>
 <ul>
-<li><span class="arithmatex">\(\mathrm{Cov}(X,Y) &gt; 0\)</span> : <span class="arithmatex">\(X\)</span> が大きくなると <span class="arithmatex">\(Y\)</span> も大きくなる傾向（正の相関）</li>
-<li><span class="arithmatex">\(\mathrm{Cov}(X,Y) &lt; 0\)</span> : <span class="arithmatex">\(X\)</span> が大きくなると <span class="arithmatex">\(Y\)</span> は小さくなる傾向（負の相関）</li>
-<li><span class="arithmatex">\(\mathrm{Cov}(X,Y) \approx 0\)</span> : <span class="arithmatex">\(X\)</span> と <span class="arithmatex">\(Y\)</span> に明確な関連がない（無相関）</li>
-<li><span class="arithmatex">\(\mathrm{Cov}(X,X) = \mathrm{Var}(X)\)</span> : 変数自身との共分散は分散に等しい</li>
+<li>連立一次方程式のより系統的な解法である「<strong>ガウスの消去法</strong>」について詳しく学びます。</li>
 </ul>
-<h3 id="23">2.3 相関係数の定義</h3>
-<p>共分散は変数のスケールに依存するため、変数間の関連性を標準化した指標として相関係数があります。</p>
-<blockquote>
-<p><strong>定義</strong>: 2つの変数 <span class="arithmatex">\(X\)</span> と <span class="arithmatex">\(Y\)</span> の相関係数 <span class="arithmatex">\(\rho_{XY}\)</span> は次のように定義されます。</p>
-</blockquote>
-<div class="arithmatex">\[\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y}\]</div>
-<blockquote>
-<p>ここで、<span class="arithmatex">\(\sigma_X\)</span> と <span class="arithmatex">\(\sigma_Y\)</span> はそれぞれ変数 <span class="arithmatex">\(X\)</span> と <span class="arithmatex">\(Y\)</span> の標準偏差です。</p>
-</blockquote>
-<p>相関係数の性質:</p>
-<ul>
-<li><span class="arithmatex">\(-1 \leq \rho_{XY} \leq 1\)</span></li>
-<li><span class="arithmatex">\(\rho_{XY} = 1\)</span> : 完全な正の相関（直線的な比例関係）</li>
-<li><span class="arithmatex">\(\rho_{XY} = -1\)</span> : 完全な負の相関（直線的な反比例関係）</li>
-<li><span class="arithmatex">\(\rho_{XY} = 0\)</span> : 無相関（線形の関連性がない）</li>
-</ul>
-<h2 id="3">3. 共分散と相関行列の行列表示</h2>
-<h3 id="31">3.1 行列とベクトルによるデータ表現</h3>
-<p>2次元データを行列とベクトルで表現しましょう。</p>
-<p>まず、データを以下のようにベクトルで表します:
-- <span class="arithmatex">\(\mathbf{x} = [x_1, x_2, \ldots, x_n]^T\)</span> : 第1変数の値を集めたベクトル
-- <span class="arithmatex">\(\mathbf{y} = [y_1, y_2, \ldots, y_n]^T\)</span> : 第2変数の値を集めたベクトル</p>
-<p>または、データ行列 <span class="arithmatex">\(\mathbf{X}\)</span> として以下のように表すこともできます:</p>
-<div class="arithmatex">\[\mathbf{X} = 
-\begin{bmatrix} 
-x_1 &amp; y_1 \\
-x_2 &amp; y_2 \\
-\vdots &amp; \vdots \\
-x_n &amp; y_n
-\end{bmatrix}\]</div>
-<h3 id="32">3.2 行列とベクトルを用いた共分散の計算</h3>
-<p>ベクトル表記を用いた共分散の計算方法を示します。</p>
-<p>まず、各変数の平均ベクトルを求めます:</p>
-<ul>
-<li>
-<p><span class="arithmatex">\(\bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_i\)</span> : 第1変数の平均</p>
-</li>
-<li>
-<p><span class="arithmatex">\(\bar{y} = \frac{1}{n}\sum_{i=1}^{n}y_i\)</span> : 第2変数の平均</p>
-</li>
-</ul>
-<p>偏差ベクトルを定義します:</p>
-<ul>
-<li>
-<p><span class="arithmatex">\(\mathbf{x}_{dev} = \mathbf{x} - \bar{x}\mathbf{1}\)</span> : 第1変数の偏差ベクトル</p>
-</li>
-<li>
-<p><span class="arithmatex">\(\mathbf{y}_{dev} = \mathbf{y} - \bar{y}\mathbf{1}\)</span> : 第2変数の偏差ベクトル</p>
-</li>
-</ul>
-<p>ここで、<span class="arithmatex">\(\mathbf{1}\)</span> は全ての要素が1である長さ <span class="arithmatex">\(n\)</span> のベクトルです。</p>
-<p>このとき、共分散は次のように計算されます:</p>
-<div class="arithmatex">\[\mathrm{Cov}(X,Y) = \frac{1}{n}\mathbf{x}_{dev}^T\mathbf{y}_{dev}\]</div>
-<h3 id="33">3.3 行列とベクトルを用いた相関係数の計算</h3>
-<p>相関係数は、共分散を各変数の標準偏差で除することで計算できます。</p>
-<p>各変数の分散を計算します:</p>
-<ul>
-<li>
-<p><span class="arithmatex">\(\mathrm{Var}(X) = \frac{1}{n}\mathbf{x}_{dev}^T\mathbf{x}_{dev}\)</span> : 第1変数の分散</p>
-</li>
-<li>
-<p><span class="arithmatex">\(\mathrm{Var}(Y) = \frac{1}{n}\mathbf{y}_{dev}^T\mathbf{y}_{dev}\)</span> : 第2変数の分散</p>
-</li>
-</ul>
-<p>標準偏差を計算します:</p>
-<ul>
-<li>
-<p><span class="arithmatex">\(\sigma_X = \sqrt{\mathrm{Var}(X)}\)</span> : 第1変数の標準偏差</p>
-</li>
-<li>
-<p><span class="arithmatex">\(\sigma_Y = \sqrt{\mathrm{Var}(Y)}\)</span> : 第2変数の標準偏差</p>
-</li>
-</ul>
-<p>相関係数は次の式で計算されます:</p>
-<div class="arithmatex">\[\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\mathbf{x}_{dev}^T\mathbf{y}_{dev}}{\sqrt{(\mathbf{x}_{dev}^T\mathbf{x}_{dev})(\mathbf{y}_{dev}^T\mathbf{y}_{dev})}}\]</div>
-<h3 id="44">4.4 共分散行列</h3>
-<p>多変量データを扱う際には、全ての変数のペアに対する共分散を含む共分散行列が重要になります。2変数 <span class="arithmatex">\(X\)</span> と <span class="arithmatex">\(Y\)</span> の場合、共分散行列 <span class="arithmatex">\(\mathbf{\Sigma}\)</span> は次のようになります:</p>
-<div class="arithmatex">\[\mathbf{\Sigma} = 
-\begin{bmatrix} 
-\mathrm{Var}(X) &amp; \mathrm{Cov}(X,Y) \\
-\mathrm{Cov}(X,Y) &amp; \mathrm{Var}(Y)
-\end{bmatrix}\]</div>
-<p>一般に、データ行列 <span class="arithmatex">\(\mathbf{X}\)</span> の各列が変数を表す場合、共分散行列は以下のように計算できます:</p>
-<div class="arithmatex">\[\mathbf{\Sigma} = \frac{1}{n}(\mathbf{X} - \mathbf{1}\boldsymbol{\mu}^T)^T(\mathbf{X} - \mathbf{1}\boldsymbol{\mu}^T)\]</div>
-<p>ここで、<span class="arithmatex">\(\boldsymbol{\mu}\)</span> は各変数の平均値を含むベクトルです。</p>
-<h2 id="4">4. 計算例と実装</h2>
-<h3 id="41">4.1 数値例: 共分散と相関係数の計算</h3>
-<p>以下の5つのデータポイントに対して共分散と相関係数を計算してみましょう:</p>
-<table>
-<thead>
-<tr>
-<th>データ番号</th>
-<th><span class="arithmatex">\(X\)</span> (身長 cm)</th>
-<th><span class="arithmatex">\(Y\)</span> (体重 kg)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>160</td>
-<td>55</td>
-</tr>
-<tr>
-<td>2</td>
-<td>170</td>
-<td>65</td>
-</tr>
-<tr>
-<td>3</td>
-<td>180</td>
-<td>75</td>
-</tr>
-<tr>
-<td>4</td>
-<td>165</td>
-<td>60</td>
-</tr>
-<tr>
-<td>5</td>
-<td>175</td>
-<td>70</td>
-</tr>
-</tbody>
-</table>
-<p><strong>ステップ1</strong>: 各変数の平均を計算します。
-- <span class="arithmatex">\(\bar{x} = \frac{160 + 170 + 180 + 165 + 175}{5} = 170\)</span>
-- <span class="arithmatex">\(\bar{y} = \frac{55 + 65 + 75 + 60 + 70}{5} = 65\)</span></p>
-<p><strong>ステップ2</strong>: 各データポイントの偏差を計算します。</p>
-<table>
-<thead>
-<tr>
-<th>データ番号</th>
-<th><span class="arithmatex">\(x_i - \bar{x}\)</span></th>
-<th><span class="arithmatex">\(y_i - \bar{y}\)</span></th>
-<th><span class="arithmatex">\((x_i - \bar{x})(y_i - \bar{y})\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>-10</td>
-<td>-10</td>
-<td>100</td>
-</tr>
-<tr>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>3</td>
-<td>10</td>
-<td>10</td>
-<td>100</td>
-</tr>
-<tr>
-<td>4</td>
-<td>-5</td>
-<td>-5</td>
-<td>25</td>
-</tr>
-<tr>
-<td>5</td>
-<td>5</td>
-<td>5</td>
-<td>25</td>
-</tr>
-</tbody>
-</table>
-<p><strong>ステップ3</strong>: 共分散を計算します。</p>
-<div class="arithmatex">\[\mathrm{Cov}(X,Y) = \frac{100 + 0 + 100 + 25 + 25}{5} = \frac{250}{5} = 50\]</div>
-<p><strong>ステップ4</strong>: 各変数の分散と標準偏差を計算します。</p>
-<div class="arithmatex">\[\mathrm{Var}(X) = \frac{(-10)^2 + 0^2 + 10^2 + (-5)^2 + 5^2}{5} = \frac{250}{5} = 50\]</div>
-<div class="arithmatex">\[\mathrm{Var}(Y) = \frac{(-10)^2 + 0^2 + 10^2 + (-5)^2 + 5^2}{5} = \frac{250}{5} = 50\]</div>
-<div class="arithmatex">\[\sigma_X = \sqrt{50} = 7.07\]</div>
-<div class="arithmatex">\[\sigma_Y = \sqrt{50} = 7.07\]</div>
-<p><strong>ステップ5</strong>: 相関係数を計算します。</p>
-<div class="arithmatex">\[\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{50}{7.07 \times 7.07} = \frac{50}{50} = 1\]</div>
-<p>この例では、相関係数が1であり、身長と体重の間に完全な正の線形相関があることを示しています。</p>
-<h3 id="42">4.2 行列を用いた計算例</h3>
-<p>同じデータを行列形式で表現し、計算してみましょう。</p>
-<div class="arithmatex">\[x = [160, 170, 180, 165, 175]^T$$
-$$y = [55, 65, 75, 60, 70]^T\]</div>
-<p><strong>ステップ1</strong>: 各変数の平均値ベクトルを計算します。
-- <span class="arithmatex">\(\bar{x} = 170\)</span>
-- <span class="arithmatex">\(\bar{y} = 65\)</span></p>
-<p><strong>ステップ2</strong>: 偏差ベクトルを計算します。</p>
-<div class="arithmatex">\[\mathbf{x}_{dev} = [160-170, 170-170, 180-170, 165-170, 175-170]^T = [-10, 0, 10, -5, 5]^T\]</div>
-<div class="arithmatex">\[\mathbf{y}_{dev} = [55-65, 65-65, 75-65, 60-65, 70-65]^T = [-10, 0, 10, -5, 5]^T\]</div>
-<p><strong>ステップ3</strong>: 共分散を計算します。</p>
-<div class="arithmatex">\[\mathrm{Cov}(X,Y) = \frac{1}{5}\mathbf{x}_{dev}^T\mathbf{y}_{dev} = \frac{1}{5}((-10) \times (-10) + 0 \times 0 + 10 \times 10 + (-5) \times (-5) + 5 \times 5) = \frac{250}{5} = 50\]</div>
-<p><strong>ステップ4</strong>: 分散を計算します。</p>
-<div class="arithmatex">\[\mathrm{Var}(X) = \frac{1}{5}\mathbf{x}_{dev}^T\mathbf{x}_{dev} = \frac{1}{5}((-10)^2 + 0^2 + 10^2 + (-5)^2 + 5^2) = \frac{250}{5} = 50\]</div>
-<div class="arithmatex">\[\mathrm{Var}(Y) = \frac{1}{5}\mathbf{y}_{dev}^T\mathbf{y}_{dev} = \frac{1}{5}((-10)^2 + 0^2 + 10^2 + (-5)^2 + 5^2) = \frac{250}{5} = 50\]</div>
-<p><strong>ステップ5</strong>: 相関係数を計算します。</p>
-<div class="arithmatex">\[\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sqrt{\mathrm{Var}(X) \times \mathrm{Var}(Y)}} = \frac{50}{\sqrt{50 \times 50}} = \frac{50}{50} = 1\]</div>
-<h2 id="5">5. 演習問題</h2>
-<h3 id="51">5.1 基本問題</h3>
-<p><strong>問題1</strong>: 以下のデータについて、共分散と相関係数を手計算で求めなさい。</p>
-<table>
-<thead>
-<tr>
-<th>学生</th>
-<th>テスト点数 <span class="arithmatex">\((X)\)</span></th>
-<th>勉強時間 <span class="arithmatex">\((Y)\)</span> (時間)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>85</td>
-<td>10</td>
-</tr>
-<tr>
-<td>B</td>
-<td>70</td>
-<td>7</td>
-</tr>
-<tr>
-<td>C</td>
-<td>90</td>
-<td>12</td>
-</tr>
-<tr>
-<td>D</td>
-<td>65</td>
-<td>6</td>
-</tr>
-<tr>
-<td>E</td>
-<td>80</td>
-<td>9</td>
-</tr>
-</tbody>
-</table>
-<p><strong>問題2</strong>: 以下の2セットのデータの相関係数を比較しなさい。また、その結果からどのような解釈ができるか説明しなさい。</p>
-<p>データセット1:
-<div class="highlight"><pre><span></span><code>X: [1, 2, 3, 4, 5]
-Y: [2, 4, 6, 8, 10]
-</code></pre></div></p>
-<p>データセット2:
-<div class="highlight"><pre><span></span><code>X: [1, 2, 3, 4, 5]
-Y: [5, 4, 3, 2, 1]
-</code></pre></div></p>
-<p><strong>問題3</strong>: 共分散行列が以下のように与えられている場合、相関行列を求めなさい。</p>
-<div class="arithmatex">\[\mathbf{\Sigma} = 
-\begin{bmatrix} 
-16 &amp; 12 \\
-12 &amp; 25
-\end{bmatrix}\]</div>
-<p><strong>問題4</strong>: あるクラスの10人の学生について、数学のテスト点数 <span class="arithmatex">\((X)\)</span>、英語のテスト点数 <span class="arithmatex">\((Y)\)</span>、勉強時間 <span class="arithmatex">\((Z)\)</span> （時間/週）のデータが以下のように得られた。</p>
-<div class="highlight"><pre><span></span><code>数学: [85, 70, 90, 65, 80, 75, 95, 60, 85, 75]
-英語: [80, 75, 85, 70, 75, 80, 90, 65, 80, 70]
-勉強時間: [10, 7, 12, 6, 9, 8, 14, 5, 11, 8]
-</code></pre></div>
-<p>(1) 3つの変数の共分散行列を計算しなさい。</p>
-<p>(2) 3つの変数の相関行列を計算しなさい。</p>
-<p>(3) 数学の点数と英語の点数の関係、数学の点数と勉強時間と勉強量の関係、英語の点数と勉強時間の関係を比較し、それぞれの相関の強さについて考察しなさい。</p>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -4003,12 +3954,12 @@ Y: [5, 4, 3, 2, 1]
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
