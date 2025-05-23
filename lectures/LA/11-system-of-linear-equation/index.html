@@ -3706,37 +3706,37 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
 <li><strong>行の交換（Row Exchange）</strong>:
    行列の2つの行を入れ替える操作です。例えば、以下の行列の第1行と第2行を交換すると:</li>
 </ol>
-<p>$$
-   \begin{pmatrix}
-   1 &amp; 2 &amp; 3 \\
-   4 &amp; 5 &amp; 6 \\
-   7 &amp; 8 &amp; 9
-   \end{pmatrix} 
-   \rightarrow
-   \begin{pmatrix}
-   4 &amp; 5 &amp; 6 \\
-   1 &amp; 2 &amp; 3 \\
-   7 &amp; 8 &amp; 9
-   \end{pmatrix}
-   $$</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\\
+4 &amp; 5 &amp; 6 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix} 
+\rightarrow
+\begin{pmatrix}
+4 &amp; 5 &amp; 6 \\\
+1 &amp; 2 &amp; 3 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\]</div>
 <p>このような操作は連立方程式の解には影響しません。なぜなら、方程式の順序を入れ替えただけで、方程式の内容自体は変わっていないからです。</p>
 <ol>
 <li><strong>行のスカラー倍（Row Scaling）</strong>:
    行列のある行の全ての要素を0でない定数倍する操作です。例えば、以下の行列の第2行を2倍すると:</li>
 </ol>
-<p>$$
-   \begin{pmatrix}
-   1 &amp; 2 &amp; 3 \\
-   4 &amp; 5 &amp; 6 \\
-   7 &amp; 8 &amp; 9
-   \end{pmatrix}
-   \rightarrow
-   \begin{pmatrix}
-   1 &amp; 2 &amp; 3 \\
-   8 &amp; 10 &amp; 12 \\
-   7 &amp; 8 &amp; 9
-   \end{pmatrix}
-   $$</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\\
+4 &amp; 5 &amp; 6 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\rightarrow
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\\
+8 &amp; 10 &amp; 12 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\]</div>
 <p>これは連立方程式では、2番目の方程式の両辺を2倍することに相当します。例えば:</p>
 <div class="arithmatex">\[4x + 5y + 6z = 10 \quad \rightarrow \quad 8x + 10y + 12z = 20\]</div>
 <p>方程式の両辺を同じ定数倍しても、解は変わりません。</p>
@@ -3744,31 +3744,31 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
 <li><strong>行の加減（Row Addition）</strong>:
    ある行の定数倍を別の行に加える操作です。例えば、第1行の(-4)倍を第2行に加えると:</li>
 </ol>
-<p>$$
-   \begin{pmatrix}
-   1 &amp; 2 &amp; 3 \\
-   4 &amp; 5 &amp; 6 \\
-   7 &amp; 8 &amp; 9
-   \end{pmatrix}
-   \rightarrow
-   \begin{pmatrix}
-   1 &amp; 2 &amp; 3 \\
-   0 &amp; -3 &amp; -6 \\
-   7 &amp; 8 &amp; 9
-   \end{pmatrix}
-   $$</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\\
+4 &amp; 5 &amp; 6 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\rightarrow
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\\
+0 &amp; -3 &amp; -6 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\]</div>
 <p>これは連立方程式では、第1方程式の(-4)倍を第2方程式に加えることに相当します:</p>
-<p>$$
-   \begin{cases}
-   x + 2y + 3z = 10 \\
-   4x + 5y + 6z = 20
-   \end{cases}
-   \quad \rightarrow \quad
-   \begin{cases}
-   x + 2y + 3z = 10 \\
-   -3y - 6z = -20
-   \end{cases}
-   $$</p>
+<div class="arithmatex">\[
+\begin{cases}
+x + 2y + 3z = 10 \\\
+4x + 5y + 6z = 20
+\end{cases}
+\quad \rightarrow \quad
+\begin{cases}
+x + 2y + 3z = 10 \\\
+-3y - 6z = -20
+\end{cases}
+\]</div>
 <p>この操作により、第2方程式からx変数が消去されました。しかし、連立方程式全体としては同じ解を持ちます。</p>
 <p>これらの基本変形を組み合わせることで、行列を望ましい形（上三角形や対角形など）に変形することができます。例えば、以下の拡大係数行列を考えます:</p>
 <div class="arithmatex">\[
