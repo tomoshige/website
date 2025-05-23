@@ -3711,7 +3711,7 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
    1 &amp; 2 &amp; 3 \\
    4 &amp; 5 &amp; 6 \\
    7 &amp; 8 &amp; 9
-   \end{pmatrix}
+   \end{pmatrix} 
    \rightarrow
    \begin{pmatrix}
    4 &amp; 5 &amp; 6 \\
@@ -3726,19 +3726,19 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
 </ol>
 <p>$$
    \begin{pmatrix}
-   1 &amp; 2 &amp; 3 \
-   4 &amp; 5 &amp; 6 \
+   1 &amp; 2 &amp; 3 \\
+   4 &amp; 5 &amp; 6 \\
    7 &amp; 8 &amp; 9
    \end{pmatrix}
    \rightarrow
    \begin{pmatrix}
-   1 &amp; 2 &amp; 3 \
-   8 &amp; 10 &amp; 12 \
+   1 &amp; 2 &amp; 3 \\
+   8 &amp; 10 &amp; 12 \\
    7 &amp; 8 &amp; 9
    \end{pmatrix}
    $$</p>
 <p>これは連立方程式では、2番目の方程式の両辺を2倍することに相当します。例えば:</p>
-<p><span class="arithmatex">\(<span class="arithmatex">\(4x + 5y + 6z = 10 \quad \rightarrow \quad 8x + 10y + 12z = 20\)</span>\)</span></p>
+<div class="arithmatex">\[4x + 5y + 6z = 10 \quad \rightarrow \quad 8x + 10y + 12z = 20\]</div>
 <p>方程式の両辺を同じ定数倍しても、解は変わりません。</p>
 <ol>
 <li><strong>行の加減（Row Addition）</strong>:
@@ -3746,26 +3746,26 @@ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
 </ol>
 <p>$$
    \begin{pmatrix}
-   1 &amp; 2 &amp; 3 \
-   4 &amp; 5 &amp; 6 \
+   1 &amp; 2 &amp; 3 \\
+   4 &amp; 5 &amp; 6 \\
    7 &amp; 8 &amp; 9
    \end{pmatrix}
    \rightarrow
    \begin{pmatrix}
-   1 &amp; 2 &amp; 3 \
-   0 &amp; -3 &amp; -6 \
+   1 &amp; 2 &amp; 3 \\
+   0 &amp; -3 &amp; -6 \\
    7 &amp; 8 &amp; 9
    \end{pmatrix}
    $$</p>
 <p>これは連立方程式では、第1方程式の(-4)倍を第2方程式に加えることに相当します:</p>
 <p>$$
    \begin{cases}
-   x + 2y + 3z = 10 \
+   x + 2y + 3z = 10 \\
    4x + 5y + 6z = 20
    \end{cases}
    \quad \rightarrow \quad
    \begin{cases}
-   x + 2y + 3z = 10 \
+   x + 2y + 3z = 10 \\
    -3y - 6z = -20
    \end{cases}
    $$</p>
