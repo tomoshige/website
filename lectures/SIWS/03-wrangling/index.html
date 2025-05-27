@@ -2095,6 +2095,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3563,6 +3572,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3970,6 +3988,32 @@
 </tr>
 </tbody>
 </table>
+<h3 id="_7"></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># prompt: tips_df のデータから、day が &#39;Sat&#39; または &#39;Sun&#39; かつ、time が &#39;Dinner&#39;のデータに絞り込んだものを作りたいです。</span>
+
+<span class="n">tips_df_weekend_dinner</span> <span class="o">=</span> <span class="n">tips_df</span><span class="p">[</span>
+    <span class="p">((</span><span class="n">tips_df</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Sat&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">tips_df</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Sun&#39;</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tips_df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Dinner&#39;</span><span class="p">)</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># チップ率の計算</span>
+<span class="n">tips_df_weekend_dinner</span><span class="p">[</span><span class="s1">&#39;tip_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tips_df_weekend_dinner</span><span class="p">[</span><span class="s1">&#39;tip&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">tips_df_weekend_dinner</span><span class="p">[</span><span class="s1">&#39;total_bill&#39;</span><span class="p">]</span>
+
+<span class="c1"># 喫煙者/非喫煙者でグループ化し集計</span>
+<span class="n">smoker_summary</span> <span class="o">=</span> <span class="n">tips_df_weekend_dinner</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;smoker&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">avg_tip_rate</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tip_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
+    <span class="n">avg_total_bill</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
+    <span class="n">num_parties</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;smoker&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span> <span class="c1"># smokerを列に戻す</span>
+
+<span class="c1"># 平均チップ率で降順にソート</span>
+<span class="n">smoker_summary_sorted</span> <span class="o">=</span> <span class="n">smoker_summary</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;avg_tip_rate&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># 表示する列名を指定</span>
+<span class="n">smoker_summary_sorted</span> <span class="o">=</span> <span class="n">smoker_summary_sorted</span><span class="p">[[</span><span class="s1">&#39;smoker&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_tip_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_total_bill&#39;</span><span class="p">,</span> <span class="s1">&#39;num_parties&#39;</span><span class="p">]]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- 週末ディナータイムの喫煙者/非喫煙者別集計 ---&quot;</span><span class="p">)</span>
+<span class="n">smoker_summary_sorted</span>
+</code></pre></div>
 
 
 
