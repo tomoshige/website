@@ -12,28 +12,24 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/12-system-of-linear-equation/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/slides/12-system-of-linear-equation-slide/">
       
       
-        <link rel="prev" href="../11-system-of-linear-equation/">
       
       
-        <link rel="next" href="../13-system-of-linear-equation/">
-      
-      
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>12. System of Linear Equation 3 - Statistical Learning Laboratory</title>
+        <title>12 system of linear equation slide - Statistical Learning Laboratory</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -54,7 +50,7 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -94,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="ヘッダー">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              12. System of Linear Equation 3
+              12 system of linear equation slide
             
           </span>
         </div>
@@ -201,7 +197,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -231,7 +227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -248,8 +244,6 @@
       
   
   
-    
-  
   
   
     
@@ -273,16 +267,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -299,7 +293,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Lectures
@@ -312,8 +306,6 @@
                 
   
   
-    
-  
   
   
     
@@ -340,16 +332,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -366,7 +358,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Linear algebra
@@ -439,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01-introduction/" class="md-nav__link">
+      <a href="../../01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -460,7 +452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-vector-and-matrix/" class="md-nav__link">
+      <a href="../../02-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -481,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-vector-and-matrix/" class="md-nav__link">
+      <a href="../../03-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -502,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-vector-and-matrix/" class="md-nav__link">
+      <a href="../../04-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -523,7 +515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-vector-and-matrix/" class="md-nav__link">
+      <a href="../../05-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -544,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-vector-and-matrix/" class="md-nav__link">
+      <a href="../../06-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -565,7 +557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-vector-and-matrix/" class="md-nav__link">
+      <a href="../../07-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -586,7 +578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-vector-and-matrix/" class="md-nav__link">
+      <a href="../../08-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -607,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-exercise/" class="md-nav__link">
+      <a href="../../09-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -633,10 +625,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -667,11 +657,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
         
           
           <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
@@ -685,7 +675,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2_3">
             <span class="md-nav__icon md-icon"></span>
             Module 2 - System of Linear Equations
@@ -699,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../10-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -720,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../11-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../11-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -738,30 +728,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    12. System of Linear Equation 3
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../12-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -770,194 +740,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目次">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目次
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 講義情報と予習ガイド
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 学習目標
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 基本概念
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 基本概念">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 階段行列の定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 簡約階段行列の定義
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3 行列のランクの定義
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. 理論と手法
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. 理論と手法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 行基本変形による階段行列の導出方法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2 ランクの計算方法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#43" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3 簡約階段行列の一意性
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#44" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4 行列のランクと一次独立性の関係
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. 具体的な計算例
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. 具体的な計算例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      例題1: 階段行列への変形
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      例題2: 簡約階段行列への変形
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. 演習問題
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. 演習問題">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#61" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.1 基本問題
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -970,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../13-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../13-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -991,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../14-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../14-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1012,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../15-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../15-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1033,7 +815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../16-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../16-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1054,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../17-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../17-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1075,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../18-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../18-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1096,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../19-exercise/" class="md-nav__link">
+      <a href="../../19-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1117,7 +899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../20-midterm-exam/" class="md-nav__link">
+      <a href="../../20-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1195,7 +977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../21-determinant/" class="md-nav__link">
+      <a href="../../21-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1216,7 +998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../22-determinant/" class="md-nav__link">
+      <a href="../../22-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1237,7 +1019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../23-determinant/" class="md-nav__link">
+      <a href="../../23-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1258,7 +1040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../24-determinant/" class="md-nav__link">
+      <a href="../../24-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1279,7 +1061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../25-exercise/" class="md-nav__link">
+      <a href="../../25-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1359,7 +1141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../26-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../26-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1380,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../27-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../27-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1401,7 +1183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../28-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../28-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1422,7 +1204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../29-exercise/" class="md-nav__link">
+      <a href="../../29-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1443,7 +1225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../30-exercise/" class="md-nav__link">
+      <a href="../../30-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1464,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../31-exam/" class="md-nav__link">
+      <a href="../../31-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1550,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../32-eigen-value-vector/" class="md-nav__link">
+      <a href="../../32-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1571,7 +1353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../33-eigen-value-vector/" class="md-nav__link">
+      <a href="../../33-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1592,7 +1374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../34-eigen-value-vector/" class="md-nav__link">
+      <a href="../../34-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1613,7 +1395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../35-eigen-value-vector/" class="md-nav__link">
+      <a href="../../35-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1634,7 +1416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../36-eigen-value-vector/" class="md-nav__link">
+      <a href="../../36-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1655,7 +1437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../37-exercise/" class="md-nav__link">
+      <a href="../../37-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1676,7 +1458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../38-midterm-exam/" class="md-nav__link">
+      <a href="../../38-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1697,7 +1479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../39-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../39-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1718,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../40-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../40-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1802,7 +1584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../41-principal-component-analysis/" class="md-nav__link">
+      <a href="../../41-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1823,7 +1605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../42-principal-component-analysis/" class="md-nav__link">
+      <a href="../../42-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1844,7 +1626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../43-principal-component-analysis/" class="md-nav__link">
+      <a href="../../43-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1865,7 +1647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../44-factor-analysis/" class="md-nav__link">
+      <a href="../../44-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1886,7 +1668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../45-factor-analysis/" class="md-nav__link">
+      <a href="../../45-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1907,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../46-nonlinear-dimension-reduction/" class="md-nav__link">
+      <a href="../../46-nonlinear-dimension-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1928,7 +1710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../47-wrapup/" class="md-nav__link">
+      <a href="../../47-wrapup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1949,7 +1731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../48-exam/" class="md-nav__link">
+      <a href="../../48-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2016,7 +1798,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SIWS/" class="md-nav__link ">
+            <a href="../../../SIWS/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2096,7 +1878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+      <a href="../../../SIWS/01-getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2117,7 +1899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+      <a href="../../../SIWS/02-visualization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2138,7 +1920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+      <a href="../../../SIWS/03-wrangling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2159,7 +1941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+      <a href="../../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2231,7 +2013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/05-simple-linear-regression/" class="md-nav__link">
+      <a href="../../../SIWS/05-simple-linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2252,7 +2034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/06-multiple-regression/" class="md-nav__link">
+      <a href="../../../SIWS/06-multiple-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2328,7 +2110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/07-sampling/" class="md-nav__link">
+      <a href="../../../SIWS/07-sampling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2349,7 +2131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
+      <a href="../../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2370,7 +2152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/09-hypothesis-testing/" class="md-nav__link">
+      <a href="../../../SIWS/09-hypothesis-testing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2391,7 +2173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/10-inference-for-regression/" class="md-nav__link">
+      <a href="../../../SIWS/10-inference-for-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2461,7 +2243,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
+      <a href="../../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2531,7 +2313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/12-how-to-create-a-compelling-proposal/" class="md-nav__link">
+      <a href="../../../SIWS/12-how-to-create-a-compelling-proposal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2588,7 +2370,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SP/" class="md-nav__link ">
+            <a href="../../../SP/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2660,7 +2442,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/" class="md-nav__link ">
+            <a href="../../../../research/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2738,7 +2520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+      <a href="../../../../research/note/generalized-random-forests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2759,7 +2541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+      <a href="../../../../research/note/variable-importance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2780,7 +2562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+      <a href="../../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2854,7 +2636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+      <a href="../../../../research/note/sparseBART/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2875,7 +2657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/causal-mediation-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2896,7 +2678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+      <a href="../../../../research/note/causal-data-repository/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2953,7 +2735,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+            <a href="../../../../research/note/factor-analysis/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3033,7 +2815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3054,7 +2836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3075,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3096,7 +2878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3170,7 +2952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3191,7 +2973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3212,7 +2994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3288,7 +3070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3309,7 +3091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3330,7 +3112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3351,7 +3133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3421,7 +3203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3485,6 +3267,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      階段行列・簡約階段行列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="階段行列・簡約階段行列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      中村 知繁
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
       1. 講義情報と予習ガイド
@@ -3522,6 +3328,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#31_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 階段行列の定義
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#32" class="md-nav__link">
     <span class="md-ellipsis">
       3.2 簡約階段行列の定義
@@ -3539,20 +3354,14 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
+          <li class="md-nav__item">
+  <a href="#33_1" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 理論と手法
+      3.3 行列のランクの定義
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. 理論と手法">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#41" class="md-nav__link">
@@ -3667,14 +3476,54 @@
                   
 
 
-<h1 id="i-12">線形代数学 I 第12回 講義ノート</h1>
+<!-- header: 'T. Nakamura | Juntendo Univ.' -->
+<!-- footer: '2025/02/08' -->
+<style>
+section { 
+    font-size: 20px; 
+}
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+/* ページ番号 */
+section::after {
+    content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+    fonr-size: 60%;
+}
+/* 発表会名 */
+header {
+    width: 100%;
+    position: absolute;
+    top: unset;
+    bottom: 21px;
+    left: 0;
+    text-align: center;
+    font-size: 60%;
+}
+/* 日付 */
+footer {
+    text-align: center;
+    font-size: 15px;
+}
+</style>
+
+<!--
+_class: lead
+_paginate: false
+-->
+
+<p><img alt="bg left:50% 80%" src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png" /></p>
+<h1 id="i-12">線形代数学 I: 第12回講義</h1>
+<h2 id="_1">階段行列・簡約階段行列</h2>
+<h3 id="_2">中村 知繁</h3>
+<hr />
 <h2 id="1">1. 講義情報と予習ガイド</h2>
 <p><strong>講義回</strong>: 第12回<br />
 <strong>テーマ</strong>: ランクの概念とその計算<br />
 <strong>関連項目</strong>: 階段行列、簡約階段行列、行基本変形、行列のランク<br />
-<strong>予習すべき内容</strong>: 連立一次方程式の行列表現、行列の基本変形、ガウスの消去法
-<strong>スライド</strong>: <a href="../slides/12-system-of-linear-equation-slide.pdf">こちら</a>
-<strong>演習問題</strong>: <a href="../exercise/exercise6.pdf">こちら</a></p>
+<strong>予習すべき内容</strong>: 連立一次方程式の行列表現、行列の基本変形、ガウスの消去法</p>
+<hr />
 <h2 id="2">2. 学習目標</h2>
 <ol>
 <li>階段行列と簡約階段行列の定義と性質を理解する</li>
@@ -3683,6 +3532,7 @@
 <li>行列のランクを計算できるようになる</li>
 <li>ランクとベクトルの一次独立性の関係を理解する</li>
 </ol>
+<hr />
 <h2 id="3">3. 基本概念</h2>
 <h3 id="31">3.1 階段行列の定義</h3>
 <blockquote>
@@ -3691,6 +3541,8 @@
 2. 各行の先頭の非ゼロ要素（先頭係数）は、その上の行の先頭非ゼロ要素よりも右にある
 3. 先頭係数の列より左の列はすべて0である</p>
 </blockquote>
+<hr />
+<h3 id="31_1">3.1 階段行列の定義</h3>
 <p>階段行列は「階段のような形」をしています。次の行列は階段行列の例です：</p>
 <div class="arithmatex">\[
 \begin{pmatrix}
@@ -3706,6 +3558,7 @@
 - 3行目の先頭係数は第3列の1
 - 4行目はゼロ行</p>
 <p>このように、先頭係数が右下へと階段状に並んでいるため「階段行列」と呼ばれます。</p>
+<hr />
 <h3 id="32">3.2 簡約階段行列の定義</h3>
 <blockquote>
 <p><strong>定義</strong>: 簡約階段行列（reduced echelon form）とは、以下の追加条件を満たす階段行列のことです。
@@ -3725,6 +3578,7 @@
 - すべての先頭係数が1
 - 先頭係数のある列（第1, 2, 3列）では、先頭係数以外の要素がすべて0</p>
 <p>特に、各行の先頭係数が単位行列の形になっている部分があることに注目してください。</p>
+<hr />
 <h3 id="33">3.3 行列のランクの定義</h3>
 <blockquote>
 <p><strong>定義</strong>: 行列Aのランク（rank）とは、Aを階段行列（または簡約階段行列）に変形したときの非ゼロ行の数です。これは、（後で学ぶ）行列内の線形独立な行（または列）ベクトルの最大数を表します。</p>
@@ -3732,9 +3586,11 @@
 <p>ランクは次のような記号で表します：
 <span class="arithmatex">\(\text{rank}(A)\)</span> または <span class="arithmatex">\(\text{r}(A)\)</span></p>
 <p>重要な性質：
-- <span class="arithmatex">\(m\times n\)</span>行列のランク<span class="arithmatex">\(r\)</span>は、<span class="arithmatex">\(r ≤ min(m, n)\)</span> を満たす
+- <span class="arithmatex">\(m\times n\)</span>行列のランク<span class="arithmatex">\(r\)</span>は、<span class="arithmatex">\(r \leq \min(m, n)\)</span> を満たす
 - 行列のランクは、行基本変形によって変わらない
 - 行列のランクは、その行ベクトルの最大線形独立数と列ベクトルの最大線形独立数に等しい</p>
+<hr />
+<h3 id="33_1">3.3 行列のランクの定義</h3>
 <p>例えば、以下の階段行列のランクは3です（非ゼロ行が3行あるため）：</p>
 <div class="arithmatex">\[
 \begin{pmatrix}
@@ -3744,7 +3600,7 @@
 0 &amp; 0 &amp; 0 &amp; 0
 \end{pmatrix}
 \]</div>
-<h2 id="4">4. 理論と手法</h2>
+<hr />
 <h3 id="41">4.1 行基本変形による階段行列の導出方法</h3>
 <p><strong>行基本変形</strong>によって任意の行列は、階段行列・簡約階段行列に変形できます。
 行基本変形には以下の3種類があります：</p>
@@ -3753,6 +3609,7 @@
 <li>行のスカラー倍</li>
 <li>ある行の定数倍を別の行に加える</li>
 </ol>
+<hr />
 <h3 id="42">4.2 ランクの計算方法</h3>
 <p>行列のランクを計算する手順：</p>
 <ol>
@@ -3761,6 +3618,7 @@
 </ol>
 <h3 id="43">4.3 簡約階段行列の一意性</h3>
 <p>行列<span class="arithmatex">\(A\)</span> に対して、行基本変形によって得られる簡約階段行列はただ1つである。すなわち同じ行列<span class="arithmatex">\(A\)</span>に対して、異なる行基本変形によって得られた簡約階段行列を<span class="arithmatex">\(B\)</span>と<span class="arithmatex">\(B'\)</span>とすると、<span class="arithmatex">\(B=B'\)</span>が成り立つ。</p>
+<hr />
 <h3 id="44">4.4 行列のランクと一次独立性の関係</h3>
 <p>行列ランクには以下の重要な性質がある。次回以降に扱うベクトルの1次独立との関係をここでは指摘しておく。</p>
 <ul>
@@ -3773,6 +3631,7 @@
 <li><span class="arithmatex">\(\text{rank}(A) = \text{rank}(AA^T) = \text{rank}(A^TA)\)</span></li>
 <li><span class="arithmatex">\(\text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B))\)</span>（行列の積のランク）</li>
 </ul>
+<hr />
 <h2 id="5">5. 具体的な計算例</h2>
 <h3 id="1_1">例題1: 階段行列への変形</h3>
 <p>行列Aを階段行列に変形してみましょう。</p>
@@ -3783,6 +3642,7 @@
 6 &amp; 3 &amp; 9 &amp; 18
 \end{pmatrix}
 \]</div>
+<hr />
 <p><strong>解答</strong>:</p>
 <p>ステップ1: 第1列を処理します。先頭係数として第1行の2を選びます。</p>
 <div class="arithmatex">\[
@@ -3801,6 +3661,7 @@
 6 &amp; 3 &amp; 9 &amp; 18
 \end{pmatrix}
 \]</div>
+<hr />
 <p>第3行の要素を0にするため、第1行の(-3)倍を第3行に加えます。
 <span class="arithmatex">\(R_3 \leftarrow R_3 + (-3)R_1\)</span></p>
 <div class="arithmatex">\[
@@ -3810,9 +3671,10 @@
 0 &amp; 0 &amp; 0 &amp; -3
 \end{pmatrix}
 \]</div>
-<p>ステップ2: 第2列を処理します。先頭係数として第2行の-3を選びます。</p>
-<p>第3行は既に第2列が0なので処理する必要はありません。</p>
+<p>ステップ2: 第2列を処理します。先頭係数として第2行の-3を選びます。
+第3行は既に第2列が0なので処理する必要はありません。</p>
 <p>ステップ3: 第3列を処理します。第3行は全て0になってしまっているため、第3列の処理は必要ありません。</p>
+<hr />
 <p>結果として、階段行列は次のようになります：</p>
 <div class="arithmatex">\[
 \begin{pmatrix}
@@ -3822,6 +3684,7 @@
 \end{pmatrix}
 \]</div>
 <p>この行列は非ゼロ行が3行あるため、元の行列Aのランクは3です。</p>
+<hr />
 <h3 id="2_1">例題2: 簡約階段行列への変形</h3>
 <p>先ほどの階段行列を簡約階段行列に変形しましょう。</p>
 <div class="arithmatex">\[
@@ -3831,6 +3694,7 @@
 0 &amp; 0 &amp; 0 &amp; -3
 \end{pmatrix}
 \]</div>
+<hr />
 <p><strong>解答</strong>:</p>
 <p>ステップ1: 最下行から処理します。第3行の先頭係数を1にするため、行全体を-3で割ります。
 <span class="arithmatex">\(R_3 \leftarrow R_3 / (-3)\)</span></p>
@@ -3850,6 +3714,7 @@
 0 &amp; 0 &amp; 0 &amp; 1
 \end{pmatrix}
 \]</div>
+<hr />
 <p>第4列の第2行の要素を0にするため、第3行の(-4/3)倍を第2行に加えます。
 <span class="arithmatex">\(R_2 \leftarrow R_2 + (-4/3)R_3\)</span></p>
 <div class="arithmatex">\[
@@ -3868,6 +3733,7 @@
 0 &amp; 0 &amp; 0 &amp; 1
 \end{pmatrix}
 \]</div>
+<hr />
 <p>第2列の第1行の要素を0にするため、第2行の(-1/2)倍を第1行に加えます。
 <span class="arithmatex">\(R_1 \leftarrow R_1 + (-1/2)R_2\)</span></p>
 <div class="arithmatex">\[
@@ -3887,6 +3753,7 @@
 \end{pmatrix}
 \]</div>
 <p>これが簡約階段行列であり、非ゼロ行が3行あるので、ランクは3です。</p>
+<hr />
 <h2 id="6">6. 演習問題</h2>
 <h3 id="61">6.1 基本問題</h3>
 <ol>
@@ -3905,6 +3772,7 @@
    4 &amp; 5 &amp; 6 \\
    7 &amp; 8 &amp; 9
    \end{pmatrix}\)</span>\)</span></p>
+<hr />
 <ol>
 <li>以下の行列のランクを求め、列ベクトルの線形独立性について考察しなさい。</li>
 </ol>
@@ -3921,9 +3789,9 @@
    0 &amp; 1 &amp; 3 &amp; 2 \\
    2 &amp; 1 &amp; 7 &amp; 0
    \end{pmatrix}\)</span>\)</span></p>
+<hr />
 <ol>
-<li>
-<p>行列 <span class="arithmatex">\(A\)</span> と <span class="arithmatex">\(B\)</span> について、<span class="arithmatex">\(\text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B))\)</span> となることを、次の例を用いて確認しなさい。
+<li>行列 <span class="arithmatex">\(A\)</span> と <span class="arithmatex">\(B\)</span> について、<span class="arithmatex">\(\text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B))\)</span> となることを、次の例を用いて確認しなさい。
    <span class="arithmatex">\(<span class="arithmatex">\(A = \begin{pmatrix}
    1 &amp; 2 \\
    3 &amp; 4 \\
@@ -3931,16 +3799,16 @@
    \end{pmatrix}, B = \begin{pmatrix}
    1 &amp; 0 &amp; 2 \\
    0 &amp; 1 &amp; 1
-   \end{pmatrix}\)</span>\)</span></p>
-</li>
-<li>
-<p>行列 <span class="arithmatex">\(A\)</span> が次のとき、<span class="arithmatex">\(\text{rank}(A^T A)\)</span> と <span class="arithmatex">\(\text{rank}(A A^T)\)</span> を計算し、両者の関係について考察しなさい。
+   \end{pmatrix}\)</span>\)</span></li>
+</ol>
+<hr />
+<ol>
+<li>行列 <span class="arithmatex">\(A\)</span> が次のとき、<span class="arithmatex">\(\text{rank}(A^T A)\)</span> と <span class="arithmatex">\(\text{rank}(A A^T)\)</span> を計算し、両者の関係について考察しなさい。
    <span class="arithmatex">\(<span class="arithmatex">\(A = \begin{pmatrix}
    1 &amp; 0 &amp; 2 \\
    0 &amp; 1 &amp; 1 \\
    0 &amp; 0 &amp; 0
-   \end{pmatrix}\)</span>\)</span></p>
-</li>
+   \end{pmatrix}\)</span>\)</span></li>
 </ol>
 
 
@@ -3948,6 +3816,9 @@
 
 
 
+
+  
+  
 
 
 
@@ -3993,12 +3864,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
