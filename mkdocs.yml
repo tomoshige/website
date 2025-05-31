@@ -106,6 +106,8 @@ nav:
           - 10. Inference for Regression: lectures/SIWS/10-inference-for-regression.md
         - Communications:
           - 11. Tell Your Story with Data: lectures/SIWS/11-tell-your-story-with-data.md
+        - Website Design Competition:
+          - 12. How to Create a Compelling Proposal: lectures/SIWS/12-how-to-create-a-compelling-proposal.md
       - Statistics and Probability: 
         - Overview: lectures/SP/index.md
   - Research: 
