@@ -1,0 +1,4200 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/SIWS/Marp/05-simple-linear-regression-slide/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>05 simple linear regression slide - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              05 simple linear regression slide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../LA/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 1 - Vector and Matrix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Module 1 - Vector and Matrix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix 6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix 7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/09-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 2 - System of Linear Equations
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Module 2 - System of Linear Equations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/14-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/15-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. System of Linear Equation 6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/16-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. System of Linear Equation 7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/17-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. System of Linear Equation 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/18-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. System of Linear Equation 9
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/19-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/20-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 3 - Determinants
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Module 3 - Determinants
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/21-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Determinant 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/22-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Determinant 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/23-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Determinant 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/24-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Determinant 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/25-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 4 - Vector Spaces
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Module 4 - Vector Spaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/26-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Vector space 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/27-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Vector space 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/28-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Vector space 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/29-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/30-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/31-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_6" id="__nav_2_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 5 - Eigenvalues and Decomposition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Module 5 - Eigenvalues and Decomposition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/32-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Eigen value and vector 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/33-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Eigen value and vector 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/34-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Eigen value and vector 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/35-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Eigen value and vector 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/36-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Eigen value and vector 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/37-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/38-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/39-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Singular value decomposition 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/40-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Singular value decomposition 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_7" id="__nav_2_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 6 - Applications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Module 6 - Applications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/41-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41. Principal component analysis 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/42-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42. Principal component analysis 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/43-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43. Principal component analysis 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/44-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44. Factor analysis 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/45-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45. Factor analysis 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/46-nonlinear-dimension-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46. Nonlinear dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/47-wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47. Wrap up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LA/48-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Foundations
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Data Import and Tidy Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_3" id="__nav_2_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Regression Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Regression Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-simple-linear-regression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Simple Linear Regression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-multiple-regression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Multiple Regression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4" id="__nav_2_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Statistical Methods
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistical Methods
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-sampling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Sampling Method
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-Estimation-CI-Bootstrapping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Estimation, CI and Bootstrapping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-hypothesis-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Hypothesis Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-inference-for-regression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. Inference for Regression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_5" id="__nav_2_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Communications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Communications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-tell-your-story-with-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. Tell Your Story with Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_6" id="__nav_2_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Website Design Competition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Website Design Competition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12-how-to-create-a-compelling-proposal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. How to Create a Compelling Proposal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Decision Trees and Forests
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Decision Trees and Forests
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Causal Inference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Causal Inference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Theoretical Foundations
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Theoretical Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Analysis Methods
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Analysis Methods
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_4" id="__nav_3_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Applications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Applications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Technical Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Technical Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-statmodels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python statmodels を使ったモデル
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hds" class="md-nav__link">
+    <span class="md-ellipsis">
+      HDS 中村 知繁
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      本章の目標
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに (1/2)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに (2/2)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="はじめに (2/2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      必要なパッケージ (Python)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 1つの数値的説明変数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 1つの数値的説明変数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-eda" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.1 探索的データ分析 (EDA)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#511-eda_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.1 EDA (続き)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#511-eda_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.1 EDA (続き)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#511-eda_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.1 EDA (続き)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.2 単純線形回帰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.2 単純線形回帰 (係数の解釈)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.2 単純線形回帰 (回帰表)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3 観測値, 予測値, 残差
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3 残差プロットと残差ヒストグラム
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3 残差プロットと残差ヒストグラム (続き)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.4 最適な当てはめ直線と最小二乗法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-b_0-b_1-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.4 最小二乗法による \(b_0, b_1\) の導出 (1/4)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-b_0-b_1-24" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.4 最小二乗法による \(b_0, b_1\) の導出 (2/4)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-b_0-b_1-34" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.4 最小二乗法による \(b_0, b_1\) の導出 (3/4)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-b_0-b_1-44" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.4 最小二乗法による \(b_0, b_1\) の導出 (4/4)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-ssr" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.4 最適な当てはめ直線 (SSRの確認)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 1つのカテゴリ的説明変数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 1つのカテゴリ的説明変数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-eda" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 探索的データ分析 (EDA)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#521-eda_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 EDA (続き)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 線形回帰 (カテゴリ型説明変数)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 線形回帰 (係数の解釈)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 線形回帰 (回帰表)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.3 観測値, 予測値, 残差
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 相関は必ずしも因果を意味しない
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ (1/2)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ (2/2)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      (付録) Pythonコード一括実行用
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-pandas-as-pd-import-numpy-as-np-import-matplotlibpyplot-as-plt-import-seaborn-as-sns-import-statsmodelsapi-as-sm-import-statsmodelsformulaapi-as-smf-from-ipythondisplay-import-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      # 必要なライブラリのインポート import pandas as pd import numpy as np import matplotlib.pyplot as plt import seaborn as sns import statsmodels.api as sm import statsmodels.formula.api as smf from IPython.display import display
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<!-- header: 'T. Nakamura | Juntendo Univ.' -->
+<!-- footer: '2025/02/08' -->
+<style>
+section { 
+    font-size: 22px; 
+}
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+/* ページ番号 */
+section::after {
+    content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+    fonr-size: 60%;
+}
+/* 発表会名 */
+header {
+    width: 100%;
+    position: absolute;
+    top: unset;
+    bottom: 21px;
+    left: 0;
+    text-align: center;
+    font-size: 60%;
+}
+/* 日付 */
+footer {
+    text-align: center;
+    font-size: 15px;
+}
+</style>
+
+<!--
+_class: lead
+_paginate: false
+-->
+
+<p><img alt="bg left:50% 80%" src="../02-figure/main.png" /></p>
+<h1 id="5">第5章 基本的回帰分析</h1>
+<h2 id="python-statmodels">Python <code>statmodels</code> を使ったモデル</h2>
+<h2 id="hds">HDS 中村 知繁</h2>
+<hr />
+<h2 id="_1">本章の目標</h2>
+<ol>
+<li><strong>データモデリング</strong>の基本的な考え方を理解する。<ul>
+<li>目的変数と説明変数（予測変数）</li>
+<li>説明のためのモデリング vs 予測のためのモデリング</li>
+</ul>
+</li>
+<li><strong>線形回帰</strong>の基礎を学ぶ。<ul>
+<li>1つの数値型説明変数を持つ<strong>単純線形回帰</strong></li>
+<li>1つのカテゴリ型説明変数を持つ回帰</li>
+</ul>
+</li>
+<li>線形回帰モデルの<strong>構築</strong>と<strong>解釈</strong>をPythonで行う。</li>
+<li><strong>最小二乗法</strong>の原理と、回帰係数の導出過程を理解する。</li>
+<li>「<strong>相関は必ずしも因果を意味しない</strong>」という重要な注意点を学ぶ。</li>
+</ol>
+<hr />
+<h2 id="12">はじめに (1/2)</h2>
+<ul>
+<li><strong>データモデリング</strong>: 目的変数 <span class="arithmatex">\(y\)</span> と説明変数 <span class="arithmatex">\(x\)</span> の関係性を明らかにする。<ul>
+<li><strong>目的変数 (Target Variable) <span class="arithmatex">\(y\)</span></strong>: 予測・説明したい変数 (従属変数, 応答変数)</li>
+<li><strong>説明変数 (Explanatory Variable) <span class="arithmatex">\(x\)</span></strong>: <span class="arithmatex">\(y\)</span> を説明・予測する変数 (独立変数, 共変量)</li>
+</ul>
+</li>
+<li>
+<p>数学的には、<span class="arithmatex">\(y\)</span> を <span class="arithmatex">\(x\)</span> の「関数として」モデル化: <span class="arithmatex">\(y = f(x)\)</span></p>
+</li>
+<li>
+<p><strong>モデリングの主な目的</strong>:</p>
+<ol>
+<li><strong>説明のためのモデリング</strong>: <span class="arithmatex">\(y\)</span> と <span class="arithmatex">\(x\)</span> の関係を記述・定量化、有意性評価、因果の探求。</li>
+<li><strong>予測のためのモデリング</strong>: <span class="arithmatex">\(x\)</span> の情報から <span class="arithmatex">\(y\)</span> を精度良く予測。</li>
+</ol>
+</li>
+</ul>
+<hr />
+<h2 id="22">はじめに (2/2)</h2>
+<ul>
+<li>本書では主に<strong>説明のためのモデリング</strong>に焦点。</li>
+<li>
+<p>扱うモデリング手法: <strong>線形回帰 (Linear Regression)</strong></p>
+<ul>
+<li>目的変数 <span class="arithmatex">\(y\)</span>: 数値型</li>
+<li>説明変数 <span class="arithmatex">\(x\)</span>: 数値型 または カテゴリ型</li>
+<li>仮定: <span class="arithmatex">\(y\)</span> と <span class="arithmatex">\(x\)</span> の関係は<strong>線形 (直線的)</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>本章の構成</strong>: 説明変数が1つのモデル</p>
+<ul>
+<li>5.1節: 1つの数値的説明変数 (単純線形回帰)</li>
+<li>5.2節: 1つのカテゴリ的説明変数</li>
+</ul>
+</li>
+<li><strong>キーワード</strong>: 相関係数、相関と因果、最適な当てはめ直線</li>
+</ul>
+<hr />
+<h3 id="python">必要なパッケージ (Python)</h3>
+<p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span> <span class="c1"># Colab等でDataFrameを綺麗に表示</span>
+</code></pre></div>
+* <code>seaborn</code> ライブラリからデータセットを読み込むため、事前のファイルダウンロードは不要です。</p>
+<hr />
+<h2 id="51-1">5.1 1つの数値的説明変数</h2>
+<p><strong>リサーチクエスチョン</strong>:
+レストランでの食事の総支払額 (<code>total_bill</code>) とウェイター/ウェイトレスへのチップの額 (<code>tip</code>) にはどのような関係があるか？</p>
+<ul>
+<li><strong>目的変数 <span class="arithmatex">\(y\)</span></strong>: チップの額 (<code>tip</code>) (数値型)</li>
+<li><strong>説明変数 <span class="arithmatex">\(x\)</span></strong>: 食事の総支払額 (<code>total_bill</code>) (数値型)</li>
+</ul>
+<p><strong>使用データ</strong>: <code>seaborn</code>の<code>tips</code>データセット</p>
+<hr />
+<h3 id="511-eda">5.1.1 探索的データ分析 (EDA)</h3>
+<p><strong>EDAの主なステップ</strong>:
+1.  データフレームの基本情報確認、実際のデータ値の確認。
+2.  記述統計量（平均値、中央値など）の計算。
+3.  データの可視化。</p>
+<p><strong>1. データ読み込みと基本情報の確認</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># seabornからtipsデータセットを読み込む</span>
+<span class="n">tips</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;tips&#39;</span><span class="p">)</span>
+
+<span class="c1"># データの最初の5行</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;レストランのチップデータの最初の5行:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tips</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># データの構造確認</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">データの構造:&quot;</span><span class="p">)</span>
+<span class="n">tips</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div></p>
+<hr />
+<h3 id="511-eda_1">5.1.1 EDA (続き)</h3>
+<p><strong>2. 記述統計量の計算</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># &#39;tip&#39;と&#39;total_bill&#39;の記述統計量</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&#39;tip&#39;と&#39;total_bill&#39;の記述統計量:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tips</span><span class="p">[[</span><span class="s1">&#39;tip&#39;</span><span class="p">,</span> <span class="s1">&#39;total_bill&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># チップ額と総支払額の相関係数</span>
+<span class="n">correlation_tips</span> <span class="o">=</span> <span class="n">tips</span><span class="p">[</span><span class="s1">&#39;tip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">tips</span><span class="p">[</span><span class="s1">&#39;total_bill&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">チップ額と総支払額の相関係数: </span><span class="si">{</span><span class="n">correlation_tips</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># 出力例: チップ額と総支払額の相関係数: 0.676</span>
+</code></pre></div>
+* 相関係数約0.676は、比較的強い正の線形関係を示唆。</p>
+<hr />
+<h3 id="511-eda_2">5.1.1 EDA (続き)</h3>
+<p><strong>3. データの可視化 (散布図)</strong>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span> <span class="c1"># スライド用に調整</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tip&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tips</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;総支払額 (total_bill)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;チップ額 (tip)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;チップ額と総支払額の関係&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># このコードを実行するとColab等で図が表示されます</span>
+</code></pre></div>
+* 点が右上がりの傾向を示し、正の相関と整合的。</p>
+<hr />
+<h3 id="511-eda_3">5.1.1 EDA (続き)</h3>
+<p><strong>3. データの可視化 (散布図 + 回帰直線)</strong>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span> <span class="c1"># スライド用に調整</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;total_bill&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tip&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tips</span><span class="p">,</span>
+            <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span><span class="mi">30</span><span class="p">},</span> <span class="c1"># 点のサイズ調整</span>
+            <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">},</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;総支払額 (total_bill)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;チップ額 (tip)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;チップ額と総支払額の関係 (回帰直線付き)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># このコードを実行するとColab等で図が表示されます</span>
+</code></pre></div>
+* 回帰直線がデータ全体の傾向を捉えている。</p>
+<hr />
+<h3 id="512">5.1.2 単純線形回帰</h3>
+<p><strong>モデル式</strong>: <span class="arithmatex">\(\widehat{y} = b_0 + b_1 x\)</span>
+* <span class="arithmatex">\(b_0\)</span>: 切片 (Intercept)
+* <span class="arithmatex">\(b_1\)</span>: 傾き (Slope)
+* <span class="arithmatex">\(\widehat{y}\)</span>: 目的変数の予測値</p>
+<p><strong><code>statsmodels</code>によるモデル構築</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">model_tips_vs_bill</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;tip ~ total_bill&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tips</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="c1"># print(model_tips_vs_bill.summary()) # 全詳細表示</span>
+</code></pre></div>
+<strong>回帰結果の要約 (主要部分)</strong>: ( <code>model_tips_vs_bill.summary()</code> の <code>coef</code> 部分より)
+* 切片 <span class="arithmatex">\(b_0\)</span> (<code>Intercept</code>): 約 0.9203
+* 傾き <span class="arithmatex">\(b_1\)</span> (<code>total_bill</code>): 約 0.1050</p>
+<p><strong>当てはめられた回帰直線の方程式</strong>:
+<span class="arithmatex">\(<span class="arithmatex">\(\widehat{\text{tip}} = 0.9203 + 0.1050 \cdot \text{total\_bill}\)</span>\)</span></p>
+<hr />
+<h3 id="512_1">5.1.2 単純線形回帰 (係数の解釈)</h3>
+<ul>
+<li>
+<p><strong>切片 (<span class="arithmatex">\(b_0 \approx 0.9203\)</span>)</strong>:</p>
+<ul>
+<li>数学的解釈: <code>total_bill</code> (総支払額) が0ドルの場合の予測チップ額。</li>
+<li>実用的解釈: この文脈では <code>total_bill</code> = 0 は現実的でないため、実用的な意味は薄い。モデルの当てはまりに必要な項。</li>
+</ul>
+</li>
+<li>
+<p><strong>傾き (<span class="arithmatex">\(b_1 \approx 0.1050\)</span>)</strong>:</p>
+<ul>
+<li>解釈: <code>total_bill</code> が1ドル増加するごとに、<code>tip</code> (チップ額) は<strong>平均して</strong>約0.105ドル (10.5セント) 増加する<strong>関連がある</strong>。</li>
+<li><strong>注意点</strong>:<ul>
+<li>「関連がある」であり、因果関係ではない (5.3節で詳述)。</li>
+<li>「平均して」の傾向であり、個々のケースで必ずしもこの通りではない。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="512_2">5.1.2 単純線形回帰 (回帰表)</h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">regression_table_tips_vs_bill</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;term&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;total_bill&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="n">model_tips_vs_bill</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;std_error&#39;</span><span class="p">:</span> <span class="n">model_tips_vs_bill</span><span class="o">.</span><span class="n">bse</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;t_value&#39;</span><span class="p">:</span> <span class="n">model_tips_vs_bill</span><span class="o">.</span><span class="n">tvalues</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;p_value&#39;</span><span class="p">:</span> <span class="n">model_tips_vs_bill</span><span class="o">.</span><span class="n">pvalues</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;conf_int_lower&#39;</span><span class="p">:</span> <span class="n">model_tips_vs_bill</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;conf_int_upper&#39;</span><span class="p">:</span> <span class="n">model_tips_vs_bill</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">回帰表 (tip ~ total_bill):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">regression_table_tips_vs_bill</span><span class="p">)</span> <span class="c1"># Colab等で表示</span>
+</code></pre></div>
+(表示される表の例)
+| term         |   estimate |   std_error |   t_value |   p_value |   conf_int_lower |   conf_int_upper |
+|:-------------|-----------:|------------:|----------:|----------:|-----------------:|-----------------:|
+| Intercept    |   0.920270 |    0.159735 |   5.76123 |  2.43e-08 |         0.606030 |         1.23451  |
+| total_bill   |   0.105023 |    0.007365 |  14.2605  |  6.69e-34 |         0.090522 |         0.119524 |
+* <code>p_value</code> や <code>conf_int</code> (信頼区間) の解釈は後の統計的推論の章で。</p>
+<hr />
+<h3 id="513">5.1.3 観測値, 予測値, 残差</h3>
+<ol>
+<li><strong>観測値 (<span class="arithmatex">\(y_i\)</span>)</strong>: 実際のデータ値 (例: 実際のチップ額)</li>
+<li><strong>予測値 (<span class="arithmatex">\(\widehat{y}_i\)</span>)</strong>: 回帰モデルによる予測値 (回帰直線上の値)<ul>
+<li><span class="arithmatex">\(\widehat{y}_i = b_0 + b_1 x_i\)</span></li>
+</ul>
+</li>
+<li><strong>残差 (<span class="arithmatex">\(e_i\)</span>)</strong>: 観測値と予測値の差 (モデルの誤差)<ul>
+<li><span class="arithmatex">\(e_i = y_i - \widehat{y}_i\)</span></li>
+</ul>
+</li>
+</ol>
+<p><strong>例</strong>: 最初のデータ点 <code>total_bill</code> = 16.99, <code>tip</code> = 1.01
+* <span class="arithmatex">\(\widehat{\text{tip}} = 0.9203 + 0.1050 \cdot 16.99 \approx 2.7043\)</span>
+* 残差 <span class="arithmatex">\(e = 1.01 - 2.7043 \approx -1.6943\)</span></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 予測値と残差をデータフレームに追加</span>
+<span class="n">tips</span><span class="p">[</span><span class="s1">&#39;tip_hat_vs_bill&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_tips_vs_bill</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tips</span><span class="p">)</span>
+<span class="n">tips</span><span class="p">[</span><span class="s1">&#39;residual_vs_bill&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_tips_vs_bill</span><span class="o">.</span><span class="n">resid</span> <span class="c1"># または tips[&#39;tip&#39;] - tips[&#39;tip_hat_vs_bill&#39;]</span>
+<span class="c1"># display(tips[[&#39;total_bill&#39;, &#39;tip&#39;, &#39;tip_hat_vs_bill&#39;, &#39;residual_vs_bill&#39;]].head())</span>
+</code></pre></div>
+<hr />
+<h3 id="513_1">5.1.3 残差プロットと残差ヒストグラム</h3>
+<p><strong>残差プロット</strong>: 横軸に予測値 <span class="arithmatex">\(\widehat{y}\)</span>、縦軸に残差 <span class="arithmatex">\(e\)</span>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span> <span class="c1"># スライド用に調整</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tip_hat_vs_bill&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;residual_vs_bill&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tips</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;予測チップ額 (ŷ)&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;残差 (y - ŷ)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;残差プロット (tip ~ total_bill)&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+* 理想: 点が <span class="arithmatex">\(y=0\)</span> の周りにランダムに分布。パターンがない。
+* この例: 予測値大でばらつき増？(不等分散性の可能性)</p>
+<hr />
+<h3 id="513_2">5.1.3 残差プロットと残差ヒストグラム (続き)</h3>
+<p><strong>残差のヒストグラム</strong>: 残差の分布を確認
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span> <span class="c1"># スライド用に調整</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">tips</span><span class="p">[</span><span class="s1">&#39;residual_vs_bill&#39;</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;残差 (y - ŷ)&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;度数&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;残差のヒストグラム (tip ~ total_bill)&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+* 理想: 0を中心に対称的な分布 (例: 正規分布)。
+* この例: 0中心だが、やや右に裾が長い（正の歪み）かも。</p>
+<hr />
+<h3 id="514">5.1.4 最適な当てはめ直線と最小二乗法</h3>
+<p>回帰直線は「最適な当てはめ直線」であり、<strong>残差平方和 (Sum of Squared Residuals, SSR)</strong> を最小にする直線です。
+<span class="arithmatex">\(<span class="arithmatex">\(SSR = \sum_{i=1}^{n} (y_i - \widehat{y}_i)^2 = \sum_{i=1}^{n} e_i^2\)</span>\)</span>
+この SSR を最小にする <span class="arithmatex">\(b_0, b_1\)</span> を求める方法が <strong>最小二乗法 (Method of Least Squares)</strong> です。</p>
+<p><strong><span class="arithmatex">\(b_0, b_1\)</span> の導出 (アイデア)</strong>:
+モデル: <span class="arithmatex">\(\widehat{y}_i = b_0 + b_1 x_i\)</span>
+SSR: <span class="arithmatex">\(SSR(b_0, b_1) = \sum_{i=1}^{n} (y_i - (b_0 + b_1 x_i))^2\)</span>
+目標: <span class="arithmatex">\(SSR(b_0, b_1)\)</span> を最小にする <span class="arithmatex">\(b_0, b_1\)</span> を見つける。
+方法: <span class="arithmatex">\(SSR\)</span> を <span class="arithmatex">\(b_0\)</span> と <span class="arithmatex">\(b_1\)</span> でそれぞれ偏微分し、0 とおく。</p>
+<hr />
+<h3 id="514-b_0-b_1-14">5.1.4 最小二乗法による <span class="arithmatex">\(b_0, b_1\)</span> の導出 (1/4)</h3>
+<ol>
+<li><strong><span class="arithmatex">\(SSR\)</span> を <span class="arithmatex">\(b_0\)</span> で偏微分し、0 とおく</strong>:
+    <span class="arithmatex">\(<span class="arithmatex">\(\frac{\partial SSR}{\partial b_0} = -2 \sum_{i=1}^{n} (y_i - b_0 - b_1 x_i)\)</span>\)</span>
+    <span class="arithmatex">\(\frac{\partial SSR}{\partial b_0} = 0\)</span> より、
+    <span class="arithmatex">\(<span class="arithmatex">\(\sum (y_i - b_0 - b_1 x_i) = 0\)</span>\)</span>
+    <span class="arithmatex">\(<span class="arithmatex">\(\sum y_i - n b_0 - b_1 \sum x_i = 0\)</span>\)</span>
+    整理して、<strong>第一正規方程式</strong>:
+    <span class="arithmatex">\(<span class="arithmatex">\(n b_0 + b_1 \sum x_i = \sum y_i \quad \cdots (1)\)</span>\)</span></li>
+</ol>
+<hr />
+<h3 id="514-b_0-b_1-24">5.1.4 最小二乗法による <span class="arithmatex">\(b_0, b_1\)</span> の導出 (2/4)</h3>
+<ol>
+<li><strong><span class="arithmatex">\(SSR\)</span> を <span class="arithmatex">\(b_1\)</span> で偏微分し、0 とおく</strong>:
+    <span class="arithmatex">\(<span class="arithmatex">\(\frac{\partial SSR}{\partial b_1} = -2 \sum_{i=1}^{n} x_i(y_i - b_0 - b_1 x_i)\)</span>\)</span>
+    <span class="arithmatex">\(\frac{\partial SSR}{\partial b_1} = 0\)</span> より、
+    <span class="arithmatex">\(<span class="arithmatex">\(\sum x_i(y_i - b_0 - b_1 x_i) = 0\)</span>\)</span>
+    <span class="arithmatex">\(<span class="arithmatex">\(\sum x_i y_i - b_0 \sum x_i - b_1 \sum x_i^2 = 0\)</span>\)</span>
+    整理して、<strong>第二正規方程式</strong>:
+    <span class="arithmatex">\(<span class="arithmatex">\(b_0 \sum x_i + b_1 \sum x_i^2 = \sum x_i y_i \quad \cdots (2)\)</span>\)</span></li>
+</ol>
+<hr />
+<h3 id="514-b_0-b_1-34">5.1.4 最小二乗法による <span class="arithmatex">\(b_0, b_1\)</span> の導出 (3/4)</h3>
+<ol>
+<li>
+<p><strong>正規方程式 (1), (2) を解く</strong>:
+    (1)式 <span class="arithmatex">\(n b_0 + b_1 \sum x_i = \sum y_i\)</span> より、<span class="arithmatex">\(b_0\)</span> について解くと:
+    <span class="arithmatex">\(<span class="arithmatex">\(b_0 = \frac{\sum y_i - b_1 \sum x_i}{n} = \bar{y} - b_1 \bar{x} \quad \cdots (3)\)</span>\)</span>
+    ここで、<span class="arithmatex">\(\bar{x} = \frac{\sum x_i}{n}\)</span>, <span class="arithmatex">\(\bar{y} = \frac{\sum y_i}{n}\)</span> は平均値。
+    <em>(この式は、回帰直線が点 <span class="arithmatex">\((\bar{x}, \bar{y})\)</span> を通ることを示す)</em></p>
+<p>(3)式を(2)式 <span class="arithmatex">\(b_0 \sum x_i + b_1 \sum x_i^2 = \sum x_i y_i\)</span> に代入:
+<span class="arithmatex">\(<span class="arithmatex">\((\bar{y} - b_1 \bar{x}) \sum x_i + b_1 \sum x_i^2 = \sum x_i y_i\)</span>\)</span>
+<span class="arithmatex">\(b_1\)</span> について整理すると:
+<span class="arithmatex">\(<span class="arithmatex">\(b_1 \left(\sum x_i^2 - \bar{x} \sum x_i\right) = \sum x_i y_i - \bar{y} \sum x_i\)</span>\)</span></p>
+</li>
+</ol>
+<hr />
+<h3 id="514-b_0-b_1-44">5.1.4 最小二乗法による <span class="arithmatex">\(b_0, b_1\)</span> の導出 (4/4)</h3>
+<p><span class="arithmatex">\(<span class="arithmatex">\(b_1 \left(\sum x_i^2 - \frac{(\sum x_i)^2}{n}\right) = \sum x_i y_i - \frac{(\sum y_i)(\sum x_i)}{n}\)</span>\)</span>
+よって、傾き <span class="arithmatex">\(b_1\)</span> は:
+<span class="arithmatex">\(<span class="arithmatex">\(b_1 = \frac{n \sum x_i y_i - (\sum x_i)(\sum y_i)}{n \sum x_i^2 - (\sum x_i)^2}\)</span>\)</span>
+または、偏差表記 <span class="arithmatex">\(S_{xy} = \sum (x_i - \bar{x})(y_i - \bar{y})\)</span>, <span class="arithmatex">\(S_{xx} = \sum (x_i - \bar{x})^2\)</span> を用いて:
+<span class="arithmatex">\(<span class="arithmatex">\(b_1 = \frac{S_{xy}}{S_{xx}}\)</span>\)</span>
+そして、<span class="arithmatex">\(b_1\)</span> が求まれば、(3)式から切片 <span class="arithmatex">\(b_0\)</span> は:
+<span class="arithmatex">\(<span class="arithmatex">\(b_0 = \bar{y} - b_1 \bar{x}\)</span>\)</span>
+* これらの計算はソフトウェアが自動で行います。原理の理解が重要です。</p>
+<hr />
+<h3 id="514-ssr">5.1.4 最適な当てはめ直線 (SSRの確認)</h3>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># statsmodels が計算したモデルの残差平方和</span>
+<span class="n">ssr_tips_vs_bill</span> <span class="o">=</span> <span class="n">model_tips_vs_bill</span><span class="o">.</span><span class="n">ssr</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;このモデルの残差平方和 (SSR): </span><span class="si">{</span><span class="n">ssr_tips_vs_bill</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># 出力例: このモデルの残差平方和 (SSR): 252.788</span>
+</code></pre></div>
+<code>statsmodels</code>が出力した係数 <span class="arithmatex">\(b_0, b_1\)</span> は、このSSRを最小にする値です。</p>
+<hr />
+<h2 id="52-1">5.2 1つのカテゴリ的説明変数</h2>
+<p><strong>リサーチクエスチョン</strong>:
+レストランで支払われるチップの額 (<code>tip</code>) は、曜日 (<code>day</code>) によって異なるか？</p>
+<ul>
+<li><strong>目的変数 <span class="arithmatex">\(y\)</span></strong>: チップの額 (<code>tip</code>) (数値型)</li>
+<li><strong>説明変数 <span class="arithmatex">\(x\)</span></strong>: 曜日 (<code>day</code>) (カテゴリ型: 木, 金, 土, 日)</li>
+</ul>
+<p>引き続き <code>tips</code> データセットを使用。</p>
+<hr />
+<h3 id="521-eda">5.2.1 探索的データ分析 (EDA)</h3>
+<p><strong>1. <code>day</code> 変数の確認と記述統計量</strong>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;曜日のカテゴリとそれぞれの件数:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tips</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">曜日ごとのチップ額の記述統計量:&quot;</span><span class="p">)</span>
+<span class="n">tip_by_day_summary</span> <span class="o">=</span> <span class="n">tips</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">)[</span><span class="s1">&#39;tip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tip_by_day_summary</span><span class="p">)</span>
+</code></pre></div>
+* 平均チップ額: 日曜 &gt; 土曜 &gt; 木曜 &gt; 金曜 の順。</p>
+<hr />
+<h3 id="521-eda_1">5.2.1 EDA (続き)</h3>
+<p><strong>2. データの可視化 (箱ひげ図)</strong>
+<div class="highlight"><pre><span></span><code><span class="n">day_order</span> <span class="o">=</span> <span class="n">tips</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> <span class="c1"># スライド用に調整</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tip&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tips</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">day_order</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;曜日 (day)&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;チップ額 (tip)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;曜日別のチップ額の分布&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+* 曜日によってチップ額の分布に違いが見られる。</p>
+<p><em>(バイオリンプロットも同様に提示可能ですが、スライド枚数を考慮し省略。講義では口頭で触れるか、追加スライドで)</em></p>
+<hr />
+<h3 id="522">5.2.2 線形回帰 (カテゴリ型説明変数)</h3>
+<p><code>statsmodels</code> で <code>C(day)</code> のように指定すると、カテゴリ変数を適切に扱ってくれます。
+<div class="highlight"><pre><span></span><code><span class="n">model_tips_vs_day</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;tip ~ C(day)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tips</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="c1"># print(model_tips_vs_day.summary())</span>
+</code></pre></div>
+<strong>回帰結果の要約 (主要部分)</strong>: ( <code>model_tips_vs_day.summary()</code> の <code>coef</code> 部分より)
+* <code>Intercept</code>: 約 2.771 (木曜日の平均チップ額)
+* <code>C(day)[T.Fri]</code>: 約 -0.030 (金曜 vs 木曜の差)
+* <code>C(day)[T.Sat]</code>: 約 0.212 (土曜 vs 木曜の差)
+* <code>C(day)[T.Sun]</code>: 約 0.478 (日曜 vs 木曜の差)</p>
+<p><strong>基準カテゴリ</strong>: <code>tips['day']</code> の最初のカテゴリ (<code>Thur</code>: 木曜日) が基準。
+他の曜日の係数は、木曜日との平均チップ額の差 (オフセット) を表す。</p>
+<hr />
+<h3 id="522_1">5.2.2 線形回帰 (係数の解釈)</h3>
+<ul>
+<li><strong><code>Intercept</code> (<span class="arithmatex">\(b_0 \approx 2.771\)</span>)</strong>:
+    基準カテゴリである<strong>木曜日 (<code>Thur</code>)</strong> の平均チップ額の推定値。</li>
+<li><strong><code>C(day)[T.Fri]</code> (<span class="arithmatex">\(\approx -0.030\)</span>)</strong>:
+    金曜日 (<code>Fri</code>) の平均チップ額は、木曜日の平均チップ額より約0.030ドル低い。
+    (金曜日の平均チップ額 <span class="arithmatex">\(\approx 2.771 - 0.030 = 2.741\)</span>)</li>
+<li><strong><code>C(day)[T.Sat]</code> (<span class="arithmatex">\(\approx 0.212\)</span>)</strong>:
+    土曜日 (<code>Sat</code>) の平均チップ額は、木曜日より約0.212ドル高い。
+    (土曜日の平均チップ額 <span class="arithmatex">\(\approx 2.771 + 0.212 = 2.983\)</span>)</li>
+<li><strong><code>C(day)[T.Sun]</code> (<span class="arithmatex">\(\approx 0.478\)</span>)</strong>:
+    日曜日 (<code>Sun</code>) の平均チップ額は、木曜日より約0.478ドル高い。
+    (日曜日の平均チップ額 <span class="arithmatex">\(\approx 2.771 + 0.478 = 3.249\)</span>)</li>
+</ul>
+<hr />
+<h3 id="522_2">5.2.2 線形回帰 (回帰表)</h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">base_category</span> <span class="o">=</span> <span class="n">tips</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># &#39;Thur&#39;</span>
+<span class="n">terms_day</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Intercept (</span><span class="si">{</span><span class="n">base_category</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">term_name</span> <span class="ow">in</span> <span class="n">model_tips_vs_day</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">day_name</span> <span class="o">=</span> <span class="n">term_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[T.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">terms_day</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">day_name</span><span class="si">}</span><span class="s2"> (vs </span><span class="si">{</span><span class="n">base_category</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="n">regression_table_tips_vs_day</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span> <span class="c1"># (以下略, 前のMD参照)</span>
+    <span class="s1">&#39;term&#39;</span><span class="p">:</span> <span class="n">terms_day</span><span class="p">,</span>
+    <span class="s1">&#39;estimate&#39;</span><span class="p">:</span> <span class="n">model_tips_vs_day</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="c1"># ...</span>
+    <span class="c1"># ... (std_error, t_value, p_value, conf_int)</span>
+<span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">カテゴリ変数を用いた回帰の回帰表 (基準: </span><span class="si">{</span><span class="n">base_category</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">regression_table_tips_vs_day</span><span class="p">)</span>
+</code></pre></div>
+(表示される表の例は前のMarkdown資料を参照)
+* 各曜日の平均チップ額推定値が、EDAで計算したグループ平均と一致することを確認。</p>
+<hr />
+<h3 id="523">5.2.3 観測値, 予測値, 残差</h3>
+<ul>
+<li><strong>予測値 (<span class="arithmatex">\(\widehat{y}_i\)</span>)</strong>: 各データ点が属する曜日の平均チップ額の推定値。
+    (例: 木曜日のデータなら <span class="arithmatex">\(\widehat{y}_i = 2.771\)</span>, 金曜日なら <span class="arithmatex">\(\widehat{y}_i = 2.741\)</span>)</li>
+<li><strong>残差 (<span class="arithmatex">\(e_i = y_i - \widehat{y}_i\)</span>)</strong>: 個々のチップ額と、その曜日の平均チップ額推定値との差。</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="n">tips</span><span class="p">[</span><span class="s1">&#39;tip_hat_vs_day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_tips_vs_day</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tips</span><span class="p">)</span>
+<span class="n">tips</span><span class="p">[</span><span class="s1">&#39;residual_vs_day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_tips_vs_day</span><span class="o">.</span><span class="n">resid</span>
+<span class="c1"># display(tips[[&#39;day&#39;, &#39;tip&#39;, &#39;tip_hat_vs_day&#39;, &#39;residual_vs_day&#39;]].head())</span>
+</code></pre></div>
+<strong>曜日別残差プロット (箱ひげ図)</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> <span class="c1"># スライド用に調整</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;residual_vs_day&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tips</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">day_order</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;曜日 (day)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;残差 (tip - tip_hat_vs_day)&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;曜日別の残差の分布&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+* 各曜日の平均からのばらつき具合を示す。</p>
+<hr />
+<h2 id="53">5.3 相関は必ずしも因果を意味しない</h2>
+<p><strong>重要</strong>: 2つの変数 X と Y に統計的な関連 (相関や回帰係数) が見られても、
+必ずしも「X が Y を引き起こす」という<strong>因果関係</strong>を意味するわけではない。</p>
+<p><strong>例: 靴を履いて寝る (X) と 頭痛 (Y)</strong>
+* 観察: X と Y に正の相関。
+* 結論の誤り: 「靴を履いて寝ると頭痛になる！」
+* <strong>交絡変数 (Confounding Variable) Z</strong>: 前夜の飲酒量
+    * 飲酒 (Z) <span class="arithmatex">\(\rightarrow\)</span> 靴を履いて寝る (X)
+    * 飲酒 (Z) <span class="arithmatex">\(\rightarrow\)</span> 頭痛 (Y)
+<div class="highlight"><pre><span></span><code>      Z (飲酒量)
+     / \
+    /   \
+   v     v
+  X       Y
+(靴就寝) (頭痛)
+</code></pre></div>
+* XとYの見かけ上の関連は、Zによって説明されるかもしれない。
+* 因果関係の主張には、ランダム化比較試験 (RCT) や高度な統計手法が必要。</p>
+<hr />
+<h2 id="12_1">まとめ (1/2)</h2>
+<p>本章で学んだこと:
+1.  <strong>モデリングの目的</strong>: 説明 vs 予測。
+2.  <strong>単純線形回帰 (<span class="arithmatex">\(\widehat{y} = b_0 + b_1 x\)</span>)</strong>:
+    * 数値型説明変数 (<code>total_bill</code> <span class="arithmatex">\(\rightarrow\)</span> <code>tip</code>)
+    * 係数 <span class="arithmatex">\(b_0\)</span> (切片), <span class="arithmatex">\(b_1\)</span> (傾き) の解釈。
+3.  <strong>最小二乗法による係数導出</strong>:
+    * 残差平方和 (SSR) <span class="arithmatex">\(\sum (y_i - \widehat{y}_i)^2\)</span> を最小化。
+    * 偏微分を用いた正規方程式とその解法（<span class="arithmatex">\(b_0, b_1\)</span> の公式）。
+4.  <strong>カテゴリ型説明変数を持つ回帰</strong>:
+    * (<code>day</code> <span class="arithmatex">\(\rightarrow\)</span> <code>tip</code>)
+    * 基準カテゴリとオフセットとしての係数の解釈。</p>
+<hr />
+<h2 id="22_1">まとめ (2/2)</h2>
+<ol>
+<li><strong>探索的データ分析 (EDA)</strong>: 可視化や記述統計の重要性。</li>
+<li><strong>観測値、予測値、残差</strong>:<ul>
+<li><span class="arithmatex">\(e_i = y_i - \widehat{y}_i\)</span></li>
+<li>残差プロットやヒストグラムによるモデル評価の初歩。</li>
+</ul>
+</li>
+<li><strong>相関と因果</strong>: 「相関は因果ではない」。交絡変数の可能性。</li>
+</ol>
+<p><strong>使用ツール</strong>: Python (<code>pandas</code>, <code>matplotlib</code>, <code>seaborn</code>, <code>statsmodels</code>)</p>
+<p><strong>次章予告</strong>: 複数の説明変数を持つ<strong>重回帰分析</strong>へ。</p>
+<hr />
+<h2 id="python_1">(付録) Pythonコード一括実行用</h2>
+<p>このスライドで使用したPythonコードの多くは、以下のセルにまとめてあります。
+Google Colab等で実行して、結果やグラフを実際に確認してみてください。</p>
+<h2 id="import-pandas-as-pd-import-numpy-as-np-import-matplotlibpyplot-as-plt-import-seaborn-as-sns-import-statsmodelsapi-as-sm-import-statsmodelsformulaapi-as-smf-from-ipythondisplay-import-display"><div class="highlight"><pre><span></span><code><span class="c1"># 必要なライブラリのインポート</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+</code></pre></div></h2>
+<p>```python</p>
+<h1 id="-51-">--- 5.1節用コード ---</h1>
+<p>print("=== 5.1 1つの数値的説明変数 ===")
+tips = sns.load_dataset('tips')</p>
+<h1 id="eda-displaytipshead-tipsinfo-displaytipsdescribe">(EDAコード ... display(tips.head()), tips.info(), display(tips.describe()...))</h1>
+<h1 id="snsscatterplot-snsregplot">(可視化コード ... sns.scatterplot, sns.regplot)</h1>
+<h1 id="smfolstip-total_bill-datatipsfit">(モデル構築 ... smf.ols('tip ~ total_bill', data=tips).fit())</h1>
+<h1 id="pddataframe">(回帰表作成 ... pd.DataFrame(...))</h1>
+<h1 id="tipstip_hat_vs_bill">(予測値・残差計算 ... tips['tip_hat_vs_bill'] = ...)</h1>
+<h1 id="snsscatterplotxtip_hat_vs_bill">(残差プロット等 ... sns.scatterplot(x='tip_hat_vs_bill',...))</h1>
+<h1 id="-52-">--- 5.2節用コード ---</h1>
+<p>print("\n=== 5.2 1つのカテゴリ的説明変数 ===")</p>
+<h1 id="eda-tipsdayvalue_counts-tipsgroupbyday">(EDAコード ... tips['day'].value_counts(), tips.groupby('day')...)</h1>
+<h1 id="snsboxplotxday-ytip">(可視化コード ... sns.boxplot(x='day', y='tip', ...))</h1>
+<h1 id="smfolstip-cday-datatipsfit">(モデル構築 ... smf.ols('tip ~ C(day)', data=tips).fit())</h1>
+<h1 id="pddataframe_1">(回帰表作成 ... pd.DataFrame(...))</h1>
+<h1 id="tipstip_hat_vs_day">(予測値・残差計算 ... tips['tip_hat_vs_day'] = ...)</h1>
+<h1 id="snsboxplotxday-yresidual_vs_day">(残差プロット等 ... sns.boxplot(x='day', y='residual_vs_day',...))</h1>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
