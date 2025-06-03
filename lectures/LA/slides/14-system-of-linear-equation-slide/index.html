@@ -12,28 +12,24 @@
         <meta name="author" content="Tomoshige Nakamura">
       
       
-        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/18-system-of-linear-equation/">
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/slides/14-system-of-linear-equation-slide/">
       
       
-        <link rel="prev" href="../17-system-of-linear-equation/">
       
       
-        <link rel="next" href="../19-exercise/">
-      
-      
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>18. System of Linear Equation 9 - Statistical Learning Laboratory</title>
+        <title>14 system of linear equation slide - Statistical Learning Laboratory</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -54,7 +50,7 @@
     
       <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#i-ii-18" class="md-skip">
+        <a href="#i-14" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -94,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="ヘッダー">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              18. System of Linear Equation 9
+              14 system of linear equation slide
             
           </span>
         </div>
@@ -201,7 +197,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+    <a href="../../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -231,7 +227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -248,8 +244,6 @@
       
   
   
-    
-  
   
   
     
@@ -273,16 +267,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -299,7 +293,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Lectures
@@ -312,8 +306,6 @@
                 
   
   
-    
-  
   
   
     
@@ -340,16 +332,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -366,7 +358,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Linear algebra
@@ -439,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01-introduction/" class="md-nav__link">
+      <a href="../../01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -460,7 +452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-vector-and-matrix/" class="md-nav__link">
+      <a href="../../02-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -481,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-vector-and-matrix/" class="md-nav__link">
+      <a href="../../03-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -502,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-vector-and-matrix/" class="md-nav__link">
+      <a href="../../04-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -523,7 +515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-vector-and-matrix/" class="md-nav__link">
+      <a href="../../05-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -544,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-vector-and-matrix/" class="md-nav__link">
+      <a href="../../06-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -565,7 +557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-vector-and-matrix/" class="md-nav__link">
+      <a href="../../07-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -586,7 +578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-vector-and-matrix/" class="md-nav__link">
+      <a href="../../08-vector-and-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -607,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-exercise/" class="md-nav__link">
+      <a href="../../09-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -633,10 +625,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -667,11 +657,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
         
           
           <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
@@ -685,7 +675,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2_3">
             <span class="md-nav__icon md-icon"></span>
             Module 2 - System of Linear Equations
@@ -699,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../10-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -720,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../11-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../11-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -741,7 +731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../12-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../12-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -762,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../13-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../13-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -783,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../14-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../14-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -804,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../15-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../15-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -825,7 +815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../16-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../16-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -846,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../17-system-of-linear-equation/" class="md-nav__link">
+      <a href="../../17-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -864,19 +854,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../18-system-of-linear-equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -885,7 +866,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -898,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../19-exercise/" class="md-nav__link">
+      <a href="../../19-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -919,7 +899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../20-midterm-exam/" class="md-nav__link">
+      <a href="../../20-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -997,7 +977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../21-determinant/" class="md-nav__link">
+      <a href="../../21-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1018,7 +998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../22-determinant/" class="md-nav__link">
+      <a href="../../22-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1039,7 +1019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../23-determinant/" class="md-nav__link">
+      <a href="../../23-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1060,7 +1040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../24-determinant/" class="md-nav__link">
+      <a href="../../24-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1081,7 +1061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../25-exercise/" class="md-nav__link">
+      <a href="../../25-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1161,7 +1141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../26-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../26-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1182,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../27-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../27-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1203,7 +1183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../28-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../../28-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1224,7 +1204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../29-exercise/" class="md-nav__link">
+      <a href="../../29-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1245,7 +1225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../30-exercise/" class="md-nav__link">
+      <a href="../../30-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1266,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../31-exam/" class="md-nav__link">
+      <a href="../../31-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1352,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../32-eigen-value-vector/" class="md-nav__link">
+      <a href="../../32-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1373,7 +1353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../33-eigen-value-vector/" class="md-nav__link">
+      <a href="../../33-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1394,7 +1374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../34-eigen-value-vector/" class="md-nav__link">
+      <a href="../../34-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1415,7 +1395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../35-eigen-value-vector/" class="md-nav__link">
+      <a href="../../35-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1436,7 +1416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../36-eigen-value-vector/" class="md-nav__link">
+      <a href="../../36-eigen-value-vector/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1457,7 +1437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../37-exercise/" class="md-nav__link">
+      <a href="../../37-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1478,7 +1458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../38-midterm-exam/" class="md-nav__link">
+      <a href="../../38-midterm-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1499,7 +1479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../39-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../39-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1520,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../40-singular-value-decomposition/" class="md-nav__link">
+      <a href="../../40-singular-value-decomposition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1604,7 +1584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../41-principal-component-analysis/" class="md-nav__link">
+      <a href="../../41-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1625,7 +1605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../42-principal-component-analysis/" class="md-nav__link">
+      <a href="../../42-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1646,7 +1626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../43-principal-component-analysis/" class="md-nav__link">
+      <a href="../../43-principal-component-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1667,7 +1647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../44-factor-analysis/" class="md-nav__link">
+      <a href="../../44-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1688,7 +1668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../45-factor-analysis/" class="md-nav__link">
+      <a href="../../45-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1709,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../46-nonlinear-dimension-reduction/" class="md-nav__link">
+      <a href="../../46-nonlinear-dimension-reduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1730,7 +1710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../47-wrapup/" class="md-nav__link">
+      <a href="../../47-wrapup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1751,7 +1731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../48-exam/" class="md-nav__link">
+      <a href="../../48-exam/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1818,7 +1798,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SIWS/" class="md-nav__link ">
+            <a href="../../../SIWS/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1898,7 +1878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+      <a href="../../../SIWS/01-getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1919,7 +1899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+      <a href="../../../SIWS/02-visualization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1940,7 +1920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+      <a href="../../../SIWS/03-wrangling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1961,7 +1941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+      <a href="../../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2033,7 +2013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/05-simple-linear-regression/" class="md-nav__link">
+      <a href="../../../SIWS/05-simple-linear-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2054,7 +2034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/06-multiple-regression/" class="md-nav__link">
+      <a href="../../../SIWS/06-multiple-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2130,7 +2110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/07-sampling/" class="md-nav__link">
+      <a href="../../../SIWS/07-sampling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2151,7 +2131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
+      <a href="../../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2172,7 +2152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/09-hypothesis-testing/" class="md-nav__link">
+      <a href="../../../SIWS/09-hypothesis-testing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2193,7 +2173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/10-inference-for-regression/" class="md-nav__link">
+      <a href="../../../SIWS/10-inference-for-regression/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2263,7 +2243,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
+      <a href="../../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2333,7 +2313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SIWS/12-how-to-create-a-compelling-proposal/" class="md-nav__link">
+      <a href="../../../SIWS/12-how-to-create-a-compelling-proposal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2390,7 +2370,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../SP/" class="md-nav__link ">
+            <a href="../../../SP/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2462,7 +2442,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/" class="md-nav__link ">
+            <a href="../../../../research/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2540,7 +2520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+      <a href="../../../../research/note/generalized-random-forests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2561,7 +2541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+      <a href="../../../../research/note/variable-importance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2582,7 +2562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+      <a href="../../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2656,7 +2636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+      <a href="../../../../research/note/sparseBART/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2677,7 +2657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/causal-mediation-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2698,7 +2678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+      <a href="../../../../research/note/causal-data-repository/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2755,7 +2735,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+            <a href="../../../../research/note/factor-analysis/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2835,7 +2815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2856,7 +2836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2877,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2898,7 +2878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2972,7 +2952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2993,7 +2973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3014,7 +2994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3090,7 +3070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3111,7 +3091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3132,7 +3112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3153,7 +3133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3223,7 +3203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+      <a href="../../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3280,6 +3260,308 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      逆行列の概念、存在条件、そして応用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逆行列の概念、存在条件、そして応用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      中村 知繁
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      講義情報と予習ガイド
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      学習目標
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 逆行列の定義
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 逆行列の基本的性質
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 逆行列の存在条件と計算方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 逆行列の存在条件と計算方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 逆行列の存在条件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 逆行列の存在条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.1 行列のランクとの関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.2 行列式との関係
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 ガウスの消去法による逆行列の計算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 ガウスの消去法による逆行列の計算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      手順:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-times-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題1: \(2 \times 2\) 行列の逆行列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-times-2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題1: \(2 \times 2\) 行列の逆行列 (続き)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-times-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題2: \(3 \times 3\) 行列の逆行列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-times-3-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題2: \(3 \times 3\) 行列の逆行列 (続き1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-times-3-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題2: \(3 \times 3\) 行列の逆行列 (続き2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-times-3-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題2: \(3 \times 3\) 行列の逆行列 (続き3)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 逆行列の応用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 逆行列の応用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 連立一次方程式の解法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 データサイエンスにおける応用例 📊📈⚙️
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 演習問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 演習問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      応用問題 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      応用問題 2 (健康データサイエンス関連)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      まとめ
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3293,13 +3575,278 @@
                   
 
 
-<h1 id="i-ii-18">線形代数学 I / 基礎 / II - 第18回 総合演習</h1>
+<!-- header: 'T. Nakamura | Juntendo Univ.' -->
+<!-- footer: '2025/02/08' -->
+<style>
+section { 
+    font-size: 18px; 
+}
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+/* ページ番号 */
+section::after {
+    content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);
+    fonr-size: 60%;
+}
+/* 発表会名 */
+header {
+    width: 100%;
+    position: absolute;
+    top: unset;
+    bottom: 21px;
+    left: 0;
+    text-align: center;
+    font-size: 60%;
+}
+/* 日付 */
+footer {
+    text-align: center;
+    font-size: 15px;
+}
+</style>
+
+<!--
+_class: lead
+_paginate: false
+-->
+
+<p><img alt="bg left:50% 80%" src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7c3wpgkwcxbHgvZtaTL7gg.png" /></p>
+<h1 id="i-14">線形代数学 I: 第14回講義</h1>
+<h2 id="_1">逆行列の概念、存在条件、そして応用</h2>
+<h3 id="_2">中村 知繁</h3>
+<hr />
+<h2 id="_3">講義情報と予習ガイド</h2>
+<ul>
+<li><strong>講義回</strong>: 第14回</li>
+<li><strong>テーマ</strong>: 逆行列の概念、存在条件、計算方法、およびその応用</li>
+<li><strong>関連項目</strong>: 連立一次方程式、ガウスの消去法、行列のランク、行列式</li>
+<li><strong>予習事項</strong>:<ul>
+<li>第10回〜第13回の内容を十分に復習<ul>
+<li>特に行列のランク</li>
+<li>行列式</li>
+<li>連立一次方程式の解の存在条件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="_4">学習目標</h2>
+<p>本講義の終了時には、以下の事項について理解し、説明・計算できるようになることを目指します。</p>
+<ol>
+<li><strong>逆行列の定義</strong>と基本的な<strong>性質</strong>を理解し、説明できる。</li>
+<li>逆行列の<strong>存在条件</strong>を、行列の<strong>ランク</strong>および<strong>行列式</strong>と関連付けて説明できる。</li>
+<li><strong>ガウスの消去法</strong>を用いて逆行列を具体的に計算できる。</li>
+<li>逆行列と<strong>連立一次方程式の解法</strong>との関連を理解し、応用できる。</li>
+<li>回帰分析など、<strong>データサイエンス</strong>の文脈における逆行列の重要性と具体的な利用例を理解する。</li>
+</ol>
+<hr />
+<h2 id="1">1. 基本概念</h2>
+<h3 id="11">1.1 逆行列の定義</h3>
+<blockquote>
+<p><strong>定義</strong>: <span class="arithmatex">\(A\)</span> を <span class="arithmatex">\(n \times n\)</span> の正方行列とするとき、<span class="arithmatex">\(AB = BA = I_n\)</span> となる <span class="arithmatex">\(n \times n\)</span> 行列 <span class="arithmatex">\(B\)</span> が存在する場合、<span class="arithmatex">\(B\)</span> を <span class="arithmatex">\(A\)</span> の<strong>逆行列 (inverse matrix)</strong> といい、<span class="arithmatex">\(A^{-1}\)</span> と表します。ここで <span class="arithmatex">\(I_n\)</span> は <span class="arithmatex">\(n\)</span> 次の<strong>単位行列 (identity matrix)</strong> です。</p>
+</blockquote>
+<ul>
+<li>関係式: <span class="arithmatex">\(A A^{-1} = A^{-1} A = I_n\)</span></li>
+<li><strong>アナロジー</strong>:<ul>
+<li>実数の「1」 <span class="arithmatex">\(\Leftrightarrow\)</span> 単位行列 <span class="arithmatex">\(I_n\)</span></li>
+<li>実数の逆数 <span class="arithmatex">\(a^{-1}\)</span> <span class="arithmatex">\(\Leftrightarrow\)</span> 逆行列 <span class="arithmatex">\(A^{-1}\)</span></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="12">1.2 逆行列の基本的性質</h3>
+<ol>
+<li><strong>正方行列</strong>: 逆行列が定義されるのは正方行列のみ。</li>
+<li><strong>一意性</strong>: 逆行列が存在する場合、ただ一つに定まる。</li>
+<li><strong>正則性</strong>:<ul>
+<li>逆行列を持つ行列: <strong>正則行列 (invertible / non-singular)</strong> または <strong>可逆行列</strong></li>
+<li>逆行列を持たない行列: <strong>特異行列 (singular)</strong></li>
+</ul>
+</li>
+<li><strong>行列式との関係</strong>: <span class="arithmatex">\(\det(A) \neq 0 \iff A^{-1}\)</span> が存在する。（後述）</li>
+<li><strong>逆行列の逆行列</strong>: <span class="arithmatex">\((A^{-1})^{-1} = A\)</span></li>
+<li><strong>転置行列の逆行列</strong>: <span class="arithmatex">\((A^T)^{-1} = (A^{-1})^T\)</span></li>
+<li><strong>積の逆行列</strong>: <span class="arithmatex">\((AB)^{-1} = B^{-1}A^{-1}\)</span> (順序が逆転！)</li>
+</ol>
+<hr />
+<h2 id="2">2. 逆行列の存在条件と計算方法</h2>
+<h3 id="21">2.1 逆行列の存在条件</h3>
+<h4 id="211">2.1.1 行列のランクとの関係</h4>
+<blockquote>
+<p><strong>定理</strong>: <span class="arithmatex">\(n \times n\)</span> の正方行列 <span class="arithmatex">\(A\)</span> の逆行列が存在するための必要十分条件は、<span class="arithmatex">\(\operatorname{rank}(A) = n\)</span> である。</p>
+</blockquote>
+<ul>
+<li><span class="arithmatex">\(\operatorname{rank}(A) = n\)</span> とは？<ul>
+<li>行列 <span class="arithmatex">\(A\)</span> の列（または行）ベクトルが線形独立。</li>
+<li>行列 <span class="arithmatex">\(A\)</span> による変換が「情報を縮退させていない」（次元を保つ）。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4 id="212">2.1.2 行列式との関係</h4>
+<blockquote>
+<p><strong>定理</strong>: <span class="arithmatex">\(n \times n\)</span> の正方行列 <span class="arithmatex">\(A\)</span> の逆行列が存在するための必要十分条件は、<span class="arithmatex">\(\det(A) \neq 0\)</span> である。</p>
+</blockquote>
+<ul>
+<li>この条件は <span class="arithmatex">\(\operatorname{rank}(A) = n\)</span> と同値。</li>
+<li>実用上、行列式を計算してゼロかどうかを確認することが多い。</li>
+</ul>
+<hr />
+<h3 id="22">2.2 ガウスの消去法による逆行列の計算</h3>
+<h4 id="_5">手順:</h4>
+<ol>
+<li>拡大行列 <span class="arithmatex">\([A | I_n]\)</span> を作成。
+    (<span class="arithmatex">\(A\)</span>: <span class="arithmatex">\(n \times n\)</span> 行列, <span class="arithmatex">\(I_n\)</span>: <span class="arithmatex">\(n\)</span> 次単位行列)</li>
+<li>行基本変形により、<span class="arithmatex">\(A\)</span> の部分を <span class="arithmatex">\(I_n\)</span> に変形する。</li>
+<li>変形が成功すれば、右側の部分は <span class="arithmatex">\(A^{-1}\)</span> になる: <span class="arithmatex">\([I_n | A^{-1}]\)</span></li>
+</ol>
+<hr />
+<h4 id="1-2-times-2">例題1: <span class="arithmatex">\(2 \times 2\)</span> 行列の逆行列</h4>
+<p><span class="arithmatex">\(A = \begin{pmatrix} 2 &amp; 1 \\ 3 &amp; 2 \end{pmatrix}\)</span> の逆行列を求める。</p>
+<p>拡大行列: <span class="arithmatex">\(\left( \begin{array}{cc|cc} 2 &amp; 1 &amp; 1 &amp; 0 \\ 3 &amp; 2 &amp; 0 &amp; 1 \end{array} \right)\)</span></p>
+<ol>
+<li><span class="arithmatex">\(R_1 \leftarrow \frac{1}{2}R_1\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{cc|cc} 1 &amp; 1/2 &amp; 1/2 &amp; 0 \\ 3 &amp; 2 &amp; 0 &amp; 1 \end{array} \right)\)</span></li>
+<li><span class="arithmatex">\(R_2 \leftarrow R_2 - 3R_1\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{cc|cc} 1 &amp; 1/2 &amp; 1/2 &amp; 0 \\ 0 &amp; 1/2 &amp; -3/2 &amp; 1 \end{array} \right)\)</span></li>
+</ol>
+<hr />
+<h4 id="1-2-times-2_1">例題1: <span class="arithmatex">\(2 \times 2\)</span> 行列の逆行列 (続き)</h4>
+<p><span class="arithmatex">\(\left( \begin{array}{cc|cc} 1 &amp; 1/2 &amp; 1/2 &amp; 0 \\ 0 &amp; 1/2 &amp; -3/2 &amp; 1 \end{array} \right)\)</span></p>
+<ol>
+<li><span class="arithmatex">\(R_2 \leftarrow 2R_2\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{cc|cc} 1 &amp; 1/2 &amp; 1/2 &amp; 0 \\ 0 &amp; 1 &amp; -3 &amp; 2 \end{array} \right)\)</span></li>
+<li><span class="arithmatex">\(R_1 \leftarrow R_1 - \frac{1}{2}R_2\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{cc|cc} 1 &amp; 0 &amp; 2 &amp; -1 \\ 0 &amp; 1 &amp; -3 &amp; 2 \end{array} \right)\)</span></li>
+</ol>
+<p>ゆえに、<span class="arithmatex">\(A^{-1} = \begin{pmatrix} 2 &amp; -1 \\ -3 &amp; 2 \end{pmatrix}\)</span></p>
+<p>検算: <span class="arithmatex">\(A A^{-1} = \begin{pmatrix} 2 &amp; 1 \\ 3 &amp; 2 \end{pmatrix} \begin{pmatrix} 2 &amp; -1 \\ -3 &amp; 2 \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix} = I_2\)</span></p>
+<hr />
+<h4 id="2-3-times-3">例題2: <span class="arithmatex">\(3 \times 3\)</span> 行列の逆行列</h4>
+<p><span class="arithmatex">\(A = \begin{pmatrix} 1 &amp; 2 &amp; 1 \\ 2 &amp; 5 &amp; 3 \\ 1 &amp; 0 &amp; 2 \end{pmatrix}\)</span> の逆行列を求める。</p>
+<p>拡大行列: <span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 2 &amp; 5 &amp; 3 &amp; 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 2 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)\)</span></p>
+<ol>
+<li><span class="arithmatex">\(R_2 \leftarrow R_2 - 2R_1\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; -2 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 2 &amp; 0 &amp; 0 &amp; 1 \end{array} \right)\)</span></li>
+<li><span class="arithmatex">\(R_3 \leftarrow R_3 - R_1\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; -2 &amp; 1 &amp; 0 \\ 0 &amp; -2 &amp; 1 &amp; -1 &amp; 0 &amp; 1 \end{array} \right)\)</span></li>
+</ol>
+<hr />
+<h4 id="2-3-times-3-1">例題2: <span class="arithmatex">\(3 \times 3\)</span> 行列の逆行列 (続き1)</h4>
+<p><span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; -2 &amp; 1 &amp; 0 \\ 0 &amp; -2 &amp; 1 &amp; -1 &amp; 0 &amp; 1 \end{array} \right)\)</span></p>
+<ol>
+<li><span class="arithmatex">\(R_3 \leftarrow R_3 + 2R_2\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; -2 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 3 &amp; -5 &amp; 2 &amp; 1 \end{array} \right)\)</span></li>
+<li><span class="arithmatex">\(R_3 \leftarrow \frac{1}{3}R_3\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; -2 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; -5/3 &amp; 2/3 &amp; 1/3 \end{array} \right)\)</span></li>
+</ol>
+<hr />
+<h4 id="2-3-times-3-2">例題2: <span class="arithmatex">\(3 \times 3\)</span> 行列の逆行列 (続き2)</h4>
+<p><span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; -2 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; -5/3 &amp; 2/3 &amp; 1/3 \end{array} \right)\)</span></p>
+<ol>
+<li><span class="arithmatex">\(R_2 \leftarrow R_2 - R_3\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; -1/3 &amp; 1/3 &amp; -1/3 \\ 0 &amp; 0 &amp; 1 &amp; -5/3 &amp; 2/3 &amp; 1/3 \end{array} \right)\)</span></li>
+<li><span class="arithmatex">\(R_1 \leftarrow R_1 - R_3\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 0 &amp; 8/3 &amp; -2/3 &amp; -1/3 \\ 0 &amp; 1 &amp; 0 &amp; -1/3 &amp; 1/3 &amp; -1/3 \\ 0 &amp; 0 &amp; 1 &amp; -5/3 &amp; 2/3 &amp; 1/3 \end{array} \right)\)</span></li>
+</ol>
+<hr />
+<h4 id="2-3-times-3-3">例題2: <span class="arithmatex">\(3 \times 3\)</span> 行列の逆行列 (続き3)</h4>
+<p><span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 2 &amp; 0 &amp; 8/3 &amp; -2/3 &amp; -1/3 \\ 0 &amp; 1 &amp; 0 &amp; -1/3 &amp; 1/3 &amp; -1/3 \\ 0 &amp; 0 &amp; 1 &amp; -5/3 &amp; 2/3 &amp; 1/3 \end{array} \right)\)</span></p>
+<ol>
+<li><span class="arithmatex">\(R_1 \leftarrow R_1 - 2R_2\)</span>:
+    <span class="arithmatex">\(\left( \begin{array}{ccc|ccc} 1 &amp; 0 &amp; 0 &amp; 10/3 &amp; -4/3 &amp; 1/3 \\ 0 &amp; 1 &amp; 0 &amp; -1/3 &amp; 1/3 &amp; -1/3 \\ 0 &amp; 0 &amp; 1 &amp; -5/3 &amp; 2/3 &amp; 1/3 \end{array} \right)\)</span></li>
+</ol>
+<p>ゆえに、<span class="arithmatex">\(A^{-1} = \begin{pmatrix} 10/3 &amp; -4/3 &amp; 1/3 \\ -1/3 &amp; 1/3 &amp; -1/3 \\ -5/3 &amp; 2/3 &amp; 1/3 \end{pmatrix}\)</span></p>
+<hr />
+<h2 id="3">3. 逆行列の応用</h2>
+<h3 id="31">3.1 連立一次方程式の解法</h3>
+<p>連立一次方程式 <span class="arithmatex">\(A\mathbf{x} = \mathbf{b}\)</span>
+もし <span class="arithmatex">\(A\)</span> が正則（<span class="arithmatex">\(A^{-1}\)</span> が存在する）ならば、
+<span class="arithmatex">\(<span class="arithmatex">\(A^{-1}(A\mathbf{x}) = A^{-1}\mathbf{b}\)</span>\)</span>
+<span class="arithmatex">\(<span class="arithmatex">\((A^{-1}A)\mathbf{x} = A^{-1}\mathbf{b}\)</span>\)</span>
+<span class="arithmatex">\(<span class="arithmatex">\(I_n\mathbf{x} = A^{-1}\mathbf{b}\)</span>\)</span>
+<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x} = A^{-1}\mathbf{b}\)</span>\)</span>
+解 <span class="arithmatex">\(\mathbf{x}\)</span> が一意に求まる。</p>
+<p><strong>注意点</strong>:
+数値計算では、逆行列 <span class="arithmatex">\(A^{-1}\)</span> を陽に計算するより、ガウスの消去法等で直接 <span class="arithmatex">\(\mathbf{x}\)</span> を求める方が効率的・安定的なことが多い。</p>
+<hr />
+<h3 id="32">3.2 データサイエンスにおける応用例 📊📈⚙️</h3>
+<ol>
+<li>
+<p><strong>線形回帰分析 (Linear Regression)</strong></p>
+<ul>
+<li>正規方程式: <span class="arithmatex">\((X^T X)\boldsymbol{\beta} = X^T \mathbf{y}\)</span></li>
+<li>回帰係数: <span class="arithmatex">\(\boldsymbol{\beta} = (X^T X)^{-1} X^T \mathbf{y}\)</span></li>
+</ul>
+</li>
+<li>
+<p><strong>共分散行列と精度行列 (Covariance &amp; Precision Matrices)</strong></p>
+<ul>
+<li>共分散行列 <span class="arithmatex">\(\Sigma\)</span></li>
+<li>精度行列 <span class="arithmatex">\(\Sigma^{-1}\)</span>: 変数間の条件付き独立性を反映。ガウスグラフィカルモデル等。</li>
+</ul>
+</li>
+<li>
+<p><strong>主成分分析 (PCA) の理論的背景</strong></p>
+<ul>
+<li>共分散行列の解析に、正則性や対角化などの関連概念が重要。</li>
+</ul>
+</li>
+<li>
+<p><strong>フィルタリングと制御理論 (Filtering &amp; Control Theory)</strong></p>
+<ul>
+<li>カルマンフィルタ等で誤差共分散行列の更新に逆行列計算が登場。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="4">4. 演習問題</h2>
+<h3 id="1_1">基本問題 1</h3>
+<p><strong>問題1</strong>: 以下の行列の逆行列を求めなさい。
+<span class="arithmatex">\(<span class="arithmatex">\(A = \begin{pmatrix} 3 &amp; 1 \\ 2 &amp; 1 \end{pmatrix}\)</span>\)</span></p>
+<p><strong>問題2</strong>: 以下の行列 <span class="arithmatex">\(B\)</span> について、逆行列が存在するか判定し、存在する場合は逆行列を求めなさい。存在しない場合は、その理由（ランクまたは行列式の観点から）を述べなさい。
+<span class="arithmatex">\(<span class="arithmatex">\(B = \begin{pmatrix} 2 &amp; 4 \\ 1 &amp; 2 \end{pmatrix}\)</span>\)</span></p>
+<hr />
+<h3 id="2_1">基本問題 2</h3>
+<p><strong>問題3</strong>: 以下の連立一次方程式を、逆行列を用いて解きなさい。
+<span class="arithmatex">\(<span class="arithmatex">\(\begin{cases} 2x + y = 7 \\ x + y = 4 \end{cases}\)</span>\)</span></p>
+<p><strong>問題4</strong>: 以下の行列の逆行列を求めなさい。
+<span class="arithmatex">\(<span class="arithmatex">\(C = \begin{pmatrix} 1 &amp; 1 &amp; 1 \\ 0 &amp; 2 &amp; 1 \\ 1 &amp; 0 &amp; 2 \end{pmatrix}\)</span>\)</span></p>
+<hr />
+<h3 id="1_2">応用問題 1</h3>
+<p><strong>問題5</strong>: <span class="arithmatex">\(A\)</span> と <span class="arithmatex">\(B\)</span> を同サイズの正方行列とし、<span class="arithmatex">\(AB\)</span> が正則行列であるとします。このとき、<span class="arithmatex">\(A\)</span> と <span class="arithmatex">\(B\)</span> は共に正則行列であることを証明しなさい。
+（ヒント: 行列式やランクの性質を用いる）</p>
+<p><strong>問題6</strong>: <span class="arithmatex">\(2\)</span> 次正方行列 <span class="arithmatex">\(A\)</span> に対して、<span class="arithmatex">\(A^2 = O\)</span> （<span class="arithmatex">\(O\)</span> は零行列）が成り立つとします。このとき、<span class="arithmatex">\(I - A\)</span> の逆行列を、<span class="arithmatex">\(I\)</span> と <span class="arithmatex">\(A\)</span> を用いて表しなさい。
+（ヒント: <span class="arithmatex">\((I-A)(I+A) = I-A^2\)</span> のような展開を考える）</p>
+<hr />
+<h3 id="2_2">応用問題 2 (健康データサイエンス関連)</h3>
+<p><strong>問題7</strong>: 健康状態の遷移確率行列 <span class="arithmatex">\(P\)</span> が次のように与えられています（<span class="arithmatex">\(i, j = 1,2,3\)</span> は「良好」「普通」「不良」）。
+<span class="arithmatex">\(<span class="arithmatex">\(P = \begin{pmatrix} 0.7 &amp; 0.2 &amp; 0.1 \\ 0.3 &amp; 0.5 &amp; 0.2 \\ 0.1 &amp; 0.3 &amp; 0.6 \end{pmatrix}\)</span>\)</span>
+(a) この遷移行列 <span class="arithmatex">\(P\)</span> の逆行列 <span class="arithmatex">\(P^{-1}\)</span> を計算しなさい。</p>
+<p>(b) <span class="arithmatex">\(P^{-1}\)</span> の各要素 <span class="arithmatex">\((P^{-1})_{ij}\)</span> が持つ可能性のある解釈について、健康データの文脈で考察しなさい。特に、逆行列の要素が負の値を取る場合、それは確率としてどのように解釈できるか、あるいは解釈が困難であるか、理由とともに述べなさい。
+（ヒント: <span class="arithmatex">\(P\)</span> は現在→将来。<span class="arithmatex">\(P^{-1}\)</span> は？ 確率の公理（非負性、総和1）との関連は？）</p>
+<p>(c) 1年後の健康状態分布が <span class="arithmatex">\([0.4, 0.35, 0.25]\)</span> であったとき、元の健康状態分布を <span class="arithmatex">\(P^{-1}\)</span> を用いて推定しなさい。</p>
+<hr />
+<h2 id="_6">まとめ</h2>
+<ul>
+<li>逆行列の定義と性質</li>
+<li>逆行列の存在条件 (ランク、行列式)</li>
+<li>ガウスの消去法による逆行列の計算</li>
+<li>逆行列の応用 (連立一次方程式、データサイエンス)</li>
+</ul>
+<p><strong>次回予告</strong>: (必要に応じて記載)</p>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -3345,12 +3892,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../../javascripts/katex.js"></script>
+        <script src="../../../../javascripts/katex.js"></script>
       
         <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
       
