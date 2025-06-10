@@ -970,39 +970,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 逆行列の応用
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 逆行列の応用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 連立一次方程式の解法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 データサイエンスにおける応用例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
       4. 演習問題
@@ -3665,39 +3632,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 逆行列の応用
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 逆行列の応用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 連立一次方程式の解法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 データサイエンスにおける応用例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
       4. 演習問題
@@ -3755,6 +3689,7 @@
 <li><strong>スライド</strong>: <a href="../slides/14-system-of-linear-equation-slide.pdf">こちら</a></li>
 <li><strong>演習(6/3)</strong>: <a href="../exercise/exercise8.pdf">こちら</a></li>
 <li><strong>演習(6/6)</strong>: <a href="../exercise/exercise9.pdf">こちら</a></li>
+<li><strong>演習(6/10)</strong>: <a href="../exercise/exercise10.pdf">こちら</a></li>
 </ul>
 <hr />
 <h2 id="_2">学習目標</h2>
@@ -3851,34 +3786,6 @@
 <p>したがって、左側が単位行列 <span class="arithmatex">\(I_3\)</span> に変形され、右側に現れた行列が求める逆行列 <span class="arithmatex">\(A^{-1}\)</span> です。
 <span class="arithmatex">\(<span class="arithmatex">\(A^{-1} = \begin{pmatrix} 10/3 &amp; -4/3 &amp; 1/3 \\ -1/3 &amp; 1/3 &amp; -1/3 \\ -5/3 &amp; 2/3 &amp; 1/3 \end{pmatrix}\)</span>\)</span>
 （検算として、<span class="arithmatex">\(A A^{-1}\)</span> または <span class="arithmatex">\(A^{-1} A\)</span> を計算し、<span class="arithmatex">\(I_3\)</span> となることを確認してください。）</p>
-<hr />
-<h2 id="3">3. 逆行列の応用</h2>
-<h3 id="31">3.1 連立一次方程式の解法</h3>
-<p>逆行列の最も直接的な応用の一つは、連立一次方程式の解法です。係数行列を <span class="arithmatex">\(A\)</span>、未知数ベクトルを <span class="arithmatex">\(\mathbf{x}\)</span>、定数項ベクトルを <span class="arithmatex">\(\mathbf{b}\)</span> とすると、連立一次方程式は <span class="arithmatex">\(A\mathbf{x} = \mathbf{b}\)</span> と表せます。</p>
-<p>もし <span class="arithmatex">\(A\)</span> が正則であれば、<span class="arithmatex">\(A^{-1}\)</span> が存在します。このとき、方程式の両辺に左から <span class="arithmatex">\(A^{-1}\)</span> を掛けると、
-<span class="arithmatex">\(<span class="arithmatex">\(A^{-1}(A\mathbf{x}) = A^{-1}\mathbf{b}\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\((A^{-1}A)\mathbf{x} = A^{-1}\mathbf{b}\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(I_n\mathbf{x} = A^{-1}\mathbf{b}\)</span>\)</span>
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x} = A^{-1}\mathbf{b}\)</span>\)</span>
-となり、解 <span class="arithmatex">\(\mathbf{x}\)</span> が一意に求まります。</p>
-<p><strong>注意点</strong>:
-理論上はエレガントな解法ですが、実際に大きなサイズの連立一次方程式を解く場合、数値計算の効率や安定性の観点からは、逆行列 <span class="arithmatex">\(A^{-1}\)</span> を陽に計算するよりも、ガウスの消去法（LU分解などを含む）を直接用いて <span class="arithmatex">\(\mathbf{x}\)</span> を求める方が推奨されることが多いです。逆行列の計算自体が、複数の連立一次方程式を解くのと同程度の計算量を要するためです。</p>
-<h3 id="32">3.2 データサイエンスにおける応用例</h3>
-<p>逆行列は、データサイエンスや機械学習の分野で基礎的かつ重要な役割を果たします。</p>
-<p><strong>1. 線形回帰分析 (Linear Regression)</strong> 📊:
-最も基本的な応用例の一つが、最小二乗法による線形回帰モデルのパラメータ推定です。
-説明変数を列とする計画行列を <span class="arithmatex">\(X\)</span>、目的変数をベクトル <span class="arithmatex">\(\mathbf{y}\)</span> とするとき、回帰係数 <span class="arithmatex">\(\boldsymbol{\beta}\)</span> の最小二乗推定量は、正規方程式 <span class="arithmatex">\((X^T X)\boldsymbol{\beta} = X^T \mathbf{y}\)</span> を解くことで得られます。
-もし <span class="arithmatex">\(X^T X\)</span> が正則であれば（通常、説明変数間に多重共線性がない場合に満たされます）、
-<span class="arithmatex">\(<span class="arithmatex">\(\boldsymbol{\beta} = (X^T X)^{-1} X^T \mathbf{y}\)</span>\)</span>
-として回帰係数が求められます。ここで <span class="arithmatex">\((X^T X)^{-1}\)</span> という形で逆行列が陽に登場します。</p>
-<p><strong>2. 共分散行列と精度行列 (Covariance and Precision Matrices)</strong> 📈:
-多変量正規分布において、共分散行列 <span class="arithmatex">\(\Sigma\)</span> は変数間の相関構造を表します。この共分散行列の逆行列 <span class="arithmatex">\(\Sigma^{-1}\)</span> は<strong>精度行列 (precision matrix)</strong> と呼ばれ、変数間の条件付き独立性を反映します。精度行列の要素がゼロであることは、対応する二つの変数が、他の全ての変数を条件付けた下で条件付き独立であることを意味します。これはグラフィカルモデル（特にガウスグラフィカルモデル）の推定において中心的な役割を果たします。</p>
-<p><strong>3. 主成分分析 (Principal Component Analysis - PCA) の理論的背景</strong>:
-PCAでは、データの共分散行列（または相関行列）の固有値・固有ベクトルを解析しますが、その理論的導出や性質を理解する上で、行列の正則性や対角化といった逆行列にも関連する概念が重要となります。</p>
-<p><strong>4. フィルタリングと制御理論 (Filtering and Control Theory)</strong> ⚙️:
-カルマンフィルタのような状態空間モデルに基づく推定アルゴリズムでは、推定誤差共分散行列の更新ステップなどで逆行列計算（またはそれに類する操作）が用いられます。</p>
-<p>これらの例からもわかるように、逆行列は単に方程式を解くツールとしてだけでなく、データ間の関連性やモデルの特性を表現するための重要な数学的構成要素として、データサイエンスの様々な場面で活用されています。</p>
-<hr />
 <h2 id="4">4. 演習問題</h2>
 <h3 id="_4">基本問題</h3>
 <p><strong>問題1</strong>: 以下の行列の逆行列を求めなさい。
