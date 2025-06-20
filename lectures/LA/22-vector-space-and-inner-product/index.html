@@ -1,0 +1,4216 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Statistics, Tomoshige Nakamura, Machine Learning, Juntendo University">
+      
+      
+        <meta name="author" content="Tomoshige Nakamura">
+      
+      
+        <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/22-vector-space-and-inner-product/">
+      
+      
+        <link rel="prev" href="../21-vector-space-and-inner-product/">
+      
+      
+        <link rel="next" href="../32-eigen-value-vector/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>22. Vector space 4 - Statistical Learning Laboratory</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#28" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-header__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Statistical Learning Laboratory
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              22. Vector space 4
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Statistical Learning Laboratory" class="md-nav__button md-logo" aria-label="Statistical Learning Laboratory" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Statistical Learning Laboratory
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://tomoshige.github.io/website" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomoshige/website
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Lectures
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lectures
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 1 - Vector and Matrix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Module 1 - Vector and Matrix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Vector and Matrix 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Vector and Matrix 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Vector and Matrix 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Vector and Matrix 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Vector and Matrix 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Vector and Matrix 6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-vector-and-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Vector and Matrix 7
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 2 - System of Linear Equations
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Module 2 - System of Linear Equations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. System of Linear Equation 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. System of Linear Equation 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. System of Linear Equation 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. System of Linear Equation 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. System of Linear Equation 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. System of Linear Equation 6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 3 - Determinants
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Module 3 - Determinants
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. Determinant 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. Determinant 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. Determinant 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-determinant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. Determinant 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 4 - Vector Spaces
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Module 4 - Vector Spaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Vector space 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Vector space 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-vector-space-and-inner-product/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Vector space 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    22. Vector space 4
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    22. Vector space 4
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義情報と予習ガイド
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 学習目標
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 正規直交基底の復習
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 ベクトル空間の直和分解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 直交補空間
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 直交直和分解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 理論と手法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 理論と手法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 直交射影と正規直交基底の関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 射影行列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 直交射影行列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 線形回帰モデルと直交射影行列
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Pythonによる実装と可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Pythonによる実装と可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 直交補空間の計算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 射影の計算と可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 射影行列の実装と確認
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 線形回帰と射影の関係
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 演習問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      応用問題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. よくある質問と解答
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. よくある質問と解答">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q1: 直和分解と直交直和分解の違いは何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q2: 射影行列の固有値はなぜ0と1だけなのですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q3: 線形回帰における射影の意味は何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q4: 正規直交基底を使うメリットは何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q5: ベクトルの直交分解は一意に決まりますか？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_6" id="__nav_2_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 5 - Eigenvalues and Decomposition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Module 5 - Eigenvalues and Decomposition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Eigen value and vector 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Eigen value and vector 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Eigen value and vector 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Eigen value and vector 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-eigen-value-vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Eigen value and vector 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Exercise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-midterm-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38. Midterm Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Singular value decomposition 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-singular-value-decomposition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Singular value decomposition 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_7" id="__nav_2_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Module 6 - Applications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Module 6 - Applications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41. Principal component analysis 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42. Principal component analysis 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-principal-component-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43. Principal component analysis 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44. Factor analysis 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45. Factor analysis 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-nonlinear-dimension-reduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46. Nonlinear dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-wrapup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47. Wrap up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-exam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48. Semester Exam
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SIWS/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data Science without syntax
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data Science without syntax
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Foundations
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/01-getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting-Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/02-visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Data Visualization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/03-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/04-data-import-and-tidy-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Data Import and Tidy Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_3" id="__nav_2_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Regression Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Regression Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/05-simple-linear-regression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Simple Linear Regression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/06-multiple-regression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Multiple Regression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4" id="__nav_2_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Statistical Methods
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistical Methods
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/07-sampling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Sampling Method
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/08-Estimation-CI-Bootstrapping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Estimation, CI and Bootstrapping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/09-hypothesis-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Hypothesis Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/10-inference-for-regression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. Inference for Regression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_5" id="__nav_2_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Communications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Communications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/11-tell-your-story-with-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. Tell Your Story with Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_6" id="__nav_2_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Website Design Competition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Website Design Competition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SIWS/12-how-to-create-a-compelling-proposal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. How to Create a Compelling Proposal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SP/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Statistics and Probability
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Decision Trees and Forests
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Decision Trees and Forests
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/generalized-random-forests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generalized random forests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/variable-importance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variable Importance Measures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/forest-kernel-and-its-asymptotics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random forest kernels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Causal Inference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Causal Inference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/sparseBART/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sparse Causal BART
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-mediation-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal mediation analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/causal-data-repository/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Causal data repository
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../research/note/factor-analysis/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Factor analysis
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Factor analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Theoretical Foundations
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Theoretical Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/01-introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. はじめに
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/02-factor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. 因子とは
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/03-factor-loading-matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. 因子負荷行列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/04-latent-factor-estimation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. 潜在因子推定法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Analysis Methods
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Analysis Methods
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/05-rotation-and-interpretation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. 回転基準と結果の解釈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/06-sensitivity-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. 感度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/07-analysis-step/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. 因子分析の手順
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_4" id="__nav_3_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Applications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Applications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/08-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. シミュレーション
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/09-pima-indians-diabetes-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. 糖尿病潜在原因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/10-ordered-categorical-factor-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. 順序ありカテゴリカル変数の扱い
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/11-airline-passenger-satisfaction-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. 飛行機乗客満足度分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Technical Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Technical Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/note/factor-analysis/12-technical-note-matrix-factorization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. 行列分解と因子分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 講義情報と予習ガイド
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 学習目標
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 正規直交基底の復習
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 ベクトル空間の直和分解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 直交補空間
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 直交直和分解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 理論と手法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 理論と手法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 直交射影と正規直交基底の関係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 射影行列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 直交射影行列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 線形回帰モデルと直交射影行列
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Pythonによる実装と可視化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Pythonによる実装と可視化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 直交補空間の計算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 射影の計算と可視化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 射影行列の実装と確認
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 線形回帰と射影の関係
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 演習問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 演習問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本問題
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      応用問題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. よくある質問と解答
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. よくある質問と解答">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q1: 直和分解と直交直和分解の違いは何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q2: 射影行列の固有値はなぜ0と1だけなのですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q3: 線形回帰における射影の意味は何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q4: 正規直交基底を使うメリットは何ですか？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q5: ベクトルの直交分解は一意に決まりますか？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="28">線形代数学 第28回 講義ノート：正規直交基底と射影</h1>
+<h2 id="1">1. 講義情報と予習ガイド</h2>
+<p><strong>講義回</strong>: 第28回<br />
+<strong>テーマ</strong>: 正規直交基底と射影<br />
+<strong>関連項目</strong>: ベクトル空間、内積、直交基底、線形回帰モデル<br />
+<strong>予習項目</strong>:
+- 第26回のベクトル空間の基礎
+- 第27回の内積と正規直交基底・グラムシュミット直交化法</p>
+<h2 id="2">2. 学習目標</h2>
+<p>本講義の終了時には、以下のことができるようになります：</p>
+<ol>
+<li>ベクトル空間の直和分解と直交直和分解の概念を理解し、説明できる</li>
+<li>直交補空間の定義と性質を理解し、具体例で計算できる</li>
+<li>直交射影と正規直交基底の関係を理解し、射影を計算できる</li>
+<li>射影行列・直交射影行列の性質を理解し、構成できる</li>
+<li>線形回帰モデルと直交射影行列の関連を説明できる</li>
+</ol>
+<h2 id="3">3. 基本概念</h2>
+<h3 id="31">3.1 正規直交基底の復習</h3>
+<p>前回学習した正規直交基底について簡単に復習します。</p>
+<blockquote>
+<p><strong>定義：正規直交基底</strong><br />
+ベクトル空間 <span class="arithmatex">\(V\)</span> の基底 <span class="arithmatex">\(\{v_1, v_2, \ldots, v_n\}\)</span> が以下の条件を満たすとき、これを正規直交基底と呼びます。
+1. 各ベクトルの長さが1である：<span class="arithmatex">\(\|v_i\| = 1\)</span> （正規性）
+2. 異なるベクトル同士が直交する：<span class="arithmatex">\(v_i \cdot v_j = 0\)</span> （<span class="arithmatex">\(i \neq j\)</span>）</p>
+</blockquote>
+<p>正規直交基底の重要な性質：
+- 計算が簡単になる
+- ベクトルの座標表示が直感的になる
+- 射影の計算が簡単になる</p>
+<p><strong>例</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> における標準基底 <span class="arithmatex">\(\{e_1, e_2, e_3\}\)</span> は正規直交基底です。
+<span class="arithmatex">\(<span class="arithmatex">\(e_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, e_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, e_3 = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\)</span>\)</span></p>
+<h3 id="32">3.2 ベクトル空間の直和分解</h3>
+<blockquote>
+<p><strong>定義：部分空間の直和</strong><br />
+ベクトル空間 <span class="arithmatex">\(V\)</span> の2つの部分空間 <span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(W\)</span> について：
+1. <span class="arithmatex">\(V = U + W\)</span> （<span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(W\)</span> で <span class="arithmatex">\(V\)</span> を生成できる）
+2. <span class="arithmatex">\(U \cap W = \{0\}\)</span> （共通部分は零ベクトルのみ）</p>
+<p>このとき、<span class="arithmatex">\(V\)</span> は <span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(W\)</span> の直和であるといい、<span class="arithmatex">\(V = U \oplus W\)</span> と表記します。</p>
+</blockquote>
+<p>直和の重要な性質：
+- <span class="arithmatex">\(V\)</span> の任意のベクトル <span class="arithmatex">\(v\)</span> は、<span class="arithmatex">\(v = u + w\)</span> （<span class="arithmatex">\(u \in U, w \in W\)</span>）と一意に分解できる
+- <span class="arithmatex">\(\dim(V) = \dim(U) + \dim(W)\)</span></p>
+<p><strong>具体例1</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、xy平面を表す部分空間 <span class="arithmatex">\(U = \{(x, y, 0) \mid x, y \in \mathbb{R}\}\)</span> とz軸を表す部分空間 <span class="arithmatex">\(W = \{(0, 0, z) \mid z \in \mathbb{R}\}\)</span> を考えます。</p>
+<p>この場合：
+- <span class="arithmatex">\(\dim(U) = 2\)</span>（基底は <span class="arithmatex">\(\{(1,0,0), (0,1,0)\}\)</span>）
+- <span class="arithmatex">\(\dim(W) = 1\)</span>（基底は <span class="arithmatex">\(\{(0,0,1)\}\)</span>）
+- <span class="arithmatex">\(U \cap W = \{(0,0,0)\}\)</span>（共通部分は原点のみ）</p>
+<p>任意のベクトル <span class="arithmatex">\(v = (a, b, c) \in \mathbb{R}^3\)</span> は、<span class="arithmatex">\(v = (a, b, 0) + (0, 0, c)\)</span> と一意に分解できます。よって <span class="arithmatex">\(\mathbb{R}^3 = U \oplus W\)</span> です。</p>
+<p><strong>具体例2</strong>: <span class="arithmatex">\(\mathbb{R}^2\)</span> において、x軸を表す部分空間 <span class="arithmatex">\(U = \{(x, 0) \mid x \in \mathbb{R}\}\)</span> とy軸を表す部分空間 <span class="arithmatex">\(W = \{(0, y) \mid y \in \mathbb{R}\}\)</span> を考えます。</p>
+<p>このとき：
+- <span class="arithmatex">\(\dim(U) = 1\)</span>（基底は <span class="arithmatex">\(\{(1,0)\}\)</span>）
+- <span class="arithmatex">\(\dim(W) = 1\)</span>（基底は <span class="arithmatex">\(\{(0,1)\}\)</span>）
+- <span class="arithmatex">\(U \cap W = \{(0,0)\}\)</span>（共通部分は原点のみ）</p>
+<p>任意のベクトル <span class="arithmatex">\(v = (a, b) \in \mathbb{R}^2\)</span> は、<span class="arithmatex">\(v = (a, 0) + (0, b)\)</span> と一意に分解できます。よって <span class="arithmatex">\(\mathbb{R}^2 = U \oplus W\)</span> です。</p>
+<p><strong>直和でない例</strong>: <span class="arithmatex">\(\mathbb{R}^2\)</span> において、x軸を表す部分空間 <span class="arithmatex">\(U = \{(x, 0) \mid x \in \mathbb{R}\}\)</span> と直線 <span class="arithmatex">\(W = \{(x, x) \mid x \in \mathbb{R}\}\)</span> を考えます。</p>
+<p>この場合：
+- <span class="arithmatex">\(U \cap W = \{(0,0)\}\)</span>（共通部分は原点のみ）
+- しかし、ベクトル <span class="arithmatex">\((0, 1) \in \mathbb{R}^2\)</span> は <span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(W\)</span> の和として表現できません
+- よって <span class="arithmatex">\(\mathbb{R}^2 \neq U + W\)</span> であり、<span class="arithmatex">\(U \oplus W\)</span> ではありません</p>
+<p>また、直線 <span class="arithmatex">\(U = \{(t, 0, 0) \mid t \in \mathbb{R}\}\)</span> と平面 <span class="arithmatex">\(W = \{(s, t, 0) \mid s, t \in \mathbb{R}\}\)</span> を考えると、<span class="arithmatex">\(U \subset W\)</span> なので <span class="arithmatex">\(U \cap W = U \neq \{0\}\)</span> であり、<span class="arithmatex">\(U \oplus W\)</span> ではありません。</p>
+<h3 id="33">3.3 直交補空間</h3>
+<blockquote>
+<p><strong>定義：直交補空間</strong><br />
+ベクトル空間 <span class="arithmatex">\(V\)</span> の部分空間 <span class="arithmatex">\(U\)</span> に対して、<span class="arithmatex">\(U\)</span> のすべてのベクトルと直交するベクトルの集合を <span class="arithmatex">\(U\)</span> の直交補空間といい、<span class="arithmatex">\(U^{\perp}\)</span> と表記します。</p>
+<p><span class="arithmatex">\(U^{\perp} = \{v \in V \mid \langle v, u \rangle = 0 \text{ for all } u \in U\}\)</span></p>
+</blockquote>
+<p>直交補空間の重要な性質：
+- <span class="arithmatex">\(U^{\perp}\)</span> も <span class="arithmatex">\(V\)</span> の部分空間である
+- <span class="arithmatex">\((U^{\perp})^{\perp} = U\)</span>
+- <span class="arithmatex">\(\dim(U) + \dim(U^{\perp}) = \dim(V)\)</span>
+- <span class="arithmatex">\(V = U \oplus U^{\perp}\)</span> （直交直和分解）</p>
+<p><strong>具体例1</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、xy平面を表す部分空間 <span class="arithmatex">\(U = \{(x, y, 0) \mid x, y \in \mathbb{R}\}\)</span> の直交補空間を求めます。</p>
+<p><span class="arithmatex">\(U\)</span> の基底は <span class="arithmatex">\(\{(1,0,0), (0,1,0)\}\)</span> です。</p>
+<p><span class="arithmatex">\(U\)</span> の直交補空間 <span class="arithmatex">\(U^{\perp}\)</span> は、これらの基底ベクトルと直交するベクトル全体の集合です。つまり：
+- <span class="arithmatex">\((1,0,0) \cdot (a,b,c) = a = 0\)</span>
+- <span class="arithmatex">\((0,1,0) \cdot (a,b,c) = b = 0\)</span></p>
+<p>を満たす <span class="arithmatex">\((a,b,c)\)</span> は <span class="arithmatex">\((0,0,c)\)</span> の形をとります。よって <span class="arithmatex">\(U^{\perp} = \{(0, 0, z) \mid z \in \mathbb{R}\}\)</span> であり、これはz軸を表します。また：
+- <span class="arithmatex">\(\dim(U) = 2\)</span>
+- <span class="arithmatex">\(\dim(U^{\perp}) = 1\)</span>
+- <span class="arithmatex">\(\dim(U) + \dim(U^{\perp}) = 2 + 1 = 3 = \dim(\mathbb{R}^3)\)</span></p>
+<p>が成り立ちます。</p>
+<p><strong>具体例2</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、直線 <span class="arithmatex">\(U = \{(t, t, t) \mid t \in \mathbb{R}\}\)</span> の直交補空間を求めます。</p>
+<p><span class="arithmatex">\(U\)</span> の基底は <span class="arithmatex">\(\{(1,1,1)\}\)</span> です。</p>
+<p><span class="arithmatex">\(U\)</span> の直交補空間 <span class="arithmatex">\(U^{\perp}\)</span> は、この基底ベクトルと直交するベクトル全体の集合です。つまり：
+- <span class="arithmatex">\((1,1,1) \cdot (a,b,c) = a + b + c = 0\)</span></p>
+<p>を満たす <span class="arithmatex">\((a,b,c)\)</span> です。これは平面 <span class="arithmatex">\(a + b + c = 0\)</span> を表し、例えば基底として <span class="arithmatex">\(\{(1,-1,0), (1,0,-1)\}\)</span> を取ることができます。また：
+- <span class="arithmatex">\(\dim(U) = 1\)</span>
+- <span class="arithmatex">\(\dim(U^{\perp}) = 2\)</span>
+- <span class="arithmatex">\(\dim(U) + \dim(U^{\perp}) = 1 + 2 = 3 = \dim(\mathbb{R}^3)\)</span></p>
+<p>が成り立ちます。</p>
+<p><strong>具体例3</strong>: <span class="arithmatex">\(\mathbb{R}^4\)</span> において、部分空間 <span class="arithmatex">\(U = \{(x, y, 0, 0) \mid x, y \in \mathbb{R}\}\)</span> の直交補空間を求めます。</p>
+<p><span class="arithmatex">\(U\)</span> の基底は <span class="arithmatex">\(\{(1,0,0,0), (0,1,0,0)\}\)</span> です。</p>
+<p><span class="arithmatex">\(U\)</span> の直交補空間 <span class="arithmatex">\(U^{\perp}\)</span> は、これらの基底ベクトルと直交するベクトル全体の集合です。つまり：
+- <span class="arithmatex">\((1,0,0,0) \cdot (a,b,c,d) = a = 0\)</span>
+- <span class="arithmatex">\((0,1,0,0) \cdot (a,b,c,d) = b = 0\)</span></p>
+<p>を満たす <span class="arithmatex">\((a,b,c,d)\)</span> は <span class="arithmatex">\((0,0,c,d)\)</span> の形をとります。よって <span class="arithmatex">\(U^{\perp} = \{(0, 0, z, w) \mid z, w \in \mathbb{R}\}\)</span> であり、また：
+- <span class="arithmatex">\(\dim(U) = 2\)</span>
+- <span class="arithmatex">\(\dim(U^{\perp}) = 2\)</span>
+- <span class="arithmatex">\(\dim(U) + \dim(U^{\perp}) = 2 + 2 = 4 = \dim(\mathbb{R}^4)\)</span></p>
+<p>が成り立ちます。</p>
+<h3 id="34">3.4 直交直和分解</h3>
+<blockquote>
+<p><strong>定義：直交直和分解</strong><br />
+ベクトル空間 <span class="arithmatex">\(V\)</span> の2つの部分空間 <span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(W\)</span> が以下を満たすとき、<span class="arithmatex">\(V\)</span> は <span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(W\)</span> の直交直和であるといい、<span class="arithmatex">\(V = U \oplus^{\perp} W\)</span> と表記します。
+1. <span class="arithmatex">\(V = U \oplus W\)</span> （直和）
+2. <span class="arithmatex">\(U \perp W\)</span> （直交性：<span class="arithmatex">\(\langle u, w \rangle = 0\)</span> for all <span class="arithmatex">\(u \in U, w \in W\)</span>）</p>
+</blockquote>
+<p>特に重要なのは、部分空間 <span class="arithmatex">\(U\)</span> とその直交補空間 <span class="arithmatex">\(U^{\perp}\)</span> による直交直和分解 <span class="arithmatex">\(V = U \oplus^{\perp} U^{\perp}\)</span> です。</p>
+<p><strong>具体例1</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、xy平面 <span class="arithmatex">\(U = \{(x, y, 0) \mid x, y \in \mathbb{R}\}\)</span> とz軸 <span class="arithmatex">\(W = \{(0, 0, z) \mid z \in \mathbb{R}\}\)</span> を考えます。</p>
+<p>既に確認したように <span class="arithmatex">\(W = U^{\perp}\)</span> であり、任意のベクトル <span class="arithmatex">\(v = (a, b, c) \in \mathbb{R}^3\)</span> は <span class="arithmatex">\(v = (a, b, 0) + (0, 0, c)\)</span> と分解できます。ここで <span class="arithmatex">\((a, b, 0) \in U\)</span> と <span class="arithmatex">\((0, 0, c) \in W\)</span> は直交しています（内積が0）。よって <span class="arithmatex">\(\mathbb{R}^3 = U \oplus^{\perp} W\)</span> は直交直和です。</p>
+<p>この直交直和分解の意味は、空間内の任意の点を、まずxy平面に垂直に射影し、そこからz軸に沿って移動することで到達できるということです。</p>
+<p><strong>具体例2</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、直線 <span class="arithmatex">\(U = \{(t, t, t) \mid t \in \mathbb{R}\}\)</span> とその直交補空間 <span class="arithmatex">\(U^{\perp} = \{(x, y, z) \mid x + y + z = 0\}\)</span> を考えます。</p>
+<p>任意のベクトル <span class="arithmatex">\(v = (a, b, c) \in \mathbb{R}^3\)</span> は以下のように分解できます：</p>
+<p>まず、<span class="arithmatex">\(v\)</span> を <span class="arithmatex">\(U\)</span> へ射影するために、<span class="arithmatex">\(U\)</span> の正規化された方向ベクトル <span class="arithmatex">\(u_0 = \frac{1}{\sqrt{3}}(1, 1, 1)\)</span> を用いて：
+<span class="arithmatex">\(<span class="arithmatex">\(\text{proj}_U(v) = \langle v, u_0 \rangle u_0 = \frac{a + b + c}{3}(1, 1, 1)\)</span>\)</span></p>
+<p>次に、残りの成分は <span class="arithmatex">\(U^{\perp}\)</span> に属し：
+<span class="arithmatex">\(<span class="arithmatex">\(\text{proj}_{U^{\perp}}(v) = v - \text{proj}_U(v) = (a, b, c) - \frac{a + b + c}{3}(1, 1, 1)\)</span>\)</span></p>
+<p>この分解は直交しており（内積が0）、一意です。よって <span class="arithmatex">\(\mathbb{R}^3 = U \oplus^{\perp} U^{\perp}\)</span> は直交直和です。</p>
+<p>この直交直和分解の幾何学的意味は、空間内の任意の点を、まず直線 <span class="arithmatex">\(U\)</span> （原点を通り <span class="arithmatex">\((1,1,1)\)</span> 方向の直線）への垂直射影と、そこからの垂直方向の移動に分解できるということです。</p>
+<p><strong>具体例3</strong>: <span class="arithmatex">\(\mathbb{R}^4\)</span> の部分空間 <span class="arithmatex">\(U = \text{span}\{(1,0,1,0), (0,1,0,1)\}\)</span> とその直交補空間 <span class="arithmatex">\(U^{\perp}\)</span> を考えます。</p>
+<p><span class="arithmatex">\(U^{\perp}\)</span> を求めるには、<span class="arithmatex">\(U\)</span> の基底ベクトルと直交する条件を立てます：
+- <span class="arithmatex">\((1,0,1,0) \cdot (a,b,c,d) = a + c = 0\)</span>
+- <span class="arithmatex">\((0,1,0,1) \cdot (a,b,c,d) = b + d = 0\)</span></p>
+<p>これより <span class="arithmatex">\(U^{\perp} = \{(a, b, -a, -b) \mid a, b \in \mathbb{R}\}\)</span> となり、<span class="arithmatex">\(U^{\perp}\)</span> の基底は <span class="arithmatex">\(\{(1, 0, -1, 0), (0, 1, 0, -1)\}\)</span> です。</p>
+<p>ここで：
+- <span class="arithmatex">\(\dim(U) = 2\)</span>
+- <span class="arithmatex">\(\dim(U^{\perp}) = 2\)</span>
+- <span class="arithmatex">\(\dim(U) + \dim(U^{\perp}) = 2 + 2 = 4 = \dim(\mathbb{R}^4)\)</span></p>
+<p>任意のベクトル <span class="arithmatex">\(v = (a, b, c, d) \in \mathbb{R}^4\)</span> は次のように直交分解できます：
+<span class="arithmatex">\(<span class="arithmatex">\(v = \frac{1}{2}(a+c, b+d, a+c, b+d) + \frac{1}{2}(a-c, b-d, c-a, d-b)\)</span>\)</span></p>
+<p>ここで第1項は <span class="arithmatex">\(U\)</span> の要素、第2項は <span class="arithmatex">\(U^{\perp}\)</span> の要素であり、これらは直交します。よって <span class="arithmatex">\(\mathbb{R}^4 = U \oplus^{\perp} U^{\perp}\)</span> は直交直和です。</p>
+<p><strong>直交直和でない例</strong>: <span class="arithmatex">\(\mathbb{R}^2\)</span> において、直線 <span class="arithmatex">\(U = \{(t, t) \mid t \in \mathbb{R}\}\)</span> と直線 <span class="arithmatex">\(W = \{(t, 0) \mid t \in \mathbb{R}\}\)</span> を考えます。</p>
+<p><span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(W\)</span> は共通部分が原点のみなので <span class="arithmatex">\(\mathbb{R}^2 = U \oplus W\)</span> は直和ですが、<span class="arithmatex">\(U\)</span> の方向ベクトル <span class="arithmatex">\((1,1)\)</span> と <span class="arithmatex">\(W\)</span> の方向ベクトル <span class="arithmatex">\((1,0)\)</span> の内積は <span class="arithmatex">\(1 \neq 0\)</span> なので、<span class="arithmatex">\(U \perp W\)</span> ではありません。よって <span class="arithmatex">\(\mathbb{R}^2 = U \oplus W\)</span> は直和ですが、直交直和 <span class="arithmatex">\(U \oplus^{\perp} W\)</span> ではありません。</p>
+<h2 id="4">4. 理論と手法</h2>
+<h3 id="41">4.1 直交射影と正規直交基底の関係</h3>
+<p>ベクトル空間 <span class="arithmatex">\(V\)</span> の部分空間 <span class="arithmatex">\(U\)</span> への射影は、ベクトル <span class="arithmatex">\(v \in V\)</span> を <span class="arithmatex">\(U\)</span> の直交直和分解 <span class="arithmatex">\(v = u + w\)</span> (<span class="arithmatex">\(u \in U, w \in U^{\perp}\)</span>) における <span class="arithmatex">\(u\)</span> に対応させる写像です。</p>
+<blockquote>
+<p><strong>定義：直交射影</strong><br />
+ベクトル空間 <span class="arithmatex">\(V\)</span> の部分空間 <span class="arithmatex">\(U\)</span> への直交射影 <span class="arithmatex">\(P_U: V \rightarrow U\)</span> は、各ベクトル <span class="arithmatex">\(v \in V\)</span> を <span class="arithmatex">\(v\)</span> の <span class="arithmatex">\(U\)</span> への成分 <span class="arithmatex">\(u\)</span> に写す線形写像です。</p>
+<p>ここで、<span class="arithmatex">\(v = u + w\)</span> (<span class="arithmatex">\(u \in U, w \in U^{\perp}\)</span>) は <span class="arithmatex">\(v\)</span> の直交直和分解です。</p>
+</blockquote>
+<p><span class="arithmatex">\(U\)</span> の正規直交基底 <span class="arithmatex">\(\{u_1, u_2, \ldots, u_k\}\)</span> を用いると、<span class="arithmatex">\(v\)</span> の <span class="arithmatex">\(U\)</span> への射影は以下のように計算できます：</p>
+<div class="arithmatex">\[P_U(v) = \sum_{i=1}^{k} \langle v, u_i \rangle u_i\]</div>
+<p><strong>計算例1</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、xy平面 <span class="arithmatex">\(U = \text{span}\{e_1, e_2\}\)</span> への射影を考えます。</p>
+<p><span class="arithmatex">\(U\)</span> の正規直交基底は <span class="arithmatex">\(\{e_1, e_2\} = \{(1,0,0), (0,1,0)\}\)</span> です。</p>
+<p>ベクトル <span class="arithmatex">\(v = (3, 4, 5)\)</span> の <span class="arithmatex">\(U\)</span> への射影は：
+<span class="arithmatex">\(<span class="arithmatex">\(P_U(v) = \langle v, e_1 \rangle e_1 + \langle v, e_2 \rangle e_2 = 3 \cdot (1,0,0) + 4 \cdot (0,1,0) = (3, 4, 0)\)</span>\)</span></p>
+<p>残りの成分 <span class="arithmatex">\(v - P_U(v) = (3,4,5) - (3,4,0) = (0,0,5)\)</span> は <span class="arithmatex">\(U^{\perp}\)</span> に属し、<span class="arithmatex">\(P_U(v)\)</span> と直交していることが確認できます。</p>
+<p><strong>計算例2</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、直線 <span class="arithmatex">\(U = \text{span}\{(1,1,1)\}\)</span> への射影を考えます。</p>
+<p><span class="arithmatex">\(U\)</span> の正規直交基底は <span class="arithmatex">\(\{u_1\} = \{\frac{1}{\sqrt{3}}(1,1,1)\}\)</span> です。</p>
+<p>ベクトル <span class="arithmatex">\(v = (2, 3, 4)\)</span> の <span class="arithmatex">\(U\)</span> への射影は：
+<span class="arithmatex">\(<span class="arithmatex">\(P_U(v) = \langle v, u_1 \rangle u_1 = \frac{2+3+4}{\sqrt{3}} \cdot \frac{1}{\sqrt{3}}(1,1,1) = 3 \cdot (1,1,1) = (3,3,3)\)</span>\)</span></p>
+<p>残りの成分 <span class="arithmatex">\(v - P_U(v) = (2,3,4) - (3,3,3) = (-1,0,1)\)</span> は <span class="arithmatex">\(U^{\perp}\)</span> に属し、<span class="arithmatex">\(P_U(v)\)</span> と直交していることが確認できます（内積 <span class="arithmatex">\(\langle (3,3,3), (-1,0,1) \rangle = -3 + 0 + 3 = 0\)</span>）。</p>
+<p><strong>幾何学的解釈</strong>: 直交射影は、<span class="arithmatex">\(v\)</span> から <span class="arithmatex">\(U\)</span> への「最短距離」を与えるポイントを求めることと同等です。言い換えると、<span class="arithmatex">\(\|v - P_U(v)\|\)</span> が最小となるような <span class="arithmatex">\(U\)</span> 上の点 <span class="arithmatex">\(P_U(v)\)</span> を見つけることです。このことから、<span class="arithmatex">\(v - P_U(v)\)</span> は <span class="arithmatex">\(U\)</span> に対して垂直（直交）になるという性質が導かれます。</p>
+<h3 id="42">4.2 射影行列</h3>
+<p>直交射影は線形写像なので、行列で表現できます。</p>
+<blockquote>
+<p><strong>定義：射影行列</strong><br />
+部分空間 <span class="arithmatex">\(U\)</span> への直交射影を表す行列 <span class="arithmatex">\(P\)</span> を射影行列といいます。<span class="arithmatex">\(U\)</span> の正規直交基底 <span class="arithmatex">\(\{u_1, u_2, \ldots, u_k\}\)</span> を用いると：</p>
+<div class="arithmatex">\[P = \sum_{i=1}^{k} u_i u_i^T\]</div>
+</blockquote>
+<p>射影行列の性質：
+1. <strong>冪等性</strong>: <span class="arithmatex">\(P^2 = P\)</span> （射影を2回適用しても同じ）
+2. <strong>対称性</strong>: <span class="arithmatex">\(P^T = P\)</span> （直交射影の場合）
+3. <strong>固有値</strong>: 0または1のみ
+4. <strong>トレース</strong>: <span class="arithmatex">\(\text{tr}(P) = \dim(U)\)</span></p>
+<p><strong>計算例1</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、xy平面 <span class="arithmatex">\(U = \text{span}\{e_1, e_2\}\)</span> への射影行列を求めます。</p>
+<p><span class="arithmatex">\(U\)</span> の正規直交基底は <span class="arithmatex">\(\{e_1, e_2\} = \{(1,0,0), (0,1,0)\}\)</span> です。</p>
+<p>射影行列は：
+<span class="arithmatex">\(<span class="arithmatex">\(P = e_1 e_1^T + e_2 e_2^T = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 &amp; 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} \begin{pmatrix} 0 &amp; 1 &amp; 0 \end{pmatrix} = \begin{pmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{pmatrix}\)</span>\)</span></p>
+<p>この射影行列の性質を確認します：
+- <span class="arithmatex">\(P^2 = P\)</span> （冪等性）
+- <span class="arithmatex">\(P^T = P\)</span> （対称性）
+- 固有値は <span class="arithmatex">\(\{1, 1, 0\}\)</span> （0と1のみ）
+- <span class="arithmatex">\(\text{tr}(P) = 2 = \dim(U)\)</span></p>
+<p><strong>計算例2</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、直線 <span class="arithmatex">\(U = \text{span}\{(1,1,1)\}\)</span> への射影行列を求めます。</p>
+<p><span class="arithmatex">\(U\)</span> の正規直交基底は <span class="arithmatex">\(\{u_1\} = \{\frac{1}{\sqrt{3}}(1,1,1)\}\)</span> です。</p>
+<p>射影行列は：
+<span class="arithmatex">\(<span class="arithmatex">\(P = u_1 u_1^T = \frac{1}{3}\begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} \begin{pmatrix} 1 &amp; 1 &amp; 1 \end{pmatrix} = \frac{1}{3}\begin{pmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \end{pmatrix}\)</span>\)</span></p>
+<p>この射影行列の性質を確認します：
+- <span class="arithmatex">\(P^2 = P\)</span> （冪等性）
+- <span class="arithmatex">\(P^T = P\)</span> （対称性）
+- 固有値は <span class="arithmatex">\(\{1, 0, 0\}\)</span> （0と1のみ）
+- <span class="arithmatex">\(\text{tr}(P) = 1 = \dim(U)\)</span></p>
+<p><strong>計算例3</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、平面 <span class="arithmatex">\(U = \{(x, y, z) \mid x + y + z = 0\}\)</span> への射影行列を求めます。</p>
+<p><span class="arithmatex">\(U\)</span> の基底は例えば <span class="arithmatex">\(\{(1,-1,0), (1,0,-1)\}\)</span> ですが、これは正規直交基底ではありません。グラム・シュミット法で正規直交化します：</p>
+<p><span class="arithmatex">\(u_1 = \frac{(1,-1,0)}{\|(1,-1,0)\|} = \frac{1}{\sqrt{2}}(1,-1,0)\)</span></p>
+<p><span class="arithmatex">\(u_2\)</span> は <span class="arithmatex">\(u_1\)</span> と <span class="arithmatex">\((1,0,-1)\)</span> から求めます：
+<span class="arithmatex">\(u_2' = (1,0,-1) - \langle (1,0,-1), u_1 \rangle u_1 = (1,0,-1) - \frac{1}{\sqrt{2}} \cdot \frac{1}{\sqrt{2}}(1,-1,0) = (1,0,-1) - \frac{1}{2}(1,-1,0) = (\frac{1}{2}, \frac{1}{2}, -1)\)</span></p>
+<p><span class="arithmatex">\(u_2 = \frac{u_2'}{\|u_2'\|} = \frac{(\frac{1}{2}, \frac{1}{2}, -1)}{\sqrt{(\frac{1}{2})^2 + (\frac{1}{2})^2 + (-1)^2}} = \frac{1}{\sqrt{\frac{1}{4} + \frac{1}{4} + 1}} \cdot (\frac{1}{2}, \frac{1}{2}, -1) = \frac{1}{\sqrt{\frac{6}{4}}} \cdot (\frac{1}{2}, \frac{1}{2}, -1) = \frac{1}{\sqrt{\frac{3}{2}}} \cdot (\frac{1}{2}, \frac{1}{2}, -1)\)</span></p>
+<p><span class="arithmatex">\(u_2 = \frac{1}{\sqrt{6}}(1, 1, -2)\)</span></p>
+<p>よって射影行列は：
+<span class="arithmatex">\(<span class="arithmatex">\(P = u_1 u_1^T + u_2 u_2^T = \frac{1}{2}\begin{pmatrix} 1 \\ -1 \\ 0 \end{pmatrix} \begin{pmatrix} 1 &amp; -1 &amp; 0 \end{pmatrix} + \frac{1}{6}\begin{pmatrix} 1 \\ 1 \\ -2 \end{pmatrix} \begin{pmatrix} 1 &amp; 1 &amp; -2 \end{pmatrix}\)</span>\)</span></p>
+<p>これを計算すると：
+<span class="arithmatex">\(<span class="arithmatex">\(P = \frac{1}{2}\begin{pmatrix} 1 &amp; -1 &amp; 0 \\ -1 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{pmatrix} + \frac{1}{6}\begin{pmatrix} 1 &amp; 1 &amp; -2 \\ 1 &amp; 1 &amp; -2 \\ -2 &amp; -2 &amp; 4 \end{pmatrix} = \frac{1}{6}\begin{pmatrix} 4 &amp; -2 &amp; -2 \\ -2 &amp; 4 &amp; -2 \\ -2 &amp; -2 &amp; 4 \end{pmatrix}\)</span>\)</span></p>
+<p>この射影行列の性質を確認します：
+- <span class="arithmatex">\(P^2 = P\)</span> （冪等性）
+- <span class="arithmatex">\(P^T = P\)</span> （対称性）
+- 固有値は <span class="arithmatex">\(\{1, 1, 0\}\)</span> （0と1のみ）
+- <span class="arithmatex">\(\text{tr}(P) = 2 = \dim(U)\)</span></p>
+<h3 id="43">4.3 直交射影行列</h3>
+<blockquote>
+<p><strong>定義：直交射影行列</strong><br />
+直交射影を表す行列 <span class="arithmatex">\(P\)</span> は以下の性質を持ちます：
+1. <span class="arithmatex">\(P^2 = P\)</span> （冪等性）
+2. <span class="arithmatex">\(P^T = P\)</span> （対称性）</p>
+</blockquote>
+<p>直交射影行列を用いると、部分空間 <span class="arithmatex">\(U\)</span> への射影は <span class="arithmatex">\(P_U(v) = Pv\)</span> と表せます。また、<span class="arithmatex">\(U^{\perp}\)</span> への射影は <span class="arithmatex">\(P_{U^{\perp}}(v) = (I-P)v\)</span> となります。</p>
+<p><strong>計算例1</strong>: <span class="arithmatex">\(\mathbb{R}^2\)</span> において、直線 <span class="arithmatex">\(U = \text{span}\{(1, 1)\}\)</span> への射影行列を求めます。</p>
+<p>正規化すると <span class="arithmatex">\(u_1 = \frac{1}{\sqrt{2}}(1, 1)\)</span> となり、射影行列は：
+<span class="arithmatex">\(<span class="arithmatex">\(P = u_1 u_1^T = \frac{1}{2}\begin{pmatrix} 1 \\ 1 \end{pmatrix} \begin{pmatrix} 1 &amp; 1 \end{pmatrix} = \frac{1}{2}\begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 1 \end{pmatrix}\)</span>\)</span></p>
+<p>ベクトル <span class="arithmatex">\(v = (3, 1)\)</span> の <span class="arithmatex">\(U\)</span> への射影を計算します：
+<span class="arithmatex">\(<span class="arithmatex">\(Pv = \frac{1}{2}\begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 1 \end{pmatrix} \begin{pmatrix} 3 \\ 1 \end{pmatrix} = \frac{1}{2}\begin{pmatrix} 4 \\ 4 \end{pmatrix} = \begin{pmatrix} 2 \\ 2 \end{pmatrix}\)</span>\)</span></p>
+<p><span class="arithmatex">\(U^{\perp}\)</span> への射影は：
+<span class="arithmatex">\(<span class="arithmatex">\((I-P)v = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix} \begin{pmatrix} 3 \\ 1 \end{pmatrix} - \begin{pmatrix} 2 \\ 2 \end{pmatrix} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}\)</span>\)</span></p>
+<p>実際に <span class="arithmatex">\(Pv\)</span> と <span class="arithmatex">\((I-P)v\)</span> が直交していることを確認します：
+<span class="arithmatex">\(<span class="arithmatex">\(\langle Pv, (I-P)v \rangle = \langle (2,2), (1,-1) \rangle = 2 \cdot 1 + 2 \cdot (-1) = 0\)</span>\)</span></p>
+<p>また、<span class="arithmatex">\(v\)</span> が <span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(U^{\perp}\)</span> の直交直和として表されることも確認できます：
+<span class="arithmatex">\(<span class="arithmatex">\(v = Pv + (I-P)v = (2,2) + (1,-1) = (3,1)\)</span>\)</span></p>
+<p><strong>計算例2</strong>: <span class="arithmatex">\(\mathbb{R}^3\)</span> において、平面 <span class="arithmatex">\(U = \{(x, y, z) \mid x + 2y + 3z = 0\}\)</span> への射影行列を求めます。</p>
+<p>平面の法線ベクトルは <span class="arithmatex">\(n = (1, 2, 3)\)</span> です。正規化すると <span class="arithmatex">\(n_0 = \frac{1}{\sqrt{14}}(1, 2, 3)\)</span> となります。</p>
+<p><span class="arithmatex">\(U^{\perp} = \text{span}\{n_0\}\)</span> なので、<span class="arithmatex">\(U^{\perp}\)</span> への射影行列は：
+<span class="arithmatex">\(<span class="arithmatex">\(P_{U^{\perp}} = n_0 n_0^T = \frac{1}{14}\begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix} \begin{pmatrix} 1 &amp; 2 &amp; 3 \end{pmatrix} = \frac{1}{14}\begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 2 &amp; 4 &amp; 6 \\ 3 &amp; 6 &amp; 9 \end{pmatrix}\)</span>\)</span></p>
+<p><span class="arithmatex">\(U\)</span> への射影行列は：
+<span class="arithmatex">\(<span class="arithmatex">\(P_U = I - P_{U^{\perp}} = \begin{pmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{pmatrix} - \frac{1}{14}\begin{pmatrix} 1 &amp; 2 &amp; 3 \\ 2 &amp; 4 &amp; 6 \\ 3 &amp; 6 &amp; 9 \end{pmatrix} = \frac{1}{14}\begin{pmatrix} 13 &amp; -2 &amp; -3 \\ -2 &amp; 10 &amp; -6 \\ -3 &amp; -6 &amp; 5 \end{pmatrix}\)</span>\)</span></p>
+<p>例えばベクトル <span class="arithmatex">\(v = (1, 1, 1)\)</span> の <span class="arithmatex">\(U\)</span> への射影を計算します：
+<span class="arithmatex">\(<span class="arithmatex">\(P_U v = \frac{1}{14}\begin{pmatrix} 13 &amp; -2 &amp; -3 \\ -2 &amp; 10 &amp; -6 \\ -3 &amp; -6 &amp; 5 \end{pmatrix} \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} = \frac{1}{14}\begin{pmatrix} 8 \\ 2 \\ -4 \end{pmatrix} = \begin{pmatrix} \frac{4}{7} \\ \frac{1}{7} \\ -\frac{2}{7} \end{pmatrix}\)</span>\)</span></p>
+<p>実際にこの点が平面上にあることを確認します：
+<span class="arithmatex">\(<span class="arithmatex">\(1 \cdot \frac{4}{7} + 2 \cdot \frac{1}{7} + 3 \cdot (-\frac{2}{7}) = \frac{4}{7} + \frac{2}{7} - \frac{6}{7} = 0\)</span>\)</span></p>
+<h3 id="44">4.4 線形回帰モデルと直交射影行列</h3>
+<p>線形回帰モデルは、データを特定の部分空間に射影することで近似するモデルと解釈できます。</p>
+<p>線形回帰モデル: <span class="arithmatex">\(y \approx X\beta\)</span>
+- <span class="arithmatex">\(y\)</span>: 目的変数（<span class="arithmatex">\(n\)</span>次元ベクトル）
+- <span class="arithmatex">\(X\)</span>: 説明変数の行列（<span class="arithmatex">\(n \times p\)</span>行列）
+- <span class="arithmatex">\(\beta\)</span>: 回帰係数（<span class="arithmatex">\(p\)</span>次元ベクトル）</p>
+<p>最小二乗法による <span class="arithmatex">\(\beta\)</span> の推定は、<span class="arithmatex">\(y\)</span> を <span class="arithmatex">\(X\)</span> の列空間への射影として解釈できます：</p>
+<div class="arithmatex">\[\hat{\beta} = (X^TX)^{-1}X^Ty\]</div>
+<p>このとき、予測値 <span class="arithmatex">\(\hat{y} = X\hat{\beta} = X(X^TX)^{-1}X^Ty\)</span> は、射影行列 <span class="arithmatex">\(P = X(X^TX)^{-1}X^T\)</span> を用いて <span class="arithmatex">\(\hat{y} = Py\)</span> と表せます。</p>
+<p><strong>具体例</strong>: 簡単な具体例で線形回帰と射影の関係を見てみましょう。</p>
+<p>データ点が <span class="arithmatex">\((x_1, y_1) = (1, 2)\)</span>, <span class="arithmatex">\((x_2, y_2) = (2, 3)\)</span>, <span class="arithmatex">\((x_3, y_3) = (3, 5)\)</span> の3点があり、直線 <span class="arithmatex">\(y = \beta_0 + \beta_1 x\)</span> へのフィッティングを考えます。</p>
+<p>このとき：
+<span class="arithmatex">\(<span class="arithmatex">\(X = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{pmatrix}, \quad y = \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix}\)</span>\)</span></p>
+<p><span class="arithmatex">\(X^TX\)</span> と <span class="arithmatex">\((X^TX)^{-1}\)</span> を計算します：
+<span class="arithmatex">\(<span class="arithmatex">\(X^TX = \begin{pmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp; 2 &amp; 3 \end{pmatrix} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{pmatrix} = \begin{pmatrix} 3 &amp; 6 \\ 6 &amp; 14 \end{pmatrix}\)</span>\)</span></p>
+<div class="arithmatex">\[(X^TX)^{-1} = \frac{1}{3 \cdot 14 - 6 \cdot 6} \begin{pmatrix} 14 &amp; -6 \\ -6 &amp; 3 \end{pmatrix} = \frac{1}{6} \begin{pmatrix} 14 &amp; -6 \\ -6 &amp; 3 \end{pmatrix}\]</div>
+<p>これを用いて回帰係数を求めます：
+<span class="arithmatex">\(<span class="arithmatex">\(\hat{\beta} = (X^TX)^{-1}X^Ty = \frac{1}{6} \begin{pmatrix} 14 &amp; -6 \\ -6 &amp; 3 \end{pmatrix} \begin{pmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp; 2 &amp; 3 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix}\)</span>\)</span></p>
+<div class="arithmatex">\[= \frac{1}{6} \begin{pmatrix} 14 &amp; -6 \\ -6 &amp; 3 \end{pmatrix} \begin{pmatrix} 10 \\ 23 \end{pmatrix} = \frac{1}{6} \begin{pmatrix} 14 \cdot 10 - 6 \cdot 23 \\ -6 \cdot 10 + 3 \cdot 23 \end{pmatrix} = \frac{1}{6} \begin{pmatrix} 140 - 138 \\ -60 + 69 \end{pmatrix} = \frac{1}{6} \begin{pmatrix} 2 \\ 9 \end{pmatrix} = \begin{pmatrix} \frac{1}{3} \\ \frac{3}{2} \end{pmatrix}\]</div>
+<p>よって回帰直線は <span class="arithmatex">\(y = \frac{1}{3} + \frac{3}{2}x\)</span> となります。</p>
+<p>次に射影行列を計算します：
+<span class="arithmatex">\(<span class="arithmatex">\(P = X(X^TX)^{-1}X^T = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{pmatrix} \frac{1}{6} \begin{pmatrix} 14 &amp; -6 \\ -6 &amp; 3 \end{pmatrix} \begin{pmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp; 2 &amp; 3 \end{pmatrix}\)</span>\)</span></p>
+<p>これは計算が煩雑になるため、直接 <span class="arithmatex">\(\hat{y} = X\hat{\beta}\)</span> を計算します：
+<span class="arithmatex">\(<span class="arithmatex">\(\hat{y} = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{pmatrix} \begin{pmatrix} \frac{1}{3} \\ \frac{3}{2} \end{pmatrix} = \begin{pmatrix} \frac{1}{3} + \frac{3}{2} \cdot 1 \\ \frac{1}{3} + \frac{3}{2} \cdot 2 \\ \frac{1}{3} + \frac{3}{2} \cdot 3 \end{pmatrix} = \begin{pmatrix} \frac{11}{6} \\ \frac{7}{2} \\ \frac{29}{6} \end{pmatrix} \approx \begin{pmatrix} 1.83 \\ 3.50 \\ 4.83 \end{pmatrix}\)</span>\)</span></p>
+<p>実際の <span class="arithmatex">\(y\)</span> と予測値 <span class="arithmatex">\(\hat{y}\)</span> の差（残差）は：
+<span class="arithmatex">\(<span class="arithmatex">\(y - \hat{y} = \begin{pmatrix} 2 \\ 3 \\ 5 \end{pmatrix} - \begin{pmatrix} 1.83 \\ 3.50 \\ 4.83 \end{pmatrix} = \begin{pmatrix} 0.17 \\ -0.50 \\ 0.17 \end{pmatrix}\)</span>\)</span></p>
+<p>この残差ベクトルは、<span class="arithmatex">\(X\)</span> の列空間と直交していることが確認できます：
+<span class="arithmatex">\(<span class="arithmatex">\(X^T(y - \hat{y}) = \begin{pmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp; 2 &amp; 3 \end{pmatrix} \begin{pmatrix} 0.17 \\ -0.50 \\ 0.17 \end{pmatrix} = \begin{pmatrix} 0.17 - 0.50 + 0.17 \\ 0.17 - 1.00 + 0.51 \end{pmatrix} \approx \begin{pmatrix} 0 \\ 0 \end{pmatrix}\)</span>\)</span></p>
+<p>これは、<span class="arithmatex">\(y\)</span> を <span class="arithmatex">\(X\)</span> の列空間に射影したものが <span class="arithmatex">\(\hat{y}\)</span> であり、残差 <span class="arithmatex">\(y - \hat{y}\)</span> は <span class="arithmatex">\(X\)</span> の列空間の直交補空間に属することを示しています。つまり線形回帰は、データ点 <span class="arithmatex">\(y\)</span> を説明変数によって張られる部分空間に射影するものと解釈できるのです。</p>
+<p><strong>応用例</strong>: 多変量データにおいて、目的変数 <span class="arithmatex">\(y\)</span> に対する複数の説明変数 <span class="arithmatex">\(X_1, X_2, \ldots, X_p\)</span> の影響を分析する際、各説明変数の寄与は射影の観点から解釈できます。</p>
+<p>例えば、健康データ分析において血圧（<span class="arithmatex">\(y\)</span>）を年齢（<span class="arithmatex">\(X_1\)</span>）とBMI（<span class="arithmatex">\(X_2\)</span>）で予測する場合、射影行列 <span class="arithmatex">\(P = X(X^TX)^{-1}X^T\)</span> は、血圧データを年齢とBMIで説明可能な部分空間へ射影します。残差分析（<span class="arithmatex">\(y - \hat{y}\)</span>）は、年齢とBMIで説明できない変動を表し、他の要因（例：塩分摂取量、運動量など）の影響を示唆します。</p>
+<h2 id="5-python">5. Pythonによる実装と可視化</h2>
+<h3 id="51">5.1 直交補空間の計算</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
+
+<span class="c1"># 部分空間の基底を定義</span>
+<span class="n">U_basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># xy平面の基底</span>
+
+<span class="c1"># 直交補空間を計算（ヌル空間を求める）</span>
+<span class="n">U_perp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">null_space</span><span class="p">(</span><span class="n">U_basis</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U_basis =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">U_basis</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U_perp =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">U_perp</span><span class="p">)</span>
+
+<span class="c1"># 3D空間で可視化</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+<span class="c1"># xy平面の表示</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+<span class="c1"># 直交補空間のベクトルを表示</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;xy平面(青)とその直交補空間(赤)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="52">5.2 射影の計算と可視化</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># ベクトルとその部分空間への射影を可視化</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_projection</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+    <span class="c1"># uを正規化</span>
+    <span class="n">u_norm</span> <span class="o">=</span> <span class="n">u</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+
+    <span class="c1"># vのuへの射影</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u_norm</span><span class="p">)</span> <span class="o">*</span> <span class="n">u_norm</span>
+
+    <span class="c1"># vのu_perpへの射影（残差）</span>
+    <span class="n">perp</span> <span class="o">=</span> <span class="n">v</span> <span class="o">-</span> <span class="n">proj</span>
+
+    <span class="c1"># プロット</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+    <span class="c1"># 原点と各ベクトルをプロット</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">u_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u_norm</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;基底ベクトル&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ベクトルv&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">proj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;射影&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">proj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">perp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;残差&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 射影の線を点線で表示</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+
+    <span class="c1"># プロットの範囲設定と軸の調整</span>
+    <span class="n">max_val</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u_norm</span><span class="p">)))</span> <span class="o">*</span> <span class="mf">1.2</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="n">max_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="n">max_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="c1"># タイトルと凡例</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ベクトルの射影&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">proj</span><span class="p">,</span> <span class="n">perp</span>
+
+<span class="c1"># 例：ベクトルvと部分空間の基底u</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># x軸方向</span>
+
+<span class="c1"># 射影を計算し可視化</span>
+<span class="n">proj</span><span class="p">,</span> <span class="n">perp</span> <span class="o">=</span> <span class="n">plot_projection</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ベクトルv = </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;基底ベクトルu = </span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;射影 = </span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;残差 = </span><span class="si">{</span><span class="n">perp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="53">5.3 射影行列の実装と確認</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 射影行列の構築と性質確認</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">projection_matrix_properties</span><span class="p">(</span><span class="n">basis</span><span class="p">):</span>
+    <span class="c1"># 基底の正規直交化</span>
+    <span class="n">Q</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">basis</span><span class="p">)</span>
+
+    <span class="c1"># 射影行列の構築</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">Q</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="c1"># 性質の確認</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;射影行列P =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">冪等性 P^2 = P?&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">P</span> <span class="o">@</span> <span class="n">P</span><span class="p">,</span> <span class="n">P</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">対称性 P^T = P?&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">固有値:&quot;</span><span class="p">)</span>
+    <span class="n">eigvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">eigvals</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">トレース:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">P</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">P</span><span class="p">,</span> <span class="n">Q</span>
+
+<span class="c1"># 例：R^3の部分空間（xy平面）の基底</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">P</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">projection_matrix_properties</span><span class="p">(</span><span class="n">basis</span><span class="p">)</span>
+
+<span class="c1"># 射影の例</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">projection</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">v</span>
+<span class="n">residual</span> <span class="o">=</span> <span class="n">v</span> <span class="o">-</span> <span class="n">projection</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">ベクトルv =&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;射影 =&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;残差 =&quot;</span><span class="p">,</span> <span class="n">residual</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;射影と残差は直交しているか？&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">projection</span><span class="p">,</span> <span class="n">residual</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="54">5.4 線形回帰と射影の関係</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="c1"># データの生成</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="c1"># 線形回帰</span>
+<span class="n">X_with_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">X</span><span class="p">])</span>  <span class="c1"># 切片のための列を追加</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X_with_bias</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X_with_bias</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_with_bias</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">X_with_bias</span> <span class="o">@</span> <span class="n">beta</span>
+
+<span class="c1"># 射影行列</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">X_with_bias</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X_with_bias</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X_with_bias</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_with_bias</span><span class="o">.</span><span class="n">T</span>
+<span class="n">y_proj</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">y</span>
+
+<span class="c1"># 射影行列の性質確認</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P @ P ≈ P?&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">P</span> <span class="o">@</span> <span class="n">P</span><span class="p">,</span> <span class="n">P</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P.T ≈ P?&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P @ y ≈ y_pred?&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">P</span> <span class="o">@</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="c1"># 可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;データ&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;回帰直線&#39;</span><span class="p">)</span>
+
+<span class="c1"># データ点から回帰直線への射影線を描画</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;線形回帰と射影の関係&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 残差の可視化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_pred</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;データ点&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;残差&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;残差（y - P@y）&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="6">6. 演習問題</h2>
+<h3 id="_1">基本問題</h3>
+<ol>
+<li>
+<p><span class="arithmatex">\(\mathbb{R}^3\)</span> において、ベクトル <span class="arithmatex">\(v = (2, 3, 4)\)</span> の以下の部分空間への射影を求めなさい。
+   a) <span class="arithmatex">\(U_1 = \text{span}\{(1, 0, 0)\}\)</span> （x軸）
+   b) <span class="arithmatex">\(U_2 = \text{span}\{(1, 1, 0), (0, 0, 1)\}\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(\mathbb{R}^3\)</span> における次の部分空間 <span class="arithmatex">\(U = \text{span}\{(1, 1, 1), (1, 2, 0)\}\)</span> について：
+   a) <span class="arithmatex">\(U\)</span> の正規直交基底を求めなさい。
+   b) <span class="arithmatex">\(U\)</span> の射影行列 <span class="arithmatex">\(P\)</span> を求めなさい。
+   c) <span class="arithmatex">\(U^{\perp}\)</span> の基底と射影行列 <span class="arithmatex">\(I-P\)</span> を求めなさい。</p>
+</li>
+<li>
+<p>次の射影行列 <span class="arithmatex">\(P = \begin{pmatrix} 2/3 &amp; 1/3 &amp; 2/3 \\ 1/3 &amp; 2/3 &amp; 1/3 \\ 2/3 &amp; 1/3 &amp; 2/3 \end{pmatrix}\)</span> について：
+   a) <span class="arithmatex">\(P\)</span> が射影行列であることを確認しなさい。
+   b) <span class="arithmatex">\(P\)</span> の階数（ランク）を求めなさい。
+   c) <span class="arithmatex">\(P\)</span> の像空間（列空間）を基底で表しなさい。</p>
+</li>
+</ol>
+<h3 id="_2">応用問題</h3>
+<ol>
+<li>健康データ分析において、3つの健康指標（血圧、コレステロール値、血糖値）が測定されたデータがあります。これらの指標は標準化されており、血圧と血糖値には強い相関があることがわかっています。</li>
+</ol>
+<p>a) 血圧と血糖値で張られる部分空間 <span class="arithmatex">\(U\)</span> を考え、この部分空間への射影行列を求めなさい。
+   b) コレステロール値が <span class="arithmatex">\(U\)</span> と直交するように、3つの健康指標の正規直交基底を構成しなさい。
+   c) あるデータポイント <span class="arithmatex">\((0.8, 0.5, 0.3)\)</span> の <span class="arithmatex">\(U\)</span> への射影と <span class="arithmatex">\(U^{\perp}\)</span> への射影を求めなさい。
+   d) この射影の健康データ分析における解釈を説明しなさい。</p>
+<ol>
+<li>線形回帰モデル <span class="arithmatex">\(y = X\beta + \varepsilon\)</span> において、<span class="arithmatex">\(X\)</span> は <span class="arithmatex">\(n \times p\)</span> 行列、<span class="arithmatex">\(\beta\)</span> は <span class="arithmatex">\(p\)</span> 次元パラメータベクトル、<span class="arithmatex">\(\varepsilon\)</span> は誤差項とします。</li>
+</ol>
+<p>a) 最小二乗推定量 <span class="arithmatex">\(\hat{\beta} = (X^TX)^{-1}X^Ty\)</span> が、<span class="arithmatex">\(y\)</span> の <span class="arithmatex">\(X\)</span> の列空間への射影を意味することを示しなさい。
+   b) 残差 <span class="arithmatex">\(e = y - X\hat{\beta}\)</span> が <span class="arithmatex">\(X\)</span> の列空間と直交することを示しなさい。
+   c) モデルに新しい説明変数を追加すると、<span class="arithmatex">\(R^2\)</span> 値（決定係数）が常に増加または維持される理由を、射影の観点から説明しなさい。</p>
+<h2 id="7">7. よくある質問と解答</h2>
+<h3 id="q1">Q1: 直和分解と直交直和分解の違いは何ですか？</h3>
+<p><strong>A1</strong>: 直和分解 <span class="arithmatex">\(V = U \oplus W\)</span> は、<span class="arithmatex">\(V\)</span> の任意のベクトルが <span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(W\)</span> の成分に一意に分解できることを意味します。直交直和分解 <span class="arithmatex">\(V = U \oplus^{\perp} W\)</span> は、直和分解の条件に加えて、<span class="arithmatex">\(U\)</span> と <span class="arithmatex">\(W\)</span> が互いに直交している（<span class="arithmatex">\(\langle u, w \rangle = 0\)</span> for all <span class="arithmatex">\(u \in U, w \in W\)</span>）という条件を満たす場合です。直交直和分解の場合、射影が計算しやすくなり、幾何学的解釈も明確になります。</p>
+<h3 id="q2-01">Q2: 射影行列の固有値はなぜ0と1だけなのですか？</h3>
+<p><strong>A2</strong>: 射影行列 <span class="arithmatex">\(P\)</span> は冪等性 <span class="arithmatex">\(P^2 = P\)</span> を持ちます。<span class="arithmatex">\(P\)</span> の固有値を <span class="arithmatex">\(\lambda\)</span> とすると、固有ベクトル <span class="arithmatex">\(v\)</span> に対して <span class="arithmatex">\(Pv = \lambda v\)</span> です。ここで <span class="arithmatex">\(P(Pv) = P^2v = Pv = \lambda v\)</span> より、<span class="arithmatex">\(\lambda^2 v = \lambda v\)</span> となります。<span class="arithmatex">\(v \neq 0\)</span> なので、<span class="arithmatex">\(\lambda^2 = \lambda\)</span> となり、これを解くと <span class="arithmatex">\(\lambda = 0\)</span> または <span class="arithmatex">\(\lambda = 1\)</span> が得られます。つまり、射影行列の固有値は0と1だけです。</p>
+<h3 id="q3">Q3: 線形回帰における射影の意味は何ですか？</h3>
+<p><strong>A3</strong>: 線形回帰モデル <span class="arithmatex">\(y \approx X\beta\)</span> において、最小二乗法で得られる <span class="arithmatex">\(\hat{y} = X\hat{\beta} = X(X^TX)^{-1}X^Ty\)</span> は、<span class="arithmatex">\(y\)</span> を <span class="arithmatex">\(X\)</span> の列空間に射影したものと解釈できます。つまり、線形回帰は目的変数 <span class="arithmatex">\(y\)</span> を説明変数 <span class="arithmatex">\(X\)</span> で張られる部分空間に最も近づける（二乗誤差を最小化する）ように射影しているのです。残差 <span class="arithmatex">\(y - \hat{y}\)</span> は <span class="arithmatex">\(X\)</span> の列空間と直交しており、これは誤差が説明変数と無相関であることを意味します。</p>
+<h3 id="q4">Q4: 正規直交基底を使うメリットは何ですか？</h3>
+<p><strong>A4</strong>: 正規直交基底を使うと以下のメリットがあります：
+1. 座標の計算が簡単になる（内積で直接求まる）
+2. 射影の計算が簡単になる
+3. 変換行列が直交行列となり、逆行列が転置行列と等しくなる
+4. 数値計算上の安定性が向上する
+5. 幾何学的解釈が明確になる</p>
+<h3 id="q5">Q5: ベクトルの直交分解は一意に決まりますか？</h3>
+<p><strong>A5</strong>: ベクトル <span class="arithmatex">\(v \in V\)</span> の直交分解 <span class="arithmatex">\(v = u + w\)</span> （<span class="arithmatex">\(u \in U, w \in U^{\perp}\)</span>）は一意に決まります。これは直交補空間 <span class="arithmatex">\(U^{\perp}\)</span> が一意に定まることと、直交直和分解 <span class="arithmatex">\(V = U \oplus^{\perp} U^{\perp}\)</span> における分解の一意性によります。しかし、異なる部分空間 <span class="arithmatex">\(U_1, U_2\)</span> に関しては、同じベクトル <span class="arithmatex">\(v\)</span> の直交分解は一般に異なります。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - 2025 Tomoshige Nakamura
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.indexes", "navigation.collapse", "navigation.tracking", "navigation.path", "navigation.top", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

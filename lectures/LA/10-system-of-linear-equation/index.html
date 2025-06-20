@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://tomoshige.github.io/website/lectures/LA/10-system-of-linear-equation/">
       
       
-        <link rel="prev" href="../09-exercise/">
+        <link rel="prev" href="../09-system-of-linear-equation/">
       
       
         <link rel="next" href="../11-system-of-linear-equation/">
@@ -26,7 +26,7 @@
     
     
       
-        <title>10. System of Linear Equation 1 - Statistical Learning Laboratory</title>
+        <title>10. System of Linear Equation 2 - Statistical Learning Laboratory</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#10" class="md-skip">
+        <a href="#11" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              10. System of Linear Equation 1
+              10. System of Linear Equation 2
             
           </span>
         </div>
@@ -400,8 +400,6 @@
       
         
       
-        
-      
     
     
       
@@ -600,27 +598,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../09-exercise/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    9. Exercise
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -639,16 +616,6 @@
   
     
     
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
       
         
       
@@ -696,6 +663,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-system-of-linear-equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. System of Linear Equation 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -712,7 +700,7 @@
           
   
   <span class="md-ellipsis">
-    10. System of Linear Equation 1
+    10. System of Linear Equation 2
   </span>
   
 
@@ -723,7 +711,7 @@
         
   
   <span class="md-ellipsis">
-    10. System of Linear Equation 1
+    10. System of Linear Equation 2
   </span>
   
 
@@ -775,7 +763,7 @@
           <li class="md-nav__item">
   <a href="#31" class="md-nav__link">
     <span class="md-ellipsis">
-      3.1 連立一次方程式とは
+      3.1 連立一次方程式の行列表現と拡大係数行列（復習）
     </span>
   </a>
   
@@ -784,16 +772,31 @@
           <li class="md-nav__item">
   <a href="#32" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2 連立一次方程式の行列表現
+      3.2 行列の基本変形
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="3.2 行列の基本変形">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      行列の基本変形の具体例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#33" class="md-nav__link">
     <span class="md-ellipsis">
-      3.3 拡大係数行列
+      3.3 ガウスの消去法の概念
     </span>
   </a>
   
@@ -817,75 +820,36 @@
           <li class="md-nav__item">
   <a href="#41" class="md-nav__link">
     <span class="md-ellipsis">
-      4.1 連立一次方程式の解法
+      4.1 ガウスの消去法の手順
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="4.1 連立一次方程式の解法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#411" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.1 代入法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#412" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.2 加減法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#413" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.3 行列の逆行列を用いる方法
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#42" class="md-nav__link">
     <span class="md-ellipsis">
-      4.2 連立一次方程式の幾何学的解釈
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4.2 連立一次方程式の幾何学的解釈">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#421-21" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2.1 2元連立1次方程式の幾何学的解釈
+      4.2 ガウスの消去法の詳細アルゴリズム
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#422-31" class="md-nav__link">
+  <a href="#43" class="md-nav__link">
     <span class="md-ellipsis">
-      4.2.2 3元連立1次方程式の幾何学的解釈
+      4.3 後退代入の手順
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#44-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 計算例: 3変数の連立方程式
+    </span>
+  </a>
   
 </li>
         
@@ -897,59 +861,17 @@
         <li class="md-nav__item">
   <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. 健康データにおける連立一次方程式の応用
+      5. 演習問題
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. 健康データにおける連立一次方程式の応用">
+    <nav class="md-nav" aria-label="5. 演習問題">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#51" class="md-nav__link">
     <span class="md-ellipsis">
-      5.1 薬物動態モデル
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#52" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.2 栄養素バランスの最適化
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. 演習問題
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. 演習問題">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      基本問題
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      応用問題
+      5.1 基本問題
     </span>
   </a>
   
@@ -980,7 +902,7 @@
         
   
   <span class="md-ellipsis">
-    11. System of Linear Equation 2
+    11. System of Linear Equation 3
   </span>
   
 
@@ -1001,7 +923,7 @@
         
   
   <span class="md-ellipsis">
-    12. System of Linear Equation 3
+    12. System of Linear Equation 4
   </span>
   
 
@@ -1022,7 +944,7 @@
         
   
   <span class="md-ellipsis">
-    13. System of Linear Equation 4
+    13. System of Linear Equation 5
   </span>
   
 
@@ -1039,137 +961,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../14-system-of-linear-equation/" class="md-nav__link">
+      <a href="../14-exercise/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    14. System of Linear Equation 5
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../15-system-of-linear-equation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    15. System of Linear Equation 6
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../16-system-of-linear-equation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    16. System of Linear Equation 7
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../17-system-of-linear-equation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    17. System of Linear Equation 8
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../18-system-of-linear-equation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    18. System of Linear Equation 9
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../19-exercise/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    19. Exercise
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../20-midterm-exam/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    20. Midterm Exam
+    14. System of Linear Equation 6
   </span>
   
 
@@ -1195,8 +991,6 @@
   
     
     
-      
-        
       
         
       
@@ -1243,11 +1037,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../21-determinant/" class="md-nav__link">
+      <a href="../15-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    21. Determinant 1
+    15. Determinant 1
   </span>
   
 
@@ -1264,11 +1058,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../22-determinant/" class="md-nav__link">
+      <a href="../16-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    22. Determinant 2
+    16. Determinant 2
   </span>
   
 
@@ -1285,11 +1079,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../23-determinant/" class="md-nav__link">
+      <a href="../17-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    23. Determinant 3
+    17. Determinant 3
   </span>
   
 
@@ -1306,32 +1100,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../24-determinant/" class="md-nav__link">
+      <a href="../18-determinant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    24. Determinant 4
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../25-exercise/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    25. Exercise
+    18. Determinant 4
   </span>
   
 
@@ -1357,10 +1130,6 @@
   
     
     
-      
-        
-      
-        
       
         
       
@@ -1407,11 +1176,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../26-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../19-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    26. Vector space 1
+    19. Vector space 1
   </span>
   
 
@@ -1428,11 +1197,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../27-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../20-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    27. Vector space 2
+    20. Vector space 2
   </span>
   
 
@@ -1449,11 +1218,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../28-vector-space-and-inner-product/" class="md-nav__link">
+      <a href="../21-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    28. Vector space 3
+    21. Vector space 3
   </span>
   
 
@@ -1470,53 +1239,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../29-exercise/" class="md-nav__link">
+      <a href="../22-vector-space-and-inner-product/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    29. Exercise
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../30-exercise/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    30. Exercise
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../31-exam/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    31. Semester Exam
+    22. Vector space 4
   </span>
   
 
@@ -3563,7 +3290,7 @@
           <li class="md-nav__item">
   <a href="#31" class="md-nav__link">
     <span class="md-ellipsis">
-      3.1 連立一次方程式とは
+      3.1 連立一次方程式の行列表現と拡大係数行列（復習）
     </span>
   </a>
   
@@ -3572,16 +3299,31 @@
           <li class="md-nav__item">
   <a href="#32" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2 連立一次方程式の行列表現
+      3.2 行列の基本変形
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="3.2 行列の基本変形">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      行列の基本変形の具体例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#33" class="md-nav__link">
     <span class="md-ellipsis">
-      3.3 拡大係数行列
+      3.3 ガウスの消去法の概念
     </span>
   </a>
   
@@ -3605,75 +3347,36 @@
           <li class="md-nav__item">
   <a href="#41" class="md-nav__link">
     <span class="md-ellipsis">
-      4.1 連立一次方程式の解法
+      4.1 ガウスの消去法の手順
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="4.1 連立一次方程式の解法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#411" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.1 代入法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#412" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.2 加減法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#413" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.3 行列の逆行列を用いる方法
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#42" class="md-nav__link">
     <span class="md-ellipsis">
-      4.2 連立一次方程式の幾何学的解釈
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4.2 連立一次方程式の幾何学的解釈">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#421-21" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2.1 2元連立1次方程式の幾何学的解釈
+      4.2 ガウスの消去法の詳細アルゴリズム
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#422-31" class="md-nav__link">
+  <a href="#43" class="md-nav__link">
     <span class="md-ellipsis">
-      4.2.2 3元連立1次方程式の幾何学的解釈
+      4.3 後退代入の手順
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#44-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 計算例: 3変数の連立方程式
+    </span>
+  </a>
   
 </li>
         
@@ -3685,59 +3388,17 @@
         <li class="md-nav__item">
   <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. 健康データにおける連立一次方程式の応用
+      5. 演習問題
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. 健康データにおける連立一次方程式の応用">
+    <nav class="md-nav" aria-label="5. 演習問題">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#51" class="md-nav__link">
     <span class="md-ellipsis">
-      5.1 薬物動態モデル
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#52" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.2 栄養素バランスの最適化
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. 演習問題
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. 演習問題">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      基本問題
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      応用問題
+      5.1 基本問題
     </span>
   </a>
   
@@ -3763,420 +3424,303 @@
                   
 
 
-<h1 id="10">第10回 連立一次方程式の表現と解法の基礎</h1>
+<h1 id="11">線形代数学 第11回 講義ノート</h1>
 <h2 id="1">1. 講義情報と予習ガイド</h2>
-<ul>
-<li><strong>講義回</strong>: 第10回</li>
-<li><strong>関連項目</strong>: 連立一次方程式、行列表現、解法の基礎</li>
-<li><strong>予習すべき内容</strong>: 行列の基本演算（第4-6回）、ベクトルと行列の関係（第7-8回）</li>
-<li><strong>スライド</strong>: <a href="../slides/10-system-of-linear-equation-slide.pdf">こちら</a></li>
-<li><strong>問題</strong>: <a href="../exercise/exercise4.pdf">演習問題</a></li>
-</ul>
+<p><strong>講義回</strong>: 第11回<br />
+<strong>テーマ</strong>: ガウスの消去法と解の探索<br />
+<strong>関連項目</strong>: 連立一次方程式、行列の基本変形、ガウスの消去法<br />
+<strong>予習すべき内容</strong>: 
+- 第10回の内容（連立一次方程式の行列表現）
+- 行列の基本操作の概念</p>
+<p><strong>講義資料</strong>: <a href="../slides/11-system-of-linear-equation.pdf">こちら</a>
+<strong>演習資料</strong>: <a href="../exercise/exercise5.pdf">こちら</a></p>
 <h2 id="2">2. 学習目標</h2>
-<p>本講義の終了時には、以下のことができるようになることを目指します：</p>
+<p>本講義の終了時には以下の能力を身につけることを目標とします:</p>
 <ol>
-<li>連立一次方程式の行列表現ができるようになる</li>
-<li>連立一次方程式の幾何学的意味を理解する</li>
-<li>連立一次方程式の基本的な解法を習得する</li>
-<li>連立一次方程式の解の種類とその特徴を理解する</li>
+<li>連立一次方程式の行列表現と拡大係数行列の概念を理解する</li>
+<li>行列の基本変形の種類と性質を理解する</li>
+<li>ガウスの消去法のアルゴリズムを理解し実行できる</li>
+<li>ガウスの消去法と連立方程式の消去法の関係を理解する</li>
 </ol>
 <h2 id="3">3. 基本概念</h2>
-<h3 id="31">3.1 連立一次方程式とは</h3>
-<blockquote>
-<p><strong>定義</strong>: 連立一次方程式とは、複数の一次方程式（変数の次数が全て1次である方程式）を同時に満たす解を求める問題です。</p>
-</blockquote>
-<p>一般的な形式：</p>
+<h3 id="31">3.1 連立一次方程式の行列表現と拡大係数行列（復習）</h3>
+<p>連立一次方程式は行列と係数ベクトルを用いて簡潔に表すことができます。一般的な形式は以下の通りです:</p>
 <div class="arithmatex">\[
 \begin{cases}
-a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1\\
-a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2\\
-\vdots\\
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1 \\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2 \\
+\vdots \\
 a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m
 \end{cases}
 \]</div>
-<p>ここで、<span class="arithmatex">\(a_{ij}\)</span>は係数、<span class="arithmatex">\(x_j\)</span>は未知変数、<span class="arithmatex">\(b_i\)</span>は定数項です。<span class="arithmatex">\(m\)</span>は方程式の数、<span class="arithmatex">\(n\)</span>は未知変数の数を表します。</p>
-<p><strong>例</strong>: 次の連立方程式を考えてみましょう。
-$$
-\begin{cases}
-2x + 3y = 8\
-4x - y = 2
-\end{cases}
-$$</p>
-<p>この連立方程式には2つの未知変数（<span class="arithmatex">\(x\)</span>と<span class="arithmatex">\(y\)</span>）と2つの方程式があります。</p>
-<h3 id="32">3.2 連立一次方程式の行列表現</h3>
-<p>連立一次方程式は行列とベクトルを用いて、より簡潔に表現することができます。</p>
-<blockquote>
-<p><strong>定義</strong>: <span class="arithmatex">\(m\)</span>個の方程式と<span class="arithmatex">\(n\)</span>個の未知数からなる連立一次方程式は、次の行列方程式で表すことができます。</p>
-<div class="arithmatex">\[A\mathbf{x} = \mathbf{b}\]</div>
-<p>ここで、<span class="arithmatex">\(A\)</span>は<span class="arithmatex">\(m \times n\)</span>の係数行列、<span class="arithmatex">\(\mathbf{x}\)</span>は<span class="arithmatex">\(n\)</span>次元の未知数ベクトル、<span class="arithmatex">\(\mathbf{b}\)</span>は<span class="arithmatex">\(m\)</span>次元の定数項ベクトルです。</p>
-</blockquote>
-<p>具体的には：</p>
-<div class="arithmatex">\[
+<p>この連立方程式は行列形式で次のように表現できます:</p>
+<div class="arithmatex">\[\mathbf{A}\mathbf{x} = \mathbf{b}\]</div>
+<p>ここで、</p>
+<div class="arithmatex">\[\mathbf{A} = 
 \begin{pmatrix}
-a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}\\
-a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n}\\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
 a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
-\end{pmatrix}
+\end{pmatrix}, \quad
+\mathbf{x} = 
 \begin{pmatrix}
-x_1\\
-x_2\\
-\vdots\\
+x_1 \\
+x_2 \\
+\vdots \\
 x_n
-\end{pmatrix}
-=
+\end{pmatrix}, \quad
+\mathbf{b} = 
 \begin{pmatrix}
-b_1\\
-b_2\\
-\vdots\\
+b_1 \\
+b_2 \\
+\vdots \\
 b_m
 \end{pmatrix}
 \]</div>
-<p><strong>例</strong>: 先ほどの連立方程式を行列表現すると：</p>
-<div class="arithmatex">\[
+<p>連立方程式を解く際には、係数行列と定数項をまとめた<strong>拡大係数行列</strong>（augmented matrix）を考えると便利です:</p>
+<div class="arithmatex">\[\left(\mathbf{A} | \mathbf{b}\right) = 
 \begin{pmatrix}
-2 &amp; 3\\
-4 &amp; -1
-\end{pmatrix}
-\begin{pmatrix}
-x\\
-y
-\end{pmatrix}
-=
-\begin{pmatrix}
-8\\
-2
-\end{pmatrix}
-\]</div>
-<p>これにより、複雑な連立方程式も簡潔に表現できます。</p>
-<h3 id="33">3.3 拡大係数行列</h3>
-<p>連立一次方程式を解く際には、「拡大係数行列」という概念が役立ちます。</p>
-<blockquote>
-<p><strong>定義</strong>: 拡大係数行列とは、係数行列<span class="arithmatex">\(A\)</span>に定数項ベクトル<span class="arithmatex">\(\mathbf{b}\)</span>を右側に追加した行列です。</p>
-<div class="arithmatex">\[[A|\mathbf{b}] = 
-\begin{pmatrix}
-a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; | &amp; b_1\\
-a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; | &amp; b_2\\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; | &amp; \vdots\\
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; | &amp; b_1 \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; | &amp; b_2 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; | &amp; \vdots \\
 a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; | &amp; b_m
-\end{pmatrix}\]</div>
+\end{pmatrix}
+\]</div>
+<h3 id="32">3.2 行列の基本変形</h3>
+<p>行列の基本変形は、連立方程式の解を変えずに行列の形を変える操作です。主に3種類の基本変形があります:</p>
+<blockquote>
+<p><strong>行列の基本変形の定義</strong>:
+1. <strong>行の交換（Row Exchange）</strong>: 2つの行を入れ替える
+2. <strong>行のスカラー倍（Row Scaling）</strong>: ある行の全ての要素を0でない定数倍する
+3. <strong>行の加減（Row Addition）</strong>: ある行の定数倍を別の行に加える</p>
 </blockquote>
-<p><strong>例</strong>: 拡大係数行列の例</p>
-<div class="arithmatex">\[[A|\mathbf{b}] = 
+<p>これらの基本変形は連立方程式の解を変えないという重要な性質があります。</p>
+<h4 id="_1">行列の基本変形の具体例</h4>
+<ol>
+<li><strong>行の交換（Row Exchange）</strong>:
+   行列の2つの行を入れ替える操作です。例えば、以下の行列の第1行と第2行を交換すると:</li>
+</ol>
+<div class="arithmatex">\[
 \begin{pmatrix}
-2 &amp; 3 &amp; | &amp; 8\\
-4 &amp; -1 &amp; | &amp; 2
-\end{pmatrix}\]</div>
-<p>拡大係数行列は、連立方程式を解く際のガウスの消去法などで特に重要になります。</p>
+1 &amp; 2 &amp; 3 \\\
+4 &amp; 5 &amp; 6 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix} 
+\rightarrow
+\begin{pmatrix}
+4 &amp; 5 &amp; 6 \\\
+1 &amp; 2 &amp; 3 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\]</div>
+<p>このような操作は連立方程式の解には影響しません。なぜなら、方程式の順序を入れ替えただけで、方程式の内容自体は変わっていないからです。</p>
+<ol>
+<li><strong>行のスカラー倍（Row Scaling）</strong>:
+   行列のある行の全ての要素を0でない定数倍する操作です。例えば、以下の行列の第2行を2倍すると:</li>
+</ol>
+<div class="arithmatex">\[
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\\
+4 &amp; 5 &amp; 6 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\rightarrow
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\\
+8 &amp; 10 &amp; 12 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\]</div>
+<p>これは連立方程式では、2番目の方程式の両辺を2倍することに相当します。例えば:</p>
+<div class="arithmatex">\[4x + 5y + 6z = 10 \quad \rightarrow \quad 8x + 10y + 12z = 20\]</div>
+<p>方程式の両辺を同じ定数倍しても、解は変わりません。</p>
+<ol>
+<li><strong>行の加減（Row Addition）</strong>:
+   ある行の定数倍を別の行に加える操作です。例えば、第1行の(-4)倍を第2行に加えると:</li>
+</ol>
+<div class="arithmatex">\[
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\\
+4 &amp; 5 &amp; 6 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\rightarrow
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\\
+0 &amp; -3 &amp; -6 \\\
+7 &amp; 8 &amp; 9
+\end{pmatrix}
+\]</div>
+<p>これは連立方程式では、第1方程式の(-4)倍を第2方程式に加えることに相当します:</p>
+<div class="arithmatex">\[
+\begin{cases}
+x + 2y + 3z = 10 \\\
+4x + 5y + 6z = 20
+\end{cases}
+\quad \rightarrow \quad
+\begin{cases}
+x + 2y + 3z = 10 \\\
+-3y - 6z = -20
+\end{cases}
+\]</div>
+<p>この操作により、第2方程式からx変数が消去されました。しかし、連立方程式全体としては同じ解を持ちます。</p>
+<p>これらの基本変形を組み合わせることで、行列を望ましい形（上三角形や対角形など）に変形することができます。例えば、以下の拡大係数行列を考えます:</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+1 &amp; 3 &amp; | &amp; 5 \\
+2 &amp; 7 &amp; | &amp; 11
+\end{pmatrix}
+\]</div>
+<p>連立方程式の解を変えずに、第1行の(-2)倍を第2行に加えると:</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+1 &amp; 3 &amp; | &amp; 5 \\
+0 &amp; 1 &amp; | &amp; 1
+\end{pmatrix}
+\]</div>
+<p>これは元の連立方程式:</p>
+<div class="arithmatex">\[
+\begin{cases}
+x + 3y = 5 \\
+2x + 7y = 11
+\end{cases}
+\]</div>
+<p>が以下に変形されたことを意味します:</p>
+<div class="arithmatex">\[
+\begin{cases}
+x + 3y = 5 \\
+y = 1
+\end{cases}
+\]</div>
+<p>この変形により、連立方程式を後退代入で簡単に解くことができます。</p>
+<h3 id="33">3.3 ガウスの消去法の概念</h3>
+<p>ガウスの消去法は、基本変形を用いて拡大係数行列を特定の形（上三角形または階段形）に変形することで連立方程式を解くアルゴリズムです。</p>
+<blockquote>
+<p><strong>ガウスの消去法</strong>:
+拡大係数行列に基本変形を施し、係数行列を上三角行列または階段行列に変形する方法。</p>
+</blockquote>
+<p>ガウスの消去法には主に二つの段階があります:
+1. <strong>前進消去（Forward Elimination）</strong>: 係数行列を上三角行列に変形する
+2. <strong>後退代入（Back Substitution）</strong>: 上三角行列の形の連立方程式を解く</p>
 <h2 id="4">4. 理論と手法</h2>
-<h3 id="41">4.1 連立一次方程式の解法</h3>
-<p>連立一次方程式を解くための基本的な方法には、以下のものがあります：</p>
+<h3 id="41">4.1 ガウスの消去法の手順</h3>
+<p>ガウスの消去法のアルゴリズムは以下の通りです:</p>
 <ol>
-<li><strong>代入法</strong>: 一つの方程式から変数を他の変数で表し、それを他の方程式に代入する方法</li>
-<li><strong>加減法</strong>: 複数の方程式を加えたり引いたりして変数を消去する方法</li>
-<li><strong>行列の逆行列を用いる方法</strong>: <span class="arithmatex">\(A\mathbf{x} = \mathbf{b}\)</span> から <span class="arithmatex">\(\mathbf{x} = A^{-1}\mathbf{b}\)</span> を求める方法</li>
-<li><strong>ガウスの消去法</strong>: 行の基本変形を用いて上三角行列または行簡約形に変形する方法</li>
+<li><strong>拡大係数行列の作成</strong>: 連立方程式から拡大係数行列を作成</li>
+<li><strong>前進消去</strong>: </li>
+<li>左上から始め、その列の対角成分（ピボット）を基準にする</li>
+<li>ピボット以下の要素をすべて0にするように基本変形を行う</li>
+<li>次の列に移動し同様の操作を繰り返す</li>
+<li><strong>後退代入</strong>: 変形された方程式を最後の変数から順に解いていく</li>
 </ol>
-<p>ここでは、それぞれの方法について具体例を用いて説明します。</p>
-<h4 id="411">4.1.1 代入法</h4>
-<p><strong>例</strong>: 次の連立方程式を代入法で解きます。
-$$
-\begin{cases}
-2x + 3y = 8\
-4x - y = 2
-\end{cases}
-$$</p>
-<p><strong>解法</strong>:
-1. 2番目の方程式から<span class="arithmatex">\(y\)</span>について解きます：<span class="arithmatex">\(y = 4x - 2\)</span>
-2. この<span class="arithmatex">\(y\)</span>の式を1番目の方程式に代入します：<span class="arithmatex">\(2x + 3(4x - 2) = 8\)</span>
-3. 整理します：<span class="arithmatex">\(2x + 12x - 6 = 8\)</span>
-4. さらに整理：<span class="arithmatex">\(14x = 14\)</span>
-5. よって<span class="arithmatex">\(x = 1\)</span>
-6. <span class="arithmatex">\(x = 1\)</span>を<span class="arithmatex">\(y = 4x - 2\)</span>に代入：<span class="arithmatex">\(y = 4 \cdot 1 - 2 = 2\)</span>
-7. 解は<span class="arithmatex">\((x, y) = (1, 2)\)</span>です。</p>
-<h4 id="412">4.1.2 加減法</h4>
-<p><strong>例</strong>: 同じ連立方程式を加減法で解きます。
-$$
-\begin{cases}
-2x + 3y = 8 \quad \ldots (1)\
-4x - y = 2 \quad \ldots (2)
-\end{cases}
-$$</p>
-<p><strong>解法</strong>:
-1. 方程式(1)の両辺を2倍します：<span class="arithmatex">\(4x + 6y = 16 \quad \ldots (1')\)</span>
-2. 方程式(1')から方程式(2)を引きます：<span class="arithmatex">\(6y + y = 16 - 2\)</span>
-3. 整理すると：<span class="arithmatex">\(7y = 14\)</span>
-4. よって<span class="arithmatex">\(y = 2\)</span>
-5. <span class="arithmatex">\(y = 2\)</span>を方程式(2)に代入：<span class="arithmatex">\(4x - 2 = 2\)</span>
-6. 整理すると：<span class="arithmatex">\(4x = 4\)</span>
-7. よって<span class="arithmatex">\(x = 1\)</span>
-8. 解は<span class="arithmatex">\((x, y) = (1, 2)\)</span>です。</p>
-<h4 id="413">4.1.3 行列の逆行列を用いる方法</h4>
-<p><strong>例</strong>: 同じ連立方程式を行列の逆行列を用いて解きます。
-<span class="arithmatex">\(<span class="arithmatex">\(A\mathbf{x} = \mathbf{b}\)</span>\)</span>
-ここで、
-<span class="arithmatex">\(<span class="arithmatex">\(A = \begin{pmatrix}
-2 &amp; 3\\
-4 &amp; -1
-\end{pmatrix}, \quad 
-\mathbf{x} = \begin{pmatrix}
-x\\
-y
-\end{pmatrix}, \quad 
-\mathbf{b} = \begin{pmatrix}
-8\\
-2
-\end{pmatrix}\)</span>\)</span></p>
-<p><strong>解法</strong>:
-1. <span class="arithmatex">\(A\)</span>の逆行列<span class="arithmatex">\(A^{-1}\)</span>を求めます。
-   <span class="arithmatex">\(\det(A) = 2 \cdot (-1) - 3 \cdot 4 = -2 - 12 = -14\)</span></p>
-<p><span class="arithmatex">\(A^{-1} = \frac{1}{\det(A)} \begin{pmatrix}
-   -1 &amp; -3\\
-   -4 &amp; 2
-   \end{pmatrix} = \frac{1}{-14} \begin{pmatrix}
-   -1 &amp; -3\\
-   -4 &amp; 2
-   \end{pmatrix} = \begin{pmatrix}
-   \frac{1}{14} &amp; \frac{3}{14}\\
-   \frac{4}{14} &amp; -\frac{2}{14}
-   \end{pmatrix}\)</span></p>
+<h3 id="42">4.2 ガウスの消去法の詳細アルゴリズム</h3>
+<p>より数学的に厳密に記述すると、ガウスの消去法の前進消去段階は以下のようになります:</p>
 <ol>
-<li>
-<p><span class="arithmatex">\(\mathbf{x} = A^{-1}\mathbf{b}\)</span>より：
-   <span class="arithmatex">\(<span class="arithmatex">\(\mathbf{x} = \begin{pmatrix}
-   \frac{1}{14} &amp; \frac{3}{14}\\
-   \frac{4}{14} &amp; -\frac{2}{14}
-   \end{pmatrix} \begin{pmatrix}
-   8\\
-   2
-   \end{pmatrix} = \begin{pmatrix}
-   \frac{1}{14} \cdot 8 + \frac{3}{14} \cdot 2\\
-   \frac{4}{14} \cdot 8 + (-\frac{2}{14}) \cdot 2
-   \end{pmatrix} = \begin{pmatrix}
-   \frac{8 + 6}{14}\\
-   \frac{32 - 4}{14}
-   \end{pmatrix} = \begin{pmatrix}
-   \frac{14}{14}\\
-   \frac{28}{14}
-   \end{pmatrix} = \begin{pmatrix}
-   1\\
-   2
-   \end{pmatrix}\)</span>\)</span></p>
-</li>
-<li>
-<p>解は<span class="arithmatex">\((x, y) = (1, 2)\)</span>です。</p>
-</li>
-</ol>
-<h3 id="42">4.2 連立一次方程式の幾何学的解釈</h3>
-<h4 id="421-21">4.2.1 2元連立1次方程式の幾何学的解釈</h4>
-<p>2元連立1次方程式は平面上の直線として解釈できます。</p>
-<ul>
-<li>各方程式は平面上の1本の直線を表します</li>
-<li>連立方程式の解は、これらの直線の交点に対応します</li>
+<li><span class="arithmatex">\(i = 1\)</span> から <span class="arithmatex">\(n-1\)</span> まで以下の操作を繰り返す:</li>
+<li>ピボット要素 <span class="arithmatex">\(a_{ii}\)</span> を選ぶ</li>
+<li><span class="arithmatex">\(j = i + 1\)</span> から <span class="arithmatex">\(m\)</span> まで以下の操作を行う:<ul>
+<li>係数 <span class="arithmatex">\(\mu_{ji} = a_{ji}/a_{ii}\)</span> を計算</li>
+<li>行 <span class="arithmatex">\(j\)</span> から 行 <span class="arithmatex">\(i\)</span> の <span class="arithmatex">\(\mu_{ji}\)</span> 倍を引く: <span class="arithmatex">\(\text{row}_j \leftarrow \text{row}_j - \mu_{ji} \cdot \text{row}_i\)</span></li>
 </ul>
-<p><strong>例</strong>: 先ほどの連立方程式の幾何学的解釈</p>
+</li>
+</ol>
+<h3 id="43">4.3 後退代入の手順</h3>
+<p>上三角行列に変形された連立方程式を解くための後退代入は以下のように行います:</p>
+<ol>
+<li>最後の変数 <span class="arithmatex">\(x_n\)</span> を計算: <span class="arithmatex">\(x_n = b_n/a_{nn}\)</span></li>
+<li><span class="arithmatex">\(i = n-1\)</span> から <span class="arithmatex">\(1\)</span> まで逆順に以下を計算:
+   <span class="arithmatex">\(<span class="arithmatex">\(x_i = \frac{1}{a_{ii}}\left(b_i - \sum_{j=i+1}^{n}a_{ij}x_j\right)\)</span>\)</span></li>
+</ol>
+<h3 id="44-3">4.4 計算例: 3変数の連立方程式</h3>
+<p>以下の連立方程式を考えます:</p>
 <div class="arithmatex">\[
 \begin{cases}
-2x + 3y = 8 \quad \ldots \text{直線1}\\
-4x - y = 2 \quad \ldots \text{直線2}
+2x + y - z = 8 \\
+-3x - y + 2z = -11 \\
+-2x + y + 2z = -3
 \end{cases}
 \]</div>
-<p>この2つの直線は点<span class="arithmatex">\((1, 2)\)</span>で交わります。</p>
-<p>連立方程式の解の存在については、次の3つのケースがあります：</p>
-<ol>
-<li><strong>唯一解</strong>: 2つの直線が1点で交わる（一般的なケース）</li>
-<li><strong>無数の解</strong>: 2つの直線が一致する（無限個の解）</li>
-<li><strong>解なし</strong>: 2つの直線が平行で交わらない</li>
-</ol>
-<h4 id="422-31">4.2.2 3元連立1次方程式の幾何学的解釈</h4>
-<p>3元連立1次方程式は3次元空間内の平面として解釈できます。</p>
+<p><strong>ステップ 1</strong>: 拡大係数行列を作成</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+2 &amp; 1 &amp; -1 &amp; | &amp; 8 \\
+-3 &amp; -1 &amp; 2 &amp; | &amp; -11 \\
+-2 &amp; 1 &amp; 2 &amp; | &amp; -3
+\end{pmatrix}
+\]</div>
+<p><strong>ステップ 2</strong>: 前進消去を行う</p>
+<p>まず、第1列の第1行以下の要素を0にします:</p>
 <ul>
-<li>各方程式は3次元空間内の1つの平面を表します</li>
-<li>連立方程式の解は、これらの平面の共通部分（交点や交線）に対応します</li>
+<li>第2行に第1行の<span class="arithmatex">\(\frac{3}{2}\)</span>倍を加える:</li>
 </ul>
-<p>連立方程式の解の存在については、次のケースがあります：</p>
-<ol>
-<li><strong>唯一解</strong>: 3つの平面が1点で交わる</li>
-<li><strong>無数の解</strong>: 3つの平面が一直線または平面で交わる</li>
-<li><strong>解なし</strong>: 3つの平面に共通部分がない</li>
-</ol>
-<h2 id="5">5. 健康データにおける連立一次方程式の応用</h2>
-<p>健康データ分析において、連立一次方程式はさまざまな場面で活用されます。</p>
-<h3 id="51">5.1 薬物動態モデル</h3>
-<p>薬物動態学では、薬物が体内でどのように吸収、分布、代謝、排泄されるかを数学的にモデル化します。最も基本的なコンパートメントモデルでは、連立微分方程式が用いられ、その定常状態解析には連立一次方程式が必要になります。</p>
-<p><strong>例</strong>: 2コンパートメントモデル</p>
-<p>ある薬物が血液（コンパートメント1）と組織（コンパートメント2）の間で移動するモデルを考えます：</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+2 &amp; 1 &amp; -1 &amp; | &amp; 8 \\
+0 &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; | &amp; 1 \\
+-2 &amp; 1 &amp; 2 &amp; | &amp; -3
+\end{pmatrix}
+\]</div>
+<ul>
+<li>第3行に第1行の1倍を加える:</li>
+</ul>
+<div class="arithmatex">\[
+\begin{pmatrix}
+2 &amp; 1 &amp; -1 &amp; | &amp; 8 \\
+0 &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; | &amp; 1 \\
+0 &amp; 2 &amp; 1 &amp; | &amp; 5
+\end{pmatrix}
+\]</div>
+<p>次に、第2列の第2行以下の要素を0にします:</p>
+<ul>
+<li>第3行から第2行の4倍を引く:</li>
+</ul>
+<div class="arithmatex">\[
+\begin{pmatrix}
+2 &amp; 1 &amp; -1 &amp; | &amp; 8 \\
+0 &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; | &amp; 1 \\
+0 &amp; 0 &amp; -1 &amp; | &amp; 1
+\end{pmatrix}
+\]</div>
+<p><strong>ステップ 3</strong>: 後退代入を行う</p>
+<p>変形された連立方程式は:</p>
 <div class="arithmatex">\[
 \begin{cases}
-k_{12}x_1 - k_{21}x_2 = 0\\
-x_1 + x_2 = D
+2x + y - z = 8 \\
+\frac{1}{2}y + \frac{1}{2}z = 1 \\
+-z = 1
 \end{cases}
 \]</div>
-<p>ここで、<span class="arithmatex">\(k_{12}\)</span>は血液から組織への移行速度定数、<span class="arithmatex">\(k_{21}\)</span>は組織から血液への移行速度定数、<span class="arithmatex">\(D\)</span>は投与された薬物の総量です。</p>
-<p>この連立方程式を解くことで、定常状態における各コンパートメントの薬物量を求めることができます。</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># パラメータ設定</span>
-<span class="n">k_12</span> <span class="o">=</span> <span class="mf">0.3</span>  <span class="c1"># 血液から組織への移行速度定数</span>
-<span class="n">k_21</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># 組織から血液への移行速度定数</span>
-<span class="n">D</span> <span class="o">=</span> <span class="mi">100</span>     <span class="c1"># 薬物の総量(mg)</span>
-
-<span class="c1"># 連立方程式の係数行列と定数項ベクトル</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">k_12</span><span class="p">,</span> <span class="o">-</span><span class="n">k_21</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">D</span><span class="p">])</span>
-
-<span class="c1"># 連立方程式を解く</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;血液中の薬物量: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mg&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;組織中の薬物量: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> mg&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>出力:
-<div class="highlight"><pre><span></span><code>血液中の薬物量: 40.0 mg
-組織中の薬物量: 60.0 mg
-</code></pre></div></p>
-<h3 id="52">5.2 栄養素バランスの最適化</h3>
-<p>栄養計画では、複数の栄養素要件を満たす食事の組み合わせを求める問題があります。これは連立一次方程式として表現できます。</p>
-<p><strong>例</strong>: 3種類の食品から2種類の栄養素要件を満たす問題</p>
+<p>まず <span class="arithmatex">\(z = -1\)</span> を求めます。</p>
+<p>次に <span class="arithmatex">\(y\)</span> を求めます: <span class="arithmatex">\(\frac{1}{2}y + \frac{1}{2} \cdot (-1) = 1\)</span> より <span class="arithmatex">\(y = 3\)</span></p>
+<p>最後に <span class="arithmatex">\(x\)</span> を求めます: <span class="arithmatex">\(2x + 3 - (-1) = 8\)</span> より <span class="arithmatex">\(x = 2\)</span>.</p>
+<p>従って、解は <span class="arithmatex">\((x, y, z) = (2, 3, -1)\)</span> です。</p>
+<h2 id="5">5. 演習問題</h2>
+<h3 id="51">5.1 基本問題</h3>
+<p><strong>問題1</strong>: 以下の連立方程式をガウスの消去法を用いて手計算で解きなさい:</p>
 <div class="arithmatex">\[
 \begin{cases}
-a_{11}x_1 + a_{12}x_2 + a_{13}x_3 = b_1\\
-a_{21}x_1 + a_{22}x_2 + a_{23}x_3 = b_2
+3x + 2y - z = 10 \\
+-x + 3y + 2z = 5 \\
+x - y + z = 0
 \end{cases}
 \]</div>
-<p>ここで、<span class="arithmatex">\(a_{ij}\)</span>は食品<span class="arithmatex">\(j\)</span>に含まれる栄養素<span class="arithmatex">\(i\)</span>の量、<span class="arithmatex">\(x_j\)</span>は食品<span class="arithmatex">\(j\)</span>の摂取量、<span class="arithmatex">\(b_i\)</span>は栄養素<span class="arithmatex">\(i\)</span>の必要量です。</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">nnls</span>
-
-<span class="c1"># 食品ごとの栄養素含有量（100gあたり）</span>
-<span class="c1"># 食品: [タンパク質(g), カルシウム(mg)]</span>
-<span class="n">food_nutrition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>    <span class="c1"># 食品1: 鶏肉</span>
-    <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">120</span><span class="p">],</span>    <span class="c1"># 食品2: 牛乳</span>
-    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>      <span class="c1"># 食品3: 野菜</span>
-<span class="p">])</span>
-
-<span class="c1"># 1日の必要栄養素量</span>
-<span class="n">required_nutrition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">60</span><span class="p">,</span> <span class="mi">800</span><span class="p">])</span>  <span class="c1"># [タンパク質(g), カルシウム(mg)]</span>
-
-<span class="c1"># 最小二乗法で非負の解を求める（現実的には食品の摂取量は非負）</span>
-<span class="n">amounts</span><span class="p">,</span> <span class="n">residual</span> <span class="o">=</span> <span class="n">nnls</span><span class="p">(</span><span class="n">food_nutrition</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">required_nutrition</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;各食品の最適摂取量（g）:&quot;</span><span class="p">)</span>
-<span class="n">food_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;鶏肉&quot;</span><span class="p">,</span> <span class="s2">&quot;牛乳&quot;</span><span class="p">,</span> <span class="s2">&quot;野菜&quot;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">food_names</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">amounts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">g&quot;</span><span class="p">)</span>
-
-<span class="c1"># 実際に摂取される栄養素量を計算</span>
-<span class="n">actual_nutrition</span> <span class="o">=</span> <span class="n">food_nutrition</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">amounts</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">実際の栄養素摂取量:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;タンパク質: </span><span class="si">{</span><span class="n">actual_nutrition</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">g&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;カルシウム: </span><span class="si">{</span><span class="n">actual_nutrition</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">mg&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>出力:
-<div class="highlight"><pre><span></span><code>各食品の最適摂取量（g）:
-鶏肉: 275.0g
-牛乳: 633.3g
-野菜: 0.0g
-
-実際の栄養素摂取量:
-タンパク質: 60.0g
-カルシウム: 800.0mg
-</code></pre></div></p>
-<h2 id="6">6. 演習問題</h2>
-<h3 id="_1">基本問題</h3>
-<ol>
-<li>
-<p>次の連立方程式を解きなさい。
-   $$
-   \begin{cases}
-   3x + 2y = 7\
-   x - 4y = 9
-   \end{cases}
-   $$</p>
-</li>
-<li>
-<p>次の連立方程式を行列表現しなさい。
-   $$
-   \begin{cases}
-   2x - 3y + z = 7\
-   5x + y - 2z = 4\
-   -x + 4y + 3z = 10
-   \end{cases}
-   $$</p>
-</li>
-<li>
-<p>次の連立方程式を解きなさい。
-   $$
-   \begin{cases}
-   x + 2y + 3z = 14\
-   2x - y + z = 4\
-   3x + y - z = 2
-   \end{cases}
-   $$</p>
-</li>
-<li>
-<p>次の行列方程式を解きなさい。
-   $$
-   \begin{pmatrix}
-   2 &amp; 5\
-   1 &amp; 3
-   \end{pmatrix}
-   \begin{pmatrix}
-   x\
-   y
-   \end{pmatrix}
-   =
-   \begin{pmatrix}
-   16\
-   10
-   \end{pmatrix}
-   $$</p>
-</li>
-</ol>
-<h3 id="_2">応用問題</h3>
-<ol>
-<li>
-<p>次の連立方程式の解の存在と一意性を判定し、解が存在する場合は求めなさい。
-   $$
-   \begin{cases}
-   2x + 4y = 6\
-   x + 2y = 3
-   \end{cases}
-   $$</p>
-</li>
-<li>
-<p>次の連立方程式の解の存在と一意性を判定し、解が存在する場合は求めなさい。
-   $$
-   \begin{cases}
-   2x + 4y = 6\
-   x + 2y = 4
-   \end{cases}
-   $$</p>
-</li>
-<li>
-<p>健康食品の栄養素計算
-  あるダイエット食品会社が、2種類の健康食品（製品AとB）を組み合わせた栄養バランス食を開発しています。製品Aは1袋あたりタンパク質15g、食物繊維5gを含み、価格は300円です。製品Bは1袋あたりタンパク質10g、食物繊維8gを含み、価格は250円です。栄養士の指導によると、1日あたりタンパク質50gと食物繊維30gを摂取することが推奨されています。1日の食事で推奨栄養素量をちょうど摂取するためには、製品AとBをそれぞれ何袋ずつ摂取する必要がありますか？また、その場合の1日あたりの総費用はいくらになりますか？</p>
-</li>
-<li>
-<p>薬物投与の最適化:
-   ある病院の薬剤師が、疼痛緩和のために2種類の鎮痛薬（薬剤XとY）の組み合わせを検討しています。臨床研究から、効果的な疼痛緩和と副作用の発生率を最小化するためには、以下の条件を満たす必要があることがわかっています：</p>
-<ul>
-<li>薬剤Xの活性成分と薬剤Yの活性成分の合計が40mgになるようにする</li>
-<li>薬剤Xの活性成分が薬剤Yの活性成分の60%になるようにする  </li>
-</ul>
-</li>
-</ol>
-<p>薬剤Xは1錠あたり5mgの活性成分を含み、薬剤Yは1錠あたり10mgの活性成分を含んでいます。患者に処方すべき薬剤XとYの錠数をそれぞれ求めなさい。</p>
-<ol>
-<li>健康診断センター:
-   健康診断センターでは、ある地域の住民のBMI（体格指数）と年齢の関係を調査しています。調査の過程で、特定の2つの年齢グループ（AとB）について以下の情報が得られました：グループAとグループBのそれぞれの人数を求めなさい。<ul>
-<li>グループAとグループBの平均BMIはそれぞれ23.5と26.8である</li>
-<li>グループAとグループBを合わせた全体の平均BMIは25.7である</li>
-<li>グループBの人数はグループAの2倍である</li>
-<li>全体の調査対象者数は300人である</li>
-</ul>
-</li>
-</ol>
+<p><strong>問題2</strong>: 以下の拡大係数行列にガウスの消去法を適用し、上三角行列の形に変形しなさい:</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 &amp; | &amp; 4 \\
+2 &amp; 5 &amp; 3 &amp; | &amp; 7 \\
+1 &amp; 0 &amp; 8 &amp; | &amp; 9
+\end{pmatrix}
+\]</div>
+<p><strong>問題3</strong>: 次の連立方程式をガウスの消去法で解き、解が <span class="arithmatex">\((x,y,z) = (1,2,3)\)</span> であることを確認しなさい:</p>
+<div class="arithmatex">\[
+\begin{cases}
+2x - y + z = 3 \\
+x + y + z = 6 \\
+x - y + 2z = 8
+\end{cases}
+\]</div>
 
 
 
